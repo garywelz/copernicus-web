@@ -3,24 +3,15 @@
 import { useState, useEffect } from "react"
 import SubjectFilter from "./subject-filter"
 import EpisodeList from "./episode-list"
-
-interface Episode {
-  id: string
-  name: string
-  description: string
-  release_date: string
-  duration_ms: number
-  images: { url: string }[]
-  external_urls: { spotify: string }
-}
+import { SpotifyEpisode } from "@/types/spotify"
 
 interface CategoryTabsProps {
-  episodes: Episode[]
+  episodes: SpotifyEpisode[]
 }
 
 export default function CategoryTabs({ episodes }: CategoryTabsProps) {
   const [activeSubject, setActiveSubject] = useState("News")
-  const [filteredEpisodes, setFilteredEpisodes] = useState<Episode[]>([])
+  const [filteredEpisodes, setFilteredEpisodes] = useState<SpotifyEpisode[]>([])
 
   // Define the exact episode lists for each category
   const categoryEpisodeLists = {
@@ -48,7 +39,7 @@ export default function CategoryTabs({ episodes }: CategoryTabsProps) {
     const episodeNames = categoryEpisodeLists[category as keyof typeof categoryEpisodeLists] || []
 
     // Create a map to store the best match for each episode name
-    const bestMatches = new Map<string, Episode>()
+    const bestMatches = new Map<string, SpotifyEpisode>()
 
     // For each episode, check if it matches any of the required names
     episodes.forEach((episode) => {
@@ -81,7 +72,7 @@ export default function CategoryTabs({ episodes }: CategoryTabsProps) {
     })
 
     // Create an array of episodes in the correct order
-    const result: Episode[] = []
+    const result: SpotifyEpisode[] = []
 
     episodeNames.forEach((name) => {
       if (bestMatches.has(name)) {

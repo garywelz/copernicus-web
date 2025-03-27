@@ -6,19 +6,10 @@ import { formatDistanceToNow } from "date-fns"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Play, Clock } from 'lucide-react'
-
-interface Episode {
-  id: string
-  name: string
-  description: string
-  release_date: string
-  duration_ms: number
-  images: { url: string }[]
-  external_urls: { spotify: string }
-}
+import { SpotifyEpisode } from "@/types/spotify"
 
 interface EpisodeListProps {
-  episodes: Episode[]
+  episodes: SpotifyEpisode[]
 }
 
 export default function EpisodeList({ episodes }: EpisodeListProps) {
