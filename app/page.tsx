@@ -1,14 +1,9 @@
 import PodcastHeader from '@/components/podcast-header'
 import CategoryTabs from '@/components/category-tabs'
-<<<<<<< HEAD
-=======
-import { getSpotifyPodcast, getSpotifyEpisodes } from '@/lib/spotify'
->>>>>>> 7c13d53b1e209c067ff2ff680d00fe9aec2fd3bb
 
 // Force dynamic rendering
 export const dynamic = 'force-dynamic'
 
-<<<<<<< HEAD
 async function fetchPodcastData() {
   try {
     const response = await fetch('http://localhost:3000/api/spotify', {
@@ -52,12 +47,6 @@ export default async function Home() {
         </main>
       );
     }
-=======
-export default async function Home() {
-  try {
-    const podcast = await getSpotifyPodcast('4rOoJ6Egrf8K2IrywzwOMk')
-    const episodes = await getSpotifyEpisodes('4rOoJ6Egrf8K2IrywzwOMk')
->>>>>>> 7c13d53b1e209c067ff2ff680d00fe9aec2fd3bb
 
     return (
       <main className="min-h-screen bg-background">
@@ -66,7 +55,6 @@ export default async function Home() {
           <CategoryTabs episodes={episodes} />
         </div>
       </main>
-<<<<<<< HEAD
     );
   } catch (error) {
     console.error('Error loading podcast data:', error);
@@ -90,19 +78,3 @@ export default async function Home() {
   }
 }
 
-=======
-    )
-  } catch (error) {
-    console.error('Error fetching podcast data:', error)
-    return (
-      <main className="min-h-screen bg-background">
-        <div className="container mx-auto px-4 py-8">
-          <h1 className="text-2xl font-bold text-red-500">
-            Error loading podcast data. Please try again later.
-          </h1>
-        </div>
-      </main>
-    )
-  }
-} 
->>>>>>> 7c13d53b1e209c067ff2ff680d00fe9aec2fd3bb

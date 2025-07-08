@@ -9,15 +9,11 @@ interface SubjectFilterProps {
 }
 
 export default function SubjectFilter({ activeSubject, onSubjectChange }: SubjectFilterProps) {
-<<<<<<< HEAD
   const subjects = ["News", "Biology", "Chemistry", "ComputerScience", "Mathematics", "Physics"]
 
   const getDisplayName = (subject: string) => {
     return subject === "ComputerScience" ? "Computer Science" : subject
   }
-=======
-  const subjects = ["News", "Biology", "Chemistry", "Computer Science", "Mathematics", "Physics"]
->>>>>>> 7c13d53b1e209c067ff2ff680d00fe9aec2fd3bb
 
   return (
     <div className="flex flex-wrap gap-3">
@@ -28,11 +24,7 @@ export default function SubjectFilter({ activeSubject, onSubjectChange }: Subjec
           className={`rounded-full ${activeSubject === subject ? "bg-green-600 hover:bg-green-700" : "bg-gray-100 hover:bg-gray-200 border-none"}`}
           onClick={() => onSubjectChange(subject)}
         >
-<<<<<<< HEAD
           {getDisplayName(subject)}
-=======
-          {subject}
->>>>>>> 7c13d53b1e209c067ff2ff680d00fe9aec2fd3bb
         </Button>
       ))}
     </div>
