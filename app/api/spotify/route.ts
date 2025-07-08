@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // app/api/spotify/route.js (Next.js 13+ App Router)
 // This replaces the old Spotify API integration with RSS feed data
 
@@ -363,3 +364,22 @@ export async function GET(request: Request) {
 }
 
  
+=======
+import { NextResponse } from 'next/server'
+import { getAccessToken } from '@/lib/spotify'
+
+export const dynamic = 'force-dynamic'
+
+export async function GET() {
+  try {
+    const token = await getAccessToken()
+    return NextResponse.json({ access_token: token })
+  } catch (error) {
+    console.error('Error getting Spotify access token:', error)
+    return NextResponse.json(
+      { error: 'Failed to get Spotify access token' },
+      { status: 500 }
+    )
+  }
+} 
+>>>>>>> 7c13d53b1e209c067ff2ff680d00fe9aec2fd3bb

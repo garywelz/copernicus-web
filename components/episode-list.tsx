@@ -31,6 +31,7 @@ export default function EpisodeList({ episodes }: EpisodeListProps) {
             <div className="flex flex-col md:flex-row">
               <div className="relative w-full md:w-48 h-48 shrink-0">
                 <Image
+<<<<<<< HEAD
                   src={episode.thumbnail_url || episode.images?.[0]?.url || "https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/images/copernicus-original-portrait.jpg"}
                   alt={episode.title || episode.name || "Episode"}
                   fill
@@ -41,10 +42,17 @@ export default function EpisodeList({ episodes }: EpisodeListProps) {
                     // Fallback to Copernicus portrait
                     e.currentTarget.src = "https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/images/copernicus-original-portrait.jpg";
                   }}
+=======
+                  src={episode.images[0]?.url || "/placeholder.svg"}
+                  alt={episode.name}
+                  fill
+                  className="object-cover"
+>>>>>>> 7c13d53b1e209c067ff2ff680d00fe9aec2fd3bb
                 />
               </div>
 
               <div className="p-6 flex-1">
+<<<<<<< HEAD
                 <h3 className="text-xl font-bold mb-2">{episode.title || episode.name}</h3>
 
                 <div className="flex items-center gap-4 text-sm text-gray-500 mb-4">
@@ -52,11 +60,21 @@ export default function EpisodeList({ episodes }: EpisodeListProps) {
                   <span className="flex items-center">
                     <Clock className="h-4 w-4 mr-1" />
                     {formatDuration(episode.duration_ms || 0)}
+=======
+                <h3 className="text-xl font-bold mb-2">{episode.name}</h3>
+
+                <div className="flex items-center gap-4 text-sm text-gray-500 mb-4">
+                  <span>{formatDistanceToNow(new Date(episode.release_date), { addSuffix: true })}</span>
+                  <span className="flex items-center">
+                    <Clock className="h-4 w-4 mr-1" />
+                    {formatDuration(episode.duration_ms)}
+>>>>>>> 7c13d53b1e209c067ff2ff680d00fe9aec2fd3bb
                   </span>
                 </div>
 
                 <p className="text-gray-700 mb-4 line-clamp-3">{episode.description}</p>
 
+<<<<<<< HEAD
                 {(episode.spotify_url || episode.external_urls?.spotify) && (
   <Button variant="outline" className="gap-2" asChild>
     <a
@@ -69,6 +87,14 @@ export default function EpisodeList({ episodes }: EpisodeListProps) {
     </a>
   </Button>
 ) }
+=======
+                <Button variant="outline" className="gap-2" asChild>
+                  <a href={episode.external_urls.spotify} target="_blank" rel="noopener noreferrer">
+                    <Play className="h-4 w-4" />
+                    Play Episode
+                  </a>
+                </Button>
+>>>>>>> 7c13d53b1e209c067ff2ff680d00fe9aec2fd3bb
               </div>
             </div>
           </CardContent>

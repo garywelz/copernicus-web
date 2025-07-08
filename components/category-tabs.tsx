@@ -15,10 +15,17 @@ export default function CategoryTabs({ episodes }: CategoryTabsProps) {
 
   // Define the exact episode lists for each category
   const categoryEpisodeLists = {
+<<<<<<< HEAD
     News: ["Biology News - Episode 1", "Chemistry News - Episode 1", "CompSci News - Episode 1", "Math News - Episode 1", "Physics News - Episode 1", "Science News - Episode 1"],
     Biology: ["CRISPR Chemistry", "Organoids", "Spatial Biology", "Synthetic Biology", "Neural Optogenetics"],
     Chemistry: ["Green Chemistry", "Molecular Machines", "Catalysis Revolution", "Computational Chemistry"],
     ComputerScience: [
+=======
+    News: ["Biology News", "Chemistry News", "Comp Sci News", "Math News", "Physics News"],
+    Biology: ["CRISPR Chemistry", "Organoids", "Spatial Biology", "Synthetic Biology"],
+    Chemistry: ["Green Chemistry", "Molecular Machines"],
+    "Computer Science": [
+>>>>>>> 7c13d53b1e209c067ff2ff680d00fe9aec2fd3bb
       "Edge Computing Architectures",
       "Neuromorphic Computing",
       "Quantum Machine Learning",
@@ -31,7 +38,11 @@ export default function CategoryTabs({ episodes }: CategoryTabsProps) {
       "The Independence of the Continuum Hypothesis",
       "The Poincare Conjecture",
     ],
+<<<<<<< HEAD
     Physics: ["Black Holes", "The Higgs Boson", "Quantum Entanglement", "Quantum Batteries", "String Theory", "Quantum Cryptography"],
+=======
+    Physics: ["Black Holes", "The Higgs Boson", "Quantum Entanglement", "Quantum Batteries", "String Theory"],
+>>>>>>> 7c13d53b1e209c067ff2ff680d00fe9aec2fd3bb
   }
 
   // Function to get episodes for a specific category
@@ -43,11 +54,15 @@ export default function CategoryTabs({ episodes }: CategoryTabsProps) {
 
     // For each episode, check if it matches any of the required names
     episodes.forEach((episode) => {
+<<<<<<< HEAD
       // Safely get episode name, ensuring we have a string
       const episodeName = (episode?.name || episode?.title || '').toString().toLowerCase()
       
       // Skip if no valid episode name
       if (!episodeName) return
+=======
+      const episodeName = episode.name.toLowerCase()
+>>>>>>> 7c13d53b1e209c067ff2ff680d00fe9aec2fd3bb
 
       episodeNames.forEach((requiredName) => {
         const requiredNameLower = requiredName.toLowerCase()
@@ -65,12 +80,18 @@ export default function CategoryTabs({ episodes }: CategoryTabsProps) {
             (episodeName.includes("poincare") || episodeName.includes("poincaré")))
         ) {
           // If we don't have a match for this name yet, or this is a better match
+<<<<<<< HEAD
           const existingMatch = bestMatches.get(requiredName)
           const existingMatchName = existingMatch ? (existingMatch.name || existingMatch.title || '').toString().toLowerCase() : ''
           
           if (
             !bestMatches.has(requiredName) ||
             episodeName.length < existingMatchName.length
+=======
+          if (
+            !bestMatches.has(requiredName) ||
+            episodeName.length < bestMatches.get(requiredName)!.name.toLowerCase().length
+>>>>>>> 7c13d53b1e209c067ff2ff680d00fe9aec2fd3bb
           ) {
             bestMatches.set(requiredName, episode)
           }
