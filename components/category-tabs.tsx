@@ -15,10 +15,10 @@ export default function CategoryTabs({ episodes }: CategoryTabsProps) {
 
   // Define the exact episode lists for each category
   const categoryEpisodeLists = {
-    News: ["Biology News", "Chemistry News", "Comp Sci News", "Math News", "Physics News"],
-    Biology: ["CRISPR Chemistry", "Organoids", "Spatial Biology", "Synthetic Biology"],
-    Chemistry: ["Green Chemistry", "Molecular Machines"],
-    "Computer Science": [
+    News: ["Biology News - Episode 1", "Chemistry News - Episode 1", "CompSci News - Episode 1", "Math News - Episode 1", "Physics News - Episode 1", "Science News - Episode 1"],
+    Biology: ["CRISPR Chemistry", "Organoids", "Spatial Biology", "Synthetic Biology", "Neural Optogenetics"],
+    Chemistry: ["Green Chemistry", "Molecular Machines", "Catalysis Revolution", "Computational Chemistry"],
+    ComputerScience: [
       "Edge Computing Architectures",
       "Neuromorphic Computing",
       "Quantum Machine Learning",
@@ -31,7 +31,7 @@ export default function CategoryTabs({ episodes }: CategoryTabsProps) {
       "The Independence of the Continuum Hypothesis",
       "The Poincare Conjecture",
     ],
-    Physics: ["Black Holes", "The Higgs Boson", "Quantum Entanglement", "Quantum Batteries", "String Theory"],
+    Physics: ["Black Holes", "The Higgs Boson", "Quantum Entanglement", "Quantum Batteries", "String Theory", "Quantum Cryptography"],
   }
 
   // Function to get episodes for a specific category
@@ -43,7 +43,11 @@ export default function CategoryTabs({ episodes }: CategoryTabsProps) {
 
     // For each episode, check if it matches any of the required names
     episodes.forEach((episode) => {
-      const episodeName = episode.name.toLowerCase()
+      // Safely get episode name, ensuring we have a string
+      const episodeName = (episode?.name || episode?.title || '').toString().toLowerCase()
+      
+      // Skip if no valid episode name
+      if (!episodeName) return
 
       episodeNames.forEach((requiredName) => {
         const requiredNameLower = requiredName.toLowerCase()
@@ -61,9 +65,12 @@ export default function CategoryTabs({ episodes }: CategoryTabsProps) {
             (episodeName.includes("poincare") || episodeName.includes("poincaré")))
         ) {
           // If we don't have a match for this name yet, or this is a better match
+          const existingMatch = bestMatches.get(requiredName)
+          const existingMatchName = existingMatch ? (existingMatch.name || existingMatch.title || '').toString().toLowerCase() : ''
+          
           if (
             !bestMatches.has(requiredName) ||
-            episodeName.length < bestMatches.get(requiredName)!.name.toLowerCase().length
+            episodeName.length < existingMatchName.length
           ) {
             bestMatches.set(requiredName, episode)
           }
