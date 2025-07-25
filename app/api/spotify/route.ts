@@ -205,7 +205,9 @@ async function fetchRSSFeed() {
 const xmlText = await response.text();
     // Parse XML using xml2js
     const rss = await parseStringPromise(xmlText, { explicitArray: false, mergeAttrs: true });
-    const items = rss.rss.channel.item || [];
+    console.log('DEBUG rss:', JSON.stringify(rss, null, 2));
+    let items = rss.rss.channel.item || [];
+    if (!Array.isArray(items)) items = [items];
     const episodes = items.map((item: any, idx: number) => {
       // Extract all relevant fields from RSS
       return {
