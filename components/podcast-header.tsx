@@ -24,9 +24,12 @@ interface PodcastHeaderProps {
 
 export default function PodcastHeader({ podcast }: PodcastHeaderProps) {
   // Support both Spotify and RSS shapes
-  const imageUrl = podcast.cover_art || podcast.images?.[0]?.url || "/placeholder.svg";
-  const title = podcast.title || podcast.name || "Copernicus AI Podcast";
-  const description = podcast.description || "";
+  // Always use the Copernicus portrait for the homepage header
+  const imageUrl = "/copernicus-original-portrait-optimized.jpg";
+  // Use the Spotify show title
+  const title = "Copernicus AI: Frontiers of Research";
+  // Use the Spotify About text, no 'About' heading
+  const description = "Educational podcast covering the latest breakthroughs in science, technology, mathematics, and research. Join us as we explore cutting-edge discoveries and their implications for the future.";
   const publisher = podcast.publisher || "Copernicus AI";
   const totalEpisodes = podcast.total_episodes;
   const spotifyUrl = podcast.spotify_url || podcast.external_urls?.spotify;
@@ -45,7 +48,7 @@ export default function PodcastHeader({ podcast }: PodcastHeaderProps) {
 
       <div className="flex-1">
         <h1 className="text-4xl font-bold mb-2">{title}</h1>
-        {publisher && <p className="text-xl mb-4">{publisher}</p>}
+
 
         <div className="flex gap-3 mb-6">
           {typeof totalEpisodes === "number" && (

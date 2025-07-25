@@ -1,8 +1,8 @@
-<<<<<<< HEAD
 // app/api/spotify/route.js (Next.js 13+ App Router)
 // This replaces the old Spotify API integration with RSS feed data
 
 import { NextResponse } from 'next/server';
+import { appendFile } from 'fs/promises';
 
 // Category mapping for proper website filtering
 const CATEGORY_MAPPING = {
@@ -157,7 +157,7 @@ const THUMBNAIL_MAPPING: { [key: string]: string } = {
 };
 
 // Get thumbnail URL for episode
-function getThumbnailUrl(title: string): string {
+function getThumbnailUrl(title: string, canonicalFilename?: string): string {
   const lowerTitle = title.toLowerCase();
   
   // Precise title-to-thumbnail mapping
@@ -184,115 +184,62 @@ function getThumbnailUrl(title: string): string {
     'organoids: miniature organs in a dish': 'organoids',
     'spatial biology and cell atlas projects: mapping life\'s building blocks': 'spatial-biology',
     'synthetic biology: redesigning life\'s building blocks': 'synthetic-biology',
-    'neural optogenetics': 'real-time',
-    'crispr epigenome': 'crispr-epigenome',
-    'minimal cells': 'synthetic-minimal',
-    
-    // Chemistry episodes  
-    'catalysis revolution: transforming chemical reactions': 'catalysis-revolution',
-    'computational chemistry: simulating molecular reality': 'computational-chemistry',
-    'green chemistry: sustainable approaches to chemical synthesis': 'green-chemistry',
-    'molecular machines: engineering at the nanoscale': 'molecular-machines',
-    
-    // Physics episodes
-    'the higgs boson: hunt for the god particle': 'higgs-boson',
-    'quantum batteries: the future of energy storage': 'quantum-batteries',
-    'quantum cryptography and post-quantum security': 'quantum-cryptography',
-    'quantum entanglement: spooky action at a distance': 'quantum-entanglement',
-    'quantum machine learning: when quantum computing meets ai': 'quantum-machine-learning',
-    'string theory: the quest for a theory of everything': 'string-theory',
-    
-    // Computer Science episodes
-    'edge computing architectures: bringing intelligence to the data frontier': 'edge-computing',
-    'neuromorphic computing: brain-inspired computer architectures': 'neuromorphic-computing'
-  };
-  
-  // Check for exact matches first
-  if (exactMappings[lowerTitle]) {
-    return `https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/images/episodes/${exactMappings[lowerTitle]}-thumbnail.jpg`;
   }
-  
-  // Fallback keyword matching for any missed episodes
-  if (lowerTitle.includes('machine learning') || lowerTitle.includes('artificial intelligence')) {
-    return `https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/images/episodes/machine-learning-thumbnail.jpg`;
+  // Fallback to slug mapping (legacy)
+  const slug = createSlug(title);
+  if (slug) {
+    return `https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/images/thumbnails/${slug}-thumb.jpg`;
   }
-  if (lowerTitle.includes('quantum')) {
-    return `https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/images/episodes/quantum-mechanics-principles-thumbnail.jpg`;
-  }
-  if (lowerTitle.includes('crispr')) {
-    return `https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/images/episodes/crispr-based-thumbnail.jpg`;
-  }
-  if (lowerTitle.includes('chemistry') || lowerTitle.includes('chemical')) {
-    return `https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/images/episodes/chemical-bonds-thumbnail.jpg`;
-  }
-  if (lowerTitle.includes('mathematics') || lowerTitle.includes('mathematical')) {
-    return `https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/images/episodes/mathematics-archive-thumbnail.jpg`;
-  }
-  if (lowerTitle.includes('biology') || lowerTitle.includes('cell')) {
-    return `https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/images/episodes/cell-division-thumbnail.jpg`;
-  }
-  
-  // Fallback to Copernicus portrait for episodes without specific thumbnails
+  // Fallback to Copernicus portrait
   return 'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/images/copernicus-original-portrait.jpg';
 }
 
-// Fetch and parse RSS feed
+// Fetch and parse RSS feed from local canonical XML
+import { promises as fs } from 'fs';
+import { parseStringPromise } from 'xml2js';
+
 async function fetchRSSFeed() {
   try {
-    // Use environment variable for RSS feed, fallback to canonical feed
-    const rssFeedUrl = process.env.PODCAST_RSS_FEED_URL || 'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/rss-feed.xml';
-    const response = await fetch(rssFeedUrl);
-    
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    
-    const xmlText = await response.text();
-    
-    // Parse XML manually (since we can't use DOMParser in Node.js)
-    const episodes = [];
-    // ES2017-compatible: split on <item> and manually extract content
-    const itemBlocks = xmlText.split('<item>').slice(1);
-    let id = 1;
-    for (const block of itemBlocks) {
-      const itemContent = block.split('</item>')[0];
-      
-      // Extract title
-      const titleMatch = itemContent.match(/<title><!\[CDATA\[(.*?)\]\]><\/title>|<title>(.*?)<\/title>/);
-      const title = titleMatch ? (titleMatch[1] || titleMatch[2]) : `Episode ${id}`;
-      
-      // Extract description
-      const descMatch = itemContent.match(/<description><!\[CDATA\[(.*?)\]\]><\/description>|<description>(.*?)<\/description>/);
-      const description = descMatch ? (descMatch[1] || descMatch[2]) : '';
-      
-      // Extract audio URL
-      const enclosureMatch = itemContent.match(/<enclosure\s+url="([^"]+)"/);
-      const audioUrl = enclosureMatch ? enclosureMatch[1] : '';
-      
-      // Extract publication date
-      const pubDateMatch = itemContent.match(/<pubDate>(.*?)<\/pubDate>/);
-      const pubDate = pubDateMatch ? pubDateMatch[1] : '2025-03-26T00:00:00';
-      
-      // Categorize episode
-      const category = categorizeEpisode(title, description);
-      const slug = createSlug(title);
-      
-      episodes.push({
-        id: id++,
-        title,
-        description,
-        slug,
-        category,
-        audio_url: audioUrl,
-        thumbnail_url: getThumbnailUrl(title),
-        web_url: `https://copernicusai.fyi/episodes/${slug}`,
-        published_at: pubDate,
-        duration: 'Unknown',
-        spotify_url: 'https://open.spotify.com/show/14YNKUgCOFC2UhGKYJMos5',
-        apple_url: `https://podcasts.apple.com/podcast/${slug}`
-      });
-    }
-    
+    // Read the canonical RSS XML from disk
+    const xmlText = await fs.readFile('/home/gdubs/copernicus-web-public/copernicus-mvp-rss-feed.xml', 'utf-8');
+    // Parse XML using xml2js
+    const rss = await parseStringPromise(xmlText, { explicitArray: false, mergeAttrs: true });
+    const items = rss.rss.channel.item || [];
+    const episodes = items.map((item: any, idx: number) => {
+      // Extract all relevant fields from RSS
+      return {
+        id: idx + 1,
+        guid: item.guid?._ || item.guid || '',
+        title: item.title || '',
+        // Strip HTML tags from description for frontend display
+        description: (item.description || '').replace(/<[^>]+>/g, ''),
+        summary: item['itunes:summary'] || '',
+        slug: item.title ? createSlug(item.title) : '',
+        // Assign canonical category from guid/filename
+        category: (() => {
+          const guid = item.guid?._ || item.guid || '';
+          if (guid.startsWith('news-')) return 'news';
+          if (guid.startsWith('ever-bio')) return 'biology';
+          if (guid.startsWith('ever-chem')) return 'chemistry';
+          if (guid.startsWith('ever-compsci')) return 'computer-science';
+          if (guid.startsWith('ever-math')) return 'mathematics';
+          if (guid.startsWith('ever-phys')) return 'physics';
+          return 'science';
+        })(),
+        published_at: item.pubDate || '',
+        audio_url: item.enclosure?.url || '',
+        duration: item['itunes:duration'] || '',
+        episode: item['itunes:episode'] || '',
+        season: item['itunes:season'] || '',
+        explicit: item['itunes:explicit'] || '',
+        episode_type: item['itunes:episodeType'] || '',
+        thumbnail_url: (() => {
+          const guid = item.guid?._ || item.guid || '';
+          return `https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/${guid}-thumb.jpg`;
+        })(),
+        // Add any other Apple/Spotify tags as needed
+      };
+    });
     return episodes;
   } catch (error) {
     console.error('Error fetching RSS feed:', error);
@@ -319,7 +266,7 @@ export async function GET(request: Request) {
     // Filter by category if specified
     let filteredEpisodes = episodes;
     if (category && category !== 'all') {
-      filteredEpisodes = episodes.filter(episode => episode.category === category);
+      filteredEpisodes = episodes.filter((episode: any) => episode.category === category);
     }
     
     // Apply limit if specified
@@ -329,7 +276,7 @@ export async function GET(request: Request) {
     
     // Generate category statistics
     const categoryStats: { [key: string]: number } = {};
-    episodes.forEach(episode => {
+    episodes.forEach((episode: any) => {
       categoryStats[episode.category] = (categoryStats[episode.category] || 0) + 1;
     });
     
@@ -339,7 +286,7 @@ export async function GET(request: Request) {
         title: "Copernicus AI: Frontiers of Research",
         description: "Educational podcast covering cutting-edge research in physics, biology, chemistry, mathematics, and computer science. Hosted by AI in the spirit of Nicolaus Copernicus.",
         cover_art: "https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/images/copernicus-original-portrait.jpg",
-        rss_feed: "https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/feeds/copernicus-historical-podcast-feed.xml",
+        rss_feed: "https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/feeds/copernicus-mvp-rss-feed.xml",
         spotify_url: "https://open.spotify.com/show/14YNKUgCOFC2UhGKYJMos5",
         website: "https://copernicusai.fyi"
       },
@@ -364,22 +311,3 @@ export async function GET(request: Request) {
 }
 
  
-=======
-import { NextResponse } from 'next/server'
-import { getAccessToken } from '@/lib/spotify'
-
-export const dynamic = 'force-dynamic'
-
-export async function GET() {
-  try {
-    const token = await getAccessToken()
-    return NextResponse.json({ access_token: token })
-  } catch (error) {
-    console.error('Error getting Spotify access token:', error)
-    return NextResponse.json(
-      { error: 'Failed to get Spotify access token' },
-      { status: 500 }
-    )
-  }
-} 
->>>>>>> 7c13d53b1e209c067ff2ff680d00fe9aec2fd3bb

@@ -13,86 +13,22 @@ export default function CategoryTabs({ episodes }: CategoryTabsProps) {
   const [activeSubject, setActiveSubject] = useState("News")
   const [filteredEpisodes, setFilteredEpisodes] = useState<SpotifyEpisode[]>([])
 
-  // Define the exact episode lists for each category
-  const categoryEpisodeLists = {
-    News: ["Biology News - Episode 1", "Chemistry News - Episode 1", "CompSci News - Episode 1", "Math News - Episode 1", "Physics News - Episode 1", "Science News - Episode 1"],
-    Biology: ["CRISPR Chemistry", "Organoids", "Spatial Biology", "Synthetic Biology", "Neural Optogenetics"],
-    Chemistry: ["Green Chemistry", "Molecular Machines", "Catalysis Revolution", "Computational Chemistry"],
-    ComputerScience: [
-      "Edge Computing Architectures",
-      "Neuromorphic Computing",
-      "Quantum Machine Learning",
-      "The Promise and Challenges of Artificial General Intelligence",
-    ],
-    Mathematics: [
-      "Frontiers of Mathematical Logic",
-      "Godel's Incompleteness Theorems",
-      "Independence Results in Peano Arithmetic",
-      "The Independence of the Continuum Hypothesis",
-      "The Poincare Conjecture",
-    ],
-    Physics: ["Black Holes", "The Higgs Boson", "Quantum Entanglement", "Quantum Batteries", "String Theory", "Quantum Cryptography"],
-  }
-
-  // Function to get episodes for a specific category
-  const getEpisodesForCategory = (category: string) => {
-    const episodeNames = categoryEpisodeLists[category as keyof typeof categoryEpisodeLists] || []
-
-    // Create a map to store the best match for each episode name
-    const bestMatches = new Map<string, SpotifyEpisode>()
-
-    // For each episode, check if it matches any of the required names
-    episodes.forEach((episode) => {
-      // Safely get episode name, ensuring we have a string
-      const episodeName = (episode?.name || episode?.title || '').toString().toLowerCase()
-      
-      // Skip if no valid episode name
-      if (!episodeName) return
-
-      episodeNames.forEach((requiredName) => {
-        const requiredNameLower = requiredName.toLowerCase()
-
-        // Check if this episode matches the required name
-        if (
-          episodeName.includes(requiredNameLower) ||
-          // Special cases
-          (requiredNameLower === "organoids" && episodeName.includes("orgonoid")) ||
-          (requiredNameLower === "godel's incompleteness theorems" &&
-            (episodeName.includes("godel") || episodeName.includes("incompleteness"))) ||
-          (requiredNameLower === "the independence of the continuum hypothesis" &&
-            episodeName.includes("continuum hypothesis")) ||
-          (requiredNameLower === "the poincare conjecture" &&
-            (episodeName.includes("poincare") || episodeName.includes("poincaré")))
-        ) {
-          // If we don't have a match for this name yet, or this is a better match
-          const existingMatch = bestMatches.get(requiredName)
-          const existingMatchName = existingMatch ? (existingMatch.name || existingMatch.title || '').toString().toLowerCase() : ''
-          
-          if (
-            !bestMatches.has(requiredName) ||
-            episodeName.length < existingMatchName.length
-          ) {
-            bestMatches.set(requiredName, episode)
-          }
-        }
-      })
-    })
-
-    // Create an array of episodes in the correct order
-    const result: SpotifyEpisode[] = []
-
-    episodeNames.forEach((name) => {
-      if (bestMatches.has(name)) {
-        result.push(bestMatches.get(name)!)
-      }
-    })
-
-    return result
+  // Map UI subject to API category value
+  const subjectToCategory: { [key: string]: string } = {
+    News: 'news',
+    Biology: 'biology',
+    Chemistry: 'chemistry',
+    ComputerScience: 'computer-science',
+    Mathematics: 'mathematics',
+    Physics: 'physics',
   }
 
   // Update filtered episodes when active subject changes
   useEffect(() => {
-    setFilteredEpisodes(getEpisodesForCategory(activeSubject))
+    const apiCategory = subjectToCategory[activeSubject] || 'news';
+    setFilteredEpisodes(
+      episodes.filter(ep => (ep.category || '').toLowerCase() === apiCategory)
+    );
   }, [activeSubject, episodes])
 
   return (
