@@ -28,5 +28,11 @@ Thumbs.db
 # Scripts/tools not for version control
 find_unused_gcs_files.py
 
+# Old or backup RSS/XML/CSV files
+copernicus-final-rss-feed.xml
+copernicus-final-rss-feed-cleaned.xml
+# backup/ is ignored, but canonical/ is tracked
+backup/
+
 # Misc
 *.swp
