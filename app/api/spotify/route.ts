@@ -1,4 +1,4 @@
-// app/api/spotify/route.js (Next.js 13+ App Router)
+// app/api/spotify/route.ts (Next.js 13+ App Router)
 // This replaces the old Spotify API integration with RSS feed data
 
 import { NextResponse } from 'next/server';
