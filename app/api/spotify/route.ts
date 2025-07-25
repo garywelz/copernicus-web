@@ -201,7 +201,8 @@ import { parseStringPromise } from 'xml2js';
 async function fetchRSSFeed() {
   try {
     // Read the canonical RSS XML from disk
-    const xmlText = await fs.readFile('/home/gdubs/copernicus-web-public/copernicus-mvp-rss-feed.xml', 'utf-8');
+    const response = await fetch('https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/feeds/copernicus-mvp-rss-feed.xml');
+const xmlText = await response.text();
     // Parse XML using xml2js
     const rss = await parseStringPromise(xmlText, { explicitArray: false, mergeAttrs: true });
     const items = rss.rss.channel.item || [];
