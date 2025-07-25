@@ -6,7 +6,7 @@ export const dynamic = 'force-dynamic'
 
 async function fetchPodcastData() {
   try {
-    const response = await fetch('http://localhost:3000/api/spotify', {
+    const response = await fetch('/api/spotify', {
       cache: 'no-store'
     })
     
@@ -69,7 +69,7 @@ export default async function Home() {
               32 episodes ready to load from RSS feed
             </p>
             <p className="text-sm text-gray-500">
-              Visit http://localhost:3000 to see your episodes
+              Visit your production site to see your episodes
             </p>
           </div>
         </div>
