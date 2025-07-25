@@ -202,7 +202,7 @@ async function fetchRSSFeed() {
   try {
     // Read the canonical RSS XML from disk
     const response = await fetch('https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/feeds/copernicus-mvp-rss-feed.xml');
-const xmlText = await response.text();
+    const xmlText = await response.text();
     // Parse XML using xml2js
     const rss = await parseStringPromise(xmlText, { explicitArray: false, mergeAttrs: true });
     console.log('DEBUG rss:', JSON.stringify(rss, null, 2));
