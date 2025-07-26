@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 // app/api/spotify/route.ts (Next.js 13+ App Router)
 // This replaces the old Spotify API integration with RSS feed data
 
@@ -200,14 +201,26 @@ import { parseStringPromise } from 'xml2js';
 
 async function fetchRSSFeed() {
   try {
-    // Read the canonical RSS XML from disk
+    // Fetch RSS XML
     const response = await fetch('https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/feeds/copernicus-mvp-rss-feed.xml');
+    console.log('RSS fetch status:', response.status, response.statusText);
     const xmlText = await response.text();
-    // Parse XML using xml2js
+    console.log('RAW XML:', xmlText.slice(0, 1000)); // Log first 1000 chars for brevity
+    // Parse XML
     const rss = await parseStringPromise(xmlText, { explicitArray: false, mergeAttrs: true });
     console.log('DEBUG rss:', JSON.stringify(rss, null, 2));
-    let items = rss.rss.channel.item || [];
-    if (!Array.isArray(items)) items = [items];
+    let items = rss?.rss?.channel?.item || [];
+    if (!Array.isArray(items)) {
+      if (items) {
+        items = [items];
+        console.log('Wrapped single item in array');
+      } else {
+        console.error('No items found in parsed RSS:', JSON.stringify(rss));
+      }
+    }
+    if (!items.length) {
+      console.error('Parsed items array is empty. Full rss:', JSON.stringify(rss));
+    }
     const episodes = items.map((item: any, idx: number) => {
       // Extract all relevant fields from RSS
       return {
@@ -258,8 +271,9 @@ export async function GET(request: Request) {
   }
   try {
     console.log('API: about to fetch RSS feed');
-    const episodes = await fetchRSSFeed();
-    console.log('API: fetched episodes', episodes && episodes.length);
+    let episodes = await fetchRSSFeed();
+    if (!Array.isArray(episodes)) episodes = [];
+    console.log('API: fetched episodes', episodes.length);
     
     // Get URL parameters for filtering
     const { searchParams } = new URL(request.url);
@@ -271,12 +285,10 @@ export async function GET(request: Request) {
     if (category && category !== 'all') {
       filteredEpisodes = episodes.filter((episode: any) => episode.category === category);
     }
-    
     // Apply limit if specified
     if (limit) {
       filteredEpisodes = filteredEpisodes.slice(0, parseInt(limit));
     }
-    
     // Generate category statistics
     const categoryStats: { [key: string]: number } = {};
     episodes.forEach((episode: any) => {

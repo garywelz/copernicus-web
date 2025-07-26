@@ -4,20 +4,35 @@ import CategoryTabs from '@/components/category-tabs'
 // Force dynamic rendering
 export const dynamic = 'force-dynamic'
 
+import { headers } from 'next/headers';
+
 async function fetchPodcastData() {
   try {
-    const response = await fetch('/api/spotify', {
-      cache: 'no-store'
-    })
-    
-    if (!response.ok) {
-      throw new Error('Failed to fetch podcast data')
+    const isServer = typeof window === 'undefined';
+    let apiUrl;
+    if (isServer) {
+      // Always construct absolute URL for SSR
+      let host = headers().get('host');
+      if (!host || host === '') {
+        host = 'copernicus-podcast-735cglkf0-gary-welzs-projects.vercel.app';
+      }
+      const protocol = host.startsWith('localhost') ? 'http' : 'https';
+      apiUrl = `${protocol}://${host}/api/spotify`;
+      console.log('SSR fetchPodcastData: host =', host, 'apiUrl =', apiUrl);
+    } else {
+      // On client, use relative URL
+      apiUrl = '/api/spotify';
     }
-    
-    return await response.json()
+    const response = await fetch(apiUrl, {
+      cache: 'no-store'
+    });
+    if (!response.ok) {
+      throw new Error('Failed to fetch podcast data');
+    }
+    return await response.json();
   } catch (error) {
-    console.error('Error fetching podcast data:', error)
-    throw error
+    console.error('Error fetching podcast data:', error);
+    throw error;
   }
 }
 

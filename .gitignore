@@ -1,8 +1,12 @@
 # Node modules
 node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+
+# Python virtual environments
+venv/
+
+# Large binaries/tools
+bfg-1.14.0.jar
+bfg-1.14.0.jar:Zone.Identifier
 
 # Build output
 .next/
@@ -24,6 +28,7 @@ Thumbs.db
 
 # Log files
 *.log
+*.log*
 
 # Scripts/tools not for version control
 find_unused_gcs_files.py
@@ -36,3 +41,17 @@ backup/
 
 # Misc
 *.swp
+CURSOR_CONTEXT.md
+INTEGRATION_COMPLETE.md
+all_episode_titles.txt
+available_thumbnails.txt
+current_thumbnails.json
+math-news-ep1-description.md
+news-math-28032025.md
+news-phys-28032025.md
+physics-news-ep1-description.md
+podcast-episode-audit.csv
+regal-scholar-453620-r7-b4a72581927b.json
+server.log
+test.log
+.vercel
