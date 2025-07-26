@@ -2,7 +2,8 @@
 
 import * as React from "react"
 import Image from "next/image"
-import { ExternalLink } from 'lucide-react'
+import Link from "next/link"
+import { ExternalLink, Plus } from 'lucide-react'
 
 interface PodcastHeaderProps {
   podcast: {
@@ -61,17 +62,26 @@ export default function PodcastHeader({ podcast }: PodcastHeaderProps) {
 
         <p className="text-lg mb-8">{description}</p>
 
-        {spotifyUrl && (
-          <a
-            href={spotifyUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-md"
+        <div className="flex gap-3">
+          <Link
+            href="/create"
+            className="inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md font-medium transition-colors"
           >
-            <ExternalLink className="mr-2 h-4 w-4" />
-            Follow on Spotify
-          </a>
-        )}
+            <Plus className="mr-2 h-4 w-4" />
+            Create Podcast
+          </Link>
+          {spotifyUrl && (
+            <a
+              href={spotifyUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-md font-medium transition-colors"
+            >
+              <ExternalLink className="mr-2 h-4 w-4" />
+              Follow on Spotify
+            </a>
+          )}
+        </div>
       </div>
     </div>
   );
