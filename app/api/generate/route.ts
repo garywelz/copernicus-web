@@ -19,6 +19,7 @@ interface GenerationJob {
   request: PodcastGenerationRequest;
   createdAt: string;
   updatedAt: string;
+  cloudRunJobId?: string;
   result?: {
     audioUrl?: string;
     transcriptUrl?: string;
@@ -135,19 +136,22 @@ export async function POST(request: NextRequest) {
         speakers,
         difficulty,
         additional_notes: additionalNotes || '',
-        source_links: links.filter(link => link.trim()),
-        user_id: 'anonymous', // TODO: Add user authentication
-        research_depth: 'comprehensive',
-        include_preprints: true,
-        include_social_trends: false,
-        llm_provider: 'auto'
+        source_links: links.filter(link => link.trim())
       });
 
-      if (!cloudRunResponse.success) {
-        throw new Error(cloudRunResponse.error || 'Cloud Run submission failed');
+      // The minimal backend returns {job_id, status} directly
+      if (!cloudRunResponse.job_id) {
+        throw new Error('Cloud Run submission failed - no job_id returned');
       }
 
       console.log(`Successfully submitted job ${jobId} to Cloud Run:`, cloudRunResponse);
+      
+      // Update our job with the Cloud Run job ID
+      const updatedJob = jobs.get(jobId);
+      if (updatedJob) {
+        updatedJob.cloudRunJobId = cloudRunResponse.job_id;
+        jobs.set(jobId, updatedJob);
+      }
     } catch (error) {
       console.error(`Failed to submit job ${jobId} to Cloud Run:`, error);
       // Update job status to failed
