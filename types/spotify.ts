@@ -18,6 +18,7 @@ export interface SpotifyEpisode {
   release_date: string;
   published_at?: string; // RSS custom property
   duration_ms: number;
+  duration?: string; // RSS duration format (e.g., "14,32")
   images: { url: string; height: number; width: number }[];
   thumbnail_url?: string; // RSS custom property
   external_urls: {
@@ -29,6 +30,9 @@ export interface SpotifyEpisode {
   web_url?: string; // RSS custom property
   apple_url?: string; // RSS custom property
   slug?: string; // RSS custom property
+  guid?: string; // RSS GUID
+  season?: string; // RSS season number
+  episode?: string; // RSS episode number
 }
 
 export interface SpotifySearchResponse {

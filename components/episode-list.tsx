@@ -47,10 +47,25 @@ export default function EpisodeList({ episodes }: EpisodeListProps) {
     setCurrentlyPlaying(null);
   };
 
+  // Function to safely render HTML content
+  const renderDescription = (htmlContent: string) => {
+    if (!htmlContent) return '';
+    
+    // Basic HTML entity decoding
+    const decodedContent = htmlContent
+      .replace(/&lt;/g, '<')
+      .replace(/&gt;/g, '>')
+      .replace(/&amp;/g, '&')
+      .replace(/&quot;/g, '"')
+      .replace(/&#39;/g, "'");
+    
+    return decodedContent;
+  };
+
   return (
     <div className="grid grid-cols-1 gap-6">
       {episodes.map((episode) => {
-        const episodeId = episode.id || episode.guid || episode.title;
+        const episodeId = episode.id || episode.guid || episode.title || 'unknown';
         const isExpanded = expandedEpisodes.has(episodeId);
         const isPlaying = currentlyPlaying === episodeId;
         
@@ -86,19 +101,26 @@ export default function EpisodeList({ episodes }: EpisodeListProps) {
                     <span>{formatDistanceToNow(new Date(episode.published_at || episode.release_date), { addSuffix: true })}</span>
                     <span className="flex items-center">
                       <Clock className="h-4 w-4 mr-1" />
-                      {formatDuration(episode.duration)}
+                      {formatDuration(episode.duration || '')}
                     </span>
                   </div>
                   
                   {/* Episode Description */}
                   <div className="mb-4">
-                    <p className={`text-gray-700 ${isExpanded ? '' : 'line-clamp-3'}`}>
-                      {episode.description}
-                    </p>
+                    <div 
+                      className={`text-gray-700 prose prose-sm max-w-none ${isExpanded ? '' : 'line-clamp-6'}`}
+                      dangerouslySetInnerHTML={{ 
+                        __html: renderDescription(episode.description || '') 
+                      }}
+                      style={{
+                        // Custom styles for better formatting
+                        lineHeight: '1.6',
+                      }}
+                    />
                     {episode.description && episode.description.length > 200 && (
                       <button
                         onClick={() => toggleExpanded(episodeId)}
-                        className="text-blue-600 hover:text-blue-800 text-sm mt-1"
+                        className="text-blue-600 hover:text-blue-800 text-sm mt-1 block"
                       >
                         {isExpanded ? 'Show less' : 'Show more'}
                       </button>
