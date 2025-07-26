@@ -24,8 +24,8 @@ interface PodcastHeaderProps {
 
 export default function PodcastHeader({ podcast }: PodcastHeaderProps) {
   // Support both Spotify and RSS shapes
-  // Always use the Copernicus portrait for the homepage header
-  const imageUrl = "/copernicus-original-portrait-optimized.jpg";
+  // Always use the Copernicus portrait from GCS for the homepage header
+  const imageUrl = "https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/images/copernicus-original-portrait-optimized.jpg";
   // Use the Spotify show title
   const title = "Copernicus AI: Frontiers of Research";
   // Use the Spotify About text, no 'About' heading
