@@ -227,8 +227,8 @@ async function fetchRSSFeed() {
         id: idx + 1,
         guid: item.guid?._ || item.guid || '',
         title: item.title || '',
-        // Strip HTML tags from description for frontend display
-        description: (item.description || '').replace(/<[^>]+>/g, ''),
+        // Preserve HTML content for frontend rendering
+        description: item.description || '',
         summary: item['itunes:summary'] || '',
         slug: item.title ? createSlug(item.title) : '',
         // Assign canonical category from guid/filename
