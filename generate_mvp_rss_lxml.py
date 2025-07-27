@@ -16,7 +16,8 @@ NAMESPACES = {
     'itunes': 'http://www.itunes.com/dtds/podcast-1.0.dtd',
     'atom': 'http://www.w3.org/2005/Atom',
     'podcast': 'https://podcastindex.org/namespace/1.0',
-    'content': 'http://purl.org/rss/1.0/modules/content/'
+    'content': 'http://purl.org/rss/1.0/modules/content/',
+    'media': 'http://search.yahoo.com/mrss/'
 }
 
 def generate_rss_lxml(csv_path, output_path):
@@ -24,7 +25,8 @@ def generate_rss_lxml(csv_path, output_path):
         'itunes': NAMESPACES['itunes'],
         'atom': NAMESPACES['atom'],
         'podcast': NAMESPACES['podcast'],
-        'content': NAMESPACES['content']
+        'content': NAMESPACES['content'],
+        'media': NAMESPACES['media']
     }
     rss = etree.Element('rss', nsmap=NSMAP, version='2.0')
     channel = etree.SubElement(rss, 'channel')
@@ -120,11 +122,15 @@ def generate_rss_lxml(csv_path, output_path):
             etree.SubElement(item, 'pubDate').text = pub_date
             thumb_url = f'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/{fname}-thumb.jpg'
             etree.SubElement(item, '{%s}image' % NAMESPACES['itunes'], href=thumb_url)
-            # Add <media:thumbnail> and <media:content> for maximum compatibility
-            media_ns = 'http://search.yahoo.com/mrss/'
-            etree.SubElement(item, '{%s}thumbnail' % media_ns, url=thumb_url)
-            etree.SubElement(item, '{%s}content' % media_ns, url=thumb_url, medium='image')
-            etree.SubElement(item, '{%s}duration' % NAMESPACES['itunes']).text = duration if duration else '0:00'
+            # Add <media:thumbnail> and <media:content> for maximum compatibility with proper namespace
+            etree.SubElement(item, '{%s}thumbnail' % NAMESPACES['media'], url=thumb_url)
+            etree.SubElement(item, '{%s}content' % NAMESPACES['media'], url=thumb_url, medium='image')
+            # Get duration from CSV (column 2) or default
+            duration = row[2].strip() if len(row) > 2 and row[2] else '0:00'
+            # Fix duration format (replace comma with colon if needed)
+            if ',' in duration:
+                duration = duration.replace(',', ':')
+            etree.SubElement(item, '{%s}duration' % NAMESPACES['itunes']).text = duration
             etree.SubElement(item, '{%s}explicit' % NAMESPACES['itunes']).text = 'no'
             # Insert season and episode tags if present
             if season:

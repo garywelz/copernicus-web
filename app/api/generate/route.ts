@@ -26,34 +26,53 @@ interface GenerationJob {
     thumbnailUrl?: string;
     rssEntryUrl?: string;
   };
+  audioUrl?: string;
+  transcriptUrl?: string;
+  thumbnailUrl?: string;
+  rssEntryUrl?: string;
   error?: string;
 }
 
 // In-memory job storage (replace with database in production)
 const jobs = new Map<string, GenerationJob>();
 
-// Cloud Run backend URL (set via environment variable)
-const CLOUD_RUN_URL = process.env.CLOUD_RUN_URL || 'https://copernicus-podcast-api-phzp4ie2sq-uc.a.run.app';
+// Backend URL (local for testing, Cloud Run for production)
+const BACKEND_URL = process.env.CLOUD_RUN_URL || 'http://localhost:8002';
 
-// Submit job to Cloud Run backend
+// Submit job to Google AI backend
 async function submitToCloudRun(requestData: any): Promise<any> {
   try {
-    const response = await fetch(`${CLOUD_RUN_URL}/generate-podcast`, {
+    console.log(`🚀 Submitting to Google AI backend: ${BACKEND_URL}/generate-podcast-legacy`);
+    
+    // Create AbortController for timeout handling
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 60000); // 60 second timeout
+    
+    const response = await fetch(`${BACKEND_URL}/generate-podcast-legacy`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(requestData),
+      signal: controller.signal,
     });
+    
+    clearTimeout(timeoutId);
 
     if (!response.ok) {
-      throw new Error(`Cloud Run API error: ${response.status} ${response.statusText}`);
+      const errorText = await response.text();
+      throw new Error(`Google AI Backend error: ${response.status} ${response.statusText} - ${errorText}`);
     }
 
     const result = await response.json();
+    console.log(`✅ Google AI backend response:`, result);
     return result;
-  } catch (error) {
-    console.error('Error submitting to Cloud Run:', error);
+  } catch (error: any) {
+    if (error.name === 'AbortError') {
+      console.error('❌ Google AI backend request timed out after 60 seconds');
+      throw new Error('Google AI backend request timed out. The backend may be processing - check job status.');
+    }
+    console.error('❌ Error submitting to Google AI backend:', error);
     throw error;
   }
 }
@@ -198,6 +217,61 @@ export async function GET(request: NextRequest) {
       { error: 'Job not found' },
       { status: 404 }
     );
+  }
+
+  // If we have a Google AI backend job ID, poll the backend for status
+  if (job.cloudRunJobId) {
+    try {
+      console.log(`🔍 Polling Google AI backend for job status: ${job.cloudRunJobId}`);
+      
+      const response = await fetch(`${BACKEND_URL}/job/${job.cloudRunJobId}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        const backendResult = await response.json();
+        const backendJob = backendResult.job;
+        
+        console.log(`✅ Google AI backend job status:`, backendJob.status);
+        
+        // Update our job with backend status
+        job.status = backendJob.status;
+        job.updatedAt = new Date().toISOString();
+        
+        // If completed, copy the result
+        if (backendJob.status === 'completed' && backendJob.result) {
+          job.result = {
+            audioUrl: backendJob.result.audio_url,
+            transcriptUrl: backendJob.result.script ? `data:text/plain;base64,${btoa(backendJob.result.script)}` : undefined,
+            thumbnailUrl: backendJob.result.thumbnail_url,
+            rssEntryUrl: undefined, // Not provided by Google AI backend
+          };
+          
+          // Store additional metadata
+          job.audioUrl = backendJob.result.audio_url;
+          job.transcriptUrl = job.result.transcriptUrl;
+          job.thumbnailUrl = backendJob.result.thumbnail_url;
+        }
+        
+        // If failed, copy the error
+        if (backendJob.status === 'failed') {
+          job.error = backendJob.error || 'Google AI backend processing failed';
+        }
+        
+        // Update job in storage
+        jobs.set(jobId, job);
+        
+      } else {
+        console.error(`❌ Failed to poll Google AI backend: ${response.status} ${response.statusText}`);
+        // Don't update job status if backend polling fails - keep existing status
+      }
+    } catch (error) {
+      console.error('❌ Error polling Google AI backend:', error);
+      // Don't update job status if backend polling fails - keep existing status
+    }
   }
 
   return NextResponse.json({ job });

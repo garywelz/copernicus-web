@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 
 interface PromptFormState {
   subject: string;
+  category: string; // Required: Biology, Chemistry, Computer Science, Mathematics, Physics
   duration: string;
   speakers: string;
   difficulty: string;
@@ -12,6 +13,7 @@ interface PromptFormState {
 
 const initialFormState: PromptFormState = {
   subject: '',
+  category: '', // Required field for canonical naming
   duration: '',
   speakers: '',
   difficulty: '',
@@ -203,6 +205,31 @@ export default function CreatePodcastPage() {
                 className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 placeholder="e.g., Quantum Error Correction, CRISPR Gene Editing, Neural Networks"
               />
+            </div>
+
+            {/* Subject Category - Required for Canonical Naming */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Subject Category *
+                <span className="text-xs text-gray-500 ml-2">(Required for canonical naming)</span>
+              </label>
+              <select
+                name="category"
+                value={form.category}
+                onChange={handleChange}
+                required
+                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              >
+                <option value="">Select subject category...</option>
+                <option value="biology">Biology</option>
+                <option value="chemistry">Chemistry</option>
+                <option value="computer-science">Computer Science</option>
+                <option value="mathematics">Mathematics</option>
+                <option value="physics">Physics</option>
+              </select>
+              <p className="text-xs text-gray-500 mt-1">
+                This determines the canonical filename (e.g., ever-compsci-250028, ever-phys-250032)
+              </p>
             </div>
 
             {/* Duration */}
