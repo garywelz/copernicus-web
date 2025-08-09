@@ -3,6 +3,16 @@ node_modules/
 
 # Python virtual environments
 venv/
+backend_venv/
+test_env/
+rss_venv/
+*venv/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
 
 # Large binaries/tools
 bfg-1.14.0.jar
@@ -41,6 +51,11 @@ backup/
 
 # Misc
 *.swp
+*.wav
+*.mp3
+fixed_rss_feed.xml
+quantum_leap_*
+
 CURSOR_CONTEXT.md
 INTEGRATION_COMPLETE.md
 all_episode_titles.txt

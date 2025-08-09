@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:podcast="https://podcastindex.org/namespace/1.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0">
+<rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:podcast="https://podcastindex.org/namespace/1.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:media="http://search.yahoo.com/mrss/" version="2.0">
   <channel>
-    <itunes:explicit>no</itunes:explicit>
+    <itunes:explicit>false</itunes:explicit>
     <atom:link href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/feeds/copernicus-mvp-rss-feed.xml" rel="self" type="application/rss+xml"/>
     <podcast:locked>no</podcast:locked>
     <title>Copernicus AI Podcast</title>
@@ -9,13 +9,11 @@
     <link>https://copernicusai.fyi</link>
     <language>en-us</language>
     <itunes:category text="Science">
-      <itunes:category text="Artificial Intelligence"/>
-      <itunes:category text="Biology"/>
-      <itunes:category text="Chemistry"/>
-      <itunes:category text="Computer Science"/>
-      <itunes:category text="Mathematics"/>
+      <itunes:category text="Natural Sciences"/>
       <itunes:category text="Physics"/>
+      <itunes:category text="Mathematics"/>
     </itunes:category>
+    <itunes:category text="Technology"/>
     <itunes:author>CopernicusAI</itunes:author>
     <itunes:summary>The Copernicus AI Podcast explores the frontiers of science and technology with short, accessible episodes.</itunes:summary>
     <itunes:type>episodic</itunes:type>
@@ -56,7 +54,7 @@
 
 &lt;h1&gt;Biology #MolecularBiology #Genetics #PlantBiology #Neuroscience #SyntheticBiology #CRISPR #BrainOrganoids #Biomanufacturing #BiologyResearch&lt;/h1&gt;
 </description>
-      <itunes:summary>In this premiere episode of Biology News, host Maya and a team of expert correspondents bring you the latest breakthroughs across all branches of biological sciences. The episode covers four major dev</itunes:summary>
+      <itunes:summary>In this premiere episode of Biology News, host Maya and a team of expert correspondents bring you the latest breakthroughs across all branches of biological sciences. The episode covers four major developments: a revolutionary CRISPR-based gene editing technique with unprecedented precision, a major discovery in plant communication networks through mycorrhizal fungi, advances in brain organoid development for neurological disease modeling, and a breakthrough in synthetic biology with cell-free biomanufacturing systems.</itunes:summary>
       <content:encoded>&lt;p&gt;In this premiere episode of Biology News, host Maya and a team of expert correspondents bring you the latest breakthroughs across all branches of biological sciences. The episode covers four major developments: a revolutionary CRISPR-based gene editing technique with unprecedented precision, a major discovery in plant communication networks through mycorrhizal fungi, advances in brain organoid development for neurological disease modeling, and a breakthrough in synthetic biology with cell-free biomanufacturing systems.&lt;/p&gt;
 
 &lt;p&gt;Join correspondents James, Sophia, Noah, and Aisha as they delve into the scientific details and implications of these discoveries. From precision gene editing to complex plant communication networks, this episode provides rigorous coverage of cutting-edge biology research that matters to professionals, researchers, and educators in the field.&lt;/p&gt;
@@ -82,13 +80,13 @@
 </content:encoded>
       <itunes:author>CopernicusAI</itunes:author>
       <enclosure url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/audio/news-bio-28032025.mp3" type="audio/mpeg" length="34603008"/>
-      <guid>news-bio-28032025</guid>
-      <pubDate>Sat, 26 Jul 2025 00:00:00 GMT</pubDate>
+      <guid isPermaLink="false">news-bio-28032025</guid>
+      <pubDate>Tue, 29 Jul 2025 00:00:00 GMT</pubDate>
       <itunes:image href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/news-bio-28032025-thumb.jpg"/>
-      <ns0:thumbnail xmlns:ns0="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/news-bio-28032025-thumb.jpg"/>
-      <ns1:content xmlns:ns1="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/news-bio-28032025-thumb.jpg" medium="image"/>
-      <itunes:duration>14,32</itunes:duration>
-      <itunes:explicit>no</itunes:explicit>
+      <media:thumbnail url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/news-bio-28032025-thumb.jpg"/>
+      <media:content url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/news-bio-28032025-thumb.jpg" medium="image"/>
+      <itunes:duration>14:32</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:season>1</itunes:season>
       <itunes:episode>1</itunes:episode>
     </item>
@@ -118,7 +116,7 @@
 
 &lt;h1&gt;Chemistry #OrganicChemistry #InorganicChemistry #PhysicalChemistry #AnalyticalChemistry #ComputationalChemistry #Catalysis #SyntheticMethodology #SpectroscopicTechniques #ChemistryResearch&lt;/h1&gt;
 </description>
-      <itunes:summary>In this premiere episode of Chemistry News, host Olivia and a team of expert correspondents bring you the latest breakthroughs across all branches of chemistry. The episode covers four major developme</itunes:summary>
+      <itunes:summary>In this premiere episode of Chemistry News, host Olivia and a team of expert correspondents bring you the latest breakthroughs across all branches of chemistry. The episode covers four major developments: a revolutionary catalyst for direct methane-to-methanol conversion, a new class of sustainable polymers derived from agricultural waste, advances in computational methods for predicting protein-ligand interactions, and a novel analytical technique for single-molecule detection in complex biological samples.</itunes:summary>
       <content:encoded>&lt;p&gt;In this premiere episode of Chemistry News, host Olivia and a team of expert correspondents bring you the latest breakthroughs across all branches of chemistry. The episode covers four major developments: a revolutionary catalyst for direct methane-to-methanol conversion, a new class of sustainable polymers derived from agricultural waste, advances in computational methods for predicting protein-ligand interactions, and a novel analytical technique for single-molecule detection in complex biological samples.&lt;/p&gt;
 
 &lt;p&gt;Join correspondents Thomas, Amara, Kai, and Leila as they delve into the scientific details and implications of these discoveries. From catalytic C-H activation to machine learning approaches in drug discovery, this episode provides rigorous coverage of cutting-edge chemistry research that matters to professionals, researchers, and educators in the field.&lt;/p&gt;
@@ -144,13 +142,13 @@
 </content:encoded>
       <itunes:author>CopernicusAI</itunes:author>
       <enclosure url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/audio/news-chem-28032025.mp3" type="audio/mpeg" length="26746688"/>
-      <guid>news-chem-28032025</guid>
-      <pubDate>Sat, 26 Jul 2025 00:00:00 GMT</pubDate>
+      <guid isPermaLink="false">news-chem-28032025</guid>
+      <pubDate>Tue, 29 Jul 2025 00:00:00 GMT</pubDate>
       <itunes:image href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/news-chem-28032025-thumb.jpg"/>
-      <ns2:thumbnail xmlns:ns2="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/news-chem-28032025-thumb.jpg"/>
-      <ns3:content xmlns:ns3="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/news-chem-28032025-thumb.jpg" medium="image"/>
-      <itunes:duration>16,31</itunes:duration>
-      <itunes:explicit>no</itunes:explicit>
+      <media:thumbnail url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/news-chem-28032025-thumb.jpg"/>
+      <media:content url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/news-chem-28032025-thumb.jpg" medium="image"/>
+      <itunes:duration>16:31</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:season>1</itunes:season>
       <itunes:episode>2</itunes:episode>
     </item>
@@ -183,7 +181,7 @@
 
 &lt;h1&gt;ComputerScience #ArtificialIntelligence #MachineLearning #Cryptography #DistributedSystems #NeuromorphicComputing #LargeLanguageModels #PostQuantumCryptography #ByzantineFaultTolerance #ComputerArchitecture&lt;/h1&gt;
 </description>
-      <itunes:summary>In this premiere episode of CompSci News, host David and a team of expert correspondents bring you the latest breakthroughs across computer science and its applications. The episode covers four major </itunes:summary>
+      <itunes:summary>In this premiere episode of CompSci News, host David and a team of expert correspondents bring you the latest breakthroughs across computer science and its applications. The episode covers four major developments: a new sparse mixture of experts architecture that dramatically improves large language model efficiency, a major advance in lattice-based post-quantum cryptography, a breakthrough in Byzantine fault tolerance for distributed systems at global scale, and a novel approach to neuromorphic computing using phase-change materials.</itunes:summary>
       <content:encoded>&lt;p&gt;In this premiere episode of CompSci News, host David and a team of expert correspondents bring you the latest breakthroughs across computer science and its applications. The episode covers four major developments: a new sparse mixture of experts architecture that dramatically improves large language model efficiency, a major advance in lattice-based post-quantum cryptography, a breakthrough in Byzantine fault tolerance for distributed systems at global scale, and a novel approach to neuromorphic computing using phase-change materials.&lt;/p&gt;
 
 &lt;p&gt;Join correspondents Emma, Marcus, Priya, and Chen as they delve into the technical details and implications of these discoveries. From AI architecture innovations to quantum-resistant cryptography, this episode provides rigorous coverage of cutting-edge computer science research that matters to professionals, researchers, and educators in the field.&lt;/p&gt;
@@ -212,13 +210,13 @@
 </content:encoded>
       <itunes:author>CopernicusAI</itunes:author>
       <enclosure url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/audio/news-compsci-28032025.mp3" type="audio/mpeg" length="36784018"/>
-      <guid>news-compsci-28032025</guid>
-      <pubDate>Sat, 26 Jul 2025 00:00:00 GMT</pubDate>
+      <guid isPermaLink="false">news-compsci-28032025</guid>
+      <pubDate>Tue, 29 Jul 2025 00:00:00 GMT</pubDate>
       <itunes:image href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/news-compsci-28032025-thumb.jpg"/>
-      <ns4:thumbnail xmlns:ns4="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/news-compsci-28032025-thumb.jpg"/>
-      <ns5:content xmlns:ns5="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/news-compsci-28032025-thumb.jpg" medium="image"/>
-      <itunes:duration>24,23</itunes:duration>
-      <itunes:explicit>no</itunes:explicit>
+      <media:thumbnail url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/news-compsci-28032025-thumb.jpg"/>
+      <media:content url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/news-compsci-28032025-thumb.jpg" medium="image"/>
+      <itunes:duration>24:23</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:season>1</itunes:season>
       <itunes:episode>3</itunes:episode>
     </item>
@@ -253,9 +251,7 @@
 
 &lt;h1&gt;MathematicsNews #PureMathematics #AppliedMathematics #NumberTheory #MathematicalPhysics #Topology #Geometry #ComputationalMathematics #MathematicalResearch #AbstractMathematics #MathematicalModeling #NumericalAnalysis #MathematicalInnovation #TheoreticalMathematics #MathematicalDiscovery&lt;/h1&gt;
 </description>
-      <itunes:summary>Publication Date: March 28, 2025
-
-Join correspondents Oliver, Maya, Thomas, and Zara as they explore the latest developments in mathematical sciences. This premiere episode covers breakthrough researc</itunes:summary>
+      <itunes:summary>Publication Date: March 28, 2025</itunes:summary>
       <content:encoded>&lt;p&gt;&lt;strong&gt;Publication Date: March 28, 2025&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;Join correspondents Oliver, Maya, Thomas, and Zara as they explore the latest developments in mathematical sciences. This premiere episode covers breakthrough research in pure mathematics, applied mathematics, and computational mathematics.&lt;/p&gt;
@@ -286,13 +282,13 @@ Join correspondents Oliver, Maya, Thomas, and Zara as they explore the latest de
 </content:encoded>
       <itunes:author>CopernicusAI</itunes:author>
       <enclosure url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/audio/news-math-28032025.mp3" type="audio/mpeg" length="84393408"/>
-      <guid>news-math-28032025</guid>
-      <pubDate>Sat, 26 Jul 2025 00:00:00 GMT</pubDate>
+      <guid isPermaLink="false">news-math-28032025</guid>
+      <pubDate>Tue, 29 Jul 2025 00:00:00 GMT</pubDate>
       <itunes:image href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/news-math-28032025-thumb.jpg"/>
-      <ns6:thumbnail xmlns:ns6="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/news-math-28032025-thumb.jpg"/>
-      <ns7:content xmlns:ns7="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/news-math-28032025-thumb.jpg" medium="image"/>
-      <itunes:duration>15,12</itunes:duration>
-      <itunes:explicit>no</itunes:explicit>
+      <media:thumbnail url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/news-math-28032025-thumb.jpg"/>
+      <media:content url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/news-math-28032025-thumb.jpg" medium="image"/>
+      <itunes:duration>15:12</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:season>1</itunes:season>
       <itunes:episode>4</itunes:episode>
     </item>
@@ -303,20 +299,20 @@ Join correspondents Oliver, Maya, Thomas, and Zara as they explore the latest de
 
 &lt;p&gt;Join correspondents Nikolai, James, Mei, and Sophia as they delve into the scientific details and implications of these discoveries. From potential cracks in the Standard Model to revolutionary quantum sensing technology, this episode provides rigorous coverage of cutting-edge physics research that matters to professionals, researchers, and educators in the field.&lt;/p&gt;
 </description>
-      <itunes:summary>In this premiere episode of Physics News, host Alex and a team of expert correspondents bring you the latest breakthroughs in theoretical and experimental physics. The episode covers four major develo</itunes:summary>
+      <itunes:summary>In this premiere episode of Physics News, host Alex and a team of expert correspondents bring you the latest breakthroughs in theoretical and experimental physics. The episode covers four major developments: CERN's latest results from the Large Hadron Collider that challenge aspects of the Standard Model, the first direct observation of gravitational waves from a neutron star-black hole merger, a breakthrough in room-temperature superconductivity, and the development of a new quantum sensor capable of detecting dark matter candidates.</itunes:summary>
       <content:encoded>&lt;p&gt;In this premiere episode of Physics News, host Alex and a team of expert correspondents bring you the latest breakthroughs in theoretical and experimental physics. The episode covers four major developments: CERN's latest results from the Large Hadron Collider that challenge aspects of the Standard Model, the first direct observation of gravitational waves from a neutron star-black hole merger, a breakthrough in room-temperature superconductivity, and the development of a new quantum sensor capable of detecting dark matter candidates.&lt;/p&gt;
 
 &lt;p&gt;Join correspondents Nikolai, James, Mei, and Sophia as they delve into the scientific details and implications of these discoveries. From potential cracks in the Standard Model to revolutionary quantum sensing technology, this episode provides rigorous coverage of cutting-edge physics research that matters to professionals, researchers, and educators in the field.&lt;/p&gt;
 </content:encoded>
       <itunes:author>CopernicusAI</itunes:author>
       <enclosure url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/audio/news-phys-28032025.mp3" type="audio/mpeg" length="23691818"/>
-      <guid>news-phys-28032025</guid>
-      <pubDate>Sat, 26 Jul 2025 00:00:00 GMT</pubDate>
+      <guid isPermaLink="false">news-phys-28032025</guid>
+      <pubDate>Tue, 29 Jul 2025 00:00:00 GMT</pubDate>
       <itunes:image href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/news-phys-28032025-thumb.jpg"/>
-      <ns8:thumbnail xmlns:ns8="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/news-phys-28032025-thumb.jpg"/>
-      <ns9:content xmlns:ns9="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/news-phys-28032025-thumb.jpg" medium="image"/>
-      <itunes:duration>15,42</itunes:duration>
-      <itunes:explicit>no</itunes:explicit>
+      <media:thumbnail url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/news-phys-28032025-thumb.jpg"/>
+      <media:content url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/news-phys-28032025-thumb.jpg" medium="image"/>
+      <itunes:duration>15:42</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:season>1</itunes:season>
       <itunes:episode>5</itunes:episode>
     </item>
@@ -355,11 +351,7 @@ Join correspondents Oliver, Maya, Thomas, and Zara as they explore the latest de
 
 &lt;h1&gt;CRISPR #Epigenetics #GeneTherapy #GeneticEngineering #Biotechnology #MolecularBiology #GeneExpression #EpigenomeEditing #GeneticMedicine #BiomedicalResearch #TherapeuticDevelopment #PrecisionMedicine #GeneRegulation #ChromatinModification #EpigeneticReprogramming #Biology #Genetics #CRISPR #Epigenetics #PrecisionMedicine #Science&lt;/h1&gt;
 </description>
-      <itunes:summary>Episode Description:
-
-Episode Overview
-
-In this episode of Frontiers of Research, host Antoni explores the revolutionary field of CRISPR epigenome editing with experts Dr. Sarah Chen and Dr. Josh Pate</itunes:summary>
+      <itunes:summary>Episode Description:</itunes:summary>
       <content:encoded>&lt;p&gt;&lt;strong&gt;Episode Description:&lt;/strong&gt;&lt;/p&gt;
 
 &lt;h2&gt;Episode Overview&lt;/h2&gt;
@@ -394,13 +386,13 @@ In this episode of Frontiers of Research, host Antoni explores the revolutionary
 </content:encoded>
       <itunes:author>CopernicusAI</itunes:author>
       <enclosure url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/audio/ever-bio-250007.mp3" type="audio/mpeg" length="3775273"/>
-      <guid>ever-bio-250007</guid>
-      <pubDate>Sat, 26 Jul 2025 00:00:00 GMT</pubDate>
+      <guid isPermaLink="false">ever-bio-250007</guid>
+      <pubDate>Tue, 29 Jul 2025 00:00:00 GMT</pubDate>
       <itunes:image href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-bio-250007-thumb.jpg"/>
-      <ns10:thumbnail xmlns:ns10="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-bio-250007-thumb.jpg"/>
-      <ns11:content xmlns:ns11="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-bio-250007-thumb.jpg" medium="image"/>
-      <itunes:duration>4,35</itunes:duration>
-      <itunes:explicit>no</itunes:explicit>
+      <media:thumbnail url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-bio-250007-thumb.jpg"/>
+      <media:content url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-bio-250007-thumb.jpg" medium="image"/>
+      <itunes:duration>4:35</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:season>1</itunes:season>
       <itunes:episode>6</itunes:episode>
     </item>
@@ -449,7 +441,7 @@ In this episode of Frontiers of Research, host Antoni explores the revolutionary
 
 &lt;h1&gt;MinimalCells #SyntheticBiology #CellularEngineering #Biotechnology #SystemsBiology #MolecularBiology #CellularSystems #BiomedicalEngineering #ArtificialLife #BiologicalEngineering #CellularDesign #Biomanufacturing #SyntheticLife #CellularBiotechnology #BioengineeredSystems&lt;/h1&gt;
 </description>
-      <itunes:summary>Join us as we explore minimal cells, examining the latest developments and their implications for synthetic biology and biotechnology. This episode delves into cutting-edge research, engineering advan</itunes:summary>
+      <itunes:summary>Join us as we explore minimal cells, examining the latest developments and their implications for synthetic biology and biotechnology. This episode delves into cutting-edge research, engineering advances, and practical applications that are shaping our understanding of life's essential components.</itunes:summary>
       <content:encoded>&lt;p&gt;Join us as we explore minimal cells, examining the latest developments and their implications for synthetic biology and biotechnology. This episode delves into cutting-edge research, engineering advances, and practical applications that are shaping our understanding of life's essential components.&lt;/p&gt;
 
 &lt;p&gt;Journey into the fascinating world of minimal cell engineering with "Minimal Cells: Engineering Life's Essential Components," where we explore how scientists are stripping cells down to their absolute essentials to understand the minimum requirements for life. This episode examines groundbreaking research that's revealing fundamental principles of biology while creating simplified living systems for biotechnology applications.&lt;/p&gt;
@@ -494,13 +486,13 @@ In this episode of Frontiers of Research, host Antoni explores the revolutionary
 </content:encoded>
       <itunes:author>CopernicusAI</itunes:author>
       <enclosure url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/audio/ever-bio-250014.mp3" type="audio/mpeg" length="3460301"/>
-      <guid>ever-bio-250014</guid>
-      <pubDate>Sat, 26 Jul 2025 00:00:00 GMT</pubDate>
+      <guid isPermaLink="false">ever-bio-250014</guid>
+      <pubDate>Tue, 29 Jul 2025 00:00:00 GMT</pubDate>
       <itunes:image href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-bio-250014-thumb.jpg"/>
-      <ns12:thumbnail xmlns:ns12="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-bio-250014-thumb.jpg"/>
-      <ns13:content xmlns:ns13="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-bio-250014-thumb.jpg" medium="image"/>
-      <itunes:duration>4,10</itunes:duration>
-      <itunes:explicit>no</itunes:explicit>
+      <media:thumbnail url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-bio-250014-thumb.jpg"/>
+      <media:content url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-bio-250014-thumb.jpg" medium="image"/>
+      <itunes:duration>4:10</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:season>1</itunes:season>
       <itunes:episode>7</itunes:episode>
     </item>
@@ -549,7 +541,7 @@ In this episode of Frontiers of Research, host Antoni explores the revolutionary
 
 &lt;h1&gt;Optogenetics #Neuroscience #NeuralEngineering #BrainResearch #Neurotechnology #NeuroscienceResearch #BrainStimulation #NeurologicalDisorders #PsychiatricTreatment #NeuralCircuits #BrainFunction #NeuralControl #LightTherapy #BiomedicalEngineering #NeuralInterfaces&lt;/h1&gt;
 </description>
-      <itunes:summary>Join us as we explore neural optogenetics, examining the latest developments and their implications for neuroscience and neurological medicine. This episode delves into cutting-edge research, therapeu</itunes:summary>
+      <itunes:summary>Join us as we explore neural optogenetics, examining the latest developments and their implications for neuroscience and neurological medicine. This episode delves into cutting-edge research, therapeutic advances, and practical applications that are revolutionizing our understanding of brain function.</itunes:summary>
       <content:encoded>&lt;p&gt;Join us as we explore neural optogenetics, examining the latest developments and their implications for neuroscience and neurological medicine. This episode delves into cutting-edge research, therapeutic advances, and practical applications that are revolutionizing our understanding of brain function.&lt;/p&gt;
 
 &lt;p&gt;Journey into the revolutionary field of neural optogenetics with "Neural Optogenetics: Light-Controlled Brain Function," where we explore how scientists are using light to control neural activity with unprecedented precision. This episode examines transformative technology that's revolutionizing neuroscience research and offering new therapeutic possibilities for neurological and psychiatric disorders.&lt;/p&gt;
@@ -594,13 +586,13 @@ In this episode of Frontiers of Research, host Antoni explores the revolutionary
 </content:encoded>
       <itunes:author>CopernicusAI</itunes:author>
       <enclosure url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/audio/ever-bio-250016.mp3" type="audio/mpeg" length="3883731"/>
-      <guid>ever-bio-250016</guid>
-      <pubDate>Sat, 26 Jul 2025 00:00:00 GMT</pubDate>
+      <guid isPermaLink="false">ever-bio-250016</guid>
+      <pubDate>Tue, 29 Jul 2025 00:00:00 GMT</pubDate>
       <itunes:image href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-bio-250016-thumb.jpg"/>
-      <ns14:thumbnail xmlns:ns14="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-bio-250016-thumb.jpg"/>
-      <ns15:content xmlns:ns15="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-bio-250016-thumb.jpg" medium="image"/>
-      <itunes:duration>4,42</itunes:duration>
-      <itunes:explicit>no</itunes:explicit>
+      <media:thumbnail url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-bio-250016-thumb.jpg"/>
+      <media:content url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-bio-250016-thumb.jpg" medium="image"/>
+      <itunes:duration>4:42</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:season>1</itunes:season>
       <itunes:episode>8</itunes:episode>
     </item>
@@ -667,7 +659,7 @@ In this episode of Frontiers of Research, host Antoni explores the revolutionary
 
 &lt;h1&gt;Biology #Organoids #Medicine #Organs #Cancer #EngineeringOrganoids #StemCells&lt;/h1&gt;
 </description>
-      <itunes:summary>Join us as we explore organoids, examining the latest developments and their implications for the future of science and technology. This episode delves into cutting-edge research, theoretical advances</itunes:summary>
+      <itunes:summary>Join us as we explore organoids, examining the latest developments and their implications for the future of science and technology. This episode delves into cutting-edge research, theoretical advances, and practical applications that are shaping our understanding of this fascinating field.</itunes:summary>
       <content:encoded>&lt;p&gt;Join us as we explore organoids, examining the latest developments and their implications for the future of science and technology. This episode delves into cutting-edge research, theoretical advances, and practical applications that are shaping our understanding of this fascinating field.&lt;/p&gt;
 
 &lt;p&gt;Venture into the revolutionary world of three-dimensional tissue culture with "Organoids: Miniature Organs in a Dish," where we explore how scientists are growing tiny, simplified versions of human organs that mimic their key structures and functions. This episode examines how these remarkable cellular models are transforming our understanding of human development, disease, and potential therapeutic approaches.&lt;/p&gt;
@@ -730,13 +722,13 @@ In this episode of Frontiers of Research, host Antoni explores the revolutionary
 </content:encoded>
       <itunes:author>CopernicusAI</itunes:author>
       <enclosure url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/audio/ever-bio-250018.mp3" type="audio/mpeg" length="16988931"/>
-      <guid>ever-bio-250018</guid>
-      <pubDate>Sat, 26 Jul 2025 00:00:00 GMT</pubDate>
+      <guid isPermaLink="false">ever-bio-250018</guid>
+      <pubDate>Tue, 29 Jul 2025 00:00:00 GMT</pubDate>
       <itunes:image href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-bio-250018-thumb.jpg"/>
-      <ns16:thumbnail xmlns:ns16="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-bio-250018-thumb.jpg"/>
-      <ns17:content xmlns:ns17="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-bio-250018-thumb.jpg" medium="image"/>
-      <itunes:duration>16,55</itunes:duration>
-      <itunes:explicit>no</itunes:explicit>
+      <media:thumbnail url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-bio-250018-thumb.jpg"/>
+      <media:content url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-bio-250018-thumb.jpg" medium="image"/>
+      <itunes:duration>16:55</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:season>1</itunes:season>
       <itunes:episode>9</itunes:episode>
     </item>
@@ -796,7 +788,7 @@ In this episode of Frontiers of Research, host Antoni explores the revolutionary
 
 &lt;h1&gt;SpatialBiology #CellAtlas #SingleCellGenomics #SpatialTranscriptomics #HumanCellAtlas #PrecisionMedicine #CancerResearch #Neuroscience #DevelopmentalBiology #MolecularImaging #ComputationalBiology #SystemsBiology #BiomedicalResearch #CellularCartography #TissueMicroenvironment&lt;/h1&gt;
 </description>
-      <itunes:summary>Join us as we explore spatial biology, examining the latest developments and their implications for the future of science and technology. This episode delves into cutting-edge research, theoretical ad</itunes:summary>
+      <itunes:summary>Join us as we explore spatial biology, examining the latest developments and their implications for the future of science and technology. This episode delves into cutting-edge research, theoretical advances, and practical applications that are shaping our understanding of this fascinating field.</itunes:summary>
       <content:encoded>&lt;p&gt;Join us as we explore spatial biology, examining the latest developments and their implications for the future of science and technology. This episode delves into cutting-edge research, theoretical advances, and practical applications that are shaping our understanding of this fascinating field.&lt;/p&gt;
 
 &lt;p&gt;Venture into the microscopic universe within us with "Spatial Biology and Cell Atlas Projects: Mapping Life's Building Blocks," where we explore a revolutionary approach to understanding the fundamental units of life. This episode examines how scientists are creating comprehensive maps of human tissues with unprecedented detail, preserving the crucial spatial relationships between cells that traditional methods have overlooked.&lt;/p&gt;
@@ -852,13 +844,13 @@ In this episode of Frontiers of Research, host Antoni explores the revolutionary
 </content:encoded>
       <itunes:author>CopernicusAI</itunes:author>
       <enclosure url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/audio/ever-bio-250020.mp3" type="audio/mpeg" length="14680064"/>
-      <guid>ever-bio-250020</guid>
-      <pubDate>Sat, 26 Jul 2025 00:00:00 GMT</pubDate>
+      <guid isPermaLink="false">ever-bio-250020</guid>
+      <pubDate>Tue, 29 Jul 2025 00:00:00 GMT</pubDate>
       <itunes:image href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-bio-250020-thumb.jpg"/>
-      <ns18:thumbnail xmlns:ns18="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-bio-250020-thumb.jpg"/>
-      <ns19:content xmlns:ns19="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-bio-250020-thumb.jpg" medium="image"/>
-      <itunes:duration>14,32</itunes:duration>
-      <itunes:explicit>no</itunes:explicit>
+      <media:thumbnail url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-bio-250020-thumb.jpg"/>
+      <media:content url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-bio-250020-thumb.jpg" medium="image"/>
+      <itunes:duration>14:32</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:season>1</itunes:season>
       <itunes:episode>10</itunes:episode>
     </item>
@@ -923,7 +915,7 @@ In this episode of Frontiers of Research, host Antoni explores the revolutionary
 
 &lt;h1&gt;Biology #SyntheticBiology #Regenesis #Xenobiology #Microbiology #GeneticEngineering&lt;/h1&gt;
 </description>
-      <itunes:summary>Join us as we explore synthetic biology, examining the latest developments and their implications for the future of science and technology. This episode delves into cutting-edge research, theoretical </itunes:summary>
+      <itunes:summary>Join us as we explore synthetic biology, examining the latest developments and their implications for the future of science and technology. This episode delves into cutting-edge research, theoretical advances, and practical applications that are shaping our understanding of this fascinating field.</itunes:summary>
       <content:encoded>&lt;p&gt;Join us as we explore synthetic biology, examining the latest developments and their implications for the future of science and technology. This episode delves into cutting-edge research, theoretical advances, and practical applications that are shaping our understanding of this fascinating field.&lt;/p&gt;
 
 &lt;p&gt;Journey to the frontier where engineering meets biology with "Synthetic Biology: Redesigning Life's Building Blocks," where we explore the field that's applying engineering principles to reprogram living systems. This episode examines how scientists are designing, building, and testing novel biological parts, devices, and systems with functions that don't exist in nature, potentially transforming fields from medicine to manufacturing.&lt;/p&gt;
@@ -984,13 +976,13 @@ In this episode of Frontiers of Research, host Antoni explores the revolutionary
 </content:encoded>
       <itunes:author>CopernicusAI</itunes:author>
       <enclosure url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/audio/ever-bio-250028.mp3" type="audio/mpeg" length="31669395"/>
-      <guid>ever-bio-250028</guid>
-      <pubDate>Sat, 26 Jul 2025 00:00:00 GMT</pubDate>
+      <guid isPermaLink="false">ever-bio-250028</guid>
+      <pubDate>Tue, 29 Jul 2025 00:00:00 GMT</pubDate>
       <itunes:image href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-bio-250028-thumb.jpg"/>
-      <ns20:thumbnail xmlns:ns20="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-bio-250028-thumb.jpg"/>
-      <ns21:content xmlns:ns21="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-bio-250028-thumb.jpg" medium="image"/>
-      <itunes:duration>21,00</itunes:duration>
-      <itunes:explicit>no</itunes:explicit>
+      <media:thumbnail url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-bio-250028-thumb.jpg"/>
+      <media:content url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-bio-250028-thumb.jpg" medium="image"/>
+      <itunes:duration>21:00</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:season>1</itunes:season>
       <itunes:episode>11</itunes:episode>
     </item>
@@ -1043,7 +1035,7 @@ In this episode of Frontiers of Research, host Antoni explores the revolutionary
 
 &lt;h1&gt;Biology #CellBiology #Mitosis #CellDivision #Chromosomes #CellCycle #Genetics #CancerResearch #Development #MolecularBiology&lt;/h1&gt;
 </description>
-      <itunes:summary>Today's segment explores one of the most fundamental processes in biology: cell division through mitosis. We delve into the intricate choreography of cellular reproduction, examining how a single cell</itunes:summary>
+      <itunes:summary>Today's segment explores one of the most fundamental processes in biology: cell division through mitosis. We delve into the intricate choreography of cellular reproduction, examining how a single cell precisely duplicates its genetic material and divides to create two identical daughter cells. This process is essential for growth, development, tissue repair, and the continuation of life itself.</itunes:summary>
       <content:encoded>&lt;p&gt;Today's segment explores one of the most fundamental processes in biology: cell division through mitosis. We delve into the intricate choreography of cellular reproduction, examining how a single cell precisely duplicates its genetic material and divides to create two identical daughter cells. This process is essential for growth, development, tissue repair, and the continuation of life itself.&lt;/p&gt;
 
 &lt;p&gt;Mitosis represents one of nature's most remarkable achievements in precision and coordination. During this process, cells must accurately replicate their entire genome, organize chromosomes, and distribute genetic material equally between two new cells. We'll explore the distinct phases of mitosis—prophase, metaphase, anaphase, and telophase—and understand how cellular machinery ensures faithful chromosome segregation.&lt;/p&gt;
@@ -1092,13 +1084,13 @@ In this episode of Frontiers of Research, host Antoni explores the revolutionary
 </content:encoded>
       <itunes:author>CopernicusAI</itunes:author>
       <enclosure url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/audio/ever-bio-250029.mp3" type="audio/mpeg" length="2936013"/>
-      <guid>ever-bio-250029</guid>
-      <pubDate>Sat, 26 Jul 2025 00:00:00 GMT</pubDate>
+      <guid isPermaLink="false">ever-bio-250029</guid>
+      <pubDate>Tue, 29 Jul 2025 00:00:00 GMT</pubDate>
       <itunes:image href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-bio-250029-thumb.jpg"/>
-      <ns22:thumbnail xmlns:ns22="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-bio-250029-thumb.jpg"/>
-      <ns23:content xmlns:ns23="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-bio-250029-thumb.jpg" medium="image"/>
-      <itunes:duration>2,52</itunes:duration>
-      <itunes:explicit>no</itunes:explicit>
+      <media:thumbnail url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-bio-250029-thumb.jpg"/>
+      <media:content url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-bio-250029-thumb.jpg" medium="image"/>
+      <itunes:duration>2:52</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:season>1</itunes:season>
       <itunes:episode>12</itunes:episode>
     </item>
@@ -1167,13 +1159,7 @@ In this episode of Frontiers of Research, host Antoni explores the revolutionary
 
 &lt;h1&gt;Biology #Science #Education #Research #Knowledge #Discovery #Learning #Podcast #ScienceEducation #STEM #CellularMitosis #Mitosis #CellDivision&lt;/h1&gt;
 </description>
-      <itunes:summary>Episode Description: Cellular Mitosis Process
-
-Episode Description:
-
-The fascinating process of cell division aka Mitosis that creates new life
-
-This episode explores the fascinating world of biology,</itunes:summary>
+      <itunes:summary>Episode Description: Cellular Mitosis Process</itunes:summary>
       <content:encoded>&lt;h1&gt;Episode Description: Cellular Mitosis Process&lt;/h1&gt;
 
 &lt;p&gt;&lt;strong&gt;Episode Description:&lt;/strong&gt;&lt;/p&gt;
@@ -1238,13 +1224,13 @@ This episode explores the fascinating world of biology,</itunes:summary>
 </content:encoded>
       <itunes:author>CopernicusAI</itunes:author>
       <enclosure url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/audio/ever-bio-250030.mp3" type="audio/mpeg" length="2831155"/>
-      <guid>ever-bio-250030</guid>
-      <pubDate>Sat, 26 Jul 2025 00:00:00 GMT</pubDate>
+      <guid isPermaLink="false">ever-bio-250030</guid>
+      <pubDate>Tue, 29 Jul 2025 00:00:00 GMT</pubDate>
       <itunes:image href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-bio-250030-thumb.jpg"/>
-      <ns24:thumbnail xmlns:ns24="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-bio-250030-thumb.jpg"/>
-      <ns25:content xmlns:ns25="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-bio-250030-thumb.jpg" medium="image"/>
-      <itunes:duration>2,54</itunes:duration>
-      <itunes:explicit>no</itunes:explicit>
+      <media:thumbnail url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-bio-250030-thumb.jpg"/>
+      <media:content url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-bio-250030-thumb.jpg" medium="image"/>
+      <itunes:duration>2:54</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:season>1</itunes:season>
       <itunes:episode>13</itunes:episode>
     </item>
@@ -1299,11 +1285,7 @@ This episode explores the fascinating world of biology,</itunes:summary>
 
 &lt;h1&gt;PlantScience #Photosynthesis #Biology #Chloroplasts #SolarEnergy #PlantBiology #Ecology #ClimateScience #Agriculture #Biochemistry&lt;/h1&gt;
 </description>
-      <itunes:summary>Episode Description: Plant Science and Photosynthesis
-
-Episode Description:
-
-Photosynthesis is more than just a biological process—it's the foundation of Earth's food webs and the primary source of at</itunes:summary>
+      <itunes:summary>Episode Description: Plant Science and Photosynthesis</itunes:summary>
       <content:encoded>&lt;h1&gt;Episode Description: Plant Science and Photosynthesis&lt;/h1&gt;
 
 &lt;p&gt;&lt;strong&gt;Episode Description:&lt;/strong&gt;&lt;/p&gt;
@@ -1354,13 +1336,13 @@ Photosynthesis is more than just a biological process—it's the foundation of E
 </content:encoded>
       <itunes:author>CopernicusAI</itunes:author>
       <enclosure url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/audio/ever-bio-250031.mp3" type="audio/mpeg" length="4718592"/>
-      <guid>ever-bio-250031</guid>
-      <pubDate>Sat, 26 Jul 2025 00:00:00 GMT</pubDate>
+      <guid isPermaLink="false">ever-bio-250031</guid>
+      <pubDate>Tue, 29 Jul 2025 00:00:00 GMT</pubDate>
       <itunes:image href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-bio-250031-thumb.jpg"/>
-      <ns26:thumbnail xmlns:ns26="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-bio-250031-thumb.jpg"/>
-      <ns27:content xmlns:ns27="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-bio-250031-thumb.jpg" medium="image"/>
-      <itunes:duration>3,06</itunes:duration>
-      <itunes:explicit>no</itunes:explicit>
+      <media:thumbnail url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-bio-250031-thumb.jpg"/>
+      <media:content url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-bio-250031-thumb.jpg" medium="image"/>
+      <itunes:duration>3:06</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:season>1</itunes:season>
       <itunes:episode>14</itunes:episode>
     </item>
@@ -1411,7 +1393,7 @@ Photosynthesis is more than just a biological process—it's the foundation of E
 
 &lt;h1&gt;Catalysis #GreenChemistry #SustainableChemistry #SingleAtomCatalysts #Photocatalysis #Electrocatalysis #Biocatalysis #ComputationalChemistry #CircularEconomy #RenewableEnergy #CarbonUtilization #ChemicalManufacturing #EnzymeEngineering #CatalystDesign #SustainableTechnology&lt;/h1&gt;
 </description>
-      <itunes:summary>Explore the remarkable field revolutionizing chemical reactions with "Catalysis Revolution: Transforming Chemical Reactions," where we investigate the science of accelerating and directing chemical tr</itunes:summary>
+      <itunes:summary>Explore the remarkable field revolutionizing chemical reactions with "Catalysis Revolution: Transforming Chemical Reactions," where we investigate the science of accelerating and directing chemical transformations that's undergoing profound innovation. This episode examines how breakthroughs in catalysis are enabling more sustainable chemical manufacturing, renewable energy technologies, and environmental solutions.</itunes:summary>
       <content:encoded>&lt;p&gt;Explore the remarkable field revolutionizing chemical reactions with "Catalysis Revolution: Transforming Chemical Reactions," where we investigate the science of accelerating and directing chemical transformations that's undergoing profound innovation. This episode examines how breakthroughs in catalysis are enabling more sustainable chemical manufacturing, renewable energy technologies, and environmental solutions.&lt;/p&gt;
 
 &lt;p&gt;Catalysis—the process of increasing reaction rates using substances that aren't consumed in the reaction—underlies approximately 90% of all commercially produced chemical products. Recent years have witnessed extraordinary advances across multiple fronts: single-atom catalysts that maximize precious metal efficiency, photocatalysts that harness light energy to drive reactions, electrocatalysts that enable renewable energy storage, and engineered enzymes that perform reactions with unprecedented selectivity. These developments aren't merely incremental improvements but represent potential paradigm shifts in how we produce essential chemicals and materials.&lt;/p&gt;
@@ -1458,13 +1440,13 @@ Photosynthesis is more than just a biological process—it's the foundation of E
 </content:encoded>
       <itunes:author>CopernicusAI</itunes:author>
       <enclosure url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/audio/ever-chem-250002.mp3" type="audio/mpeg" length="5767168"/>
-      <guid>ever-chem-250002</guid>
-      <pubDate>Sat, 26 Jul 2025 00:00:00 GMT</pubDate>
+      <guid isPermaLink="false">ever-chem-250002</guid>
+      <pubDate>Tue, 29 Jul 2025 00:00:00 GMT</pubDate>
       <itunes:image href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-chem-250002-thumb.jpg"/>
-      <ns28:thumbnail xmlns:ns28="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-chem-250002-thumb.jpg"/>
-      <ns29:content xmlns:ns29="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-chem-250002-thumb.jpg" medium="image"/>
-      <itunes:duration>5,44</itunes:duration>
-      <itunes:explicit>no</itunes:explicit>
+      <media:thumbnail url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-chem-250002-thumb.jpg"/>
+      <media:content url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-chem-250002-thumb.jpg" medium="image"/>
+      <itunes:duration>5:44</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:season>1</itunes:season>
       <itunes:episode>15</itunes:episode>
     </item>
@@ -1532,7 +1514,7 @@ Photosynthesis is more than just a biological process—it's the foundation of E
 &lt;li&gt;Tang, S.L.Y., Smith, R.L., &amp;amp; Poliakoff, M. (2005). "Principles of Green Chemistry: PRODUCTIVELY." Green Chemistry, 7(11), 761-762. &lt;/li&gt;
 &lt;/ul&gt;
 </description>
-      <itunes:summary>Join us as we explore green chemistry, examining the latest developments and their implications for the future of science and technology. This episode delves into cutting-edge research, theoretical ad</itunes:summary>
+      <itunes:summary>Join us as we explore green chemistry, examining the latest developments and their implications for the future of science and technology. This episode delves into cutting-edge research, theoretical advances, and practical applications that are shaping our understanding of this fascinating field.</itunes:summary>
       <content:encoded>&lt;p&gt;Join us as we explore green chemistry, examining the latest developments and their implications for the future of science and technology. This episode delves into cutting-edge research, theoretical advances, and practical applications that are shaping our understanding of this fascinating field.&lt;/p&gt;
 
 &lt;p&gt;Explore the revolutionary transformation of chemical practices with "Green Chemistry: Sustainable Approaches to Chemical Synthesis," where we investigate how chemists are reimagining their discipline to create the materials and molecules society needs while minimizing environmental impact. This episode examines the principles, innovations, and challenges of developing chemical processes that are simultaneously effective, economical, and environmentally responsible.&lt;/p&gt;
@@ -1596,13 +1578,13 @@ Photosynthesis is more than just a biological process—it's the foundation of E
 </content:encoded>
       <itunes:author>CopernicusAI</itunes:author>
       <enclosure url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/audio/ever-chem-250005.mp3" type="audio/mpeg" length="16655358"/>
-      <guid>ever-chem-250005</guid>
-      <pubDate>Sat, 26 Jul 2025 00:00:00 GMT</pubDate>
+      <guid isPermaLink="false">ever-chem-250005</guid>
+      <pubDate>Tue, 29 Jul 2025 00:00:00 GMT</pubDate>
       <itunes:image href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-chem-250005-thumb.jpg"/>
-      <ns30:thumbnail xmlns:ns30="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-chem-250005-thumb.jpg"/>
-      <ns31:content xmlns:ns31="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-chem-250005-thumb.jpg" medium="image"/>
-      <itunes:duration>16,31</itunes:duration>
-      <itunes:explicit>no</itunes:explicit>
+      <media:thumbnail url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-chem-250005-thumb.jpg"/>
+      <media:content url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-chem-250005-thumb.jpg" medium="image"/>
+      <itunes:duration>16:31</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:season>1</itunes:season>
       <itunes:episode>16</itunes:episode>
     </item>
@@ -1661,7 +1643,7 @@ Photosynthesis is more than just a biological process—it's the foundation of E
 
 &lt;h1&gt;MolecularMachines #Nanotechnology #Chemistry #Physics #Engineering #Science #Education #Research #Knowledge #Discovery #Learning #Podcast #ScienceEducation #STEM&lt;/h1&gt;
 </description>
-      <itunes:summary>Join us as we explore molecular machines, examining the latest developments and their implications for the future of science and technology. This episode delves into cutting-edge research, theoretical</itunes:summary>
+      <itunes:summary>Join us as we explore molecular machines, examining the latest developments and their implications for the future of science and technology. This episode delves into cutting-edge research, theoretical advances, and practical applications that are shaping our understanding of this fascinating field.</itunes:summary>
       <content:encoded>&lt;p&gt;Join us as we explore molecular machines, examining the latest developments and their implications for the future of science and technology. This episode delves into cutting-edge research, theoretical advances, and practical applications that are shaping our understanding of this fascinating field.&lt;/p&gt;
 
 &lt;p&gt;Molecular machines represent one of the most ambitious intersections of chemistry, physics, and engineering. These sophisticated molecular structures—including rotors, shuttles, switches, and motors—are designed to convert energy into controlled mechanical motions in response to specific stimuli. Unlike conventional machines built from metals and plastics, molecular machines operate in the quantum-influenced nanoscale world where Brownian motion, thermal fluctuations, and quantum effects dominate, requiring entirely different design principles than their macroscopic counterparts.&lt;/p&gt;
@@ -1716,13 +1698,13 @@ Photosynthesis is more than just a biological process—it's the foundation of E
 </content:encoded>
       <itunes:author>CopernicusAI</itunes:author>
       <enclosure url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/audio/ever-chem-250015.mp3" type="audio/mpeg" length="12897485"/>
-      <guid>ever-chem-250015</guid>
-      <pubDate>Sat, 26 Jul 2025 00:00:00 GMT</pubDate>
+      <guid isPermaLink="false">ever-chem-250015</guid>
+      <pubDate>Tue, 29 Jul 2025 00:00:00 GMT</pubDate>
       <itunes:image href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-chem-250015-thumb.jpg"/>
-      <ns32:thumbnail xmlns:ns32="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-chem-250015-thumb.jpg"/>
-      <ns33:content xmlns:ns33="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-chem-250015-thumb.jpg" medium="image"/>
-      <itunes:duration>12,51</itunes:duration>
-      <itunes:explicit>no</itunes:explicit>
+      <media:thumbnail url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-chem-250015-thumb.jpg"/>
+      <media:content url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-chem-250015-thumb.jpg" medium="image"/>
+      <itunes:duration>12:51</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:season>1</itunes:season>
       <itunes:episode>17</itunes:episode>
     </item>
@@ -1759,11 +1741,7 @@ Photosynthesis is more than just a biological process—it's the foundation of E
 
 &lt;h1&gt;chemistry #Chemistry #ChemicalBonds #Molecules #CovalentBonds #IonicBonds #MaterialsScience #QuantumChemistry #MolecularStructure #ChemicalReactions #Nanotechnology&lt;/h1&gt;
 </description>
-      <itunes:summary>Episode Description: Chemical Bonds and Molecules
-
-Episode Description:
-
-Today's segment explores the fundamental forces that hold matter together: chemical bonds. We dive into the fascinating world o</itunes:summary>
+      <itunes:summary>Episode Description: Chemical Bonds and Molecules</itunes:summary>
       <content:encoded>&lt;h1&gt;Episode Description: Chemical Bonds and Molecules&lt;/h1&gt;
 
 &lt;p&gt;&lt;strong&gt;Episode Description:&lt;/strong&gt;&lt;/p&gt;
@@ -1796,13 +1774,13 @@ Today's segment explores the fundamental forces that hold matter together: chemi
 </content:encoded>
       <itunes:author>CopernicusAI</itunes:author>
       <enclosure url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/audio/ever-chem-250016.mp3" type="audio/mpeg" length="2411745"/>
-      <guid>ever-chem-250016</guid>
-      <pubDate>Sat, 26 Jul 2025 00:00:00 GMT</pubDate>
+      <guid isPermaLink="false">ever-chem-250016</guid>
+      <pubDate>Tue, 29 Jul 2025 00:00:00 GMT</pubDate>
       <itunes:image href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-chem-250016-thumb.jpg"/>
-      <ns34:thumbnail xmlns:ns34="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-chem-250016-thumb.jpg"/>
-      <ns35:content xmlns:ns35="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-chem-250016-thumb.jpg" medium="image"/>
-      <itunes:duration>2,22</itunes:duration>
-      <itunes:explicit>no</itunes:explicit>
+      <media:thumbnail url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-chem-250016-thumb.jpg"/>
+      <media:content url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-chem-250016-thumb.jpg" medium="image"/>
+      <itunes:duration>2:22</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:season>1</itunes:season>
       <itunes:episode>18</itunes:episode>
     </item>
@@ -1863,7 +1841,7 @@ Today's segment explores the fundamental forces that hold matter together: chemi
 
 &lt;h1&gt;EdgeComputing #IoT #5G #DistributedComputing #CloudComputing #EdgeAI #NetworkArchitecture #DigitalTransformation #IndustryFourPointZero #SmartCities #TechInfrastructure #DataProcessing #EmergingTechnology #FogComputing #RealTimeComputing&lt;/h1&gt;
 </description>
-      <itunes:summary>Join us as we explore edge computing, examining the latest developments and their implications for the future of science and technology. This episode delves into cutting-edge research, theoretical adv</itunes:summary>
+      <itunes:summary>Join us as we explore edge computing, examining the latest developments and their implications for the future of science and technology. This episode delves into cutting-edge research, theoretical advances, and practical applications that are shaping our understanding of this fascinating field.</itunes:summary>
       <content:encoded>&lt;p&gt;Join us as we explore edge computing, examining the latest developments and their implications for the future of science and technology. This episode delves into cutting-edge research, theoretical advances, and practical applications that are shaping our understanding of this fascinating field.&lt;/p&gt;
 
 &lt;p&gt;Explore the revolutionary shift in how we process data with "Edge Computing Architectures: Bringing Intelligence to the Data Frontier," where we examine a paradigm that's fundamentally reshaping our digital infrastructure. This episode investigates how computation is moving from centralized cloud data centers to the network edge, closer to where data is generated and consumed.&lt;/p&gt;
@@ -1920,13 +1898,13 @@ Today's segment explores the fundamental forces that hold matter together: chemi
 </content:encoded>
       <itunes:author>CopernicusAI</itunes:author>
       <enclosure url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/audio/ever-compsci-250008.mp3" type="audio/mpeg" length="12897485"/>
-      <guid>ever-compsci-250008</guid>
-      <pubDate>Sat, 26 Jul 2025 00:00:00 GMT</pubDate>
+      <guid isPermaLink="false">ever-compsci-250008</guid>
+      <pubDate>Tue, 29 Jul 2025 00:00:00 GMT</pubDate>
       <itunes:image href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-compsci-250008-thumb.jpg"/>
-      <ns36:thumbnail xmlns:ns36="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-compsci-250008-thumb.jpg"/>
-      <ns37:content xmlns:ns37="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-compsci-250008-thumb.jpg" medium="image"/>
-      <itunes:duration>16,02</itunes:duration>
-      <itunes:explicit>no</itunes:explicit>
+      <media:thumbnail url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-compsci-250008-thumb.jpg"/>
+      <media:content url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-compsci-250008-thumb.jpg" medium="image"/>
+      <itunes:duration>16:02</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:season>1</itunes:season>
       <itunes:episode>19</itunes:episode>
     </item>
@@ -1991,7 +1969,7 @@ Today's segment explores the fundamental forces that hold matter together: chemi
 
 &lt;h1&gt;ComputerScience #BrainModeling #Neuromorphic #NeuromorphicComputing #NeuromorphicEngineering #NeuromorphicSystems #NeuromorphicAI #NeuromorphicRobotics #NeuromorphicSensors #NeuromorphicMaterials #NeuromorphicApplications #NeuromorphicChallenges #NeuromorphicFuture&lt;/h1&gt;
 </description>
-      <itunes:summary>Join us as we explore neuromorphic computing, examining the latest developments and their implications for the future of science and technology. This episode delves into cutting-edge research, theoret</itunes:summary>
+      <itunes:summary>Join us as we explore neuromorphic computing, examining the latest developments and their implications for the future of science and technology. This episode delves into cutting-edge research, theoretical advances, and practical applications that are shaping our understanding of this fascinating field.</itunes:summary>
       <content:encoded>&lt;p&gt;Join us as we explore neuromorphic computing, examining the latest developments and their implications for the future of science and technology. This episode delves into cutting-edge research, theoretical advances, and practical applications that are shaping our understanding of this fascinating field.&lt;/p&gt;
 
 &lt;p&gt;Neuromorphic computing represents a fundamental departure from the von Neumann architecture that has dominated computing for decades. While conventional computers separate memory and processing—creating a bottleneck when shuttling data between them—neuromorphic systems integrate these functions, much like biological neurons that both store and process information. These brain-inspired architectures feature massively parallel processing, event-driven computation, and co-located memory and processing elements. By emulating the brain's efficiency and adaptability, neuromorphic systems aim to perform cognitive tasks with a fraction of the energy consumption of traditional computing approaches.&lt;/p&gt;
@@ -2052,13 +2030,13 @@ Today's segment explores the fundamental forces that hold matter together: chemi
 </content:encoded>
       <itunes:author>CopernicusAI</itunes:author>
       <enclosure url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/audio/ever-compsci-250017.mp3" type="audio/mpeg" length="26544973"/>
-      <guid>ever-compsci-250017</guid>
-      <pubDate>Sat, 26 Jul 2025 00:00:00 GMT</pubDate>
+      <guid isPermaLink="false">ever-compsci-250017</guid>
+      <pubDate>Tue, 29 Jul 2025 00:00:00 GMT</pubDate>
       <itunes:image href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-compsci-250017-thumb.jpg"/>
-      <ns38:thumbnail xmlns:ns38="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-compsci-250017-thumb.jpg"/>
-      <ns39:content xmlns:ns39="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-compsci-250017-thumb.jpg" medium="image"/>
-      <itunes:duration>26,23</itunes:duration>
-      <itunes:explicit>no</itunes:explicit>
+      <media:thumbnail url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-compsci-250017-thumb.jpg"/>
+      <media:content url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-compsci-250017-thumb.jpg" medium="image"/>
+      <itunes:duration>26:23</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:season>1</itunes:season>
       <itunes:episode>20</itunes:episode>
     </item>
@@ -2131,7 +2109,7 @@ Today's segment explores the fundamental forces that hold matter together: chemi
 
 &lt;h1&gt;ArtificialIntelligence #AGI #Superintelligence #AIAlignment #FutureOfTechnology #MachineLearning #AIEthics #AIGovernance #AIResearch #AIPolicy #TechnologicalSingularity #HumanValues #EmergingTechnology #DeepLearning #FutureOfHumanity&lt;/h1&gt;
 </description>
-      <itunes:summary>Explore artificial general intelligence, examining the latest developments and their implications for the future of science and technology. This episode delves into cutting-edge research, theoretical </itunes:summary>
+      <itunes:summary>Explore artificial general intelligence, examining the latest developments and their implications for the future of science and technology. This episode delves into cutting-edge research, theoretical advances, and practical applications that are shaping our understanding of this fascinating field.</itunes:summary>
       <content:encoded>&lt;p&gt;Explore artificial general intelligence, examining the latest developments and their implications for the future of science and technology. This episode delves into cutting-edge research, theoretical advances, and practical applications that are shaping our understanding of this fascinating field.&lt;/p&gt;
 
 &lt;p&gt;Artificial General Intelligence (AGI) represents a fundamental shift from today's narrow AI systems—which excel only at specific tasks—to machines capable of understanding, learning, and applying knowledge across virtually any intellectual challenge. Unlike current AI that might master chess or generate text but fails at basic physical reasoning, AGI would possess the flexible, adaptive intelligence that characterizes human cognition, potentially leading to superintelligence that far surpasses human capabilities.&lt;/p&gt;
@@ -2200,13 +2178,13 @@ Today's segment explores the fundamental forces that hold matter together: chemi
 </content:encoded>
       <itunes:author>CopernicusAI</itunes:author>
       <enclosure url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/audio/ever-compsci-250024.mp3" type="audio/mpeg" length="31249565"/>
-      <guid>ever-compsci-250024</guid>
-      <pubDate>Sat, 26 Jul 2025 00:00:00 GMT</pubDate>
+      <guid isPermaLink="false">ever-compsci-250024</guid>
+      <pubDate>Tue, 29 Jul 2025 00:00:00 GMT</pubDate>
       <itunes:image href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-compsci-250024-thumb.jpg"/>
-      <ns40:thumbnail xmlns:ns40="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-compsci-250024-thumb.jpg"/>
-      <ns41:content xmlns:ns41="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-compsci-250024-thumb.jpg" medium="image"/>
-      <itunes:duration>31,01</itunes:duration>
-      <itunes:explicit>no</itunes:explicit>
+      <media:thumbnail url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-compsci-250024-thumb.jpg"/>
+      <media:content url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-compsci-250024-thumb.jpg" medium="image"/>
+      <itunes:duration>31:01</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:season>1</itunes:season>
       <itunes:episode>21</itunes:episode>
     </item>
@@ -2254,11 +2232,7 @@ Today's segment explores the fundamental forces that hold matter together: chemi
 
 &lt;h1&gt;computerscience #VisualTech #DigitalMedia #AI #MachineLearning #DeepLearning #Innovation #TechNews #VisualContent #ComputerScience #FlowMatching&lt;/h1&gt;
 </description>
-      <itunes:summary>Episode Description: Improving Progressive Generation with Decomposable Flow Matching
-
-Episode Description:
-
-Today's segment dives into the exciting world of digital visual technologies with a special</itunes:summary>
+      <itunes:summary>Episode Description: Improving Progressive Generation with Decomposable Flow Matching</itunes:summary>
       <content:encoded>&lt;h1&gt;Episode Description: Improving Progressive Generation with Decomposable Flow Matching&lt;/h1&gt;
 
 &lt;p&gt;&lt;strong&gt;Episode Description:&lt;/strong&gt;&lt;/p&gt;
@@ -2302,13 +2276,13 @@ Today's segment dives into the exciting world of digital visual technologies wit
 </content:encoded>
       <itunes:author>CopernicusAI</itunes:author>
       <enclosure url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/audio/ever-compsci-250025.mp3" type="audio/mpeg" length="2726157"/>
-      <guid>ever-compsci-250025</guid>
-      <pubDate>Sat, 26 Jul 2025 00:00:00 GMT</pubDate>
+      <guid isPermaLink="false">ever-compsci-250025</guid>
+      <pubDate>Tue, 29 Jul 2025 00:00:00 GMT</pubDate>
       <itunes:image href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-compsci-250025-thumb.jpg"/>
-      <ns42:thumbnail xmlns:ns42="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-compsci-250025-thumb.jpg"/>
-      <ns43:content xmlns:ns43="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-compsci-250025-thumb.jpg" medium="image"/>
-      <itunes:duration>2,41</itunes:duration>
-      <itunes:explicit>no</itunes:explicit>
+      <media:thumbnail url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-compsci-250025-thumb.jpg"/>
+      <media:content url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-compsci-250025-thumb.jpg" medium="image"/>
+      <itunes:duration>2:41</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:season>1</itunes:season>
       <itunes:episode>22</itunes:episode>
     </item>
@@ -2363,11 +2337,7 @@ Today's segment dives into the exciting world of digital visual technologies wit
 
 &lt;h1&gt;computerscience #MachineLearning #ArtificialIntelligence #DataScience #AI #Algorithms #NeuralNetworks #DeepLearning #ComputerScience #Technology #Innovation&lt;/h1&gt;
 </description>
-      <itunes:summary>Episode Description: Machine Learning Basics
-
-Episode Description:
-
-Today's segment introduces the fascinating world of machine learning, a branch of artificial intelligence that enables computers to </itunes:summary>
+      <itunes:summary>Episode Description: Machine Learning Basics</itunes:summary>
       <content:encoded>&lt;h1&gt;Episode Description: Machine Learning Basics&lt;/h1&gt;
 
 &lt;p&gt;&lt;strong&gt;Episode Description:&lt;/strong&gt;&lt;/p&gt;
@@ -2418,13 +2388,13 @@ Today's segment introduces the fascinating world of machine learning, a branch o
 </content:encoded>
       <itunes:author>CopernicusAI</itunes:author>
       <enclosure url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/audio/ever-compsci-250026.mp3" type="audio/mpeg" length="4823449"/>
-      <guid>ever-compsci-250026</guid>
-      <pubDate>Sat, 26 Jul 2025 00:00:00 GMT</pubDate>
+      <guid isPermaLink="false">ever-compsci-250026</guid>
+      <pubDate>Tue, 29 Jul 2025 00:00:00 GMT</pubDate>
       <itunes:image href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-compsci-250026-thumb.jpg"/>
-      <ns44:thumbnail xmlns:ns44="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-compsci-250026-thumb.jpg"/>
-      <ns45:content xmlns:ns45="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-compsci-250026-thumb.jpg" medium="image"/>
-      <itunes:duration>4,45</itunes:duration>
-      <itunes:explicit>no</itunes:explicit>
+      <media:thumbnail url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-compsci-250026-thumb.jpg"/>
+      <media:content url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-compsci-250026-thumb.jpg" medium="image"/>
+      <itunes:duration>4:45</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:season>1</itunes:season>
       <itunes:episode>23</itunes:episode>
     </item>
@@ -2495,11 +2465,7 @@ Today's segment introduces the fascinating world of machine learning, a branch o
 
 &lt;h1&gt;computerscience #AI #Technology #Podcast #Demo #Testing #ContentCreation #Automation #MachineLearning #Innovation&lt;/h1&gt;
 </description>
-      <itunes:summary>Episode Description: Test Prompt
-
-Episode Description:
-
-This is a demonstration episode showcasing the podcast generation capabilities of our AI-powered system. This test episode demonstrates the tech</itunes:summary>
+      <itunes:summary>Episode Description: Test Prompt</itunes:summary>
       <content:encoded>&lt;h1&gt;Episode Description: Test Prompt&lt;/h1&gt;
 
 &lt;p&gt;&lt;strong&gt;Episode Description:&lt;/strong&gt;&lt;/p&gt;
@@ -2566,13 +2532,13 @@ This is a demonstration episode showcasing the podcast generation capabilities o
 </content:encoded>
       <itunes:author>CopernicusAI</itunes:author>
       <enclosure url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/audio/ever-compsci-250027.mp3" type="audio/mpeg" length="3145728"/>
-      <guid>ever-compsci-250027</guid>
-      <pubDate>Sat, 26 Jul 2025 00:00:00 GMT</pubDate>
+      <guid isPermaLink="false">ever-compsci-250027</guid>
+      <pubDate>Tue, 29 Jul 2025 00:00:00 GMT</pubDate>
       <itunes:image href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-compsci-250027-thumb.jpg"/>
-      <ns46:thumbnail xmlns:ns46="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-compsci-250027-thumb.jpg"/>
-      <ns47:content xmlns:ns47="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-compsci-250027-thumb.jpg" medium="image"/>
-      <itunes:duration>3,09</itunes:duration>
-      <itunes:explicit>no</itunes:explicit>
+      <media:thumbnail url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-compsci-250027-thumb.jpg"/>
+      <media:content url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-compsci-250027-thumb.jpg" medium="image"/>
+      <itunes:duration>3:09</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:season>1</itunes:season>
       <itunes:episode>24</itunes:episode>
     </item>
@@ -2615,7 +2581,7 @@ This is a demonstration episode showcasing the podcast generation capabilities o
 
 &lt;h1&gt;Mathematics #MathematicalLogic #Logic #SetTheory #ProofTheory #Computability #MathematicsEducation #Research #Knowledge #Discovery #Learning #Podcast #ScienceEducation #STEM&lt;/h1&gt;
 </description>
-      <itunes:summary>Explore mathematical logic frontiers, examining the latest developments and their implications for the future of science and technology. This episode delves into cutting-edge research, theoretical adv</itunes:summary>
+      <itunes:summary>Explore mathematical logic frontiers, examining the latest developments and their implications for the future of science and technology. This episode delves into cutting-edge research, theoretical advances, and practical applications that are shaping our understanding of this fascinating field.</itunes:summary>
       <content:encoded>&lt;p&gt;Explore mathematical logic frontiers, examining the latest developments and their implications for the future of science and technology. This episode delves into cutting-edge research, theoretical advances, and practical applications that are shaping our understanding of this fascinating field.&lt;/p&gt;
 
 &lt;p&gt;Mathematical logic stands at a unique intersection—it is simultaneously a branch of mathematics and the discipline that studies the foundations and limitations of mathematics itself. Born from the fundamental questions raised by thinkers like Frege, Russell, Gödel, and Turing, mathematical logic has evolved into a sophisticated field with multiple interconnected subfields, each with its own profound questions and methodologies. Today's researchers continue this tradition, pushing boundaries and uncovering surprising connections to other areas of mathematics and science.&lt;/p&gt;
@@ -2654,13 +2620,13 @@ This is a demonstration episode showcasing the podcast generation capabilities o
 </content:encoded>
       <itunes:author>CopernicusAI</itunes:author>
       <enclosure url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/audio/ever-math-250009.mp3" type="audio/mpeg" length="4403819"/>
-      <guid>ever-math-250009</guid>
-      <pubDate>Sat, 26 Jul 2025 00:00:00 GMT</pubDate>
+      <guid isPermaLink="false">ever-math-250009</guid>
+      <pubDate>Tue, 29 Jul 2025 00:00:00 GMT</pubDate>
       <itunes:image href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-math-250009-thumb.jpg"/>
-      <ns48:thumbnail xmlns:ns48="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-math-250009-thumb.jpg"/>
-      <ns49:content xmlns:ns49="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-math-250009-thumb.jpg" medium="image"/>
-      <itunes:duration>4,19</itunes:duration>
-      <itunes:explicit>no</itunes:explicit>
+      <media:thumbnail url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-math-250009-thumb.jpg"/>
+      <media:content url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-math-250009-thumb.jpg" medium="image"/>
+      <itunes:duration>4:19</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:season>1</itunes:season>
       <itunes:episode>25</itunes:episode>
     </item>
@@ -2709,7 +2675,7 @@ This is a demonstration episode showcasing the podcast generation capabilities o
 
 &lt;h1&gt;GödelsTheorems #IncompletenessTheorems #FoundationsOfMathematics #MathematicalLogic #FormalSystems #MathematicalPhilosophy #PureMathematics #LogicalFoundations #MathematicalTruth #AbstractMathematics #PhilosophyOfMathematics #ComputationalTheory #TheoremProving #MathematicalReasoning #LogicAndComputation&lt;/h1&gt;
 </description>
-      <itunes:summary>Join us as we explore Gödel's incompleteness theorems, examining their profound implications for mathematics, philosophy, and our understanding of formal systems. This episode delves into the revoluti</itunes:summary>
+      <itunes:summary>Join us as we explore Gödel's incompleteness theorems, examining their profound implications for mathematics, philosophy, and our understanding of formal systems. This episode delves into the revolutionary results that revealed fundamental limitations in mathematical reasoning.</itunes:summary>
       <content:encoded>&lt;p&gt;Join us as we explore Gödel's incompleteness theorems, examining their profound implications for mathematics, philosophy, and our understanding of formal systems. This episode delves into the revolutionary results that revealed fundamental limitations in mathematical reasoning.&lt;/p&gt;
 
 &lt;p&gt;Journey into one of the most profound discoveries in mathematical history with "Gödel's Incompleteness Theorems: The Limits of Mathematical Truth," where we explore Kurt Gödel's revolutionary results that fundamentally changed our understanding of mathematical systems and formal reasoning. This episode examines theorems that revealed unexpected limitations in our most basic mathematical frameworks.&lt;/p&gt;
@@ -2754,13 +2720,13 @@ This is a demonstration episode showcasing the podcast generation capabilities o
 </content:encoded>
       <itunes:author>CopernicusAI</itunes:author>
       <enclosure url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/audio/ever-math-250011.mp3" type="audio/mpeg" length="20838662"/>
-      <guid>ever-math-250011</guid>
-      <pubDate>Sat, 26 Jul 2025 00:00:00 GMT</pubDate>
+      <guid isPermaLink="false">ever-math-250011</guid>
+      <pubDate>Tue, 29 Jul 2025 00:00:00 GMT</pubDate>
       <itunes:image href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-math-250011-thumb.jpg"/>
-      <ns50:thumbnail xmlns:ns50="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-math-250011-thumb.jpg"/>
-      <ns51:content xmlns:ns51="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-math-250011-thumb.jpg" medium="image"/>
-      <itunes:duration>20,43</itunes:duration>
-      <itunes:explicit>no</itunes:explicit>
+      <media:thumbnail url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-math-250011-thumb.jpg"/>
+      <media:content url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-math-250011-thumb.jpg" medium="image"/>
+      <itunes:duration>20:43</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:season>1</itunes:season>
       <itunes:episode>26</itunes:episode>
     </item>
@@ -2810,7 +2776,7 @@ This is a demonstration episode showcasing the podcast generation capabilities o
 
 &lt;h1&gt;Mathematics #Geometry #Topology #PoincareConjecture #RicciFlow #Perelman #FieldsMedal #MillenniumPrize&lt;/h1&gt;
 </description>
-      <itunes:summary>Explore poincare conjecture, examining the latest developments and their implications for the future of science and technology. This episode delves into cutting-edge research, theoretical advances, an</itunes:summary>
+      <itunes:summary>Explore poincare conjecture, examining the latest developments and their implications for the future of science and technology. This episode delves into cutting-edge research, theoretical advances, and practical applications that are shaping our understanding of this fascinating field.</itunes:summary>
       <content:encoded>&lt;p&gt;Explore poincare conjecture, examining the latest developments and their implications for the future of science and technology. This episode delves into cutting-edge research, theoretical advances, and practical applications that are shaping our understanding of this fascinating field.&lt;/p&gt;
 
 &lt;p&gt;Journey through one of mathematics' greatest quests in "The Poincaré Conjecture: A Century-Long Mathematical Journey." This podcast explores the fascinating story of a deceptively simple question posed by French mathematician Henri Poincaré in 1904 that stumped the world's greatest minds for nearly a century.&lt;/p&gt;
@@ -2856,13 +2822,13 @@ This is a demonstration episode showcasing the podcast generation capabilities o
 </content:encoded>
       <itunes:author>CopernicusAI</itunes:author>
       <enclosure url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/audio/ever-math-250029.mp3" type="audio/mpeg" length="15409867"/>
-      <guid>ever-math-250029</guid>
-      <pubDate>Sat, 26 Jul 2025 00:00:00 GMT</pubDate>
+      <guid isPermaLink="false">ever-math-250029</guid>
+      <pubDate>Tue, 29 Jul 2025 00:00:00 GMT</pubDate>
       <itunes:image href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-math-250029-thumb.jpg"/>
-      <ns52:thumbnail xmlns:ns52="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-math-250029-thumb.jpg"/>
-      <ns53:content xmlns:ns53="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-math-250029-thumb.jpg" medium="image"/>
-      <itunes:duration>10,12</itunes:duration>
-      <itunes:explicit>no</itunes:explicit>
+      <media:thumbnail url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-math-250029-thumb.jpg"/>
+      <media:content url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-math-250029-thumb.jpg" medium="image"/>
+      <itunes:duration>10:12</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:season>1</itunes:season>
       <itunes:episode>27</itunes:episode>
     </item>
@@ -2907,7 +2873,7 @@ This is a demonstration episode showcasing the podcast generation capabilities o
 
 &lt;h1&gt;Mathematics #Mathematics #Science #Education #Research #Knowledge #Discovery #Learning #Podcast #ScienceEducation #STEM #Logic #MathematicalLogic #IndependenceResults #PeanoArithmetic #GodelsIncompletenessTheorem&lt;/h1&gt;
 </description>
-      <itunes:summary>Explore independence results peano, examining the latest developments and their implications for the future of science and technology. This episode delves into cutting-edge research, theoretical advan</itunes:summary>
+      <itunes:summary>Explore independence results peano, examining the latest developments and their implications for the future of science and technology. This episode delves into cutting-edge research, theoretical advances, and practical applications that are shaping our understanding of this fascinating field.</itunes:summary>
       <content:encoded>&lt;p&gt;Explore independence results peano, examining the latest developments and their implications for the future of science and technology. This episode delves into cutting-edge research, theoretical advances, and practical applications that are shaping our understanding of this fascinating field.&lt;/p&gt;
 
 &lt;p&gt;Explore the fascinating boundary between provability and unprovability with "Independence Results in Peano Arithmetic," where we investigate mathematical statements that can be proven neither true nor false within our standard formal systems. This episode examines how these remarkable discoveries have transformed our understanding of mathematical truth and revealed fundamental limitations in our ability to capture mathematical reality through axioms and rules.&lt;/p&gt;
@@ -2948,13 +2914,13 @@ This is a demonstration episode showcasing the podcast generation capabilities o
 </content:encoded>
       <itunes:author>CopernicusAI</itunes:author>
       <enclosure url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/audio/ever-math-250031.mp3" type="audio/mpeg" length="18976236"/>
-      <guid>ever-math-250031</guid>
-      <pubDate>Sat, 26 Jul 2025 00:00:00 GMT</pubDate>
+      <guid isPermaLink="false">ever-math-250031</guid>
+      <pubDate>Tue, 29 Jul 2025 00:00:00 GMT</pubDate>
       <itunes:image href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-math-250031-thumb.jpg"/>
-      <ns54:thumbnail xmlns:ns54="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-math-250031-thumb.jpg"/>
-      <ns55:content xmlns:ns55="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-math-250031-thumb.jpg" medium="image"/>
-      <itunes:duration>12,35</itunes:duration>
-      <itunes:explicit>no</itunes:explicit>
+      <media:thumbnail url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-math-250031-thumb.jpg"/>
+      <media:content url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-math-250031-thumb.jpg" medium="image"/>
+      <itunes:duration>12:35</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:season>1</itunes:season>
       <itunes:episode>28</itunes:episode>
     </item>
@@ -3019,11 +2985,7 @@ This is a demonstration episode showcasing the podcast generation capabilities o
 
 &lt;h1&gt;mathematics #Calculus #Derivatives #Mathematics #RatesOfChange #Optimization #Limits #Functions #STEM #Education&lt;/h1&gt;
 </description>
-      <itunes:summary>Episode Description: Calculus Derivatives Basics
-
-Episode Description:
-
-Today's segment introduces the fundamental concept of derivatives in calculus, one of the most powerful mathematical tools for u</itunes:summary>
+      <itunes:summary>Episode Description: Calculus Derivatives Basics</itunes:summary>
       <content:encoded>&lt;h1&gt;Episode Description: Calculus Derivatives Basics&lt;/h1&gt;
 
 &lt;p&gt;&lt;strong&gt;Episode Description:&lt;/strong&gt;&lt;/p&gt;
@@ -3084,13 +3046,13 @@ Today's segment introduces the fundamental concept of derivatives in calculus, o
 </content:encoded>
       <itunes:author>CopernicusAI</itunes:author>
       <enclosure url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/audio/ever-math-250032.mp3" type="audio/mpeg" length="4823449"/>
-      <guid>ever-math-250032</guid>
-      <pubDate>Sat, 26 Jul 2025 00:00:00 GMT</pubDate>
+      <guid isPermaLink="false">ever-math-250032</guid>
+      <pubDate>Tue, 29 Jul 2025 00:00:00 GMT</pubDate>
       <itunes:image href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-math-250032-thumb.jpg"/>
-      <ns56:thumbnail xmlns:ns56="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-math-250032-thumb.jpg"/>
-      <ns57:content xmlns:ns57="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-math-250032-thumb.jpg" medium="image"/>
-      <itunes:duration>4,46</itunes:duration>
-      <itunes:explicit>no</itunes:explicit>
+      <media:thumbnail url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-math-250032-thumb.jpg"/>
+      <media:content url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-math-250032-thumb.jpg" medium="image"/>
+      <itunes:duration>4:46</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:season>1</itunes:season>
       <itunes:episode>29</itunes:episode>
     </item>
@@ -3121,10 +3083,7 @@ https://arxiv.org/abs/2506.20669&lt;/p&gt;
 &lt;h1&gt;Mathematics #PrimeNumbers #NumberTheory #MathPodcast #Research #ScienceNews&lt;/h1&gt;
 </description>
       <itunes:summary>Episode Title:
-A New Approach to Prime Gap Distributions
-
-Episode Summary:
-In this episode, we explore a groundbreaking advance in analytic number theory: a new probabilistic framework for understandi</itunes:summary>
+A New Approach to Prime Gap Distributions</itunes:summary>
       <content:encoded>&lt;p&gt;&lt;strong&gt;Episode Title:&lt;/strong&gt;&lt;br /&gt;
 A New Approach to Prime Gap Distributions&lt;/p&gt;
 
@@ -3150,13 +3109,13 @@ https://arxiv.org/abs/2506.20669&lt;/p&gt;
 </content:encoded>
       <itunes:author>CopernicusAI</itunes:author>
       <enclosure url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/audio/ever-math-250033.mp3" type="audio/mpeg" length="3460301"/>
-      <guid>ever-math-250033</guid>
-      <pubDate>Sat, 26 Jul 2025 00:00:00 GMT</pubDate>
+      <guid isPermaLink="false">ever-math-250033</guid>
+      <pubDate>Tue, 29 Jul 2025 00:00:00 GMT</pubDate>
       <itunes:image href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-math-250033-thumb.jpg"/>
-      <ns58:thumbnail xmlns:ns58="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-math-250033-thumb.jpg"/>
-      <ns59:content xmlns:ns59="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-math-250033-thumb.jpg" medium="image"/>
-      <itunes:duration>4,10</itunes:duration>
-      <itunes:explicit>no</itunes:explicit>
+      <media:thumbnail url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-math-250033-thumb.jpg"/>
+      <media:content url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-math-250033-thumb.jpg" medium="image"/>
+      <itunes:duration>4:10</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:season>1</itunes:season>
       <itunes:episode>30</itunes:episode>
     </item>
@@ -3219,7 +3178,7 @@ https://arxiv.org/abs/2506.20669&lt;/p&gt;
 
 &lt;h1&gt;Physics #QuantumTheory #QuantumMechanics #QuantumMachineLearning #MachineLearning #QuantumComputing&lt;/h1&gt;
 </description>
-      <itunes:summary>Quantum machine learning represents the intersection of quantum computing and artificial intelligence—two fields that are independently reshaping our technological landscape. While classical machine l</itunes:summary>
+      <itunes:summary>Quantum machine learning represents the intersection of quantum computing and artificial intelligence—two fields that are independently reshaping our technological landscape. While classical machine learning has achieved remarkable successes in recent years, it faces fundamental limitations when dealing with exponentially large datasets or highly complex optimization problems. Quantum computing, with its ability to leverage superposition, entanglement, and interference, offers potential pathways to overcome these limitations. By encoding information in quantum states and performing operations that manipulate probability amplitudes, quantum algorithms could potentially identify patterns and extract insights from data with unprecedented efficiency.</itunes:summary>
       <content:encoded>&lt;p&gt;Quantum machine learning represents the intersection of quantum computing and artificial intelligence—two fields that are independently reshaping our technological landscape. While classical machine learning has achieved remarkable successes in recent years, it faces fundamental limitations when dealing with exponentially large datasets or highly complex optimization problems. Quantum computing, with its ability to leverage superposition, entanglement, and interference, offers potential pathways to overcome these limitations. By encoding information in quantum states and performing operations that manipulate probability amplitudes, quantum algorithms could potentially identify patterns and extract insights from data with unprecedented efficiency.&lt;/p&gt;
 
 &lt;p&gt;What makes quantum machine learning particularly significant is its potential to address problems that lie beyond the reach of classical computing resources. From simulating complex quantum systems for materials discovery and drug development to optimizing massive logistical networks, quantum-enhanced machine learning algorithms could tackle challenges with exponential speedups in specific applications. Moreover, quantum approaches might enable entirely new paradigms for machine learning, moving beyond the limitations of current neural network architectures to more powerful computational models inspired by quantum physics.&lt;/p&gt;
@@ -3278,13 +3237,13 @@ https://arxiv.org/abs/2506.20669&lt;/p&gt;
 </content:encoded>
       <itunes:author>CopernicusAI</itunes:author>
       <enclosure url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/audio/ever-phys-250019.mp3" type="audio/mpeg" length="25485417"/>
-      <guid>ever-phys-250019</guid>
-      <pubDate>Sat, 26 Jul 2025 00:00:00 GMT</pubDate>
+      <guid isPermaLink="false">ever-phys-250019</guid>
+      <pubDate>Tue, 29 Jul 2025 00:00:00 GMT</pubDate>
       <itunes:image href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-phys-250019-thumb.jpg"/>
-      <ns60:thumbnail xmlns:ns60="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-phys-250019-thumb.jpg"/>
-      <ns61:content xmlns:ns61="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-phys-250019-thumb.jpg" medium="image"/>
-      <itunes:duration>25,20</itunes:duration>
-      <itunes:explicit>no</itunes:explicit>
+      <media:thumbnail url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-phys-250019-thumb.jpg"/>
+      <media:content url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-phys-250019-thumb.jpg" medium="image"/>
+      <itunes:duration>25:20</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:season>1</itunes:season>
       <itunes:episode>31</itunes:episode>
     </item>
@@ -3371,7 +3330,7 @@ https://arxiv.org/abs/2506.20669&lt;/p&gt;
 
 &lt;h1&gt;Physics #StringTheory #TheoryofEverything #Gravity #FoundationsofPhysics #UnifiedFieldTheory&lt;/h1&gt;
 </description>
-      <itunes:summary>Journey to the frontiers of theoretical physics with "String Theory: The Quest for a Theory of Everything," where we explore one of the most ambitious and controversial frameworks in modern science. T</itunes:summary>
+      <itunes:summary>Journey to the frontiers of theoretical physics with "String Theory: The Quest for a Theory of Everything," where we explore one of the most ambitious and controversial frameworks in modern science. This episode examines a revolutionary approach to understanding the fundamental nature of reality that proposes a radical reimagining of the universe's basic building blocks.</itunes:summary>
       <content:encoded>&lt;p&gt;Journey to the frontiers of theoretical physics with "String Theory: The Quest for a Theory of Everything," where we explore one of the most ambitious and controversial frameworks in modern science. This episode examines a revolutionary approach to understanding the fundamental nature of reality that proposes a radical reimagining of the universe's basic building blocks.&lt;/p&gt;
 
 &lt;p&gt;String theory suggests that the elementary particles we observe in nature aren't point-like dots but rather tiny, vibrating filaments of energy—essentially one-dimensional strings. These minuscule strings, roughly 10^-33 centimeters in size, vibrate in different patterns to create the various particles we observe, from electrons to quarks to photons. It's as if the fundamental "notes" played by these cosmic strings generate the "music" of our physical universe.&lt;/p&gt;
@@ -3454,13 +3413,13 @@ https://arxiv.org/abs/2506.20669&lt;/p&gt;
 </content:encoded>
       <itunes:author>CopernicusAI</itunes:author>
       <enclosure url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/audio/ever-phys-250021.mp3" type="audio/mpeg" length="25590275"/>
-      <guid>ever-phys-250021</guid>
-      <pubDate>Sat, 26 Jul 2025 00:00:00 GMT</pubDate>
+      <guid isPermaLink="false">ever-phys-250021</guid>
+      <pubDate>Tue, 29 Jul 2025 00:00:00 GMT</pubDate>
       <itunes:image href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-phys-250021-thumb.jpg"/>
-      <ns62:thumbnail xmlns:ns62="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-phys-250021-thumb.jpg"/>
-      <ns63:content xmlns:ns63="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-phys-250021-thumb.jpg" medium="image"/>
-      <itunes:duration>25,22</itunes:duration>
-      <itunes:explicit>no</itunes:explicit>
+      <media:thumbnail url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-phys-250021-thumb.jpg"/>
+      <media:content url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-phys-250021-thumb.jpg" medium="image"/>
+      <itunes:duration>25:22</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:season>1</itunes:season>
       <itunes:episode>32</itunes:episode>
     </item>
@@ -3544,7 +3503,7 @@ https://arxiv.org/abs/2506.20669&lt;/p&gt;
 
 &lt;h1&gt;Physics #HiggsBoson #FundamentalParticle #LargeHadronCollider #GodParticle&lt;/h1&gt;
 </description>
-      <itunes:summary>Embark on an extraordinary scientific adventure with "The Higgs Boson: Hunt for the God Particle," where we explore one of the most significant discoveries in modern physics. This episode chronicles t</itunes:summary>
+      <itunes:summary>Embark on an extraordinary scientific adventure with "The Higgs Boson: Hunt for the God Particle," where we explore one of the most significant discoveries in modern physics. This episode chronicles the remarkable quest to find the elusive Higgs boson, a subatomic particle whose existence completes our understanding of the fundamental forces of nature.</itunes:summary>
       <content:encoded>&lt;p&gt;Embark on an extraordinary scientific adventure with "The Higgs Boson: Hunt for the God Particle," where we explore one of the most significant discoveries in modern physics. This episode chronicles the remarkable quest to find the elusive Higgs boson, a subatomic particle whose existence completes our understanding of the fundamental forces of nature.&lt;/p&gt;
 
 &lt;p&gt;Predicted in 1964 but not discovered until 2012, the Higgs boson represents the culmination of a half-century scientific odyssey that required building the largest and most complex scientific instrument ever constructed—the Large Hadron Collider at CERN. This massive, 17-mile circumference particle accelerator was needed to create the extreme energy conditions that could finally reveal this fundamental particle.&lt;/p&gt;
@@ -3624,13 +3583,13 @@ https://arxiv.org/abs/2506.20669&lt;/p&gt;
 </content:encoded>
       <itunes:author>CopernicusAI</itunes:author>
       <enclosure url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/audio/ever-phys-250022.mp3" type="audio/mpeg" length="24222106"/>
-      <guid>ever-phys-250022</guid>
-      <pubDate>Sat, 26 Jul 2025 00:00:00 GMT</pubDate>
+      <guid isPermaLink="false">ever-phys-250022</guid>
+      <pubDate>Tue, 29 Jul 2025 00:00:00 GMT</pubDate>
       <itunes:image href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-phys-250022-thumb.jpg"/>
-      <ns64:thumbnail xmlns:ns64="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-phys-250022-thumb.jpg"/>
-      <ns65:content xmlns:ns65="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-phys-250022-thumb.jpg" medium="image"/>
-      <itunes:duration>24,02</itunes:duration>
-      <itunes:explicit>no</itunes:explicit>
+      <media:thumbnail url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-phys-250022-thumb.jpg"/>
+      <media:content url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-phys-250022-thumb.jpg" medium="image"/>
+      <itunes:duration>24:02</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:season>1</itunes:season>
       <itunes:episode>33</itunes:episode>
     </item>
@@ -3710,7 +3669,7 @@ https://arxiv.org/abs/2506.20669&lt;/p&gt;
 
 &lt;h1&gt;Physics #QuantumPhysics #QuantumEntanglement #SpookyActionAtADistance #Einstein #QuantumTheory #QuantumTechnology&lt;/h1&gt;
 </description>
-      <itunes:summary>Venture into the quantum realm with "Quantum Entanglement: Spooky Action at a Distance," where we explore one of the most fascinating and counterintuitive phenomena in modern physics. This episode exa</itunes:summary>
+      <itunes:summary>Venture into the quantum realm with "Quantum Entanglement: Spooky Action at a Distance," where we explore one of the most fascinating and counterintuitive phenomena in modern physics. This episode examines a quantum effect so bizarre that Einstein famously referred to it as "spooky action at a distance"—a phenomenon that challenges our fundamental intuitions about reality, locality, and the nature of information.</itunes:summary>
       <content:encoded>&lt;p&gt;Venture into the quantum realm with "Quantum Entanglement: Spooky Action at a Distance," where we explore one of the most fascinating and counterintuitive phenomena in modern physics. This episode examines a quantum effect so bizarre that Einstein famously referred to it as "spooky action at a distance"—a phenomenon that challenges our fundamental intuitions about reality, locality, and the nature of information.&lt;/p&gt;
 
 &lt;p&gt;Quantum entanglement occurs when two or more particles become correlated in such a way that the quantum state of each particle cannot be described independently of the others, regardless of the distance separating them. When you measure one entangled particle, you instantly know information about its partner, even if they're light-years apart. This immediate correlation appears to suggest information traveling faster than light, creating an apparent conflict with Einstein's theory of relativity.&lt;/p&gt;
@@ -3786,13 +3745,13 @@ https://arxiv.org/abs/2506.20669&lt;/p&gt;
 </content:encoded>
       <itunes:author>CopernicusAI</itunes:author>
       <enclosure url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/audio/ever-phys-250026.mp3" type="audio/mpeg" length="33434570"/>
-      <guid>ever-phys-250026</guid>
-      <pubDate>Sat, 26 Jul 2025 00:00:00 GMT</pubDate>
+      <guid isPermaLink="false">ever-phys-250026</guid>
+      <pubDate>Tue, 29 Jul 2025 00:00:00 GMT</pubDate>
       <itunes:image href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-phys-250026-thumb.jpg"/>
-      <ns66:thumbnail xmlns:ns66="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-phys-250026-thumb.jpg"/>
-      <ns67:content xmlns:ns67="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-phys-250026-thumb.jpg" medium="image"/>
-      <itunes:duration>22,07</itunes:duration>
-      <itunes:explicit>no</itunes:explicit>
+      <media:thumbnail url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-phys-250026-thumb.jpg"/>
+      <media:content url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-phys-250026-thumb.jpg" medium="image"/>
+      <itunes:duration>22:07</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:season>1</itunes:season>
       <itunes:episode>34</itunes:episode>
     </item>
@@ -3833,9 +3792,7 @@ https://arxiv.org/abs/2506.20669&lt;/p&gt;
 
 &lt;h1&gt;QuantumCryptography #PostQuantumCryptography #Cybersecurity #QuantumKeyDistribution #QuantumComputing #Encryption #DataSecurity #NIST #CryptographicStandards #QuantumThreat #QuantumSecurity #CryptoAgility #DigitalPrivacy #QuantumNetworks&lt;/h1&gt;
 </description>
-      <itunes:summary>Episode Overview
-
-In this episode of Frontiers of Research, host Antoni explores the revolutionary field of quantum cryptography and post-quantum security with experts Dr. Elena Vasquez and Dr. Marcus</itunes:summary>
+      <itunes:summary>Episode Overview</itunes:summary>
       <content:encoded>&lt;h2&gt;Episode Overview&lt;/h2&gt;
 
 &lt;p&gt;In this episode of Frontiers of Research, host Antoni explores the revolutionary field of quantum cryptography and post-quantum security with experts Dr. Elena Vasquez and Dr. Marcus Chen. They discuss how quantum physics principles are being harnessed to create theoretically unbreakable encryption and how cryptographers are developing classical algorithms that can withstand attacks from quantum computers.&lt;/p&gt;
@@ -3872,13 +3829,13 @@ In this episode of Frontiers of Research, host Antoni explores the revolutionary
 </content:encoded>
       <itunes:author>CopernicusAI</itunes:author>
       <enclosure url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/audio/ever-phys-250027.mp3" type="audio/mpeg" length="4299962"/>
-      <guid>ever-phys-250027</guid>
-      <pubDate>Sat, 26 Jul 2025 00:00:00 GMT</pubDate>
+      <guid isPermaLink="false">ever-phys-250027</guid>
+      <pubDate>Tue, 29 Jul 2025 00:00:00 GMT</pubDate>
       <itunes:image href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-phys-250027-thumb.jpg"/>
-      <ns68:thumbnail xmlns:ns68="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-phys-250027-thumb.jpg"/>
-      <ns69:content xmlns:ns69="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-phys-250027-thumb.jpg" medium="image"/>
-      <itunes:duration>4,17</itunes:duration>
-      <itunes:explicit>no</itunes:explicit>
+      <media:thumbnail url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-phys-250027-thumb.jpg"/>
+      <media:content url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-phys-250027-thumb.jpg" medium="image"/>
+      <itunes:duration>4:17</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:season>1</itunes:season>
       <itunes:episode>35</itunes:episode>
     </item>
@@ -3921,7 +3878,7 @@ In this episode of Frontiers of Research, host Antoni explores the revolutionary
 
 &lt;h1&gt;QuantumBatteries #QuantumPhysics #EnergyStorage #Superabsorption #QuantumEntanglement #EmergingTechnology #CleanEnergy #QuantumAdvantage #MaterialScience #SustainableEnergy #QuantumThermodynamics&lt;/h1&gt;
 </description>
-      <itunes:summary>Explore the revolutionary frontier of energy technology with "Quantum Batteries: The Future of Energy Storage," where we investigate how quantum mechanical principles could transform how we store and </itunes:summary>
+      <itunes:summary>Explore the revolutionary frontier of energy technology with "Quantum Batteries: The Future of Energy Storage," where we investigate how quantum mechanical principles could transform how we store and deliver power. This episode examines an emerging field that harnesses the counterintuitive properties of quantum physics to potentially create energy storage devices with capabilities that defy classical limitations.</itunes:summary>
       <content:encoded>&lt;p&gt;Explore the revolutionary frontier of energy technology with "Quantum Batteries: The Future of Energy Storage," where we investigate how quantum mechanical principles could transform how we store and deliver power. This episode examines an emerging field that harnesses the counterintuitive properties of quantum physics to potentially create energy storage devices with capabilities that defy classical limitations.&lt;/p&gt;
 
 &lt;p&gt;Quantum batteries represent a radical departure from conventional energy storage. While traditional batteries rely on chemical reactions to store and release energy, quantum batteries would store energy directly in the quantum states of their constituent particles. This fundamental difference opens the door to extraordinary possibilities—most notably, charging speeds that could scale quadratically or even exponentially with battery size, potentially enabling ultra-fast charging that would be physically impossible with conventional technology.&lt;/p&gt;
@@ -3960,13 +3917,13 @@ In this episode of Frontiers of Research, host Antoni explores the revolutionary
 </content:encoded>
       <itunes:author>CopernicusAI</itunes:author>
       <enclosure url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/audio/ever-phys-250030.mp3" type="audio/mpeg" length="17199654"/>
-      <guid>ever-phys-250030</guid>
-      <pubDate>Sat, 26 Jul 2025 00:00:00 GMT</pubDate>
+      <guid isPermaLink="false">ever-phys-250030</guid>
+      <pubDate>Tue, 29 Jul 2025 00:00:00 GMT</pubDate>
       <itunes:image href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-phys-250030-thumb.jpg"/>
-      <ns70:thumbnail xmlns:ns70="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-phys-250030-thumb.jpg"/>
-      <ns71:content xmlns:ns71="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-phys-250030-thumb.jpg" medium="image"/>
-      <itunes:duration>11,23</itunes:duration>
-      <itunes:explicit>no</itunes:explicit>
+      <media:thumbnail url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-phys-250030-thumb.jpg"/>
+      <media:content url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-phys-250030-thumb.jpg" medium="image"/>
+      <itunes:duration>11:23</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:season>1</itunes:season>
       <itunes:episode>36</itunes:episode>
     </item>
@@ -4047,7 +4004,7 @@ In this episode of Frontiers of Research, host Antoni explores the revolutionary
 
 &lt;h1&gt;physics #QuantumComputing #Quantum #Physics #Qubits #Technology #Computing #Innovation #Cryptography #Future&lt;/h1&gt;
 </description>
-      <itunes:summary>Today's segment explores the revolutionary field of quantum computing, where the bizarre principles of quantum mechanics are harnessed to create computational systems that could fundamentally transfor</itunes:summary>
+      <itunes:summary>Today's segment explores the revolutionary field of quantum computing, where the bizarre principles of quantum mechanics are harnessed to create computational systems that could fundamentally transform how we process information. We dive into the quantum bits (qubits) that form the foundation of quantum computers, examining how superposition and entanglement enable quantum systems to perform certain calculations exponentially faster than classical computers.</itunes:summary>
       <content:encoded>&lt;p&gt;Today's segment explores the revolutionary field of quantum computing, where the bizarre principles of quantum mechanics are harnessed to create computational systems that could fundamentally transform how we process information. We dive into the quantum bits (qubits) that form the foundation of quantum computers, examining how superposition and entanglement enable quantum systems to perform certain calculations exponentially faster than classical computers.&lt;/p&gt;
 
 &lt;p&gt;Quantum computing represents a paradigm shift from classical binary computing to a probabilistic computational model based on quantum mechanical phenomena. Unlike classical bits that exist in definite 0 or 1 states, qubits can exist in superposition, simultaneously representing both states until measured. This quantum parallelism allows quantum computers to explore multiple solution paths simultaneously.&lt;/p&gt;
@@ -4124,13 +4081,13 @@ In this episode of Frontiers of Research, host Antoni explores the revolutionary
 </content:encoded>
       <itunes:author>CopernicusAI</itunes:author>
       <enclosure url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/audio/ever-phys-250031.mp3" type="audio/mpeg" length="9121419"/>
-      <guid>ever-phys-250031</guid>
-      <pubDate>Sat, 26 Jul 2025 00:00:00 GMT</pubDate>
+      <guid isPermaLink="false">ever-phys-250031</guid>
+      <pubDate>Tue, 29 Jul 2025 00:00:00 GMT</pubDate>
       <itunes:image href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-phys-250031-thumb.jpg"/>
-      <ns72:thumbnail xmlns:ns72="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-phys-250031-thumb.jpg"/>
-      <ns73:content xmlns:ns73="http://search.yahoo.com/mrss/" url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-phys-250031-thumb.jpg" medium="image"/>
-      <itunes:duration>6,04</itunes:duration>
-      <itunes:explicit>no</itunes:explicit>
+      <media:thumbnail url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-phys-250031-thumb.jpg"/>
+      <media:content url="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/ever-phys-250031-thumb.jpg" medium="image"/>
+      <itunes:duration>6:04</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:season>1</itunes:season>
       <itunes:episode>37</itunes:episode>
     </item>
