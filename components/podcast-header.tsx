@@ -63,13 +63,6 @@ export default function PodcastHeader({ podcast }: PodcastHeaderProps) {
         <p className="text-lg mb-8">{description}</p>
 
         <div className="flex gap-3">
-          <Link
-            href="/create"
-            className="inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md font-medium transition-colors"
-          >
-            <Plus className="mr-2 h-4 w-4" />
-            Create Podcast
-          </Link>
           {spotifyUrl && (
             <a
               href={spotifyUrl}
