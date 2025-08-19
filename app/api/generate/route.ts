@@ -37,18 +37,18 @@ interface GenerationJob {
 const jobs = new Map<string, GenerationJob>();
 
 // Backend URL (local for testing, Cloud Run for production)
-const BACKEND_URL = process.env.CLOUD_RUN_URL || 'http://localhost:8002';
+const BACKEND_URL = process.env.CLOUD_RUN_URL || 'https://copernicus-podcast-api-204731194849.us-central1.run.app';
 
 // Submit job to Google AI backend
 async function submitToCloudRun(requestData: any): Promise<any> {
   try {
-    console.log(`🚀 Submitting to Google AI backend: ${BACKEND_URL}/generate-podcast-legacy`);
+    console.log(`🚀 Submitting to Google AI backend: ${BACKEND_URL}/generate-legacy-podcast`);
     
     // Create AbortController for timeout handling
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 60000); // 60 second timeout
     
-    const response = await fetch(`${BACKEND_URL}/generate-podcast-legacy`, {
+    const response = await fetch(`${BACKEND_URL}/generate-legacy-podcast`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
