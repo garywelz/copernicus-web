@@ -47,6 +47,9 @@ async function submitToCloudRun(requestData: any): Promise<any> {
     console.log(`🚀 Submitting to Google AI backend: ${BACKEND_URL}/generate-legacy-podcast`);
     console.log(`🚀 Request data:`, JSON.stringify(requestData, null, 2));
     
+    // Add timestamp to prevent caching
+    requestData.timestamp = Date.now();
+    
     // Create AbortController for timeout handling
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 300000); // 5 minute timeout
@@ -57,6 +60,8 @@ async function submitToCloudRun(requestData: any): Promise<any> {
       headers: {
         'Content-Type': 'application/json',
         'User-Agent': 'CopernicusAI-Frontend/1.0',
+        'Cache-Control': 'no-cache',
+        'Pragma': 'no-cache',
       },
       body: JSON.stringify(requestData),
       signal: controller.signal,
