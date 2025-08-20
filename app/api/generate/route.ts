@@ -61,6 +61,19 @@ async function submitToCloudRun(requestData: any): Promise<any> {
         signal: controller.signal,
       });
       console.log(`🚀 Health check status: ${healthResponse.status}`);
+      
+      const testResponse = await fetch(`${BACKEND_URL}/test-frontend`, {
+        method: 'GET',
+        headers: {
+          'User-Agent': 'CopernicusAI-Frontend/1.0',
+        },
+        signal: controller.signal,
+      });
+      console.log(`🚀 Test frontend status: ${testResponse.status}`);
+      if (testResponse.ok) {
+        const testData = await testResponse.json();
+        console.log(`🚀 Test frontend response:`, testData);
+      }
     } catch (healthError) {
       console.error('❌ Health check failed:', healthError);
     }
