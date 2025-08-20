@@ -124,6 +124,10 @@ async function submitToCloudRun(requestData: any): Promise<any> {
 }
 
 export async function POST(request: NextRequest) {
+  console.log('🔥🔥🔥 POST FUNCTION CALLED 🔥🔥🔥');
+  console.log('🔥🔥🔥 TIMESTAMP:', new Date().toISOString());
+  console.log('🔥🔥🔥 REQUEST URL:', request.url);
+  
   try {
     console.log(`🚀 POST request received at: ${new Date().toISOString()}`);
     const formData = await request.formData();
