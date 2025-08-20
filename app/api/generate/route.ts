@@ -46,7 +46,7 @@ async function submitToCloudRun(requestData: any): Promise<any> {
     
     // Create AbortController for timeout handling
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 60000); // 60 second timeout
+    const timeoutId = setTimeout(() => controller.abort(), 300000); // 5 minute timeout
     
     const response = await fetch(`${BACKEND_URL}/generate-legacy-podcast`, {
       method: 'POST',
