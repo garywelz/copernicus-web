@@ -30,11 +30,11 @@ COPY . .
 RUN mkdir -p /tmp/podcast_generation
 
 # Add health check
-HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+HEALTHCHECK --interval=30s --timeout=10s --start-period=120s --retries=3 \
     CMD curl -f http://localhost:$PORT/health || exit 1
 
 # Expose port
 EXPOSE $PORT
 
-# Run the application
-CMD exec uvicorn main:app --host 0.0.0.0 --port $PORT --workers 1
+# Run the enhanced character-driven application
+CMD exec uvicorn main_google:app --host 0.0.0.0 --port $PORT --workers 1

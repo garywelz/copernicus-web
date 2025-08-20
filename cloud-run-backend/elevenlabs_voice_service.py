@@ -355,44 +355,71 @@ class ElevenLabsVoiceService:
         """
         logger.info("🎵 Adding audio bumpers (intro and outro)")
         
+        # Validate main audio
+        if not main_audio or len(main_audio) == 0:
+            logger.error("❌ Main audio is empty, cannot add bumpers")
+            raise ValueError("Main audio is empty")
+        
+        logger.info(f"📊 Main audio size: {len(main_audio)} bytes")
+        
         try:
             # Read bumper files
+            logger.info(f"📁 Reading intro bumper: {intro_path}")
             with open(intro_path, 'rb') as f:
                 intro_audio = f.read()
+            logger.info(f"📊 Intro bumper size: {len(intro_audio)} bytes")
             
+            logger.info(f"📁 Reading outro bumper: {outro_path}")
             with open(outro_path, 'rb') as f:
                 outro_audio = f.read()
+            logger.info(f"📊 Outro bumper size: {len(outro_audio)} bytes")
             
             # Combine: intro + main + outro
             final_audio = intro_audio + main_audio + outro_audio
+            logger.info(f"📊 Final audio size: {len(final_audio)} bytes")
             
             logger.info("✅ Audio bumpers added successfully")
             return final_audio
             
+        except FileNotFoundError as e:
+            logger.error(f"❌ Bumper file not found: {e}")
+            logger.warning("⚠️ Returning audio without bumpers")
+            return main_audio  # Return original audio if bumpers fail
         except Exception as e:
             logger.error(f"❌ Failed to add audio bumpers: {e}")
+            logger.warning("⚠️ Returning audio without bumpers")
             return main_audio  # Return original audio if bumpers fail
     
     async def generate_multi_voice_audio_with_bumpers(self, script: str, job_id: str, canonical_filename: str, intro_path: str, outro_path: str) -> str:
-        """Generate multi-voice audio with bumpers and upload to GCS"""
+        """Generate single-voice audio with bumpers and upload to GCS"""
         from google.cloud import storage
         import tempfile
         import os
+
+        # --- Start of Edit: Add script validation ---
+        if not script or not script.strip():
+            raise ValueError("Input script is empty or contains only whitespace. Cannot generate audio.")
+        # --- End of Edit ---
         
-        logger.info(f"🎵 Generating multi-voice audio with bumpers for {canonical_filename}")
+        logger.info(f"🎵 Generating single-voice audio with bumpers for {canonical_filename}")
         
-        # Parse script and synthesize segments
-        script_segments = self._parse_script_segments(script)
-        if not script_segments:
-            # Fallback: treat entire script as a single HOST segment
-            logger.warning("⚠️ No structured segments found; using single HOST segment with full script")
-            clean_full = self._preprocess_text_for_natural_speech(script)
-            script_segments = [{"speaker": "host", "content": clean_full}]
-        synthesis_result = await self.synthesize_script_segments(script_segments)
+        # Clean and preprocess the entire script for natural speech
+        clean_script = self._preprocess_text_for_natural_speech(script)
+        
+        # Generate single audio file using host voice
+        logger.info(f"🔊 Generating audio for script ({len(clean_script)} characters)")
+        voice_config = self.voice_configs['host']  # Use host voice for entire script
+        
+        try:
+            audio_data, duration = await self._synthesize_segment(clean_script, voice_config)
+            logger.info(f"✅ Audio generated successfully: {duration:.1f}s")
+        except Exception as e:
+            logger.error(f"❌ Failed to generate audio: {e}")
+            raise Exception(f"TTS generation failed: {e}")
         
         # Add bumpers to the audio
         audio_with_bumpers = await self.add_audio_bumpers(
-            synthesis_result.audio_data, intro_path, outro_path
+            audio_data, intro_path, outro_path
         )
         
         # Upload to GCS

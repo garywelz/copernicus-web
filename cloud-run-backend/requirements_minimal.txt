@@ -1,0 +1,14 @@
+# Minimal working requirements for Cloud Run deployment
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+pydantic==2.5.0
+python-multipart==0.0.6
+
+# HTTP client
+aiohttp==3.9.1
+
+# Google Cloud (minimal set)
+google-cloud-secretmanager==2.16.4
+
+# OpenAI for content and TTS
+openai==1.3.0

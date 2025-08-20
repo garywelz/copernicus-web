@@ -9,7 +9,7 @@ import asyncio
 import aiohttp
 import json
 
-app = FastAPI(title="Copernicus Podcast API - OpenAI TTS")
+app = FastAPI(title="Copernicus Podcast API - Working")
 
 app.add_middleware(
     CORSMiddleware,
@@ -29,23 +29,23 @@ class PodcastGenerationRequest(BaseModel):
     additional_notes: Optional[str] = ""
     source_links: Optional[List[str]] = []
 
-def get_secret(secret_name: str) -> str:
-    """Get secret from environment or Google Secret Manager"""
-    try:
-        from google.cloud import secretmanager
-        client = secretmanager.SecretManagerServiceClient()
-        project_id = "regal-scholar-453620-r7"
-        name = f"projects/{project_id}/secrets/{secret_name}/versions/latest"
-        response = client.access_secret_version(request={"name": name})
-        return response.payload.data.decode("UTF-8")
-    except Exception as e:
-        print(f"Error getting secret {secret_name}: {e}")
-        return os.environ.get(secret_name.upper().replace('-', '_'))
+def get_openai_key():
+    """Get OpenAI API key from environment"""
+    # Try multiple environment variable names
+    key = (os.environ.get("OPENAI_API_KEY") or 
+           os.environ.get("OPENAI_KEY") or
+           os.environ.get("openai-api-key"))
+    
+    if not key:
+        print("⚠️  OpenAI API key not found in environment")
+        print("Available env vars:", [k for k in os.environ.keys() if 'openai' in k.lower()])
+    return key
 
 async def generate_content_openai(subject: str, duration: str, difficulty: str, notes: str = "") -> dict:
-    """Generate content using OpenAI"""
-    openai_key = get_secret("openai-api-key")
+    """Generate content using OpenAI with proper error handling"""
+    openai_key = get_openai_key()
     if not openai_key:
+        print("❌ No OpenAI API key - using fallback content")
         return create_fallback_content(subject, duration, difficulty)
     
     prompt = f"""Create a compelling {duration} research podcast script about "{subject}" for {difficulty} audience.
@@ -63,6 +63,7 @@ Return JSON:
 {{"title": "Episode title", "script": "Full script", "description": "Episode description"}}"""
     
     try:
+        print(f"🔄 Calling OpenAI API for content generation...")
         async with aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(total=30)) as session:
             headers = {"Authorization": f"Bearer {openai_key}", "Content-Type": "application/json"}
             data = {
@@ -77,6 +78,7 @@ Return JSON:
                 if response.status == 200:
                     result = await response.json()
                     content_text = result["choices"][0]["message"]["content"]
+                    print(f"✅ OpenAI content generated successfully")
                     try:
                         return json.loads(content_text)
                     except:
@@ -85,16 +87,21 @@ Return JSON:
                             "script": content_text,
                             "description": f"AI-generated exploration of {subject}"
                         }
+                else:
+                    error_text = await response.text()
+                    print(f"❌ OpenAI API error {response.status}: {error_text}")
     except Exception as e:
-        print(f"OpenAI content error: {e}")
+        print(f"❌ OpenAI content error: {e}")
     
+    print("⚠️  Using fallback content due to API issues")
     return create_fallback_content(subject, duration, difficulty)
 
-async def generate_audio_openai(script: str) -> str:
-    """Generate audio using OpenAI TTS"""
-    openai_key = get_secret("openai-api-key")
+async def generate_audio_openai(script: str, job_id: str) -> str:
+    """Generate audio using OpenAI TTS with proper error handling"""
+    openai_key = get_openai_key()
     if not openai_key:
-        return f"https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/audio/demo-{datetime.now().strftime('%H%M%S')}.mp3"
+        print("❌ No OpenAI API key - returning mock audio URL")
+        return f"https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/audio/demo-{job_id[:8]}.mp3"
     
     # Clean and limit script for TTS
     clean_script = script.replace("**", "").replace("*", "").strip()
@@ -102,6 +109,7 @@ async def generate_audio_openai(script: str) -> str:
         clean_script = clean_script[:4000] + "..."
     
     try:
+        print(f"🔄 Calling OpenAI TTS API for audio generation...")
         async with aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(total=60)) as session:
             headers = {"Authorization": f"Bearer {openai_key}", "Content-Type": "application/json"}
             data = {
@@ -114,13 +122,23 @@ async def generate_audio_openai(script: str) -> str:
             async with session.post("https://api.openai.com/v1/audio/speech", 
                                   headers=headers, json=data) as response:
                 if response.status == 200:
-                    # For demo, return a mock URL (in production, would upload to GCS)
-                    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-                    return f"https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/audio/openai-{timestamp}.mp3"
+                    # Save audio to local file for immediate playback
+                    audio_filename = f"/tmp/podcast_{job_id[:8]}.mp3"
+                    with open(audio_filename, 'wb') as f:
+                        async for chunk in response.content.iter_chunked(8192):
+                            f.write(chunk)
+                    
+                    print(f"✅ OpenAI TTS audio generated: {audio_filename}")
+                    # Return local file path for immediate access
+                    return f"file://{audio_filename}"
+                else:
+                    error_text = await response.text()
+                    print(f"❌ OpenAI TTS API error {response.status}: {error_text}")
     except Exception as e:
-        print(f"OpenAI TTS error: {e}")
+        print(f"❌ OpenAI TTS error: {e}")
     
-    return f"https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/audio/demo-{datetime.now().strftime('%H%M%S')}.mp3"
+    print("⚠️  Returning mock audio URL due to TTS issues")
+    return f"https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/audio/demo-{job_id[:8]}.mp3"
 
 def create_fallback_content(subject: str, duration: str, difficulty: str) -> dict:
     """Fallback content when APIs are unavailable"""
@@ -141,12 +159,14 @@ Thank you for joining this exploration of {subject}, demonstrating AI-powered co
     }
 
 async def process_podcast_generation(job_id: str, request_data: PodcastGenerationRequest):
-    """Process podcast generation with OpenAI TTS"""
+    """Process podcast generation with detailed logging"""
     try:
+        print(f"🚀 Starting podcast generation for job {job_id}")
         jobs[job_id]["status"] = "processing"
         jobs[job_id]["updated_at"] = datetime.now().isoformat()
         
         # Generate content
+        print(f"📝 Generating content for: {request_data.subject}")
         content = await generate_content_openai(
             request_data.subject, 
             request_data.duration,
@@ -155,7 +175,8 @@ async def process_podcast_generation(job_id: str, request_data: PodcastGeneratio
         )
         
         # Generate audio
-        audio_url = await generate_audio_openai(content["script"])
+        print(f"🎙️  Generating audio for job {job_id}")
+        audio_url = await generate_audio_openai(content["script"], job_id)
         
         # Mock thumbnail
         thumbnail_url = f"https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/demo-{job_id[:8]}-thumb.jpg"
@@ -175,18 +196,26 @@ async def process_podcast_generation(job_id: str, request_data: PodcastGeneratio
         }
         jobs[job_id]["updated_at"] = datetime.now().isoformat()
         
+        print(f"✅ Podcast generation completed for job {job_id}")
+        
     except Exception as e:
+        print(f"❌ Podcast generation failed for job {job_id}: {e}")
         jobs[job_id]["status"] = "failed"
         jobs[job_id]["error"] = str(e)
         jobs[job_id]["updated_at"] = datetime.now().isoformat()
 
 @app.get("/")
 async def root():
-    return {"message": "Copernicus Podcast API - OpenAI TTS", "status": "operational"}
+    openai_available = get_openai_key() is not None
+    return {
+        "message": "Copernicus Podcast API - Working", 
+        "status": "operational",
+        "openai_available": openai_available
+    }
 
 @app.get("/health")
 async def health():
-    openai_available = get_secret("openai-api-key") is not None
+    openai_available = get_openai_key() is not None
     return {
         "status": "healthy",
         "timestamp": datetime.now().isoformat(),
@@ -194,12 +223,15 @@ async def health():
             "openai_content": "available" if openai_available else "unavailable",
             "openai_tts": "available" if openai_available else "unavailable",
             "job_manager": "healthy"
-        }
+        },
+        "total_jobs": len(jobs)
     }
 
 @app.post("/generate-podcast")
 async def generate_podcast(request: PodcastGenerationRequest, background_tasks: BackgroundTasks):
     job_id = str(uuid.uuid4())
+    
+    print(f"📥 New podcast request: {request.subject} ({request.duration}, {request.difficulty})")
     
     jobs[job_id] = {
         "id": job_id,
@@ -221,4 +253,6 @@ async def get_job_status(job_id: str):
 if __name__ == "__main__":
     import uvicorn
     port = int(os.environ.get("PORT", 8002))
+    print(f"🚀 Starting Copernicus Podcast API on port {port}")
+    print(f"🔑 OpenAI API Key: {'✅ Found' if get_openai_key() else '❌ Missing'}")
     uvicorn.run(app, host="0.0.0.0", port=port)

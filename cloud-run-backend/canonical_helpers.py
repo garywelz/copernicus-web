@@ -4,27 +4,39 @@ Helper functions for canonical podcast generation
 
 import re
 import aiohttp
-from google.cloud import storage
+from google.cloud import storage, secretmanager
 from datetime import datetime
 from typing import List, Optional
+
+def get_secret(secret_name: str) -> str:
+    """Get secret from Google Secret Manager"""
+    try:
+        client = secretmanager.SecretManagerServiceClient()
+        name = f"projects/regal-scholar-453620-r7/secrets/{secret_name}/versions/latest"
+        response = client.access_secret_version(request={"name": name})
+        return response.payload.data.decode("UTF-8").strip()
+    except Exception as e:
+        print(f"Could not get secret {secret_name}: {e}")
+        return ""
 
 async def generate_canonical_thumbnail(title: str, canonical_filename: str) -> str:
     """Generate thumbnail with canonical naming"""
     from canonical_naming import canonical_service
     
     try:
+        # Sanitize title to prevent header injection
+        clean_title = re.sub(r'[\r\n\t]', ' ', title).strip()
+        clean_title = re.sub(r'\s+', ' ', clean_title)  # Normalize whitespace
+        
         # Use OpenAI DALL-E to generate thumbnail
         openai_key = get_secret("openai-api-key")
         if not openai_key:
+            print("⚠️ OpenAI API key not found, using default thumbnail")
             return await generate_default_thumbnail(canonical_filename)
         
-        prompt = f"""
-        Create a professional podcast thumbnail for "{title}".
-        Style: Modern, scientific, clean design
-        Elements: Abstract scientific imagery, professional typography
-        Colors: Blue and white theme, high contrast
-        Format: Square, podcast-ready, visually striking
-        """
+        print(f"✅ OpenAI API key found, generating DALL-E thumbnail")
+        
+        prompt = f"Create a professional podcast thumbnail for '{clean_title}'. Style: Modern, scientific, clean design with abstract scientific imagery, professional typography, blue and white theme, high contrast. Format: Square, podcast-ready, visually striking."
         
         async with aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(total=30)) as session:
             headers = {
@@ -114,6 +126,51 @@ def extract_citations_from_content(script: str) -> List[str]:
         ]
     
     return citations[:5]  # Limit to 5 citations
+
+def determine_canonical_filename(topic: str, title: str) -> dict:
+    """Determine canonical filename based on topic category and next available episode number"""
+    # Map topics to categories
+    category_mapping = {
+        "biology": "bio",
+        "chemistry": "chem", 
+        "computer science": "compsci",
+        "mathematics": "math",
+        "physics": "phys"
+    }
+    
+    # Determine category from topic
+    category = "phys"  # Default
+    topic_lower = topic.lower()
+    for key, value in category_mapping.items():
+        if key in topic_lower:
+            category = value
+            break
+    
+    # For now, use a simple incrementing number (in production, would check CSV)
+    import random
+    episode_number = random.randint(250033, 250050)  # Next available range
+    
+    canonical_filename = f"ever-{category}-{episode_number}"
+    
+    return {
+        "filename": canonical_filename,
+        "category": category,
+        "episode": episode_number,
+        "season": 1,
+        "title": title
+    }
+
+def get_next_episode_info(category: str) -> dict:
+    """Get next available episode information for category"""
+    # Simplified version - in production would read from canonical CSV
+    import random
+    episode_number = random.randint(250033, 250050)
+    
+    return {
+        "episode": episode_number,
+        "season": 1,
+        "filename": f"ever-{category}-{episode_number}"
+    }
 
 def get_secret(secret_name: str) -> str:
     """Get secret from Google Secret Manager"""

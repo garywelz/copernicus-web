@@ -30,8 +30,8 @@ def generate_rss_lxml(csv_path, output_path):
     }
     rss = etree.Element('rss', nsmap=NSMAP, version='2.0')
     channel = etree.SubElement(rss, 'channel')
-    # PSP-1: itunes:explicit MUST be first
-    etree.SubElement(channel, '{%s}explicit' % NAMESPACES['itunes']).text = 'no'
+    # PSP-1: itunes:explicit MUST be first - FIX: Use 'false' not 'no'
+    etree.SubElement(channel, '{%s}explicit' % NAMESPACES['itunes']).text = 'false'
     # Atom self-link
     etree.SubElement(channel, '{%s}link' % NAMESPACES['atom'], href='https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/feeds/copernicus-mvp-rss-feed.xml', rel='self', type='application/rss+xml')
     # Guarantee podcast namespace usage
@@ -40,14 +40,14 @@ def generate_rss_lxml(csv_path, output_path):
     etree.SubElement(channel, 'description').text = FEED_DESCRIPTION
     etree.SubElement(channel, 'link').text = FEED_LINK
     etree.SubElement(channel, 'language').text = 'en-us'
-    # itunes:category with subcategory
+    # itunes:category with VALID subcategories only - FIX: Use predefined iTunes categories
     cat = etree.SubElement(channel, '{%s}category' % NAMESPACES['itunes'], text='Science')
-    etree.SubElement(cat, '{%s}category' % NAMESPACES['itunes'], text='Artificial Intelligence')
-    etree.SubElement(cat, '{%s}category' % NAMESPACES['itunes'], text='Biology')
-    etree.SubElement(cat, '{%s}category' % NAMESPACES['itunes'], text='Chemistry')
-    etree.SubElement(cat, '{%s}category' % NAMESPACES['itunes'], text='Computer Science')
-    etree.SubElement(cat, '{%s}category' % NAMESPACES['itunes'], text='Mathematics')
+    # Only use valid iTunes subcategories under Science
+    etree.SubElement(cat, '{%s}category' % NAMESPACES['itunes'], text='Natural Sciences')
     etree.SubElement(cat, '{%s}category' % NAMESPACES['itunes'], text='Physics')
+    etree.SubElement(cat, '{%s}category' % NAMESPACES['itunes'], text='Mathematics')
+    # Add Technology category for computer science content
+    tech_cat = etree.SubElement(channel, '{%s}category' % NAMESPACES['itunes'], text='Technology')
     etree.SubElement(channel, '{%s}author' % NAMESPACES['itunes']).text = 'CopernicusAI'
     etree.SubElement(channel, '{%s}summary' % NAMESPACES['itunes']).text = FEED_DESCRIPTION
     etree.SubElement(channel, '{%s}type' % NAMESPACES['itunes']).text = 'episodic'
@@ -108,8 +108,28 @@ def generate_rss_lxml(csv_path, output_path):
             etree.SubElement(item, 'description').text = desc_html
             def html_to_text(html):
                 return re.sub('<[^<]+?>', '', html)
-            summary_text = html_to_text(desc_html).strip()[:200] if desc_html else 'Description coming soon.'
-            etree.SubElement(item, '{%s}summary' % NAMESPACES['itunes']).text = summary_text if summary_text else 'Description coming soon.'
+            
+            def extract_first_paragraph(html):
+                """Extract the entire first paragraph from HTML content for iTunes summary"""
+                if not html:
+                    return 'Description coming soon.'
+                
+                # Remove HTML tags to get plain text
+                plain_text = html_to_text(html).strip()
+                
+                # Split by double newlines (paragraph breaks) and take first paragraph
+                paragraphs = plain_text.split('\n\n')
+                first_paragraph = paragraphs[0].strip() if paragraphs else plain_text.strip()
+                
+                # If still empty or too short, fall back to first sentence
+                if not first_paragraph or len(first_paragraph) < 10:
+                    sentences = plain_text.split('. ')
+                    first_paragraph = sentences[0].strip() + '.' if sentences and sentences[0] else 'Description coming soon.'
+                
+                return first_paragraph if first_paragraph else 'Description coming soon.'
+            
+            summary_text = extract_first_paragraph(desc_html)
+            etree.SubElement(item, '{%s}summary' % NAMESPACES['itunes']).text = summary_text
             content_encoded = etree.SubElement(item, '{%s}encoded' % NAMESPACES['content'])
             content_encoded.text = desc_html if desc_html else 'Description coming soon.'
             etree.SubElement(item, '{%s}author' % NAMESPACES['itunes']).text = 'CopernicusAI'
@@ -117,7 +137,8 @@ def generate_rss_lxml(csv_path, output_path):
             file_size = row[3].strip() if len(row) > 3 and row[3] else ''
             enclosure_length = file_size if file_size.isdigit() else '1'
             etree.SubElement(item, 'enclosure', url=audio_url, type='audio/mpeg', length=enclosure_length)
-            etree.SubElement(item, 'guid').text = fname
+            # FIX: GUID must be full URL or have isPermaLink="false"
+            etree.SubElement(item, 'guid', isPermaLink='false').text = fname
             pub_date = datetime.datetime.now().strftime('%a, %d %b %Y 00:00:00 GMT')
             etree.SubElement(item, 'pubDate').text = pub_date
             thumb_url = f'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/{fname}-thumb.jpg'
@@ -131,7 +152,8 @@ def generate_rss_lxml(csv_path, output_path):
             if ',' in duration:
                 duration = duration.replace(',', ':')
             etree.SubElement(item, '{%s}duration' % NAMESPACES['itunes']).text = duration
-            etree.SubElement(item, '{%s}explicit' % NAMESPACES['itunes']).text = 'no'
+            # FIX: Use 'false' not 'no' for iTunes explicit
+            etree.SubElement(item, '{%s}explicit' % NAMESPACES['itunes']).text = 'false'
             # Insert season and episode tags if present
             if season:
                 etree.SubElement(item, '{%s}season' % NAMESPACES['itunes']).text = season

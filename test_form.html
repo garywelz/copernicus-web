@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Form</title>
+</head>
+<body>
+    <h1>Test Podcast Form</h1>
+    <form id="testForm">
+        <div>
+            <label>Subject:</label>
+            <input type="text" name="subject" value="Test Subject" required>
+        </div>
+        <div>
+            <label>Duration:</label>
+            <input type="text" name="duration" value="5 minutes" required>
+        </div>
+        <div>
+            <label>Speakers:</label>
+            <input type="text" name="speakers" value="2" required>
+        </div>
+        <div>
+            <label>Difficulty:</label>
+            <input type="text" name="difficulty" value="intermediate" required>
+        </div>
+        <button type="submit">Submit Test</button>
+    </form>
+    
+    <div id="result"></div>
+
+    <script>
+        document.getElementById('testForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const resultDiv = document.getElementById('result');
+            
+            console.log('🚀 Form submitted');
+            console.log('🚀 Form data:', Object.fromEntries(formData));
+            
+            try {
+                console.log('🚀 Making fetch request to /api/generate');
+                const response = await fetch('/api/generate', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                console.log('🚀 Response status:', response.status);
+                console.log('🚀 Response headers:', response.headers);
+                
+                const result = await response.text();
+                console.log('🚀 Response body:', result);
+                
+                resultDiv.innerHTML = `<pre>Status: ${response.status}\nResponse: ${result}</pre>`;
+                
+            } catch (error) {
+                console.error('❌ Fetch error:', error);
+                resultDiv.innerHTML = `<pre>Error: ${error.message}</pre>`;
+            }
+        });
+    </script>
+</body>
+</html>

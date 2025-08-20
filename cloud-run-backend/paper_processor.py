@@ -9,7 +9,7 @@ import hashlib
 from typing import Dict, Any, Optional, List
 from dataclasses import dataclass
 from datetime import datetime, timedelta
-import google.generativeai as genai
+import google.genai as genai
 import os
 
 # Cache duration in seconds (24 hours)

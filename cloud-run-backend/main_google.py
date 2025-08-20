@@ -11,17 +11,34 @@ import json
 from paper_processor import process_paper, ResearchPaper, AnalyzeOptions, PaperAnalysis, format_citation
 from copernicus_character import get_copernicus_character, get_character_prompt, CopernicusCharacter
 from elevenlabs_voice_service import ElevenLabsVoiceService
+import re
+
+def _extract_json_from_response(text: str) -> dict:
+    """Extracts a JSON object from a string, even if it's embedded in other text."""
+    # Regex to find a JSON object, potentially wrapped in markdown ```json ... ```
+    json_match = re.search(r'```json\s*(\{.*?\})\s*```|(\{.*?\})', text, re.DOTALL)
+    
+    if not json_match:
+        raise ValueError("No JSON object found in the AI's response.")
+        
+    # The regex has two capturing groups, one for the markdown case, one for the raw case.
+    json_str = json_match.group(1) or json_match.group(2)
+    
+    try:
+        return json.loads(json_str)
+    except json.JSONDecodeError as e:
+        raise ValueError(f"Failed to decode extracted JSON: {e}\nOriginal text snippet: {json_str[:200]}...")
 
 # Vertex AI and Secret Manager imports
 try:
+    from google import genai as google_genai_client
     import vertexai
-    from vertexai.generative_models import GenerativeModel
-    from google.cloud import secretmanager
+    from google.cloud import secretmanager, firestore
     from google.oauth2 import service_account
     VERTEX_AI_AVAILABLE = True
 except ImportError as e:
-    print(f"⚠️  Vertex AI dependencies not available: {e}")
-    print("Install with: pip install google-cloud-aiplatform google-cloud-secret-manager")
+    print(f"⚠️  Vertex AI or Firestore dependencies not available: {e}")
+    print("Install with: pip install google-cloud-aiplatform google-cloud-secret-manager google-cloud-firestore")
     VERTEX_AI_AVAILABLE = False
 
 app = FastAPI(title="Copernicus Podcast API - Google AI")
@@ -33,8 +50,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-
 
 class PodcastRequest(BaseModel):
     topic: str
@@ -113,37 +128,19 @@ def get_service_account_credentials_from_secret_manager(project_id: str, secret_
 
 def initialize_vertex_ai():
     """Initialize Vertex AI with credentials from Secret Manager"""
-    if not VERTEX_AI_AVAILABLE:
-        print("⚠️  Vertex AI not available - missing dependencies")
-        return None
-        
     try:
-        print(f"🔄 Retrieving Vertex AI credentials from Secret Manager (Secret ID: {SECRET_ID})...")
-        credentials = get_service_account_credentials_from_secret_manager(
-            GCP_PROJECT_ID, SECRET_ID, SECRET_VERSION_ID
-        )
+        # Credentials should be picked up automatically by the library from the environment.
+        # The gcloud auth application-default login or service account on Cloud Run handles this.
+        client = google_genai_client.Client(vertexai=True, project=GCP_PROJECT_ID, location=VERTEX_AI_REGION)
         
-        if not credentials:
-            print("❌ Could not retrieve Vertex AI credentials")
-            return None
-            
-        print("✅ Vertex AI credentials successfully retrieved from Secret Manager")
-        
-        # Initialize Vertex AI with the retrieved credentials
-        vertexai.init(project=GCP_PROJECT_ID, location=VERTEX_AI_REGION, credentials=credentials)
-        print(f"✅ Vertex AI initialized for project {GCP_PROJECT_ID} in {VERTEX_AI_REGION}")
-        
-        # Test Vertex AI connection
-        model = GenerativeModel("gemini-1.0-pro")
-        print("✅ Vertex AI Gemini model ready")
-        return model
+        # Test connection by listing a model
+        client.models.get("models/gemini-1.5-pro-latest")
+        print("✅ google-genai client for Vertex AI initialized and model confirmed.")
+        return client
         
     except Exception as e:
-        print(f"❌ Vertex AI initialization failed: {e}")
-        print("\nTroubleshooting steps:")
-        print(f"- Ensure the secret '{SECRET_ID}' exists in Secret Manager in project '{GCP_PROJECT_ID}'")
-        print("- Verify service account has 'Secret Manager Secret Accessor' role")
-        print(f"- Check project ID ('{GCP_PROJECT_ID}') and region ('{VERTEX_AI_REGION}')")
+        print(f"❌ Failed to initialize google-genai Vertex AI client: {e}")
+        print("Falling back to Google AI API key if available.")
         return None
 
 def get_google_api_key():
@@ -173,11 +170,11 @@ def get_google_api_key():
     return key
 
 # Initialize services on startup
-vertex_model = initialize_vertex_ai()
+vertex_ai_model = initialize_vertex_ai()
 
 # Initialize Firestore client
 try:
-    db = firestore.Client(project=GCP_PROJECT_ID)
+    db = firestore.Client(project=GCP_PROJECT_ID, database="copernicusai")
     print("✅ Firestore client initialized successfully")
 except Exception as e:
     print(f"❌ Failed to initialize Firestore client: {e}")
@@ -187,7 +184,7 @@ async def generate_research_driven_content(request: PodcastRequest) -> dict:
     """Generate research-driven content using paper analysis and Google Gemini (Vertex AI or API)"""
     
     # Try Vertex AI first, then fall back to Google AI API
-    if vertex_model:
+    if vertex_ai_model:
         print("🚀 Using Vertex AI Gemini for content generation")
         return await generate_content_vertex_ai(request)
     else:
@@ -195,95 +192,76 @@ async def generate_research_driven_content(request: PodcastRequest) -> dict:
         google_key = get_google_api_key()
         if not google_key:
             print("❌ No Google AI API key - using fallback content")
-            return create_fallback_content(request.topic, request.duration, request.expertise_level)
+            raise ValueError("Google AI API key is not available.")
         return await generate_content_google_api(request, google_key)
 
 async def generate_content_vertex_ai(request: PodcastRequest) -> dict:
-    """Generate content using Vertex AI Gemini"""
-    try:
-        # Check if we have research paper content to analyze
-        if request.paper_content and request.paper_title:
-            print(f"🔬 Processing research paper with Vertex AI: {request.paper_title[:50]}...")
-            
-            # Create ResearchPaper object
-            paper = ResearchPaper(
-                title=request.paper_title,
-                authors=request.paper_authors or ["Unknown Author"],
-                content=request.paper_content,
-                abstract=request.paper_abstract,
-                doi=request.paper_doi
-            )
-            
-            # Create analysis options
-            options = AnalyzeOptions(
-                focus_areas=request.focus_areas or ["methodology", "implications", "future_research"],
-                include_citations=request.include_citations,
-                paradigm_shift_analysis=request.paradigm_shift_analysis
-            )
-            
-            # Process paper
-            analysis = await process_paper(paper, options)
-            return await generate_podcast_from_analysis_vertex(paper, analysis, request)
-        else:
-            print(f"🎯 Generating topic-based research content with Vertex AI: {request.topic}")
-            return await generate_topic_research_content_vertex(request)
-            
-    except Exception as e:
-        print(f"❌ Vertex AI content generation error: {e}")
-        # Fall back to Google AI API
-        google_key = get_google_api_key()
-        if google_key:
-            return await generate_content_google_api(request, google_key)
-        else:
-            return create_fallback_content(request.topic, request.duration, request.expertise_level)
+    """Generate content using Vertex AI Gemini. This function will now raise exceptions on failure."""
+    # Check if we have research paper content to analyze
+    if request.paper_content and request.paper_title:
+        print(f"🔬 Processing research paper with Vertex AI: {request.paper_title[:50]}...")
+        
+        # Create ResearchPaper object
+        paper = ResearchPaper(
+            title=request.paper_title,
+            authors=request.paper_authors or ["Unknown Author"],
+            content=request.paper_content,
+            abstract=request.paper_abstract,
+            doi=request.paper_doi
+        )
+        
+        # Create analysis options
+        options = AnalyzeOptions(
+            focus_areas=request.focus_areas or ["methodology", "implications", "future_research"],
+            include_citations=request.include_citations,
+            paradigm_shift_analysis=request.paradigm_shift_analysis
+        )
+        
+        # Process paper
+        analysis = await process_paper(paper, options)
+        return await generate_podcast_from_analysis_vertex(paper, analysis, request)
+    else:
+        print(f"🎯 Generating topic-based research content with Vertex AI: {request.topic}")
+        return await generate_topic_research_content_vertex(request)
 
 async def generate_content_google_api(request: PodcastRequest, google_key: str) -> dict:
-    """Generate content using Google AI API (original implementation)"""
-    
-    try:
-        # Check if we have research paper content to analyze
-        if request.paper_content and request.paper_title:
-            print(f"🔬 Processing research paper with Google AI API: {request.paper_title[:50]}...")
-            
-            # Create ResearchPaper object
-            paper = ResearchPaper(
-                title=request.paper_title,
-                authors=request.paper_authors or ["Unknown Author"],
-                content=request.paper_content,
-                abstract=request.paper_abstract,
-                doi=request.paper_doi
-            )
-            
-            # Create analysis options
-            options = AnalyzeOptions(
-                focus_areas=request.focus_areas or ["methodology", "implications", "future_research"],
-                analysis_depth="comprehensive",
-                include_citations=request.include_citations,
-                paradigm_shift_analysis=request.paradigm_shift_analysis,
-                interdisciplinary_connections=True
-            )
-            
-            # Analyze the paper
-            analysis = await process_paper(paper, options, google_key)
-            
-            # Generate podcast content based on analysis
-            return await generate_podcast_from_analysis(paper, analysis, request, google_key)
-            
-        else:
-            # No paper provided - generate topic-based research content
-            print(f"📚 Generating research-driven content for topic: {request.topic}")
-            return await generate_topic_research_content(request, google_key)
-            
-    except Exception as e:
-        print(f"❌ Research content generation error: {e}")
-        print("⚠️  Using fallback content due to research processing issues")
-        return create_fallback_content(request.topic, request.duration, request.expertise_level)
+    """Generate content using Google AI API. This function will now raise exceptions on failure."""
+    # Check if we have research paper content to analyze
+    if request.paper_content and request.paper_title:
+        print(f"🔬 Processing research paper with Google AI API: {request.paper_title[:50]}...")
+        
+        # Create ResearchPaper object
+        paper = ResearchPaper(
+            title=request.paper_title,
+            authors=request.paper_authors or ["Unknown Author"],
+            content=request.paper_content,
+            abstract=request.paper_abstract,
+            doi=request.paper_doi
+        )
+        
+        # Create analysis options
+        options = AnalyzeOptions(
+            focus_areas=request.focus_areas or ["methodology", "implications", "future_research"],
+            analysis_depth="comprehensive",
+            include_citations=request.include_citations,
+            paradigm_shift_analysis=request.paradigm_shift_analysis,
+            interdisciplinary_connections=True
+        )
+        
+        # Analyze the paper
+        analysis = await process_paper(paper, options, google_key)
+        
+        # Generate podcast content based on analysis
+        return await generate_podcast_from_analysis(paper, analysis, request, google_key)
+        
+    else:
+        # No paper provided - generate topic-based research content
+        print(f"📚 Generating research-driven content for topic: {request.topic}")
+        return await generate_topic_research_content(request, google_key)
 
 async def generate_podcast_from_analysis(paper: ResearchPaper, analysis: PaperAnalysis, request: PodcastRequest, api_key: str) -> dict:
     """Generate character-driven podcast content from research paper analysis"""
-    import google.generativeai as genai
-    genai.configure(api_key=api_key)
-    model = genai.GenerativeModel('gemini-1.5-flash')
+    client = google_genai_client.Client(api_key=api_key)
     
     # Get Copernicus character configuration
     character = get_copernicus_character()
@@ -390,21 +368,15 @@ Return JSON with:
     
     try:
         print(f"🎙️ Generating podcast script from research analysis...")
-        response_obj = model.generate_content(prompt)
+        response_obj = client.models.generate_content(
+            model='gemini-1.5-flash-latest',
+            contents=prompt
+        )
         
         if response_obj and response_obj.text:
-            try:
-                content = json.loads(response_obj.text)
-                print(f"✅ Research-driven podcast content generated successfully")
-                return content
-            except json.JSONDecodeError:
-                # Create structured response from text
-                text = response_obj.text
-                return {
-                    "title": f"Paradigm Shifts in {paper.title[:50]}",
-                    "script": text,
-                    "description": f"Research analysis of {paper.title} - {analysis.summary[:200]}..."
-                }
+            content = _extract_json_from_response(response_obj.text)
+            print(f"✅ Research-driven podcast content generated successfully")
+            return content
         else:
             raise Exception("Empty response from Gemini")
             
@@ -414,9 +386,7 @@ Return JSON with:
 
 async def generate_topic_research_content(request: PodcastRequest, api_key: str) -> dict:
     """Generate character-driven research content for a topic without specific paper"""
-    import google.generativeai as genai
-    genai.configure(api_key=api_key)
-    model = genai.GenerativeModel('gemini-1.5-flash')
+    client = google_genai_client.Client(api_key=api_key)
     
     # Get Copernicus character configuration
     character = get_copernicus_character()
@@ -506,20 +476,15 @@ After generating the main content, create a detailed description following this 
     
     try:
         print(f"🔄 Generating topic-based research content with Gemini...")
-        response_obj = model.generate_content(prompt)
+        response_obj = client.models.generate_content(
+            model='gemini-1.5-flash-latest',
+            contents=prompt
+        )
         
         if response_obj and response_obj.text:
-            try:
-                content = json.loads(response_obj.text)
-                print(f"✅ Topic-based research content generated successfully")
-                return content
-            except json.JSONDecodeError:
-                text = response_obj.text
-                return {
-                    "title": f"Research Frontiers: {request.topic}",
-                    "script": text,
-                    "description": f"Exploring paradigm-shifting research in {request.topic}"
-                }
+            content = _extract_json_from_response(response_obj.text)
+            print(f"✅ Topic-based research content generated successfully")
+            return content
         else:
             raise Exception("Empty response from Gemini")
             
@@ -529,7 +494,7 @@ After generating the main content, create a detailed description following this 
 
 async def generate_podcast_from_analysis_vertex(paper: ResearchPaper, analysis: PaperAnalysis, request: PodcastRequest) -> dict:
     """Generate character-driven podcast content from research paper analysis using Vertex AI"""
-    if not vertex_model:
+    if not vertex_ai_model:
         raise Exception("Vertex AI model not available")
         
     # Get Copernicus character configuration
@@ -618,23 +583,17 @@ Return JSON with:
     
     try:
         print(f"🎙️ Generating podcast script from research analysis using Vertex AI...")
-        response = vertex_model.generate_content(prompt)
+        response = vertex_ai_model.models.generate_content(
+            model='models/gemini-1.5-pro-latest',
+            contents=prompt
+        )
         
         if response and response.text:
-            try:
-                content = json.loads(response.text)
-                print(f"✅ Research-driven podcast content generated successfully with Vertex AI")
-                return content
-            except json.JSONDecodeError:
-                # Create structured response from text
-                text = response.text
-                return {
-                    "title": f"Paradigm Shifts in {paper.title[:50]}",
-                    "script": text,
-                    "description": f"Research analysis of {paper.title} - {analysis.summary[:200]}..."
-                }
+            content = _extract_json_from_response(response.text)
+            print(f"✅ Vertex AI research-driven podcast content generated successfully")
+            return content
         else:
-            raise Exception("Empty response from Vertex AI Gemini")
+            raise Exception("Empty response from Vertex AI")
             
     except Exception as e:
         print(f"❌ Error generating podcast from analysis with Vertex AI: {e}")
@@ -642,7 +601,7 @@ Return JSON with:
 
 async def generate_topic_research_content_vertex(request: PodcastRequest) -> dict:
     """Generate character-driven research content for a topic without specific paper using Vertex AI"""
-    if not vertex_model:
+    if not vertex_ai_model:
         raise Exception("Vertex AI model not available")
         
     # Get Copernicus character configuration
@@ -730,22 +689,17 @@ Return JSON with:
     
     try:
         print(f"🔄 Generating topic-based research content with Vertex AI Gemini...")
-        response = vertex_model.generate_content(prompt)
+        response = vertex_ai_model.models.generate_content(
+            model='models/gemini-1.5-pro-latest',
+            contents=prompt
+        )
         
         if response and response.text:
-            try:
-                content = json.loads(response.text)
-                print(f"✅ Topic-based research content generated successfully with Vertex AI")
-                return content
-            except json.JSONDecodeError:
-                text = response.text
-                return {
-                    "title": f"Research Frontiers: {request.topic}",
-                    "script": text,
-                    "description": f"Exploring paradigm-shifting research in {request.topic}"
-                }
+            content = _extract_json_from_response(response.text)
+            print(f"✅ Vertex AI topic-based podcast content generated successfully")
+            return content
         else:
-            raise Exception("Empty response from Vertex AI Gemini")
+            raise Exception("Empty response from Vertex AI")
             
     except Exception as e:
         print(f"❌ Error generating topic research content with Vertex AI: {e}")
@@ -978,11 +932,13 @@ async def generate_fallback_thumbnail(canonical_filename: str, topic: str) -> st
         storage_client = storage.Client()
         bucket = storage_client.bucket("regal-scholar-453620-r7-podcast-storage")
         
+        # Save image to bytes
         img_bytes = io.BytesIO()
         img.save(img_bytes, format='JPEG', quality=95)
         img_bytes.seek(0)
         
-        thumbnail_filename = f"{canonical_filename}-thumb.jpg"
+        # Upload to GCS
+        thumbnail_filename = f"{canonical_filename}-fallback-thumb.jpg"
         blob = bucket.blob(f"thumbnails/{thumbnail_filename}")
         blob.upload_from_file(img_bytes, content_type="image/jpeg")
         blob.make_public()
@@ -993,7 +949,8 @@ async def generate_fallback_thumbnail(canonical_filename: str, topic: str) -> st
         
     except Exception as e:
         print(f"❌ Error generating fallback thumbnail: {e}")
-        return f"https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/{canonical_filename}-thumb.jpg"
+        # Return a default thumbnail URL
+        return "https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/images/copernicus-original-portrait.jpg"
 
 async def generate_and_upload_thumbnail(title: str, topic: str, canonical_filename: str) -> str:
     """Generate AI thumbnail using DALL-E 3 with 1792x1792 dimensions for podcast platforms"""
@@ -1068,22 +1025,10 @@ async def generate_and_upload_thumbnail(title: str, topic: str, canonical_filena
         else:
             print(f"❌ DALL-E API error: {response.status_code} - {response.text}")
             return await generate_fallback_thumbnail(canonical_filename, topic)
-        
-        # Upload to GCS
-        thumbnail_filename = f"{canonical_filename}-thumb.jpg"
-        blob = bucket.blob(f"thumbnails/{thumbnail_filename}")
-        blob.upload_from_file(img_bytes, content_type="image/jpeg")
-        blob.make_public()
-        
-        # Return public URL
-        public_url = f"https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/{thumbnail_filename}"
-        print(f"🖼️ AI-style thumbnail uploaded to GCS: {public_url}")
-        return public_url
-        
+
     except Exception as e:
         print(f"❌ Error generating/uploading thumbnail: {e}")
-        # Return fallback thumbnail URL
-        return f"https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/{canonical_filename}-thumb.jpg"
+        return await generate_fallback_thumbnail(canonical_filename, topic)
 
 async def determine_canonical_filename(topic: str, title: str) -> str:
     """Determine canonical filename based on topic category and next available episode number"""
@@ -1137,8 +1082,20 @@ async def determine_canonical_filename(topic: str, title: str) -> str:
         elif any(word in combined_text for word in ["physics", "quantum", "particle", "energy", "matter", "relativity", "thermodynamics"]):
             category = "phys"
         
-        # Get next episode number for this category
+        # Find the next available episode number for this category
+        existing_numbers = set()
+        for row in csv_reader:
+            if len(row) >= 2 and row[0].startswith(f"ever-{category}-"):
+                try:
+                    episode_num = int(row[0].split('-')[2])
+                    existing_numbers.add(episode_num)
+                except (ValueError, IndexError):
+                    continue
+
+        # Start checking from the highest known number + 1
         next_episode = category_episodes[category] + 1
+        while next_episode in existing_numbers:
+            next_episode += 1
         next_episode_str = str(next_episode).zfill(6)  # Pad to 6 digits like 250032
         
         canonical_filename = f"ever-{category}-{next_episode_str}"
@@ -1166,6 +1123,10 @@ This {difficulty}-level exploration covers fundamental principles, recent method
 Key areas include the current research landscape, breakthrough discoveries, and the broader implications for science and society.
 
 The field of {subject} continues to evolve rapidly, with new discoveries challenging our understanding and opening exciting possibilities.
+"""
+}
+
+async def run_podcast_generation_job(job_id: str, request: PodcastRequest):
     """Process research-driven podcast generation with Google AI services"""
     from datetime import datetime
     if not db:
@@ -1183,6 +1144,14 @@ The field of {subject} continues to evolve rapidly, with new discoveries challen
             print(f"📜 Processing research paper: {request.paper_title[:50]}...")
         
         content = await generate_research_driven_content(request)
+        
+        # Robust validation added here:
+        if (not content or 
+            not isinstance(content, dict) or
+            not all(k in content for k in ['title', 'description']) or
+            not content.get('title') or len(str(content.get('title', '')).strip()) < 5 or
+            not content.get('description') or len(str(content.get('description', '')).strip()) < 20):
+            raise ValueError("Content generation returned empty, incomplete, or placeholder data.")
         
         # Determine canonical filename based on topic category and next available episode number
         canonical_filename = await determine_canonical_filename(request.topic, content["title"])
@@ -1244,7 +1213,8 @@ The field of {subject} continues to evolve rapidly, with new discoveries challen
         print(f"❌ Podcast generation failed for job {job_id}: {e}")
 
 async def run_podcast_generation_job(job_id: str, request: PodcastRequest):
-    """Background task to generate podcast content, audio, and assets."""
+    """Process research-driven podcast generation with Google AI services"""
+    from datetime import datetime
     if not db:
         print(f"❌ Firestore not available. Cannot update job {job_id}.")
         return
@@ -1253,14 +1223,52 @@ async def run_podcast_generation_job(job_id: str, request: PodcastRequest):
     try:
         print(f"Job {job_id}: Starting podcast generation for topic '{request.topic}'")
         job_ref.update({'status': 'generating_content', 'updated_at': datetime.utcnow().isoformat()})
-
-        # Generate research-driven content with Gemini
+        
+        # Generate research-driven content with Gemini + Paper Analysis
+        print(f"Job {job_id}: Generating research-driven content for: {request.topic}")
+        if request.paper_content:
+            print(f"📜 Processing research paper: {request.paper_title[:50]}...")
+        
         content = await generate_research_driven_content(request)
-
-        # TODO: Integrate actual audio/thumbnail generation and GCS upload
-        audio_url = "https://storage.googleapis.com/gcs-public-data--public-cases/bp-dev-uid-21210131-20210324-1206-817-v0.2/assets/placeholder_audio.mp3"
-        thumbnail_url = "https://storage.googleapis.com/gcs-public-data--public-cases/bp-dev-uid-21210131-20210324-1206-817-v0.2/assets/placeholder_thumbnail.png"
-
+        # --- Start of Robust Content Validation ---
+        if (not content or 
+            not isinstance(content, dict) or
+            not all(k in content for k in ['title', 'script', 'description']) or
+            not content.get('title') or len(str(content.get('title', '')).strip()) < 5 or
+            not content.get('script') or len(str(content.get('script', '')).strip()) < 50 or
+            not content.get('description') or len(str(content.get('description', '')).strip()) < 20):
+            
+            error_detail = f"Invalid content received: {str(content)[:200]}..."
+            raise ValueError(f"Content generation returned empty, incomplete, or placeholder data. Details: {error_detail}")
+        print(f"✅ Job {job_id}: Content validation passed.")
+        # --- End of Robust Content Validation ---       
+        # Determine canonical filename based on topic category and next available episode number
+        canonical_filename = await determine_canonical_filename(request.topic, content["title"])
+        
+        # Generate multi-voice audio with ElevenLabs and bumpers
+        print(f"🎙️  Generating multi-voice ElevenLabs audio for job {job_id}")
+        voice_service = ElevenLabsVoiceService()
+        audio_url = await voice_service.generate_multi_voice_audio_with_bumpers(
+            content["script"], 
+            job_id, 
+            canonical_filename,
+            intro_path="/home/gdubs/copernicus-web-public/bumpers/copernicus-intro.mp3",
+            outro_path="/home/gdubs/copernicus-web-public/bumpers/copernicus-outro.mp3"
+        )
+        
+        # Generate and upload transcript to GCS
+        print(f"📄 Generating and uploading transcript for job {job_id}")
+        transcript_url = await generate_and_upload_transcript(content["script"], canonical_filename)
+        
+        # Upload description to GCS
+        print(f"📝 Uploading episode description to GCS")
+        description_url = await upload_description_to_gcs(content["description"], canonical_filename)
+        
+        # Generate and upload thumbnail to GCS
+        print(f"🖼️  Generating and uploading episode thumbnail")
+        thumbnail_url = await generate_and_upload_thumbnail(content["title"], request.topic, canonical_filename)
+        
+        # Complete job with enhanced metadata
         job_ref.update({
             'status': 'completed',
             'updated_at': datetime.utcnow().isoformat(),
@@ -1269,18 +1277,29 @@ async def run_podcast_generation_job(job_id: str, request: PodcastRequest):
                 'script': content.get('script', ''),
                 'description': content.get('description', ''),
                 'audio_url': audio_url,
-                'thumbnail_url': thumbnail_url
+                'thumbnail_url': thumbnail_url,
+                'transcript_url': transcript_url,
+                'description_url': description_url,
+                'duration': request.duration,
+                'topic': request.topic,
+                'expertise_level': request.expertise_level,
+                'format_type': request.format_type,
+                'has_research_paper': bool(request.paper_content),
+                'paper_title': request.paper_title,
+                'tts_provider': 'elevenlabs_multi_voice',
+                'content_provider': 'gemini_research_enhanced',
+                'canonical_filename': canonical_filename,
+                'generated_at': datetime.utcnow().isoformat()
             }
         })
-        print(f"✅ Podcast generation completed for job {job_id}")
-
+        
     except Exception as e:
-        print(f"❌ Podcast generation failed for job {job_id}: {e}")
         job_ref.update({
             'status': 'failed',
             'error': str(e),
             'updated_at': datetime.utcnow().isoformat()
         })
+        print(f"❌ Podcast generation failed for job {job_id}: {e}")
 
 @app.post("/generate-podcast")
 async def generate_podcast(request: PodcastRequest, background_tasks: BackgroundTasks):
@@ -1344,6 +1363,36 @@ async def generate_legacy_podcast(request: LegacyPodcastRequest, background_task
     background_tasks.add_task(run_podcast_generation_job, job_id, converted_request)
     return {"job_id": job_id, "status": "pending"}
 
+@app.get("/health")
+async def health_check():
+    """Health check endpoint for Cloud Run"""
+    # Check ElevenLabs API key availability
+    try:
+        from elevenlabs_voice_service import ElevenLabsVoiceService
+        voice_service = ElevenLabsVoiceService()
+        elevenlabs_available = bool(voice_service.api_key)
+    except Exception as e:
+        print(f"❌ ElevenLabs check failed: {e}")
+        elevenlabs_available = False
+
+    return {
+        "status": "healthy",
+        "timestamp": datetime.utcnow().isoformat(),
+        "service": "copernicus-podcast-api",
+        "vertex_ai_available": VERTEX_AI_AVAILABLE,
+        "google_api_key_available": bool(get_google_api_key()),
+        "elevenlabs_available": elevenlabs_available
+    }
+
+@app.get("/test-frontend")
+async def test_frontend():
+    """Test endpoint for frontend connectivity"""
+    return {
+        "message": "Frontend connectivity test successful",
+        "timestamp": datetime.utcnow().isoformat(),
+        "backend_url": "https://copernicus-podcast-api-204731194849.us-central1.run.app"
+    }
+
 @app.get("/status/{job_id}")
 async def get_job_status(job_id: str):
     if not db:
@@ -1363,9 +1412,9 @@ async def get_job_status(job_id: str):
 
 if __name__ == "__main__":
     import uvicorn
-    port = int(os.environ.get("PORT", 8002))
+    port = int(os.environ.get("PORT", 8080))
     print(f"🚀 Starting Copernicus Podcast API with Vertex AI on port {port}")
-    print(f"🤖 Vertex AI Gemini: {'✅ Available' if vertex_model else '❌ Not Available'}")
+    print(f"🤖 Vertex AI Gemini: {'✅ Available' if vertex_ai_model else '❌ Not Available'}")
     print(f"🔑 Google AI API Key: {'✅ Found' if get_google_api_key() else '❌ Missing'}")
     print(f"🎙️  Google Cloud TTS: Available via service account")
     print(f"🔧 AI Provider: {'Vertex AI' if vertex_model else 'Google AI API' if get_google_api_key() else 'Fallback'}")
