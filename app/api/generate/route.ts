@@ -50,6 +50,21 @@ async function submitToCloudRun(requestData: any): Promise<any> {
     // Add timestamp to prevent caching
     requestData.timestamp = Date.now();
     
+    // Test connectivity first
+    console.log(`🚀 Testing connectivity to backend...`);
+    try {
+      const healthResponse = await fetch(`${BACKEND_URL}/health`, {
+        method: 'GET',
+        headers: {
+          'User-Agent': 'CopernicusAI-Frontend/1.0',
+        },
+        signal: controller.signal,
+      });
+      console.log(`🚀 Health check status: ${healthResponse.status}`);
+    } catch (healthError) {
+      console.error('❌ Health check failed:', healthError);
+    }
+    
     // Create AbortController for timeout handling
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 300000); // 5 minute timeout
@@ -97,6 +112,7 @@ async function submitToCloudRun(requestData: any): Promise<any> {
 
 export async function POST(request: NextRequest) {
   try {
+    console.log(`🚀 POST request received at: ${new Date().toISOString()}`);
     const formData = await request.formData();
     
     // Extract form fields
