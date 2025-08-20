@@ -50,6 +50,10 @@ async function submitToCloudRun(requestData: any): Promise<any> {
     // Add timestamp to prevent caching
     requestData.timestamp = Date.now();
     
+    // Create AbortController for timeout handling
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 60000); // 1 minute timeout for testing
+    
     // Test connectivity first
     console.log(`🚀 Testing connectivity to backend...`);
     try {
@@ -77,10 +81,6 @@ async function submitToCloudRun(requestData: any): Promise<any> {
     } catch (healthError) {
       console.error('❌ Health check failed:', healthError);
     }
-    
-    // Create AbortController for timeout handling
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 60000); // 1 minute timeout for testing
     
     console.log(`🚀 Making fetch request to: ${BACKEND_URL}/generate-legacy-podcast`);
     const response = await fetch(`${BACKEND_URL}/generate-legacy-podcast`, {
