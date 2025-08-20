@@ -42,7 +42,10 @@ const BACKEND_URL = process.env.CLOUD_RUN_URL || 'https://copernicus-podcast-api
 // Submit job to Google AI backend
 async function submitToCloudRun(requestData: any): Promise<any> {
   try {
+    console.log(`🚀 Environment: ${process.env.NODE_ENV}`);
+    console.log(`🚀 Backend URL: ${BACKEND_URL}`);
     console.log(`🚀 Submitting to Google AI backend: ${BACKEND_URL}/generate-legacy-podcast`);
+    console.log(`🚀 Request data:`, JSON.stringify(requestData, null, 2));
     
     // Create AbortController for timeout handling
     const controller = new AbortController();
@@ -52,6 +55,7 @@ async function submitToCloudRun(requestData: any): Promise<any> {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'User-Agent': 'CopernicusAI-Frontend/1.0',
       },
       body: JSON.stringify(requestData),
       signal: controller.signal,
@@ -69,7 +73,7 @@ async function submitToCloudRun(requestData: any): Promise<any> {
     return result;
   } catch (error: any) {
     if (error.name === 'AbortError') {
-      console.error('❌ Google AI backend request timed out after 60 seconds');
+      console.error('❌ Google AI backend request timed out after 5 minutes');
       throw new Error('Google AI backend request timed out. The backend may be processing - check job status.');
     }
     console.error('❌ Error submitting to Google AI backend:', error);
