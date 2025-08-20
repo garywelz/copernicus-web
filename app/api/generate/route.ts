@@ -51,6 +51,7 @@ async function submitToCloudRun(requestData: any): Promise<any> {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 300000); // 5 minute timeout
     
+    console.log(`🚀 Making fetch request to: ${BACKEND_URL}/generate-legacy-podcast`);
     const response = await fetch(`${BACKEND_URL}/generate-legacy-podcast`, {
       method: 'POST',
       headers: {
@@ -60,6 +61,7 @@ async function submitToCloudRun(requestData: any): Promise<any> {
       body: JSON.stringify(requestData),
       signal: controller.signal,
     });
+    console.log(`🚀 Response status: ${response.status} ${response.statusText}`);
     
     clearTimeout(timeoutId);
 
@@ -72,6 +74,13 @@ async function submitToCloudRun(requestData: any): Promise<any> {
     console.log(`✅ Google AI backend response:`, result);
     return result;
   } catch (error: any) {
+    console.error('❌ Error details:', {
+      name: error.name,
+      message: error.message,
+      stack: error.stack,
+      cause: error.cause
+    });
+    
     if (error.name === 'AbortError') {
       console.error('❌ Google AI backend request timed out after 5 minutes');
       throw new Error('Google AI backend request timed out. The backend may be processing - check job status.');
