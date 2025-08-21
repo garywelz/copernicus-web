@@ -391,7 +391,7 @@ class ElevenLabsVoiceService:
             return main_audio  # Return original audio if bumpers fail
     
     async def generate_multi_voice_audio_with_bumpers(self, script: str, job_id: str, canonical_filename: str, intro_path: str, outro_path: str) -> str:
-        """Generate single-voice audio with bumpers and upload to GCS"""
+        """Generate multi-voice audio with bumpers and upload to GCS"""
         from google.cloud import storage
         import tempfile
         import os
@@ -401,21 +401,47 @@ class ElevenLabsVoiceService:
             raise ValueError("Input script is empty or contains only whitespace. Cannot generate audio.")
         # --- End of Edit ---
         
-        logger.info(f"🎵 Generating single-voice audio with bumpers for {canonical_filename}")
+        logger.info(f"🎵 Generating multi-voice audio with bumpers for {canonical_filename}")
         
-        # Clean and preprocess the entire script for natural speech
-        clean_script = self._preprocess_text_for_natural_speech(script)
+        # Parse script into segments with different speakers
+        segments = self._parse_script_segments(script)
+        logger.info(f"📝 Parsed {len(segments)} script segments")
         
-        # Generate single audio file using host voice
-        logger.info(f"🔊 Generating audio for script ({len(clean_script)} characters)")
-        voice_config = self.voice_configs['host']  # Use host voice for entire script
-        
-        try:
+        if not segments:
+            logger.warning("⚠️ No valid segments found, using single voice for entire script")
+            # Fallback to single voice
+            clean_script = self._preprocess_text_for_natural_speech(script)
+            voice_config = self.voice_configs['host']
             audio_data, duration = await self._synthesize_segment(clean_script, voice_config)
-            logger.info(f"✅ Audio generated successfully: {duration:.1f}s")
-        except Exception as e:
-            logger.error(f"❌ Failed to generate audio: {e}")
-            raise Exception(f"TTS generation failed: {e}")
+        else:
+            # Generate audio for each segment with appropriate voice
+            audio_segments = []
+            total_duration = 0.0
+            
+            for i, segment in enumerate(segments):
+                speaker_role = segment['speaker']
+                content = segment['content']
+                
+                # Get voice config for this speaker
+                voice_config = self.voice_configs.get(speaker_role, self.voice_configs['host'])
+                logger.info(f"🔊 Segment {i+1}: {voice_config.speaker_name} ({speaker_role}) - {len(content)} chars")
+                
+                try:
+                    audio_data, duration = await self._synthesize_segment(content, voice_config)
+                    audio_segments.append(audio_data)
+                    total_duration += duration
+                    logger.info(f"✅ Segment {i+1} generated: {duration:.1f}s")
+                except Exception as e:
+                    logger.error(f"❌ Failed to generate segment {i+1}: {e}")
+                    # Continue with other segments
+                    continue
+            
+            if not audio_segments:
+                raise Exception("No audio segments were generated successfully")
+            
+            # Combine all audio segments
+            audio_data = self._combine_audio_segments(audio_segments)
+            logger.info(f"✅ Combined {len(audio_segments)} segments: {total_duration:.1f}s total")
         
         # Add bumpers to the audio
         audio_with_bumpers = await self.add_audio_bumpers(
@@ -438,7 +464,7 @@ class ElevenLabsVoiceService:
             blob.upload_from_filename(temp_path, content_type="audio/mpeg")
             blob.make_public()
             
-            logger.info(f"✅ Audio with bumpers uploaded: {blob.public_url}")
+            logger.info(f"✅ Multi-voice audio with bumpers uploaded: {blob.public_url}")
             return blob.public_url
             
         finally:
