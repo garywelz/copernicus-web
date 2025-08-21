@@ -4,9 +4,9 @@ import { useEffect } from 'react';
 
 export default function CreatePage() {
   useEffect(() => {
-    // Redirect to the new Google Cloud Storage form
-    // Force cache refresh: 2025-01-20 12:45:00 UTC
-    window.location.href = 'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/form.html';
+    // Immediately redirect to the Google Cloud Storage form
+    // Force cache refresh: 2025-01-21 13:30:00 UTC
+    window.location.replace('https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/form.html');
   }, []);
 
   return (
