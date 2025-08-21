@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate AI Podcast - Copernicus AI</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #1a73e8;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #1a73e8;
+        }
+        button {
+            background-color: #1a73e8;
+            color: white;
+            padding: 14px 28px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #1557b0;
+        }
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border: 1px solid #f5c6cb;
+        }
+        .loading {
+            text-align: center;
+            color: #666;
+        }
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .back-link a {
+            color: #1a73e8;
+            text-decoration: none;
+        }
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Generate AI Podcast</h1>
+        
+        <form id="podcastForm">
+            <div class="form-group">
+                <label for="subject">Research Subject *</label>
+                <input type="text" id="subject" name="subject" required 
+                       placeholder="e.g., Quantum Computing, Climate Change, AI Ethics">
+            </div>
+            
+            <div class="form-group">
+                <label for="duration">Duration *</label>
+                <select id="duration" name="duration" required>
+                    <option value="">Select duration</option>
+                    <option value="3 minutes">3 minutes</option>
+                    <option value="5 minutes">5 minutes</option>
+                    <option value="10 minutes">10 minutes</option>
+                    <option value="15 minutes">15 minutes</option>
+                    <option value="20 minutes">20 minutes</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="speakers">Number of Speakers *</label>
+                <select id="speakers" name="speakers" required>
+                    <option value="">Select speakers</option>
+                    <option value="1">1 Speaker</option>
+                    <option value="2">2 Speakers</option>
+                    <option value="3">3 Speakers</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="difficulty">Difficulty Level *</label>
+                <select id="difficulty" name="difficulty" required>
+                    <option value="">Select difficulty</option>
+                    <option value="beginner">Beginner</option>
+                    <option value="intermediate">Intermediate</option>
+                    <option value="advanced">Advanced</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="additionalNotes">Additional Instructions (Optional)</label>
+                <textarea id="additionalNotes" name="additionalNotes" rows="4" 
+                          placeholder="Special themes, perspectives, or specific aspects to emphasize..."></textarea>
+            </div>
+            
+            <button type="submit" id="submitBtn">Generate AI Podcast</button>
+        </form>
+        
+        <div id="result"></div>
+        
+        <div class="back-link">
+            <a href="https://www.copernicusai.fyi">← Back to Copernicus AI</a>
+        </div>
+    </div>
+
+    <script>
+        const CLOUD_FUNCTION_URL = 'https://us-central1-regal-scholar-453620-r7.cloudfunctions.net/generate-podcast';
+        
+        document.getElementById('podcastForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const resultDiv = document.getElementById('result');
+            
+            // Disable button and show loading
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Generating...';
+            resultDiv.innerHTML = '<div class="loading">Creating your podcast...</div>';
+            
+            // Get form data
+            const formData = new FormData(e.target);
+            const requestData = {
+                subject: formData.get('subject'),
+                duration: formData.get('duration'),
+                speakers: formData.get('speakers'),
+                difficulty: formData.get('difficulty'),
+                additional_notes: formData.get('additionalNotes') || '',
+                source_links: []
+            };
+            
+            try {
+                console.log('Submitting to Cloud Function:', requestData);
+                
+                const response = await fetch(CLOUD_FUNCTION_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(requestData)
+                });
+                
+                const result = await response.json();
+                console.log('Cloud Function response:', result);
+                
+                if (response.ok && result.success) {
+                    resultDiv.innerHTML = `
+                        <div class="success">
+                            <h3>🎉 Podcast Generated Successfully!</h3>
+                            <p>Your episode is being processed for distribution.</p>
+                            <p><strong>Job ID:</strong> ${result.jobId}</p>
+                            <p><strong>Estimated completion:</strong> ${result.estimatedCompletionTime}</p>
+                        </div>
+                    `;
+                } else {
+                    throw new Error(result.error || 'Unknown error occurred');
+                }
+                
+            } catch (error) {
+                console.error('Error:', error);
+                resultDiv.innerHTML = `
+                    <div class="error">
+                        <h3>❌ Error Generating Podcast</h3>
+                        <p>${error.message}</p>
+                        <p>Please try again or contact support if the problem persists.</p>
+                    </div>
+                `;
+            } finally {
+                // Re-enable button
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Generate AI Podcast';
+            }
+        });
+    </script>
+</body>
+</html>
