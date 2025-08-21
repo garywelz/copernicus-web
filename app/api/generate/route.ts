@@ -36,89 +36,35 @@ interface GenerationJob {
 // In-memory job storage (replace with database in production)
 const jobs = new Map<string, GenerationJob>();
 
-// Backend URL (local for testing, Cloud Run for production)
-const BACKEND_URL = process.env.CLOUD_RUN_URL || 'https://copernicus-podcast-api-204731194849.us-central1.run.app';
+// Backend URL (Google Cloud Function)
+const BACKEND_URL = 'https://us-central1-regal-scholar-453620-r7.cloudfunctions.net/generate-podcast';
 
-// Submit job to Google AI backend
-async function submitToCloudRun(requestData: any): Promise<any> {
+// Submit job to Google Cloud Function
+async function submitToCloudFunction(requestData: any): Promise<any> {
   try {
-    console.log(`🚀 Environment: ${process.env.NODE_ENV}`);
-    console.log(`🚀 Backend URL: ${BACKEND_URL}`);
-    console.log(`🚀 Submitting to Google AI backend: ${BACKEND_URL}/generate-legacy-podcast`);
+    console.log(`🚀 Submitting to Google Cloud Function: ${BACKEND_URL}`);
     console.log(`🚀 Request data:`, JSON.stringify(requestData, null, 2));
     
-    // Add timestamp to prevent caching
-    requestData.timestamp = Date.now();
-    
-    // Create AbortController for timeout handling
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 60000); // 1 minute timeout for testing
-    
-    // Test connectivity first
-    console.log(`🚀 Testing connectivity to backend...`);
-    try {
-      const healthResponse = await fetch(`${BACKEND_URL}/health`, {
-        method: 'GET',
-        headers: {
-          'User-Agent': 'CopernicusAI-Frontend/1.0',
-        },
-        signal: controller.signal,
-      });
-      console.log(`🚀 Health check status: ${healthResponse.status}`);
-      
-      const testResponse = await fetch(`${BACKEND_URL}/test-frontend`, {
-        method: 'GET',
-        headers: {
-          'User-Agent': 'CopernicusAI-Frontend/1.0',
-        },
-        signal: controller.signal,
-      });
-      console.log(`🚀 Test frontend status: ${testResponse.status}`);
-      if (testResponse.ok) {
-        const testData = await testResponse.json();
-        console.log(`🚀 Test frontend response:`, testData);
-      }
-    } catch (healthError) {
-      console.error('❌ Health check failed:', healthError);
-    }
-    
-    console.log(`🚀 Making fetch request to: ${BACKEND_URL}/generate-legacy-podcast`);
-    const response = await fetch(`${BACKEND_URL}/generate-legacy-podcast`, {
+    const response = await fetch(BACKEND_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'User-Agent': 'CopernicusAI-Frontend/1.0',
-        'Cache-Control': 'no-cache',
-        'Pragma': 'no-cache',
       },
       body: JSON.stringify(requestData),
-      signal: controller.signal,
     });
-    console.log(`🚀 Response status: ${response.status} ${response.statusText}`);
     
-    clearTimeout(timeoutId);
+    console.log(`🚀 Response status: ${response.status} ${response.statusText}`);
 
     if (!response.ok) {
       const errorText = await response.text();
-      throw new Error(`Google AI Backend error: ${response.status} ${response.statusText} - ${errorText}`);
+      throw new Error(`Cloud Function error: ${response.status} ${response.statusText} - ${errorText}`);
     }
 
     const result = await response.json();
-    console.log(`✅ Google AI backend response:`, result);
+    console.log(`✅ Cloud Function response:`, result);
     return result;
   } catch (error: any) {
-    console.error('❌ Error details:', {
-      name: error.name,
-      message: error.message,
-      stack: error.stack,
-      cause: error.cause
-    });
-    
-    if (error.name === 'AbortError') {
-      console.error('❌ Google AI backend request timed out after 1 minute');
-      throw new Error('Google AI backend request timed out after 1 minute. This suggests a network connectivity issue between Vercel and Cloud Run.');
-    }
-    console.error('❌ Error submitting to Google AI backend:', error);
+    console.error('❌ Error submitting to Cloud Function:', error);
     throw error;
   }
 }
@@ -200,7 +146,7 @@ export async function POST(request: NextRequest) {
 
     // Submit job to Google Cloud Run backend
     try {
-      const cloudRunResponse = await submitToCloudRun({
+      const cloudRunResponse = await submitToCloudFunction({
         subject,
         duration,
         speakers,
