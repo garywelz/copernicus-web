@@ -1158,13 +1158,14 @@ async def run_podcast_generation_job(job_id: str, request: PodcastRequest):
         
         # Generate multi-voice audio with ElevenLabs and bumpers
         print(f"🎙️  Generating multi-voice ElevenLabs audio for job {job_id}")
+        # Force deployment: 2025-01-21 13:45:00 UTC - Multi-voice audio generation enabled
         voice_service = ElevenLabsVoiceService()
         audio_url = await voice_service.generate_multi_voice_audio_with_bumpers(
             content["script"], 
             job_id, 
             canonical_filename,
-            intro_path="/home/gdubs/copernicus-web-public/bumpers/copernicus-intro.mp3",
-            outro_path="/home/gdubs/copernicus-web-public/bumpers/copernicus-outro.mp3"
+            intro_path="bumpers/copernicus-intro.mp3",
+            outro_path="bumpers/copernicus-outro.mp3"
         )
         
         # Generate and upload transcript to GCS
@@ -1247,6 +1248,7 @@ async def run_podcast_generation_job(job_id: str, request: PodcastRequest):
         
         # Generate multi-voice audio with ElevenLabs and bumpers
         print(f"🎙️  Generating multi-voice ElevenLabs audio for job {job_id}")
+        # Force deployment: 2025-01-21 13:45:00 UTC - Multi-voice audio generation enabled
         voice_service = ElevenLabsVoiceService()
         audio_url = await voice_service.generate_multi_voice_audio_with_bumpers(
             content["script"], 
@@ -1417,7 +1419,7 @@ if __name__ == "__main__":
     print(f"🤖 Vertex AI Gemini: {'✅ Available' if vertex_ai_model else '❌ Not Available'}")
     print(f"🔑 Google AI API Key: {'✅ Found' if get_google_api_key() else '❌ Missing'}")
     print(f"🎙️  Google Cloud TTS: Available via service account")
-    print(f"🔧 AI Provider: {'Vertex AI' if vertex_model else 'Google AI API' if get_google_api_key() else 'Fallback'}")
-    if vertex_model:
+    print(f"🔧 AI Provider: {'Vertex AI' if vertex_ai_model else 'Google AI API' if get_google_api_key() else 'Fallback'}")
+    if vertex_ai_model:
         print(f"📍 Vertex AI Project: {GCP_PROJECT_ID} ({VERTEX_AI_REGION})")
     uvicorn.run(app, host="0.0.0.0", port=port)
