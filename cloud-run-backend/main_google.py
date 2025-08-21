@@ -1252,8 +1252,8 @@ async def run_podcast_generation_job(job_id: str, request: PodcastRequest):
             content["script"], 
             job_id, 
             canonical_filename,
-            intro_path="/home/gdubs/copernicus-web-public/bumpers/copernicus-intro.mp3",
-            outro_path="/home/gdubs/copernicus-web-public/bumpers/copernicus-outro.mp3"
+            intro_path="bumpers/copernicus-intro.mp3",
+            outro_path="bumpers/copernicus-outro.mp3"
         )
         
         # Generate and upload transcript to GCS
