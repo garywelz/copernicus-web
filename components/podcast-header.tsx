@@ -63,6 +63,15 @@ export default function PodcastHeader({ podcast }: PodcastHeaderProps) {
         <p className="text-lg mb-8">{description}</p>
 
         <div className="flex gap-3">
+          <a
+            href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/form.html"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md font-medium transition-colors"
+          >
+            <Plus className="mr-2 h-4 w-4" />
+            Create Podcast
+          </a>
           {spotifyUrl && (
             <a
               href={spotifyUrl}
