@@ -102,40 +102,55 @@
         
         <form id="podcastForm">
             <div class="form-group">
-                <label for="subject">Research Subject *</label>
+                <label for="subject">Research Topic *</label>
                 <input type="text" id="subject" name="subject" required 
-                       placeholder="e.g., Quantum Computing, Climate Change, AI Ethics">
+                       placeholder="e.g., Quantum Error Correction, CRISPR Gene Editing, Neural Networks">
             </div>
             
             <div class="form-group">
-                <label for="duration">Duration *</label>
+                <label for="category">Subject Category *<span style="font-size: 12px; color: #666; margin-left: 8px;">(Required for canonical naming)</span></label>
+                <select id="category" name="category" required>
+                    <option value="">Select subject category...</option>
+                    <option value="biology">Biology</option>
+                    <option value="chemistry">Chemistry</option>
+                    <option value="computer-science">Computer Science</option>
+                    <option value="mathematics">Mathematics</option>
+                    <option value="physics">Physics</option>
+                </select>
+                <p style="font-size: 12px; color: #666; margin-top: 4px;">This determines the canonical filename (e.g., ever-compsci-250028, ever-phys-250032)</p>
+            </div>
+            
+            <div class="form-group">
+                <label for="duration">Episode Duration *</label>
                 <select id="duration" name="duration" required>
-                    <option value="">Select duration</option>
-                    <option value="3 minutes">3 minutes</option>
-                    <option value="5 minutes">5 minutes</option>
-                    <option value="10 minutes">10 minutes</option>
-                    <option value="15 minutes">15 minutes</option>
-                    <option value="20 minutes">20 minutes</option>
+                    <option value="">Select duration...</option>
+                    <option value="5">5 minutes (Quick overview)</option>
+                    <option value="10">10 minutes (Standard briefing)</option>
+                    <option value="15">15 minutes (Detailed discussion)</option>
+                    <option value="20">20 minutes (Comprehensive analysis)</option>
+                    <option value="30">30 minutes (Deep dive)</option>
                 </select>
             </div>
             
             <div class="form-group">
-                <label for="speakers">Number of Speakers *</label>
+                <label for="speakers">Speaker Configuration *</label>
                 <select id="speakers" name="speakers" required>
-                    <option value="">Select speakers</option>
-                    <option value="1">1 Speaker</option>
-                    <option value="2">2 Speakers</option>
-                    <option value="3">3 Speakers</option>
+                    <option value="">Select format...</option>
+                    <option value="single">Single narrator</option>
+                    <option value="interview">Interview format (2 speakers)</option>
+                    <option value="panel">Panel discussion (3-4 speakers)</option>
+                    <option value="debate">Debate format (2 opposing views)</option>
                 </select>
             </div>
             
             <div class="form-group">
-                <label for="difficulty">Difficulty Level *</label>
+                <label for="difficulty">Technical Level *</label>
                 <select id="difficulty" name="difficulty" required>
-                    <option value="">Select difficulty</option>
-                    <option value="beginner">Beginner</option>
-                    <option value="intermediate">Intermediate</option>
-                    <option value="advanced">Advanced</option>
+                    <option value="">Select level...</option>
+                    <option value="General">General audience (accessible explanations)</option>
+                    <option value="Undergraduate">Undergraduate level</option>
+                    <option value="Graduate">Graduate/Research level</option>
+                    <option value="Expert">Expert/Professional level</option>
                 </select>
             </div>
             

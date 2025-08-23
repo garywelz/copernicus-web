@@ -14,7 +14,7 @@ export default function CreatePage() {
           fontFamily: 'Arial, sans-serif',
           textAlign: 'center'
         }}>
-          <div>
+            <div>
             <h1>Redirecting to Podcast Generator...</h1>
             <p>You will be redirected to the new podcast generation form.</p>
             <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/form.html">
