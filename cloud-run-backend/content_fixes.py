@@ -123,6 +123,11 @@ def fix_script_format_for_multi_voice(script: str) -> str:
     print(f"🔧 FIXING SCRIPT FORMAT - Input length: {len(script)} chars")
     print(f"🔧 First 200 chars: {script[:200]}...")
     
+    # Fix markdown formatting if present
+    if "**HOST:**" in script or "**EXPERT:**" in script:
+        print(f"🔧 Fixing markdown formatting (**HOST:** → HOST:)")
+        script = re.sub(r'\*\*(HOST|EXPERT|QUESTIONER|CORRESPONDENT):\*\*', r'\1:', script)
+    
     # Check if script already has proper speaker labels
     if re.search(r'^(HOST|EXPERT|QUESTIONER):', script, re.MULTILINE | re.IGNORECASE):
         print(f"🔧 Script already has proper speaker labels - no fix needed")

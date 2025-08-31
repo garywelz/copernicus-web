@@ -86,7 +86,7 @@ def generate_podcast(request):
         
         logger.info(f"🔥🔥🔥 SUBMITTING TO CLOUD RUN: {BACKEND_URL}/generate-legacy-podcast")
         
-        # Submit to Cloud Run backend
+        # Submit to Cloud Run backend (using legacy endpoint for form compatibility)
         try:
             response = requests.post(
                 f"{BACKEND_URL}/generate-legacy-podcast",

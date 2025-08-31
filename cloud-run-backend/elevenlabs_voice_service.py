@@ -256,6 +256,22 @@ class ElevenLabsVoiceService:
         # Debug: Log the first 500 characters of the script
         logger.info(f"🔍 Parsing script (first 500 chars): {script[:500]}...")
         
+        # Debug: Check for common formatting issues
+        if "**HOST:**" in script or "**EXPERT:**" in script:
+            logger.warning("⚠️ Script contains markdown formatting (**HOST:**) instead of plain labels (HOST:)")
+            # Fix markdown formatting
+            script = re.sub(r'\*\*(HOST|EXPERT|QUESTIONER|CORRESPONDENT):\*\*', r'\1:', script)
+            logger.info("🔧 Fixed markdown formatting in script")
+        
+        if "HOST:" not in script and "EXPERT:" not in script:
+            logger.warning("⚠️ Script doesn't contain any speaker labels (HOST:, EXPERT:, etc.)")
+        
+        # Count potential speaker label occurrences
+        host_count = len(re.findall(r'\bHOST:', script, re.IGNORECASE))
+        expert_count = len(re.findall(r'\bEXPERT:', script, re.IGNORECASE))
+        questioner_count = len(re.findall(r'\bQUESTIONER:', script, re.IGNORECASE))
+        logger.info(f"🔍 Speaker label counts: HOST:{host_count}, EXPERT:{expert_count}, QUESTIONER:{questioner_count}")
+        
         segments: List[Dict[str, str]] = []
         lines = script.split('\n')
         

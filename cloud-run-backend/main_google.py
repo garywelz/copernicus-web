@@ -15,6 +15,23 @@ from email_service import EmailService
 from content_fixes import apply_content_fixes, fix_script_format_for_multi_voice, limit_description_length, extract_itunes_summary, generate_relevant_hashtags, validate_academic_references
 import re
 
+def _calculate_target_words(duration_str: str) -> int:
+    """Calculate target word count based on duration string"""
+    import re
+    
+    # Extract minutes from duration string like "10 minutes", "5-10 minutes", etc.
+    duration_match = re.search(r'(\d+)', duration_str)
+    if duration_match:
+        minutes = int(duration_match.group(1))
+    else:
+        minutes = 5  # Default fallback
+    
+    # Use 150 words per minute for natural conversational speech
+    target_words = minutes * 150
+    
+    print(f"🎯 Duration '{duration_str}' → {minutes} minutes → {target_words} target words")
+    return target_words
+
 def _extract_json_from_response(text: str) -> dict:
     """Extracts a JSON object from a string, even if it's embedded in other text."""
     import re
@@ -566,7 +583,8 @@ Create a natural dialogue between HOST, EXPERT, and QUESTIONER that follows this
 {chr(10).join([f"- {step}" for step in character.structure])}
 
 **Content Length Requirements:**
-- Target duration: {request.duration} (approximately 1500-2000 words for 10 minutes)
+- Target duration: {request.duration}
+- Target word count: {_calculate_target_words(request.duration)} words (based on 140-160 WPM for natural speech)
 - Each speaker should have 8-12 substantial dialogue segments
 - Include detailed technical explanations and comprehensive coverage
 - Ensure the script is long enough to fill the full {request.duration}
@@ -1259,56 +1277,18 @@ async def generate_and_upload_thumbnail(title: str, topic: str, canonical_filena
         print(f"❌ Error generating/uploading thumbnail: {e}")
         return await generate_fallback_thumbnail(canonical_filename, topic)
 
-async def determine_canonical_filename(topic: str, title: str, category: str = None) -> str:
-    """Determine canonical filename based on topic category and next available episode number"""
+async def get_next_filename(category: str) -> str:
+    """Get the next available filename by checking actual files in Google Cloud Storage"""
+    from google.cloud import storage
     
-    # Debug: Log the input parameters
-    print(f"🔍 DEBUG: determine_canonical_filename called with:")
-    print(f"🔍 DEBUG:   topic = '{topic}'")
-    print(f"🔍 DEBUG:   title = '{title}'")
-    print(f"🔍 DEBUG:   category = '{category}'")
+    print(f"🔍 DEBUG: get_next_filename called with category = '{category}'")
     
     try:
-        import requests
-        import csv
-        import io
+        # Initialize GCS client
+        storage_client = storage.Client()
+        bucket = storage_client.bucket("regal-scholar-453620-r7-podcast-storage")
         
-        # Download canonical CSV from GCS
-        csv_url = "https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/canonical/Copernicus%20AI%20Canonical%20List%20071825.csv"
-        response = requests.get(csv_url)
-        response.raise_for_status()
-        
-        # Parse CSV to find highest episode number for each category
-        csv_text = response.text
-        csv_reader = csv.reader(io.StringIO(csv_text))
-        
-        category_episodes = {
-            "bio": 0,
-            "chem": 0, 
-            "compsci": 0,
-            "math": 0,
-            "phys": 0
-        }
-        
-        # Skip header row
-        next(csv_reader, None)
-        
-        for row in csv_reader:
-            if len(row) >= 1 and row[0].startswith("ever-"):
-                # Extract category and episode number from filename
-                filename = row[0].strip('"')  # Remove quotes
-                parts = filename.split("-")
-                if len(parts) >= 3:
-                    csv_category = parts[1]  # Use different variable name
-                    try:
-                        episode_num = int(parts[2])
-                        if csv_category in category_episodes:
-                            category_episodes[csv_category] = max(category_episodes[csv_category], episode_num)
-                    except ValueError:
-                        continue
-        
-        # Use the category from the request instead of re-classifying
-        # Map the request category to the canonical format
+        # Map category to canonical format
         category_mapping = {
             "Physics": "phys",
             "Computer Science": "compsci", 
@@ -1338,21 +1318,49 @@ async def determine_canonical_filename(topic: str, title: str, category: str = N
             else:
                 request_category = "phys"  # Default to physics
         
-        # Get the next episode number for this category
-        next_episode = category_episodes[request_category] + 1
-        next_episode_str = str(next_episode).zfill(5)  # Pad to 5 digits like 250032
+        # List all audio files with the category prefix
+        prefix = f"audio/ever-{request_category}-"
+        blobs = bucket.list_blobs(prefix=prefix)
+        
+        # Find highest episode number
+        highest_episode = 0
+        for blob in blobs:
+            filename = blob.name.replace("audio/", "").replace(".mp3", "")
+            parts = filename.split("-")
+            if len(parts) >= 3 and parts[0] == "ever" and parts[1] == request_category:
+                try:
+                    episode_num = int(parts[2])
+                    highest_episode = max(highest_episode, episode_num)
+                except ValueError:
+                    continue
+        
+        # Generate next episode number
+        next_episode = highest_episode + 1
+        next_episode_str = str(next_episode).zfill(6)  # Pad to 6 digits like 250035
         
         canonical_filename = f"ever-{request_category}-{next_episode_str}"
-        print(f"🎯 Determined canonical filename: {canonical_filename} (category: {request_category}, episode: {next_episode})")
+        print(f"🎯 Generated next filename: {canonical_filename} (category: {request_category}, episode: {next_episode})")
         
         return canonical_filename
         
     except Exception as e:
-        print(f"❌ Error determining canonical filename: {e}")
+        print(f"❌ Error getting next filename: {e}")
         # Fallback to timestamp-based naming
         from datetime import datetime
-        timestamp = datetime.now().strftime("%y%m%d")
+        timestamp = datetime.now().strftime("%y%m%d%H%M")
         return f"research-fallback-{timestamp}"
+
+async def determine_canonical_filename(topic: str, title: str, category: str = None) -> str:
+    """Determine canonical filename based on topic category and next available episode number"""
+    
+    # Debug: Log the input parameters
+    print(f"🔍 DEBUG: determine_canonical_filename called with:")
+    print(f"🔍 DEBUG:   topic = '{topic}'")
+    print(f"🔍 DEBUG:   title = '{title}'")
+    print(f"🔍 DEBUG:   category = '{category}'")
+    
+    # Use the new get_next_filename function that checks actual GCS files
+    return await get_next_filename(category)
 
 def create_fallback_content(subject: str, duration: str, difficulty: str) -> dict:
     """Fallback content when APIs are unavailable"""

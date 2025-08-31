@@ -39,6 +39,9 @@ class EnhancedContentGenerator:
         expertise_level = request_data.get('expertise_level', 'Expert/Professional')
         format_type = request_data.get('format_type', 'Interview format (2 speakers)')
         
+        # Calculate target word count for proper duration
+        target_words = self._calculate_target_words(duration)
+        
         # Add paper content if available
         paper_context = ""
         if request_data.get('paper_content'):
@@ -61,16 +64,17 @@ class EnhancedContentGenerator:
 **Episode Requirements:**
 - Topic: {topic}
 - Duration: {duration}
+- Target Word Count: {target_words} words (for natural conversational pace)
 - Expertise Level: {expertise_level}
 - Format: {format_type}
 {paper_context}{source_context}{instructions_context}
 
 **Multi-Voice Script Structure:**
 Create a script with clear speaker transitions using this format:
-**HOST:** [Host dialogue]
-**EXPERT:** [Expert dialogue]
-**QUESTIONER:** [Questioner dialogue] (if applicable)
-**CORRESPONDENT:** [Correspondent dialogue] (if applicable)
+HOST: [Host dialogue]
+EXPERT: [Expert dialogue]
+QUESTIONER: [Questioner dialogue] (if applicable)
+CORRESPONDENT: [Correspondent dialogue] (if applicable)
 
 **Content Guidelines:**
 1. Focus on paradigm-shifting implications and revolutionary thinking
@@ -89,6 +93,23 @@ Generate a compelling, character-driven podcast script that embodies the Coperni
         
         return full_prompt
     
+    def _calculate_target_words(self, duration_str: str) -> int:
+        """Calculate target word count based on duration string"""
+        import re
+        
+        # Extract minutes from duration string like "10 minutes", "5-10 minutes", etc.
+        duration_match = re.search(r'(\d+)', duration_str)
+        if duration_match:
+            minutes = int(duration_match.group(1))
+        else:
+            minutes = 5  # Default fallback
+        
+        # Use 150 words per minute for natural conversational speech
+        target_words = minutes * 150
+        
+        print(f"🎯 Enhanced generator: Duration '{duration_str}' → {minutes} minutes → {target_words} target words")
+        return target_words
+    
     def _format_voice_roles(self) -> str:
         """Format available voice roles for the prompt"""
         roles = []
@@ -100,20 +121,31 @@ Generate a compelling, character-driven podcast script that embodies the Coperni
         """Generate structured content using the character system prompt"""
         
         topic = request_data.get('topic', '')
+        duration = request_data.get('duration', '5 minutes')
+        target_words = self._calculate_target_words(duration)
         
         user_prompt = f"""Create a comprehensive podcast episode about: {topic}
+
+CRITICAL REQUIREMENTS:
+- Target word count: {target_words} words (for {duration} duration)
+- Use HOST:, EXPERT:, QUESTIONER: speaker labels (no asterisks)
+- Create substantial dialogue for each speaker to reach target length
 
 Please provide the following in JSON format:
 {{
     "title": "Compelling episode title (do NOT include 'Test' in the title)",
     "description": "Detailed episode description (4000 chars max)",
-    "script": "Multi-voice script with speaker labels",
+    "script": "Multi-voice script with speaker labels - MUST be {target_words} words",
     "key_points": ["Key point 1", "Key point 2", "Key point 3"],
     "citations": ["Citation 1", "Citation 2"],
     "hashtags": ["#hashtag1", "#hashtag2"]
 }}
 
-IMPORTANT: The title should be professional and engaging. Do NOT include words like "Test" in the title. Make it sound like a real podcast episode title.
+IMPORTANT: 
+- The script MUST be approximately {target_words} words to achieve {duration}
+- Use proper speaker labels: HOST:, EXPERT:, QUESTIONER: (no asterisks or markdown)
+- Each speaker should have multiple substantial segments
+- The title should be professional and engaging (no "Test" in title)
 
 Ensure the script follows the multi-voice format with clear speaker transitions and embodies the character-driven approach outlined in the system prompt.
 """
@@ -154,19 +186,23 @@ Ensure the script follows the multi-voice format with clear speaker transitions 
         return {
             "title": f"Research Insights: {topic}",
             "description": f"An exploration of {topic} and its implications for scientific understanding. This episode examines current research developments, breakthrough discoveries, and the broader implications for science and society.",
-            "script": f"""**HOST:** Welcome to today's episode exploring {topic}. This fascinating area of research has profound implications for our understanding of the natural world.
+            "script": f"""HOST: Welcome to today's episode exploring {topic}. This fascinating area of research has profound implications for our understanding of the natural world.
 
-**EXPERT:** {topic} represents a significant advancement in our scientific knowledge. The research shows remarkable insights into fundamental principles and mechanisms.
+EXPERT: {topic} represents a significant advancement in our scientific knowledge. The research shows remarkable insights into fundamental principles and mechanisms.
 
-**HOST:** Can you explain this in simpler terms for our listeners?
+QUESTIONER: Can you explain this in simpler terms for our listeners?
 
-**EXPERT:** Certainly! Let me break this down in accessible terms while maintaining scientific accuracy.
+EXPERT: Certainly! Let me break this down in accessible terms while maintaining scientific accuracy.
 
-**HOST:** Thank you for that clear explanation. What are the broader implications of this research?
+HOST: Thank you for that clear explanation. What are the broader implications of this research?
 
-**EXPERT:** The implications are far-reaching, potentially transforming our approach to multiple scientific disciplines.
+EXPERT: The implications are far-reaching, potentially transforming our approach to multiple scientific disciplines.
 
-**HOST:** Fascinating insights. Thank you for joining us today. This concludes our exploration of {topic}.""",
+QUESTIONER: What practical applications might we see from this research?
+
+EXPERT: The practical implications span multiple fields, from technological advancement to medical breakthroughs.
+
+HOST: Fascinating insights. Thank you for joining us today. This concludes our exploration of {topic}.""",
             "key_points": [
                 f"Fundamental principles of {topic}",
                 "Current research developments",
