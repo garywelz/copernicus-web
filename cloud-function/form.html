@@ -111,11 +111,11 @@
                 <label for="category">Subject Category *<span style="font-size: 12px; color: #666; margin-left: 8px;">(Required for canonical naming)</span></label>
                 <select id="category" name="category" required>
                     <option value="">Select subject category...</option>
-                    <option value="biology">Biology</option>
-                    <option value="chemistry">Chemistry</option>
-                    <option value="computer-science">Computer Science</option>
-                    <option value="mathematics">Mathematics</option>
-                    <option value="physics">Physics</option>
+                    <option value="Biology">Biology</option>
+                    <option value="Chemistry">Chemistry</option>
+                    <option value="Computer Science">Computer Science</option>
+                    <option value="Mathematics">Mathematics</option>
+                    <option value="Physics">Physics</option>
                 </select>
                 <p style="font-size: 12px; color: #666; margin-top: 4px;">This determines the canonical filename (e.g., ever-compsci-250028, ever-phys-250032)</p>
             </div>
@@ -155,6 +155,21 @@
             </div>
             
             <div class="form-group">
+                <label for="sourceLinks">Source Links (Optional)</label>
+                <p style="font-size: 12px; color: #666; margin-bottom: 8px;">Add specific papers, articles, or resources to focus the discussion</p>
+                <div id="sourceLinksContainer">
+                    <input type="url" name="sourceLinks[]" placeholder="https://arxiv.org/abs/1234.5678 or other research source" style="margin-bottom: 8px;">
+                </div>
+                <button type="button" id="addSourceLink" style="width: auto; padding: 8px 16px; font-size: 14px; background-color: #34a853; margin-top: 8px;">+ Add another source</button>
+            </div>
+            
+            <div class="form-group">
+                <label for="documents">Upload Documents (Optional)</label>
+                <input type="file" id="documents" name="documents" multiple accept=".pdf,.doc,.docx,.txt" style="padding: 8px;">
+                <p style="font-size: 12px; color: #666; margin-top: 4px;">Supported formats: PDF, DOC, DOCX, TXT</p>
+            </div>
+            
+            <div class="form-group">
                 <label for="additionalNotes">Additional Instructions (Optional)</label>
                 <textarea id="additionalNotes" name="additionalNotes" rows="4" 
                           placeholder="Special themes, perspectives, or specific aspects to emphasize..."></textarea>
@@ -173,6 +188,17 @@
     <script>
         const CLOUD_FUNCTION_URL = 'https://us-central1-regal-scholar-453620-r7.cloudfunctions.net/generate-podcast';
         
+        // Add source link functionality
+        document.getElementById('addSourceLink').addEventListener('click', function() {
+            const container = document.getElementById('sourceLinksContainer');
+            const newInput = document.createElement('input');
+            newInput.type = 'url';
+            newInput.name = 'sourceLinks[]';
+            newInput.placeholder = 'https://arxiv.org/abs/1234.5678 or other research source';
+            newInput.style.marginBottom = '8px';
+            container.appendChild(newInput);
+        });
+        
         document.getElementById('podcastForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
@@ -186,13 +212,24 @@
             
             // Get form data
             const formData = new FormData(e.target);
+            
+            // Collect source links
+            const sourceLinks = [];
+            const sourceLinkInputs = document.querySelectorAll('input[name="sourceLinks[]"]');
+            sourceLinkInputs.forEach(input => {
+                if (input.value.trim()) {
+                    sourceLinks.push(input.value.trim());
+                }
+            });
+            
             const requestData = {
                 subject: formData.get('subject'),
+                category: formData.get('category'),
                 duration: formData.get('duration'),
                 speakers: formData.get('speakers'),
                 difficulty: formData.get('difficulty'),
                 additional_notes: formData.get('additionalNotes') || '',
-                source_links: []
+                source_links: sourceLinks
             };
             
             try {

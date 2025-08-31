@@ -41,14 +41,23 @@ def generate_podcast(request):
             return (json.dumps({'error': 'Method not allowed'}), 405, headers)
         
         # Parse request data
-        request_json = request.get_json()
-        logger.info(f"🔥🔥🔥 REQUEST DATA: {json.dumps(request_json, indent=2)}")
+        try:
+            request_json = request.get_json()
+            logger.info(f"🔥🔥🔥 REQUEST DATA: {json.dumps(request_json, indent=2)}")
+        except json.JSONDecodeError as json_error:
+            logger.error(f"🔥🔥🔥 REQUEST JSON PARSE ERROR: {json_error}")
+            return (json.dumps({
+                'error': 'Invalid JSON in request',
+                'message': 'The request contains malformed JSON data',
+                'details': str(json_error)
+            }), 400, headers)
         
         if not request_json:
             return (json.dumps({'error': 'No JSON data provided'}), 400, headers)
         
         # Extract form fields
         subject = request_json.get('subject')
+        category = request_json.get('category')  # Add category extraction
         duration = request_json.get('duration')
         speakers = request_json.get('speakers')
         difficulty = request_json.get('difficulty')
@@ -66,6 +75,7 @@ def generate_podcast(request):
         # Prepare data for Cloud Run backend
         backend_data = {
             'subject': subject,
+            'category': category,  # Add category to backend data
             'duration': duration,
             'speakers': speakers,
             'difficulty': difficulty,
@@ -92,16 +102,25 @@ def generate_podcast(request):
             logger.info(f"🔥🔥🔥 CLOUD RUN RESPONSE: {response.text}")
             
             if response.status_code == 200:
-                backend_result = response.json()
-                logger.info(f"🔥🔥🔥 BACKEND JOB ID: {backend_result.get('job_id')}")
-                
-                return (json.dumps({
-                    'success': True,
-                    'jobId': job_id,
-                    'backendJobId': backend_result.get('job_id'),
-                    'message': 'Podcast generation job created successfully',
-                    'estimatedCompletionTime': '5-10 minutes'
-                }), 200, headers)
+                try:
+                    backend_result = response.json()
+                    logger.info(f"🔥🔥🔥 BACKEND JOB ID: {backend_result.get('job_id')}")
+                    
+                    return (json.dumps({
+                        'success': True,
+                        'jobId': job_id,
+                        'backendJobId': backend_result.get('job_id'),
+                        'message': 'Podcast generation job created successfully',
+                        'estimatedCompletionTime': '5-10 minutes'
+                    }), 200, headers)
+                except json.JSONDecodeError as json_error:
+                    logger.error(f"🔥🔥🔥 JSON PARSE ERROR: {json_error}")
+                    logger.error(f"🔥🔥🔥 RESPONSE TEXT: {response.text}")
+                    return (json.dumps({
+                        'error': 'Backend returned invalid JSON',
+                        'message': 'The backend service returned malformed data',
+                        'details': str(json_error)
+                    }), 500, headers)
             else:
                 logger.error(f"🔥🔥🔥 CLOUD RUN ERROR: {response.status_code} - {response.text}")
                 return (json.dumps({

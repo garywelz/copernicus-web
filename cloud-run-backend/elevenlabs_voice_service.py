@@ -55,11 +55,11 @@ class ElevenLabsVoiceService:
         self.api_key = self._get_api_key()
         self.base_url = "https://api.elevenlabs.io/v1"
         
-        # Natural speaker configurations with distinct voices
+        # Natural speaker configurations with distinct voices using specific voice IDs
         self.voice_configs = {
             "host": ElevenLabsVoiceConfig(
-                voice_id="21m00Tcm4TlvDq8ikWAM",  # Rachel - Professional female
-                speaker_name="Sarah",
+                voice_id="XrExE9yKIg1WjnnlVkGX",  # Matilda - Professional female
+                speaker_name="Matilda",
                 voice_description="Professional host, warm and engaging",
                 stability=0.7,
                 similarity_boost=0.8,
@@ -67,8 +67,8 @@ class ElevenLabsVoiceService:
                 use_speaker_boost=True
             ),
             "expert": ElevenLabsVoiceConfig(
-                voice_id="AZnzlk1XvdvUeBnXmlld",  # Domi - Knowledgeable male
-                speaker_name="Tom",
+                voice_id="CeUM4KBxu8vyeYTJozSJ",  # Gary Welz - Knowledgeable male
+                speaker_name="Gary",
                 voice_description="Expert researcher, authoritative but approachable",
                 stability=0.6,
                 similarity_boost=0.9,
@@ -76,8 +76,8 @@ class ElevenLabsVoiceService:
                 use_speaker_boost=True
             ),
             "questioner": ElevenLabsVoiceConfig(
-                voice_id="EXAVITQu4vr4xnSDxMaL",  # Bella - Curious female
-                speaker_name="Mary",
+                voice_id="iiidtqDt9FBdT1vfBluA",  # Bill L. Oxley - Curious male
+                speaker_name="Bill",
                 voice_description="Curious questioner, engaging and thoughtful",
                 stability=0.5,
                 similarity_boost=0.7,
@@ -85,8 +85,8 @@ class ElevenLabsVoiceService:
                 use_speaker_boost=True
             ),
             "correspondent": ElevenLabsVoiceConfig(
-                voice_id="ErXwobaYiN019PkySvjV",  # Antoni - Versatile male
-                speaker_name="Bob",
+                voice_id="Pt5YrLNyu6d2s3s4CVMg",  # Lily - Versatile female
+                speaker_name="Lily",
                 voice_description="Field correspondent, dynamic and informative",
                 stability=0.6,
                 similarity_boost=0.8,
@@ -226,7 +226,7 @@ class ElevenLabsVoiceService:
         
         # Remove any speaker labels that might have leaked through
         text = re.sub(r'^(HOST|EXPERT|QUESTIONER|CORRESPONDENT):\s*', '', text, flags=re.IGNORECASE)
-        text = re.sub(r'^(Sarah|Tom|Mary|Bob):\s*', '', text, flags=re.IGNORECASE)
+        text = re.sub(r'^(Matilda|Gary|Bill|Lily|Sarah|Tom|Mary|Bob):\s*', '', text, flags=re.IGNORECASE)
         
         # Remove markdown formatting
         text = re.sub(r'\*\*(.*?)\*\*', r'\1', text)
@@ -253,8 +253,14 @@ class ElevenLabsVoiceService:
         """Parse script into [{speaker, content}] segments"""
         import re
         
+        # Debug: Log the first 500 characters of the script
+        logger.info(f"🔍 Parsing script (first 500 chars): {script[:500]}...")
+        
         segments: List[Dict[str, str]] = []
         lines = script.split('\n')
+        
+        current_speaker = None
+        current_content = []
         
         for line in lines:
             line = line.strip()
@@ -266,34 +272,110 @@ class ElevenLabsVoiceService:
             role_match = re.match(r'^(HOST|EXPERT|QUESTIONER|CORRESPONDENT):\s*(.*)', line, re.IGNORECASE)
             # Accept common first-name labels: Sarah:, Tom:, Mary:, Bob:, Maya:, etc. (single capitalized word followed by colon)
             name_match = re.match(r'^([A-Z][a-zA-Z]+):\s*(.*)', line)
-
-            mapped_role = None
-            text = None
+            
+            # Also look for variations like "HOST -", "EXPERT -", etc.
+            role_dash_match = re.match(r'^(HOST|EXPERT|QUESTIONER|CORRESPONDENT)\s*-\s*(.*)', line, re.IGNORECASE)
 
             if role_match:
-                mapped_role = role_match.group(1).lower()
-                text = role_match.group(2).strip()
+                # Save previous speaker's content if any
+                if current_speaker and current_content:
+                    clean_text = self._preprocess_text_for_natural_speech(' '.join(current_content))
+                    if clean_text:
+                        segments.append({"speaker": current_speaker, "content": clean_text})
+                
+                # Start new speaker
+                current_speaker = role_match.group(1).lower()
+                current_content = [role_match.group(2).strip()] if role_match.group(2).strip() else []
+                
+            elif role_dash_match:
+                # Save previous speaker's content if any
+                if current_speaker and current_content:
+                    clean_text = self._preprocess_text_for_natural_speech(' '.join(current_content))
+                    if clean_text:
+                        segments.append({"speaker": current_speaker, "content": clean_text})
+                
+                # Start new speaker
+                current_speaker = role_dash_match.group(1).lower()
+                current_content = [role_dash_match.group(2).strip()] if role_dash_match.group(2).strip() else []
+                
             elif name_match:
+                # Save previous speaker's content if any
+                if current_speaker and current_content:
+                    clean_text = self._preprocess_text_for_natural_speech(' '.join(current_content))
+                    if clean_text:
+                        segments.append({"speaker": current_speaker, "content": clean_text})
+                
+                # Start new speaker
                 first_name = name_match.group(1).strip().lower()
                 text = name_match.group(2).strip()
+                
                 # Map common speaker first names to voice roles
                 name_to_role = {
+                    "matilda": "host",
+                    "gary": "expert", 
+                    "bill": "questioner",
+                    "lily": "correspondent",
                     "sarah": "host",
-                    "tom": "expert",
+                    "tom": "expert", 
                     "mary": "questioner",
                     "bob": "correspondent",
                     "maya": "questioner",
                     "james": "expert",
                     "susan": "host",
                 }
-                mapped_role = name_to_role.get(first_name, "host")
-
-            if mapped_role and text:
-                # Clean the text for natural speech
-                clean_text = self._preprocess_text_for_natural_speech(text)
-                if clean_text:
-                    segments.append({"speaker": mapped_role, "content": clean_text})
+                current_speaker = name_to_role.get(first_name, "host")
+                current_content = [text] if text else []
+                
+            else:
+                # This is content for the current speaker
+                if current_speaker:
+                    current_content.append(line)
         
+        # Don't forget the last speaker's content
+        if current_speaker and current_content:
+            clean_text = self._preprocess_text_for_natural_speech(' '.join(current_content))
+            if clean_text:
+                segments.append({"speaker": current_speaker, "content": clean_text})
+        
+        # If no segments found, try to create multi-voice content from the script
+        if not segments:
+            logger.warning("⚠️ No speaker segments found, attempting to create multi-voice content from script")
+            segments = self._create_multi_voice_from_script(script)
+        
+        logger.info(f"📝 Parsed {len(segments)} script segments")
+        for i, segment in enumerate(segments):
+            logger.info(f"   Segment {i+1}: {segment['speaker']} - {segment['content'][:100]}...")
+        
+        return segments
+    
+    def _create_multi_voice_from_script(self, script: str) -> List[Dict[str, str]]:
+        """Create multi-voice segments from a script without speaker labels"""
+        import re
+        
+        # Split script into paragraphs
+        paragraphs = re.split(r'\n\s*\n', script)
+        segments = []
+        
+        # Define speaker rotation
+        speakers = ["host", "expert", "questioner"]
+        speaker_index = 0
+        
+        for paragraph in paragraphs:
+            paragraph = paragraph.strip()
+            if not paragraph:
+                continue
+                
+            # Clean the paragraph
+            clean_text = self._preprocess_text_for_natural_speech(paragraph)
+            if clean_text and len(clean_text) > 20:  # Only add substantial content
+                speaker = speakers[speaker_index % len(speakers)]
+                segments.append({
+                    "speaker": speaker,
+                    "content": clean_text
+                })
+                speaker_index += 1
+        
+        logger.info(f"🔄 Created {len(segments)} multi-voice segments from script")
         return segments
     
     async def _synthesize_segment(self, text: str, voice_config: ElevenLabsVoiceConfig) -> tuple[bytes, float]:
@@ -333,21 +415,61 @@ class ElevenLabsVoiceService:
                     error_text = await response.text()
                     raise Exception(f"ElevenLabs API error {response.status}: {error_text}")
     
-    async def _combine_audio_segments(self, segments: List[AudioSegment]) -> bytes:
+    async def _combine_audio_segments(self, segments: List[bytes]) -> bytes:
         """Combine audio segments into a single audio file"""
         if not segments:
             return b""
         
         if len(segments) == 1:
-            return segments[0].audio_data
+            return segments[0]
         
-        # For now, return concatenated audio data
-        # In production, you might want to use pydub or similar for proper audio mixing
-        combined = b""
-        for segment in segments:
-            combined += segment.audio_data
-        
-        return combined
+        try:
+            # Use pydub for proper audio concatenation
+            from pydub import AudioSegment
+            import io
+            
+            logger.info(f"🔗 Combining {len(segments)} audio segments with pydub")
+            
+            # Convert each segment to AudioSegment
+            audio_segments = []
+            for i, segment_data in enumerate(segments):
+                try:
+                    # Create AudioSegment from MP3 bytes
+                    audio_segment = AudioSegment.from_mp3(io.BytesIO(segment_data))
+                    audio_segments.append(audio_segment)
+                    logger.info(f"✅ Segment {i+1} loaded: {len(audio_segment)}ms")
+                except Exception as e:
+                    logger.error(f"❌ Failed to load segment {i+1}: {e}")
+                    continue
+            
+            if not audio_segments:
+                raise Exception("No valid audio segments could be loaded")
+            
+            # Concatenate all segments
+            combined_audio = audio_segments[0]
+            for i, segment in enumerate(audio_segments[1:], 1):
+                combined_audio += segment
+                logger.info(f"✅ Added segment {i+1}: total duration {len(combined_audio)}ms")
+            
+            # Export as MP3
+            output_buffer = io.BytesIO()
+            combined_audio.export(output_buffer, format="mp3", bitrate="128k")
+            output_buffer.seek(0)
+            
+            logger.info(f"✅ Successfully combined {len(audio_segments)} segments: {len(combined_audio)}ms total")
+            return output_buffer.getvalue()
+            
+        except ImportError:
+            logger.warning("⚠️ pydub not available, using fallback concatenation")
+            # Fallback to simple concatenation (may not work properly)
+            combined = b""
+            for segment in segments:
+                combined += segment
+            return combined
+        except Exception as e:
+            logger.error(f"❌ Failed to combine audio segments: {e}")
+            # Fallback to first segment only
+            return segments[0] if segments else b""
     
     async def add_audio_bumpers(self, main_audio: bytes, intro_path: str, outro_path: str) -> bytes:
         """
@@ -374,12 +496,37 @@ class ElevenLabsVoiceService:
                 outro_audio = f.read()
             logger.info(f"📊 Outro bumper size: {len(outro_audio)} bytes")
             
-            # Combine: intro + main + outro
-            final_audio = intro_audio + main_audio + outro_audio
-            logger.info(f"📊 Final audio size: {len(final_audio)} bytes")
-            
-            logger.info("✅ Audio bumpers added successfully")
-            return final_audio
+            # Use pydub for proper audio combining
+            try:
+                from pydub import AudioSegment
+                import io
+                
+                # Convert bytes to AudioSegment objects
+                intro_segment = AudioSegment.from_mp3(io.BytesIO(intro_audio))
+                main_segment = AudioSegment.from_mp3(io.BytesIO(main_audio))
+                outro_segment = AudioSegment.from_mp3(io.BytesIO(outro_audio))
+                
+                # Combine: intro + main + outro
+                final_audio_segment = intro_segment + main_segment + outro_segment
+                
+                # Export as MP3
+                output_buffer = io.BytesIO()
+                final_audio_segment.export(output_buffer, format="mp3", bitrate="128k")
+                output_buffer.seek(0)
+                final_audio = output_buffer.getvalue()
+                
+                logger.info(f"📊 Final audio size: {len(final_audio)} bytes")
+                logger.info(f"📊 Final audio duration: {len(final_audio_segment)}ms")
+                logger.info("✅ Audio bumpers added successfully with pydub")
+                return final_audio
+                
+            except ImportError:
+                logger.warning("⚠️ pydub not available for bumpers, using fallback concatenation")
+                # Fallback to simple concatenation (may not work properly)
+                final_audio = intro_audio + main_audio + outro_audio
+                logger.info(f"📊 Final audio size: {len(final_audio)} bytes")
+                logger.info("✅ Audio bumpers added successfully (fallback)")
+                return final_audio
             
         except FileNotFoundError as e:
             logger.error(f"❌ Bumper file not found: {e}")
@@ -440,7 +587,7 @@ class ElevenLabsVoiceService:
                 raise Exception("No audio segments were generated successfully")
             
             # Combine all audio segments
-            audio_data = self._combine_audio_segments(audio_segments)
+            audio_data = await self._combine_audio_segments(audio_segments)
             logger.info(f"✅ Combined {len(audio_segments)} segments: {total_duration:.1f}s total")
         
         # Add bumpers to the audio

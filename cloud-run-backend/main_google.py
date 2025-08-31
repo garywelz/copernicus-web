@@ -11,10 +11,15 @@ import json
 from paper_processor import process_paper, ResearchPaper, AnalyzeOptions, PaperAnalysis, format_citation
 from copernicus_character import get_copernicus_character, get_character_prompt, CopernicusCharacter
 from elevenlabs_voice_service import ElevenLabsVoiceService
+from email_service import EmailService
+from content_fixes import apply_content_fixes, fix_script_format_for_multi_voice, limit_description_length, extract_itunes_summary, generate_relevant_hashtags, validate_academic_references
 import re
 
 def _extract_json_from_response(text: str) -> dict:
     """Extracts a JSON object from a string, even if it's embedded in other text."""
+    import re
+    import json
+    
     # Regex to find a JSON object, potentially wrapped in markdown ```json ... ```
     json_match = re.search(r'```json\s*(\{.*?\})\s*```|(\{.*?\})', text, re.DOTALL)
     
@@ -24,10 +29,95 @@ def _extract_json_from_response(text: str) -> dict:
     # The regex has two capturing groups, one for the markdown case, one for the raw case.
     json_str = json_match.group(1) or json_match.group(2)
     
-    try:
-        return json.loads(json_str)
-    except json.JSONDecodeError as e:
-        raise ValueError(f"Failed to decode extracted JSON: {e}\nOriginal text snippet: {json_str[:200]}...")
+    # Enhanced cleaning function for JSON strings
+    def clean_json_string(s):
+        """Clean JSON string by removing or replacing invalid control characters"""
+        import string
+        
+        # First pass: Remove all control characters except newlines, tabs, and carriage returns
+        cleaned = ""
+        for char in s:
+            if char in string.printable or char in '\n\t\r':
+                cleaned += char
+            else:
+                # Replace control characters with spaces
+                cleaned += ' '
+        
+        # Second pass: Fix common JSON issues
+        # Remove any null bytes
+        cleaned = cleaned.replace('\x00', '')
+        
+        # Fix escaped quotes that might be broken
+        cleaned = re.sub(r'\\"([^"]*?)\\""', r'\\"\1\\"', cleaned)
+        
+        # Remove any trailing commas before closing braces/brackets
+        cleaned = re.sub(r',(\s*[}\]])', r'\1', cleaned)
+        
+        # Fix any broken escape sequences
+        cleaned = re.sub(r'\\([^"\\/bfnrtu])', r'\1', cleaned)
+        
+        return cleaned
+    
+    # Multiple parsing attempts with different cleaning strategies
+    parsing_attempts = [
+        # Attempt 1: Original JSON
+        lambda: json.loads(json_str),
+        
+        # Attempt 2: Basic cleaning
+        lambda: json.loads(clean_json_string(json_str)),
+        
+        # Attempt 3: Remove all control characters
+        lambda: json.loads(re.sub(r'[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]', '', json_str)),
+        
+        # Attempt 4: More aggressive cleaning
+        lambda: json.loads(re.sub(r'[^\x20-\x7E\n\t\r]', '', json_str)),
+        
+        # Attempt 5: Try to fix common JSON structure issues
+        lambda: json.loads(re.sub(r',(\s*[}\]])', r'\1', clean_json_string(json_str))),
+        
+        # Attempt 6: Last resort - try to extract just the essential parts
+        lambda: _extract_essential_json(json_str)
+    ]
+    
+    for i, attempt in enumerate(parsing_attempts, 1):
+        try:
+            result = attempt()
+            print(f"✅ JSON parsing succeeded on attempt {i}")
+            return result
+        except json.JSONDecodeError as e:
+            print(f"⚠️  JSON parsing attempt {i} failed: {e}")
+            if i == len(parsing_attempts):
+                # Last attempt failed, show detailed error
+                print(f"❌ All JSON parsing attempts failed")
+                print(f"Original text snippet: {json_str[:300]}...")
+                raise ValueError(f"Failed to decode extracted JSON after {len(parsing_attempts)} attempts: {e}\nOriginal text snippet: {json_str[:200]}...")
+        except Exception as e:
+            print(f"⚠️  JSON parsing attempt {i} failed with unexpected error: {e}")
+            if i == len(parsing_attempts):
+                raise
+
+def _extract_essential_json(json_str: str) -> dict:
+    """Last resort: Try to extract essential JSON structure even if malformed"""
+    import re
+    
+    # Try to find title and script even in malformed JSON
+    title_match = re.search(r'"title"\s*:\s*"([^"]+)"', json_str)
+    script_match = re.search(r'"script"\s*:\s*"([^"]*)"', json_str, re.DOTALL)
+    
+    if title_match and script_match:
+        title = title_match.group(1)
+        script = script_match.group(1)
+        
+        # Clean up the script
+        script = re.sub(r'[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]', '', script)
+        script = script.replace('\\n', '\n').replace('\\t', '\t').replace('\\"', '"')
+        
+        return {
+            "title": title,
+            "script": script
+        }
+    else:
+        raise ValueError("Could not extract essential JSON structure")
 
 # Vertex AI and Secret Manager imports
 try:
@@ -53,6 +143,7 @@ app.add_middleware(
 
 class PodcastRequest(BaseModel):
     topic: str
+    category: str = "Computer Science"  # Category from web form
     expertise_level: str = "intermediate"
     format_type: str = "interview"
     duration: str = "5-10 minutes"
@@ -73,11 +164,17 @@ class LegacyPodcastRequest(BaseModel):
     duration: str
     speakers: str = "interview"
     difficulty: str = "intermediate"
+    category: str = "Computer Science"  # Add category field with default
     additional_notes: Optional[str] = ""
     source_links: Optional[List[str]] = []
 
 def convert_legacy_request(legacy: LegacyPodcastRequest) -> PodcastRequest:
     """Convert legacy frontend request to new research-driven format"""
+    
+    # Debug: Log the legacy request data
+    print(f"🔍 DEBUG: Legacy request category = '{legacy.category}'")
+    print(f"🔍 DEBUG: Legacy request subject = '{legacy.subject}'")
+    print(f"🔍 DEBUG: Legacy request difficulty = '{legacy.difficulty}'")
     
     # Map legacy fields to new format
     expertise_mapping = {
@@ -93,8 +190,9 @@ def convert_legacy_request(legacy: LegacyPodcastRequest) -> PodcastRequest:
         "discussion": "interview"
     }
     
-    return PodcastRequest(
+    converted_request = PodcastRequest(
         topic=legacy.subject,
+        category=legacy.category,  # Add the category field!
         expertise_level=expertise_mapping.get(legacy.difficulty, "intermediate"),
         format_type=format_mapping.get(legacy.speakers, "interview"),
         duration=f"{legacy.duration} minutes" if legacy.duration.isdigit() else legacy.duration,
@@ -103,6 +201,11 @@ def convert_legacy_request(legacy: LegacyPodcastRequest) -> PodcastRequest:
         include_citations=True,
         paradigm_shift_analysis=True
     )
+    
+    # Debug: Log the converted request
+    print(f"🔍 DEBUG: Converted request category = '{converted_request.category}'")
+    
+    return converted_request
 
 # --- Vertex AI Configuration ---
 GCP_PROJECT_ID = "regal-scholar-453620-r7"  # Your Google Cloud Project ID
@@ -181,19 +284,73 @@ except Exception as e:
     db = None
 
 async def generate_research_driven_content(request: PodcastRequest) -> dict:
-    """Generate research-driven content using paper analysis and Google Gemini (Vertex AI or API)"""
+    """Generate research-driven content using enhanced character-driven approach"""
     
-    # Try Vertex AI first, then fall back to Google AI API
-    if vertex_ai_model:
-        print("🚀 Using Vertex AI Gemini for content generation")
-        return await generate_content_vertex_ai(request)
-    else:
-        print("🔄 Falling back to Google AI API")
-        google_key = get_google_api_key()
-        if not google_key:
-            print("❌ No Google AI API key - using fallback content")
-            raise ValueError("Google AI API key is not available.")
-        return await generate_content_google_api(request, google_key)
+    # Try enhanced character-driven approach first
+    try:
+        print("🎭 Using enhanced character-driven content generation")
+        return await generate_enhanced_character_content(request)
+    except Exception as e:
+        print(f"⚠️ Enhanced content generation failed: {e}")
+        print("🔄 Falling back to original method")
+        
+        # Try Vertex AI first, then fall back to Google AI API
+        if vertex_ai_model:
+            print("🚀 Using Vertex AI Gemini for content generation")
+            return await generate_content_vertex_ai(request)
+        else:
+            print("🔄 Falling back to Google AI API")
+            google_key = get_google_api_key()
+            if not google_key:
+                print("❌ No Google AI API key - using fallback content")
+                raise ValueError("Google AI API key is not available.")
+            return await generate_content_google_api(request, google_key)
+
+async def generate_enhanced_character_content(request: PodcastRequest) -> dict:
+    """Generate content using enhanced character-driven approach"""
+    
+    try:
+        # Use enhanced content generator with character configuration
+        from enhanced_content_generator import EnhancedContentGenerator
+        from character_config import CharacterConfig
+        
+        # Initialize character configuration
+        character_config = CharacterConfig()
+        
+        # Initialize enhanced content generator
+        content_generator = EnhancedContentGenerator(character_config)
+        
+        # Convert request to dictionary format
+        request_data = {
+            'topic': request.topic,
+            'duration': request.duration,
+            'expertise_level': request.expertise_level,
+            'format_type': request.format_type,
+            'paper_content': request.paper_content,
+            'paper_title': request.paper_title,
+            'source_links': request.source_links,
+            'additional_instructions': request.additional_instructions
+        }
+        
+        # Generate character-driven content
+        content = await content_generator.generate_character_driven_content(request_data)
+        
+        # Ensure required fields are present
+        if not content.get('script'):
+            content['script'] = content.get('description', '')
+        
+        if not content.get('title'):
+            content['title'] = f"Research Insights: {request.topic}"
+        
+        if not content.get('description'):
+            content['description'] = f"An exploration of {request.topic} and its implications for scientific understanding."
+        
+        print(f"✅ Enhanced character-driven content generated successfully")
+        return content
+        
+    except Exception as e:
+        print(f"❌ Enhanced content generation failed: {e}")
+        raise e
 
 async def generate_content_vertex_ai(request: PodcastRequest) -> dict:
     """Generate content using Vertex AI Gemini. This function will now raise exceptions on failure."""
@@ -408,12 +565,30 @@ Create a compelling {request.duration} research podcast script about "{request.t
 Create a natural dialogue between HOST, EXPERT, and QUESTIONER that follows this structure:
 {chr(10).join([f"- {step}" for step in character.structure])}
 
+**Content Length Requirements:**
+- Target duration: {request.duration} (approximately 1500-2000 words for 10 minutes)
+- Each speaker should have 8-12 substantial dialogue segments
+- Include detailed technical explanations and comprehensive coverage
+- Ensure the script is long enough to fill the full {request.duration}
+
+**CRITICAL FORMAT REQUIREMENTS - THIS IS MANDATORY:**
+- **MUST** use speaker labels at the beginning of each line: "HOST:", "EXPERT:", "QUESTIONER:"
+- **DO NOT** write in narrative format - write as a conversation between speakers
+- **NEVER** start with "Welcome to Copernicus AI" without a speaker label
+- **NEVER** use phrases like "Sarah explains" or "Maya adds" - use speaker labels instead
+- **EXAMPLE FORMAT:**
+  HOST: Welcome to Copernicus AI: Frontiers of Science. Today we're discussing {request.topic}.
+  EXPERT: Thank you for having me. This is a fascinating area of research.
+  QUESTIONER: Can you explain what makes this topic so significant?
+  HOST: That's a great question. Let's dive into the details.
+
+**MANDATORY:** Every line of dialogue must start with a speaker label. Do not write any narrative text without speaker labels. The script must be a pure dialogue format with HOST:, EXPERT:, QUESTIONER: labels.
+
 **Format Guidelines:**
-- Use "HOST:", "EXPERT:", and "QUESTIONER:" to mark each speaker
+- Use "HOST:", "EXPERT:", and "QUESTIONER:" to mark each speaker clearly
 - HOST introduces the topic and guides the conversation for "Copernicus AI: Frontiers of Science"
 - EXPERT provides technical analysis and research insights about {request.topic}
 - QUESTIONER asks clarifying questions and represents audience curiosity
-- Use only first names like Sarah, Tom, Maya, Alex, Jordan, etc.
 - Include evidence-based insights from recent research
 - Mention specific studies with proper academic citations when possible
 - Focus on paradigm shifts and interdisciplinary connections
@@ -483,6 +658,35 @@ After generating the main content, create a detailed description following this 
         
         if response_obj and response_obj.text:
             content = _extract_json_from_response(response_obj.text)
+            
+            # Apply content fixes
+            if 'script' in content:
+                content['script'] = apply_content_fixes(content['script'], request.topic)
+                # Fix script format for multi-voice if needed
+                content['script'] = fix_script_format_for_multi_voice(content['script'])
+            
+            # Limit description length and extract iTunes summary
+            if 'description' in content:
+                content['description'] = limit_description_length(content['description'], 4000)
+                content['itunes_summary'] = extract_itunes_summary(content['description'])
+                
+                # Generate relevant hashtags
+                content['hashtags'] = generate_relevant_hashtags(
+                    request.topic, 
+                    request.category, 
+                    content.get('title', ''), 
+                    content['description']
+                )
+                
+                # Validate academic references in description
+                if '## References' in content['description']:
+                    # Extract references section
+                    desc_parts = content['description'].split('## References')
+                    if len(desc_parts) > 1:
+                        ref_section = desc_parts[1].split('##')[0]  # Get content until next section
+                        validated_refs = validate_academic_references(ref_section)
+                        content['description'] = desc_parts[0] + '## References\n' + validated_refs + '\n' + '##'.join(desc_parts[1].split('##')[1:])
+            
             print(f"✅ Topic-based research content generated successfully")
             return content
         else:
@@ -528,10 +732,8 @@ Create a natural dialogue between HOST, EXPERT, and QUESTIONER that follows this
 - NEVER use "Dr." or any academic titles in the script
 
 **Script Format Requirements:**
-- Create natural dialogue without speaker labels in the final script
-- Write as continuous narrative with clear speaker transitions
-- Use phrases like "Sarah explains" or "Marcus adds" instead of "EXPERT:" labels
-- Make the conversation flow naturally without technical markers
+- Use "HOST:", "EXPERT:", and "QUESTIONER:" to mark each speaker clearly
+- Write natural dialogue that flows between speakers
 - Include proper academic citations with DOIs where relevant
 - Focus on paradigm-shifting implications and research insights
 - Duration: {request.duration}
@@ -696,6 +898,33 @@ Return JSON with:
         
         if response and response.text:
             content = _extract_json_from_response(response.text)
+            
+            # Apply content fixes
+            if 'script' in content:
+                content['script'] = apply_content_fixes(content['script'], request.topic)
+            
+            # Limit description length and extract iTunes summary
+            if 'description' in content:
+                content['description'] = limit_description_length(content['description'], 4000)
+                content['itunes_summary'] = extract_itunes_summary(content['description'])
+                
+                # Generate relevant hashtags
+                content['hashtags'] = generate_relevant_hashtags(
+                    request.topic, 
+                    request.category, 
+                    content.get('title', ''), 
+                    content['description']
+                )
+                
+                # Validate academic references in description
+                if '## References' in content['description']:
+                    # Extract references section
+                    desc_parts = content['description'].split('## References')
+                    if len(desc_parts) > 1:
+                        ref_section = desc_parts[1].split('##')[0]  # Get content until next section
+                        validated_refs = validate_academic_references(ref_section)
+                        content['description'] = desc_parts[0] + '## References\n' + validated_refs + '\n' + '##'.join(desc_parts[1].split('##')[1:])
+            
             print(f"✅ Vertex AI topic-based podcast content generated successfully")
             return content
         else:
@@ -991,7 +1220,7 @@ async def generate_and_upload_thumbnail(title: str, topic: str, canonical_filena
             "model": "dall-e-3",
             "prompt": dalle_prompt,
             "n": 1,
-            "size": "1792x1792",  # Perfect for podcast platforms
+            "size": "1024x1024",  # Standard square format for podcast platforms
             "quality": "hd",
             "style": "vivid"
         }
@@ -1030,8 +1259,15 @@ async def generate_and_upload_thumbnail(title: str, topic: str, canonical_filena
         print(f"❌ Error generating/uploading thumbnail: {e}")
         return await generate_fallback_thumbnail(canonical_filename, topic)
 
-async def determine_canonical_filename(topic: str, title: str) -> str:
+async def determine_canonical_filename(topic: str, title: str, category: str = None) -> str:
     """Determine canonical filename based on topic category and next available episode number"""
+    
+    # Debug: Log the input parameters
+    print(f"🔍 DEBUG: determine_canonical_filename called with:")
+    print(f"🔍 DEBUG:   topic = '{topic}'")
+    print(f"🔍 DEBUG:   title = '{title}'")
+    print(f"🔍 DEBUG:   category = '{category}'")
+    
     try:
         import requests
         import csv
@@ -1043,7 +1279,9 @@ async def determine_canonical_filename(topic: str, title: str) -> str:
         response.raise_for_status()
         
         # Parse CSV to find highest episode number for each category
-        csv_reader = csv.reader(io.StringIO(response.text))
+        csv_text = response.text
+        csv_reader = csv.reader(io.StringIO(csv_text))
+        
         category_episodes = {
             "bio": 0,
             "chem": 0, 
@@ -1052,54 +1290,60 @@ async def determine_canonical_filename(topic: str, title: str) -> str:
             "phys": 0
         }
         
+        # Skip header row
+        next(csv_reader, None)
+        
         for row in csv_reader:
-            if len(row) >= 2 and row[0].startswith("ever-"):
+            if len(row) >= 1 and row[0].startswith("ever-"):
                 # Extract category and episode number from filename
-                parts = row[0].split("-")
+                filename = row[0].strip('"')  # Remove quotes
+                parts = filename.split("-")
                 if len(parts) >= 3:
-                    category = parts[1]
+                    csv_category = parts[1]  # Use different variable name
                     try:
                         episode_num = int(parts[2])
-                        if category in category_episodes:
-                            category_episodes[category] = max(category_episodes[category], episode_num)
+                        if csv_category in category_episodes:
+                            category_episodes[csv_category] = max(category_episodes[csv_category], episode_num)
                     except ValueError:
                         continue
         
-        # Determine category based on topic keywords
-        topic_lower = topic.lower()
-        title_lower = title.lower()
-        combined_text = f"{topic_lower} {title_lower}"
+        # Use the category from the request instead of re-classifying
+        # Map the request category to the canonical format
+        category_mapping = {
+            "Physics": "phys",
+            "Computer Science": "compsci", 
+            "Biology": "bio",
+            "Chemistry": "chem",
+            "Mathematics": "math",
+            "Engineering": "eng",
+            "Medicine": "med",
+            "Psychology": "psych"
+        }
         
-        category = "phys"  # Default to physics
-        if any(word in combined_text for word in ["biology", "bio", "genetic", "dna", "protein", "cell", "organism", "evolution"]):
-            category = "bio"
-        elif any(word in combined_text for word in ["chemistry", "chemical", "molecule", "compound", "reaction", "catalyst"]):
-            category = "chem"
-        elif any(word in combined_text for word in ["computer", "computing", "algorithm", "software", "programming", "ai", "artificial intelligence", "machine learning"]):
-            category = "compsci"
-        elif any(word in combined_text for word in ["mathematics", "math", "equation", "theorem", "proof", "statistics", "probability"]):
-            category = "math"
-        elif any(word in combined_text for word in ["physics", "quantum", "particle", "energy", "matter", "relativity", "thermodynamics"]):
-            category = "phys"
+        # Use the category from the request directly
+        if category and category in category_mapping:
+            request_category = category_mapping[category]
+        else:
+            # Direct mapping from common categories
+            if "Physics" in str(category):
+                request_category = "phys"
+            elif "Computer Science" in str(category):
+                request_category = "compsci"
+            elif "Biology" in str(category):
+                request_category = "bio"
+            elif "Chemistry" in str(category):
+                request_category = "chem"
+            elif "Mathematics" in str(category):
+                request_category = "math"
+            else:
+                request_category = "phys"  # Default to physics
         
-        # Find the next available episode number for this category
-        existing_numbers = set()
-        for row in csv_reader:
-            if len(row) >= 2 and row[0].startswith(f"ever-{category}-"):
-                try:
-                    episode_num = int(row[0].split('-')[2])
-                    existing_numbers.add(episode_num)
-                except (ValueError, IndexError):
-                    continue
-
-        # Start checking from the highest known number + 1
-        next_episode = category_episodes[category] + 1
-        while next_episode in existing_numbers:
-            next_episode += 1
-        next_episode_str = str(next_episode).zfill(6)  # Pad to 6 digits like 250032
+        # Get the next episode number for this category
+        next_episode = category_episodes[request_category] + 1
+        next_episode_str = str(next_episode).zfill(5)  # Pad to 5 digits like 250032
         
-        canonical_filename = f"ever-{category}-{next_episode_str}"
-        print(f"🎯 Determined canonical filename: {canonical_filename} (category: {category}, episode: {next_episode})")
+        canonical_filename = f"ever-{request_category}-{next_episode_str}"
+        print(f"🎯 Determined canonical filename: {canonical_filename} (category: {request_category}, episode: {next_episode})")
         
         return canonical_filename
         
@@ -1148,92 +1392,6 @@ async def run_podcast_generation_job(job_id: str, request: PodcastRequest):
         # Robust validation added here:
         if (not content or 
             not isinstance(content, dict) or
-            not all(k in content for k in ['title', 'description']) or
-            not content.get('title') or len(str(content.get('title', '')).strip()) < 5 or
-            not content.get('description') or len(str(content.get('description', '')).strip()) < 20):
-            raise ValueError("Content generation returned empty, incomplete, or placeholder data.")
-        
-        # Determine canonical filename based on topic category and next available episode number
-        canonical_filename = await determine_canonical_filename(request.topic, content["title"])
-        
-        # Generate multi-voice audio with ElevenLabs and bumpers
-        print(f"🎙️  Generating multi-voice ElevenLabs audio for job {job_id}")
-        # Force deployment: 2025-01-21 13:45:00 UTC - Multi-voice audio generation enabled
-        voice_service = ElevenLabsVoiceService()
-        audio_url = await voice_service.generate_multi_voice_audio_with_bumpers(
-            content["script"], 
-            job_id, 
-            canonical_filename,
-            intro_path="bumpers/copernicus-intro.mp3",
-            outro_path="bumpers/copernicus-outro.mp3"
-        )
-        
-        # Generate and upload transcript to GCS
-        print(f"📄 Generating and uploading transcript for job {job_id}")
-        transcript_url = await generate_and_upload_transcript(content["script"], canonical_filename)
-        
-        # Upload description to GCS
-        print(f"📝 Uploading episode description to GCS")
-        description_url = await upload_description_to_gcs(content["description"], canonical_filename)
-        
-        # Generate and upload thumbnail to GCS
-        print(f"🖼️  Generating and uploading episode thumbnail")
-        thumbnail_url = await generate_and_upload_thumbnail(content["title"], request.topic, canonical_filename)
-        
-        # Complete job with enhanced metadata
-        job_ref.update({
-            'status': 'completed',
-            'updated_at': datetime.utcnow().isoformat(),
-            'result': {
-                'title': content.get('title', 'Untitled Podcast'),
-                'script': content.get('script', ''),
-                'description': content.get('description', ''),
-                'audio_url': audio_url,
-                'thumbnail_url': thumbnail_url,
-                'transcript_url': transcript_url,
-                'description_url': description_url,
-                'duration': request.duration,
-                'topic': request.topic,
-                'expertise_level': request.expertise_level,
-                'format_type': request.format_type,
-                'has_research_paper': bool(request.paper_content),
-                'paper_title': request.paper_title,
-                'tts_provider': 'elevenlabs_multi_voice',
-                'content_provider': 'gemini_research_enhanced',
-                'canonical_filename': canonical_filename,
-                'generated_at': datetime.utcnow().isoformat()
-            }
-        })
-        
-    except Exception as e:
-        job_ref.update({
-            'status': 'failed',
-            'error': str(e),
-            'updated_at': datetime.utcnow().isoformat()
-        })
-        print(f"❌ Podcast generation failed for job {job_id}: {e}")
-
-async def run_podcast_generation_job(job_id: str, request: PodcastRequest):
-    """Process research-driven podcast generation with Google AI services"""
-    from datetime import datetime
-    if not db:
-        print(f"❌ Firestore not available. Cannot update job {job_id}.")
-        return
-
-    job_ref = db.collection('podcast_jobs').document(job_id)
-    try:
-        print(f"Job {job_id}: Starting podcast generation for topic '{request.topic}'")
-        job_ref.update({'status': 'generating_content', 'updated_at': datetime.utcnow().isoformat()})
-        
-        # Generate research-driven content with Gemini + Paper Analysis
-        print(f"Job {job_id}: Generating research-driven content for: {request.topic}")
-        if request.paper_content:
-            print(f"📜 Processing research paper: {request.paper_title[:50]}...")
-        
-        content = await generate_research_driven_content(request)
-        # --- Start of Robust Content Validation ---
-        if (not content or 
-            not isinstance(content, dict) or
             not all(k in content for k in ['title', 'script', 'description']) or
             not content.get('title') or len(str(content.get('title', '')).strip()) < 5 or
             not content.get('script') or len(str(content.get('script', '')).strip()) < 50 or
@@ -1244,7 +1402,7 @@ async def run_podcast_generation_job(job_id: str, request: PodcastRequest):
         print(f"✅ Job {job_id}: Content validation passed.")
         # --- End of Robust Content Validation ---       
         # Determine canonical filename based on topic category and next available episode number
-        canonical_filename = await determine_canonical_filename(request.topic, content["title"])
+        canonical_filename = await determine_canonical_filename(request.topic, content["title"], request.category)
         
         # Generate multi-voice audio with ElevenLabs and bumpers
         print(f"🎙️  Generating multi-voice ElevenLabs audio for job {job_id}")
@@ -1295,6 +1453,19 @@ async def run_podcast_generation_job(job_id: str, request: PodcastRequest):
             }
         })
         
+        # Send email notification
+        print(f"📧 Sending completion email notification for job {job_id}")
+        email_service = EmailService()
+        await email_service.send_podcast_completion_email(
+            recipient_email="garywelz@gmail.com",
+            job_id=job_id,
+            podcast_title=content.get('title', 'Untitled Podcast'),
+            topic=request.topic,
+            audio_url=audio_url,
+            duration=request.duration,
+            canonical_filename=canonical_filename
+        )
+        
     except Exception as e:
         job_ref.update({
             'status': 'failed',
@@ -1302,6 +1473,18 @@ async def run_podcast_generation_job(job_id: str, request: PodcastRequest):
             'updated_at': datetime.utcnow().isoformat()
         })
         print(f"❌ Podcast generation failed for job {job_id}: {e}")
+        
+        # Send failure email notification
+        try:
+            email_service = EmailService()
+            await email_service.send_podcast_failure_email(
+                recipient_email="garywelz@gmail.com",
+                job_id=job_id,
+                topic=request.topic,
+                error_message=str(e)
+            )
+        except Exception as email_error:
+            print(f"❌ Failed to send failure email notification: {email_error}")
 
 @app.post("/generate-podcast")
 async def generate_podcast(request: PodcastRequest, background_tasks: BackgroundTasks):
