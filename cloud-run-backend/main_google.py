@@ -16,20 +16,27 @@ from content_fixes import apply_content_fixes, fix_script_format_for_multi_voice
 import re
 
 def _calculate_target_words(duration_str: str) -> int:
-    """Calculate target word count based on duration string"""
+    """Calculate target word count based on duration string with higher targets for longer content"""
     import re
     
     # Extract minutes from duration string like "10 minutes", "5-10 minutes", etc.
-    duration_match = re.search(r'(\d+)', duration_str)
-    if duration_match:
-        minutes = int(duration_match.group(1))
+    # For ranges, use the higher number
+    duration_matches = re.findall(r'(\d+)', duration_str)
+    if duration_matches:
+        # If there are multiple numbers (like "5-10"), use the higher one
+        minutes = max(int(match) for match in duration_matches)
     else:
-        minutes = 5  # Default fallback
+        minutes = 10  # Default to 10 minutes instead of 5
     
-    # Use 150 words per minute for natural conversational speech
-    target_words = minutes * 150
+    # Use 180 words per minute for conversational speech to generate longer content
+    # This accounts for the fact that TTS often speaks faster than natural conversation
+    target_words = minutes * 180
     
-    print(f"🎯 Duration '{duration_str}' → {minutes} minutes → {target_words} target words")
+    # Add a buffer for longer content to ensure we hit the target duration
+    if minutes >= 10:
+        target_words = int(target_words * 1.2)  # 20% buffer for 10+ minute episodes
+    
+    print(f"🎯 Duration '{duration_str}' → {minutes} minutes → {target_words} target words (enhanced for longer content)")
     return target_words
 
 def _extract_json_from_response(text: str) -> dict:
@@ -582,12 +589,14 @@ Create a compelling {request.duration} research podcast script about "{request.t
 Create a natural dialogue between HOST, EXPERT, and QUESTIONER that follows this structure:
 {chr(10).join([f"- {step}" for step in character.structure])}
 
-**Content Length Requirements:**
-- Target duration: {request.duration}
-- Target word count: {_calculate_target_words(request.duration)} words (based on 140-160 WPM for natural speech)
-- Each speaker should have 8-12 substantial dialogue segments
-- Include detailed technical explanations and comprehensive coverage
-- Ensure the script is long enough to fill the full {request.duration}
+        **Content Length Requirements:**
+        - Target duration: {request.duration}
+        - Target word count: {_calculate_target_words(request.duration)} words (based on 180 WPM for natural speech)
+        - Each speaker should have 12-20 substantial dialogue segments for comprehensive coverage
+        - Include detailed technical explanations, examples, and comprehensive coverage
+        - Add deep dives into methodology, implications, and future research directions
+        - Ensure the script is substantially longer to fill the full {request.duration}
+        - Include specific examples, case studies, and detailed explanations of concepts
 
 **CRITICAL FORMAT REQUIREMENTS - THIS IS MANDATORY:**
 - **MUST** use speaker labels at the beginning of each line: "HOST:", "EXPERT:", "QUESTIONER:"
@@ -596,11 +605,17 @@ Create a natural dialogue between HOST, EXPERT, and QUESTIONER that follows this
 - **NEVER** use phrases like "Sarah explains" or "Maya adds" - use speaker labels instead
 - **EXAMPLE FORMAT:**
   HOST: Welcome to Copernicus AI: Frontiers of Science. Today we're discussing {request.topic}.
-  EXPERT: Thank you for having me. This is a fascinating area of research.
-  QUESTIONER: Can you explain what makes this topic so significant?
-  HOST: That's a great question. Let's dive into the details.
+  EXPERT: Thank you for having me. This is a fascinating area of research that's revolutionizing our understanding.
+  QUESTIONER: I'm curious about the practical implications. Can you walk us through the methodology?
+  EXPERT: Absolutely. The key breakthrough involves three main components...
+  HOST: That's fascinating. How does this compare to previous approaches?
 
-**MANDATORY:** Every line of dialogue must start with a speaker label. Do not write any narrative text without speaker labels. The script must be a pure dialogue format with HOST:, EXPERT:, QUESTIONER: labels.
+**MANDATORY MULTI-VOICE REQUIREMENTS:**
+- Every line of dialogue MUST start with a speaker label (HOST:, EXPERT:, QUESTIONER:)
+- Each speaker should have multiple substantial contributions throughout the episode
+- Distribute content evenly: HOST (30%), EXPERT (50%), QUESTIONER (20%)
+- The script must be a pure dialogue format with clear speaker transitions
+- NO narrative text without speaker labels - everything must be spoken dialogue
 
 **Format Guidelines:**
 - Use "HOST:", "EXPERT:", and "QUESTIONER:" to mark each speaker clearly
@@ -1278,8 +1293,9 @@ async def generate_and_upload_thumbnail(title: str, topic: str, canonical_filena
         return await generate_fallback_thumbnail(canonical_filename, topic)
 
 async def get_next_filename(category: str) -> str:
-    """Get the next available filename by checking actual files in Google Cloud Storage"""
+    """Get the next available filename by checking actual files in Google Cloud Storage with improved race condition handling"""
     from google.cloud import storage
+    import asyncio
     
     print(f"🔍 DEBUG: get_next_filename called with category = '{category}'")
     
@@ -1288,7 +1304,7 @@ async def get_next_filename(category: str) -> str:
         storage_client = storage.Client()
         bucket = storage_client.bucket("regal-scholar-453620-r7-podcast-storage")
         
-        # Map category to canonical format
+        # Map category to canonical format with better matching
         category_mapping = {
             "Physics": "phys",
             "Computer Science": "compsci", 
@@ -1300,55 +1316,105 @@ async def get_next_filename(category: str) -> str:
             "Psychology": "psych"
         }
         
-        # Use the category from the request directly
+        # Enhanced category detection
+        category_lower = str(category).lower() if category else ""
+        request_category = None
+        
+        # Direct mapping first
         if category and category in category_mapping:
             request_category = category_mapping[category]
         else:
-            # Direct mapping from common categories
-            if "Physics" in str(category):
+            # Fuzzy matching for better detection
+            if any(term in category_lower for term in ["physics", "phys"]):
                 request_category = "phys"
-            elif "Computer Science" in str(category):
+            elif any(term in category_lower for term in ["computer", "compsci", "cs", "software"]):
                 request_category = "compsci"
-            elif "Biology" in str(category):
+            elif any(term in category_lower for term in ["biology", "bio", "life"]):
                 request_category = "bio"
-            elif "Chemistry" in str(category):
+            elif any(term in category_lower for term in ["chemistry", "chem"]):
                 request_category = "chem"
-            elif "Mathematics" in str(category):
+            elif any(term in category_lower for term in ["mathematics", "math", "maths"]):
                 request_category = "math"
+            elif any(term in category_lower for term in ["engineering", "eng"]):
+                request_category = "eng"
+            elif any(term in category_lower for term in ["medicine", "med", "medical"]):
+                request_category = "med"
+            elif any(term in category_lower for term in ["psychology", "psych"]):
+                request_category = "psych"
             else:
-                request_category = "phys"  # Default to physics
+                request_category = "compsci"  # Default to computer science for most common case
+        
+        print(f"🔍 DEBUG: Mapped category '{category}' to '{request_category}'")
         
         # List all audio files with the category prefix
         prefix = f"audio/ever-{request_category}-"
-        blobs = bucket.list_blobs(prefix=prefix)
+        print(f"🔍 DEBUG: Searching for files with prefix: {prefix}")
         
-        # Find highest episode number
+        # Use iterator to handle large numbers of files efficiently
+        blobs = list(bucket.list_blobs(prefix=prefix))
+        print(f"🔍 DEBUG: Found {len(blobs)} existing files with prefix")
+        
+        # Find highest episode number with better parsing
         highest_episode = 0
+        valid_episodes = []
+        
         for blob in blobs:
             filename = blob.name.replace("audio/", "").replace(".mp3", "")
             parts = filename.split("-")
+            
             if len(parts) >= 3 and parts[0] == "ever" and parts[1] == request_category:
                 try:
                     episode_num = int(parts[2])
+                    valid_episodes.append(episode_num)
                     highest_episode = max(highest_episode, episode_num)
+                    print(f"🔍 DEBUG: Found episode {episode_num} in file {filename}")
                 except ValueError:
+                    print(f"⚠️ DEBUG: Could not parse episode number from {filename}")
                     continue
         
-        # Generate next episode number
-        next_episode = highest_episode + 1
-        next_episode_str = str(next_episode).zfill(6)  # Pad to 6 digits like 250035
+        print(f"🔍 DEBUG: Valid episodes found: {sorted(valid_episodes)}")
+        print(f"🔍 DEBUG: Highest episode number: {highest_episode}")
         
+        # Generate next episode number with safety buffer
+        next_episode = highest_episode + 1
+        
+        # Double-check that the next filename doesn't already exist (race condition protection)
+        max_attempts = 10
+        for attempt in range(max_attempts):
+            test_filename = f"ever-{request_category}-{str(next_episode).zfill(6)}"
+            test_blob_path = f"audio/{test_filename}.mp3"
+            
+            # Check if this filename already exists
+            test_blob = bucket.blob(test_blob_path)
+            if not test_blob.exists():
+                break
+            
+            print(f"⚠️ DEBUG: Filename {test_filename} already exists, trying next number")
+            next_episode += 1
+            
+            if attempt == max_attempts - 1:
+                print(f"❌ DEBUG: Could not find available filename after {max_attempts} attempts")
+        
+        next_episode_str = str(next_episode).zfill(6)  # Pad to 6 digits like 250035
         canonical_filename = f"ever-{request_category}-{next_episode_str}"
+        
         print(f"🎯 Generated next filename: {canonical_filename} (category: {request_category}, episode: {next_episode})")
+        print(f"🎯 Full audio path will be: audio/{canonical_filename}.mp3")
         
         return canonical_filename
         
     except Exception as e:
         print(f"❌ Error getting next filename: {e}")
-        # Fallback to timestamp-based naming
+        import traceback
+        print(f"❌ Full traceback: {traceback.format_exc()}")
+        
+        # Enhanced fallback to timestamp-based naming with category
         from datetime import datetime
-        timestamp = datetime.now().strftime("%y%m%d%H%M")
-        return f"research-fallback-{timestamp}"
+        timestamp = datetime.now().strftime("%y%m%d%H%M%S")
+        fallback_category = "compsci"  # Default fallback
+        fallback_filename = f"ever-{fallback_category}-{timestamp}"
+        print(f"🔄 Using fallback filename: {fallback_filename}")
+        return fallback_filename
 
 async def determine_canonical_filename(topic: str, title: str, category: str = None) -> str:
     """Determine canonical filename based on topic category and next available episode number"""
@@ -1395,7 +1461,18 @@ async def run_podcast_generation_job(job_id: str, request: PodcastRequest):
         if request.paper_content:
             print(f"📜 Processing research paper: {request.paper_title[:50]}...")
         
+        print(f"📝 Starting content generation for job {job_id}")
+        print(f"📝 Topic: {request.topic}")
+        print(f"📝 Duration: {request.duration}")
+        print(f"📝 Expertise level: {request.expertise_level}")
+        print(f"📝 Category: {request.category}")
+        
         content = await generate_research_driven_content(request)
+        
+        print(f"📝 Content generation completed")
+        print(f"📝 Generated title: {content.get('title', 'N/A')}")
+        print(f"📝 Script length: {len(content.get('script', ''))} characters")
+        print(f"📝 Description length: {len(content.get('description', ''))} characters")
         
         # Robust validation added here:
         if (not content or 
@@ -1414,8 +1491,16 @@ async def run_podcast_generation_job(job_id: str, request: PodcastRequest):
         
         # Generate multi-voice audio with ElevenLabs and bumpers
         print(f"🎙️  Generating multi-voice ElevenLabs audio for job {job_id}")
+        # Enhanced logging for audio generation
+        print(f"🎵 Starting multi-voice audio generation for job {job_id}")
+        print(f"🎵 Script length: {len(content['script'])} characters")
+        print(f"🎵 Script preview: {content['script'][:200]}...")
+        print(f"🎵 Canonical filename: {canonical_filename}")
+        
         # Force deployment: 2025-01-21 13:45:00 UTC - Multi-voice audio generation enabled
         voice_service = ElevenLabsVoiceService()
+        
+        print(f"🎵 ElevenLabs service initialized, generating audio...")
         audio_url = await voice_service.generate_multi_voice_audio_with_bumpers(
             content["script"], 
             job_id, 
@@ -1423,6 +1508,7 @@ async def run_podcast_generation_job(job_id: str, request: PodcastRequest):
             intro_path="bumpers/copernicus-intro.mp3",
             outro_path="bumpers/copernicus-outro.mp3"
         )
+        print(f"🎵 Audio generation completed: {audio_url}")
         
         # Generate and upload transcript to GCS
         print(f"📄 Generating and uploading transcript for job {job_id}")

@@ -84,13 +84,26 @@ def generate_podcast(request):
             'timestamp': int(datetime.utcnow().timestamp() * 1000)
         }
         
-        logger.info(f"🔥🔥🔥 SUBMITTING TO CLOUD RUN: {BACKEND_URL}/generate-legacy-podcast")
+        logger.info(f"🔥🔥🔥 SUBMITTING TO CLOUD RUN: {BACKEND_URL}/generate-podcast")
         
-        # Submit to Cloud Run backend (using legacy endpoint for form compatibility)
+        # Convert legacy format to new format for the main endpoint
+        converted_data = {
+            'topic': subject,
+            'category': category or 'Computer Science',
+            'expertise_level': {'General': 'beginner', 'Intermediate': 'intermediate', 'Advanced': 'expert', 'Expert': 'expert'}.get(difficulty, 'intermediate'),
+            'format_type': {'interview': 'interview', 'monologue': 'monologue', 'discussion': 'interview'}.get(speakers, 'interview'),
+            'duration': f"{duration} minutes" if duration.isdigit() else duration,
+            'voice_style': 'professional',
+            'focus_areas': [additional_notes] if additional_notes else ['methodology', 'implications', 'future_research'],
+            'include_citations': True,
+            'paradigm_shift_analysis': True
+        }
+        
+        # Submit to Cloud Run backend (using main endpoint)
         try:
             response = requests.post(
-                f"{BACKEND_URL}/generate-legacy-podcast",
-                json=backend_data,
+                f"{BACKEND_URL}/generate-podcast",
+                json=converted_data,
                 headers={
                     'Content-Type': 'application/json',
                     'User-Agent': 'CopernicusAI-CloudFunction/1.0'

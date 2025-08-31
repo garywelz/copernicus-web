@@ -571,8 +571,12 @@ class ElevenLabsVoiceService:
         logger.info(f"📝 Parsed {len(segments)} script segments")
         
         if not segments:
-            logger.warning("⚠️ No valid segments found, using single voice for entire script")
-            # Fallback to single voice
+            logger.error("❌ CRITICAL: No valid segments found - multi-voice parsing failed!")
+            logger.error(f"❌ Script preview: {script[:200]}...")
+            logger.error("❌ This indicates the script doesn't have proper speaker labels (HOST:, EXPERT:, QUESTIONER:)")
+            
+            # Fallback to single voice but log this as a major issue
+            logger.warning("🔄 Falling back to single voice for entire script - MULTI-VOICE FEATURE DISABLED")
             clean_script = self._preprocess_text_for_natural_speech(script)
             voice_config = self.voice_configs['host']
             audio_data, duration = await self._synthesize_segment(clean_script, voice_config)
