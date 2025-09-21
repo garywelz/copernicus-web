@@ -9,7 +9,7 @@ from typing import Dict, List, Optional
 
 def remove_dois_from_script(script: str) -> str:
     """
-    Remove DOI numbers from spoken script content
+    Remove DOI numbers, publication details, and stage directions from spoken script content
     DOIs should only appear in transcripts and descriptions, not spoken content
     """
     # Remove DOI patterns from script
@@ -23,9 +23,53 @@ def remove_dois_from_script(script: str) -> str:
     for pattern in doi_patterns:
         cleaned_script = re.sub(pattern, '', cleaned_script, flags=re.IGNORECASE)
     
+    # Remove publication details that sound too technical when spoken
+    publication_patterns = [
+        r'\([0-9]{4}\)',              # Publication years like (2023)
+        r'Volume\s+[0-9]+',           # Volume numbers
+        r'Issue\s+[0-9]+',            # Issue numbers
+        r'Pages?\s+[0-9\-]+',         # Page numbers
+        r'pp\.\s*[0-9\-]+',           # Page abbreviations
+        r'DOI:\s*10\.xxxx/xxxx',      # Placeholder DOIs
+    ]
+    
+    for pattern in publication_patterns:
+        cleaned_script = re.sub(pattern, '', cleaned_script, flags=re.IGNORECASE)
+    
+    # Remove stage directions and production notes
+    stage_directions = [
+        r'Pause for reflection',
+        r'\[pause\]',
+        r'\(pause\)',
+        r'\[music\]',
+        r'\(music\)',
+        r'\[sound effect\]',
+        r'\(sound effect\)',
+        r'\[transition\]',
+        r'\(transition\)',
+        r'\[break\]',
+        r'\(break\)',
+        r'\[commercial break\]',
+        r'\(commercial break\)',
+        r'\[end\]',
+        r'\(end\)',
+        r'\[fade out\]',
+        r'\(fade out\)',
+        r'\[fade in\]',
+        r'\(fade in\)'
+    ]
+    
+    for direction in stage_directions:
+        cleaned_script = re.sub(direction, '', cleaned_script, flags=re.IGNORECASE)
+    
+    # Remove any remaining bracketed text that looks like directions
+    cleaned_script = re.sub(r'\[[^\]]*\]', '', cleaned_script)
+    cleaned_script = re.sub(r'\([^)]*\)', '', cleaned_script)
+    
     # Clean up any double spaces or punctuation issues
     cleaned_script = re.sub(r'\s+', ' ', cleaned_script)
     cleaned_script = re.sub(r'\s+([.!?])', r'\1', cleaned_script)
+    cleaned_script = re.sub(r'\n\s*\n\s*\n', '\n\n', cleaned_script)
     
     return cleaned_script.strip()
 
@@ -271,19 +315,43 @@ def generate_relevant_hashtags(topic: str, category: str, title: str = "", descr
     additional_hashtags = []
     all_text = f"{title} {description}".lower()
     
-    # Common research terms that make good hashtags
+    # Common research terms that make good hashtags - more specific and technical
     research_terms = [
-        "neural", "network", "algorithm", "machine learning", "artificial intelligence",
-        "quantum", "molecular", "genetic", "protein", "dna", "rna", "cell", "brain",
+        # AI/ML terms
+        "neural", "network", "algorithm", "machine learning", "artificial intelligence", "deep learning", "transformer",
+        "reinforcement learning", "computer vision", "natural language processing", "nlp",
+        
+        # Biology/Biotech terms
+        "quantum", "molecular", "genetic", "protein", "dna", "rna", "cell", "brain", "yeast", "fermentation",
+        "crispr", "gene editing", "genomics", "proteomics", "metabolomics", "synthetic biology",
+        "enzyme", "metabolism", "biochemistry", "biotechnology", "pharmacology",
+        
+        # Physics/Chemistry terms
+        "quantum mechanics", "thermodynamics", "kinetics", "catalysis", "polymer", "nanotechnology",
+        "materials science", "crystallography", "spectroscopy", "electrochemistry",
+        
+        # Other technical terms
         "cognitive", "behavioral", "economic", "environmental", "climate", "sustainable",
         "robotic", "automation", "biomedical", "pharmaceutical", "therapeutic",
-        "computational", "theoretical", "experimental", "analytical", "statistical"
+        "computational", "theoretical", "experimental", "analytical", "statistical", "bioinformatics"
     ]
     
-    for term in research_terms:
-        if term in all_text and len(additional_hashtags) < 3:
+    # Prioritize specific technical terms first
+    priority_terms = ["yeast", "fermentation", "crispr", "gene editing", "synthetic biology", 
+                     "machine learning", "artificial intelligence", "quantum", "neural network"]
+    
+    # First, check for priority terms
+    for term in priority_terms:
+        if term in all_text and len(additional_hashtags) < 4:
             hashtag = f"#{term.replace(' ', '')}"
             if hashtag not in additional_hashtags:
+                additional_hashtags.append(hashtag)
+    
+    # Then check other research terms
+    for term in research_terms:
+        if term in all_text and len(additional_hashtags) < 6:
+            hashtag = f"#{term.replace(' ', '')}"
+            if hashtag not in additional_hashtags and hashtag not in [f"#{t.replace(' ', '')}" for t in priority_terms]:
                 additional_hashtags.append(hashtag)
     
     # Combine all hashtags
@@ -353,9 +421,14 @@ def apply_content_fixes(script: str, topic: str) -> str:
 def limit_description_length(description: str, max_length: int = 4000) -> str:
     """
     Limit description length to specified character count
-    Ensures first paragraph works as iTunes summary
+    Ensures first paragraph works as iTunes summary and reserves space for hashtags/references
     """
-    if len(description) <= max_length:
+    # Reserve space for hashtags and references (approximately 800 characters)
+    # This ensures we have enough space for technical hashtags and complete references
+    reserved_space = 800
+    available_space = max_length - reserved_space
+    
+    if len(description) <= available_space:
         return description
     
     # Split into paragraphs
@@ -364,13 +437,16 @@ def limit_description_length(description: str, max_length: int = 4000) -> str:
     # Start with the first paragraph (iTunes summary)
     result = paragraphs[0]
     
-    # Add subsequent paragraphs until we hit the limit
+    # Add subsequent paragraphs until we hit the available space limit
     for paragraph in paragraphs[1:]:
-        if len(result + '\n\n' + paragraph) <= max_length:
+        if len(result + '\n\n' + paragraph) <= available_space:
             result += '\n\n' + paragraph
         else:
-            # Add ellipsis to indicate truncation
-            result += '\n\n...'
+            # Truncate this paragraph if it's too long
+            remaining_space = available_space - len(result) - 3  # 3 for '\n\n'
+            if remaining_space > 50:  # Only add if we have meaningful space
+                truncated_paragraph = paragraph[:remaining_space-3] + '...'
+                result += '\n\n' + truncated_paragraph
             break
     
     return result

@@ -4,7 +4,29 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from typing import Optional
 import os
+import asyncio
 from datetime import datetime
+
+# Retry decorator for email operations
+def retry_email(max_retries=3, delay=2):
+    """Decorator for retrying email operations with exponential backoff"""
+    def decorator(func):
+        async def wrapper(*args, **kwargs):
+            last_exception = None
+            for attempt in range(max_retries):
+                try:
+                    return await func(*args, **kwargs)
+                except Exception as e:
+                    last_exception = e
+                    if attempt < max_retries - 1:
+                        wait_time = delay * (2 ** attempt)
+                        print(f"⚠️ Email attempt {attempt + 1} failed: {e}. Retrying in {wait_time}s...")
+                        await asyncio.sleep(wait_time)
+                    else:
+                        print(f"❌ Email failed after {max_retries} attempts: {e}")
+            raise last_exception
+        return wrapper
+    return decorator
 
 class EmailService:
     def __init__(self):
@@ -13,6 +35,7 @@ class EmailService:
         self.sender_email = os.getenv("NOTIFICATION_EMAIL", "garywelz@gmail.com")
         self.sender_password = os.getenv("NOTIFICATION_EMAIL_PASSWORD")
         
+    @retry_email(max_retries=3, delay=2)
     async def send_podcast_completion_email(
         self, 
         recipient_email: str, 
@@ -93,6 +116,7 @@ class EmailService:
             print(f"❌ Failed to send email notification: {e}")
             return False
     
+    @retry_email(max_retries=3, delay=2)
     async def send_podcast_failure_email(
         self, 
         recipient_email: str, 

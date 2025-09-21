@@ -22,7 +22,14 @@ pdfplumber>=0.9.0
 # Audio processing
 pydub>=0.25.1
 
+# Image processing for thumbnails
+Pillow>=10.0.0
 
+# HTTP requests
+requests>=2.31.0
+
+# System monitoring
+psutil>=5.9.0
 
 # OpenAI (fallback)
 openai>=1.0.0

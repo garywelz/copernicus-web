@@ -37,4 +37,4 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=120s --retries=3 \
 EXPOSE $PORT
 
 # Run the enhanced character-driven application
-CMD exec uvicorn main_google:app --host 0.0.0.0 --port $PORT --workers 1
+CMD exec uvicorn main:app --host 0.0.0.0 --port $PORT --workers 1
