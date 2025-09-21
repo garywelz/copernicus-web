@@ -10,10 +10,10 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # Cloud Run backend URL
-BACKEND_URL = "https://copernicus-podcast-api-204731194849.us-central1.run.app"
+BACKEND_URL = "https://copernicus-podcast-api-phzp4ie2sq-uc.a.run.app"
 
 @functions_framework.http
-def generate_podcast(request):
+def main(request):
     """HTTP Cloud Function to handle podcast generation requests."""
     
     # Set CORS headers
@@ -37,6 +37,16 @@ def generate_podcast(request):
         logger.info(f"🔥🔥🔥 METHOD: {request.method}")
         logger.info(f"🔥🔥🔥 URL: {request.url}")
         
+        # Handle GET request to serve the form
+        if request.method == 'GET':
+            try:
+                with open('form.html', 'r') as f:
+                    form_html = f.read()
+                return (form_html, 200, {'Content-Type': 'text/html'})
+            except FileNotFoundError:
+                return (json.dumps({'error': 'Form not found'}), 404, headers)
+        
+        # Handle POST request for form submission
         if request.method != 'POST':
             return (json.dumps({'error': 'Method not allowed'}), 405, headers)
         
@@ -58,6 +68,7 @@ def generate_podcast(request):
         # Extract form fields
         subject = request_json.get('subject')
         category = request_json.get('category')  # Add category extraction
+        format_type = request_json.get('format')  # New format field (news vs feature)
         duration = request_json.get('duration')
         speakers = request_json.get('speakers')
         difficulty = request_json.get('difficulty')
@@ -65,7 +76,7 @@ def generate_podcast(request):
         source_links = request_json.get('source_links', [])
         
         # Validate required fields
-        if not all([subject, duration, speakers, difficulty]):
+        if not all([subject, format_type, difficulty]): # speakers is now a hidden field
             return (json.dumps({'error': 'Missing required fields'}), 400, headers)
         
         # Generate job ID
@@ -76,6 +87,7 @@ def generate_podcast(request):
         backend_data = {
             'subject': subject,
             'category': category,  # Add category to backend data
+            'format_type': format_type,  # New format field
             'duration': duration,
             'speakers': speakers,
             'difficulty': difficulty,

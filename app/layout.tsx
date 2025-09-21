@@ -1,8 +1,9 @@
 import './globals.css'
+import { SessionProvider } from '@/components/SessionProvider'
 
 export const metadata = {
   title: 'Copernicus AI Podcast',
-  description: 'Keeping Current With Engaging AI Podcasts',
+  description: 'AI-Generated Research Podcasts for Subscribers',
 }
 
 export default function RootLayout({
@@ -12,7 +13,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <SessionProvider>
+          {children}
+        </SessionProvider>
+      </body>
     </html>
   )
 } 
