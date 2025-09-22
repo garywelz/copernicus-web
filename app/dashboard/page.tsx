@@ -70,6 +70,14 @@ export default function Dashboard() {
               <p className="text-sm text-gray-600">Welcome back, {user?.name}</p>
             </div>
             <div className="flex items-center space-x-4">
+              <a
+                href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/form.html?redirect=true"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition duration-200"
+              >
+                Create Podcast
+              </a>
               <div className="text-right">
                 <div className="text-sm font-medium text-gray-900">
                   {user?.subscriptionTier?.charAt(0).toUpperCase() + user?.subscriptionTier?.slice(1)} Plan
