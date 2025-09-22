@@ -4,14 +4,10 @@
   "devCommand": "next dev",
   "installCommand": "npm install",
   "framework": "nextjs",
-  "domains": [
-    "www.copernicusai.fyi",
-    "copernicusai.app"
-  ],
   "redirects": [
     {
       "source": "/create",
-      "destination": "/dashboard",
+      "destination": "https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/form.html?redirect=true",
       "permanent": false
     }
   ]
