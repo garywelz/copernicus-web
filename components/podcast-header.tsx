@@ -57,7 +57,6 @@ export default function PodcastHeader({ podcast }: PodcastHeaderProps) {
               {totalEpisodes} Episodes
             </div>
           )}
-          <div className="bg-gray-100 rounded-full px-4 py-2 text-sm font-medium">Podcast</div>
         </div>
 
         <p className="text-lg mb-8">{description}</p>

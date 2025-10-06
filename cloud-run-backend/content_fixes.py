@@ -343,13 +343,23 @@ def generate_relevant_hashtags(topic: str, category: str, title: str = "", descr
     
     # Prioritize specific technical terms first
     priority_terms = ["yeast", "fermentation", "crispr", "gene editing", "synthetic biology", 
-                     "machine learning", "artificial intelligence", "quantum", "neural network"]
+                     "machine learning", "artificial intelligence", "quantum", "neural network",
+                     "brain", "bci", "brain computer interface", "neural interface", "neurotechnology",
+                     "atlas", "particle", "collider", "physics", "quantum mechanics", "thermodynamics"]
     
     # First, check for priority terms
     for term in priority_terms:
         if term in all_text and len(additional_hashtags) < 4:
             hashtag = f"#{term.replace(' ', '')}"
             if hashtag not in additional_hashtags:
+                additional_hashtags.append(hashtag)
+    
+    # Add topic-specific hashtags based on the topic itself
+    topic_words = topic.lower().split()
+    for word in topic_words:
+        if len(word) > 3 and word not in ['the', 'and', 'for', 'with', 'from', 'about']:
+            hashtag = f"#{word.capitalize()}"
+            if hashtag not in additional_hashtags and len(additional_hashtags) < 6:
                 additional_hashtags.append(hashtag)
     
     # Then check other research terms
@@ -406,10 +416,75 @@ def validate_academic_references(references_text: str) -> str:
     
     return '\n'.join(improved_refs)
 
+def expand_contractions_for_tts(script: str) -> str:
+    """
+    Expand contractions to avoid TTS pronunciation issues
+    """
+    # Common contractions that cause TTS issues
+    contractions = {
+        "it's": "it is",
+        "can't": "cannot",
+        "won't": "will not",
+        "don't": "do not",
+        "doesn't": "does not",
+        "didn't": "did not",
+        "haven't": "have not",
+        "hasn't": "has not",
+        "hadn't": "had not",
+        "wouldn't": "would not",
+        "shouldn't": "should not",
+        "couldn't": "could not",
+        "isn't": "is not",
+        "aren't": "are not",
+        "wasn't": "was not",
+        "weren't": "were not",
+        "I'm": "I am",
+        "you're": "you are",
+        "he's": "he is",
+        "she's": "she is",
+        "we're": "we are",
+        "they're": "they are",
+        "I've": "I have",
+        "you've": "you have",
+        "we've": "we have",
+        "they've": "they have",
+        "I'll": "I will",
+        "you'll": "you will",
+        "he'll": "he will",
+        "she'll": "she will",
+        "we'll": "we will",
+        "they'll": "they will",
+        "I'd": "I would",
+        "you'd": "you would",
+        "he'd": "he would",
+        "she'd": "she would",
+        "we'd": "we would",
+        "they'd": "they would",
+        "there's": "there is",
+        "that's": "that is",
+        "here's": "here is",
+        "what's": "what is",
+        "who's": "who is",
+        "where's": "where is",
+        "when's": "when is",
+        "why's": "why is",
+        "how's": "how is"
+    }
+    
+    # Replace contractions with expanded forms
+    for contraction, expanded in contractions.items():
+        script = script.replace(contraction, expanded)
+        script = script.replace(contraction.capitalize(), expanded.capitalize())
+    
+    return script
+
 def apply_content_fixes(script: str, topic: str) -> str:
     """
     Apply all content fixes to improve podcast quality
     """
+    # Expand contractions for TTS compatibility
+    script = expand_contractions_for_tts(script)
+    
     # Remove DOIs from spoken content
     script = remove_dois_from_script(script)
     

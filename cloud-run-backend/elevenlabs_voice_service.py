@@ -140,6 +140,11 @@ class ElevenLabsVoiceService:
         
         # Speaker name mapping from script names to voice roles
         speaker_mapping = {
+            'matilda': 'host',      # Matilda (female) - HOST
+            'adam': 'expert',       # Adam (male) - EXPERT
+            'bill': 'questioner',   # Bill (male) - QUESTIONER
+            'lily': 'correspondent', # Lily (female) - CORRESPONDENT
+            # Legacy mappings for backward compatibility
             'sarah': 'host',
             'tom': 'expert', 
             'mary': 'questioner',
@@ -330,20 +335,23 @@ class ElevenLabsVoiceService:
                 
                 # Map common speaker first names to voice roles with gender-appropriate assignments
                 name_to_role = {
-                    # Female names -> Female voices
-                    "matilda": "host",      # Matilda (female)
-                    "lily": "correspondent", # Lily (female)
+                    # Primary voice names (from ElevenLabs voice IDs)
+                    "matilda": "host",      # Matilda (female) - XrExE9yKIg1WjnnlVkGX
+                    "adam": "expert",       # Adam (male) - pNInz6obpgDQGcFmaJgB
+                    "bill": "questioner",   # Bill (male) - iiidtqDt9FBdT1vfBluA
+                    "lily": "correspondent", # Lily (female) - Pt5YrLNyu6d2s3s4CVMg
+                    
+                    # Legacy female names -> Female voices
                     "sarah": "host",        # Sarah (female)
                     "mary": "questioner",   # Mary (female)
                     "susan": "host",        # Susan (female)
-                    "maya": "host",         # Maya (female) - FIXED: was questioner, now host
+                    "maya": "host",         # Maya (female)
                     "elena": "correspondent", # Elena (female)
                     "anna": "questioner",   # Anna (female)
                     "emma": "host",         # Emma (female)
                     
-                    # Male names -> Male voices
+                    # Legacy male names -> Male voices
                     "gary": "expert",       # Gary (male)
-                    "bill": "questioner",  # Bill (male)
                     "tom": "expert",        # Tom (male)
                     "bob": "correspondent", # Bob (male)
                     "james": "expert",      # James (male)
