@@ -49,4 +49,4 @@ npm run dev
 - React 18
 - TypeScript
 - Tailwind CSS
-- Spotify Web API 
+- Spotify Web API # Trigger Vercel deployment
