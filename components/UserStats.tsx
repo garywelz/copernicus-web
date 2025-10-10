@@ -92,7 +92,7 @@ export default function UserStats({ user }: UserStatsProps) {
               <p className="text-sm font-medium text-gray-600">Subscription Tier</p>
               <div className="mt-1">
                 <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getTierBadge()}`}>
-                  {user?.subscriptionTier?.charAt(0).toUpperCase() + user?.subscriptionTier?.slice(1)}
+                  {user?.subscriptionTier ? (user.subscriptionTier.charAt(0).toUpperCase() + user.subscriptionTier.slice(1)) : 'Free'}
                 </span>
               </div>
             </div>

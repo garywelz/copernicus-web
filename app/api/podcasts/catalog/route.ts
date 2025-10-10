@@ -5,6 +5,11 @@ import { google } from 'googleapis'
 const { initializeApp, cert } = require('firebase-admin/app')
 const { getFirestore } = require('firebase-admin/firestore')
 
+// Extend global type
+declare global {
+  var firebaseApp: any
+}
+
 if (!global.firebaseApp) {
   const serviceAccount = require('../../../../regal-scholar-453620-r7-b4a72581927b.json')
   global.firebaseApp = initializeApp({
@@ -33,9 +38,9 @@ export async function GET(request: NextRequest) {
     }
 
     const snapshot = await query.limit(limit * page).get()
-    let episodes = []
+    let episodes: any[] = []
 
-    snapshot.forEach((doc) => {
+    snapshot.forEach((doc: any) => {
       const data = doc.data()
       if (data.result) {
         episodes.push({
@@ -85,7 +90,7 @@ export async function GET(request: NextRequest) {
     const paginatedEpisodes = episodes.slice(startIndex, endIndex)
 
     // Get categories for filter
-    const categories = [...new Set(episodes.map(ep => ep.category))]
+    const categories = Array.from(new Set(episodes.map((ep: any) => ep.category)))
 
     return NextResponse.json({
       episodes: paginatedEpisodes,

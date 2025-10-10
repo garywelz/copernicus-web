@@ -294,7 +294,7 @@ export default function SubscriptionManager({ user, plans }: SubscriptionManager
           </div>
           <div className="text-center">
             <div className="text-2xl font-bold text-purple-600">
-              {user?.subscriptionTier?.charAt(0).toUpperCase() + user?.subscriptionTier?.slice(1)}
+              {user?.subscriptionTier ? (user.subscriptionTier.charAt(0).toUpperCase() + user.subscriptionTier.slice(1)) : 'Free'}
             </div>
             <div className="text-sm text-gray-600">Current Tier</div>
           </div>

@@ -9,8 +9,8 @@ export interface User {
   subscriptionStatus: 'active' | 'cancelled' | 'expired'
   podcastsUsed: number
   podcastsLimit: number
-  createdAt: Date
-  lastLogin: Date
+  createdAt: string
+  lastLogin: string
 }
 
 export interface SubscriptionPlan {

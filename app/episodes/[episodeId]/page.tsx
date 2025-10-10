@@ -9,8 +9,9 @@ async function fetchEpisodeBySlug(slug: string) {
   return episode;
 }
 
-export default async function EpisodePage({ params }: { params: { episodeId: string } }) {
-  const episode = await fetchEpisodeBySlug(params.episodeId);
+export default async function EpisodePage({ params }: { params: Promise<{ episodeId: string }> }) {
+  const { episodeId } = await params;
+  const episode = await fetchEpisodeBySlug(episodeId);
   if (!episode) return notFound();
   return (
     <main className="max-w-2xl mx-auto py-10 px-4">

@@ -15,7 +15,7 @@ export default function EpisodePlayer({
   title, 
   audioUrl, 
   description, 
-  duration, 
+  duration: durationProp, 
   thumbnailUrl 
 }: EpisodePlayerProps) {
   const [isPlaying, setIsPlaying] = useState(false)

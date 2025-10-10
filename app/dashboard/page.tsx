@@ -72,7 +72,7 @@ export default function Dashboard() {
             <div className="flex items-center space-x-4">
               <div className="text-right">
                 <div className="text-sm font-medium text-gray-900">
-                  {user?.subscriptionTier?.charAt(0).toUpperCase() + user?.subscriptionTier?.slice(1)} Plan
+                  {user?.subscriptionTier ? (user.subscriptionTier.charAt(0).toUpperCase() + user.subscriptionTier.slice(1)) : 'Free'} Plan
                 </div>
                 <div className="text-xs text-gray-500">
                   {user?.subscriptionTier === 'free' 
