@@ -1,13 +1,30 @@
 {
   "version": 2,
-  "buildCommand": "next build",
-  "devCommand": "next dev",
-  "installCommand": "npm install",
-  "framework": "nextjs",
+  "buildCommand": "echo 'Static site - no build needed'",
+  "devCommand": "echo 'Static site - no dev server needed'",
+  "installCommand": "echo 'Static site - no dependencies'",
+  "framework": null,
+  "public": true,
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/index.html"
+    }
+  ],
   "redirects": [
     {
       "source": "/create",
       "destination": "https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/form.html?redirect=true",
+      "permanent": false
+    },
+    {
+      "source": "/dashboard",
+      "destination": "/subscriber-dashboard.html",
+      "permanent": false
+    },
+    {
+      "source": "/login",
+      "destination": "/subscriber-login.html",
       "permanent": false
     }
   ]

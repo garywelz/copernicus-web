@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Copernicus AI - Subscriber Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="gradient-bg text-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-6">
+                <div class="flex items-center">
+                    <h1 class="text-2xl font-bold">Copernicus AI Dashboard</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="text-right">
+                        <div class="text-sm font-medium" x-text="subscriber?.name || 'Loading...'"></div>
+                        <div class="text-xs opacity-75" x-text="subscriber?.subscription_tier?.toUpperCase() + ' Plan'"></div>
+                    </div>
+                    <button @click="signOut()" class="bg-white bg-opacity-20 hover:bg-opacity-30 px-4 py-2 rounded-lg transition duration-200">
+                        Sign Out
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" x-data="dashboardApp()">
+        
+        <!-- Login Section (shown when not authenticated) -->
+        <div x-show="!authenticated" class="max-w-md mx-auto">
+            <div class="bg-white rounded-lg shadow-md p-8">
+                <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">Subscriber Login</h2>
+                
+                <!-- Login Form -->
+                <form @submit.prevent="login()" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                        <input type="email" x-model="loginForm.email" required 
+                               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                        <input type="password" x-model="loginForm.password" 
+                               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    
+                    <button type="submit" :disabled="loading" 
+                            class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md transition duration-200 disabled:opacity-50">
+                        <span x-show="!loading">Sign In</span>
+                        <span x-show="loading">Signing In...</span>
+                    </button>
+                </form>
+                
+                <!-- Register Link -->
+                <div class="mt-4 text-center">
+                    <button @click="showRegister = !showRegister" class="text-blue-600 hover:text-blue-500 text-sm">
+                        Don't have an account? Register here
+                    </button>
+                </div>
+                
+                <!-- Register Form -->
+                <div x-show="showRegister" class="mt-6 pt-6 border-t border-gray-200">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Create Account</h3>
+                    <form @submit.prevent="register()" class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                            <input type="text" x-model="registerForm.name" required 
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                            <input type="email" x-model="registerForm.email" required 
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                            <input type="password" x-model="registerForm.password" required 
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        
+                        <button type="submit" :disabled="loading" 
+                                class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-md transition duration-200 disabled:opacity-50">
+                            <span x-show="!loading">Create Account</span>
+                            <span x-show="loading">Creating...</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Section (shown when authenticated) -->
+        <div x-show="authenticated" class="space-y-8">
+            
+            <!-- Stats Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <div class="flex items-center">
+                        <div class="p-2 bg-blue-100 rounded-lg">
+                            <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path>
+                            </svg>
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-sm font-medium text-gray-500">Podcasts Generated</h3>
+                            <p class="text-2xl font-bold text-gray-900" x-text="subscriber?.podcasts_generated || 0"></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <div class="flex items-center">
+                        <div class="p-2 bg-green-100 rounded-lg">
+                            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-sm font-medium text-gray-500">RSS Submissions</h3>
+                            <p class="text-2xl font-bold text-gray-900" x-text="subscriber?.podcasts_submitted_to_rss || 0"></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <div class="flex items-center">
+                        <div class="p-2 bg-purple-100 rounded-lg">
+                            <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
+                            </svg>
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-sm font-medium text-gray-500">Plan</h3>
+                            <p class="text-2xl font-bold text-gray-900" x-text="subscriber?.subscription_tier?.toUpperCase() || 'FREE'"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Generate Podcast Section -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-bold text-gray-900 mb-4">Generate New Podcast</h2>
+                
+                <form @submit.prevent="generatePodcast()" class="space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Research Topic *</label>
+                            <input type="text" x-model="podcastForm.topic" required 
+                                   placeholder="e.g., Quantum Computing Breakthroughs"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Category *</label>
+                            <select x-model="podcastForm.category" required 
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="">Select category...</option>
+                                <option value="Biology">Biology</option>
+                                <option value="Chemistry">Chemistry</option>
+                                <option value="Computer Science">Computer Science</option>
+                                <option value="Mathematics">Mathematics</option>
+                                <option value="Physics">Physics</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Expertise Level *</label>
+                            <select x-model="podcastForm.expertise_level" required 
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="">Select level...</option>
+                                <option value="beginner">General audience (accessible explanations)</option>
+                                <option value="intermediate">Expert/Professional level</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Duration</label>
+                            <select x-model="podcastForm.duration" 
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="5-10 minutes">5-10 minutes</option>
+                                <option value="10-15 minutes">10-15 minutes</option>
+                                <option value="15-20 minutes">15-20 minutes</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Additional Instructions (Optional)</label>
+                        <textarea x-model="podcastForm.instructions" rows="3" 
+                                  placeholder="Special themes, perspectives, or specific aspects to emphasize..."
+                                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                    </div>
+                    
+                    <button type="submit" :disabled="generating" 
+                            class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-md transition duration-200 disabled:opacity-50">
+                        <span x-show="!generating">Generate AI Podcast</span>
+                        <span x-show="generating">Generating Podcast...</span>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Podcasts List -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xl font-bold text-gray-900">Your Podcasts</h2>
+                    <button @click="loadPodcasts()" class="text-blue-600 hover:text-blue-500 text-sm">Refresh</button>
+                </div>
+                
+                <div x-show="loadingPodcasts" class="text-center py-8">
+                    <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
+                    <p class="mt-2 text-gray-500">Loading podcasts...</p>
+                </div>
+                
+                <div x-show="!loadingPodcasts && podcasts.length === 0" class="text-center py-8">
+                    <p class="text-gray-500">No podcasts generated yet. Create your first one above!</p>
+                </div>
+                
+                <div x-show="!loadingPodcasts && podcasts.length > 0" class="space-y-4">
+                    <template x-for="podcast in podcasts" :key="podcast.podcast_id">
+                        <div class="border border-gray-200 rounded-lg p-4">
+                            <div class="flex justify-between items-start">
+                                <div class="flex-1">
+                                    <h3 class="text-lg font-semibold text-gray-900" x-text="podcast.request?.topic || 'Untitled'"></h3>
+                                    <p class="text-sm text-gray-600 mt-1">
+                                        <span x-text="podcast.request?.category"></span> • 
+                                        <span x-text="podcast.request?.expertise_level"></span> • 
+                                        <span x-text="podcast.request?.duration"></span>
+                                    </p>
+                                    <p class="text-sm text-gray-500 mt-2">
+                                        Created: <span x-text="new Date(podcast.created_at).toLocaleDateString()"></span>
+                                    </p>
+                                    
+                                    <div class="flex items-center mt-3 space-x-2">
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+                                              :class="podcast.status === 'completed' ? 'bg-green-100 text-green-800' : 
+                                                      podcast.status === 'failed' ? 'bg-red-100 text-red-800' : 
+                                                      'bg-yellow-100 text-yellow-800'"
+                                              x-text="podcast.status"></span>
+                                        
+                                        <template x-if="podcast.status === 'completed' && podcast.result">
+                                            <div class="flex space-x-2">
+                                                <a :href="podcast.result.audio_url" target="_blank" 
+                                                   class="text-blue-600 hover:text-blue-500 text-sm">🎧 Listen</a>
+                                                <a :href="podcast.result.description_url" target="_blank" 
+                                                   class="text-blue-600 hover:text-blue-500 text-sm">📄 Description</a>
+                                                <a :href="podcast.result.transcript_url" target="_blank" 
+                                                   class="text-blue-600 hover:text-blue-500 text-sm">📝 Transcript</a>
+                                                <template x-if="podcast.result.thumbnail_url">
+                                                    <a :href="podcast.result.thumbnail_url" target="_blank" 
+                                                       class="text-blue-600 hover:text-blue-500 text-sm">🖼️ Thumbnail</a>
+                                                </template>
+                                            </div>
+                                        </template>
+                                    </div>
+                                </div>
+                                
+                                <div class="ml-4">
+                                    <template x-if="podcast.status === 'completed'">
+                                        <div class="flex flex-col space-y-2">
+                                            <button @click="submitToRSS(podcast.podcast_id, !podcast.submitted_to_rss)"
+                                                    :class="podcast.submitted_to_rss ? 
+                                                           'bg-red-100 text-red-700 hover:bg-red-200' : 
+                                                           'bg-green-100 text-green-700 hover:bg-green-200'"
+                                                    class="px-3 py-1 rounded-full text-xs font-medium transition duration-200">
+                                                <span x-show="!podcast.submitted_to_rss">Submit to RSS</span>
+                                                <span x-show="podcast.submitted_to_rss">Remove from RSS</span>
+                                            </button>
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </div>
+
+        <!-- Messages -->
+        <div x-show="message" 
+             :class="messageType === 'success' ? 'bg-green-100 border-green-500 text-green-700' : 'bg-red-100 border-red-500 text-red-700'"
+             class="fixed top-4 right-4 border-l-4 p-4 rounded shadow-lg z-50">
+            <div class="flex">
+                <div class="flex-1">
+                    <p x-text="message"></p>
+                </div>
+                <div class="ml-3">
+                    <button @click="message = ''" class="text-current opacity-50 hover:opacity-75">
+                        <span class="sr-only">Close</span>
+                        <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function dashboardApp() {
+            return {
+                // API Configuration
+                API_BASE_URL: 'https://copernicus-podcast-api-phzp4ie2sq-uc.a.run.app',
+                
+                // State
+                authenticated: false,
+                loading: false,
+                loadingPodcasts: false,
+                generating: false,
+                showRegister: false,
+                subscriber: null,
+                podcasts: [],
+                message: '',
+                messageType: 'success',
+                
+                // Forms
+                loginForm: {
+                    email: '',
+                    password: ''
+                },
+                registerForm: {
+                    name: '',
+                    email: '',
+                    password: ''
+                },
+                podcastForm: {
+                    topic: '',
+                    category: '',
+                    expertise_level: '',
+                    duration: '5-10 minutes',
+                    format_type: 'interview',
+                    voice_style: 'professional',
+                    instructions: ''
+                },
+                
+                // Initialize
+                init() {
+                    // Check if user is already logged in
+                    const savedSubscriber = localStorage.getItem('subscriber');
+                    if (savedSubscriber) {
+                        this.subscriber = JSON.parse(savedSubscriber);
+                        this.authenticated = true;
+                        this.loadPodcasts();
+                        this.loadSubscriberProfile();
+                    }
+                },
+                
+                // Authentication
+                async login() {
+                    this.loading = true;
+                    try {
+                        const response = await fetch(`${this.API_BASE_URL}/api/subscribers/login`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(this.loginForm)
+                        });
+                        
+                        const data = await response.json();
+                        
+                        if (response.ok) {
+                            this.subscriber = data;
+                            this.authenticated = true;
+                            localStorage.setItem('subscriber', JSON.stringify(data));
+                            this.loadPodcasts();
+                            this.showMessage('Login successful!', 'success');
+                        } else {
+                            this.showMessage(data.detail || 'Login failed', 'error');
+                        }
+                    } catch (error) {
+                        this.showMessage('Network error. Please try again.', 'error');
+                    } finally {
+                        this.loading = false;
+                    }
+                },
+                
+                async register() {
+                    this.loading = true;
+                    try {
+                        const response = await fetch(`${this.API_BASE_URL}/api/subscribers/register`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(this.registerForm)
+                        });
+                        
+                        const data = await response.json();
+                        
+                        if (response.ok) {
+                            this.showMessage('Registration successful! Please login.', 'success');
+                            this.showRegister = false;
+                            this.registerForm = { name: '', email: '', password: '' };
+                        } else {
+                            this.showMessage(data.detail || 'Registration failed', 'error');
+                        }
+                    } catch (error) {
+                        this.showMessage('Network error. Please try again.', 'error');
+                    } finally {
+                        this.loading = false;
+                    }
+                },
+                
+                signOut() {
+                    this.authenticated = false;
+                    this.subscriber = null;
+                    this.podcasts = [];
+                    localStorage.removeItem('subscriber');
+                    this.loginForm = { email: '', password: '' };
+                },
+                
+                // Podcast Management
+                async generatePodcast() {
+                    this.generating = true;
+                    try {
+                        const response = await fetch(`${this.API_BASE_URL}/generate-podcast-with-subscriber?subscriber_id=${this.subscriber.subscriber_id}`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(this.podcastForm)
+                        });
+                        
+                        const data = await response.json();
+                        
+                        if (response.ok) {
+                            this.showMessage('Podcast generation started! This may take a few minutes.', 'success');
+                            this.podcastForm = { topic: '', category: '', expertise_level: '', duration: '5-10 minutes', format_type: 'interview', voice_style: 'professional', instructions: '' };
+                            // Refresh podcasts list after a delay
+                            setTimeout(() => this.loadPodcasts(), 3000);
+                        } else {
+                            this.showMessage(data.detail || 'Failed to generate podcast', 'error');
+                        }
+                    } catch (error) {
+                        this.showMessage('Network error. Please try again.', 'error');
+                    } finally {
+                        this.generating = false;
+                    }
+                },
+                
+                async loadPodcasts() {
+                    if (!this.authenticated) return;
+                    
+                    this.loadingPodcasts = true;
+                    try {
+                        const response = await fetch(`${this.API_BASE_URL}/api/subscribers/podcasts/${this.subscriber.subscriber_id}`);
+                        const data = await response.json();
+                        
+                        if (response.ok) {
+                            this.podcasts = data.podcasts || [];
+                        } else {
+                            this.showMessage('Failed to load podcasts', 'error');
+                        }
+                    } catch (error) {
+                        this.showMessage('Network error loading podcasts', 'error');
+                    } finally {
+                        this.loadingPodcasts = false;
+                    }
+                },
+                
+                async submitToRSS(podcastId, submit) {
+                    try {
+                        const response = await fetch(`${this.API_BASE_URL}/api/subscribers/podcasts/submit-to-rss`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ podcast_id: podcastId, submit_to_rss: submit })
+                        });
+                        
+                        const data = await response.json();
+                        
+                        if (response.ok) {
+                            this.showMessage(data.message, 'success');
+                            // Update the podcast in the list
+                            const podcast = this.podcasts.find(p => p.podcast_id === podcastId);
+                            if (podcast) {
+                                podcast.submitted_to_rss = submit;
+                            }
+                            // Refresh subscriber data
+                            this.loadSubscriberProfile();
+                        } else {
+                            this.showMessage(data.detail || 'Failed to update RSS status', 'error');
+                        }
+                    } catch (error) {
+                        this.showMessage('Network error. Please try again.', 'error');
+                    }
+                },
+                
+                async loadSubscriberProfile() {
+                    if (!this.authenticated) return;
+                    
+                    try {
+                        const response = await fetch(`${this.API_BASE_URL}/api/subscribers/profile/${this.subscriber.subscriber_id}`);
+                        const data = await response.json();
+                        
+                        if (response.ok) {
+                            this.subscriber = data;
+                            localStorage.setItem('subscriber', JSON.stringify(data));
+                        }
+                    } catch (error) {
+                        console.error('Failed to load subscriber profile:', error);
+                    }
+                },
+                
+                // Utility
+                showMessage(text, type) {
+                    this.message = text;
+                    this.messageType = type;
+                    setTimeout(() => this.message = '', 5000);
+                }
+            }
+        }
+    </script>
+</body>
+</html>
+
