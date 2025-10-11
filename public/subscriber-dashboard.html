@@ -17,8 +17,11 @@
     <header class="gradient-bg text-white shadow-lg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center py-6">
-                <div class="flex items-center">
+                <div class="flex items-center space-x-6">
                     <h1 class="text-2xl font-bold">Copernicus AI Dashboard</h1>
+                    <a href="/" class="text-sm bg-white bg-opacity-10 hover:bg-opacity-20 px-3 py-1.5 rounded-lg transition duration-200">
+                        ← Browse Podcasts
+                    </a>
                 </div>
                 <div class="flex items-center space-x-4">
                     <div class="text-right">
@@ -413,8 +416,13 @@
                     this.authenticated = false;
                     this.subscriber = null;
                     this.podcasts = [];
+                    localStorage.removeItem('subscriber_id');
+                    localStorage.removeItem('subscriber_email');
+                    localStorage.removeItem('subscriber_name');
                     localStorage.removeItem('subscriber');
                     this.loginForm = { email: '', password: '' };
+                    // Redirect to home page
+                    window.location.href = '/';
                 },
                 
                 // Podcast Management
