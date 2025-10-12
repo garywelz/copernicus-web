@@ -1,10 +1,5 @@
 {
   "version": 2,
-  "buildCommand": "echo 'Static site - no build needed'",
-  "devCommand": "echo 'Static site - no dev server needed'",
-  "installCommand": "echo 'Static site - no dependencies'",
-  "framework": null,
-  "public": true,
   "rewrites": [
     {
       "source": "/",

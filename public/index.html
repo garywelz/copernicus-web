@@ -93,15 +93,11 @@
         // Fetch and display episodes
         async function loadEpisodes() {
             try {
-                const RSS_FEED_URL = 'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/feeds/copernicus-mvp-rss-feed.xml';
+                // Use our proxy endpoint to avoid CORS issues
+                const RSS_FEED_URL = '/api/rss-feed';
                 
                 console.log('Fetching RSS feed from:', RSS_FEED_URL);
-                const response = await fetch(RSS_FEED_URL, {
-                    mode: 'cors',
-                    headers: {
-                        'Accept': 'application/xml, text/xml, */*'
-                    }
-                });
+                const response = await fetch(RSS_FEED_URL);
                 
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
