@@ -71,7 +71,7 @@
     <!-- Footer -->
     <footer class="bg-gray-900 text-white py-8 mt-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <p class="text-gray-400">&copy; 2024 Copernicus AI. All rights reserved.</p>
+            <p class="text-gray-400">&copy; 2025 Copernicus AI. All rights reserved.</p>
         </div>
     </footer>
 
@@ -95,13 +95,37 @@
             try {
                 const RSS_FEED_URL = 'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/feeds/copernicus-mvp-rss-feed.xml';
                 
-                const response = await fetch(RSS_FEED_URL);
+                console.log('Fetching RSS feed from:', RSS_FEED_URL);
+                const response = await fetch(RSS_FEED_URL, {
+                    mode: 'cors',
+                    headers: {
+                        'Accept': 'application/xml, text/xml, */*'
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
                 const xmlText = await response.text();
+                console.log('RSS feed loaded, length:', xmlText.length);
                 
                 const parser = new DOMParser();
                 const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
                 
+                // Check for parsing errors
+                const parserError = xmlDoc.querySelector('parsererror');
+                if (parserError) {
+                    throw new Error('XML parsing error: ' + parserError.textContent);
+                }
+                
                 const items = xmlDoc.querySelectorAll('item');
+                console.log('Found episodes:', items.length);
+                
+                if (items.length === 0) {
+                    throw new Error('No episodes found in RSS feed');
+                }
+                
                 allEpisodes = [];
                 
                 items.forEach((item, i) => {
@@ -114,7 +138,8 @@
                         ? `https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/${guid}-thumb.jpg`
                         : 'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/images/copernicus-original-portrait-optimized.jpg';
                     
-                    const duration = item.querySelector('duration')?.textContent || 'Unknown';
+                    const durationEl = item.querySelector('duration') || item.querySelector('itunes\\:duration');
+                    const duration = durationEl?.textContent || 'Unknown';
                     
                     // Determine category from guid prefix
                     let category = 'science';
@@ -136,13 +161,18 @@
                     });
                 });
                 
+                console.log('Processed episodes:', allEpisodes.length);
                 renderCategoryTabs();
                 displayEpisodes();
             } catch (error) {
                 console.error('Error loading episodes:', error);
                 document.getElementById('episodes-container').innerHTML = `
                     <div class="text-center py-20">
-                        <p class="text-red-600 text-lg">Failed to load episodes. Please try again later.</p>
+                        <p class="text-red-600 text-lg mb-4">Failed to load episodes.</p>
+                        <p class="text-gray-600 text-sm mb-4">${error.message}</p>
+                        <button onclick="loadEpisodes()" class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700">
+                            Try Again
+                        </button>
                     </div>
                 `;
             }
