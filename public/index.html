@@ -93,71 +93,16 @@
         // Fetch and display episodes
         async function loadEpisodes() {
             try {
-                // Use CORS proxy to avoid cross-origin issues
-                const RSS_FEED_URL = 'https://api.allorigins.win/raw?url=' + encodeURIComponent('https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/feeds/copernicus-mvp-rss-feed.xml');
-                
-                console.log('Fetching RSS feed via CORS proxy');
-                const response = await fetch(RSS_FEED_URL);
+                // Use static JSON file to avoid CORS issues
+                const response = await fetch('/podcasts.json');
                 
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 
-                const xmlText = await response.text();
-                console.log('RSS feed loaded, length:', xmlText.length);
+                allEpisodes = await response.json();
+                console.log('Loaded episodes:', allEpisodes.length);
                 
-                const parser = new DOMParser();
-                const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
-                
-                // Check for parsing errors
-                const parserError = xmlDoc.querySelector('parsererror');
-                if (parserError) {
-                    throw new Error('XML parsing error: ' + parserError.textContent);
-                }
-                
-                const items = xmlDoc.querySelectorAll('item');
-                console.log('Found episodes:', items.length);
-                
-                if (items.length === 0) {
-                    throw new Error('No episodes found in RSS feed');
-                }
-                
-                allEpisodes = [];
-                
-                items.forEach((item, i) => {
-                    const title = item.querySelector('title')?.textContent || 'Untitled';
-                    const description = item.querySelector('description')?.textContent || '';
-                    const audioUrl = item.querySelector('enclosure')?.getAttribute('url') || '';
-                    const guid = item.querySelector('guid')?.textContent || '';
-                    
-                    const thumbnailUrl = guid 
-                        ? `https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/${guid}-thumb.jpg`
-                        : 'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/images/copernicus-original-portrait-optimized.jpg';
-                    
-                    const durationEl = item.querySelector('duration') || item.querySelector('itunes\\:duration');
-                    const duration = durationEl?.textContent || 'Unknown';
-                    
-                    // Determine category from guid prefix
-                    let category = 'science';
-                    if (guid.startsWith('news-')) category = 'news';
-                    else if (guid.startsWith('ever-bio')) category = 'biology';
-                    else if (guid.startsWith('ever-chem')) category = 'chemistry';
-                    else if (guid.startsWith('ever-compsci')) category = 'computer-science';
-                    else if (guid.startsWith('ever-math')) category = 'mathematics';
-                    else if (guid.startsWith('ever-phys')) category = 'physics';
-                    
-                    allEpisodes.push({
-                        title,
-                        description,
-                        audioUrl,
-                        thumbnailUrl,
-                        duration,
-                        category,
-                        guid
-                    });
-                });
-                
-                console.log('Processed episodes:', allEpisodes.length);
                 renderCategoryTabs();
                 displayEpisodes();
             } catch (error) {
