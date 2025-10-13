@@ -230,7 +230,14 @@
             <div class="bg-white rounded-lg shadow-md p-6">
                 <div class="flex justify-between items-center mb-4">
                     <h2 class="text-xl font-bold text-gray-900">Your Podcasts</h2>
-                    <button @click="loadPodcasts()" class="text-blue-600 hover:text-blue-500 text-sm">Refresh</button>
+                    <div class="flex space-x-2">
+                        <button @click="deleteAllFailedPodcasts()" 
+                                x-show="podcasts.some(p => p.status === 'failed')"
+                                class="text-red-600 hover:text-red-500 text-sm bg-red-50 hover:bg-red-100 px-3 py-1 rounded">
+                            🗑️ Delete All Failed
+                        </button>
+                        <button @click="loadPodcasts()" class="text-blue-600 hover:text-blue-500 text-sm">Refresh</button>
+                    </div>
                 </div>
                 
                 <div x-show="loadingPodcasts" class="text-center py-8">
@@ -554,6 +561,50 @@
                     }
                 },
                 
+                // Delete all failed podcasts
+                async deleteAllFailedPodcasts() {
+                    const failedPodcasts = this.podcasts.filter(p => p.status === 'failed');
+                    if (failedPodcasts.length === 0) {
+                        this.showMessage('No failed podcasts to delete', 'info');
+                        return;
+                    }
+                    
+                    if (!confirm(`Are you sure you want to delete ${failedPodcasts.length} failed podcasts? This action cannot be undone.`)) {
+                        return;
+                    }
+                    
+                    let deletedCount = 0;
+                    let errorCount = 0;
+                    
+                    for (const podcast of failedPodcasts) {
+                        try {
+                            const response = await fetch(`${this.API_BASE_URL}/api/subscribers/podcasts/${podcast.podcast_id}`, {
+                                method: 'DELETE',
+                                headers: { 'Content-Type': 'application/json' }
+                            });
+                            
+                            if (response.ok) {
+                                deletedCount++;
+                                // Remove from local list
+                                this.podcasts = this.podcasts.filter(p => p.podcast_id !== podcast.podcast_id);
+                            } else {
+                                errorCount++;
+                            }
+                        } catch (error) {
+                            errorCount++;
+                        }
+                    }
+                    
+                    if (deletedCount > 0) {
+                        this.showMessage(`Successfully deleted ${deletedCount} failed podcasts`, 'success');
+                        this.loadSubscriberProfile();
+                    }
+                    
+                    if (errorCount > 0) {
+                        this.showMessage(`Failed to delete ${errorCount} podcasts`, 'error');
+                    }
+                },
+                
                 async loadSubscriberProfile() {
                     if (!this.authenticated) return;
                     
@@ -564,9 +615,17 @@
                         if (response.ok) {
                             this.subscriber = data;
                             localStorage.setItem('subscriber', JSON.stringify(data));
+                        } else {
+                            // If profile fetch fails, user might not be authenticated
+                            console.error('Failed to load subscriber profile:', data);
+                            this.authenticated = false;
+                            this.subscriber = null;
+                            localStorage.removeItem('subscriber');
                         }
                     } catch (error) {
                         console.error('Failed to load subscriber profile:', error);
+                        // Network error - don't logout, just show error
+                        this.showMessage('Network error loading profile', 'error');
                     }
                 },
                 
