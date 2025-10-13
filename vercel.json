@@ -1,26 +1,46 @@
 {
   "version": 2,
-  "rewrites": [
+  "builds": [
     {
-      "source": "/",
-      "destination": "/index.html"
+      "src": "public/**",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "api/**/*.js",
+      "use": "@vercel/node"
     }
   ],
-  "redirects": [
+  "routes": [
     {
-      "source": "/create",
-      "destination": "https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/form.html?redirect=true",
-      "permanent": false
+      "src": "/api/(.*)",
+      "dest": "/api/$1"
     },
     {
-      "source": "/dashboard",
-      "destination": "/subscriber-dashboard.html",
-      "permanent": false
+      "src": "/subscriber-dashboard.html",
+      "dest": "/public/subscriber-dashboard.html"
     },
     {
-      "source": "/login",
-      "destination": "/subscriber-login.html",
-      "permanent": false
+      "src": "/subscriber-login.html",
+      "dest": "/public/subscriber-login.html"
+    },
+    {
+      "src": "/dashboard",
+      "dest": "/public/subscriber-dashboard.html"
+    },
+    {
+      "src": "/login",
+      "dest": "/public/subscriber-login.html"
+    },
+    {
+      "src": "/create",
+      "status": 307,
+      "headers": {
+        "Location": "https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/form.html?redirect=true"
+      }
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/public/$1"
     }
   ]
 } 

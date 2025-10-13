@@ -1,0 +1,29 @@
+# Ignore Next.js app directory to prevent build
+app/
+components/
+lib/
+types/
+next.config.js
+next.config.mjs
+next-env.d.ts
+tsconfig.json
+tailwind.config.js
+postcss.config.js
+
+# Ignore Python and backend files
+cloud-run-backend/
+cloud-function/
+*.py
+venv/
+rss_venv/
+
+# Ignore backup and test files
+backup/
+test*.js
+test*.py
+*.log
+
+# Ignore documentation
+*.md
+!README.md
+
