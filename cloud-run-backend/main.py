@@ -2040,6 +2040,13 @@ class SubscriberLogin(BaseModel):
     password: Optional[str] = None
     google_id: Optional[str] = None
 
+class PasswordResetRequest(BaseModel):
+    email: str
+
+class PasswordReset(BaseModel):
+    email: str
+    new_password: str
+
 class SubscriberProfile(BaseModel):
     subscriber_id: str
     email: str
@@ -2059,7 +2066,8 @@ class PodcastSubmission(BaseModel):
 def generate_subscriber_id(email: str) -> str:
     """Generate a unique subscriber ID from email"""
     import hashlib
-    return hashlib.sha256(email.encode()).hexdigest()[:16]
+    # Use full SHA256 hash to avoid collisions
+    return hashlib.sha256(email.encode()).hexdigest()
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
     """Verify password (simple implementation - in production use proper hashing)"""
@@ -2079,11 +2087,13 @@ async def register_subscriber(registration: SubscriberRegistration):
         raise HTTPException(status_code=503, detail="Firestore service is unavailable")
     
     subscriber_id = generate_subscriber_id(registration.email)
+    print(f"🔍 Generated subscriber_id for {registration.email}: {subscriber_id}")
     
     # Check if subscriber already exists
     try:
         existing_doc = db.collection('subscribers').document(subscriber_id).get()
         if existing_doc.exists:
+            print(f"⚠️ Subscriber already exists with ID: {subscriber_id}")
             # Update existing subscriber with new password if provided
             existing_data = existing_doc.to_dict()
             if registration.password:
@@ -2140,6 +2150,7 @@ async def login_subscriber(login: SubscriberLogin):
         raise HTTPException(status_code=503, detail="Firestore service is unavailable")
     
     subscriber_id = generate_subscriber_id(login.email)
+    print(f"🔍 Login attempt for {login.email} with subscriber_id: {subscriber_id}")
     
     try:
         subscriber_doc = db.collection('subscribers').document(subscriber_id).get()
@@ -2375,6 +2386,58 @@ async def generate_podcast_with_subscriber(request: PodcastRequest, subscriber_i
         })
         
         raise HTTPException(status_code=500, detail=f"Podcast generation failed: {str(e)}")
+
+@app.post("/api/subscribers/password-reset-request")
+async def request_password_reset(reset_request: PasswordResetRequest):
+    """Request a password reset for a subscriber"""
+    if not db:
+        raise HTTPException(status_code=503, detail="Firestore service is unavailable")
+    
+    subscriber_id = generate_subscriber_id(reset_request.email)
+    
+    try:
+        subscriber_doc = db.collection('subscribers').document(subscriber_id).get()
+        if not subscriber_doc.exists:
+            # Don't reveal if email exists or not for security
+            return {"message": "If the email exists, a password reset link has been sent"}
+        
+        subscriber_data = subscriber_doc.to_dict()
+        
+        # For now, just return success - in production, send email
+        print(f"📧 Password reset requested for: {reset_request.email}")
+        
+        return {"message": "If the email exists, a password reset link has been sent"}
+        
+    except Exception as e:
+        print(f"❌ Error processing password reset request: {e}")
+        raise HTTPException(status_code=500, detail="Failed to process password reset request")
+
+@app.post("/api/subscribers/password-reset")
+async def reset_password(reset_data: PasswordReset):
+    """Reset a subscriber's password"""
+    if not db:
+        raise HTTPException(status_code=503, detail="Firestore service is unavailable")
+    
+    subscriber_id = generate_subscriber_id(reset_data.email)
+    
+    try:
+        subscriber_doc = db.collection('subscribers').document(subscriber_id).get()
+        if not subscriber_doc.exists:
+            raise HTTPException(status_code=404, detail="Subscriber not found")
+        
+        # Update password
+        db.collection('subscribers').document(subscriber_id).update({
+            'password_hash': hash_password(reset_data.new_password),
+            'last_login': datetime.utcnow().isoformat()
+        })
+        
+        print(f"✅ Password reset successful for: {reset_data.email}")
+        
+        return {"message": "Password reset successfully"}
+        
+    except Exception as e:
+        print(f"❌ Error resetting password: {e}")
+        raise HTTPException(status_code=500, detail="Failed to reset password")
 
 if __name__ == "__main__":
     import uvicorn

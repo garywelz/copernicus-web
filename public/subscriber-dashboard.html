@@ -468,13 +468,11 @@
                     // Clear all authentication data
                     this.clearAuthData();
                     
-                    // Show message and redirect
+                    // Show message and redirect immediately
                     this.showMessage('Signed out successfully', 'success');
                     
-                    // Redirect to home page after a short delay
-                    setTimeout(() => {
-                        window.location.href = '/';
-                    }, 1000);
+                    // Redirect to home page immediately
+                    window.location.href = '/';
                 },
                 
                 // Podcast Management

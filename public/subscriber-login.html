@@ -227,7 +227,27 @@
         </form>
         
         <div class="links">
+            <a href="#" onclick="showPasswordReset()" style="margin-bottom: 10px; display: block;">Forgot Password?</a>
             <a href="https://www.copernicusai.fyi">← Back to Main Site</a>
+        </div>
+        
+        <!-- Password Reset Modal -->
+        <div id="passwordResetModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000;">
+            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 30px; border-radius: 10px; width: 90%; max-width: 400px;">
+                <h3 style="margin-bottom: 20px; color: #333;">Reset Password</h3>
+                <form id="passwordResetForm">
+                    <div class="form-group">
+                        <label for="resetEmail">Email Address</label>
+                        <input type="email" id="resetEmail" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="newPassword">New Password</label>
+                        <input type="password" id="newPassword" name="new_password" required>
+                    </div>
+                    <button type="submit" class="btn" id="resetBtn">Reset Password</button>
+                    <button type="button" onclick="hidePasswordReset()" class="btn btn-secondary" style="margin-left: 10px;">Cancel</button>
+                </form>
+            </div>
         </div>
     </div>
 
@@ -344,6 +364,55 @@
                 showMessage('Network error. Please try again.', 'error');
             } finally {
                 setLoading(registerBtn, false);
+            }
+        });
+        
+        // Password Reset Functions
+        function showPasswordReset() {
+            document.getElementById('passwordResetModal').style.display = 'block';
+        }
+        
+        function hidePasswordReset() {
+            document.getElementById('passwordResetModal').style.display = 'none';
+            document.getElementById('passwordResetForm').reset();
+        }
+        
+        // Password reset form
+        document.getElementById('passwordResetForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const resetBtn = document.getElementById('resetBtn');
+            resetBtn.dataset.originalText = resetBtn.textContent;
+            setLoading(resetBtn, true);
+            
+            const formData = new FormData(e.target);
+            const resetData = {
+                email: formData.get('email'),
+                new_password: formData.get('new_password')
+            };
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/subscribers/password-reset`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(resetData)
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    showMessage('Password reset successfully! You can now log in with your new password.', 'success');
+                    hidePasswordReset();
+                } else {
+                    showMessage(result.detail || 'Password reset failed. Please try again.', 'error');
+                }
+            } catch (error) {
+                console.error('Password reset error:', error);
+                showMessage('Network error. Please try again.', 'error');
+            } finally {
+                setLoading(resetBtn, false);
             }
         });
     </script>
