@@ -305,6 +305,15 @@
                                             </button>
                                         </div>
                                     </template>
+                                    
+                                    <template x-if="podcast.status === 'failed'">
+                                        <div class="flex flex-col space-y-2">
+                                            <button @click="deletePodcast(podcast.podcast_id)"
+                                                    class="px-3 py-1 rounded-full text-xs font-medium bg-red-100 text-red-700 hover:bg-red-200 transition duration-200">
+                                                🗑️ Delete Failed
+                                            </button>
+                                        </div>
+                                    </template>
                                 </div>
                             </div>
                         </div>
@@ -388,6 +397,9 @@
                 async login() {
                     this.loading = true;
                     try {
+                        // Clear any existing data first
+                        this.clearAuthData();
+                        
                         const response = await fetch(`${this.API_BASE_URL}/api/subscribers/login`, {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
@@ -397,15 +409,18 @@
                         const data = await response.json();
                         
                         if (response.ok) {
+                            console.log('Login successful for:', data.email, 'subscriber_id:', data.subscriber_id);
                             this.subscriber = data;
                             this.authenticated = true;
                             localStorage.setItem('subscriber', JSON.stringify(data));
                             this.loadPodcasts();
                             this.showMessage('Login successful!', 'success');
                         } else {
+                            console.error('Login failed:', data);
                             this.showMessage(data.detail || 'Login failed', 'error');
                         }
                     } catch (error) {
+                        console.error('Login network error:', error);
                         this.showMessage('Network error. Please try again.', 'error');
                     } finally {
                         this.loading = false;
@@ -437,7 +452,8 @@
                     }
                 },
                 
-                signOut() {
+                clearAuthData() {
+                    // Clear all authentication data
                     this.authenticated = false;
                     this.subscriber = null;
                     this.podcasts = [];
@@ -446,8 +462,19 @@
                     localStorage.removeItem('subscriber_name');
                     localStorage.removeItem('subscriber');
                     this.loginForm = { email: '', password: '' };
-                    // Redirect to home page
-                    window.location.href = '/';
+                },
+                
+                signOut() {
+                    // Clear all authentication data
+                    this.clearAuthData();
+                    
+                    // Show message and redirect
+                    this.showMessage('Signed out successfully', 'success');
+                    
+                    // Redirect to home page after a short delay
+                    setTimeout(() => {
+                        window.location.href = '/';
+                    }, 1000);
                 },
                 
                 // Podcast Management
@@ -478,19 +505,26 @@
                 },
                 
                 async loadPodcasts() {
-                    if (!this.authenticated) return;
+                    if (!this.authenticated || !this.subscriber?.subscriber_id) {
+                        console.error('Cannot load podcasts: not authenticated or missing subscriber_id');
+                        return;
+                    }
                     
                     this.loadingPodcasts = true;
                     try {
+                        console.log('Loading podcasts for subscriber_id:', this.subscriber.subscriber_id);
                         const response = await fetch(`${this.API_BASE_URL}/api/subscribers/podcasts/${this.subscriber.subscriber_id}`);
                         const data = await response.json();
                         
                         if (response.ok) {
                             this.podcasts = data.podcasts || [];
+                            console.log('Loaded podcasts:', this.podcasts.length, 'for subscriber:', this.subscriber.email);
                         } else {
+                            console.error('Failed to load podcasts:', data);
                             this.showMessage('Failed to load podcasts', 'error');
                         }
                     } catch (error) {
+                        console.error('Network error loading podcasts:', error);
                         this.showMessage('Network error loading podcasts', 'error');
                     } finally {
                         this.loadingPodcasts = false;
