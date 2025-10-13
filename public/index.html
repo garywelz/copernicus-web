@@ -93,10 +93,10 @@
         // Fetch and display episodes
         async function loadEpisodes() {
             try {
-                // Use our proxy endpoint to avoid CORS issues
-                const RSS_FEED_URL = '/api/rss-feed';
+                // Use CORS proxy to avoid cross-origin issues
+                const RSS_FEED_URL = 'https://api.allorigins.win/raw?url=' + encodeURIComponent('https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/feeds/copernicus-mvp-rss-feed.xml');
                 
-                console.log('Fetching RSS feed from:', RSS_FEED_URL);
+                console.log('Fetching RSS feed via CORS proxy');
                 const response = await fetch(RSS_FEED_URL);
                 
                 if (!response.ok) {

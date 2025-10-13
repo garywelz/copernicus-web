@@ -199,12 +199,24 @@
                         </div>
                     </div>
                     
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Additional Instructions (Optional)</label>
-                        <textarea x-model="podcastForm.instructions" rows="3" 
-                                  placeholder="Special themes, perspectives, or specific aspects to emphasize..."
-                                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
-                    </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Source Paper/Document (Optional)</label>
+                            <div class="space-y-2">
+                                <input type="url" x-model="podcastForm.sourceUrl" 
+                                       placeholder="https://example.com/research-paper.pdf or DOI link"
+                                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <input type="file" @change="handleFileUpload($event)" accept=".pdf,.doc,.docx,.txt"
+                                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <p class="text-xs text-gray-500">Upload a PDF, Word doc, or text file, or provide a URL/DOI link to a research paper</p>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Additional Instructions (Optional)</label>
+                            <textarea x-model="podcastForm.instructions" rows="3"
+                                      placeholder="Special themes, perspectives, or specific aspects to emphasize..."
+                                      class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                        </div>
                     
                     <button type="submit" :disabled="generating" 
                             class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-md transition duration-200 disabled:opacity-50">
@@ -277,8 +289,12 @@
                                                            'bg-red-100 text-red-700 hover:bg-red-200' : 
                                                            'bg-green-100 text-green-700 hover:bg-green-200'"
                                                     class="px-3 py-1 rounded-full text-xs font-medium transition duration-200">
-                                                <span x-show="!podcast.submitted_to_rss">Submit to RSS</span>
-                                                <span x-show="podcast.submitted_to_rss">Remove from RSS</span>
+                                                <span x-show="!podcast.submitted_to_rss">📡 Post to RSS</span>
+                                                <span x-show="podcast.submitted_to_rss">❌ Remove from RSS</span>
+                                            </button>
+                                            <button @click="deletePodcast(podcast.podcast_id)"
+                                                    class="px-3 py-1 rounded-full text-xs font-medium bg-red-100 text-red-700 hover:bg-red-200 transition duration-200">
+                                                🗑️ Delete
                                             </button>
                                         </div>
                                     </template>
@@ -344,7 +360,9 @@
                     duration: '5-10 minutes',
                     format_type: 'interview',
                     voice_style: 'professional',
-                    instructions: ''
+                    instructions: '',
+                    sourceUrl: '',
+                    sourceFile: null
                 },
                 
                 // Initialize
@@ -493,6 +511,43 @@
                             this.loadSubscriberProfile();
                         } else {
                             this.showMessage(data.detail || 'Failed to update RSS status', 'error');
+                        }
+                    } catch (error) {
+                        this.showMessage('Network error. Please try again.', 'error');
+                    }
+                },
+                
+                // File upload handler
+                handleFileUpload(event) {
+                    const file = event.target.files[0];
+                    if (file) {
+                        this.podcastForm.sourceFile = file;
+                        this.podcastForm.sourceUrl = file.name; // Use filename as placeholder
+                        console.log('File selected:', file.name);
+                    }
+                },
+                
+                // Delete podcast function
+                async deletePodcast(podcastId) {
+                    if (!confirm('Are you sure you want to delete this podcast? This action cannot be undone.')) {
+                        return;
+                    }
+                    
+                    try {
+                        const response = await fetch(`${this.API_BASE_URL}/api/subscribers/podcasts/${podcastId}`, {
+                            method: 'DELETE',
+                            headers: { 'Content-Type': 'application/json' }
+                        });
+                        
+                        if (response.ok) {
+                            this.showMessage('Podcast deleted successfully', 'success');
+                            // Remove from local list
+                            this.podcasts = this.podcasts.filter(p => p.podcast_id !== podcastId);
+                            // Refresh subscriber data
+                            this.loadSubscriberProfile();
+                        } else {
+                            const data = await response.json();
+                            this.showMessage(data.detail || 'Failed to delete podcast', 'error');
                         }
                     } catch (error) {
                         this.showMessage('Network error. Please try again.', 'error');
