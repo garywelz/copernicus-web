@@ -1726,6 +1726,45 @@ Emerging research directions suggest exciting possibilities for future breakthro
         thumbnail_time = time.time() - thumbnail_start_time
         print(f"✅ Thumbnail completed in {thumbnail_time:.2f}s: {thumbnail_url}")
         
+        # Extract keywords from content for search/discovery
+        keywords_indexed = []
+        if 'keywords' in content:
+            keywords_indexed = content['keywords']
+        elif 'description' in content:
+            # Extract from hashtags in description
+            import re
+            hashtags = re.findall(r'#(\w+)', content['description'])
+            keywords_indexed = hashtags[:10]  # Limit to 10
+        
+        # Prepare metadata_extended with source papers
+        metadata_extended = {
+            'source_papers': [],
+            'references_extracted': [],
+            'keywords_indexed': keywords_indexed,
+            'glmp_visualizations': [],
+            'quality_scores': {
+                'content_accuracy': 0.0,
+                'audio_quality': 0.0,
+                'user_rating': 0.0,
+                'reference_quality': 0.0
+            }
+        }
+        
+        # Add paper DOI/URL if provided
+        if request.paper_doi:
+            metadata_extended['source_papers'].append(request.paper_doi)
+        elif request.source_links:
+            metadata_extended['source_papers'].extend(request.source_links[:5])  # Limit to 5
+        
+        # Prepare engagement metrics
+        engagement_metrics = {
+            'play_count': 0,
+            'completion_rate': 0.0,
+            'user_ratings': [],
+            'shares': 0,
+            'feedback_comments': []
+        }
+        
         # Complete job with enhanced metadata
         job_ref.update({
             'status': 'completed',
@@ -1748,7 +1787,9 @@ Emerging research directions suggest exciting possibilities for future breakthro
                 'content_provider': 'gemini_research_enhanced',
                 'canonical_filename': canonical_filename,
                 'generated_at': datetime.utcnow().isoformat()
-            }
+            },
+            'metadata_extended': metadata_extended,
+            'engagement_metrics': engagement_metrics
         })
         
         # Send email notification
@@ -2062,12 +2103,116 @@ class PodcastSubmission(BaseModel):
     podcast_id: str
     submit_to_rss: bool = False
 
+# --- Phase 1 Enhanced Database Models ---
+
+class UserPreferences(BaseModel):
+    favorite_topics: List[str] = []
+    preferred_expertise_levels: List[str] = []
+    notification_settings: Dict[str, bool] = {
+        "email_on_completion": True,
+        "email_on_failure": False,
+        "weekly_digest": False
+    }
+
+class UsageAnalytics(BaseModel):
+    total_listens: int = 0
+    favorite_categories: List[str] = []
+    average_session_duration: float = 0.0
+    last_activity: Optional[str] = None
+
+class QualityScores(BaseModel):
+    content_accuracy: float = 0.0
+    audio_quality: float = 0.0
+    user_rating: float = 0.0
+    reference_quality: float = 0.0
+
+class PodcastMetadataExtended(BaseModel):
+    source_papers: List[str] = []  # Array of DOIs/URLs
+    references_extracted: List[Dict[str, str]] = []  # Structured citations
+    keywords_indexed: List[str] = []  # For search
+    glmp_visualizations: List[str] = []  # Links to GLMP models
+    quality_scores: QualityScores = QualityScores()
+
+class EngagementMetrics(BaseModel):
+    play_count: int = 0
+    completion_rate: float = 0.0
+    user_ratings: List[float] = []
+    shares: int = 0
+    feedback_comments: List[str] = []
+
+class ResearchPaperPreprocessing(BaseModel):
+    key_findings: List[str] = []
+    llm_summary: str = ""
+    entities_extracted: Dict[str, List[str]] = {
+        "genes": [],
+        "proteins": [],
+        "equations": [],
+        "methods": [],
+        "organisms": []
+    }
+    processed_by_model: str = ""
+    processed_at: str = ""
+
+class ResearchPaperModel(BaseModel):
+    paper_id: str
+    doi: Optional[str] = None
+    title: str
+    authors: List[str] = []
+    journal: Optional[str] = None
+    publication_date: Optional[str] = None
+    abstract: Optional[str] = None
+    url: Optional[str] = None
+    pdf_url: Optional[str] = None
+    arxiv_id: Optional[str] = None
+    discipline: str = "biology"  # biology|chemistry|physics|mathematics|computer_science
+    keywords: List[str] = []
+    preprocessing: ResearchPaperPreprocessing = ResearchPaperPreprocessing()
+    used_in_podcasts: List[str] = []  # Array of podcast_ids
+    citation_count: int = 0
+    created_at: str = ""
+    updated_at: str = ""
+
+class PaperUploadRequest(BaseModel):
+    doi: Optional[str] = None
+    url: Optional[str] = None
+    title: Optional[str] = None
+    authors: Optional[List[str]] = None
+    abstract: Optional[str] = None
+    discipline: str = "biology"
+    preprocess: bool = True  # Whether to run LLM preprocessing
+
+class PaperQueryRequest(BaseModel):
+    discipline: Optional[str] = None
+    keywords: Optional[List[str]] = None
+    min_citation_count: Optional[int] = None
+    limit: int = 20
+
 # Authentication helper functions
 def generate_subscriber_id(email: str) -> str:
     """Generate a unique subscriber ID from email"""
     import hashlib
     # Use full SHA256 hash to avoid collisions
     return hashlib.sha256(email.encode()).hexdigest()
+
+def get_subscriber_by_email(email: str):
+    """Get subscriber by email, trying both old and new ID formats"""
+    import hashlib
+    if not db:
+        return None
+    
+    # Try new format first (full hash)
+    new_id = generate_subscriber_id(email)
+    subscriber_doc = db.collection('subscribers').document(new_id).get()
+    if subscriber_doc.exists:
+        return subscriber_doc
+    
+    # Try old format (16 chars) for backward compatibility
+    old_id = hashlib.sha256(email.encode()).hexdigest()[:16]
+    subscriber_doc = db.collection('subscribers').document(old_id).get()
+    if subscriber_doc.exists:
+        return subscriber_doc
+    
+    return None
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
     """Verify password (simple implementation - in production use proper hashing)"""
@@ -2149,13 +2294,16 @@ async def login_subscriber(login: SubscriberLogin):
     if not db:
         raise HTTPException(status_code=503, detail="Firestore service is unavailable")
     
-    subscriber_id = generate_subscriber_id(login.email)
-    print(f"🔍 Login attempt for {login.email} with subscriber_id: {subscriber_id}")
+    print(f"🔍 Login attempt for {login.email}")
     
     try:
-        subscriber_doc = db.collection('subscribers').document(subscriber_id).get()
-        if not subscriber_doc.exists:
+        subscriber_doc = get_subscriber_by_email(login.email)
+        if not subscriber_doc:
             raise HTTPException(status_code=404, detail="Subscriber not found")
+        
+        # Get the actual document ID (could be old or new format)
+        subscriber_id = subscriber_doc.id
+        print(f"✅ Found subscriber with ID: {subscriber_id}")
         
         subscriber_data = subscriber_doc.to_dict()
         
@@ -2477,6 +2625,225 @@ async def delete_subscriber_podcast(podcast_id: str):
     except Exception as e:
         print(f"❌ Error deleting podcast: {e}")
         raise HTTPException(status_code=500, detail="Failed to delete podcast")
+
+# --- Research Papers API Endpoints (Phase 1) ---
+
+async def preprocess_paper_with_llm(paper: ResearchPaperModel) -> ResearchPaperPreprocessing:
+    """Preprocess a research paper using LLM to extract key information"""
+    try:
+        # Construct preprocessing prompt
+        prompt = f"""Analyze this research paper and extract key information:
+
+Title: {paper.title}
+Authors: {', '.join(paper.authors)}
+Abstract: {paper.abstract or 'Not provided'}
+Discipline: {paper.discipline}
+
+Please provide:
+1. Key findings (3-5 main discoveries or contributions)
+2. A concise summary (2-3 sentences)
+3. Extracted entities:
+   - Genes (if applicable)
+   - Proteins (if applicable)
+   - Mathematical equations/theorems (if applicable)
+   - Methods/techniques used
+   - Organisms studied (if applicable)
+
+Format your response as JSON with keys: key_findings (array), summary (string), entities (object with arrays for genes, proteins, equations, methods, organisms)"""
+
+        # Use available AI model
+        model_used = "gemini-2.0-flash"
+        response_text = ""
+        
+        if vertex_ai_model:
+            response = vertex_ai_model.generate_content(prompt)
+            response_text = response.text
+        elif get_google_api_key():
+            import google.generativeai as genai
+            genai.configure(api_key=get_google_api_key())
+            model = genai.GenerativeModel('gemini-2.0-flash')
+            response = model.generate_content(prompt)
+            response_text = response.text
+        else:
+            raise Exception("No AI model available for preprocessing")
+        
+        # Parse JSON response
+        # Clean the response to extract JSON
+        json_start = response_text.find('{')
+        json_end = response_text.rfind('}') + 1
+        if json_start != -1 and json_end > json_start:
+            json_str = response_text[json_start:json_end]
+            parsed_data = json.loads(json_str)
+            
+            return ResearchPaperPreprocessing(
+                key_findings=parsed_data.get('key_findings', []),
+                llm_summary=parsed_data.get('summary', ''),
+                entities_extracted=parsed_data.get('entities', {}),
+                processed_by_model=model_used,
+                processed_at=datetime.utcnow().isoformat()
+            )
+        else:
+            # Fallback if JSON parsing fails
+            return ResearchPaperPreprocessing(
+                key_findings=[],
+                llm_summary=response_text[:500],  # First 500 chars
+                entities_extracted={},
+                processed_by_model=model_used,
+                processed_at=datetime.utcnow().isoformat()
+            )
+            
+    except Exception as e:
+        print(f"❌ Error preprocessing paper: {e}")
+        # Return empty preprocessing rather than failing
+        return ResearchPaperPreprocessing()
+
+@app.post("/api/papers/upload")
+async def upload_research_paper(paper_request: PaperUploadRequest):
+    """Upload and optionally preprocess a research paper"""
+    if not db:
+        raise HTTPException(status_code=503, detail="Firestore service is unavailable")
+    
+    try:
+        # Generate paper ID
+        paper_id = str(uuid.uuid4())
+        
+        # Create paper model
+        paper = ResearchPaperModel(
+            paper_id=paper_id,
+            doi=paper_request.doi,
+            title=paper_request.title or "Untitled",
+            authors=paper_request.authors or [],
+            abstract=paper_request.abstract,
+            url=paper_request.url,
+            discipline=paper_request.discipline,
+            created_at=datetime.utcnow().isoformat(),
+            updated_at=datetime.utcnow().isoformat()
+        )
+        
+        # Preprocess if requested
+        if paper_request.preprocess and paper.abstract:
+            print(f"🔬 Preprocessing paper: {paper.title}")
+            paper.preprocessing = await preprocess_paper_with_llm(paper)
+        
+        # Store in Firestore
+        db.collection('research_papers').document(paper_id).set(paper.dict())
+        
+        print(f"✅ Paper uploaded: {paper_id}")
+        
+        return {"paper_id": paper_id, "message": "Paper uploaded successfully", "paper": paper.dict()}
+        
+    except Exception as e:
+        print(f"❌ Error uploading paper: {e}")
+        raise HTTPException(status_code=500, detail=f"Failed to upload paper: {str(e)}")
+
+@app.get("/api/papers/{paper_id}")
+async def get_research_paper(paper_id: str):
+    """Get a specific research paper by ID"""
+    if not db:
+        raise HTTPException(status_code=503, detail="Firestore service is unavailable")
+    
+    try:
+        paper_doc = db.collection('research_papers').document(paper_id).get()
+        if not paper_doc.exists:
+            raise HTTPException(status_code=404, detail="Paper not found")
+        
+        return paper_doc.to_dict()
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"❌ Error fetching paper: {e}")
+        raise HTTPException(status_code=500, detail="Failed to fetch paper")
+
+@app.post("/api/papers/query")
+async def query_research_papers(query: PaperQueryRequest):
+    """Query research papers by discipline, keywords, etc."""
+    if not db:
+        raise HTTPException(status_code=503, detail="Firestore service is unavailable")
+    
+    try:
+        # Build Firestore query
+        papers_ref = db.collection('research_papers')
+        
+        # Apply filters
+        if query.discipline:
+            papers_ref = papers_ref.where('discipline', '==', query.discipline)
+        
+        if query.min_citation_count:
+            papers_ref = papers_ref.where('citation_count', '>=', query.min_citation_count)
+        
+        # Limit results
+        papers_ref = papers_ref.limit(query.limit)
+        
+        # Execute query
+        papers = papers_ref.stream()
+        results = []
+        
+        for paper in papers:
+            paper_data = paper.to_dict()
+            
+            # Filter by keywords if provided
+            if query.keywords:
+                paper_keywords = set(paper_data.get('keywords', []))
+                if not any(kw.lower() in ' '.join(paper_keywords).lower() for kw in query.keywords):
+                    continue
+            
+            results.append(paper_data)
+        
+        return {"papers": results, "count": len(results)}
+        
+    except Exception as e:
+        print(f"❌ Error querying papers: {e}")
+        raise HTTPException(status_code=500, detail="Failed to query papers")
+
+@app.post("/api/papers/{paper_id}/link-podcast/{podcast_id}")
+async def link_paper_to_podcast(paper_id: str, podcast_id: str):
+    """Link a research paper to a podcast"""
+    if not db:
+        raise HTTPException(status_code=503, detail="Firestore service is unavailable")
+    
+    try:
+        # Update paper's used_in_podcasts array
+        paper_ref = db.collection('research_papers').document(paper_id)
+        paper_doc = paper_ref.get()
+        
+        if not paper_doc.exists:
+            raise HTTPException(status_code=404, detail="Paper not found")
+        
+        paper_data = paper_doc.to_dict()
+        used_in_podcasts = paper_data.get('used_in_podcasts', [])
+        
+        if podcast_id not in used_in_podcasts:
+            used_in_podcasts.append(podcast_id)
+            paper_ref.update({
+                'used_in_podcasts': used_in_podcasts,
+                'citation_count': len(used_in_podcasts),
+                'updated_at': datetime.utcnow().isoformat()
+            })
+        
+        # Update podcast's metadata_extended.source_papers
+        podcast_ref = db.collection('podcast_jobs').document(podcast_id)
+        podcast_doc = podcast_ref.get()
+        
+        if podcast_doc.exists:
+            podcast_data = podcast_doc.to_dict()
+            metadata = podcast_data.get('metadata_extended', {})
+            source_papers = metadata.get('source_papers', [])
+            
+            if paper_id not in source_papers:
+                source_papers.append(paper_id)
+                metadata['source_papers'] = source_papers
+                podcast_ref.update({'metadata_extended': metadata})
+        
+        print(f"✅ Linked paper {paper_id} to podcast {podcast_id}")
+        
+        return {"message": "Paper linked to podcast successfully"}
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"❌ Error linking paper to podcast: {e}")
+        raise HTTPException(status_code=500, detail="Failed to link paper to podcast")
 
 if __name__ == "__main__":
     import uvicorn

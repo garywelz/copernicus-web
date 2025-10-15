@@ -196,6 +196,40 @@
                         </div>
                     </div>
                     
+                    <!-- Phase 1: Source Paper/Document Fields -->
+                    <div class="border-t border-gray-200 pt-4">
+                        <h3 class="text-sm font-semibold text-gray-900 mb-3">📄 Source Paper/Document (Optional)</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">DOI</label>
+                                <input type="text" x-model="podcastForm.paper_doi" 
+                                       placeholder="e.g., 10.1038/s41586-024-xxxxx"
+                                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Paper URL</label>
+                                <input type="url" x-model="podcastForm.paper_url" 
+                                       placeholder="https://arxiv.org/abs/..."
+                                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            </div>
+                        </div>
+                        
+                        <div class="mt-3">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Paper Title</label>
+                            <input type="text" x-model="podcastForm.paper_title" 
+                                   placeholder="Optional: Title of the research paper"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        
+                        <div class="mt-3">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Paper Abstract (Optional)</label>
+                            <textarea x-model="podcastForm.paper_abstract" rows="3" 
+                                      placeholder="Paste the paper abstract here for more accurate content generation..."
+                                      class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                        </div>
+                    </div>
+                    
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">Additional Instructions (Optional)</label>
                         <textarea x-model="podcastForm.instructions" rows="3" 
@@ -264,6 +298,34 @@
                                             </div>
                                         </template>
                                     </div>
+                                    
+                                    <!-- Phase 1: Display linked papers -->
+                                    <template x-if="podcast.metadata_extended && podcast.metadata_extended.source_papers && podcast.metadata_extended.source_papers.length > 0">
+                                        <div class="mt-3 pt-3 border-t border-gray-100">
+                                            <p class="text-xs font-medium text-gray-700 mb-1">📄 Source Papers:</p>
+                                            <div class="flex flex-wrap gap-1">
+                                                <template x-for="paper in podcast.metadata_extended.source_papers" :key="paper">
+                                                    <a :href="paper.startsWith('http') ? paper : `https://doi.org/${paper}`" 
+                                                       target="_blank"
+                                                       class="text-xs bg-blue-50 text-blue-600 hover:bg-blue-100 px-2 py-1 rounded">
+                                                        <span x-text="paper.startsWith('10.') ? 'DOI: ' + paper.substring(0, 20) + '...' : 'Link'"></span>
+                                                    </a>
+                                                </template>
+                                            </div>
+                                        </div>
+                                    </template>
+                                    
+                                    <!-- Display keywords if available -->
+                                    <template x-if="podcast.metadata_extended && podcast.metadata_extended.keywords_indexed && podcast.metadata_extended.keywords_indexed.length > 0">
+                                        <div class="mt-2">
+                                            <p class="text-xs font-medium text-gray-700 mb-1">🏷️ Keywords:</p>
+                                            <div class="flex flex-wrap gap-1">
+                                                <template x-for="keyword in podcast.metadata_extended.keywords_indexed.slice(0, 5)" :key="keyword">
+                                                    <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded" x-text="'#' + keyword"></span>
+                                                </template>
+                                            </div>
+                                        </div>
+                                    </template>
                                 </div>
                                 
                                 <div class="ml-4">
@@ -341,7 +403,12 @@
                     duration: '5-10 minutes',
                     format_type: 'interview',
                     voice_style: 'professional',
-                    instructions: ''
+                    instructions: '',
+                    // Phase 1: Source paper fields
+                    paper_doi: '',
+                    paper_url: '',
+                    paper_title: '',
+                    paper_abstract: ''
                 },
                 
                 // Initialize
@@ -431,7 +498,19 @@
                         
                         if (response.ok) {
                             this.showMessage('Podcast generation started! This may take a few minutes.', 'success');
-                            this.podcastForm = { topic: '', category: '', expertise_level: '', duration: '5-10 minutes', format_type: 'interview', voice_style: 'professional', instructions: '' };
+                            this.podcastForm = { 
+                                topic: '', 
+                                category: '', 
+                                expertise_level: '', 
+                                duration: '5-10 minutes', 
+                                format_type: 'interview', 
+                                voice_style: 'professional', 
+                                instructions: '',
+                                paper_doi: '',
+                                paper_url: '',
+                                paper_title: '',
+                                paper_abstract: ''
+                            };
                             // Refresh podcasts list after a delay
                             setTimeout(() => this.loadPodcasts(), 3000);
                         } else {
