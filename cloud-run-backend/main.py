@@ -2854,7 +2854,7 @@ async def list_glmp_processes():
         from google.cloud import storage
         
         bucket_name = "regal-scholar-453620-r7-podcast-storage"
-        prefix = "glmp-v2/"
+        prefix = "glmp-v2/processes/"
         
         print(f"🔍 Listing GLMP processes from gs://{bucket_name}/{prefix}")
         
@@ -2891,7 +2891,7 @@ async def get_glmp_process(process_id: str):
         from google.cloud import storage
         
         bucket_name = "regal-scholar-453620-r7-podcast-storage"
-        file_path = f"glmp-v2/{process_id}.json"
+        file_path = f"glmp-v2/processes/{process_id}.json"
         
         print(f"🔍 Fetching GLMP process: {process_id}")
         
@@ -2943,7 +2943,7 @@ async def preview_glmp_process(process_id: str):
         from google.cloud import storage
         
         bucket_name = "regal-scholar-453620-r7-podcast-storage"
-        file_path = f"glmp-v2/{process_id}.json"
+        file_path = f"glmp-v2/processes/{process_id}.json"
         
         client = storage.Client()
         bucket = client.bucket(bucket_name)
