@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Copernicus AI - Knowledge Engine for Scientific Discovery</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="gradient-bg text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <div class="text-center">
+                <div class="text-6xl mb-4">🔬</div>
+                <h1 class="text-5xl font-bold mb-4">Copernicus AI</h1>
+                <p class="text-xl opacity-90 mb-6">A Knowledge Engine for Scientific Discovery</p>
+                <p class="text-lg opacity-75 max-w-3xl mx-auto">
+                    Transforming cutting-edge research into accessible AI-powered podcasts and building 
+                    a comprehensive knowledge graph connecting concepts, papers, and insights across scientific disciplines.
+                </p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mission Statement -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">🎯 Our Mission</h2>
+            <p class="text-lg text-gray-700 leading-relaxed">
+                Inspired by the historical Copernicus who challenged accepted knowledge with evidence and rigorous analysis, 
+                Copernicus AI aims to expand human knowledge by creating tools that help us verify, generate, and transmit 
+                scientific insights. As AI systems become more capable, we build instruments—like the Programming Framework, 
+                GLMP, and AI podcasts—that enable humans to explore, understand, and communicate knowledge with the same depth 
+                and speed that AI possesses.
+            </p>
+        </div>
+    </section>
+
+    <!-- Main Features -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">🚀 Core Components</h2>
+        
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            <!-- AI Podcast Generation -->
+            <div class="bg-white rounded-lg shadow-md p-6 card-hover">
+                <div class="text-4xl mb-4">🎙️</div>
+                <h3 class="text-xl font-bold text-gray-900 mb-3">AI Podcast Generation</h3>
+                <p class="text-gray-600 mb-4">
+                    Multi-voice AI podcasts (5-10 minutes) synthesizing research papers into engaging conversations. 
+                    Powered by Google Gemini 2.0 for content and ElevenLabs for realistic voice synthesis.
+                </p>
+                <ul class="text-sm text-gray-500 space-y-1">
+                    <li>✓ 32+ episodes across 5 disciplines</li>
+                    <li>✓ Scientific references included</li>
+                    <li>✓ Subscriber-generated content</li>
+                    <li>✓ RSS feed distribution</li>
+                </ul>
+            </div>
+
+            <!-- Programming Framework -->
+            <div class="bg-white rounded-lg shadow-md p-6 card-hover">
+                <div class="text-4xl mb-4">🔧</div>
+                <h3 class="text-xl font-bold text-gray-900 mb-3">Programming Framework</h3>
+                <p class="text-gray-600 mb-4">
+                    A meta-tool for process analysis combining LLMs with Mermaid visualization. 
+                    Universal method for dissecting complex processes across any discipline.
+                </p>
+                <ul class="text-sm text-gray-500 space-y-1">
+                    <li>✓ Domain-agnostic analysis</li>
+                    <li>✓ Visual flowchart generation</li>
+                    <li>✓ Process decomposition</li>
+                    <li>✓ Knowledge extraction</li>
+                </ul>
+            </div>
+
+            <!-- GLMP -->
+            <div class="bg-white rounded-lg shadow-md p-6 card-hover">
+                <div class="text-4xl mb-4">🧬</div>
+                <h3 class="text-xl font-bold text-gray-900 mb-3">GLMP - Genome Logic</h3>
+                <p class="text-gray-600 mb-4">
+                    Genome Logic Modeling Project: A specialized "microscope" applying the Programming Framework 
+                    to visualize biochemical processes as interactive flowcharts.
+                </p>
+                <ul class="text-sm text-gray-500 space-y-1">
+                    <li>✓ Biological process mapping</li>
+                    <li>✓ JSON-based flowcharts</li>
+                    <li>✓ Pathway visualization</li>
+                    <li>✓ Research insights</li>
+                </ul>
+            </div>
+
+            <!-- Research Papers DB -->
+            <div class="bg-white rounded-lg shadow-md p-6 card-hover">
+                <div class="text-4xl mb-4">📚</div>
+                <h3 class="text-xl font-bold text-gray-900 mb-3">Research Papers Database</h3>
+                <p class="text-gray-600 mb-4">
+                    Centralized repository of scientific literature with AI preprocessing. Extracts key findings, 
+                    entities, and summaries for reuse across podcasts.
+                </p>
+                <ul class="text-sm text-gray-500 space-y-1">
+                    <li>✓ DOI/arXiv integration</li>
+                    <li>✓ LLM-powered preprocessing</li>
+                    <li>✓ Entity extraction (genes, proteins)</li>
+                    <li>✓ Citation tracking</li>
+                </ul>
+            </div>
+
+            <!-- Knowledge Graph -->
+            <div class="bg-white rounded-lg shadow-md p-6 card-hover">
+                <div class="text-4xl mb-4">🕸️</div>
+                <h3 class="text-xl font-bold text-gray-900 mb-3">Knowledge Graph (Phase 2)</h3>
+                <p class="text-gray-600 mb-4">
+                    Connects concepts, papers, podcasts, and GLMP visualizations. Enables discovery of 
+                    cross-disciplinary patterns and semantic search.
+                </p>
+                <ul class="text-sm text-gray-500 space-y-1">
+                    <li>✓ Concept relationships</li>
+                    <li>✓ Paper-podcast links</li>
+                    <li>✓ Cross-discipline discovery</li>
+                    <li>✓ Semantic queries</li>
+                </ul>
+            </div>
+
+            <!-- Subscriber Platform -->
+            <div class="bg-white rounded-lg shadow-md p-6 card-hover">
+                <div class="text-4xl mb-4">👥</div>
+                <h3 class="text-xl font-bold text-gray-900 mb-3">Subscriber Platform</h3>
+                <p class="text-gray-600 mb-4">
+                    YouTube-style interface for creators to prompt, manage, and share podcasts. 
+                    Browse public catalog or generate custom content.
+                </p>
+                <ul class="text-sm text-gray-500 space-y-1">
+                    <li>✓ Account management</li>
+                    <li>✓ Custom podcast generation</li>
+                    <li>✓ Source paper integration</li>
+                    <li>✓ RSS feed publishing</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Database Architecture -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="bg-gradient-to-r from-purple-50 to-blue-50 rounded-xl p-8 mb-8">
+            <h2 class="text-3xl font-bold text-gray-900 mb-6">🗄️ Database Architecture</h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Firestore Collections</h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li><strong>subscribers</strong> - User accounts, preferences, usage analytics</li>
+                        <li><strong>podcast_jobs</strong> - Generated podcasts with metadata, engagement metrics</li>
+                        <li><strong>research_papers</strong> - Scientific papers with AI preprocessing</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Google Cloud Storage</h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li><strong>audio/</strong> - MP3 podcast files (multi-voice synthesis)</li>
+                        <li><strong>transcripts/</strong> - Full text transcripts</li>
+                        <li><strong>descriptions/</strong> - Markdown descriptions with references</li>
+                        <li><strong>thumbnails/</strong> - AI-generated episode artwork</li>
+                        <li><strong>glmp-v2/</strong> - Genome Logic flowcharts (JSON)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mt-6 p-4 bg-white rounded-lg">
+                <h4 class="font-semibold text-gray-800 mb-2">Enhanced Metadata (Phase 1)</h4>
+                <p class="text-sm text-gray-600">
+                    Each podcast now includes: source papers (DOIs/URLs), extracted keywords, quality scores, 
+                    GLMP visualization links, and engagement metrics (plays, ratings, shares).
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Disciplines -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <h2 class="text-3xl font-bold text-gray-900 mb-6 text-center">📊 Scientific Disciplines</h2>
+        
+        <div class="flex flex-wrap justify-center gap-4 mb-8">
+            <div class="bg-green-100 text-green-800 px-6 py-3 rounded-full font-semibold">
+                🧬 Biology (9 podcasts)
+            </div>
+            <div class="bg-purple-100 text-purple-800 px-6 py-3 rounded-full font-semibold">
+                ⚗️ Chemistry (4 podcasts)
+            </div>
+            <div class="bg-gray-100 text-gray-800 px-6 py-3 rounded-full font-semibold">
+                💻 Computer Science (6 podcasts)
+            </div>
+            <div class="bg-red-100 text-red-800 px-6 py-3 rounded-full font-semibold">
+                📐 Mathematics (6 podcasts)
+            </div>
+            <div class="bg-blue-100 text-blue-800 px-6 py-3 rounded-full font-semibold">
+                ⚛️ Physics (7 podcasts)
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Stack -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="bg-white rounded-xl shadow-lg p-8">
+            <h2 class="text-3xl font-bold text-gray-900 mb-6">⚙️ Technology Stack</h2>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-3">AI & ML</h3>
+                    <ul class="text-sm text-gray-600 space-y-1">
+                        <li>• Google Gemini 2.0 Flash</li>
+                        <li>• Vertex AI</li>
+                        <li>• ElevenLabs TTS</li>
+                        <li>• Entity extraction</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-3">Backend</h3>
+                    <ul class="text-sm text-gray-600 space-y-1">
+                        <li>• FastAPI (Python)</li>
+                        <li>• Google Cloud Run</li>
+                        <li>• Firestore (NoSQL)</li>
+                        <li>• Cloud Storage</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-3">Frontend</h3>
+                    <ul class="text-sm text-gray-600 space-y-1">
+                        <li>• Static HTML/Alpine.js</li>
+                        <li>• Tailwind CSS</li>
+                        <li>• Vercel (hosting)</li>
+                        <li>• Responsive design</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Links & Resources -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-8">
+            <h2 class="text-3xl font-bold text-gray-900 mb-6 text-center">🔗 Links & Resources</h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-white rounded-lg p-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">🌐 Live Platform</h3>
+                    <ul class="space-y-2">
+                        <li>
+                            <a href="https://www.copernicusai.fyi" target="_blank" 
+                               class="text-blue-600 hover:text-blue-800 font-medium">
+                                🏠 Homepage - Browse Podcasts
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.copernicusai.fyi/subscriber-dashboard.html" target="_blank" 
+                               class="text-blue-600 hover:text-blue-800 font-medium">
+                                📊 Creator Dashboard
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/feeds/copernicus-mvp-rss-feed.xml" target="_blank" 
+                               class="text-blue-600 hover:text-blue-800 font-medium">
+                                📡 RSS Feed
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white rounded-lg p-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">🧬 Related Projects</h3>
+                    <ul class="space-y-2">
+                        <li>
+                            <a href="https://huggingface.co/spaces/garywelz/glmp" target="_blank" 
+                               class="text-blue-600 hover:text-blue-800 font-medium">
+                                🔬 GLMP - Genome Logic Modeling
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" 
+                               class="text-blue-600 hover:text-blue-800 font-medium">
+                                🛠️ Programming Framework
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://console.cloud.google.com/storage/browser/regal-scholar-453620-r7-podcast-storage/glmp-v2" target="_blank" 
+                               class="text-blue-600 hover:text-blue-800 font-medium">
+                                📁 GLMP Data Collection (GCS)
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- API Endpoints -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="bg-gray-900 text-white rounded-xl p-8">
+            <h2 class="text-3xl font-bold mb-6">🔌 API Endpoints</h2>
+            <p class="text-gray-300 mb-6">Base URL: <code class="bg-gray-800 px-2 py-1 rounded">https://copernicus-podcast-api-phzp4ie2sq-uc.a.run.app</code></p>
+            
+            <div class="grid md:grid-cols-2 gap-4 text-sm">
+                <div>
+                    <h4 class="font-semibold text-blue-300 mb-2">Podcast Generation</h4>
+                    <ul class="space-y-1 text-gray-400">
+                        <li>POST /generate-podcast-with-subscriber</li>
+                        <li>GET /api/subscribers/podcasts/{id}</li>
+                        <li>POST /api/subscribers/podcasts/submit-to-rss</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold text-blue-300 mb-2">Research Papers (Phase 1)</h4>
+                    <ul class="space-y-1 text-gray-400">
+                        <li>POST /api/papers/upload</li>
+                        <li>GET /api/papers/{paper_id}</li>
+                        <li>POST /api/papers/query</li>
+                        <li>POST /api/papers/{id}/link-podcast/{id}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vision -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="bg-white rounded-xl shadow-lg p-8 text-center">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">🌟 The Vision</h2>
+            <blockquote class="text-xl text-gray-700 italic mb-6">
+                "I want to know a lot, and I want to be confident that I am learning and disseminating the truth."
+            </blockquote>
+            <p class="text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                As LLMs and other forms of AI gain more knowledge and intelligence, the Copernicus AI project enables 
+                humans to keep up with what the AIs are capable of knowing and revealing. We're building the infrastructure 
+                for human-AI collaborative knowledge exploration, with truth-seeking as our North Star.
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="gradient-bg text-white py-8 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-lg font-semibold mb-2">Copernicus AI - Expanding Human Knowledge</p>
+            <p class="text-sm opacity-75">Built with Google Cloud, Gemini AI, ElevenLabs, and Vercel</p>
+            <p class="text-xs opacity-50 mt-4">&copy; 2025 Copernicus AI. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
+

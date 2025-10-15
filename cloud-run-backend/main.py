@@ -2845,6 +2845,135 @@ async def link_paper_to_podcast(paper_id: str, podcast_id: str):
         print(f"❌ Error linking paper to podcast: {e}")
         raise HTTPException(status_code=500, detail="Failed to link paper to podcast")
 
+# --- GLMP API Endpoints ---
+
+@app.get("/api/glmp/processes")
+async def list_glmp_processes():
+    """List all available GLMP processes from Google Cloud Storage"""
+    try:
+        from google.cloud import storage
+        
+        bucket_name = "regal-scholar-453620-r7-podcast-storage"
+        prefix = "glmp-v2/"
+        
+        print(f"🔍 Listing GLMP processes from gs://{bucket_name}/{prefix}")
+        
+        # Initialize GCS client
+        client = storage.Client()
+        bucket = client.bucket(bucket_name)
+        blobs = bucket.list_blobs(prefix=prefix)
+        
+        processes = []
+        for blob in blobs:
+            if blob.name.endswith('.json'):
+                # Extract process name from file path
+                process_name = blob.name.replace(prefix, '').replace('.json', '')
+                processes.append({
+                    'id': process_name,
+                    'name': process_name.replace('-', ' ').title(),
+                    'file_path': blob.name,
+                    'url': f"gs://{bucket_name}/{blob.name}",
+                    'size': blob.size,
+                    'updated': blob.updated.isoformat() if blob.updated else None
+                })
+        
+        print(f"✅ Found {len(processes)} GLMP processes")
+        return {"processes": processes, "count": len(processes)}
+        
+    except Exception as e:
+        print(f"❌ Error listing GLMP processes: {e}")
+        raise HTTPException(status_code=500, detail=f"Failed to list GLMP processes: {str(e)}")
+
+@app.get("/api/glmp/processes/{process_id}")
+async def get_glmp_process(process_id: str):
+    """Get a specific GLMP process flowchart from Google Cloud Storage"""
+    try:
+        from google.cloud import storage
+        
+        bucket_name = "regal-scholar-453620-r7-podcast-storage"
+        file_path = f"glmp-v2/{process_id}.json"
+        
+        print(f"🔍 Fetching GLMP process: {process_id}")
+        
+        # Initialize GCS client
+        client = storage.Client()
+        bucket = client.bucket(bucket_name)
+        blob = bucket.blob(file_path)
+        
+        if not blob.exists():
+            print(f"❌ GLMP process not found: {process_id}")
+            raise HTTPException(status_code=404, detail=f"GLMP process '{process_id}' not found")
+        
+        # Download and parse JSON
+        json_content = blob.download_as_text()
+        process_data = json.loads(json_content)
+        
+        print(f"✅ Loaded GLMP process: {process_id}")
+        
+        # Extract key information
+        mermaid_code = process_data.get('mermaid_syntax', '') or process_data.get('mermaid', '') or process_data.get('flowchart', '')
+        
+        return {
+            "process_id": process_id,
+            "data": process_data,
+            "mermaid_code": mermaid_code,
+            "metadata": {
+                "title": process_data.get('title', process_data.get('name', process_id.replace('-', ' ').title())),
+                "description": process_data.get('description', ''),
+                "category": process_data.get('category', ''),
+                "version": process_data.get('version', '1.0'),
+                "authors": process_data.get('authors', []),
+                "references": process_data.get('references', [])
+            }
+        }
+        
+    except HTTPException:
+        raise
+    except json.JSONDecodeError as e:
+        print(f"❌ Invalid JSON in GLMP process {process_id}: {e}")
+        raise HTTPException(status_code=500, detail=f"Invalid JSON format in process file: {str(e)}")
+    except Exception as e:
+        print(f"❌ Error fetching GLMP process {process_id}: {e}")
+        raise HTTPException(status_code=500, detail=f"Failed to fetch GLMP process: {str(e)}")
+
+@app.get("/api/glmp/processes/{process_id}/preview")
+async def preview_glmp_process(process_id: str):
+    """Get a lightweight preview of a GLMP process (metadata only)"""
+    try:
+        from google.cloud import storage
+        
+        bucket_name = "regal-scholar-453620-r7-podcast-storage"
+        file_path = f"glmp-v2/{process_id}.json"
+        
+        client = storage.Client()
+        bucket = client.bucket(bucket_name)
+        blob = bucket.blob(file_path)
+        
+        if not blob.exists():
+            raise HTTPException(status_code=404, detail=f"GLMP process '{process_id}' not found")
+        
+        # Download and parse JSON
+        json_content = blob.download_as_text()
+        process_data = json.loads(json_content)
+        
+        # Return only metadata (no large mermaid code)
+        return {
+            "process_id": process_id,
+            "title": process_data.get('title', process_data.get('name', process_id.replace('-', ' ').title())),
+            "description": process_data.get('description', ''),
+            "category": process_data.get('category', ''),
+            "version": process_data.get('version', '1.0'),
+            "has_mermaid": bool(process_data.get('mermaid_syntax') or process_data.get('mermaid') or process_data.get('flowchart')),
+            "file_size": blob.size,
+            "updated": blob.updated.isoformat() if blob.updated else None
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"❌ Error previewing GLMP process {process_id}: {e}")
+        raise HTTPException(status_code=500, detail=f"Failed to preview GLMP process: {str(e)}")
+
 if __name__ == "__main__":
     import uvicorn
     port = int(os.environ.get("PORT", 8080))
