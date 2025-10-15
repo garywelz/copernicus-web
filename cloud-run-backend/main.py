@@ -2974,6 +2974,11 @@ async def preview_glmp_process(process_id: str):
         print(f"❌ Error previewing GLMP process {process_id}: {e}")
         raise HTTPException(status_code=500, detail=f"Failed to preview GLMP process: {str(e)}")
 
+# Test endpoint
+@app.get("/api/test")
+async def test_endpoint():
+    return {"message": "API is working", "glmp_endpoints": "available"}
+
 if __name__ == "__main__":
     import uvicorn
     port = int(os.environ.get("PORT", 8080))
