@@ -5,7 +5,7 @@ import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 
 export default function SignUpPage() {
-  const [email, setEmail] = useState('gwelz@jjay.cuny.edu')
+  const [email, setEmail] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const router = useRouter()
@@ -17,7 +17,8 @@ export default function SignUpPage() {
     try {
       const result = await signIn('google', {
         callbackUrl: '/dashboard',
-        redirect: false
+        redirect: false,
+        prompt: 'select_account'
       })
       
       if (result?.error) {
@@ -34,21 +35,21 @@ export default function SignUpPage() {
   }
 
   const handleDemoMode = () => {
-    // Set demo session in localStorage
+    // Set demo session in localStorage with neutral defaults
     const demoSession = {
       user: {
         id: 'demo-user',
-        email: 'gwelz@jjay.cuny.edu',
-        name: 'Gary Welz',
+        email: 'demo@copernicus-ai.com',
+        name: 'Demo User',
         subscriptionTier: 'free',
         subscriptionStatus: 'active',
-        podcastsUsed: 3,
+        podcastsUsed: 0,
         podcastsLimit: 10,
         createdAt: new Date().toISOString(),
         lastLogin: new Date().toISOString()
       }
     }
-    
+
     localStorage.setItem('demo-session', JSON.stringify(demoSession))
     router.push('/dashboard')
   }

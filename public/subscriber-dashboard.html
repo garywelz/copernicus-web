@@ -383,6 +383,17 @@
                 
                 // Initialize
                 init() {
+                    // Clear accidental cross-account state if emails mismatch
+                    try {
+                        const existing = localStorage.getItem('subscriber');
+                        if (existing) {
+                            const parsed = JSON.parse(existing);
+                            if (parsed && parsed.email && this.loginForm.email && parsed.email !== this.loginForm.email) {
+                                localStorage.removeItem('subscriber');
+                            }
+                        }
+                    } catch (e) {}
+
                     // Check if user is already logged in
                     const savedSubscriber = localStorage.getItem('subscriber');
                     if (savedSubscriber) {
@@ -397,8 +408,14 @@
                 async login() {
                     this.loading = true;
                     try {
-                        // Clear any existing data first
+                        // Clear any existing data first to avoid account stickiness
                         this.clearAuthData();
+                        try {
+                            localStorage.removeItem('subscriber');
+                            localStorage.removeItem('subscriber_id');
+                            localStorage.removeItem('subscriber_email');
+                            localStorage.removeItem('subscriber_name');
+                        } catch (e) {}
                         
                         const response = await fetch(`${this.API_BASE_URL}/api/subscribers/login`, {
                             method: 'POST',
@@ -468,34 +485,56 @@
                     // Clear all authentication data
                     this.clearAuthData();
                     
-                    // Show message and redirect immediately
+                    // Force immediate UI update
+                    this.authenticated = false;
+                    this.subscriber = null;
+                    
+                    // Show message and redirect
                     this.showMessage('Signed out successfully', 'success');
                     
-                    // Redirect to home page immediately
-                    window.location.href = '/';
+                    // Redirect to home page
+                    setTimeout(() => {
+                        window.location.href = '/';
+                    }, 500);
                 },
                 
                 // Podcast Management
                 async generatePodcast() {
                     this.generating = true;
                     try {
+                        // Build request payload with proper field mapping
+                        const requestPayload = {
+                            topic: this.podcastForm.topic,
+                            category: this.podcastForm.category,
+                            expertise_level: this.podcastForm.expertise_level,
+                            duration: this.podcastForm.duration,
+                            format_type: this.podcastForm.format_type,
+                            voice_style: this.podcastForm.voice_style,
+                            additional_instructions: this.podcastForm.instructions || '',
+                            // Map sourceUrl to source_links array (backend expects this)
+                            source_links: this.podcastForm.sourceUrl ? [this.podcastForm.sourceUrl] : []
+                        };
+                        
+                        console.log('Generating podcast with payload:', requestPayload);
+                        
                         const response = await fetch(`${this.API_BASE_URL}/generate-podcast-with-subscriber?subscriber_id=${this.subscriber.subscriber_id}`, {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify(this.podcastForm)
+                            body: JSON.stringify(requestPayload)
                         });
                         
                         const data = await response.json();
                         
                         if (response.ok) {
                             this.showMessage('Podcast generation started! This may take a few minutes.', 'success');
-                            this.podcastForm = { topic: '', category: '', expertise_level: '', duration: '5-10 minutes', format_type: 'interview', voice_style: 'professional', instructions: '' };
+                            this.podcastForm = { topic: '', category: '', expertise_level: '', duration: '5-10 minutes', format_type: 'interview', voice_style: 'professional', instructions: '', sourceUrl: '', sourceFile: null };
                             // Refresh podcasts list after a delay
                             setTimeout(() => this.loadPodcasts(), 3000);
                         } else {
                             this.showMessage(data.detail || 'Failed to generate podcast', 'error');
                         }
                     } catch (error) {
+                        console.error('Generate podcast error:', error);
                         this.showMessage('Network error. Please try again.', 'error');
                     } finally {
                         this.generating = false;

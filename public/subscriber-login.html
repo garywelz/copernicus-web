@@ -318,6 +318,14 @@
             }
         });
         
+        // Clear any stale auth on page load to prevent account mix-ups
+        try {
+            localStorage.removeItem('subscriber');
+            localStorage.removeItem('subscriber_id');
+            localStorage.removeItem('subscriber_email');
+            localStorage.removeItem('subscriber_name');
+        } catch (e) {}
+
         // Registration form
         document.getElementById('registerForm').addEventListener('submit', async (e) => {
             e.preventDefault();
