@@ -14,7 +14,7 @@
 </head>
 <body class="bg-gray-50">
     <!-- Header -->
-    <header class="gradient-bg text-white shadow-lg">
+    <header class="gradient-bg text-white shadow-lg" x-data="{ authenticated: false }">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center py-6">
                 <div class="flex items-center space-x-6">
@@ -23,15 +23,18 @@
                         ← Browse Podcasts
                     </a>
                 </div>
-                <div class="flex items-center space-x-4">
-                    <div class="text-right">
-                        <div class="text-sm font-medium" x-text="subscriber?.name || 'Loading...'"></div>
-                        <div class="text-xs opacity-75" x-text="subscriber?.subscription_tier?.toUpperCase() + ' Plan'"></div>
+                <!-- Only show when authenticated - check main app state -->
+                <template x-if="window.dashboardAppInstance && window.dashboardAppInstance.authenticated">
+                    <div class="flex items-center space-x-4">
+                        <div class="text-right">
+                            <div class="text-sm font-medium" x-text="window.dashboardAppInstance.subscriber?.name || 'Loading...'"></div>
+                            <div class="text-xs opacity-75" x-text="window.dashboardAppInstance.subscriber?.subscription_tier?.toUpperCase() + ' Plan'"></div>
+                        </div>
+                        <button @click="window.dashboardAppInstance.signOut()" class="bg-white bg-opacity-20 hover:bg-opacity-30 px-4 py-2 rounded-lg transition duration-200">
+                            Sign Out
+                        </button>
                     </div>
-                    <button @click="signOut()" class="bg-white bg-opacity-20 hover:bg-opacity-30 px-4 py-2 rounded-lg transition duration-200">
-                        Sign Out
-                    </button>
-                </div>
+                </template>
             </div>
         </div>
     </header>
@@ -152,6 +155,59 @@
                 </div>
             </div>
 
+            <!-- RSS Attribution Profile Section -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-bold text-gray-900 mb-4">RSS Attribution Profile</h2>
+                <p class="text-sm text-gray-600 mb-4">
+                    Customize how your name appears when your podcasts are published to the RSS feed
+                </p>
+                
+                <form @submit.prevent="updateProfile()" class="space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Display Name</label>
+                            <input type="text" x-model="profileForm.display_name" 
+                                   placeholder="e.g., QuantumPhysicist, DrBiology, etc."
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <p class="text-xs text-gray-500 mt-1">Optional public screen name</p>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Initials</label>
+                            <input type="text" x-model="profileForm.initials" 
+                                   placeholder="e.g., GW, JM, etc."
+                                   maxlength="10"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <p class="text-xs text-gray-500 mt-1">Short abbreviation (max 10 chars)</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center space-x-3">
+                        <input type="checkbox" x-model="profileForm.show_attribution" id="show_attribution"
+                               class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                        <label for="show_attribution" class="text-sm font-medium text-gray-700">
+                            Show my attribution on published podcasts
+                        </label>
+                    </div>
+                    <p class="text-xs text-gray-500">
+                        If enabled, your display name or initials will appear in the RSS feed. 
+                        If both are empty, no attribution will be shown even if enabled.
+                    </p>
+                    
+                    <div class="flex justify-end space-x-3">
+                        <button @click="loadProfileData()" type="button"
+                                class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">
+                            Cancel
+                        </button>
+                        <button type="submit" :disabled="updatingProfile" 
+                                class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md disabled:opacity-50">
+                            <span x-show="!updatingProfile">Save Attribution Settings</span>
+                            <span x-show="updatingProfile">Saving...</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
             <!-- Generate Podcast Section -->
             <div class="bg-white rounded-lg shadow-md p-6">
                 <h2 class="text-xl font-bold text-gray-900 mb-4">Generate New Podcast</h2>
@@ -196,6 +252,31 @@
                                 <option value="10-15 minutes">10-15 minutes</option>
                                 <option value="15-20 minutes">15-20 minutes</option>
                             </select>
+                        </div>
+                    </div>
+                    
+                    <!-- Voice Selection -->
+                    <div class="border-t border-gray-200 pt-4">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-3">Voice Selection</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Host Voice (Matilda - Female)</label>
+                                <select x-model="podcastForm.host_voice_id" 
+                                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="XrExE9yKIg1WjnnlVkGX">Matilda (Professional, Warm)</option>
+                                    <option value="pqHfZKP75CvOlQylNhV4">Bella (British, Professional)</option>
+                                    <option value="JBFqnCBsd6RMkjVDRZzb">Sam (American, Engaging)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Expert Voice (Adam - Male)</label>
+                                <select x-model="podcastForm.expert_voice_id" 
+                                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="pNInz6obpgDQGcFmaJgB">Adam (Authoritative, Friendly)</option>
+                                    <option value="EXAVITQu4vr4xnSDxMaL">Bryan (American, Professional)</option>
+                                    <option value="onwK4e9ZLuTAKqWW03F9">Daniel (British, Authoritative)</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                     
@@ -346,13 +427,14 @@
         function dashboardApp() {
             return {
                 // API Configuration
-                API_BASE_URL: 'https://copernicus-podcast-api-phzp4ie2sq-uc.a.run.app',
+                API_BASE_URL: 'https://copernicus-podcast-api-204731194849.us-central1.run.app',
                 
                 // State
                 authenticated: false,
                 loading: false,
                 loadingPodcasts: false,
                 generating: false,
+                updatingProfile: false,
                 showRegister: false,
                 subscriber: null,
                 podcasts: [],
@@ -369,6 +451,11 @@
                     email: '',
                     password: ''
                 },
+                profileForm: {
+                    display_name: '',
+                    initials: '',
+                    show_attribution: false
+                },
                 podcastForm: {
                     topic: '',
                     category: '',
@@ -376,6 +463,8 @@
                     duration: '5-10 minutes',
                     format_type: 'interview',
                     voice_style: 'professional',
+                    host_voice_id: 'XrExE9yKIg1WjnnlVkGX',
+                    expert_voice_id: 'pNInz6obpgDQGcFmaJgB',
                     instructions: '',
                     sourceUrl: '',
                     sourceFile: null
@@ -383,6 +472,9 @@
                 
                 // Initialize
                 init() {
+                    // Expose instance to window for header to access
+                    window.dashboardAppInstance = this;
+                    
                     // Clear accidental cross-account state if emails mismatch
                     try {
                         const existing = localStorage.getItem('subscriber');
@@ -401,6 +493,7 @@
                         this.authenticated = true;
                         this.loadPodcasts();
                         this.loadSubscriberProfile();
+                        this.loadProfileData();
                     }
                 },
                 
@@ -426,11 +519,22 @@
                         const data = await response.json();
                         
                         if (response.ok) {
-                            console.log('Login successful for:', data.email, 'subscriber_id:', data.subscriber_id);
+                            console.log('✅ Login successful for:', data.email, 'subscriber_id:', data.subscriber_id);
+                            console.log('📊 Setting authenticated = true');
                             this.subscriber = data;
                             this.authenticated = true;
                             localStorage.setItem('subscriber', JSON.stringify(data));
-                            this.loadPodcasts();
+                            console.log('📊 Current authenticated state:', this.authenticated);
+                            
+                            // Load data after setting authenticated
+                            console.log('📥 Loading podcasts, profile, and profile data...');
+                            await Promise.all([
+                                this.loadPodcasts(),
+                                this.loadSubscriberProfile(),
+                                this.loadProfileData()
+                            ]);
+                            console.log('✅ All data loaded. Authenticated state:', this.authenticated);
+                            
                             this.showMessage('Login successful!', 'success');
                         } else {
                             console.error('Login failed:', data);
@@ -677,6 +781,39 @@
                 },
                 
                 async loadSubscriberProfile() {
+                    if (!this.authenticated) {
+                        console.log('⏭️ Skipping loadSubscriberProfile - not authenticated');
+                        return;
+                    }
+                    
+                    console.log('📥 Loading subscriber profile for:', this.subscriber.subscriber_id);
+                    try {
+                        const response = await fetch(`${this.API_BASE_URL}/api/subscribers/profile/${this.subscriber.subscriber_id}`);
+                        const data = await response.json();
+                        
+                        if (response.ok) {
+                            console.log('✅ Profile loaded successfully');
+                            this.subscriber = data;
+                            localStorage.setItem('subscriber', JSON.stringify(data));
+                        } else {
+                            // If profile fetch fails, log error but don't logout
+                            // This might happen for new users or if profile endpoint has issues
+                            if (response.status === 404) {
+                                console.warn('⚠️ Subscriber profile not found (404) - may be a new account:', data);
+                                this.showMessage('Profile not found. Using basic account info.', 'error');
+                            } else {
+                                console.error('❌ Failed to load subscriber profile:', response.status, data);
+                                this.showMessage(data.detail || 'Failed to load profile', 'error');
+                            }
+                        }
+                    } catch (error) {
+                        console.error('❌ Failed to load subscriber profile - network error:', error);
+                        // Network error - don't logout, just show error
+                        this.showMessage('Network error loading profile', 'error');
+                    }
+                },
+                
+                async loadProfileData() {
                     if (!this.authenticated) return;
                     
                     try {
@@ -684,19 +821,38 @@
                         const data = await response.json();
                         
                         if (response.ok) {
-                            this.subscriber = data;
-                            localStorage.setItem('subscriber', JSON.stringify(data));
-                        } else {
-                            // If profile fetch fails, user might not be authenticated
-                            console.error('Failed to load subscriber profile:', data);
-                            this.authenticated = false;
-                            this.subscriber = null;
-                            localStorage.removeItem('subscriber');
+                            this.profileForm.display_name = data.display_name || '';
+                            this.profileForm.initials = data.initials || '';
+                            this.profileForm.show_attribution = data.show_attribution || false;
                         }
                     } catch (error) {
-                        console.error('Failed to load subscriber profile:', error);
-                        // Network error - don't logout, just show error
-                        this.showMessage('Network error loading profile', 'error');
+                        console.error('Failed to load profile data:', error);
+                    }
+                },
+                
+                async updateProfile() {
+                    this.updatingProfile = true;
+                    try {
+                        const response = await fetch(`${this.API_BASE_URL}/api/subscribers/profile/${this.subscriber.subscriber_id}`, {
+                            method: 'PUT',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(this.profileForm)
+                        });
+                        
+                        const data = await response.json();
+                        
+                        if (response.ok) {
+                            // Reload subscriber profile to get updated data
+                            await this.loadSubscriberProfile();
+                            this.showMessage('Profile updated successfully!', 'success');
+                        } else {
+                            this.showMessage(data.detail || 'Failed to update profile', 'error');
+                        }
+                    } catch (error) {
+                        console.error('Profile update error:', error);
+                        this.showMessage('Network error. Please try again.', 'error');
+                    } finally {
+                        this.updatingProfile = false;
                     }
                 },
                 
