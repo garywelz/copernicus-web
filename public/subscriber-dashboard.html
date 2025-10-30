@@ -425,7 +425,9 @@
     </main>
 
     <script>
+        console.log('📝 Loading dashboardApp function');
         function dashboardApp() {
+            console.log('🚀 dashboardApp() called - initializing app');
             return {
                 // API Configuration
                 API_BASE_URL: 'https://copernicus-podcast-api-204731194849.us-central1.run.app',
@@ -473,6 +475,8 @@
                 
                 // Initialize
                 init() {
+                    console.log('🎯 init() called - Alpine.js is working!');
+                    console.log('📊 Initial loginForm state:', this.loginForm);
                     // Expose instance to window for header to access
                     window.dashboardAppInstance = this;
                     
