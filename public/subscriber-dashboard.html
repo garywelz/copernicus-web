@@ -443,6 +443,7 @@
                 podcasts: [],
                 message: '',
                 messageType: 'success',
+                podcastPollInterval: null,
                 
                 // Forms (reactive data - Alpine.js will bind to these)
                 loginForm: {
@@ -646,6 +647,19 @@
                 },
                 
                 // Podcast Management
+                startPollingForPodcasts() {
+                    // Poll every 15 seconds for podcast status updates
+                    if (this.podcastPollInterval) {
+                        clearInterval(this.podcastPollInterval);
+                    }
+                    this.podcastPollInterval = setInterval(() => {
+                        if (this.authenticated && this.podcasts.some(p => p.status === 'pending' || p.status === 'processing')) {
+                            console.log('🔄 Polling for podcast updates...');
+                            this.loadPodcasts();
+                        }
+                    }, 15000); // Poll every 15 seconds
+                },
+                
                 async generatePodcast() {
                     this.generating = true;
                     try {
@@ -673,10 +687,12 @@
                         const data = await response.json();
                         
                         if (response.ok) {
-                            this.showMessage('Podcast generation started! This may take a few minutes.', 'success');
-                            this.podcastForm = { topic: '', category: '', expertise_level: '', duration: '5-10 minutes', format_type: 'interview', voice_style: 'professional', instructions: '', sourceUrl: '', sourceFile: null };
-                            // Refresh podcasts list after a delay
-                            setTimeout(() => this.loadPodcasts(), 3000);
+                            this.showMessage('Podcast generation started! This typically takes 3-5 minutes. Status will auto-update.', 'success');
+                            this.podcastForm = { topic: '', category: '', expertise_level: '', duration: '5-10 minutes', format_type: 'interview', voice_style: 'professional', host_voice_id: 'XrExE9yKIg1WjnnlVkGX', expert_voice_id: 'pNInz6obpgDQGcFmaJgB', instructions: '', sourceUrl: '', sourceFile: null };
+                            // Refresh podcasts immediately to show "pending" status
+                            await this.loadPodcasts();
+                            // Start polling for updates
+                            this.startPollingForPodcasts();
                         } else {
                             this.showMessage(data.detail || 'Failed to generate podcast', 'error');
                         }
