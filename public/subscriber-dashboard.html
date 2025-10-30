@@ -524,11 +524,24 @@
                             localStorage.removeItem('subscriber_name');
                         } catch (e) {}
                         
-                        console.log('📤 Sending login request with:', this.loginForm);
+                        // CRITICAL FIX: Read values directly from DOM inputs
+                        // This handles browser autofill that happens before Alpine.js initializes
+                        const emailInput = document.querySelector('input[type="email"][x-model="loginForm.email"]');
+                        const passwordInput = document.querySelector('input[type="password"][x-model="loginForm.password"]');
+                        
+                        const loginPayload = {
+                            email: emailInput?.value || this.loginForm.email,
+                            password: passwordInput?.value || this.loginForm.password
+                        };
+                        
+                        console.log('📤 Alpine.js loginForm:', this.loginForm);
+                        console.log('📤 DOM input values:', loginPayload);
+                        console.log('📤 Sending login request with:', loginPayload);
+                        
                         const response = await fetch(`${this.API_BASE_URL}/api/subscribers/login`, {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify(this.loginForm)
+                            body: JSON.stringify(loginPayload)
                         });
                         console.log('📥 Login response status:', response.status);
                         
@@ -567,10 +580,24 @@
                 async register() {
                     this.loading = true;
                     try {
+                        // Also read registration form values from DOM to handle autofill
+                        const nameInput = document.querySelector('input[type="text"][x-model="registerForm.name"]');
+                        const emailInput = document.querySelector('input[type="email"][x-model="registerForm.email"]');
+                        const passwordInput = document.querySelector('input[type="password"][x-model="registerForm.password"]');
+                        
+                        const registerPayload = {
+                            name: nameInput?.value || this.registerForm.name,
+                            email: emailInput?.value || this.registerForm.email,
+                            password: passwordInput?.value || this.registerForm.password,
+                            subscription_tier: 'free'
+                        };
+                        
+                        console.log('📤 Sending registration with:', registerPayload);
+                        
                         const response = await fetch(`${this.API_BASE_URL}/api/subscribers/register`, {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify(this.registerForm)
+                            body: JSON.stringify(registerPayload)
                         });
                         
                         const data = await response.json();
