@@ -510,11 +510,13 @@
                             localStorage.removeItem('subscriber_name');
                         } catch (e) {}
                         
+                        console.log('📤 Sending login request with:', this.loginForm);
                         const response = await fetch(`${this.API_BASE_URL}/api/subscribers/login`, {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify(this.loginForm)
                         });
+                        console.log('📥 Login response status:', response.status);
                         
                         const data = await response.json();
                         
