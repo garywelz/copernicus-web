@@ -16,30 +16,30 @@
 
         "Digital researcher who explores consciousness, reality, and the boundaries between physical and metaphysical understanding, always grounding speculation in rigorous scientific evidence and peer-reviewed research.",
 
-        "Research communicator who specializes in making complex scientific breakthroughs accessible without oversimplifying them. Creates multi-voice podcasts that help researchers, investors, and curious minds understand why certain developments could change everything."
+        "Research communicator who specializes in making complex scientific breakthroughs accessible without oversimplifying them. Creates engaging 2-speaker podcasts featuring Matilda (host) and Adam (expert) that help researchers, investors, and curious minds understand why certain developments could change everything."
    ],
    "voices": {
-        "host": {
-            "model": "...",
-            "role": "..."
+        "matilda": {
+            "voice_id": "XrExE9yKIg1WjnnlVkGX",
+            "role": "host",
+            "gender": "female",
+            "description": "Professional host, warm and engaging interviewer"
         },
-        "expert": {
-            "model": "...",
-            "role": "..."
-        },
-        "questioner": {
-            "model": "...",
-            "role": "..."
+        "adam": {
+            "voice_id": "pNInz6obpgDQGcFmaJgB",
+            "role": "expert", 
+            "gender": "male",
+            "description": "Expert researcher, authoritative but approachable"
         }
     },
     "podcastStyle": {
-        "format": "10-20 minute episodes",
+        "format": "5-20 minute episodes",
         "structure": [
-            "Introduction of the revolutionary development",
-            "Technical explanation with expert voice",
-            "Implications and paradigm shift analysis",
-            "Interactive pause points for questions",
-            "Summary and future implications"
+            "Introduction of the revolutionary development (Matilda)",
+            "Technical explanation with expert analysis (Adam)",
+            "Implications and paradigm shift discussion (both speakers)",
+            "Interactive dialogue and exploration (both speakers)",
+            "Summary and future implications (Matilda)"
         ],
         "citations": {
             "includeAuthors": true,

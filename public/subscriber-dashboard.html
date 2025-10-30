@@ -444,7 +444,7 @@
                 message: '',
                 messageType: 'success',
                 
-                // Forms
+                // Forms (reactive data - Alpine.js will bind to these)
                 loginForm: {
                     email: '',
                     password: ''
@@ -476,7 +476,16 @@
                 // Initialize
                 init() {
                     console.log('🎯 init() called - Alpine.js is working!');
-                    console.log('📊 Initial loginForm state:', this.loginForm);
+                    console.log('📊 Initial loginForm state:', JSON.stringify(this.loginForm));
+                    
+                    // Force reactivity by ensuring loginForm is properly initialized
+                    this.$watch('loginForm.email', value => {
+                        console.log('📧 Email watch triggered:', value);
+                    });
+                    this.$watch('loginForm.password', value => {
+                        console.log('🔑 Password watch triggered:', value ? '***' : '(empty)');
+                    });
+                    
                     // Expose instance to window for header to access
                     window.dashboardAppInstance = this;
                     

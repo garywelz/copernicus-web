@@ -983,7 +983,7 @@ class ElevenLabsVoiceService:
             logger.warning("⚠️ Returning audio without bumpers")
             return main_audio  # Return original audio if bumpers fail
     
-    async def generate_multi_voice_audio_with_bumpers(self, script: str, job_id: str, canonical_filename: str, intro_path: str, outro_path: str) -> str:
+    async def generate_multi_voice_audio_with_bumpers(self, script: str, job_id: str, canonical_filename: str, intro_path: str, outro_path: str, host_voice_id: Optional[str] = None, expert_voice_id: Optional[str] = None) -> str:
         """Generate multi-voice audio with bumpers and upload to GCS"""
         from google.cloud import storage
         import tempfile
@@ -993,6 +993,14 @@ class ElevenLabsVoiceService:
         if not script or not script.strip():
             raise ValueError("Input script is empty or contains only whitespace. Cannot generate audio.")
         # --- End of Edit ---
+        
+        # Override voice IDs if provided (Phase 2.2: Voice Selection)
+        if host_voice_id:
+            self.voice_configs['host'].voice_id = host_voice_id
+            logger.info(f"🎙️ Using custom host voice: {host_voice_id}")
+        if expert_voice_id:
+            self.voice_configs['expert'].voice_id = expert_voice_id
+            logger.info(f"🎙️ Using custom expert voice: {expert_voice_id}")
         
         logger.info(f"🎵 Generating multi-voice audio with bumpers for {canonical_filename}")
         

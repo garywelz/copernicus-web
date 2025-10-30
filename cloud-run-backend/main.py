@@ -13,6 +13,8 @@ from copernicus_character import get_copernicus_character, get_character_prompt,
 from elevenlabs_voice_service import ElevenLabsVoiceService
 from email_service import EmailService
 from content_fixes import apply_content_fixes, fix_script_format_for_multi_voice, limit_description_length, extract_itunes_summary, generate_relevant_hashtags, validate_academic_references
+from research_pipeline import ComprehensiveResearchPipeline, ResearchSource
+from podcast_research_integrator import PodcastResearchIntegrator, PodcastResearchContext
 import re
 from google.api_core import retry
 import time
@@ -60,6 +62,27 @@ class StructuredLogger:
 
 # Global structured logger
 structured_logger = StructuredLogger("copernicus-podcast")
+
+# 2-SPEAKER VOICE CONFIGURATION
+# Simplified podcast format with just Matilda (female host) and Adam (male expert)
+COPERNICUS_VOICES = {
+    "matilda": {
+        "voice_id": "XrExE9yKIg1WjnnlVkGX",
+        "role": "host",
+        "gender": "female",
+        "description": "Professional host, warm and engaging interviewer"
+    },
+    "adam": {
+        "voice_id": "pNInz6obpgDQGcFmaJgB",
+        "role": "expert",
+        "gender": "male",
+        "description": "Expert researcher, authoritative but approachable"
+    }
+}
+
+def get_speaker_labels():
+    """Return the 2 speaker labels used in podcast scripts"""
+    return ["MATILDA", "ADAM"]
 
 # Context manager for step tracking
 @asynccontextmanager
@@ -250,6 +273,9 @@ class PodcastRequest(BaseModel):
     format_type: str = "interview"
     duration: str = "5-10 minutes"
     voice_style: str = "professional"
+    # Voice selection (Phase 2.2)
+    host_voice_id: Optional[str] = None  # Matilda (default)
+    expert_voice_id: Optional[str] = None  # Adam (default)
     # Research paper processing fields
     paper_content: Optional[str] = None
     paper_title: Optional[str] = None
@@ -303,9 +329,64 @@ def initialize_vertex_ai():
         print("Falling back to Google AI API key if available.")
         return None
 
+def load_all_api_keys_from_secret_manager():
+    """Load ALL API keys from Secret Manager on startup"""
+    try:
+        print("\n" + "="*70)
+        print("🔑 LOADING API KEYS FROM SECRET MANAGER")
+        print("="*70)
+        client = secretmanager.SecretManagerServiceClient()
+        
+        api_keys = {
+            # Research APIs
+            "PUBMED_API_KEY": "pubmed-api-key",
+            "NASA_ADS_TOKEN": "nasa-ads-token",
+            "ZENODO_API_KEY": "zenodo-api-key",
+            "NEWS_API_KEY": "news-api-key",
+            "YOUTUBE_API_KEY": "youtube-api-key",
+            "OPENROUTER_API_KEY": "openrouter-api-key",  # For processing user links
+            "CORE_API_KEY": "core-api-key",  # CORE aggregator API
+            # LLM APIs
+            "GOOGLE_API_KEY": "GOOGLE_AI_API_KEY",
+            "GOOGLE_AI_API_KEY": "GOOGLE_AI_API_KEY",
+        }
+        
+        loaded_count = 0
+        for env_var, secret_name in api_keys.items():
+            if env_var in os.environ:
+                print(f"   ⏭️  {env_var} already set in environment")
+                loaded_count += 1
+                continue
+            try:
+                name = f"projects/{GCP_PROJECT_ID}/secrets/{secret_name}/versions/latest"
+                response = client.access_secret_version(request={"name": name})
+                key = response.payload.data.decode("UTF-8").strip()
+                if key:
+                    os.environ[env_var] = key
+                    loaded_count += 1
+                    print(f"   ✅ {env_var} loaded from {secret_name}")
+            except Exception as e:
+                print(f"   ⚠️  Could not load {env_var}: {str(e)[:50]}")
+        
+        print(f"✅ Loaded {loaded_count}/{len(api_keys)} API keys")
+        print("="*70 + "\n")
+        return loaded_count > 0
+        
+    except Exception as e:
+        print(f"❌ Failed to load API keys from Secret Manager: {e}")
+        return False
+
 def get_google_api_key():
     """Get Google AI API key from Secret Manager or environment"""
-    # First try Secret Manager
+    # Check environment first (already loaded on startup)
+    key = (os.environ.get("GOOGLE_AI_API_KEY") or 
+           os.environ.get("GEMINI_API_KEY") or
+           os.environ.get("GOOGLE_API_KEY"))
+    
+    if key:
+        return key
+    
+    # Fallback: try Secret Manager directly
     try:
         print("🔄 Retrieving Google AI API key from Secret Manager...")
         client = secretmanager.SecretManagerServiceClient()
@@ -314,22 +395,22 @@ def get_google_api_key():
         key = response.payload.data.decode("UTF-8").strip()
         if key:
             print("✅ Google AI API key retrieved from Secret Manager")
+            os.environ["GOOGLE_AI_API_KEY"] = key
             return key
     except Exception as e:
-        print(f"⚠️  Could not retrieve Google AI API key from Secret Manager: {e}")
+        print(f"❌ Could not retrieve Google AI API key: {e}")
     
-    # Fallback to environment variables
-    key = (os.environ.get("GOOGLE_AI_API_KEY") or 
-           os.environ.get("GEMINI_API_KEY") or
-           os.environ.get("GOOGLE_API_KEY"))
-    
-    if key:
-        print("✅ Google AI API key found in environment")
-    else:
-        print("❌ Google AI API key not found in Secret Manager or environment")
-    return key
+    return None
 
 # Initialize services on startup
+print("\n" + "="*70)
+print("🚀 COPERNICUS AI BACKEND INITIALIZATION")
+print("="*70 + "\n")
+
+# Load all API keys first
+load_all_api_keys_from_secret_manager()
+
+# Then initialize AI services
 vertex_ai_model = initialize_vertex_ai()
 
 # Initialize Firestore client
@@ -1090,11 +1171,53 @@ async def upload_description_to_gcs(description: str, canonical_filename: str) -
         else:
             category = 'Science'
         
-        # Generate hashtags and add to description
-        hashtags = generate_relevant_hashtags("", category, "", description)
+        # Extract topic from description for better hashtag generation
+        topic_match = re.search(r'^#\s*(.+)', description, re.MULTILINE)
+        topic_for_hashtags = topic_match.group(1) if topic_match else ""
         
-        # Add hashtags and references section to description
-        enhanced_description = f"{description}\n\n## Hashtags\n{hashtags}\n\n## References\n{validate_academic_references('')}"
+        # Generate context-aware hashtags based on description content
+        hashtags = generate_relevant_hashtags(topic_for_hashtags, category, "", description)
+        
+        # Add hashtags section (don't add References header - it's already in description if needed)
+        enhanced_description = f"{description}\n\n## Hashtags\n{hashtags}"
+        
+        # Ensure total description doesn't exceed 4000 characters (podcast description limit)
+        MAX_DESCRIPTION_LENGTH = 4000
+        if len(enhanced_description) > MAX_DESCRIPTION_LENGTH:
+            print(f"⚠️ Description too long ({len(enhanced_description)} chars), trimming to {MAX_DESCRIPTION_LENGTH}...")
+            
+            # Try to preserve references by trimming the middle content first
+            # Split into sections
+            sections = enhanced_description.split('\n\n')
+            references_sections = [s for s in sections if 'References' in s or s.strip().startswith('- ') or 'DOI:' in s or 'http' in s]
+            other_sections = [s for s in sections if s not in references_sections]
+            hashtag_sections = [s for s in sections if s.strip().startswith('#')]
+            
+            # Reserve space for references and hashtags (prioritize these)
+            references_text = '\n\n'.join(references_sections)
+            hashtags_text = '\n\n'.join(hashtag_sections)
+            reserved_space = len(references_text) + len(hashtags_text) + 100  # 100 char buffer
+            
+            # Trim other sections to fit
+            available_space = MAX_DESCRIPTION_LENGTH - reserved_space
+            trimmed_other = []
+            current_length = 0
+            
+            for section in other_sections:
+                if current_length + len(section) + 2 < available_space:  # +2 for \n\n
+                    trimmed_other.append(section)
+                    current_length += len(section) + 2
+                elif current_length < available_space:
+                    # Add partial section
+                    remaining = available_space - current_length - 20  # -20 for "..."
+                    if remaining > 50:  # Only add if meaningful
+                        trimmed_other.append(section[:remaining] + "...")
+                    break
+            
+            # Rebuild description with full references and hashtags
+            enhanced_description = '\n\n'.join(trimmed_other + references_sections + hashtag_sections)
+            
+            print(f"✅ Trimmed description to {len(enhanced_description)} chars, preserving full references")
         
         # Create description filename
         description_filename = f"{canonical_filename}.md"
@@ -1361,39 +1484,41 @@ async def determine_canonical_filename(topic: str, title: str, category: str = N
         import csv
         import io
         
-        # Download canonical CSV from GCS
-        csv_url = "https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/canonical/Copernicus%20AI%20Canonical%20List%20071825.csv"
-        response = requests.get(csv_url)
-        response.raise_for_status()
-        
-        # Parse CSV to find highest episode number for each category
-        csv_text = response.text
-        csv_reader = csv.reader(io.StringIO(csv_text))
-        
+        # Query Firestore for highest episode numbers by category to avoid overwrites
         category_episodes = {
-            "bio": 0,
+            "bio": 250007,       # Start from current max
             "chem": 0, 
             "compsci": 0,
             "math": 0,
             "phys": 0
         }
         
-        # Skip header row
-        next(csv_reader, None)
-        
-        for row in csv_reader:
-            if len(row) >= 1 and row[0].startswith("ever-"):
-                # Extract category and episode number from filename
-                filename = row[0].strip('"')  # Remove quotes
-                parts = filename.split("-")
-                if len(parts) >= 3:
-                    csv_category = parts[1]  # Use different variable name
-                    try:
-                        episode_num = int(parts[2])
-                        if csv_category in category_episodes:
-                            category_episodes[csv_category] = max(category_episodes[csv_category], episode_num)
-                    except ValueError:
-                        continue
+        try:
+            # Query all completed podcasts from Firestore
+            podcasts_ref = db.collection('podcast_jobs').where('status', '==', 'completed').stream()
+            
+            for podcast_doc in podcasts_ref:
+                podcast_data = podcast_doc.to_dict()
+                result = podcast_data.get('result', {})
+                audio_url = result.get('audio_url', '')
+                
+                # Extract filename from audio URL
+                if 'ever-' in audio_url:
+                    filename = audio_url.split('/')[-1].replace('.mp3', '')
+                    parts = filename.split('-')
+                    if len(parts) >= 3:
+                        cat = parts[1]
+                        try:
+                            episode_num = int(parts[2])
+                            if cat in category_episodes:
+                                category_episodes[cat] = max(category_episodes[cat], episode_num)
+                        except ValueError:
+                            continue
+            
+            print(f"📊 Current max episodes by category: {category_episodes}")
+            
+        except Exception as e:
+            print(f"⚠️ Could not query Firestore for episode numbers, using defaults: {e}")
         
         # Use the category from the request instead of re-classifying
         # Map the request category to the canonical format
@@ -1504,15 +1629,148 @@ The field of {subject} continues to evolve rapidly, with new discoveries challen
 """
 }
 
+async def generate_content_from_research_context(
+    request: PodcastRequest,
+    research_context: PodcastResearchContext,
+    google_key: str
+) -> dict:
+    """
+    Generate 2-speaker podcast content from research context
+    Uses the research integrator to create Copernicus-spirit content
+    """
+    print(f"📝 Generating 2-speaker content from {len(research_context.research_sources)} research sources")
+    
+    # Initialize research integrator
+    research_integrator = PodcastResearchIntegrator(google_key)
+    
+    # Build comprehensive research-driven prompt
+    prompt = research_integrator.build_2_speaker_research_prompt(
+        research_context=research_context,
+        duration=request.duration,
+        format_type=request.format_type,
+        additional_instructions=request.additional_instructions or ""
+    )
+    
+    print(f"📤 Sending prompt to Vertex AI ({len(prompt)} characters)")
+    
+    # Call Vertex AI with the research-rich prompt
+    if vertex_ai_model:
+        print("🚀 Using Vertex AI Gemini (via google-genai client)")
+        try:
+            # Use gemini-2.0-flash-exp which is available in Vertex AI
+            response = vertex_ai_model.models.generate_content(
+                model='gemini-2.0-flash-exp',
+                contents=prompt
+            )
+        except Exception as e:
+            print(f"❌ Vertex AI generation failed: {e}")
+            # Fall back to Google AI API
+            print("🔄 Falling back to Google AI API...")
+            try:
+                import google.generativeai as genai
+                genai.configure(api_key=google_key)
+                model = genai.GenerativeModel('gemini-1.5-flash')
+                response = model.generate_content(prompt)
+            except Exception as fallback_error:
+                print(f"❌ Google AI API also failed: {fallback_error}")
+                raise Exception(f"Both Vertex AI and Google AI API failed. Vertex: {e}, Google: {fallback_error}")
+        
+        # Parse JSON response
+        response_text = response.text
+        print(f"📥 Received response ({len(response_text)} characters)")
+        
+        # Extract JSON from response
+        import json
+        import re
+        
+        # Try to extract JSON from markdown code blocks
+        json_match = re.search(r'```json\s*(.*?)\s*```', response_text, re.DOTALL)
+        if json_match:
+            json_str = json_match.group(1)
+        else:
+            # Try to find JSON object directly
+            json_match = re.search(r'\{.*\}', response_text, re.DOTALL)
+            if json_match:
+                json_str = json_match.group(0)
+            else:
+                json_str = response_text
+        
+        try:
+            content = json.loads(json_str)
+        except json.JSONDecodeError as e:
+            print(f"❌ JSON parse error: {e}")
+            print(f"Response preview: {response_text[:500]}...")
+            
+            # Try to repair truncated JSON by finding the last complete field
+            try:
+                # Find the last complete quote before the error
+                error_pos = e.pos if hasattr(e, 'pos') else len(json_str)
+                truncated = json_str[:error_pos]
+                
+                # Try to close incomplete strings and objects
+                # Count unclosed braces and quotes
+                open_braces = truncated.count('{') - truncated.count('}')
+                
+                # Close the JSON properly
+                repaired = truncated.rstrip(',') + ('}' * open_braces)
+                
+                print(f"🔧 Attempting to repair JSON...")
+                content = json.loads(repaired)
+                print(f"✅ JSON repair successful!")
+                
+            except Exception as repair_error:
+                print(f"❌ JSON repair failed: {repair_error}")
+                raise Exception(f"Failed to parse LLM response as JSON: {e}")
+        
+    else:
+        # Fall back to Google AI API
+        print("🔄 Using Google AI API")
+        import google.genai as genai
+        genai.configure(api_key=google_key)
+        model = genai.GenerativeModel('gemini-pro')
+        
+        response = model.generate_content(prompt)
+        response_text = response.text
+        
+        # Parse JSON (same as above)
+        import json
+        import re
+        json_match = re.search(r'```json\s*(.*?)\s*```', response_text, re.DOTALL)
+        if json_match:
+            json_str = json_match.group(1)
+        else:
+            json_match = re.search(r'\{.*\}', response_text, re.DOTALL)
+            if json_match:
+                json_str = json_match.group(0)
+            else:
+                json_str = response_text
+        
+        try:
+            content = json.loads(json_str)
+        except json.JSONDecodeError as e:
+            raise Exception(f"Failed to parse LLM response as JSON: {e}")
+    
+    print(f"✅ Content generated successfully")
+    print(f"   Title: {content.get('title', 'N/A')[:60]}...")
+    print(f"   Script length: {len(content.get('script', ''))} characters")
+    print(f"   Description length: {len(content.get('description', ''))} characters")
+    
+    # Add research metadata to content
+    content['research_quality_score'] = research_context.research_quality_score
+    content['research_sources_used'] = len(research_context.research_sources)
+    content['paradigm_shifts'] = research_context.paradigm_shifts
+    
+    return content
+
 async def run_podcast_generation_job(job_id: str, request: PodcastRequest, subscriber_id: Optional[str] = None):
-    """Process research-driven podcast generation with Google AI services"""
+    """Process research-driven podcast generation with comprehensive research integration"""
     from datetime import datetime
     
     # Comprehensive logging setup
     start_time = time.time()
     initial_memory = psutil.virtual_memory().percent
     
-    print(f"🚀 Job {job_id}: Starting podcast generation pipeline")
+    print(f"🚀 Job {job_id}: Starting COPERNICUS RESEARCH-DRIVEN podcast generation pipeline")
     print(f"📊 Initial system state: Memory {initial_memory:.1f}%")
     print(f"🎯 Topic: {request.topic}")
     print(f"📋 Category: {request.category}, Format: {request.format_type}")
@@ -1536,35 +1794,99 @@ async def run_podcast_generation_job(job_id: str, request: PodcastRequest, subsc
         return
 
     job_ref = db.collection('podcast_jobs').document(job_id)
+    
     try:
-        print(f"📝 Job {job_id}: Updating status to 'generating_content'")
+        # ═════════════════════════════════════════════════════════════════
+        # 🔬 PHASE 1: COMPREHENSIVE RESEARCH (NEW - Copernicus Spirit!)
+        # ═════════════════════════════════════════════════════════════════
+        print(f"\n{'═'*70}")
+        print(f"🔬 PHASE 1: COMPREHENSIVE RESEARCH DISCOVERY")
+        print(f"{'═'*70}\n")
+        
+        job_ref.update({'status': 'researching', 'updated_at': datetime.utcnow().isoformat()})
+        
+        # Initialize research integrator
+        google_key = get_google_api_key()
+        if not google_key:
+            raise Exception("Google API key not available for research")
+        
+        research_integrator = PodcastResearchIntegrator(google_key)
+        
+        try:
+            # Perform comprehensive research
+            research_context = await asyncio.wait_for(
+                research_integrator.comprehensive_research_for_podcast(
+                    topic=request.topic,
+                    additional_context=request.additional_instructions or "",
+                    source_links=request.source_links or [],
+                    expertise_level=request.expertise_level,
+                    require_minimum_sources=3  # FAIL FAST if insufficient research
+                ),
+                timeout=300  # 5 minute timeout for research
+            )
+            
+            print(f"\n✅ Research completed successfully!")
+            print(f"   Quality Score: {research_context.research_quality_score:.1f}/10")
+            print(f"   Sources: {len(research_context.research_sources)}")
+            print(f"   Paradigm Shifts: {len(research_context.paradigm_shifts)}")
+            
+            # Store research metadata in job
+            job_ref.update({
+                'research_sources_count': len(research_context.research_sources),
+                'research_quality_score': research_context.research_quality_score,
+                'paradigm_shifts_count': len(research_context.paradigm_shifts),
+                'updated_at': datetime.utcnow().isoformat()
+            })
+            
+        except Exception as e:
+            error_msg = str(e)
+            print(f"\n❌ Research phase failed: {error_msg}")
+            
+            # Update job with failure
+            job_ref.update({
+                'status': 'failed',
+                'error': f"Research failed: {error_msg}",
+                'error_type': 'insufficient_research',
+                'updated_at': datetime.utcnow().isoformat()
+            })
+            
+            # Send failure email
+            if email_service:
+                await email_service.send_podcast_ready_email(
+                    to_email=subscriber_email,
+                    podcast_title=f"Research Failed: {request.topic}",
+                    description=f"Unable to find sufficient research sources for '{request.topic}'. {error_msg}",
+                    audio_url="",
+                    error_message=error_msg
+                )
+            
+            return  # EXIT - Cannot proceed without research
+        
+        # ═════════════════════════════════════════════════════════════════
+        # 🎙️ PHASE 2: RESEARCH-DRIVEN CONTENT GENERATION (2-Speaker Format)
+        # ═════════════════════════════════════════════════════════════════
+        print(f"\n{'═'*70}")
+        print(f"🎙️ PHASE 2: GENERATING 2-SPEAKER PODCAST FROM RESEARCH")
+        print(f"{'═'*70}\n")
+        
         job_ref.update({'status': 'generating_content', 'updated_at': datetime.utcnow().isoformat()})
         
-        # Generate research-driven content with Gemini + Paper Analysis
         async with with_step("content_generation", job_id, 
                            topic=request.topic, 
                            category=request.category,
                            duration=request.duration):
             
             content_memory_before = psutil.virtual_memory().percent
-            structured_logger.info("Starting content generation", 
+            structured_logger.info("Starting research-driven content generation", 
                                   job_id=job_id,
                                   topic=request.topic,
+                                  research_quality=research_context.research_quality_score,
                                   memory_before=content_memory_before)
             
-            if request.paper_content:
-                structured_logger.info("Processing research paper", 
-                                      job_id=job_id,
-                                      paper_title=request.paper_title[:50] if request.paper_title else "Unknown",
-                                      paper_content_length=len(request.paper_content))
-            
-            # Add timeout and detailed error handling for content generation
             try:
-                structured_logger.info("Calling generate_research_driven_content", 
-                                      job_id=job_id)
-                
+                # Generate 2-speaker podcast from research
                 content = await asyncio.wait_for(
-                    generate_research_driven_content(request),
+                    generate_content_from_research_context(request, research_context, google_key),
                     timeout=600  # 10 minute timeout for content generation
                 )
                 
@@ -1589,36 +1911,25 @@ async def run_podcast_generation_job(job_id: str, request: PodcastRequest, subsc
                                        error_type=type(e).__name__)
                 raise
         
-        # Ensure description exists - generate one if missing
+        # ═════════════════════════════════════════════════════════════════
+        # ✅ PHASE 3: VALIDATE CONTENT (NO FAKE FALLBACKS!)
+        # ═════════════════════════════════════════════════════════════════
+        print(f"\n{'═'*70}")
+        print(f"✅ PHASE 3: VALIDATING CONTENT QUALITY")
+        print(f"{'═'*70}\n")
+        
+        # CRITICAL: Validate that content was actually generated
+        if not content or not isinstance(content, dict):
+            raise Exception("Content generation returned invalid data structure")
+        
         if 'description' not in content or not content.get('description'):
-            print("⚠️  No description generated by AI - creating fallback description")
-            content['description'] = f"""## Episode Overview
-This episode explores the fascinating world of {request.topic}, examining recent breakthroughs and their implications for the field. Our expert panel discusses the latest research developments and their potential impact on future scientific understanding.
-
-## Key Concepts Explored
-- **Core Principles**: Fundamental concepts underlying {request.topic}
-- **Recent Advances**: Latest breakthroughs and methodological innovations
-- **Practical Applications**: Real-world implementations and industry impact
-- **Future Directions**: Emerging research trends and potential developments
-
-## Research Insights
-Current research in {request.topic} is revealing new insights into fundamental processes and mechanisms. Recent studies have demonstrated significant advances in our understanding of core principles and their applications across multiple domains.
-
-## Practical Applications
-The implications of this research extend beyond academic interest, with potential applications in various industries and technologies. These developments may lead to new tools, techniques, and approaches that could revolutionize how we understand and interact with these systems.
-
-## Future Directions
-Emerging research directions suggest exciting possibilities for future breakthroughs. Interdisciplinary approaches and new methodologies are opening up novel avenues for investigation and discovery.
-
-## References
-- Smith, J. et al. (2024). Recent advances in {request.topic}. Nature Research, 15(3), 245-267. DOI: 10.1038/s41586-024-xxxxx
-- Johnson, A. et al. (2024). Methodological innovations in {request.topic} research. Science Advances, 10(12), eabc1234. DOI: 10.1126/sciadv.abc1234
-- Williams, M. et al. (2023). Interdisciplinary applications of {request.topic}. PNAS, 120(45), e2023123456. DOI: 10.1073/pnas.2023123456
-
-## Episode Details
-- **Duration**: {request.duration}
-- **Expertise Level**: {request.expertise_level}
-- **Category**: {request.category}"""
+            raise Exception("Content generation failed - no description produced. Cannot use fake template.")
+        
+        if 'script' not in content or not content.get('script'):
+            raise Exception("Content generation failed - no script produced. Cannot use fake template.")
+        
+        if 'title' not in content or not content.get('title'):
+            raise Exception("Content generation failed - no title produced. Cannot use fake template.")
         
         # Generate relevant hashtags
         content['hashtags'] = generate_relevant_hashtags(
@@ -1681,7 +1992,9 @@ Emerging research directions suggest exciting possibilities for future breakthro
             job_id, 
             canonical_filename,
             intro_path="bumpers/copernicus-intro.mp3",
-            outro_path="bumpers/copernicus-outro.mp3"
+            outro_path="bumpers/copernicus-outro.mp3",
+            host_voice_id=request.host_voice_id,
+            expert_voice_id=request.expert_voice_id
         )
         
         audio_generation_time = time.time() - audio_start_time
@@ -2075,6 +2388,11 @@ class SubscriberRegistration(BaseModel):
     password: Optional[str] = None  # For email/password auth
     google_id: Optional[str] = None  # For Google OAuth
     subscription_tier: str = "free"  # free, premium, research
+    
+    # RSS Attribution fields (Phase 2.1)
+    display_name: Optional[str] = None  # Public screen name (e.g., "QuantumPhysicist")
+    initials: Optional[str] = None      # Abbreviation for attribution (e.g., "GW")
+    show_attribution: bool = False      # Opt-in to show attribution on published podcasts
 
 class SubscriberLogin(BaseModel):
     email: str
@@ -2098,6 +2416,11 @@ class SubscriberProfile(BaseModel):
     last_login: str
     podcasts_generated: int = 0
     podcasts_submitted_to_rss: int = 0
+    
+    # RSS Attribution fields
+    display_name: Optional[str] = None
+    initials: Optional[str] = None
+    show_attribution: bool = False
 
 class PodcastSubmission(BaseModel):
     podcast_id: str
@@ -2270,7 +2593,12 @@ async def register_subscriber(registration: SubscriberRegistration):
         'podcasts_generated': 0,
         'podcasts_submitted_to_rss': 0,
         'google_id': registration.google_id,
-        'password_hash': hash_password(registration.password) if registration.password else None
+        'password_hash': hash_password(registration.password) if registration.password else None,
+        
+        # RSS Attribution fields (Phase 2.1)
+        'display_name': registration.display_name,
+        'initials': registration.initials,
+        'show_attribution': registration.show_attribution
     }
     
     try:
@@ -2363,6 +2691,55 @@ async def get_subscriber_profile(subscriber_id: str):
         print(f"❌ Error fetching subscriber profile: {e}")
         raise HTTPException(status_code=500, detail="Failed to fetch profile")
 
+class SubscriberProfileUpdate(BaseModel):
+    name: Optional[str] = None
+    display_name: Optional[str] = None
+    initials: Optional[str] = None
+    show_attribution: Optional[bool] = None
+
+@app.put("/api/subscribers/profile/{subscriber_id}")
+async def update_subscriber_profile(subscriber_id: str, updates: SubscriberProfileUpdate):
+    """Update subscriber profile information"""
+    if not db:
+        raise HTTPException(status_code=503, detail="Firestore service is unavailable")
+    
+    try:
+        subscriber_doc = db.collection('subscribers').document(subscriber_id).get()
+        if not subscriber_doc.exists:
+            raise HTTPException(status_code=404, detail="Subscriber not found")
+        
+        # Build update dictionary only with provided fields
+        update_data = {}
+        if updates.name is not None:
+            update_data['name'] = updates.name
+        if updates.display_name is not None:
+            update_data['display_name'] = updates.display_name
+        if updates.initials is not None:
+            update_data['initials'] = updates.initials
+        if updates.show_attribution is not None:
+            update_data['show_attribution'] = updates.show_attribution
+        
+        if not update_data:
+            raise HTTPException(status_code=400, detail="No fields to update")
+        
+        # Update the document
+        db.collection('subscribers').document(subscriber_id).update(update_data)
+        
+        print(f"✅ Updated subscriber profile: {subscriber_id}")
+        
+        # Return updated data
+        updated_doc = db.collection('subscribers').document(subscriber_id).get()
+        updated_data = updated_doc.to_dict()
+        updated_data.pop('password_hash', None)
+        
+        return updated_data
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"❌ Error updating subscriber profile: {e}")
+        raise HTTPException(status_code=500, detail="Failed to update profile")
+
 @app.get("/api/subscribers/podcasts/{subscriber_id}")
 async def get_subscriber_podcasts(subscriber_id: str):
     """Get all podcasts generated by a subscriber"""
@@ -2393,6 +2770,53 @@ async def get_subscriber_podcasts(subscriber_id: str):
         print(f"❌ Error fetching subscriber podcasts: {e}")
         raise HTTPException(status_code=500, detail="Failed to fetch podcasts")
 
+@app.get("/api/public/podcasts")
+async def get_public_podcasts(category: Optional[str] = None, limit: int = 100):
+    """Get all published podcasts (submitted to RSS) - Public API"""
+    if not db:
+        raise HTTPException(status_code=503, detail="Firestore service is unavailable")
+    
+    try:
+        # Query for podcasts submitted to RSS
+        query = db.collection('podcast_jobs').where('submitted_to_rss', '==', True).order_by('created_at', direction=firestore.Query.DESCENDING)
+        
+        if category:
+            query = query.where('request.category', '==', category)
+        
+        podcasts_query = query.limit(limit)
+        podcasts = podcasts_query.stream()
+        
+        podcast_list = []
+        for podcast in podcasts:
+            podcast_data = podcast.to_dict()
+            podcast_data['podcast_id'] = podcast.id
+            
+            # Extract relevant fields for public display
+            public_podcast = {
+                'podcast_id': podcast.id,
+                'title': podcast_data.get('request', {}).get('topic', 'Untitled'),
+                'category': podcast_data.get('request', {}).get('category', 'Unknown'),
+                'expertise_level': podcast_data.get('request', {}).get('expertise_level', 'intermediate'),
+                'duration': podcast_data.get('request', {}).get('duration', '5-10 minutes'),
+                'created_at': podcast_data.get('created_at', ''),
+                'status': podcast_data.get('status', 'unknown'),
+                'creator_attribution': podcast_data.get('creator_attribution'),
+                'result': podcast_data.get('result', {}),
+            }
+            podcast_list.append(public_podcast)
+        
+        print(f"✅ Found {len(podcast_list)} published podcasts")
+        
+        return {
+            "podcasts": podcast_list,
+            "total_count": len(podcast_list),
+            "category_filter": category
+        }
+        
+    except Exception as e:
+        print(f"❌ Error fetching public podcasts: {e}")
+        raise HTTPException(status_code=500, detail="Failed to fetch published podcasts")
+
 @app.post("/api/subscribers/podcasts/submit-to-rss")
 async def submit_podcast_to_rss(submission: PodcastSubmission):
     """Submit a podcast to the RSS feed"""
@@ -2413,25 +2837,50 @@ async def submit_podcast_to_rss(submission: PodcastSubmission):
         
         # Update podcast to mark as submitted to RSS
         if submission.submit_to_rss:
-            db.collection('podcast_jobs').document(submission.podcast_id).update({
-                'submitted_to_rss': True,
-                'rss_submitted_at': datetime.utcnow().isoformat()
-            })
-            
-            # Update subscriber's RSS submission count
+            # Get subscriber attribution info if they opted in
             subscriber_doc = db.collection('subscribers').document(subscriber_id).get()
+            creator_attribution = None
+            
             if subscriber_doc.exists:
                 subscriber_data = subscriber_doc.to_dict()
+                
+                # Check if user wants attribution
+                if subscriber_data.get('show_attribution', False):
+                    # Build attribution string
+                    attribution_parts = []
+                    
+                    if subscriber_data.get('display_name'):
+                        attribution_parts.append(subscriber_data['display_name'])
+                    elif subscriber_data.get('initials'):
+                        attribution_parts.append(subscriber_data['initials'])
+                    
+                    if attribution_parts:
+                        creator_attribution = attribution_parts[0]
+                
+                # Update subscriber's RSS submission count
                 new_count = subscriber_data.get('podcasts_submitted_to_rss', 0) + 1
                 db.collection('subscribers').document(subscriber_id).update({
                     'podcasts_submitted_to_rss': new_count
                 })
             
-            print(f"✅ Podcast {submission.podcast_id} submitted to RSS feed")
+            # Update podcast with RSS info and attribution
+            update_data = {
+                'submitted_to_rss': True,
+                'rss_submitted_at': datetime.utcnow().isoformat()
+            }
+            
+            if creator_attribution:
+                update_data['creator_attribution'] = creator_attribution
+            
+            db.collection('podcast_jobs').document(submission.podcast_id).update(update_data)
+            
+            print(f"✅ Podcast {submission.podcast_id} submitted to RSS feed" + 
+                  (f" with attribution: {creator_attribution}" if creator_attribution else " (no attribution)"))
             
             return {
                 "podcast_id": submission.podcast_id,
                 "submitted_to_rss": True,
+                "creator_attribution": creator_attribution,
                 "message": "Podcast successfully submitted to RSS feed"
             }
         else:
@@ -2656,7 +3105,10 @@ Format your response as JSON with keys: key_findings (array), summary (string), 
         response_text = ""
         
         if vertex_ai_model:
-            response = vertex_ai_model.generate_content(prompt)
+            response = vertex_ai_model.models.generate_content(
+                model='models/gemini-2.0-flash',
+                contents=prompt
+            )
             response_text = response.text
         elif get_google_api_key():
             import google.generativeai as genai

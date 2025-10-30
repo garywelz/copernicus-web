@@ -34,6 +34,7 @@ class ComprehensiveResearchPipeline:
         self.zenodo_api_key = os.getenv("ZENODO_API_KEY")
         self.google_api_key = os.getenv("GOOGLE_API_KEY")
         self.news_api_key = os.getenv("NEWS_API_KEY")
+        self.core_api_key = os.getenv("CORE_API_KEY")  # CORE aggregator API
         
         # API endpoints
         self.endpoints = {
@@ -41,6 +42,8 @@ class ComprehensiveResearchPipeline:
             "arxiv": "http://export.arxiv.org/api/query",
             "nasa_ads": "https://api.adsabs.harvard.edu/v1/search/query",
             "zenodo": "https://zenodo.org/api/records",
+            "bioRxiv": "https://api.biorxiv.org/details",
+            "core": "https://api.core.ac.uk/v3/search",
             "news_api": "https://newsapi.org/v2/everything",
             "openrouter": "https://openrouter.ai/api/v1/chat/completions"
         }
@@ -51,6 +54,8 @@ class ComprehensiveResearchPipeline:
             "arxiv": 0.9,
             "nasa_ads": 0.95,
             "zenodo": 0.8,
+            "bioRxiv": 0.85,
+            "core": 0.85,
             "news_api": 0.6,
             "google_scholar": 0.85
         }
@@ -97,12 +102,16 @@ class ComprehensiveResearchPipeline:
         
         if include_preprints:
             search_tasks.append(self._search_arxiv(base_query, depth))
+            search_tasks.append(self._search_biorxiv(base_query, depth))
         
         # Specialized sources based on subject
         if any(term in subject.lower() for term in ["space", "astronomy", "astrophysics", "cosmology"]):
             search_tasks.append(self._search_nasa_ads(base_query, depth))
         
         search_tasks.append(self._search_zenodo(base_query, depth))
+        
+        # CORE aggregator for open access papers
+        search_tasks.append(self._search_core(base_query, depth))
         
         # Current trends and news
         if include_social_trends:
@@ -332,6 +341,96 @@ class ComprehensiveResearchPipeline:
         
         except Exception as e:
             print(f"News API search error: {e}")
+        
+        return sources
+
+    async def _search_biorxiv(self, query: str, depth: str) -> List[ResearchSource]:
+        """Search BioRxiv for biology preprints"""
+        sources = []
+        
+        try:
+            async with aiohttp.ClientSession() as session:
+                # BioRxiv API doesn't require authentication
+                url = f"{self.endpoints['bioRxiv']}/{query}/0/50"
+                
+                async with session.get(url) as response:
+                    if response.status == 200:
+                        data = await response.text()
+                        # Parse XML response
+                        root = ET.fromstring(data)
+                        
+                        for record in root.findall('.//record'):
+                            title = record.findtext('title', '').strip()
+                            authors = [author.text for author in record.findall('.//author')]
+                            abstract = record.findtext('abstract', '').strip()
+                            doi = record.findtext('.//doi', '')
+                            pub_date = record.findtext('.//date', '')
+                            
+                            source = ResearchSource(
+                                title=title,
+                                authors=authors if authors else ["Unknown"],
+                                abstract=abstract[:500],
+                                url=f"https://doi.org/{doi}" if doi else "",
+                                publication_date=pub_date,
+                                source="bioRxiv",
+                                doi=doi
+                            )
+                            sources.append(source)
+        
+        except Exception as e:
+            print(f"BioRxiv API search error: {e}")
+        
+        return sources
+
+    async def _search_core(self, query: str, depth: str) -> List[ResearchSource]:
+        """Search CORE aggregator for open access research papers"""
+        sources = []
+        
+        if not self.core_api_key:
+            return sources
+        
+        try:
+            async with aiohttp.ClientSession() as session:
+                headers = {
+                    "Authorization": f"Bearer {self.core_api_key}",
+                    "Content-Type": "application/json"
+                }
+                
+                params = {
+                    "q": query,
+                    "limit": 20,
+                    "page": 1
+                }
+                
+                async with session.get(
+                    self.endpoints["core"],
+                    headers=headers,
+                    params=params
+                ) as response:
+                    if response.status == 200:
+                        data = await response.json()
+                        
+                        for paper in data.get("data", []):
+                            title = paper.get("title", "").strip()
+                            authors = [
+                                author.get("name", "")
+                                for author in paper.get("authors", [])
+                            ]
+                            
+                            source = ResearchSource(
+                                title=title,
+                                authors=authors if authors else ["Unknown"],
+                                abstract=paper.get("abstract", "")[:500],
+                                url=paper.get("downloadUrl") or paper.get("url", ""),
+                                publication_date=paper.get("publishedDate", ""),
+                                source="core",
+                                doi=paper.get("doi"),
+                                keywords=paper.get("topics", [])
+                            )
+                            sources.append(source)
+        
+        except Exception as e:
+            print(f"CORE API search error: {e}")
         
         return sources
 
