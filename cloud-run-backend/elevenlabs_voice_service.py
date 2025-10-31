@@ -140,8 +140,13 @@ class ElevenLabsVoiceService:
         
         # Speaker name mapping from script names to voice roles
         speaker_mapping = {
+            # Current supported voices
             'matilda': 'host',      # Matilda (female) - HOST
+            'bella': 'host',        # Bella (female) - HOST
+            'sam': 'host',          # Sam (female) - HOST
             'adam': 'expert',       # Adam (male) - EXPERT
+            'bryan': 'expert',      # Bryan (male) - EXPERT
+            'daniel': 'expert',     # Daniel (male) - EXPERT
             'bill': 'questioner',   # Bill (male) - QUESTIONER
             'lily': 'correspondent', # Lily (female) - CORRESPONDENT
             # Legacy mappings for backward compatibility

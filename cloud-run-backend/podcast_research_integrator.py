@@ -253,12 +253,32 @@ class PodcastResearchIntegrator:
         research_context: PodcastResearchContext,
         duration: str,
         format_type: str,
-        additional_instructions: str = ""
+        additional_instructions: str = "",
+        host_voice_id: str = None,
+        expert_voice_id: str = None
     ) -> str:
         """
         Build comprehensive 2-speaker prompt with all research context
         Embodies the spirit of Copernicus: paradigm shifts, evidence, accessibility
+        
+        Args:
+            host_voice_id: ElevenLabs voice ID for host (determines speaker name)
+            expert_voice_id: ElevenLabs voice ID for expert (determines speaker name)
         """
+        
+        # Map voice IDs to names (ElevenLabs voices)
+        VOICE_ID_TO_NAME = {
+            "XrExE9yKIg1WjnnlVkGX": "Matilda",  # Female, Professional
+            "pqHfZKP75CvOlQylNhV4": "Bella",     # Female, British
+            "JBFqnCBsd6RMkjVDRZzb": "Sam",       # Female, American
+            "pNInz6obpgDQGcFmaJgB": "Adam",      # Male, Authoritative
+            "EXAVITQu4vr4xnSDxMaL": "Bryan",     # Male, American
+            "onwK4e9ZLuTAKqWW03F9": "Daniel"     # Male, British
+        }
+        
+        # Determine speaker names from voice IDs
+        host_name = VOICE_ID_TO_NAME.get(host_voice_id, "Matilda") if host_voice_id else "Matilda"
+        expert_name = VOICE_ID_TO_NAME.get(expert_voice_id, "Adam") if expert_voice_id else "Adam"
         
         # Get character prompt
         character_prompt = get_character_prompt(self.character)
@@ -280,22 +300,22 @@ interdisciplinary connections, and making cutting-edge research accessible.
 **2-SPEAKER FORMAT:**
 Your podcast has TWO speakers only:
 
-1. **MATILDA** (Host/Interviewer)
-   - Female voice (ElevenLabs: Matilda)
+1. **{host_name.upper()}** (Host/Interviewer)
+   - Voice: {host_name}
    - Introduces topic, asks insightful questions
    - Represents curious, intelligent audience
    - Guides conversation to highlight revolutionary implications
 
-2. **ADAM** (Research Expert)
-   - Male voice (ElevenLabs: Adam)
+2. **{expert_name.upper()}** (Research Expert)
+   - Voice: {expert_name}
    - Explains research findings with evidence
    - Discusses paradigm shifts and implications
    - Cites actual papers and researchers
 
 **CRITICAL RULES:**
-- Use ONLY "MATILDA:" and "ADAM:" as speaker labels
+- Use ONLY "{host_name.upper()}:" and "{expert_name.upper()}:" as speaker labels
 - NO other names, titles, or speakers
-- Names match ElevenLabs voices EXACTLY
+- Names match the ElevenLabs voices selected by the user
 - Create natural conversational flow
 - Each speaker: 10-15 speaking turns
 - Target duration: {duration}
@@ -328,22 +348,22 @@ research provided above. Focus on:
 
 **DIALOGUE STRUCTURE:**
 
-MATILDA: Welcome to Copernicus AI: Frontiers of Science. I'm Matilda, and today 
-we're exploring {research_context.topic}. Adam, what makes this research so revolutionary?
+{host_name.upper()}: Welcome to Copernicus AI: Frontiers of Science. I'm {host_name}, and today 
+we're exploring {research_context.topic}. {expert_name}, what makes this research so revolutionary?
 
-ADAM: Thanks Matilda. [Cites specific paper from research] This research represents 
+{expert_name.upper()}: Thanks {host_name}. [Cites specific paper from research] This research represents 
 a paradigm shift because [explain using actual findings]...
 
-MATILDA: That's fascinating. [Asks probing question about implications]...
+{host_name.upper()}: That's fascinating. [Asks probing question about implications]...
 
-ADAM: [Answers with evidence, cites another paper]...
+{expert_name.upper()}: [Answers with evidence, cites another paper]...
 
 [Continue natural back-and-forth]
 
-MATILDA: [Summarizes key insights] Thank you Adam for breaking down this 
+{host_name.upper()}: [Summarizes key insights] Thank you {expert_name} for breaking down this 
 groundbreaking research. [Final thought on future implications]
 
-ADAM: [Brief closing remark]
+{expert_name.upper()}: [Brief closing remark]
 
 ═══════════════════════════════════════════════════════════════
 
@@ -352,7 +372,7 @@ ADAM: [Brief closing remark]
 **OUTPUT FORMAT (JSON):**
 {{
     "title": "Engaging title highlighting the paradigm shift in {research_context.topic}",
-    "script": "Full dialogue script with MATILDA: and ADAM: labels",
+    "script": "Full dialogue script with {host_name.upper()}: and {expert_name.upper()}: labels",
     "description": "Comprehensive but CONCISE episode description (MUST be under 3000 characters) with:
         - Episode overview (1-2 paragraphs, concise)
         - Key concepts explored (3-4 bullet points, brief)

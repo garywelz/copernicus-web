@@ -1644,12 +1644,14 @@ async def generate_content_from_research_context(
     # Initialize research integrator
     research_integrator = PodcastResearchIntegrator(google_key)
     
-    # Build comprehensive research-driven prompt
+    # Build comprehensive research-driven prompt with voice names
     prompt = research_integrator.build_2_speaker_research_prompt(
         research_context=research_context,
         duration=request.duration,
         format_type=request.format_type,
-        additional_instructions=request.additional_instructions or ""
+        additional_instructions=request.additional_instructions or "",
+        host_voice_id=request.host_voice_id,
+        expert_voice_id=request.expert_voice_id
     )
     
     print(f"📤 Sending prompt to Vertex AI ({len(prompt)} characters)")
