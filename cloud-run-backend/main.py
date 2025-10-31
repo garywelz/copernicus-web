@@ -679,7 +679,6 @@ Return JSON with:
 
 #CopernicusAI #SciencePodcast #ResearchPaper #AcademicDiscussion #ResearchInsights
 
-**Follow Copernicus AI for more cutting-edge science discussions and research explorations.**
 """
     
     try:
@@ -805,7 +804,6 @@ After generating the main content, create a detailed description following this 
 
 #CopernicusAI #SciencePodcast #{request.topic.replace(' ', '')}Research #AcademicDiscussion #ResearchInsights
 
-**Follow Copernicus AI for more cutting-edge science discussions and research explorations.**
 """
     
     try:
@@ -939,7 +937,6 @@ Return JSON with:
 
 #CopernicusAI #SciencePodcast #ResearchPaper #AcademicDiscussion #ResearchInsights
 
-**Follow Copernicus AI for more cutting-edge science discussions and research explorations.**
 """
     
     try:
@@ -1045,7 +1042,6 @@ Return JSON with:
 
 #CopernicusAI #SciencePodcast #{request.topic.replace(' ', '')}Research #AcademicDiscussion #ResearchInsights
 
-**Follow Copernicus AI for more cutting-edge science discussions and research explorations.**
 """
     
     try:
@@ -1171,15 +1167,20 @@ async def upload_description_to_gcs(description: str, canonical_filename: str) -
         else:
             category = 'Science'
         
-        # Extract topic from description for better hashtag generation
-        topic_match = re.search(r'^#\s*(.+)', description, re.MULTILINE)
-        topic_for_hashtags = topic_match.group(1) if topic_match else ""
-        
-        # Generate context-aware hashtags based on description content
-        hashtags = generate_relevant_hashtags(topic_for_hashtags, category, "", description)
-        
-        # Add hashtags section (don't add References header - it's already in description if needed)
-        enhanced_description = f"{description}\n\n## Hashtags\n{hashtags}"
+        # Check if hashtags already exist in description
+        if "## Hashtags" in description or "#CopernicusAI" in description:
+            # Hashtags already added, don't duplicate
+            enhanced_description = description
+        else:
+            # Extract topic from description for better hashtag generation
+            topic_match = re.search(r'^#\s*(.+)', description, re.MULTILINE)
+            topic_for_hashtags = topic_match.group(1) if topic_match else ""
+            
+            # Generate context-aware hashtags based on description content
+            hashtags = generate_relevant_hashtags(topic_for_hashtags, category, "", description)
+            
+            # Add hashtags section (don't add References header - it's already in description if needed)
+            enhanced_description = f"{description}\n\n## Hashtags\n{hashtags}"
         
         # Ensure total description doesn't exceed 4000 characters (podcast description limit)
         MAX_DESCRIPTION_LENGTH = 4000
@@ -1947,7 +1948,7 @@ async def run_podcast_generation_job(job_id: str, request: PodcastRequest, subsc
 ## Hashtags
 {content['hashtags']}
 
-**Follow Copernicus AI for more cutting-edge science discussions and research explorations.**"""
+"""
         
         # Validate academic references in description if they exist
         if '## References' in content['description']:

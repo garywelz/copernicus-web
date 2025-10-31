@@ -367,11 +367,27 @@ def generate_relevant_hashtags(topic: str, category: str, title: str = "", descr
     
     # Prioritize specific technical terms first (single-word or short phrases)
     priority_terms = [
-        "immunity", "autophagy", "fungi", "yeast", "fermentation", "microbiome", 
-        "crispr", "vaccine", "antibody", "pathogen",
+        "e. coli", "e.coli", "immunity", "autophagy", "fungi", "yeast", "fermentation", "microbiome", 
+        "crispr", "vaccine", "antibody", "pathogen", "salmonella", "bacteria",
         "quantum", "neural", "protein", "dna", "rna", "enzyme",
         "brain", "neurotechnology", "atlas", "particle", "collider"
     ]
+    
+    # Also extract organism/species names from topic (common scientific names)
+    species_patterns = [
+        r"e\.?\s*coli", r"salmonella", r"yeast", r"bacteria", r"virus", 
+        r"covid", r"sars", r"influenza", r"candida", r"fungi"
+    ]
+    
+    for pattern in species_patterns:
+        match = re.search(pattern, topic.lower())
+        if match and len(additional_hashtags) < 4:
+            species_name = match.group(0).replace('.', '').replace(' ', '').capitalize()
+            if species_name.lower() == "ecoli":
+                species_name = "EColi"
+            hashtag = f"#{species_name}"
+            if hashtag not in additional_hashtags and len(hashtag) <= 16:
+                additional_hashtags.append(hashtag)
     
     # First, check for priority terms (LIMIT to 15 chars)
     for term in priority_terms:
