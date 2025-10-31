@@ -1695,6 +1695,9 @@ async def generate_content_from_research_context(
         response_text = response.text
         print(f"📥 Received response ({len(response_text)} characters)")
         
+        # DEBUG: Print first 1000 chars to see what LLM returned
+        print(f"📄 Response preview:\n{response_text[:1000]}...")
+        
         # Extract JSON from response
         import json
         import re
@@ -1711,11 +1714,13 @@ async def generate_content_from_research_context(
             else:
                 json_str = response_text
         
+        print(f"📊 Extracted JSON length: {len(json_str)} characters")
+        
         try:
             content = json.loads(json_str)
         except json.JSONDecodeError as e:
             print(f"❌ JSON parse error: {e}")
-            print(f"Response preview: {response_text[:500]}...")
+            print(f"JSON string preview: {json_str[:800]}...")
             
             # Try to repair truncated JSON by finding the last complete field
             try:
@@ -1767,9 +1772,46 @@ async def generate_content_from_research_context(
             raise Exception(f"Failed to parse LLM response as JSON: {e}")
     
     print(f"✅ Content generated successfully")
+    print(f"   Content keys: {list(content.keys())}")
     print(f"   Title: {content.get('title', 'N/A')[:60]}...")
     print(f"   Script length: {len(content.get('script', ''))} characters")
     print(f"   Description length: {len(content.get('description', ''))} characters")
+    
+    # CRITICAL: If description is missing, try to generate it from the content we have
+    if not content.get('description'):
+        print("⚠️ WARNING: LLM did not generate description field!")
+        print("🔧 Attempting to create fallback description...")
+        
+        # Create a basic description from title and keywords
+        fallback_desc = f"""## Episode Overview
+
+This episode explores {research_context.topic}, examining recent breakthroughs and their implications.
+
+## Key Concepts Explored
+
+- Recent research developments in {research_context.topic}
+- Paradigm shifts and revolutionary findings
+- Practical applications and future directions
+
+## Research Insights
+
+{research_context.key_findings[0] if research_context.key_findings else 'Cutting-edge research findings from leading scientists.'}
+
+## References
+
+"""
+        # Add references from research sources
+        for i, source in enumerate(research_context.research_sources[:5], 1):
+            authors = ', '.join(source.authors[:2]) + (' et al.' if len(source.authors) > 2 else '')
+            fallback_desc += f"- {authors}. {source.title}. {source.source}. "
+            if source.doi:
+                fallback_desc += f"DOI: {source.doi}"
+            elif source.url:
+                fallback_desc += f"Available: {source.url}"
+            fallback_desc += "\n"
+        
+        content['description'] = fallback_desc
+        print(f"✅ Created fallback description ({len(fallback_desc)} characters)")
     
     # Add research metadata to content
     content['research_quality_score'] = research_context.research_quality_score
