@@ -1658,10 +1658,17 @@ async def generate_content_from_research_context(
     if vertex_ai_model:
         print("🚀 Using Vertex AI Gemini (via google-genai client)")
         try:
+            from google.genai import types
             # Use gemini-2.0-flash-exp which is available in Vertex AI
+            # CRITICAL: Increase max_output_tokens to prevent truncation
             response = vertex_ai_model.models.generate_content(
                 model='gemini-2.0-flash-exp',
-                contents=prompt
+                contents=prompt,
+                config=types.GenerateContentConfig(
+                    max_output_tokens=8192,  # Increased from default 2048
+                    temperature=0.8,
+                    top_p=0.95
+                )
             )
         except Exception as e:
             print(f"❌ Vertex AI generation failed: {e}")
@@ -1671,7 +1678,13 @@ async def generate_content_from_research_context(
                 import google.generativeai as genai
                 genai.configure(api_key=google_key)
                 model = genai.GenerativeModel('gemini-1.5-flash')
-                response = model.generate_content(prompt)
+                # Add generation config for fallback too
+                generation_config = genai.types.GenerationConfig(
+                    max_output_tokens=8192,
+                    temperature=0.8,
+                    top_p=0.95
+                )
+                response = model.generate_content(prompt, generation_config=generation_config)
             except Exception as fallback_error:
                 print(f"❌ Google AI API also failed: {fallback_error}")
                 raise Exception(f"Both Vertex AI and Google AI API failed. Vertex: {e}, Google: {fallback_error}")
