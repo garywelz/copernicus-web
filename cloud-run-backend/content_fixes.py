@@ -290,14 +290,37 @@ def validate_script_quality(script: str) -> Dict[str, any]:
 
 def generate_relevant_hashtags(topic: str, category: str, title: str = "", description: str = "") -> str:
     """
-    Generate 5+ relevant hashtags that will attract the target audience
+    Generate 5+ relevant, concise hashtags that will attract the target audience
     Based on topic, category, title, and description content
+    
+    Rules:
+    - Max 20 characters per hashtag (excluding #)
+    - Extract key concepts from topic/description
+    - Prioritize specific over generic terms
     """
     # Base hashtags
     base_hashtags = ["#CopernicusAI", "#SciencePodcast", "#AcademicDiscussion", "#ResearchInsights"]
     
-    # Topic-based hashtag
-    topic_hashtag = f"#{topic.replace(' ', '')}Research"
+    # Topic-based hashtag - LIMIT LENGTH
+    # Extract key words from topic (max 3 words, max 20 chars)
+    topic_words = [w for w in topic.split() if len(w) > 2 and w.lower() not in ['the', 'and', 'for', 'with', 'from', 'about', 'research', 'recent', 'directions']]
+    if len(topic_words) > 0:
+        # Take first 1-2 significant words
+        if len(topic_words) == 1:
+            topic_hashtag = f"#{topic_words[0]}Research"
+        else:
+            # Combine first 2 words if total length < 20
+            combined = ''.join(topic_words[:2])
+            if len(combined) <= 15:
+                topic_hashtag = f"#{combined}Research"
+            else:
+                topic_hashtag = f"#{topic_words[0]}Research"
+    else:
+        topic_hashtag = "#Research"
+    
+    # Enforce max length
+    if len(topic_hashtag) > 21:  # 20 chars + #
+        topic_hashtag = f"#{topic_words[0][:15]}Research" if topic_words else "#Research"
     
     # Category-based hashtags
     category_hashtags = {
@@ -326,10 +349,11 @@ def generate_relevant_hashtags(topic: str, category: str, title: str = "", descr
         "neural", "network", "algorithm", "machine learning", "artificial intelligence", "deep learning", "transformer",
         "reinforcement learning", "computer vision", "natural language processing", "nlp",
         
-        # Biology/Biotech terms
-        "quantum", "molecular", "genetic", "protein", "dna", "rna", "cell", "brain", "yeast", "fermentation",
-        "crispr", "gene editing", "genomics", "proteomics", "metabolomics", "synthetic biology",
-        "enzyme", "metabolism", "biochemistry", "biotechnology", "pharmacology",
+    # Biology/Biotech terms
+    "immunity", "autophagy", "fungi", "microbiome", "pathogen", "vaccine", "antibody",
+    "quantum", "molecular", "genetic", "protein", "dna", "rna", "cell", "brain", "yeast", "fermentation",
+    "crispr", "gene editing", "genomics", "proteomics", "metabolomics", "synthetic biology",
+    "enzyme", "metabolism", "biochemistry", "biotechnology", "pharmacology",
         
         # Physics/Chemistry terms
         "quantum mechanics", "thermodynamics", "kinetics", "catalysis", "polymer", "nanotechnology",
@@ -341,32 +365,39 @@ def generate_relevant_hashtags(topic: str, category: str, title: str = "", descr
         "computational", "theoretical", "experimental", "analytical", "statistical", "bioinformatics"
     ]
     
-    # Prioritize specific technical terms first
-    priority_terms = ["yeast", "fermentation", "crispr", "gene editing", "synthetic biology", 
-                     "machine learning", "artificial intelligence", "quantum", "neural network",
-                     "brain", "bci", "brain computer interface", "neural interface", "neurotechnology",
-                     "atlas", "particle", "collider", "physics", "quantum mechanics", "thermodynamics"]
+    # Prioritize specific technical terms first (single-word or short phrases)
+    priority_terms = [
+        "immunity", "autophagy", "fungi", "yeast", "fermentation", "microbiome", 
+        "crispr", "vaccine", "antibody", "pathogen",
+        "quantum", "neural", "protein", "dna", "rna", "enzyme",
+        "brain", "neurotechnology", "atlas", "particle", "collider"
+    ]
     
-    # First, check for priority terms
+    # First, check for priority terms (LIMIT to 15 chars)
     for term in priority_terms:
         if term in all_text and len(additional_hashtags) < 4:
-            hashtag = f"#{term.replace(' ', '')}"
-            if hashtag not in additional_hashtags:
+            hashtag = f"#{term.capitalize()}"
+            # Enforce max length
+            if len(hashtag) <= 16 and hashtag not in additional_hashtags:
                 additional_hashtags.append(hashtag)
     
-    # Add topic-specific hashtags based on the topic itself
+    # Add topic-specific hashtags based on the topic itself (LIMIT LENGTH)
     topic_words = topic.lower().split()
     for word in topic_words:
-        if len(word) > 3 and word not in ['the', 'and', 'for', 'with', 'from', 'about']:
+        if len(word) > 3 and len(word) <= 15 and word not in ['the', 'and', 'for', 'with', 'from', 'about', 'research', 'recent', 'directions']:
             hashtag = f"#{word.capitalize()}"
             if hashtag not in additional_hashtags and len(additional_hashtags) < 6:
                 additional_hashtags.append(hashtag)
     
-    # Then check other research terms
+    # Then check other research terms (ENFORCE LENGTH LIMIT)
     for term in research_terms:
         if term in all_text and len(additional_hashtags) < 6:
-            hashtag = f"#{term.replace(' ', '')}"
-            if hashtag not in additional_hashtags and hashtag not in [f"#{t.replace(' ', '')}" for t in priority_terms]:
+            hashtag_text = term.replace(' ', '').capitalize()
+            # Skip if too long (> 15 chars)
+            if len(hashtag_text) > 15:
+                continue
+            hashtag = f"#{hashtag_text}"
+            if hashtag not in additional_hashtags:
                 additional_hashtags.append(hashtag)
     
     # Combine all hashtags

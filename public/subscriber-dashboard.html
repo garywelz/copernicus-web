@@ -241,7 +241,8 @@
                                     class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                                 <option value="">Select level...</option>
                                 <option value="beginner">General audience (accessible explanations)</option>
-                                <option value="intermediate">Expert/Professional level</option>
+                                <option value="intermediate">Intermediate (some background knowledge)</option>
+                                <option value="expert">Expert/Professional level</option>
                             </select>
                         </div>
                         
@@ -671,6 +672,9 @@
                             duration: this.podcastForm.duration,
                             format_type: this.podcastForm.format_type,
                             voice_style: this.podcastForm.voice_style,
+                            // CRITICAL: Include voice selections
+                            host_voice_id: this.podcastForm.host_voice_id,
+                            expert_voice_id: this.podcastForm.expert_voice_id,
                             additional_instructions: this.podcastForm.instructions || '',
                             // Map sourceUrl to source_links array (backend expects this)
                             source_links: this.podcastForm.sourceUrl ? [this.podcastForm.sourceUrl] : []
