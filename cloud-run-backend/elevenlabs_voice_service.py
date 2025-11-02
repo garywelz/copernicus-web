@@ -340,9 +340,13 @@ class ElevenLabsVoiceService:
                 
                 # Map common speaker first names to voice roles with gender-appropriate assignments
                 name_to_role = {
-                    # Primary voice names (from ElevenLabs voice IDs)
-                    "matilda": "host",      # Matilda (female) - XrExE9yKIg1WjnnlVkGX
-                    "adam": "expert",       # Adam (male) - pNInz6obpgDQGcFmaJgB
+                    # PRIMARY VOICE NAMES (Current ElevenLabs voices - Phase 2.2)
+                    "matilda": "host",      # Matilda (female host) - XrExE9yKIg1WjnnlVkGX
+                    "bella": "host",        # Bella (female host) - pqHfZKP75CvOlQylNhV4
+                    "sam": "host",          # Sam (female host) - JBFqnCBsd6RMkjVDRZzb
+                    "adam": "expert",       # Adam (male expert) - pNInz6obpgDQGcFmaJgB
+                    "bryan": "expert",      # Bryan (male expert) - EXAVITQu4vr4xnSDxMaL
+                    "daniel": "expert",     # Daniel (male expert) - onwK4e9ZLuTAKqWW03F9
                     "bill": "questioner",   # Bill (male) - iiidtqDt9FBdT1vfBluA
                     "lily": "correspondent", # Lily (female) - Pt5YrLNyu6d2s3s4CVMg
                     
