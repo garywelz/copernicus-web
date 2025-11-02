@@ -1833,6 +1833,7 @@ async def run_podcast_generation_job(job_id: str, request: PodcastRequest, subsc
     print(f"🎯 Topic: {request.topic}")
     print(f"📋 Category: {request.category}, Format: {request.format_type}")
     print(f"⏱️ Target duration: {request.duration}")
+    print(f"🎤 Voice IDs - Host: {request.host_voice_id or 'default'}, Expert: {request.expert_voice_id or 'default'}")
     
     # Get subscriber email for notifications
     subscriber_email = "garywelz@gmail.com"  # Default fallback
@@ -2044,6 +2045,10 @@ async def run_podcast_generation_job(job_id: str, request: PodcastRequest, subsc
         print(f"📁 Canonical filename: {canonical_filename}")
         
         # Force deployment: 2025-01-21 13:45:00 UTC - Multi-voice audio generation enabled
+        print(f"🎙️ Initializing voice service with custom voice IDs:")
+        print(f"   Host: {request.host_voice_id or 'XrExE9yKIg1WjnnlVkGX (Matilda - default)'}")
+        print(f"   Expert: {request.expert_voice_id or 'pNInz6obpgDQGcFmaJgB (Adam - default)'}")
+        
         voice_service = ElevenLabsVoiceService()
         audio_url = await voice_service.generate_multi_voice_audio_with_bumpers(
             content["script"], 
