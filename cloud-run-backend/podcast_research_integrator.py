@@ -269,10 +269,10 @@ class PodcastResearchIntegrator:
         # Map voice IDs to names (ElevenLabs voices)
         VOICE_ID_TO_NAME = {
             "XrExE9yKIg1WjnnlVkGX": "Matilda",  # Female, Professional
-            "pqHfZKP75CvOlQylNhV4": "Bella",     # Female, British
+            "EXAVITQu4vr4xnSDxMaL": "Bella",     # Female, British (was swapped!)
             "JBFqnCBsd6RMkjVDRZzb": "Sam",       # Female, American
             "pNInz6obpgDQGcFmaJgB": "Adam",      # Male, Authoritative
-            "EXAVITQu4vr4xnSDxMaL": "Bryan",     # Male, American
+            "pqHfZKP75CvOlQylNhV4": "Bryan",     # Male, American (was swapped!)
             "onwK4e9ZLuTAKqWW03F9": "Daniel"     # Male, British
         }
         
