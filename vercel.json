@@ -29,7 +29,7 @@
     },
     {
       "src": "/subscriber-create-account.html",
-      "dest": "/subscriber-create-account.html"
+      "dest": "/public/subscriber-create-account.html"
     },
     {
       "src": "/dashboard",
@@ -41,7 +41,7 @@
     },
     {
       "src": "/create-account",
-      "dest": "/subscriber-create-account.html"
+      "dest": "/public/subscriber-create-account.html"
     },
     {
       "src": "/episodes/(?<episodeId>[^/]+)",
@@ -56,7 +56,7 @@
     },
     {
       "src": "/(.*)",
-      "dest": "/$1"
+      "dest": "/public/$1"
     }
   ]
 } 
