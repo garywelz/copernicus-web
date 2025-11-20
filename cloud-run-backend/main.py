@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import Optional, List
 import uuid
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 import os
 import asyncio
 import aiohttp
@@ -24,6 +24,10 @@ import logging
 import sys
 from contextlib import asynccontextmanager
 from typing import Dict, Any
+from email.utils import format_datetime, parsedate_to_datetime
+from urllib.parse import urlparse
+import xml.etree.ElementTree as ET
+from xml.etree.ElementTree import Element, SubElement
 
 # Structured logging setup
 class StructuredLogger:
@@ -83,6 +87,51 @@ COPERNICUS_VOICES = {
 def get_speaker_labels():
     """Return the 2 speaker labels used in podcast scripts"""
     return ["MATILDA", "ADAM"]
+
+# RSS Feed configuration
+RSS_BUCKET_NAME = os.getenv("GCP_AUDIO_BUCKET", "regal-scholar-453620-r7-podcast-storage")
+RSS_FEED_BLOB_NAME = os.getenv("COPERNICUS_RSS_FEED_BLOB", "feeds/copernicus-mvp-rss-feed.xml")
+EPISODE_BASE_URL = os.getenv("COPERNICUS_EPISODE_BASE_URL", "https://copernicusai.fyi/episodes")
+DEFAULT_ARTWORK_URL = os.getenv(
+    "COPERNICUS_DEFAULT_ARTWORK",
+    "https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/images/copernicus-original-portrait-optimized.jpg"
+)
+
+CATEGORY_SLUG_TO_LABEL = {
+    "bio": "Biology",
+    "chem": "Chemistry",
+    "compsci": "Computer Science",
+    "math": "Mathematics",
+    "phys": "Physics",
+}
+
+EPISODE_COLLECTION_NAME = os.getenv("COPERNICUS_EPISODE_COLLECTION", "episodes")
+
+def _category_value_to_slug(category_value: Optional[str]) -> Optional[str]:
+    """Normalize category input (slug or label) to canonical slug."""
+    if not category_value:
+        return None
+    normalized = category_value.strip().lower()
+    for slug, label in CATEGORY_SLUG_TO_LABEL.items():
+        if normalized == slug or normalized == label.lower():
+            return slug
+    return None
+
+RSS_NAMESPACES = {
+    "itunes": "http://www.itunes.com/dtds/podcast-1.0.dtd",
+    "atom": "http://www.w3.org/2005/Atom",
+    "podcast": "https://podcastindex.org/namespace/1.0",
+    "content": "http://purl.org/rss/1.0/modules/content/",
+    "media": "http://search.yahoo.com/mrss/",
+}
+
+for prefix, uri in RSS_NAMESPACES.items():
+    ET.register_namespace(prefix, uri)
+
+LEGACY_DESCRIPTION_TAGLINES = {
+    "Follow Copernicus AI for more cutting-edge science discussions and research explorations.",
+    "**Follow Copernicus AI for more cutting-edge science discussions and research explorations.**",
+}
 
 # Context manager for step tracking
 @asynccontextmanager
@@ -1554,7 +1603,7 @@ async def determine_canonical_filename(topic: str, title: str, category: str = N
         
         # Get the next episode number for this category
         next_episode = category_episodes[request_category] + 1
-        next_episode_str = str(next_episode).zfill(5)  # Pad to 5 digits like 250032
+        next_episode_str = str(next_episode).zfill(6)  # Pad to 6 digits like 250032
         
         # Double-check we're not overwriting by checking GCS directly
         try:
@@ -1566,7 +1615,7 @@ async def determine_canonical_filename(topic: str, title: str, category: str = N
                 if gcs_data.get('items'):
                     # File already exists, increment further
                     next_episode += 1
-                    next_episode_str = str(next_episode).zfill(5)
+                    next_episode_str = str(next_episode).zfill(6)
                     print(f"⚠️ File already exists, incrementing to {next_episode_str}")
         except Exception as e:
             print(f"⚠️ Could not verify GCS for {next_episode_str}: {e}")
@@ -1853,6 +1902,7 @@ async def run_podcast_generation_job(job_id: str, request: PodcastRequest, subsc
         return
 
     job_ref = db.collection('podcast_jobs').document(job_id)
+    request_snapshot = request.model_dump()
     
     try:
         # ═════════════════════════════════════════════════════════════════
@@ -2142,6 +2192,7 @@ async def run_podcast_generation_job(job_id: str, request: PodcastRequest, subsc
         }
         
         # Complete job with enhanced metadata
+        generated_timestamp = datetime.utcnow().isoformat()
         job_ref.update({
             'status': 'completed',
             'updated_at': datetime.utcnow().isoformat(),
@@ -2162,11 +2213,34 @@ async def run_podcast_generation_job(job_id: str, request: PodcastRequest, subsc
                 'tts_provider': 'elevenlabs_multi_voice',
                 'content_provider': 'gemini_research_enhanced',
                 'canonical_filename': canonical_filename,
-                'generated_at': datetime.utcnow().isoformat()
+                'generated_at': generated_timestamp,
+                'itunes_summary': content.get('itunes_summary'),
             },
             'metadata_extended': metadata_extended,
             'engagement_metrics': engagement_metrics
         })
+
+        try:
+            _upsert_episode_document(
+                job_id,
+                subscriber_id,
+                request_snapshot,
+                {
+                    **content,
+                    "audio_url": audio_url,
+                    "thumbnail_url": thumbnail_url,
+                    "transcript_url": transcript_url,
+                    "description_url": description_url,
+                    "duration": request.duration,
+                    "canonical_filename": canonical_filename,
+                    "generated_at": generated_timestamp,
+                },
+                metadata_extended,
+                engagement_metrics,
+                submitted_to_rss=False,
+            )
+        except Exception as catalog_error:
+            print(f"⚠️ Failed to catalog episode {job_id}: {catalog_error}")
         
         # Send email notification
         email_start_time = time.time()
@@ -2840,45 +2914,973 @@ async def get_public_podcasts(category: Optional[str] = None, limit: int = 100):
         raise HTTPException(status_code=503, detail="Firestore service is unavailable")
     
     try:
-        # Query for podcasts submitted to RSS
-        query = db.collection('podcast_jobs').where('submitted_to_rss', '==', True).order_by('created_at', direction=firestore.Query.DESCENDING)
+        query = db.collection(EPISODE_COLLECTION_NAME).where('submitted_to_rss', '==', True)
+        category_slug = _category_value_to_slug(category) if category else None
+        if category_slug:
+            query = query.where('category_slug', '==', category_slug)
         
-        if category:
-            query = query.where('request.category', '==', category)
-        
-        podcasts_query = query.limit(limit)
+        podcasts_query = query.order_by('generated_at', direction=firestore.Query.DESCENDING).limit(limit)
         podcasts = podcasts_query.stream()
         
         podcast_list = []
-        for podcast in podcasts:
-            podcast_data = podcast.to_dict()
-            podcast_data['podcast_id'] = podcast.id
-            
-            # Extract relevant fields for public display
+        for episode in podcasts:
+            data = episode.to_dict() or {}
+            data['episode_id'] = episode.id
             public_podcast = {
-                'podcast_id': podcast.id,
-                'title': podcast_data.get('request', {}).get('topic', 'Untitled'),
-                'category': podcast_data.get('request', {}).get('category', 'Unknown'),
-                'expertise_level': podcast_data.get('request', {}).get('expertise_level', 'intermediate'),
-                'duration': podcast_data.get('request', {}).get('duration', '5-10 minutes'),
-                'created_at': podcast_data.get('created_at', ''),
-                'status': podcast_data.get('status', 'unknown'),
-                'creator_attribution': podcast_data.get('creator_attribution'),
-                'result': podcast_data.get('result', {}),
+                'episode_id': episode.id,
+                'title': data.get('title', 'Untitled'),
+                'category': data.get('category', 'Unknown'),
+                'category_slug': data.get('category_slug'),
+                'expertise_level': data.get('request', {}).get('expertise_level', 'intermediate'),
+                'duration': data.get('duration', '5-10 minutes'),
+                'created_at': data.get('generated_at', data.get('created_at', '')),
+                'status': 'published',
+                'creator_attribution': data.get('creator_attribution'),
+                'summary': data.get('summary'),
+                'audio_url': data.get('audio_url'),
+                'thumbnail_url': data.get('thumbnail_url'),
+                'episode_link': data.get('episode_link'),
             }
             podcast_list.append(public_podcast)
         
-        print(f"✅ Found {len(podcast_list)} published podcasts")
+        print(f"✅ Found {len(podcast_list)} published podcasts from episode catalog")
         
         return {
             "podcasts": podcast_list,
             "total_count": len(podcast_list),
-            "category_filter": category
+            "category_filter": category_slug or category
         }
         
     except Exception as e:
         print(f"❌ Error fetching public podcasts: {e}")
         raise HTTPException(status_code=500, detail="Failed to fetch published podcasts")
+
+@app.get("/api/episodes")
+async def list_episode_catalog(category: Optional[str] = None, submitted: Optional[bool] = None, limit: int = 500):
+    """List episodes from the canonical catalog (includes drafts + published)."""
+    if not db:
+        raise HTTPException(status_code=503, detail="Firestore service is unavailable")
+    try:
+        # Cap limit at 1000 to prevent excessive queries
+        limit = min(limit, 1000)
+        query = db.collection(EPISODE_COLLECTION_NAME)
+        if submitted is not None:
+            query = query.where('submitted_to_rss', '==', submitted)
+        category_slug = _category_value_to_slug(category) if category else None
+        if category_slug:
+            query = query.where('category_slug', '==', category_slug)
+        episodes_query = query.order_by('generated_at', direction=firestore.Query.DESCENDING).limit(limit)
+        episodes = []
+        for doc in episodes_query.stream():
+            payload = doc.to_dict() or {}
+            payload['episode_id'] = doc.id
+            episodes.append(payload)
+        return {
+            "episodes": episodes,
+            "total_count": len(episodes),
+            "category_filter": category_slug or category,
+            "submitted_filter": submitted,
+        }
+    except Exception as e:
+        print(f"❌ Error listing episode catalog: {e}")
+        raise HTTPException(status_code=500, detail="Failed to list episodes")
+
+@app.get("/api/episodes/search")
+async def search_episodes(q: str, limit: int = 100, search_transcripts: bool = False):
+    """Search episodes by title, description, or transcript.
+    
+    Args:
+        q: Search query string
+        limit: Maximum number of results (default 100, max 500)
+        search_transcripts: If True, also search transcript content (slower, requires GCS access)
+    """
+    if not db:
+        raise HTTPException(status_code=503, detail="Firestore service is unavailable")
+    
+    if not q or not q.strip():
+        raise HTTPException(status_code=400, detail="Search query is required")
+    
+    try:
+        search_terms = q.strip().lower().split()
+        limit = min(limit, 500)
+        
+        # Fetch all episodes (or a large subset)
+        # We'll filter in Python since Firestore doesn't have full-text search
+        query = db.collection(EPISODE_COLLECTION_NAME)
+        episodes_query = query.order_by('generated_at', direction=firestore.Query.DESCENDING).limit(1000)
+        
+        matching_episodes = []
+        transcript_matches = set() if search_transcripts else None
+        
+        # First pass: search title and description
+        for doc in episodes_query.stream():
+            data = doc.to_dict() or {}
+            
+            # Extract searchable text
+            title = (data.get('title') or '').lower()
+            description = (data.get('description_markdown') or data.get('description_html') or '').lower()
+            summary = (data.get('summary') or '').lower()
+            
+            # Strip HTML tags from description for better matching
+            import re
+            description_plain = re.sub(r'<[^>]+>', '', description)
+            
+            # Check if all search terms match
+            matches = all(term in title or term in description_plain or term in summary for term in search_terms)
+            
+            if matches:
+                payload = data.copy()
+                payload['episode_id'] = doc.id
+                # Add match context for highlighting
+                payload['match_score'] = (
+                    sum(1 for term in search_terms if term in title) * 3 +
+                    sum(1 for term in search_terms if term in description_plain) * 2 +
+                    sum(1 for term in search_terms if term in summary) * 2
+                )
+                matching_episodes.append(payload)
+                if search_transcripts and data.get('transcript_url'):
+                    transcript_matches.add(doc.id)
+        
+        # Second pass: search transcripts if requested
+        if search_transcripts and transcript_matches:
+            from google.cloud import storage
+            import re
+            storage_client = storage.Client()
+            bucket = storage_client.bucket(RSS_BUCKET_NAME)
+            
+            # Re-check episodes with transcripts
+            for episode_id in list(transcript_matches):
+                episode = next((e for e in matching_episodes if e.get('episode_id') == episode_id), None)
+                if not episode:
+                    continue
+                
+                transcript_url = episode.get('transcript_url')
+                if not transcript_url:
+                    continue
+                
+                try:
+                    # Extract blob name from GCS URL
+                    blob_name = transcript_url.replace('https://storage.googleapis.com/', '').split('/', 1)[1]
+                    blob = bucket.blob(blob_name)
+                    
+                    if blob.exists():
+                        transcript_content = blob.download_as_text()
+                        transcript_lower = transcript_content.lower()
+                        
+                        # Check if all terms match in transcript
+                        if all(term in transcript_lower for term in search_terms):
+                            # Boost match score for transcript matches
+                            episode['match_score'] = episode.get('match_score', 0) + 1
+                            episode['transcript_match'] = True
+                            
+                            # Find first occurrence of search terms in transcript
+                            first_match_position = len(transcript_content)  # Initialize to end
+                            first_match_term = None
+                            
+                            # Find the earliest position where any search term appears
+                            for term in search_terms:
+                                pattern = re.compile(re.escape(term), re.IGNORECASE)
+                                match = pattern.search(transcript_content)
+                                if match and match.start() < first_match_position:
+                                    first_match_position = match.start()
+                                    first_match_term = term
+                            
+                            # Estimate timestamp based on position in transcript
+                            # Average speaking rate: ~150 words per minute = 2.5 words per second
+                            # We'll count words from the beginning to the match position
+                            text_before_match = transcript_content[:first_match_position]
+                            
+                            # Clean text to count words accurately (remove markdown, speaker labels)
+                            clean_text = re.sub(r'\*\*([^*]+)\*\*', r'\1', text_before_match)  # Remove bold
+                            clean_text = re.sub(r'\*([^*]+)\*', r'\1', clean_text)  # Remove italic
+                            clean_text = re.sub(r'#+\s*', '', clean_text)  # Remove headers
+                            clean_text = re.sub(r'\[([^\]]+)\]\([^\)]+\)', r'\1', clean_text)  # Remove links
+                            clean_text = re.sub(r'\*\*(HOST|EXPERT|QUESTIONER|CORRESPONDENT):\s*\*\*', '', clean_text, flags=re.IGNORECASE)  # Remove speaker labels
+                            clean_text = re.sub(r'(HOST|EXPERT|QUESTIONER|CORRESPONDENT):\s*', '', clean_text, flags=re.IGNORECASE)  # Remove speaker labels
+                            
+                            # Count words
+                            word_count = len(re.findall(r'\b\w+\b', clean_text))
+                            
+                            # Estimate timestamp (150 words/min = 2.5 words/sec, with buffer)
+                            # Using 2.5 words/second as a conservative estimate
+                            estimated_seconds = max(0, int(word_count / 2.5))
+                            episode['transcript_timestamp'] = estimated_seconds
+                            
+                            # Extract snippet with context around first match
+                            snippet_length = 250  # characters before and after match
+                            start = max(0, first_match_position - snippet_length)
+                            end = min(len(transcript_content), first_match_position + len(first_match_term) + snippet_length)
+                            
+                            snippet = transcript_content[start:end]
+                            
+                            # Clean up: remove markdown formatting for preview
+                            snippet = re.sub(r'\*\*([^*]+)\*\*', r'\1', snippet)  # Remove bold
+                            snippet = re.sub(r'\*([^*]+)\*', r'\1', snippet)  # Remove italic
+                            snippet = re.sub(r'#+\s*', '', snippet)  # Remove headers
+                            snippet = re.sub(r'\[([^\]]+)\]\([^\)]+\)', r'\1', snippet)  # Remove links
+                            snippet = snippet.replace('\n\n', ' ').replace('\n', ' ').strip()
+                            
+                            # Add ellipsis if truncated
+                            if start > 0:
+                                snippet = '...' + snippet
+                            if end < len(transcript_content):
+                                snippet = snippet + '...'
+                            
+                            episode['transcript_snippet'] = snippet
+                            
+                except Exception as e:
+                    print(f"⚠️ Could not search transcript for {episode_id}: {e}")
+        
+        # Sort by match score (highest first)
+        matching_episodes.sort(key=lambda x: x.get('match_score', 0), reverse=True)
+        
+        # Limit results
+        matching_episodes = matching_episodes[:limit]
+        
+        return {
+            "query": q,
+            "episodes": matching_episodes,
+            "total_count": len(matching_episodes),
+            "searched_transcripts": search_transcripts,
+        }
+    except Exception as e:
+        print(f"❌ Error searching episodes: {e}")
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail="Failed to search episodes")
+
+@app.get("/api/episodes/{episode_id}")
+async def get_episode_record(episode_id: str):
+    """Fetch a single episode from the catalog."""
+    if not db:
+        raise HTTPException(status_code=503, detail="Firestore service is unavailable")
+    try:
+        doc = db.collection(EPISODE_COLLECTION_NAME).document(episode_id).get()
+        if not doc.exists:
+            raise HTTPException(status_code=404, detail="Episode not found")
+        payload = doc.to_dict() or {}
+        payload['episode_id'] = doc.id
+        return payload
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"❌ Error fetching episode {episode_id}: {e}")
+        raise HTTPException(status_code=500, detail="Failed to load episode")
+
+@app.get("/api/admin/subscribers")
+async def list_all_subscribers():
+    """List all registered subscribers - Admin endpoint"""
+    if not db:
+        raise HTTPException(status_code=503, detail="Firestore service is unavailable")
+    
+    try:
+        # Query all subscribers
+        subscribers_ref = db.collection('subscribers')
+        subscribers = subscribers_ref.stream()
+        
+        subscriber_list = []
+        for sub in subscribers:
+            data = sub.to_dict()
+            
+            # Format timestamps
+            created_at = data.get('created_at', 'Unknown')
+            last_login = data.get('last_login', 'Never')
+            
+            if hasattr(created_at, 'timestamp'):
+                created_at = datetime.fromtimestamp(created_at.timestamp()).isoformat()
+            if hasattr(last_login, 'timestamp'):
+                last_login = datetime.fromtimestamp(last_login.timestamp()).isoformat()
+            
+            subscriber_info = {
+                'email': data.get('email', 'N/A'),  # Get email from document data, not document ID
+                'subscriber_id': sub.id,  # Document ID is the hashed subscriber_id
+                'display_name': data.get('display_name', 'N/A'),
+                'initials': data.get('initials', 'N/A'),
+                'show_attribution': data.get('show_attribution', False),
+                'created_at': str(created_at),
+                'last_login': str(last_login),
+                'podcast_count': data.get('podcasts_generated', 0)  # Use correct field name
+            }
+            
+            subscriber_list.append(subscriber_info)
+        
+        print(f"✅ Listed {len(subscriber_list)} total subscribers")
+        
+        return {
+            "subscribers": subscriber_list,
+            "total_count": len(subscriber_list)
+        }
+        
+    except Exception as e:
+        print(f"❌ Error listing subscribers: {e}")
+        raise HTTPException(status_code=500, detail="Failed to list subscribers")
+
+@app.delete("/api/admin/subscribers/{subscriber_id}")
+async def delete_subscriber(subscriber_id: str):
+    """Delete a subscriber account - Admin endpoint"""
+    if not db:
+        raise HTTPException(status_code=503, detail="Firestore service is unavailable")
+    
+    try:
+        # Check if subscriber exists
+        subscriber_doc = db.collection('subscribers').document(subscriber_id).get()
+        if not subscriber_doc.exists:
+            raise HTTPException(status_code=404, detail="Subscriber not found")
+        
+        subscriber_data = subscriber_doc.to_dict()
+        email = subscriber_data.get('email', 'Unknown')
+        
+        # Delete the subscriber
+        db.collection('subscribers').document(subscriber_id).delete()
+        
+        print(f"✅ Deleted subscriber: {email} (ID: {subscriber_id})")
+        
+        return {
+            "message": "Subscriber deleted successfully",
+            "email": email,
+            "subscriber_id": subscriber_id
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"❌ Error deleting subscriber: {e}")
+        raise HTTPException(status_code=500, detail="Failed to delete subscriber")
+
+@app.post("/api/admin/episodes/backfill")
+async def backfill_episode_catalog(limit: int = 200):
+    """Backfill the episode catalog from existing completed podcast jobs."""
+    if not db:
+        raise HTTPException(status_code=503, detail="Firestore service is unavailable")
+    try:
+        import traceback
+        # NOTE: Keep this query simple to avoid requiring composite indexes in Firestore.
+        # We only need "completed" jobs for backfill; ordering is not important.
+        jobs_query = (
+            db.collection('podcast_jobs')
+            .where('status', '==', 'completed')
+            .limit(limit)
+        )
+        created = 0
+        skipped_no_result = 0
+        errors = []
+        
+        print(f"🔄 Starting backfill for up to {limit} completed jobs...")
+        try:
+            jobs_stream = jobs_query.stream()
+        except Exception as query_error:
+            error_msg = str(query_error)
+            if "index" in error_msg.lower():
+                print(f"❌ Firestore index required. Query: status == 'completed' (no ordering).")
+                print(f"💡 Error: {error_msg}")
+                raise HTTPException(
+                    status_code=400,
+                    detail=f"Firestore index required for query. This query should not need an index. Error: {error_msg}"
+                )
+            raise
+        
+        for job in jobs_stream:
+            job_payload = job.to_dict() or {}
+            if not job_payload.get('result'):
+                skipped_no_result += 1
+                continue
+            try:
+                _ensure_episode_document_from_job(job.id, job_payload)
+                created += 1
+                if created % 10 == 0:
+                    print(f"✅ Processed {created} episodes so far...")
+            except Exception as job_error:
+                error_msg = f"Job {job.id}: {str(job_error)}"
+                errors.append(error_msg)
+                print(f"⚠️ {error_msg}")
+                print(traceback.format_exc())
+                # Continue processing other jobs even if one fails
+        
+        result = {
+            "processed_jobs": created,
+            "skipped_no_result": skipped_no_result,
+            "errors": errors if errors else None,
+            "limit": limit,
+            "message": f"Episode catalog backfill completed: {created} episodes created, {skipped_no_result} skipped (no result data), {len(errors)} errors"
+        }
+        print(f"✅ Backfill complete: {result['message']}")
+        return result
+    except Exception as e:
+        import traceback
+        error_trace = traceback.format_exc()
+        print(f"❌ Fatal error during episode backfill: {e}")
+        print(error_trace)
+        raise HTTPException(status_code=500, detail=f"Failed to backfill episodes: {str(e)}")
+
+@app.post("/api/admin/episodes/sync-rss-status")
+async def sync_rss_status():
+    """Sync Firestore episode catalog with actual RSS feed contents.
+    
+    This reads the RSS feed XML and updates Firestore episodes to mark
+    them as submitted_to_rss=true if their slug appears in the feed.
+    """
+    if not db:
+        raise HTTPException(status_code=503, detail="Firestore service is unavailable")
+    
+    try:
+        from google.cloud import storage
+        import xml.etree.ElementTree as ET
+        
+        # Read RSS feed from GCS
+        storage_client = storage.Client()
+        bucket = storage_client.bucket(RSS_BUCKET_NAME)
+        blob = bucket.blob(RSS_FEED_BLOB_NAME)
+        
+        if not blob.exists():
+            raise HTTPException(status_code=404, detail="RSS feed file not found in storage")
+        
+        xml_bytes = blob.download_as_bytes()
+        root = ET.fromstring(xml_bytes)
+        
+        # Extract all GUIDs (episode slugs) from RSS feed
+        rss_guids = set()
+        for guid_elem in root.findall(".//guid"):
+            if guid_elem.text:
+                rss_guids.add(guid_elem.text.strip())
+        
+        print(f"📡 Found {len(rss_guids)} episodes in RSS feed")
+        
+        # Update Firestore episodes
+        episodes_collection = db.collection(EPISODE_COLLECTION_NAME)
+        updated_count = 0
+        not_found_in_rss = 0
+        
+        # Get all episodes from Firestore
+        all_episodes = episodes_collection.stream()
+        for episode_doc in all_episodes:
+            episode_data = episode_doc.to_dict() or {}
+            slug = episode_data.get("slug") or episode_data.get("episode_id") or episode_doc.id
+            
+            # Check if this episode is in the RSS feed
+            is_in_rss = slug in rss_guids
+            currently_marked = episode_data.get("submitted_to_rss", False)
+            
+            if is_in_rss and not currently_marked:
+                # Update to mark as submitted
+                episodes_collection.document(episode_doc.id).update({
+                    "submitted_to_rss": True,
+                    "visibility": "public",
+                    "updated_at": datetime.now(timezone.utc).isoformat()
+                })
+                updated_count += 1
+                print(f"✅ Marked {slug} as submitted_to_rss=True")
+            elif not is_in_rss and currently_marked:
+                # Update to mark as not submitted (in case it was removed from RSS)
+                episodes_collection.document(episode_doc.id).update({
+                    "submitted_to_rss": False,
+                    "visibility": "private",
+                    "updated_at": datetime.now(timezone.utc).isoformat()
+                })
+                not_found_in_rss += 1
+                print(f"⚠️ Marked {slug} as submitted_to_rss=False (not in RSS feed)")
+        
+        result = {
+            "rss_feed_episodes": len(rss_guids),
+            "updated_to_submitted": updated_count,
+            "updated_to_not_submitted": not_found_in_rss,
+            "rss_guids": sorted(list(rss_guids)),
+            "message": f"RSS sync complete: {updated_count} episodes marked as submitted, {not_found_in_rss} marked as not submitted"
+        }
+        print(f"✅ RSS sync complete: {result['message']}")
+        return result
+        
+    except Exception as e:
+        import traceback
+        error_trace = traceback.format_exc()
+        print(f"❌ Fatal error during RSS sync: {e}")
+        print(error_trace)
+        raise HTTPException(status_code=500, detail=f"Failed to sync RSS status: {str(e)}")
+
+def _markdown_to_html(markdown_text: str) -> str:
+    """Convert markdown to HTML, fallback to paragraph-wrapped text on error."""
+    if not markdown_text:
+        return ""
+    try:
+        import markdown  # type: ignore
+        import re
+        
+        # Pre-process: Convert references section with asterisks to proper markdown lists
+        # Find the References section and convert asterisk items to list items
+        def fix_references_section(match):
+            header = match.group(1)
+            content = match.group(2)
+            # Convert lines starting with "*   " to proper markdown list items
+            lines = content.split('\n')
+            fixed_lines = []
+            in_list = False
+            for line in lines:
+                # Check if line starts with "*   " (asterisk with spaces)
+                if re.match(r'^\*\s+', line):
+                    if not in_list:
+                        fixed_lines.append('')  # Add blank line before list starts
+                        in_list = True
+                    # Convert "*   " to "- " for markdown list
+                    line = re.sub(r'^\*\s+', '- ', line)
+                    fixed_lines.append(line)
+                else:
+                    if in_list and line.strip() == '':
+                        in_list = False
+                    fixed_lines.append(line)
+            return header + '\n'.join(fixed_lines)
+        
+        # Find and fix references section
+        markdown_text = re.sub(
+            r'(## References\n)(.*?)(?=\n##|\n\nHashtags|\Z)',
+            fix_references_section,
+            markdown_text,
+            flags=re.DOTALL
+        )
+        
+        html = markdown.markdown(markdown_text, extensions=["extra", "sane_lists"])
+        
+        # Post-process: Add CSS styling for lists to ensure proper spacing
+        # Wrap references list in a div with proper spacing
+        html = re.sub(
+            r'(<h2[^>]*>## References</h2>)(.*?)(</ul>)',
+            r'\1<div style="margin-top: 1rem; margin-bottom: 1.5rem;"><ul style="list-style-type: disc; padding-left: 2rem; line-height: 1.8; margin-top: 0.5rem;">\2\3</div>',
+            html,
+            flags=re.DOTALL
+        )
+        # Ensure all list items have proper spacing
+        html = re.sub(r'<li>', r'<li style="margin-bottom: 0.75rem;">', html)
+        # Ensure paragraphs have proper spacing
+        html = re.sub(r'<p>', r'<p style="margin-bottom: 1rem; line-height: 1.7;">', html)
+        return html
+    except Exception:
+        paragraphs = [p.strip() for p in markdown_text.split("\n\n") if p.strip()]
+        return "".join(f"<p>{p}</p>" for p in paragraphs)
+
+def _extract_category_from_filename(canonical: Optional[str], request_category: Optional[str]) -> Dict[str, str]:
+    """Map canonical filename or request category to feed category slug and label."""
+    slug = None
+    if canonical:
+        parts = canonical.split("-")
+        if len(parts) >= 3:
+            candidate = parts[1]
+            if candidate in CATEGORY_SLUG_TO_LABEL:
+                slug = candidate
+    if not slug and request_category:
+        for key, label in CATEGORY_SLUG_TO_LABEL.items():
+            if label.lower() == request_category.lower():
+                slug = key
+                break
+    if not slug:
+        slug = "phys"
+    return {"slug": slug, "label": CATEGORY_SLUG_TO_LABEL.get(slug, "Physics")}
+
+def _parse_iso_datetime(value: Optional[str]) -> datetime:
+    """Parse ISO 8601 timestamps into timezone-aware UTC datetimes."""
+    if not value:
+        return datetime.now(timezone.utc)
+    try:
+        if value.endswith("Z"):
+            value = value[:-1]
+        dt = datetime.fromisoformat(value)
+    except ValueError:
+        return datetime.now(timezone.utc)
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=timezone.utc)
+    return dt.astimezone(timezone.utc)
+
+def _format_duration(duration_str: Optional[str]) -> str:
+    """Convert duration strings like '5-10 minutes' into itunes mm:ss format."""
+    if not duration_str:
+        return "10:00"
+    try:
+        cleaned = duration_str.replace("minutes", "").strip()
+        if "-" in cleaned:
+            minutes = int(float(cleaned.split("-")[-1].strip()))
+        else:
+            minutes = int(float(cleaned.split()[0]))
+        minutes = max(minutes, 1)
+        return f"{minutes:02d}:00"
+    except Exception:
+        return "10:00"
+
+def _extract_blob_name_from_url(url: str) -> Optional[str]:
+    """Extract the blob name within the bucket from a public GCS URL."""
+    if not url:
+        return None
+    parsed = urlparse(url)
+    path = parsed.path.lstrip("/")
+    if not path:
+        return None
+    if path.startswith(f"{RSS_BUCKET_NAME}/"):
+        return path[len(RSS_BUCKET_NAME) + 1 :]
+    return path
+
+def _strip_legacy_tagline(markdown_text: Optional[str]) -> str:
+    """Remove legacy marketing taglines from generated descriptions."""
+    if not markdown_text:
+        return ""
+    cleaned_lines = []
+    for line in markdown_text.splitlines():
+        if line.strip() in LEGACY_DESCRIPTION_TAGLINES:
+            continue
+        cleaned_lines.append(line)
+    cleaned = "\n".join(cleaned_lines).strip()
+    while "\n\n\n" in cleaned:
+        cleaned = cleaned.replace("\n\n\n", "\n\n")
+    return cleaned
+
+EPISODE_REQUEST_SNAPSHOT_FIELDS = [
+    "topic",
+    "category",
+    "expertise_level",
+    "format_type",
+    "duration",
+    "voice_style",
+    "host_voice_id",
+    "expert_voice_id",
+    "additional_instructions",
+    "paper_title",
+    "paper_doi",
+    "paper_authors",
+    "paper_abstract",
+    "include_citations",
+    "paradigm_shift_analysis",
+]
+
+def _compact_request_snapshot(request_data: Optional[Dict[str, Any]]) -> Dict[str, Any]:
+    """Reduce request payload to the fields we want to persist on an episode."""
+    if not isinstance(request_data, dict):
+        return {}
+    snapshot: Dict[str, Any] = {}
+    for field in EPISODE_REQUEST_SNAPSHOT_FIELDS:
+        if field in request_data and request_data[field] is not None:
+            snapshot[field] = request_data[field]
+    return snapshot
+
+def _prepare_episode_document(
+    job_id: str,
+    subscriber_id: Optional[str],
+    request_data: Dict[str, Any],
+    result_data: Dict[str, Any],
+    metadata_extended: Optional[Dict[str, Any]],
+    engagement_metrics: Optional[Dict[str, Any]],
+    submitted_to_rss: bool = False,
+    creator_attribution: Optional[str] = None,
+) -> Dict[str, Any]:
+    """Create the canonical document we persist for each episode."""
+    metadata_extended = metadata_extended or {}
+    engagement_metrics = engagement_metrics or {}
+    description_markdown = result_data.get("description", "") or ""
+    description_html = _markdown_to_html(description_markdown)
+    summary_text = result_data.get("itunes_summary") or extract_itunes_summary(description_markdown)
+    canonical = result_data.get("canonical_filename")
+    slug = canonical or job_id
+    category_info = _extract_category_from_filename(canonical, request_data.get("category"))
+    now_iso = datetime.utcnow().isoformat()
+
+    episode_doc: Dict[str, Any] = {
+        "episode_id": slug,
+        "job_id": job_id,
+        "subscriber_id": subscriber_id,
+        "title": result_data.get("title", "Untitled Episode"),
+        "slug": slug,
+        "canonical_filename": canonical,
+        "topic": request_data.get("topic"),
+        "category": category_info["label"],
+        "category_slug": category_info["slug"],
+        "summary": summary_text,
+        "description_markdown": description_markdown,
+        "description_html": description_html,
+        "script": result_data.get("script", ""),
+        "duration": result_data.get("duration"),
+        "audio_url": result_data.get("audio_url"),
+        "thumbnail_url": result_data.get("thumbnail_url") or DEFAULT_ARTWORK_URL,
+        "transcript_url": result_data.get("transcript_url"),
+        "description_url": result_data.get("description_url"),
+        "episode_link": f"{EPISODE_BASE_URL}/{slug}",
+        "submitted_to_rss": submitted_to_rss,
+        "creator_attribution": creator_attribution,
+        "visibility": "public" if submitted_to_rss else "private",
+        "request": _compact_request_snapshot(request_data),
+        "metadata_extended": metadata_extended,
+        "engagement_metrics": engagement_metrics,
+        "search_keywords": metadata_extended.get("keywords_indexed", []),
+        "created_at": result_data.get("generated_at") or now_iso,
+        "generated_at": result_data.get("generated_at") or now_iso,
+        "updated_at": now_iso,
+        "assets": {
+            "audio_blob": _extract_blob_name_from_url(result_data.get("audio_url", "")),
+            "transcript_blob": _extract_blob_name_from_url(result_data.get("transcript_url", "")),
+            "description_blob": _extract_blob_name_from_url(result_data.get("description_url", "")),
+            "thumbnail_blob": _extract_blob_name_from_url(result_data.get("thumbnail_url", "")),
+        },
+    }
+
+    return episode_doc
+
+def _upsert_episode_document(
+    job_id: str,
+    subscriber_id: Optional[str],
+    request_data: Dict[str, Any],
+    result_data: Dict[str, Any],
+    metadata_extended: Optional[Dict[str, Any]],
+    engagement_metrics: Optional[Dict[str, Any]],
+    submitted_to_rss: bool = False,
+    creator_attribution: Optional[str] = None,
+) -> None:
+    """Persist or update the canonical episode document in Firestore."""
+    if not db:
+        return
+    try:
+        episode_doc = _prepare_episode_document(
+            job_id,
+            subscriber_id,
+            request_data,
+            result_data,
+            metadata_extended,
+            engagement_metrics,
+            submitted_to_rss,
+            creator_attribution,
+        )
+        episode_id = episode_doc["episode_id"]
+        episode_ref = db.collection(EPISODE_COLLECTION_NAME).document(episode_id)
+        existing = episode_ref.get()
+        if existing.exists:
+            existing_data = existing.to_dict() or {}
+            episode_doc.setdefault("created_at", existing_data.get("created_at"))
+        episode_ref.set(episode_doc, merge=True)
+        print(f"🗃️ Episode catalog updated for {episode_id}")
+    except Exception as e:
+        print(f"⚠️ Failed to upsert episode document for job {job_id}: {e}")
+
+def _ensure_episode_document_from_job(job_id: str, job_payload: Dict[str, Any]) -> None:
+    """Ensure an episode record exists for a previously-generated job."""
+    if not isinstance(job_payload, dict):
+        return
+    result_data = job_payload.get("result") or {}
+    if not result_data:
+        return
+    request_data = job_payload.get("request") or {}
+    metadata_extended = job_payload.get("metadata_extended") or {}
+    engagement_metrics = job_payload.get("engagement_metrics") or {}
+    submitted_to_rss = job_payload.get("submitted_to_rss", False)
+    creator_attribution = job_payload.get("creator_attribution")
+    _upsert_episode_document(
+        job_id,
+        job_payload.get("subscriber_id"),
+        request_data,
+        result_data,
+        metadata_extended,
+        engagement_metrics,
+        submitted_to_rss=submitted_to_rss,
+        creator_attribution=creator_attribution,
+    )
+
+def _update_episode_submission_state(
+    canonical: Optional[str],
+    submitted: bool,
+    creator_attribution: Optional[str] = None,
+) -> None:
+    """Keep the episode catalog in sync with RSS submission status."""
+    if not db or not canonical:
+        return
+    update_payload: Dict[str, Any] = {
+        "submitted_to_rss": submitted,
+        "visibility": "public" if submitted else "private",
+        "updated_at": datetime.utcnow().isoformat(),
+    }
+    if creator_attribution is not None:
+        update_payload["creator_attribution"] = creator_attribution
+    timestamp_field = "rss_submitted_at" if submitted else "rss_removed_at"
+    update_payload[timestamp_field] = datetime.utcnow().isoformat()
+    db.collection(EPISODE_COLLECTION_NAME).document(canonical).set(update_payload, merge=True)
+
+def _build_rss_item_data(podcast_data: Dict[str, Any], subscriber_data: Optional[Dict[str, Any]], attribution_initials: Optional[str]) -> Dict[str, Any]:
+    """Prepare structured metadata required to render an RSS item."""
+    result = podcast_data.get("result", {})
+    request_data = podcast_data.get("request", {})
+
+    canonical = result.get("canonical_filename")
+    category_info = _extract_category_from_filename(canonical, request_data.get("category"))
+
+    audio_url = result.get("audio_url", "")
+    thumbnail_url = result.get("thumbnail_url") or DEFAULT_ARTWORK_URL
+    transcript_url = result.get("transcript_url")
+    description_markdown = _strip_legacy_tagline(result.get("description", ""))
+
+    description_html = _markdown_to_html(description_markdown)
+    if transcript_url:
+        description_html += f'\n<p><a href="{transcript_url}">View full transcript</a></p>'
+    if attribution_initials:
+        description_html += f"\n<p>Creator: {attribution_initials}</p>"
+
+    summary_text = extract_itunes_summary(description_markdown or "")
+
+    generated_at = result.get("generated_at") or podcast_data.get("updated_at") or podcast_data.get("created_at")
+    pub_date = _parse_iso_datetime(generated_at)
+
+    guid = canonical or result.get("topic") or podcast_data.get("job_id")
+
+    return {
+        "title": result.get("title", "Untitled Episode"),
+        "description_html": description_html,
+        "summary": summary_text or result.get("title", ""),
+        "audio_url": audio_url,
+        "thumbnail_url": thumbnail_url,
+        "transcript_url": transcript_url,
+        "category_slug": category_info["slug"],
+        "category_label": category_info["label"],
+        "canonical": canonical,
+        "guid": guid,
+        "pub_date": pub_date,
+        "duration_display": _format_duration(result.get("duration")),
+        "episode_link": f"{EPISODE_BASE_URL}/{canonical}" if canonical else EPISODE_BASE_URL,
+        "attribution": attribution_initials,
+    }
+
+def _append_cdata_element(parent: Element, tag: str, text: str) -> Element:
+    """Append an element whose contents will be serialized as CDATA."""
+    safe_text = text.replace("]]>", "]]]]><![CDATA[>")
+    element = SubElement(parent, tag)
+    element.text = f"<![CDATA[{safe_text}]]>"
+    return element
+
+def _create_rss_item_element(item_data: Dict[str, Any], audio_size: int) -> Element:
+    """Create a fully populated RSS <item> element."""
+    item_el = Element("item")
+
+    _append_cdata_element(item_el, "title", item_data["title"])
+    SubElement(item_el, "link").text = item_data["episode_link"]
+
+    _append_cdata_element(item_el, "description", item_data["description_html"])
+    _append_cdata_element(item_el, f"{{{RSS_NAMESPACES['itunes']}}}summary", item_data["summary"])
+    _append_cdata_element(item_el, f"{{{RSS_NAMESPACES['content']}}}encoded", item_data["description_html"])
+
+    _append_cdata_element(item_el, f"{{{RSS_NAMESPACES['itunes']}}}author", "CopernicusAI")
+
+    SubElement(
+        item_el,
+        "enclosure",
+        attrib={
+            "url": item_data["audio_url"],
+            "type": "audio/mpeg",
+            "length": str(max(audio_size, 1)),
+        },
+    )
+
+    guid_el = SubElement(item_el, "guid", attrib={"isPermaLink": "false"})
+    guid_el.text = item_data["guid"]
+
+    SubElement(item_el, "pubDate").text = format_datetime(item_data["pub_date"])
+
+    itunes_image = SubElement(item_el, f"{{{RSS_NAMESPACES['itunes']}}}image")
+    itunes_image.set("href", item_data["thumbnail_url"])
+
+    media_thumb = SubElement(item_el, f"{{{RSS_NAMESPACES['media']}}}thumbnail")
+    media_thumb.set("url", item_data["thumbnail_url"])
+
+    media_content = SubElement(item_el, f"{{{RSS_NAMESPACES['media']}}}content")
+    media_content.set("url", item_data["thumbnail_url"])
+    media_content.set("medium", "image")
+
+    SubElement(item_el, f"{{{RSS_NAMESPACES['itunes']}}}duration").text = item_data["duration_display"]
+    SubElement(item_el, f"{{{RSS_NAMESPACES['itunes']}}}explicit").text = "false"
+    SubElement(item_el, f"{{{RSS_NAMESPACES['itunes']}}}season").text = "1"
+
+    episode_number = 1
+    canonical = item_data["canonical"]
+    if canonical and canonical.split("-")[-1].isdigit():
+        episode_number = int(canonical.split("-")[-1])
+    SubElement(item_el, f"{{{RSS_NAMESPACES['itunes']}}}episode").text = str(episode_number)
+
+    _append_cdata_element(item_el, "category", item_data["category_label"])
+
+    if item_data["attribution"]:
+        person_el = SubElement(item_el, f"{{{RSS_NAMESPACES['podcast']}}}person")
+        person_el.set("role", "contributor")
+        person_el.text = item_data["attribution"]
+
+    return item_el
+
+async def _update_rss_feed(podcast_data: Dict[str, Any], subscriber_data: Optional[Dict[str, Any]], submit_to_rss: bool, attribution_initials: Optional[str]) -> None:
+    """Insert or remove an episode entry in the shared RSS feed on GCS."""
+
+    def _sync_update():
+        from google.cloud import storage
+        from google.api_core.exceptions import PreconditionFailed
+
+        storage_client = storage.Client()
+        bucket = storage_client.bucket(RSS_BUCKET_NAME)
+        blob = bucket.blob(RSS_FEED_BLOB_NAME)
+
+        if not blob.exists():
+            raise HTTPException(status_code=500, detail="RSS feed file not found in storage.")
+
+        blob.reload()
+        current_generation = blob.generation
+        xml_bytes = blob.download_as_bytes()
+
+        root = ET.fromstring(xml_bytes)
+        channel = root.find("channel")
+        if channel is None:
+            raise HTTPException(status_code=500, detail="RSS feed missing channel element.")
+
+        result = podcast_data.get("result", {})
+        canonical = result.get("canonical_filename")
+        guid = canonical or result.get("topic") or podcast_data.get("job_id")
+        if not guid:
+            raise HTTPException(status_code=400, detail="Unable to determine canonical identifier for podcast.")
+
+        existing_items: List[Element] = []
+        for item in channel.findall("item"):
+            guid_el = item.find("guid")
+            guid_text = guid_el.text if guid_el is not None else None
+            if guid_text == guid:
+                continue
+            existing_items.append(item)
+
+        if submit_to_rss:
+            item_data = _build_rss_item_data(podcast_data, subscriber_data, attribution_initials)
+            audio_blob_name = _extract_blob_name_from_url(item_data["audio_url"])
+            audio_size = 1
+            if audio_blob_name:
+                audio_blob = bucket.blob(audio_blob_name)
+                if audio_blob.exists():
+                    audio_blob.reload()
+                    audio_size = audio_blob.size or 1
+            new_item = _create_rss_item_element(item_data, audio_size)
+            existing_items.append(new_item)
+
+        def item_sort_key(item: Element):
+            pub_el = item.find("pubDate")
+            if pub_el is not None and pub_el.text:
+                try:
+                    return parsedate_to_datetime(pub_el.text)
+                except Exception:
+                    pass
+            return datetime.min
+
+        existing_items.sort(key=item_sort_key, reverse=True)
+
+        for old_item in channel.findall("item"):
+            channel.remove(old_item)
+        for sorted_item in existing_items:
+            channel.append(sorted_item)
+
+        new_xml_bytes = ET.tostring(root, encoding="utf-8", xml_declaration=True)
+        # Restore CDATA markers (ElementTree escapes them by default)
+        xml_text = new_xml_bytes.decode("utf-8")
+        xml_text = xml_text.replace("&lt;![CDATA[", "<![CDATA[").replace("]]&gt;", "]]>")
+        new_xml_bytes = xml_text.encode("utf-8")
+        try:
+            blob.upload_from_string(
+                new_xml_bytes,
+                content_type="application/rss+xml",
+                if_generation_match=current_generation,
+            )
+        except PreconditionFailed:
+            raise HTTPException(status_code=409, detail="RSS feed was updated concurrently. Please retry.")
+
+    await asyncio.to_thread(_sync_update)
 
 @app.post("/api/subscribers/podcasts/submit-to-rss")
 async def submit_podcast_to_rss(submission: PodcastSubmission):
@@ -2898,30 +3900,33 @@ async def submit_podcast_to_rss(submission: PodcastSubmission):
         if not subscriber_id:
             raise HTTPException(status_code=400, detail="Podcast not associated with a subscriber")
         
+        _ensure_episode_document_from_job(submission.podcast_id, podcast_data)
+        canonical = (podcast_data.get('result') or {}).get('canonical_filename')
+        
         # Update podcast to mark as submitted to RSS
         if submission.submit_to_rss:
             # Get subscriber attribution info if they opted in
             subscriber_doc = db.collection('subscribers').document(subscriber_id).get()
             creator_attribution = None
+            subscriber_payload = subscriber_doc.to_dict() if subscriber_doc.exists else None
             
             if subscriber_doc.exists:
-                subscriber_data = subscriber_doc.to_dict()
-                
+                subscriber_data = subscriber_payload
                 # Check if user wants attribution
                 if subscriber_data.get('show_attribution', False):
-                    # Build attribution string
-                    attribution_parts = []
-                    
-                    if subscriber_data.get('display_name'):
-                        attribution_parts.append(subscriber_data['display_name'])
-                    elif subscriber_data.get('initials'):
-                        attribution_parts.append(subscriber_data['initials'])
-                    
-                    if attribution_parts:
-                        creator_attribution = attribution_parts[0]
+                    initials = subscriber_data.get('initials')
+                    if initials:
+                        creator_attribution = initials
+                    elif subscriber_data.get('display_name'):
+                        display_name = subscriber_data['display_name']
+                        creator_attribution = "".join(part[0].upper() for part in display_name.split() if part).strip() or None
+
+            # Update RSS feed with new entry before committing Firestore changes
+            await _update_rss_feed(podcast_data, subscriber_payload, True, creator_attribution)
                 
-                # Update subscriber's RSS submission count
-                new_count = subscriber_data.get('podcasts_submitted_to_rss', 0) + 1
+            # Update subscriber's RSS submission count
+            if subscriber_payload is not None:
+                new_count = subscriber_payload.get('podcasts_submitted_to_rss', 0) + 1
                 db.collection('subscribers').document(subscriber_id).update({
                     'podcasts_submitted_to_rss': new_count
                 })
@@ -2936,6 +3941,7 @@ async def submit_podcast_to_rss(submission: PodcastSubmission):
                 update_data['creator_attribution'] = creator_attribution
             
             db.collection('podcast_jobs').document(submission.podcast_id).update(update_data)
+            _update_episode_submission_state(canonical, True, creator_attribution)
             
             print(f"✅ Podcast {submission.podcast_id} submitted to RSS feed" + 
                   (f" with attribution: {creator_attribution}" if creator_attribution else " (no attribution)"))
@@ -2948,10 +3954,21 @@ async def submit_podcast_to_rss(submission: PodcastSubmission):
             }
         else:
             # Remove from RSS feed
+            subscriber_doc = db.collection('subscribers').document(subscriber_id).get()
+            await _update_rss_feed(podcast_data, subscriber_doc.to_dict() if subscriber_doc.exists else None, False, None)
+
             db.collection('podcast_jobs').document(submission.podcast_id).update({
                 'submitted_to_rss': False,
                 'rss_removed_at': datetime.utcnow().isoformat()
             })
+            _update_episode_submission_state(canonical, False, None)
+
+            if subscriber_doc.exists:
+                subscriber_data = subscriber_doc.to_dict()
+                current_count = subscriber_data.get('podcasts_submitted_to_rss', 0)
+                db.collection('subscribers').document(subscriber_id).update({
+                    'podcasts_submitted_to_rss': max(current_count - 1, 0)
+                })
             
             print(f"✅ Podcast {submission.podcast_id} removed from RSS feed")
             
@@ -3113,12 +4130,15 @@ async def delete_subscriber_podcast(podcast_id: str):
         
         podcast_data = podcast_doc.to_dict()
         subscriber_id = podcast_data.get('subscriber_id')
+        canonical = (podcast_data.get('result') or {}).get('canonical_filename')
         
         if not subscriber_id:
             raise HTTPException(status_code=400, detail="Podcast not associated with a subscriber")
         
         # Delete the podcast
         db.collection('podcast_jobs').document(podcast_id).delete()
+        if canonical:
+            db.collection(EPISODE_COLLECTION_NAME).document(canonical).delete()
         
         # Update subscriber's podcast count
         subscriber_doc = db.collection('subscribers').document(subscriber_id).get()

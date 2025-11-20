@@ -48,6 +48,28 @@
         </div>
     </header>
 
+    <!-- Search Bar -->
+    <div class="bg-white border-b border-gray-200 sticky top-[73px] z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <form id="search-form" class="max-w-2xl mx-auto" onsubmit="handleSearch(event)">
+                <div class="flex gap-2">
+                    <input 
+                        type="text" 
+                        id="search-input"
+                        placeholder="Search episodes by title, description, or transcript..."
+                        class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-base"
+                    >
+                    <button 
+                        type="submit"
+                        class="bg-purple-600 text-white hover:bg-purple-700 px-6 py-3 rounded-lg font-medium transition duration-200 whitespace-nowrap"
+                    >
+                        🔍 Search
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <!-- Category Filter -->
     <div class="bg-white border-b border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
@@ -206,6 +228,14 @@
                     ${episodesHtml}
                 </div>
             `;
+        }
+
+        function handleSearch(event) {
+            event.preventDefault();
+            const searchQuery = document.getElementById('search-input').value.trim();
+            if (searchQuery) {
+                window.location.href = `/search.html?q=${encodeURIComponent(searchQuery)}`;
+            }
         }
 
         function playEpisode(audioUrl, title) {
