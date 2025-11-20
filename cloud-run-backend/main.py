@@ -3031,6 +3031,18 @@ async def search_episodes(q: str, limit: int = 100, search_transcripts: bool = F
             if matches:
                 payload = data.copy()
                 payload['episode_id'] = doc.id
+                
+                # Ensure episode_link is set (construct if missing)
+                if not payload.get('episode_link') and payload.get('slug'):
+                    payload['episode_link'] = f"{EPISODE_BASE_URL}/{payload.get('slug')}"
+                elif not payload.get('episode_link') and payload.get('episode_id'):
+                    payload['episode_link'] = f"{EPISODE_BASE_URL}/{payload.get('episode_id')}"
+                
+                # Ensure audio_url is included (use audio_url field)
+                if not payload.get('audio_url'):
+                    # Try alternative field names
+                    payload['audio_url'] = data.get('audioUrl') or data.get('audio_url') or ''
+                
                 # Add match context for highlighting
                 payload['match_score'] = (
                     sum(1 for term in search_terms if term in title) * 3 +
