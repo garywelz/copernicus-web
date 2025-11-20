@@ -236,7 +236,24 @@
 
                 // Render episodes
                 const episodesHtml = episodes.map(episode => {
-                    const categoryConfig = CATEGORIES[episode.category_slug || episode.category?.toLowerCase().replace(/\s+/g, '_')] || CATEGORIES.science;
+                    // Better category mapping - try multiple field variations
+                    let categoryKey = null;
+                    if (episode.category_slug) {
+                        categoryKey = episode.category_slug.toLowerCase();
+                    } else if (episode.category) {
+                        // Convert category label to slug
+                        const catStr = episode.category.toLowerCase().trim();
+                        categoryKey = catStr.replace(/\s+/g, '_');
+                        // Handle common variations
+                        if (catStr.includes('biology')) categoryKey = 'biology';
+                        else if (catStr.includes('chemistry')) categoryKey = 'chemistry';
+                        else if (catStr.includes('physics')) categoryKey = 'physics';
+                        else if (catStr.includes('mathematics') || catStr.includes('math')) categoryKey = 'mathematics';
+                        else if (catStr.includes('computer') || catStr.includes('computing')) categoryKey = 'computer_science';
+                        else if (catStr.includes('news')) categoryKey = 'news';
+                        else if (catStr.includes('science')) categoryKey = 'science';
+                    }
+                    const categoryConfig = CATEGORIES[categoryKey] || CATEGORIES.science;
                     
                     // Extract plain text from description for preview
                     const descriptionPlain = stripHtml(episode.description_html || episode.description_markdown || episode.summary || '');
@@ -286,7 +303,7 @@
                                 <div class="flex gap-2 mt-4">
                                     ${episode.audio_url ? `
                                     <button 
-                                        onclick="playEpisode('${episode.audio_url.replace(/'/g, "\\'")}', ${JSON.stringify(episode.title || 'Untitled')}, ${episode.transcript_timestamp || 0})"
+                                        onclick="playEpisode(${JSON.stringify(episode.audio_url)}, ${JSON.stringify(episode.title || 'Untitled')}, ${episode.transcript_timestamp || 0})"
                                         class="flex-1 bg-purple-600 text-white hover:bg-purple-700 px-4 py-2 rounded-lg font-medium transition duration-200"
                                     >
                                         ${episode.transcript_timestamp ? '▶️ Play from Match' : '🎧 Listen Now'}
@@ -300,17 +317,9 @@
                                         🔊 Audio Unavailable
                                     </button>
                                     `}
-                                    ${episode.episode_link ? `
+                                    ${(episode.episode_link || episode.slug || episode.episode_id) ? `
                                     <a 
-                                        href="${episode.episode_link}" 
-                                        target="_blank"
-                                        class="bg-gray-100 text-gray-700 hover:bg-gray-200 px-4 py-2 rounded-lg font-medium transition duration-200 whitespace-nowrap"
-                                    >
-                                        View Page
-                                    </a>
-                                    ` : episode.slug ? `
-                                    <a 
-                                        href="/episodes/${episode.slug || episode.episode_id}" 
+                                        href="${episode.episode_link || `/api/episodes?episodeId=${encodeURIComponent(episode.slug || episode.episode_id)}`}" 
                                         target="_blank"
                                         class="bg-gray-100 text-gray-700 hover:bg-gray-200 px-4 py-2 rounded-lg font-medium transition duration-200 whitespace-nowrap"
                                     >
@@ -348,12 +357,23 @@
         }
 
         function playEpisode(audioUrl, title, startTime = 0) {
-            if (!audioUrl) {
+            if (!audioUrl || audioUrl.trim() === '') {
                 alert('Audio URL not available for this episode.');
+                console.error('No audio URL provided:', { audioUrl, title });
                 return;
             }
+            
+            // Clean and validate audio URL
+            const cleanAudioUrl = audioUrl.trim();
+            if (!cleanAudioUrl.startsWith('http')) {
+                alert('Invalid audio URL format.');
+                console.error('Invalid audio URL:', cleanAudioUrl);
+                return;
+            }
+            
             const modal = document.createElement('div');
             modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4';
+            modal.id = 'episode-audio-modal';
             const timeDisplay = startTime > 0 ? formatTime(startTime) : '';
             modal.innerHTML = `
                 <div class="bg-white rounded-lg p-6 max-w-2xl w-full shadow-2xl">
@@ -363,7 +383,7 @@
                             ${startTime > 0 ? `<p class="text-sm text-purple-600 mt-1">🎯 Starting at ${timeDisplay}</p>` : ''}
                         </div>
                         <button 
-                            onclick="this.closest('div.fixed').remove()" 
+                            onclick="document.getElementById('episode-audio-modal').remove()" 
                             class="text-gray-400 hover:text-gray-600 flex-shrink-0"
                         >
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -371,14 +391,14 @@
                             </svg>
                         </button>
                     </div>
-                    <audio id="episode-audio" controls autoplay class="w-full mb-4">
-                        <source src="${audioUrl}" type="audio/mpeg">
+                    <audio id="episode-audio-player" controls class="w-full mb-4" preload="metadata">
+                        <source src="${cleanAudioUrl.replace(/"/g, '&quot;')}" type="audio/mpeg">
                         Your browser does not support the audio element.
                     </audio>
                     ${startTime > 0 ? `
                     <div class="mb-4 text-center">
                         <button 
-                            onclick="document.getElementById('episode-audio').currentTime = ${startTime}; document.getElementById('episode-audio').play();"
+                            id="jump-to-match-btn"
                             class="bg-purple-600 text-white hover:bg-purple-700 px-4 py-2 rounded-lg font-medium transition duration-200"
                         >
                             ⏩ Jump to Match (${timeDisplay})
@@ -387,7 +407,7 @@
                     ` : ''}
                     <div class="text-center">
                         <a 
-                            href="${audioUrl}" 
+                            href="${cleanAudioUrl.replace(/"/g, '&quot;')}" 
                             download 
                             class="inline-block text-purple-600 hover:text-purple-700 font-medium text-sm"
                         >
@@ -398,16 +418,48 @@
             `;
             document.body.appendChild(modal);
             
-            // Set audio start time if provided
-            const audioElement = modal.querySelector('#episode-audio');
-            if (audioElement && startTime > 0) {
+            // Set up audio player with start time
+            const audioElement = modal.querySelector('#episode-audio-player');
+            if (audioElement) {
+                let audioLoaded = false;
+                
+                const setStartTime = () => {
+                    if (startTime > 0 && audioElement.readyState >= 2) {
+                        audioElement.currentTime = startTime;
+                        audioLoaded = true;
+                    }
+                };
+                
+                // Try to play and set start time
                 audioElement.addEventListener('loadedmetadata', () => {
-                    audioElement.currentTime = startTime;
+                    if (startTime > 0) {
+                        audioElement.currentTime = startTime;
+                        audioLoaded = true;
+                    }
                 });
-                // Also try to set it directly in case metadata is already loaded
-                if (audioElement.readyState >= 1) {
-                    audioElement.currentTime = startTime;
+                
+                audioElement.addEventListener('canplay', () => {
+                    if (startTime > 0 && !audioLoaded) {
+                        audioElement.currentTime = startTime;
+                        audioLoaded = true;
+                    }
+                });
+                
+                // Set up jump button
+                if (startTime > 0) {
+                    const jumpBtn = modal.querySelector('#jump-to-match-btn');
+                    if (jumpBtn) {
+                        jumpBtn.addEventListener('click', () => {
+                            audioElement.currentTime = startTime;
+                            audioElement.play().catch(e => console.error('Play error:', e));
+                        });
+                    }
                 }
+                
+                // Try to autoplay
+                audioElement.play().catch(e => {
+                    console.log('Autoplay blocked, user interaction required:', e);
+                });
             }
             
             modal.addEventListener('click', (e) => {
