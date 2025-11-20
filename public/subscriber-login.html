@@ -223,7 +223,7 @@
                 <input type="password" id="regPassword" name="password" required>
             </div>
             
-            <button type="submit" class="btn btn-secondary" id="registerBtn">Create Account</button>
+            <button type="submit" class="btn" id="registerBtn">Create Account</button>
         </form>
         
         <div class="links">
@@ -253,6 +253,26 @@
 
     <script>
         const API_BASE = 'https://copernicus-podcast-api-204731194849.us-central1.run.app';
+        
+        // Check if we're in registration-only mode
+        const urlParams = new URLSearchParams(window.location.search);
+        const isRegistrationMode = urlParams.get('mode') === 'register' || window.location.hash === '#register';
+        
+        // Hide login form if in registration mode
+        if (isRegistrationMode) {
+            document.getElementById('loginForm').style.display = 'none';
+            document.querySelector('.divider').style.display = 'none';
+            document.querySelector('.logo p').textContent = 'Create Your Account';
+            
+            // Add "Already have an account?" link before the links section
+            const linksSection = document.querySelector('.links');
+            const signInLink = document.createElement('div');
+            signInLink.style.textAlign = 'center';
+            signInLink.style.marginTop = '15px';
+            signInLink.style.marginBottom = '10px';
+            signInLink.innerHTML = '<span style="color: #666;">Already have an account? </span><a href="/subscriber-login.html" style="color: #667eea; text-decoration: none; font-weight: 500;">Sign In</a>';
+            linksSection.parentNode.insertBefore(signInLink, linksSection);
+        }
         
         function showMessage(text, type = 'success') {
             const messageEl = document.getElementById('message');
