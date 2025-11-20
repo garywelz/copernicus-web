@@ -12,6 +12,10 @@
   ],
   "routes": [
     {
+      "src": "/api/episodes/(?<episodeId>[^/]+)",
+      "dest": "/api/episodes?episodeId=$episodeId"
+    },
+    {
       "src": "/api/(.*)",
       "dest": "/api/$1"
     },
@@ -24,12 +28,24 @@
       "dest": "/public/subscriber-login.html"
     },
     {
+      "src": "/subscriber-create-account.html",
+      "dest": "/subscriber-create-account.html"
+    },
+    {
       "src": "/dashboard",
       "dest": "/public/subscriber-dashboard.html"
     },
     {
       "src": "/login",
       "dest": "/public/subscriber-login.html"
+    },
+    {
+      "src": "/create-account",
+      "dest": "/subscriber-create-account.html"
+    },
+    {
+      "src": "/episodes/(?<episodeId>[^/]+)",
+      "dest": "/api/episodes?episodeId=$episodeId"
     },
     {
       "src": "/create",
@@ -40,7 +56,7 @@
     },
     {
       "src": "/(.*)",
-      "dest": "/public/$1"
+      "dest": "/$1"
     }
   ]
 } 
