@@ -202,6 +202,11 @@
                 const data = await response.json();
                 const episodes = data.episodes || [];
                 
+                // Debug: Log first episode to see data structure
+                if (episodes.length > 0) {
+                    console.log('Sample episode data:', episodes[0]);
+                }
+                
                 // Update search info
                 document.getElementById('search-info').innerHTML = `
                     <div class="flex items-center justify-between">
@@ -236,23 +241,48 @@
 
                 // Render episodes
                 const episodesHtml = episodes.map(episode => {
-                    // Better category mapping - try multiple field variations
+                    // Extract category from filename/slug pattern (e.g., "ever-bio-25007" -> "bio" -> "Biology")
                     let categoryKey = null;
-                    if (episode.category_slug) {
-                        categoryKey = episode.category_slug.toLowerCase();
-                    } else if (episode.category) {
-                        // Convert category label to slug
+                    
+                    // Primary method: Extract from slug/filename (most reliable)
+                    const slug = episode.slug || episode.episode_id || '';
+                    if (slug) {
+                        // Pattern: prefix-categorycode-number (e.g., "ever-bio-25007")
+                        const parts = slug.split('-');
+                        if (parts.length >= 2) {
+                            const catCode = parts[1].toLowerCase();
+                            
+                            // Map category codes from filename
+                            if (catCode === 'bio') categoryKey = 'biology';
+                            else if (catCode === 'chem') categoryKey = 'chemistry';
+                            else if (catCode === 'compsci') categoryKey = 'computer_science';
+                            else if (catCode === 'math') categoryKey = 'mathematics';
+                            else if (catCode === 'phys') categoryKey = 'physics';
+                        }
+                    }
+                    
+                    // Fallback: try category_slug field
+                    if (!categoryKey && episode.category_slug) {
+                        const catSlug = episode.category_slug.toLowerCase().trim();
+                        if (catSlug === 'biology' || catSlug === 'bio') categoryKey = 'biology';
+                        else if (catSlug === 'chemistry' || catSlug === 'chem') categoryKey = 'chemistry';
+                        else if (catSlug === 'physics' || catSlug === 'phys') categoryKey = 'physics';
+                        else if (catSlug === 'mathematics' || catSlug === 'math') categoryKey = 'mathematics';
+                        else if (catSlug === 'computer_science' || catSlug === 'compsci') categoryKey = 'computer_science';
+                        else categoryKey = catSlug;
+                    }
+                    
+                    // Fallback: try category label field
+                    if (!categoryKey && episode.category) {
                         const catStr = episode.category.toLowerCase().trim();
-                        categoryKey = catStr.replace(/\s+/g, '_');
-                        // Handle common variations
                         if (catStr.includes('biology')) categoryKey = 'biology';
                         else if (catStr.includes('chemistry')) categoryKey = 'chemistry';
                         else if (catStr.includes('physics')) categoryKey = 'physics';
                         else if (catStr.includes('mathematics') || catStr.includes('math')) categoryKey = 'mathematics';
                         else if (catStr.includes('computer') || catStr.includes('computing')) categoryKey = 'computer_science';
                         else if (catStr.includes('news')) categoryKey = 'news';
-                        else if (catStr.includes('science')) categoryKey = 'science';
                     }
+                    
                     const categoryConfig = CATEGORIES[categoryKey] || CATEGORIES.science;
                     
                     // Extract plain text from description for preview
@@ -319,8 +349,7 @@
                                     `}
                                     ${(episode.episode_link || episode.slug || episode.episode_id) ? `
                                     <a 
-                                        href="${episode.episode_link || `/api/episodes?episodeId=${encodeURIComponent(episode.slug || episode.episode_id)}`}" 
-                                        target="_blank"
+                                        href="/api/episodes?episodeId=${encodeURIComponent(episode.slug || episode.episode_id || episode.episode_link.split('/').pop())}" 
                                         class="bg-gray-100 text-gray-700 hover:bg-gray-200 px-4 py-2 rounded-lg font-medium transition duration-200 whitespace-nowrap"
                                     >
                                         View Page
