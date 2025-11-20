@@ -202,31 +202,8 @@
             <button type="submit" class="btn" id="loginBtn">Sign In</button>
         </form>
         
-        <div class="divider">
-            <span>or</span>
-        </div>
-        
-        <!-- Registration Form -->
-        <form id="registerForm">
-            <div class="form-group">
-                <label for="regEmail">Email Address</label>
-                <input type="email" id="regEmail" name="email" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="regName">Full Name</label>
-                <input type="text" id="regName" name="name" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="regPassword">Password</label>
-                <input type="password" id="regPassword" name="password" required>
-            </div>
-            
-            <button type="submit" class="btn" id="registerBtn">Create Account</button>
-        </form>
-        
         <div class="links">
+            <p style="color: #666; margin-bottom: 10px;">Don't have an account? <a href="/subscriber-create-account.html">Create Account</a></p>
             <a href="#" onclick="showPasswordReset()" style="margin-bottom: 10px; display: block;">Forgot Password?</a>
             <a href="https://www.copernicusai.fyi">← Back to Main Site</a>
         </div>
@@ -346,54 +323,6 @@
             localStorage.removeItem('subscriber_name');
         } catch (e) {}
 
-        // Registration form
-        document.getElementById('registerForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const registerBtn = document.getElementById('registerBtn');
-            registerBtn.dataset.originalText = registerBtn.textContent;
-            setLoading(registerBtn, true);
-            
-            const formData = new FormData(e.target);
-            const registerData = {
-                email: formData.get('email'),
-                name: formData.get('name'),
-                password: formData.get('password'),
-                subscription_tier: 'free'
-            };
-            
-            try {
-                const response = await fetch(`${API_BASE}/api/subscribers/register`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(registerData)
-                });
-                
-                const result = await response.json();
-                
-                if (response.ok) {
-                    showMessage('Account created successfully! You can now sign in.', 'success');
-                    
-                    // Clear form
-                    e.target.reset();
-                    
-                    // Switch to login
-                    setTimeout(() => {
-                        document.getElementById('email').value = registerData.email;
-                        document.getElementById('password').value = registerData.password;
-                    }, 1000);
-                } else {
-                    showMessage(result.detail || 'Registration failed. Please try again.', 'error');
-                }
-            } catch (error) {
-                console.error('Registration error:', error);
-                showMessage('Network error. Please try again.', 'error');
-            } finally {
-                setLoading(registerBtn, false);
-            }
-        });
         
         // Password Reset Functions
         function showPasswordReset() {

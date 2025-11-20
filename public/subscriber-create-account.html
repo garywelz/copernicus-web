@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Copernicus AI - Create Account</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            padding: 40px;
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .logo h1 {
+            color: #333;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .logo p {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+        }
+        
+        input[type="email"], input[type="password"], input[type="text"] {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e1e5e9;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+        
+        input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            margin-bottom: 15px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .message {
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        
+        .message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .links {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .links a {
+            color: #667eea;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <h1>🔬 Copernicus AI</h1>
+            <p>Create Your Account</p>
+        </div>
+        
+        <div id="message" class="message" style="display: none;"></div>
+        
+        <!-- Registration Form -->
+        <form id="registerForm">
+            <div class="form-group">
+                <label for="regEmail">Email Address</label>
+                <input type="email" id="regEmail" name="email" placeholder="Enter your email address" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="regName">Full Name</label>
+                <input type="text" id="regName" name="name" placeholder="Enter your full name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="regPassword">Password</label>
+                <input type="password" id="regPassword" name="password" placeholder="Create a password" required>
+            </div>
+            
+            <button type="submit" class="btn" id="registerBtn">Create Account</button>
+        </form>
+        
+        <div class="links">
+            <p style="color: #666; margin-bottom: 10px;">Already have an account? <a href="/subscriber-login.html">Sign In</a></p>
+            <a href="https://www.copernicusai.fyi">← Back to Main Site</a>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'https://copernicus-podcast-api-204731194849.us-central1.run.app';
+        
+        function showMessage(text, type = 'success') {
+            const messageEl = document.getElementById('message');
+            messageEl.textContent = text;
+            messageEl.className = `message ${type}`;
+            messageEl.style.display = 'block';
+            
+            setTimeout(() => {
+                messageEl.style.display = 'none';
+            }, 5000);
+        }
+        
+        function setLoading(button, loading) {
+            button.disabled = loading;
+            button.textContent = loading ? 'Please wait...' : button.dataset.originalText;
+        }
+
+        // Clear any stale auth on page load
+        try {
+            localStorage.removeItem('subscriber');
+            localStorage.removeItem('subscriber_id');
+            localStorage.removeItem('subscriber_email');
+            localStorage.removeItem('subscriber_name');
+        } catch (e) {}
+
+        // Registration form
+        document.getElementById('registerForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const registerBtn = document.getElementById('registerBtn');
+            registerBtn.dataset.originalText = registerBtn.textContent;
+            setLoading(registerBtn, true);
+            
+            const formData = new FormData(e.target);
+            const registerData = {
+                email: formData.get('email'),
+                name: formData.get('name'),
+                password: formData.get('password'),
+                subscription_tier: 'free'
+            };
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/subscribers/register`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(registerData)
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    showMessage('Account created successfully! Redirecting to sign in...', 'success');
+                    
+                    // Clear form
+                    e.target.reset();
+                    
+                    // Redirect to login page after a moment
+                    setTimeout(() => {
+                        window.location.href = '/subscriber-login.html';
+                    }, 1500);
+                } else {
+                    showMessage(result.detail || 'Registration failed. Please try again.', 'error');
+                }
+            } catch (error) {
+                console.error('Registration error:', error);
+                showMessage('Network error. Please try again.', 'error');
+            } finally {
+                setLoading(registerBtn, false);
+            }
+        });
+    </script>
+</body>
+</html>
+
