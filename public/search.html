@@ -202,9 +202,14 @@
                 const data = await response.json();
                 const episodes = data.episodes || [];
                 
-                // Debug: Log first episode to see data structure
+                // Debug: Log episode data to understand structure
+                console.log('Search API Response:', data);
                 if (episodes.length > 0) {
-                    console.log('Sample episode data:', episodes[0]);
+                    console.log('First episode full data:', JSON.stringify(episodes[0], null, 2));
+                    console.log('Slug:', episodes[0].slug, 'Episode ID:', episodes[0].episode_id);
+                    console.log('Category:', episodes[0].category, 'Category Slug:', episodes[0].category_slug);
+                    console.log('Audio URL:', episodes[0].audio_url);
+                    console.log('Episode Link:', episodes[0].episode_link);
                 }
                 
                 // Update search info
@@ -246,18 +251,30 @@
                     
                     // Primary method: Extract from slug/filename (most reliable)
                     const slug = episode.slug || episode.episode_id || '';
+                    console.log('Processing episode - Slug:', slug, 'Title:', episode.title);
+                    
                     if (slug) {
-                        // Pattern: prefix-categorycode-number (e.g., "ever-bio-25007")
+                        // Pattern: prefix-categorycode-number (e.g., "ever-bio-25007", "ever-phys-12345")
                         const parts = slug.split('-');
+                        console.log('Slug parts:', parts);
+                        
                         if (parts.length >= 2) {
                             const catCode = parts[1].toLowerCase();
+                            console.log('Category code from slug:', catCode);
                             
                             // Map category codes from filename
-                            if (catCode === 'bio') categoryKey = 'biology';
-                            else if (catCode === 'chem') categoryKey = 'chemistry';
-                            else if (catCode === 'compsci') categoryKey = 'computer_science';
-                            else if (catCode === 'math') categoryKey = 'mathematics';
-                            else if (catCode === 'phys') categoryKey = 'physics';
+                            if (catCode === 'bio') {
+                                categoryKey = 'biology';
+                            } else if (catCode === 'chem') {
+                                categoryKey = 'chemistry';
+                            } else if (catCode === 'compsci') {
+                                categoryKey = 'computer_science';
+                            } else if (catCode === 'math') {
+                                categoryKey = 'mathematics';
+                            } else if (catCode === 'phys') {
+                                categoryKey = 'physics';
+                            }
+                            console.log('Mapped category key:', categoryKey);
                         }
                     }
                     
@@ -333,7 +350,7 @@
                                 <div class="flex gap-2 mt-4">
                                     ${episode.audio_url ? `
                                     <button 
-                                        onclick="playEpisode(${JSON.stringify(episode.audio_url)}, ${JSON.stringify(episode.title || 'Untitled')}, ${episode.transcript_timestamp || 0})"
+                                        onclick="console.log('Play clicked - URL:', ${JSON.stringify(episode.audio_url)}); playEpisode(${JSON.stringify(episode.audio_url)}, ${JSON.stringify(episode.title || 'Untitled')}, ${episode.transcript_timestamp || 0})"
                                         class="flex-1 bg-purple-600 text-white hover:bg-purple-700 px-4 py-2 rounded-lg font-medium transition duration-200"
                                     >
                                         ${episode.transcript_timestamp ? '▶️ Play from Match' : '🎧 Listen Now'}
@@ -342,19 +359,20 @@
                                     <button 
                                         disabled
                                         class="flex-1 bg-gray-300 text-gray-500 px-4 py-2 rounded-lg font-medium cursor-not-allowed"
-                                        title="Audio not available"
+                                        title="Audio not available - audio_url: ${episode.audio_url || 'empty'}"
                                     >
                                         🔊 Audio Unavailable
                                     </button>
                                     `}
                                     ${(episode.episode_link || episode.slug || episode.episode_id) ? `
                                     <a 
-                                        href="/api/episodes?episodeId=${encodeURIComponent(episode.slug || episode.episode_id || episode.episode_link.split('/').pop())}" 
+                                        href="/api/episodes?episodeId=${encodeURIComponent(episode.slug || episode.episode_id || (episode.episode_link ? episode.episode_link.split('/').pop() : ''))}" 
                                         class="bg-gray-100 text-gray-700 hover:bg-gray-200 px-4 py-2 rounded-lg font-medium transition duration-200 whitespace-nowrap"
+                                        onclick="console.log('View Page clicked for:', ${JSON.stringify(episode.slug || episode.episode_id)})"
                                     >
                                         View Page
                                     </a>
-                                    ` : ''}
+                                    ` : `<span class="text-xs text-gray-400">No link available (slug: ${episode.slug || episode.episode_id || 'none'})</span>`}
                                 </div>
                             </div>
                         </div>

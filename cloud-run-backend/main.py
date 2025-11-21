@@ -3043,6 +3043,13 @@ async def search_episodes(q: str, limit: int = 100, search_transcripts: bool = F
                     # Try alternative field names
                     payload['audio_url'] = data.get('audioUrl') or data.get('audio_url') or ''
                 
+                # Ensure slug is always included for category detection
+                if not payload.get('slug') and payload.get('episode_id'):
+                    payload['slug'] = payload.get('episode_id')
+                
+                # Debug logging
+                print(f"🔍 Search result: {payload.get('title', 'No title')} - Slug: {payload.get('slug')} - Audio URL: {bool(payload.get('audio_url'))} - Episode Link: {payload.get('episode_link')}")
+                
                 # Add match context for highlighting
                 payload['match_score'] = (
                     sum(1 for term in search_terms if term in title) * 3 +
