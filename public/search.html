@@ -202,15 +202,15 @@
                 const data = await response.json();
                 const episodes = data.episodes || [];
                 
-                // Debug: Log episode data to understand structure
-                console.log('Search API Response:', data);
-                if (episodes.length > 0) {
-                    console.log('First episode full data:', JSON.stringify(episodes[0], null, 2));
-                    console.log('Slug:', episodes[0].slug, 'Episode ID:', episodes[0].episode_id);
-                    console.log('Category:', episodes[0].category, 'Category Slug:', episodes[0].category_slug);
-                    console.log('Audio URL:', episodes[0].audio_url);
-                    console.log('Episode Link:', episodes[0].episode_link);
-                }
+                // Debug: Log episode data to understand structure (commented out for production)
+                // console.log('Search API Response:', data);
+                // if (episodes.length > 0) {
+                //     console.log('First episode full data:', JSON.stringify(episodes[0], null, 2));
+                //     console.log('Slug:', episodes[0].slug, 'Episode ID:', episodes[0].episode_id);
+                //     console.log('Category:', episodes[0].category, 'Category Slug:', episodes[0].category_slug);
+                //     console.log('Audio URL:', episodes[0].audio_url);
+                //     console.log('Episode Link:', episodes[0].episode_link);
+                // }
                 
                 // Update search info
                 document.getElementById('search-info').innerHTML = `
@@ -251,16 +251,13 @@
                     
                     // Primary method: Extract from slug/filename (most reliable)
                     const slug = episode.slug || episode.episode_id || '';
-                    console.log('Processing episode - Slug:', slug, 'Title:', episode.title);
                     
                     if (slug) {
                         // Pattern: prefix-categorycode-number (e.g., "ever-bio-25007", "ever-phys-12345")
                         const parts = slug.split('-');
-                        console.log('Slug parts:', parts);
                         
                         if (parts.length >= 2) {
                             const catCode = parts[1].toLowerCase();
-                            console.log('Category code from slug:', catCode);
                             
                             // Map category codes from filename
                             if (catCode === 'bio') {
@@ -274,7 +271,6 @@
                             } else if (catCode === 'phys') {
                                 categoryKey = 'physics';
                             }
-                            console.log('Mapped category key:', categoryKey);
                         }
                     }
                     
@@ -350,8 +346,10 @@
                                 <div class="flex gap-2 mt-4">
                                     ${episode.audio_url ? `
                                     <button 
-                                        onclick="console.log('Play clicked - URL:', ${JSON.stringify(episode.audio_url)}); playEpisode(${JSON.stringify(episode.audio_url)}, ${JSON.stringify(episode.title || 'Untitled')}, ${episode.transcript_timestamp || 0})"
-                                        class="flex-1 bg-purple-600 text-white hover:bg-purple-700 px-4 py-2 rounded-lg font-medium transition duration-200"
+                                        class="play-episode-btn flex-1 bg-purple-600 text-white hover:bg-purple-700 px-4 py-2 rounded-lg font-medium transition duration-200"
+                                        data-audio-url="${(episode.audio_url || '').replace(/"/g, '&quot;')}"
+                                        data-title="${(episode.title || 'Untitled').replace(/"/g, '&quot;')}"
+                                        data-start-time="${episode.transcript_timestamp || 0}"
                                     >
                                         ${episode.transcript_timestamp ? '▶️ Play from Match' : '🎧 Listen Now'}
                                     </button>
@@ -359,7 +357,7 @@
                                     <button 
                                         disabled
                                         class="flex-1 bg-gray-300 text-gray-500 px-4 py-2 rounded-lg font-medium cursor-not-allowed"
-                                        title="Audio not available - audio_url: ${episode.audio_url || 'empty'}"
+                                        title="Audio not available"
                                     >
                                         🔊 Audio Unavailable
                                     </button>
@@ -368,11 +366,10 @@
                                     <a 
                                         href="/api/episodes?episodeId=${encodeURIComponent(episode.slug || episode.episode_id || (episode.episode_link ? episode.episode_link.split('/').pop() : ''))}" 
                                         class="bg-gray-100 text-gray-700 hover:bg-gray-200 px-4 py-2 rounded-lg font-medium transition duration-200 whitespace-nowrap"
-                                        onclick="console.log('View Page clicked for:', ${JSON.stringify(episode.slug || episode.episode_id)})"
                                     >
                                         View Page
                                     </a>
-                                    ` : `<span class="text-xs text-gray-400">No link available (slug: ${episode.slug || episode.episode_id || 'none'})</span>`}
+                                    ` : ''}
                                 </div>
                             </div>
                         </div>
@@ -515,6 +512,22 @@
                 }
             });
         }
+
+        // Set up event delegation for play buttons (since they're dynamically created)
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('play-episode-btn') || e.target.closest('.play-episode-btn')) {
+                const btn = e.target.classList.contains('play-episode-btn') ? e.target : e.target.closest('.play-episode-btn');
+                const audioUrl = btn.getAttribute('data-audio-url');
+                const title = btn.getAttribute('data-title');
+                const startTime = parseInt(btn.getAttribute('data-start-time') || '0', 10);
+                
+                if (audioUrl) {
+                    playEpisode(audioUrl, title, startTime);
+                } else {
+                    alert('Audio URL not available for this episode.');
+                }
+            }
+        });
 
         // Perform search on page load
         document.addEventListener('DOMContentLoaded', () => {
