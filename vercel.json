@@ -16,10 +16,6 @@
       "dest": "/api/episodes/$episodeId"
     },
     {
-      "src": "/api/(.*)",
-      "dest": "/api/$1"
-    },
-    {
       "src": "/subscriber-dashboard.html",
       "dest": "/public/subscriber-dashboard.html"
     },
