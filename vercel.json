@@ -12,7 +12,7 @@
   ],
   "routes": [
     {
-      "src": "/api/episodes/(?<episodeId>[^/]+)",
+      "src": "/episodes/(?<episodeId>[^/]+)",
       "dest": "/api/episodes/$episodeId"
     },
     {
@@ -46,10 +46,6 @@
     {
       "src": "/search.html",
       "dest": "/public/search.html"
-    },
-    {
-      "src": "/episodes/(?<episodeId>[^/]+)",
-      "dest": "/api/episodes/$episodeId"
     },
     {
       "src": "/create",
