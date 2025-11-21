@@ -364,7 +364,7 @@
                                     `}
                                     ${(episode.episode_link || episode.slug || episode.episode_id) ? `
                                     <a 
-                                        href="/api/episodes?episodeId=${encodeURIComponent(episode.slug || episode.episode_id || (episode.episode_link ? episode.episode_link.split('/').pop() : ''))}" 
+                                        href="/api/episodes/${encodeURIComponent(episode.slug || episode.episode_id || (episode.episode_link ? episode.episode_link.split('/').pop() : ''))}" 
                                         class="bg-gray-100 text-gray-700 hover:bg-gray-200 px-4 py-2 rounded-lg font-medium transition duration-200 whitespace-nowrap"
                                     >
                                         View Page
@@ -464,43 +464,48 @@
             
             // Set up audio player with start time
             const audioElement = modal.querySelector('#episode-audio-player');
-            if (audioElement) {
-                let audioLoaded = false;
-                
-                const setStartTime = () => {
-                    if (startTime > 0 && audioElement.readyState >= 2) {
+            if (audioElement && startTime > 0) {
+                // Wait for metadata to load before setting start time
+                const setStartTimeAndPlay = () => {
+                    if (audioElement.readyState >= 1) { // HAVE_METADATA or higher
                         audioElement.currentTime = startTime;
-                        audioLoaded = true;
+                        // Try to play
+                        audioElement.play().catch(e => {
+                            console.log('Autoplay blocked, user interaction required:', e);
+                        });
+                        return true;
                     }
+                    return false;
                 };
                 
-                // Try to play and set start time
-                audioElement.addEventListener('loadedmetadata', () => {
-                    if (startTime > 0) {
+                // Try immediately if metadata already loaded
+                if (!setStartTimeAndPlay()) {
+                    // Wait for metadata
+                    audioElement.addEventListener('loadedmetadata', () => {
                         audioElement.currentTime = startTime;
-                        audioLoaded = true;
-                    }
-                });
-                
-                audioElement.addEventListener('canplay', () => {
-                    if (startTime > 0 && !audioLoaded) {
-                        audioElement.currentTime = startTime;
-                        audioLoaded = true;
-                    }
-                });
-                
-                // Set up jump button
-                if (startTime > 0) {
-                    const jumpBtn = modal.querySelector('#jump-to-match-btn');
-                    if (jumpBtn) {
-                        jumpBtn.addEventListener('click', () => {
-                            audioElement.currentTime = startTime;
-                            audioElement.play().catch(e => console.error('Play error:', e));
+                        audioElement.play().catch(e => {
+                            console.log('Autoplay blocked:', e);
                         });
-                    }
+                    }, { once: true });
+                    
+                    // Also try on canplay in case loadedmetadata doesn't fire
+                    audioElement.addEventListener('canplay', () => {
+                        if (audioElement.currentTime === 0 || audioElement.currentTime < startTime) {
+                            audioElement.currentTime = startTime;
+                        }
+                    }, { once: true });
                 }
                 
-                // Try to autoplay
+                // Set up jump button
+                const jumpBtn = modal.querySelector('#jump-to-match-btn');
+                if (jumpBtn) {
+                    jumpBtn.addEventListener('click', () => {
+                        audioElement.currentTime = startTime;
+                        audioElement.play().catch(e => console.error('Play error:', e));
+                    });
+                }
+            } else if (audioElement) {
+                // No start time, just try to autoplay
                 audioElement.play().catch(e => {
                     console.log('Autoplay blocked, user interaction required:', e);
                 });
