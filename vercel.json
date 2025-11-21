@@ -13,7 +13,7 @@
   "routes": [
     {
       "src": "/api/episodes/(?<episodeId>[^/]+)",
-      "dest": "/api/episodes?episodeId=$episodeId"
+      "dest": "/api/episodes/$episodeId"
     },
     {
       "src": "/api/(.*)",
@@ -49,7 +49,7 @@
     },
     {
       "src": "/episodes/(?<episodeId>[^/]+)",
-      "dest": "/api/episodes?episodeId=$episodeId"
+      "dest": "/api/episodes/$episodeId"
     },
     {
       "src": "/create",
