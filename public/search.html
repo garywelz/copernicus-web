@@ -364,7 +364,7 @@
                                     `}
                                     ${(episode.episode_link || episode.slug || episode.episode_id) ? `
                                     <a 
-                                        href="/api/episodes/${encodeURIComponent(episode.slug || episode.episode_id || (episode.episode_link ? episode.episode_link.split('/').pop() : ''))}" 
+                                        href="/episodes/${encodeURIComponent(episode.slug || episode.episode_id || (episode.episode_link ? episode.episode_link.split('/').pop() : ''))}" 
                                         class="bg-gray-100 text-gray-700 hover:bg-gray-200 px-4 py-2 rounded-lg font-medium transition duration-200 whitespace-nowrap"
                                     >
                                         View Page
@@ -464,51 +464,57 @@
             
             // Set up audio player with start time
             const audioElement = modal.querySelector('#episode-audio-player');
-            if (audioElement && startTime > 0) {
-                // Wait for metadata to load before setting start time
-                const setStartTimeAndPlay = () => {
-                    if (audioElement.readyState >= 1) { // HAVE_METADATA or higher
-                        audioElement.currentTime = startTime;
-                        // Try to play
-                        audioElement.play().catch(e => {
-                            console.log('Autoplay blocked, user interaction required:', e);
-                        });
-                        return true;
-                    }
-                    return false;
-                };
-                
-                // Try immediately if metadata already loaded
-                if (!setStartTimeAndPlay()) {
-                    // Wait for metadata
-                    audioElement.addEventListener('loadedmetadata', () => {
-                        audioElement.currentTime = startTime;
-                        audioElement.play().catch(e => {
-                            console.log('Autoplay blocked:', e);
-                        });
-                    }, { once: true });
-                    
-                    // Also try on canplay in case loadedmetadata doesn't fire
-                    audioElement.addEventListener('canplay', () => {
-                        if (audioElement.currentTime === 0 || audioElement.currentTime < startTime) {
+            if (audioElement) {
+                if (startTime > 0) {
+                    // For timestamp-based playback, wait for metadata then set time before playing
+                    const initAudioWithTimestamp = () => {
+                        if (audioElement.readyState >= 2) { // HAVE_CURRENT_DATA or higher
                             audioElement.currentTime = startTime;
+                            console.log(`Audio set to start at ${startTime} seconds`);
+                            // Auto-play after setting timestamp
+                            audioElement.play().catch(e => {
+                                console.log('Autoplay blocked, user will need to click play:', e);
+                            });
+                            return true;
                         }
-                    }, { once: true });
-                }
-                
-                // Set up jump button
-                const jumpBtn = modal.querySelector('#jump-to-match-btn');
-                if (jumpBtn) {
-                    jumpBtn.addEventListener('click', () => {
-                        audioElement.currentTime = startTime;
-                        audioElement.play().catch(e => console.error('Play error:', e));
+                        return false;
+                    };
+                    
+                    // Try immediately if data already loaded
+                    if (!initAudioWithTimestamp()) {
+                        // Wait for loadedmetadata event (when duration is available)
+                        const metadataHandler = () => {
+                            audioElement.currentTime = startTime;
+                            console.log(`Audio set to start at ${startTime} seconds (from loadedmetadata)`);
+                            audioElement.play().catch(e => {
+                                console.log('Autoplay blocked:', e);
+                            });
+                        };
+                        audioElement.addEventListener('loadedmetadata', metadataHandler, { once: true });
+                        
+                        // Also handle canplaythrough for more reliability
+                        audioElement.addEventListener('canplaythrough', () => {
+                            if (audioElement.currentTime < startTime) {
+                                audioElement.currentTime = startTime;
+                                console.log(`Audio adjusted to ${startTime} seconds (from canplaythrough)`);
+                            }
+                        }, { once: true });
+                    }
+                    
+                    // Set up jump button
+                    const jumpBtn = modal.querySelector('#jump-to-match-btn');
+                    if (jumpBtn) {
+                        jumpBtn.addEventListener('click', () => {
+                            audioElement.currentTime = startTime;
+                            audioElement.play().catch(e => console.error('Play error:', e));
+                        });
+                    }
+                } else {
+                    // No start time, just try to autoplay
+                    audioElement.play().catch(e => {
+                        console.log('Autoplay blocked, user interaction required:', e);
                     });
                 }
-            } else if (audioElement) {
-                // No start time, just try to autoplay
-                audioElement.play().catch(e => {
-                    console.log('Autoplay blocked, user interaction required:', e);
-                });
             }
             
             modal.addEventListener('click', (e) => {
