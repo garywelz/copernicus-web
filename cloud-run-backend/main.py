@@ -3031,7 +3031,6 @@ async def get_public_podcasts(category: Optional[str] = None, limit: int = 500):
             # Convert string dates to datetime for proper comparison
             if isinstance(gen_at, str):
                 try:
-                    from datetime import datetime
                     # Try parsing common formats
                     for fmt in ['%Y-%m-%dT%H:%M:%S', '%a, %d %b %Y %H:%M:%S %Z', '%Y-%m-%d']:
                         try:
@@ -3048,7 +3047,6 @@ async def get_public_podcasts(category: Optional[str] = None, limit: int = 500):
             # Fallback: use string comparison or very old date
             return datetime.min if isinstance(gen_at, str) and gen_at else datetime.min
         
-        from datetime import datetime
         podcast_list.sort(key=get_sort_key, reverse=True)
         # Limit after sorting
         podcast_list = podcast_list[:limit]
