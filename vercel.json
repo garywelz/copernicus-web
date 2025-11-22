@@ -43,10 +43,18 @@
       "src": "/create-account",
       "dest": "/public/subscriber-create-account.html"
     },
-    {
-      "src": "/search.html",
-      "dest": "/public/search.html"
-    },
+          {
+            "src": "/search.html",
+            "dest": "/public/search.html"
+          },
+          {
+            "src": "/admin-dashboard.html",
+            "dest": "/public/admin-dashboard.html"
+          },
+          {
+            "src": "/admin",
+            "dest": "/public/admin-dashboard.html"
+          },
     {
       "src": "/create",
       "status": 307,

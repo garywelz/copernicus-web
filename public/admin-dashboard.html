@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CopernicusAI - Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .loading-spinner {
+            border: 3px solid #f3f4f6;
+            border-top: 3px solid #3b82f6;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="min-h-screen">
+        <!-- Header -->
+        <header class="bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h1 class="text-3xl font-bold">🔬 CopernicusAI - Admin Dashboard</h1>
+                        <p class="mt-2 text-blue-100">Manage subscribers and podcasts</p>
+                    </div>
+                    <button onclick="showApiKeyModal()" class="bg-white bg-opacity-20 hover:bg-opacity-30 px-4 py-2 rounded-lg transition duration-200">
+                        🔑 Change API Key
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- API Key Modal -->
+        <div id="apiKeyModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+            <div class="bg-white rounded-lg p-6 max-w-md w-full mx-4">
+                <h2 class="text-xl font-bold mb-4">Admin API Key</h2>
+                <p class="text-sm text-gray-600 mb-4">Enter your admin API key to access this dashboard:</p>
+                <input 
+                    type="password" 
+                    id="apiKeyInput"
+                    placeholder="Enter admin API key"
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"
+                >
+                <div class="flex gap-2">
+                    <button onclick="saveApiKey()" class="flex-1 bg-blue-600 text-white hover:bg-blue-700 px-4 py-2 rounded-lg font-medium transition duration-200">
+                        Save
+                    </button>
+                    <button onclick="hideApiKeyModal()" class="flex-1 bg-gray-200 text-gray-700 hover:bg-gray-300 px-4 py-2 rounded-lg font-medium transition duration-200">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            
+            <!-- Stats Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <div class="text-sm text-gray-500 mb-1">Total Subscribers</div>
+                    <div id="totalSubscribers" class="text-3xl font-bold text-blue-600">-</div>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <div class="text-sm text-gray-500 mb-1">Total Podcasts</div>
+                    <div id="totalPodcasts" class="text-3xl font-bold text-purple-600">-</div>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <div class="text-sm text-gray-500 mb-1">In RSS Feed</div>
+                    <div id="inRssFeed" class="text-3xl font-bold text-green-600">-</div>
+                </div>
+            </div>
+
+            <!-- Tabs -->
+            <div class="bg-white rounded-lg shadow-md mb-6">
+                <div class="border-b border-gray-200">
+                    <nav class="flex">
+                        <button onclick="switchTab('subscribers')" id="tab-subscribers" class="px-6 py-3 font-medium text-sm border-b-2 border-blue-600 text-blue-600">
+                            👥 Subscribers
+                        </button>
+                        <button onclick="switchTab('podcasts')" id="tab-podcasts" class="px-6 py-3 font-medium text-sm border-b-2 border-transparent text-gray-500 hover:text-gray-700">
+                            🎙️ All Podcasts
+                        </button>
+                    </nav>
+                </div>
+            </div>
+
+            <!-- Loading State -->
+            <div id="loadingState" class="flex justify-center items-center py-12">
+                <div class="loading-spinner"></div>
+                <span class="ml-4 text-gray-600">Loading...</span>
+            </div>
+
+            <!-- Error State -->
+            <div id="errorState" class="hidden bg-red-50 border-l-4 border-red-500 p-4 mb-6">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                        </svg>
+                    </div>
+                    <div class="ml-3">
+                        <p class="text-sm text-red-700" id="errorMessage">Error loading data</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Subscribers Tab Content -->
+            <div id="content-subscribers" class="hidden">
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="px-6 py-4 border-b border-gray-200 bg-gray-50">
+                        <h2 class="text-lg font-semibold text-gray-800">All Subscribers</h2>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Podcasts</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="subscribersTableBody" class="bg-white divide-y divide-gray-200">
+                                <!-- Rows will be inserted here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Podcasts Tab Content -->
+            <div id="content-podcasts" class="hidden">
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="px-6 py-4 border-b border-gray-200 bg-gray-50 flex justify-between items-center">
+                        <h2 class="text-lg font-semibold text-gray-800">All Podcasts</h2>
+                        <input 
+                            type="text" 
+                            id="podcastSearch"
+                            placeholder="Search podcasts..."
+                            onkeyup="filterPodcasts()"
+                            class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        >
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Subscriber</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">RSS</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="podcastsTableBody" class="bg-white divide-y divide-gray-200">
+                                <!-- Rows will be inserted here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- User Podcasts Modal -->
+            <div id="userPodcastsModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden overflow-y-auto">
+                <div class="bg-white rounded-lg p-6 max-w-4xl w-full mx-4 my-8 max-h-[90vh] overflow-y-auto">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h2 class="text-xl font-bold" id="modalUserEmail">User Podcasts</h2>
+                            <p class="text-sm text-gray-600" id="modalSubscriberId"></p>
+                        </div>
+                        <button onclick="hideUserPodcastsModal()" class="text-gray-400 hover:text-gray-600">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <div id="userPodcastsContent" class="space-y-4">
+                        <!-- Podcasts will be loaded here -->
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        const API_BASE_URL = 'https://copernicus-podcast-api-204731194849.us-central1.run.app';
+        let adminApiKey = localStorage.getItem('admin_api_key') || '';
+        let currentTab = 'subscribers';
+        let subscribersData = [];
+        let allPodcastsData = [];
+
+        // API Key Management
+        function showApiKeyModal() {
+            document.getElementById('apiKeyModal').classList.remove('hidden');
+            document.getElementById('apiKeyInput').value = adminApiKey;
+        }
+
+        function hideApiKeyModal() {
+            document.getElementById('apiKeyModal').classList.add('hidden');
+        }
+
+        function saveApiKey() {
+            const key = document.getElementById('apiKeyInput').value.trim();
+            if (!key) {
+                alert('Please enter an API key');
+                return;
+            }
+            adminApiKey = key;
+            localStorage.setItem('admin_api_key', adminApiKey);
+            hideApiKeyModal();
+            loadCurrentTab();
+        }
+
+        function getAuthHeaders() {
+            return {
+                'X-Admin-API-Key': adminApiKey,
+                'Content-Type': 'application/json'
+            };
+        }
+
+        // Tab Management
+        function switchTab(tab) {
+            currentTab = tab;
+            document.getElementById('tab-subscribers').classList.toggle('border-blue-600', tab === 'subscribers');
+            document.getElementById('tab-subscribers').classList.toggle('text-blue-600', tab === 'subscribers');
+            document.getElementById('tab-subscribers').classList.toggle('border-transparent', tab !== 'subscribers');
+            document.getElementById('tab-subscribers').classList.toggle('text-gray-500', tab !== 'subscribers');
+            
+            document.getElementById('tab-podcasts').classList.toggle('border-blue-600', tab === 'podcasts');
+            document.getElementById('tab-podcasts').classList.toggle('text-blue-600', tab === 'podcasts');
+            document.getElementById('tab-podcasts').classList.toggle('border-transparent', tab !== 'podcasts');
+            document.getElementById('tab-podcasts').classList.toggle('text-gray-500', tab !== 'podcasts');
+            
+            document.getElementById('content-subscribers').classList.toggle('hidden', tab !== 'subscribers');
+            document.getElementById('content-podcasts').classList.toggle('hidden', tab !== 'podcasts');
+            
+            loadCurrentTab();
+        }
+
+        function loadCurrentTab() {
+            if (!adminApiKey) {
+                showApiKeyModal();
+                return;
+            }
+            
+            if (currentTab === 'subscribers') {
+                loadSubscribers();
+            } else if (currentTab === 'podcasts') {
+                loadAllPodcasts();
+            }
+        }
+
+        // Subscribers Management
+        async function loadSubscribers() {
+            try {
+                document.getElementById('loadingState').classList.remove('hidden');
+                document.getElementById('errorState').classList.add('hidden');
+                
+                const response = await fetch(`${API_BASE_URL}/api/admin/subscribers`, {
+                    headers: getAuthHeaders()
+                });
+                
+                if (!response.ok) {
+                    if (response.status === 401 || response.status === 403) {
+                        throw new Error('Invalid API key. Please check your admin API key.');
+                    }
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const data = await response.json();
+                subscribersData = data.subscribers || [];
+                
+                document.getElementById('totalSubscribers').textContent = data.total_count || 0;
+                
+                const totalPodcasts = subscribersData.reduce((sum, s) => sum + (s.podcast_count || 0), 0);
+                document.getElementById('totalPodcasts').textContent = totalPodcasts;
+                
+                renderSubscribersTable(subscribersData);
+                
+                document.getElementById('loadingState').classList.add('hidden');
+                
+            } catch (error) {
+                console.error('Error loading subscribers:', error);
+                document.getElementById('loadingState').classList.add('hidden');
+                document.getElementById('errorState').classList.remove('hidden');
+                document.getElementById('errorMessage').textContent = `Error: ${error.message}`;
+            }
+        }
+
+        function renderSubscribersTable(subscribers) {
+            const tbody = document.getElementById('subscribersTableBody');
+            tbody.innerHTML = '';
+            
+            subscribers.forEach((subscriber) => {
+                const row = document.createElement('tr');
+                row.className = 'hover:bg-gray-50';
+                
+                row.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${subscriber.email || 'N/A'}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${subscriber.display_name || 'N/A'}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${subscriber.podcast_count || 0}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${formatDate(subscriber.created_at)}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm">
+                        <button onclick="viewUserPodcasts('${subscriber.subscriber_id}', '${(subscriber.email || 'User').replace(/'/g, "\\'")}')" 
+                                class="text-blue-600 hover:text-blue-900 font-medium mr-4">
+                            📋 View Podcasts
+                        </button>
+                        <button onclick="deleteSubscriber('${subscriber.subscriber_id}', '${(subscriber.email || 'User').replace(/'/g, "\\'")}')" 
+                                class="text-red-600 hover:text-red-900 font-medium">
+                            🗑️ Delete
+                        </button>
+                    </td>
+                `;
+                
+                tbody.appendChild(row);
+            });
+        }
+
+        async function viewUserPodcasts(subscriberId, email) {
+            try {
+                document.getElementById('userPodcastsModal').classList.remove('hidden');
+                document.getElementById('modalUserEmail').textContent = `Podcasts by: ${email}`;
+                document.getElementById('modalSubscriberId').textContent = `ID: ${subscriberId}`;
+                document.getElementById('userPodcastsContent').innerHTML = '<div class="text-center py-8"><div class="loading-spinner inline-block"></div><p class="mt-4 text-gray-600">Loading podcasts...</p></div>';
+                
+                const response = await fetch(`${API_BASE_URL}/api/admin/subscribers/${subscriberId}/podcasts`, {
+                    headers: getAuthHeaders()
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const data = await response.json();
+                const podcasts = data.podcasts || [];
+                
+                if (podcasts.length === 0) {
+                    document.getElementById('userPodcastsContent').innerHTML = '<p class="text-center py-8 text-gray-600">No podcasts found for this user.</p>';
+                    return;
+                }
+                
+                let html = '<div class="space-y-4">';
+                podcasts.forEach(podcast => {
+                    const podcastId = podcast.podcast_id || podcast.id;
+                    const title = podcast.title || podcast.request?.topic || 'Untitled';
+                    const submitted = podcast.submitted_to_rss || false;
+                    const created = formatDate(podcast.created_at || podcast.request?.created_at);
+                    
+                    html += `
+                        <div class="border border-gray-200 rounded-lg p-4 hover:bg-gray-50">
+                            <div class="flex justify-between items-start">
+                                <div class="flex-1">
+                                    <h3 class="font-semibold text-gray-900">${title}</h3>
+                                    <p class="text-sm text-gray-600 mt-1">Created: ${created}</p>
+                                    ${submitted ? '<span class="inline-block mt-2 px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">In RSS</span>' : '<span class="inline-block mt-2 px-2 py-1 text-xs font-semibold rounded-full bg-gray-100 text-gray-800">Not in RSS</span>'}
+                                </div>
+                                <div class="flex gap-2 ml-4">
+                                    ${submitted ? `<button onclick="removeFromRss('${podcastId}', '${title.replace(/'/g, "\\'")}')" class="text-orange-600 hover:text-orange-900 text-sm font-medium">Remove from RSS</button>` : ''}
+                                    <button onclick="deletePodcast('${podcastId}', '${title.replace(/'/g, "\\'")}')" class="text-red-600 hover:text-red-900 text-sm font-medium">🗑️ Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                html += '</div>';
+                
+                document.getElementById('userPodcastsContent').innerHTML = html;
+                
+            } catch (error) {
+                console.error('Error loading user podcasts:', error);
+                document.getElementById('userPodcastsContent').innerHTML = `<p class="text-center py-8 text-red-600">Error loading podcasts: ${error.message}</p>`;
+            }
+        }
+
+        function hideUserPodcastsModal() {
+            document.getElementById('userPodcastsModal').classList.add('hidden');
+        }
+
+        // Podcast Management
+        async function removeFromRss(podcastId, title) {
+            if (!confirm(`Are you sure you want to remove "${title}" from the RSS feed?`)) {
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/admin/podcasts/${podcastId}/rss`, {
+                    method: 'DELETE',
+                    headers: getAuthHeaders()
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                alert('✅ Successfully removed podcast from RSS feed');
+                loadCurrentTab();
+                if (!document.getElementById('userPodcastsModal').classList.contains('hidden')) {
+                    // Reload user podcasts if modal is open
+                    const subscriberId = document.getElementById('modalSubscriberId').textContent.replace('ID: ', '');
+                    const email = document.getElementById('modalUserEmail').textContent.replace('Podcasts by: ', '');
+                    viewUserPodcasts(subscriberId, email);
+                }
+            } catch (error) {
+                console.error('Error removing from RSS:', error);
+                alert(`❌ Failed to remove from RSS: ${error.message}`);
+            }
+        }
+
+        async function deletePodcast(podcastId, title) {
+            if (!confirm(`Are you sure you want to permanently delete "${title}"? This cannot be undone.`)) {
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/admin/podcasts/${podcastId}`, {
+                    method: 'DELETE',
+                    headers: getAuthHeaders()
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                alert('✅ Successfully deleted podcast');
+                loadCurrentTab();
+                if (!document.getElementById('userPodcastsModal').classList.contains('hidden')) {
+                    // Reload user podcasts if modal is open
+                    const subscriberId = document.getElementById('modalSubscriberId').textContent.replace('ID: ', '');
+                    const email = document.getElementById('modalUserEmail').textContent.replace('Podcasts by: ', '');
+                    viewUserPodcasts(subscriberId, email);
+                }
+            } catch (error) {
+                console.error('Error deleting podcast:', error);
+                alert(`❌ Failed to delete podcast: ${error.message}`);
+            }
+        }
+
+        async function deleteSubscriber(subscriberId, email) {
+            if (!confirm(`Are you sure you want to delete subscriber: ${email}? This will also delete all their podcasts.`)) {
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/admin/subscribers/${subscriberId}`, {
+                    method: 'DELETE',
+                    headers: getAuthHeaders()
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                alert('✅ Successfully deleted subscriber');
+                loadSubscribers();
+            } catch (error) {
+                console.error('Error deleting subscriber:', error);
+                alert(`❌ Failed to delete subscriber: ${error.message}`);
+            }
+        }
+
+        async function loadAllPodcasts() {
+            // This would require aggregating podcasts from all subscribers
+            // For now, show message to use subscriber view
+            document.getElementById('podcastsTableBody').innerHTML = `
+                <tr>
+                    <td colspan="6" class="px-6 py-8 text-center text-gray-600">
+                        <p>To view and manage podcasts, please select a subscriber and click "View Podcasts".</p>
+                        <p class="text-sm mt-2">All podcasts view coming soon...</p>
+                    </td>
+                </tr>
+            `;
+        }
+
+        function filterPodcasts() {
+            // Filter logic for podcasts search
+        }
+
+        function formatDate(dateString) {
+            if (!dateString || dateString === 'Unknown' || dateString === 'Never' || dateString === 'N/A') {
+                return dateString;
+            }
+            try {
+                const date = new Date(dateString);
+                return date.toLocaleDateString('en-US', { 
+                    year: 'numeric', 
+                    month: 'short', 
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+            } catch (e) {
+                return dateString;
+            }
+        }
+
+        // Initialize on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            if (!adminApiKey) {
+                showApiKeyModal();
+            } else {
+                loadCurrentTab();
+            }
+        });
+    </script>
+</body>
+</html>
+
