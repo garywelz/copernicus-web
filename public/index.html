@@ -115,14 +115,25 @@
         // Fetch and display episodes
         async function loadEpisodes() {
             try {
-                // Use static JSON file to avoid CORS issues
-                const response = await fetch('/podcasts.json');
+                // Fetch all published episodes from API (limit=200 to get all)
+                const API_URL = 'https://copernicus-podcast-api-204731194849.us-central1.run.app/api/public/podcasts?limit=200';
+                const response = await fetch(API_URL);
                 
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 
-                allEpisodes = await response.json();
+                const data = await response.json();
+                // Transform API response to match expected format
+                allEpisodes = (data.podcasts || []).map(ep => ({
+                    title: ep.title,
+                    category: ep.category_slug || ep.category?.toLowerCase() || 'science',
+                    description: ep.summary || ep.description || '',
+                    duration: ep.duration || '5-10 minutes',
+                    thumbnailUrl: ep.thumbnail_url || 'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/images/copernicus-original-portrait-optimized.jpg',
+                    audioUrl: ep.audio_url || '',
+                    episodeLink: ep.episode_link || `/episodes/${ep.episode_id || ep.slug || ''}`
+                }));
                 console.log('Loaded episodes:', allEpisodes.length);
                 
                 renderCategoryTabs();

@@ -732,10 +732,24 @@ Return JSON with:
     
     try:
         print(f"🎙️ Generating podcast script from research analysis...")
-        response_obj = client.models.generate_content(
-            model='models/gemini-2.5-flash',
-            contents=prompt
-        )
+        # Try Gemini 3.0 first, fallback to 2.5 if not available
+        model_name = 'models/gemini-3.0-flash'
+        try:
+            response_obj = client.models.generate_content(
+                model=model_name,
+                contents=prompt
+            )
+        except Exception as e:
+            error_msg = str(e).lower()
+            if "not found" in error_msg or "does not exist" in error_msg:
+                print(f"⚠️  Gemini 3.0 not available, falling back to 2.5...")
+                model_name = 'models/gemini-2.5-flash'
+                response_obj = client.models.generate_content(
+                    model=model_name,
+                    contents=prompt
+                )
+            else:
+                raise
         
         if response_obj and response_obj.text:
             content = _extract_json_from_response(response_obj.text)
@@ -857,10 +871,24 @@ After generating the main content, create a detailed description following this 
     
     try:
         print(f"🔄 Generating topic-based research content with Gemini...")
-        response_obj = client.models.generate_content(
-            model='models/gemini-2.5-flash',
-            contents=prompt
-        )
+        # Try Gemini 3.0 first, fallback to 2.5 if not available
+        model_name = 'models/gemini-3.0-flash'
+        try:
+            response_obj = client.models.generate_content(
+                model=model_name,
+                contents=prompt
+            )
+        except Exception as e:
+            error_msg = str(e).lower()
+            if "not found" in error_msg or "does not exist" in error_msg:
+                print(f"⚠️  Gemini 3.0 not available, falling back to 2.5...")
+                model_name = 'models/gemini-2.5-flash'
+                response_obj = client.models.generate_content(
+                    model=model_name,
+                    contents=prompt
+                )
+            else:
+                raise
         
         if response_obj and response_obj.text:
             content = _extract_json_from_response(response_obj.text)
@@ -990,10 +1018,24 @@ Return JSON with:
     
     try:
         print(f"🎙️ Generating podcast script from research analysis using Vertex AI...")
-        response = vertex_ai_model.models.generate_content(
-            model='models/gemini-2.5-flash',
-            contents=prompt
-        )
+        # Try Gemini 3.0 first, fallback to 2.5 if not available
+        model_name = 'models/gemini-3.0-flash'
+        try:
+            response = vertex_ai_model.models.generate_content(
+                model=model_name,
+                contents=prompt
+            )
+        except Exception as e:
+            error_msg = str(e).lower()
+            if "not found" in error_msg or "does not exist" in error_msg:
+                print(f"⚠️  Gemini 3.0 not available, falling back to 2.5...")
+                model_name = 'models/gemini-2.5-flash'
+                response = vertex_ai_model.models.generate_content(
+                    model=model_name,
+                    contents=prompt
+                )
+            else:
+                raise
         
         if response and response.text:
             content = _extract_json_from_response(response.text)
@@ -1095,10 +1137,24 @@ Return JSON with:
     
     try:
         print(f"🔄 Generating topic-based research content with Vertex AI Gemini...")
-        response = vertex_ai_model.models.generate_content(
-            model='models/gemini-2.5-flash',
-            contents=prompt
-        )
+        # Try Gemini 3.0 first, fallback to 2.5 if not available
+        model_name = 'models/gemini-3.0-flash'
+        try:
+            response = vertex_ai_model.models.generate_content(
+                model=model_name,
+                contents=prompt
+            )
+        except Exception as e:
+            error_msg = str(e).lower()
+            if "not found" in error_msg or "does not exist" in error_msg:
+                print(f"⚠️  Gemini 3.0 not available, falling back to 2.5...")
+                model_name = 'models/gemini-2.5-flash'
+                response = vertex_ai_model.models.generate_content(
+                    model=model_name,
+                    contents=prompt
+                )
+            else:
+                raise
         
         if response and response.text:
             content = _extract_json_from_response(response.text)
@@ -1710,17 +1766,35 @@ async def generate_content_from_research_context(
         print("🚀 Using Vertex AI Gemini (via google-genai client)")
         try:
             from google.genai import types
-            # Use gemini-2.0-flash-exp which is available in Vertex AI
+            # Try Gemini 3.0 first, fallback to 2.0 if not available
             # CRITICAL: Increase max_output_tokens to prevent truncation
-            response = vertex_ai_model.models.generate_content(
-                model='gemini-2.0-flash-exp',
-                contents=prompt,
-                config=types.GenerateContentConfig(
-                    max_output_tokens=8192,  # Increased from default 2048
-                    temperature=0.8,
-                    top_p=0.95
+            model_name = 'models/gemini-3.0-flash'
+            try:
+                response = vertex_ai_model.models.generate_content(
+                    model=model_name,
+                    contents=prompt,
+                    config=types.GenerateContentConfig(
+                        max_output_tokens=8192,  # Increased from default 2048
+                        temperature=0.8,
+                        top_p=0.95
+                    )
                 )
-            )
+            except Exception as e:
+                error_msg = str(e).lower()
+                if "not found" in error_msg or "does not exist" in error_msg:
+                    print(f"⚠️  Gemini 3.0 not available, falling back to 2.0...")
+                    model_name = 'models/gemini-2.0-flash-exp'
+                    response = vertex_ai_model.models.generate_content(
+                        model=model_name,
+                        contents=prompt,
+                        config=types.GenerateContentConfig(
+                            max_output_tokens=8192,
+                            temperature=0.8,
+                            top_p=0.95
+                        )
+                    )
+                else:
+                    raise
         except Exception as e:
             print(f"❌ Vertex AI generation failed: {e}")
             # Fall back to Google AI API
@@ -2908,7 +2982,7 @@ async def get_subscriber_podcasts(subscriber_id: str):
         raise HTTPException(status_code=500, detail="Failed to fetch podcasts")
 
 @app.get("/api/public/podcasts")
-async def get_public_podcasts(category: Optional[str] = None, limit: int = 100):
+async def get_public_podcasts(category: Optional[str] = None, limit: int = 500):
     """Get all published podcasts (submitted to RSS) - Public API"""
     if not db:
         raise HTTPException(status_code=503, detail="Firestore service is unavailable")
@@ -2919,6 +2993,8 @@ async def get_public_podcasts(category: Optional[str] = None, limit: int = 100):
         if category_slug:
             query = query.where('category_slug', '==', category_slug)
         
+        # Cap limit at 1000 to prevent excessive queries
+        limit = min(limit, 1000)
         podcasts_query = query.order_by('generated_at', direction=firestore.Query.DESCENDING).limit(limit)
         podcasts = podcasts_query.stream()
         
