@@ -277,12 +277,30 @@
                             </div>
                             <h3 class="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">${episode.title}</h3>
                             <p class="text-sm text-gray-600 mb-4 line-clamp-3">${shortDescription}</p>
-                            <button 
-                                onclick="playEpisode('${episode.audioUrl}', '${episode.title.replace(/'/g, "\\'")}')"
-                                class="w-full bg-purple-600 text-white hover:bg-purple-700 px-4 py-2 rounded-lg font-medium transition duration-200"
-                            >
-                                🎧 Listen Now
-                            </button>
+                            <div class="flex gap-2">
+                                ${episode.audioUrl ? `
+                                <button 
+                                    onclick="playEpisode('${episode.audioUrl.replace(/'/g, "\\'")}', '${episode.title.replace(/'/g, "\\'")}')"
+                                    class="flex-1 bg-purple-600 text-white hover:bg-purple-700 px-4 py-2 rounded-lg font-medium transition duration-200"
+                                >
+                                    🎧 Listen Now
+                                </button>
+                                ` : `
+                                <button 
+                                    disabled
+                                    class="flex-1 bg-gray-300 text-gray-500 px-4 py-2 rounded-lg font-medium cursor-not-allowed"
+                                    title="Audio not available"
+                                >
+                                    🔊 Audio Unavailable
+                                </button>
+                                `}
+                                <a 
+                                    href="${episode.episodeLink.replace(/"/g, '&quot;')}" 
+                                    class="bg-gray-100 text-gray-700 hover:bg-gray-200 px-4 py-2 rounded-lg font-medium transition duration-200 whitespace-nowrap"
+                                >
+                                    View Page
+                                </a>
+                            </div>
                         </div>
                     </div>
                 `;

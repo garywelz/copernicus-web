@@ -175,8 +175,14 @@ async function handler(req, res) {
       img.hero { max-width: 100%; border-radius: 18px; margin: 1.5rem 0; box-shadow: 0 15px 35px rgba(30, 64, 175, 0.22); }
       audio { width: 100%; margin-top: 1rem; }
       .description { font-size: 1.05rem; line-height: 1.65; color: #1f2937; }
-      .description h1, .description h2, .description h3 { color: #0f172a; margin-top: 2rem; }
+      .description h1 { font-size: 1.5rem; color: #0f172a; margin-top: 2rem; margin-bottom: 1rem; }
+      .description h2 { font-size: 1.25rem; color: #0f172a; margin-top: 2rem; margin-bottom: 1rem; font-weight: 600; }
+      .description h3 { font-size: 1.15rem; color: #0f172a; margin-top: 1.5rem; margin-bottom: 0.75rem; }
       .description a { color: #1d4ed8; }
+      /* Normalize all text to consistent size */
+      .description p, .description ul, .description ol, .description li { font-size: 1.05rem; line-height: 1.65; }
+      /* Hashtag section normalization - target headings before hashtag content */
+      .description h2.hashtag-heading { font-size: 1.05rem !important; font-weight: normal !important; margin-top: 1.5rem !important; margin-bottom: 0.5rem !important; }
       footer { padding: 1.75rem 2.5rem; border-top: 1px solid #e5e7eb; background: #f9fafb; font-size: 0.95rem; color: #4b5563; display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between; align-items: center; }
       .actions a { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.2rem; border-radius: 999px; text-decoration: none; font-weight: 600; transition: transform 0.15s ease, background 0.15s ease; }
       .actions a.listen { background: #1d4ed8; color: #fff; }
@@ -212,6 +218,33 @@ async function handler(req, res) {
         </div>
       </footer>
     </main>
+    <script>
+      // Normalize hashtag section font sizes
+      document.addEventListener('DOMContentLoaded', function() {
+        const description = document.querySelector('.description');
+        if (description) {
+          const headings = description.querySelectorAll('h1, h2, h3');
+          headings.forEach(heading => {
+            const text = heading.textContent || '';
+            if (text.toLowerCase().includes('hashtag')) {
+              heading.style.fontSize = '1.05rem';
+              heading.style.fontWeight = 'normal';
+              heading.style.marginTop = '1.5rem';
+              heading.style.marginBottom = '0.5rem';
+              // Also normalize all following siblings until next heading
+              let next = heading.nextElementSibling;
+              while (next && !['H1', 'H2', 'H3'].includes(next.tagName)) {
+                if (next.tagName === 'P' || next.tagName === 'UL' || next.tagName === 'OL') {
+                  next.style.fontSize = '1.05rem';
+                  next.style.lineHeight = '1.65';
+                }
+                next = next.nextElementSibling;
+              }
+            }
+          });
+        }
+      });
+    </script>
   </body>
 </html>`;
 
