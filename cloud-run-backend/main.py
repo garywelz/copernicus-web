@@ -4106,6 +4106,92 @@ async def submit_podcast_to_rss(submission: PodcastSubmission):
         print(f"❌ Error submitting podcast to RSS: {e}")
         raise HTTPException(status_code=500, detail="Failed to submit podcast to RSS")
 
+@app.post("/api/admin/episodes/sync-rss-status")
+async def sync_rss_status():
+    """Sync Firestore episode catalog with RSS feed status"""
+    if not db:
+        raise HTTPException(status_code=503, detail="Firestore service is unavailable")
+    
+    try:
+        import xml.etree.ElementTree as ET
+        import requests
+        
+        # Configuration
+        GCS_BUCKET = os.getenv("GCP_AUDIO_BUCKET", "regal-scholar-453620-r7-podcast-storage")
+        RSS_FEED_PATH = "feeds/copernicus-mvp-rss-feed.xml"
+        RSS_FEED_URL = f"https://storage.googleapis.com/{GCS_BUCKET}/{RSS_FEED_PATH}"
+        
+        # Fetch RSS feed
+        print(f"📡 Fetching RSS feed from: {RSS_FEED_URL}")
+        response = requests.get(RSS_FEED_URL, timeout=30)
+        response.raise_for_status()
+        rss_content = response.text
+        
+        # Parse RSS to extract GUIDs
+        root = ET.fromstring(rss_content)
+        items = root.findall(".//item")
+        rss_guids = set()
+        for item in items:
+            guid_elem = item.find("guid")
+            if guid_elem is not None and guid_elem.text:
+                rss_guids.add(guid_elem.text.strip())
+        
+        print(f"✅ Found {len(rss_guids)} episodes in RSS feed")
+        
+        # Get all podcast_jobs
+        all_podcasts = list(db.collection('podcast_jobs').stream())
+        print(f"📊 Found {len(all_podcasts)} total podcast jobs in Firestore")
+        
+        stats = {
+            'total_in_rss': len(rss_guids),
+            'total_in_firestore': len(all_podcasts),
+            'updated': 0,
+            'already_marked': 0,
+            'not_in_rss_but_marked_true': 0,
+            'missing_in_firestore': []
+        }
+        
+        # Update documents that are in RSS feed
+        for podcast_doc in all_podcasts:
+            doc_id = podcast_doc.id
+            doc_data = podcast_doc.to_dict()
+            current_status = doc_data.get('submitted_to_rss', False)
+            
+            if doc_id in rss_guids:
+                if current_status is True:
+                    stats['already_marked'] += 1
+                else:
+                    stats['updated'] += 1
+                    podcast_doc.reference.update({
+                        'submitted_to_rss': True,
+                        'rss_synced_at': datetime.utcnow().isoformat()
+                    })
+                    print(f"✅ Updated {doc_id}: submitted_to_rss=true")
+            else:
+                if current_status is True:
+                    stats['not_in_rss_but_marked_true'] += 1
+        
+        # Check for RSS GUIDs not in Firestore
+        firestore_doc_ids = {doc.id for doc in all_podcasts}
+        missing = rss_guids - firestore_doc_ids
+        if missing:
+            stats['missing_in_firestore'] = sorted(list(missing))
+            print(f"⚠️  {len(missing)} RSS GUIDs not found in Firestore")
+        
+        print(f"✅ Sync completed: {stats['updated']} updated, {stats['already_marked']} already marked")
+        
+        return {
+            "status": "success",
+            "message": "RSS status synced successfully",
+            "stats": stats
+        }
+        
+    except Exception as e:
+        print(f"❌ Error syncing RSS status: {e}")
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=f"Failed to sync RSS status: {str(e)}")
+
 # Modify existing generate-podcast endpoint to support subscribers
 @app.post("/generate-podcast-with-subscriber")
 async def generate_podcast_with_subscriber(request: PodcastRequest, subscriber_id: Optional[str] = None):

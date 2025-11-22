@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RSS Sync Endpoint Tester</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+        }
+        button:hover {
+            background: #1d4ed8;
+        }
+        button:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 6px;
+            white-space: pre-wrap;
+            font-family: monospace;
+            font-size: 14px;
+        }
+        .success {
+            background: #dcfce7;
+            color: #166534;
+            border: 1px solid #86efac;
+        }
+        .error {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fca5a5;
+        }
+        .loading {
+            background: #dbeafe;
+            color: #1e40af;
+            border: 1px solid #93c5fd;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔄 RSS Status Sync Tester</h1>
+        <p>Click the button below to trigger the RSS sync endpoint.</p>
+        
+        <button id="syncBtn" onclick="runSync()">Run RSS Sync</button>
+        <button onclick="checkEndpoint()">Test Endpoint (GET)</button>
+        
+        <div id="result"></div>
+    </div>
+
+    <script>
+        const API_URL = 'https://copernicus-podcast-api-204731194849.us-central1.run.app/api/admin/episodes/sync-rss-status';
+        
+        function showResult(message, type = 'loading') {
+            const resultDiv = document.getElementById('result');
+            resultDiv.className = type;
+            resultDiv.textContent = message;
+        }
+        
+        async function runSync() {
+            const btn = document.getElementById('syncBtn');
+            btn.disabled = true;
+            showResult('🔄 Running sync... Please wait (this may take 30-60 seconds)...', 'loading');
+            
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    showResult(
+                        '✅ SUCCESS!\n\n' +
+                        JSON.stringify(data, null, 2) +
+                        '\n\nSummary:\n' +
+                        `- Episodes in RSS: ${data.stats?.total_in_rss || 'N/A'}\n` +
+                        `- Episodes in Firestore: ${data.stats?.total_in_firestore || 'N/A'}\n` +
+                        `- Updated: ${data.stats?.updated || 0}\n` +
+                        `- Already marked: ${data.stats?.already_marked || 0}`,
+                        'success'
+                    );
+                } else {
+                    showResult(
+                        '❌ ERROR\n\n' +
+                        `Status: ${response.status} ${response.statusText}\n` +
+                        JSON.stringify(data, null, 2),
+                        'error'
+                    );
+                }
+            } catch (error) {
+                showResult(
+                    '❌ ERROR\n\n' +
+                    'Failed to connect to endpoint:\n' +
+                    error.message + '\n\n' +
+                    'Possible issues:\n' +
+                    '1. Endpoint not deployed yet\n' +
+                    '2. CORS blocking the request\n' +
+                    '3. Network error\n\n' +
+                    'Try using curl or check if the endpoint exists.',
+                    'error'
+                );
+            } finally {
+                btn.disabled = false;
+            }
+        }
+        
+        async function checkEndpoint() {
+            showResult('🔄 Checking if endpoint exists...', 'loading');
+            
+            try {
+                // Try OPTIONS first (CORS preflight)
+                const optionsResponse = await fetch(API_URL, {
+                    method: 'OPTIONS'
+                });
+                
+                showResult(
+                    `Endpoint check:\n` +
+                    `- URL: ${API_URL}\n` +
+                    `- OPTIONS status: ${optionsResponse.status}\n` +
+                    `- CORS headers: ${optionsResponse.headers.get('Access-Control-Allow-Methods') || 'Not set'}\n\n` +
+                    `Note: This endpoint requires POST method. Use the "Run RSS Sync" button above.`,
+                    optionsResponse.ok ? 'success' : 'error'
+                );
+            } catch (error) {
+                showResult(
+                    '❌ Cannot reach endpoint\n\n' +
+                    error.message + '\n\n' +
+                    'The endpoint may not be deployed yet, or there may be a network issue.',
+                    'error'
+                );
+            }
+        }
+    </script>
+</body>
+</html>

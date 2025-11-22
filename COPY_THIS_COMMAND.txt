@@ -1,0 +1,35 @@
+CURL COMMAND TO SYNC RSS STATUS
+================================
+
+Copy this entire line:
+
+curl -X POST https://copernicus-podcast-api-204731194849.us-central1.run.app/api/admin/episodes/sync-rss-status
+
+================================
+HOW TO USE:
+================================
+
+Option 1: Copy from this file
+- Open this file: COPY_THIS_COMMAND.txt
+- Select the line starting with "curl -X POST"
+- Copy it (Ctrl+C or Cmd+C)
+- Paste into your terminal
+
+Option 2: Type it manually
+- Type: curl -X POST
+- Press space
+- Type: https://copernicus-podcast-api-204731194849.us-central1.run.app/api/admin/episodes/sync-rss-status
+- Press Enter
+
+Option 3: Use the shell script
+- Run: bash run_sync.sh
+- Or: chmod +x run_sync.sh && ./run_sync.sh
+
+================================
+WHAT IT DOES:
+================================
+This command triggers the RSS sync endpoint on your Cloud Run service.
+It will update Firestore to mark all episodes in your RSS feed as 
+submitted_to_rss: true.
+
+You should see JSON output with statistics about what was updated.
