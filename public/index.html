@@ -112,6 +112,60 @@
             science: { label: 'Science', icon: '🔬', color: 'bg-indigo-500' }
         };
 
+        // Extract category from episode slug/filename
+        function getCategoryFromEpisode(ep) {
+            let categoryKey = null;
+            
+            // Primary method: Extract from slug/filename (most reliable)
+            // Pattern: prefix-categorycode-number (e.g., "ever-bio-25007", "ever-phys-12345")
+            const slug = ep.episode_id || ep.slug || '';
+            
+            if (slug) {
+                const parts = slug.split('-');
+                if (parts.length >= 2) {
+                    const catCode = parts[1].toLowerCase();
+                    
+                    // Map category codes from filename
+                    if (catCode === 'bio') {
+                        categoryKey = 'biology';
+                    } else if (catCode === 'chem') {
+                        categoryKey = 'chemistry';
+                    } else if (catCode === 'compsci') {
+                        categoryKey = 'computer_science';
+                    } else if (catCode === 'math') {
+                        categoryKey = 'mathematics';
+                    } else if (catCode === 'phys') {
+                        categoryKey = 'physics';
+                    }
+                }
+            }
+            
+            // Fallback: try category_slug field
+            if (!categoryKey && ep.category_slug) {
+                const catSlug = ep.category_slug.toLowerCase().trim();
+                if (catSlug === 'biology' || catSlug === 'bio') categoryKey = 'biology';
+                else if (catSlug === 'chemistry' || catSlug === 'chem') categoryKey = 'chemistry';
+                else if (catSlug === 'physics' || catSlug === 'phys') categoryKey = 'physics';
+                else if (catSlug === 'mathematics' || catSlug === 'math') categoryKey = 'mathematics';
+                else if (catSlug === 'computer_science' || catSlug === 'compsci') categoryKey = 'computer_science';
+                else categoryKey = catSlug;
+            }
+            
+            // Fallback: try category label field
+            if (!categoryKey && ep.category) {
+                const catStr = ep.category.toLowerCase().trim();
+                if (catStr.includes('biology')) categoryKey = 'biology';
+                else if (catStr.includes('chemistry')) categoryKey = 'chemistry';
+                else if (catStr.includes('physics')) categoryKey = 'physics';
+                else if (catStr.includes('mathematics') || catStr.includes('math')) categoryKey = 'mathematics';
+                else if (catStr.includes('computer') || catStr.includes('computing')) categoryKey = 'computer_science';
+                else if (catStr.includes('news')) categoryKey = 'news';
+            }
+            
+            // Default to science if no category found
+            return categoryKey || 'science';
+        }
+
         // Fetch and display episodes
         async function loadEpisodes() {
             try {
@@ -127,7 +181,7 @@
                 // Transform API response to match expected format
                 allEpisodes = (data.podcasts || []).map(ep => ({
                     title: ep.title,
-                    category: ep.category_slug || ep.category?.toLowerCase() || 'science',
+                    category: getCategoryFromEpisode(ep),
                     description: ep.summary || ep.description || '',
                     duration: ep.duration || '5-10 minutes',
                     thumbnailUrl: ep.thumbnail_url || 'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/images/copernicus-original-portrait-optimized.jpg',
