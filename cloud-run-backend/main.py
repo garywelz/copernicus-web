@@ -3571,8 +3571,15 @@ async def admin_get_subscriber_podcasts(subscriber_id: str, admin_auth: bool = D
     
     try:
         # Query podcast_jobs collection for this subscriber
-        podcasts_query = db.collection('podcast_jobs').where('subscriber_id', '==', subscriber_id).order_by('created_at', direction=firestore.Query.DESCENDING)
-        podcasts = podcasts_query.stream()
+        # Try with ordering first, fall back to no ordering if index doesn't exist
+        try:
+            podcasts_query = db.collection('podcast_jobs').where('subscriber_id', '==', subscriber_id).order_by('created_at', direction=firestore.Query.DESCENDING)
+            podcasts = podcasts_query.stream()
+        except Exception as order_error:
+            # Fall back to query without ordering if index doesn't exist
+            print(f"⚠️  Ordering failed, using unordered query: {order_error}")
+            podcasts_query = db.collection('podcast_jobs').where('subscriber_id', '==', subscriber_id)
+            podcasts = podcasts_query.stream()
         
         podcast_list = []
         for podcast in podcasts:
@@ -3580,6 +3587,20 @@ async def admin_get_subscriber_podcasts(subscriber_id: str, admin_auth: bool = D
             # Add podcast ID from document ID
             podcast_data['podcast_id'] = podcast.id
             podcast_list.append(podcast_data)
+        
+        # Sort in Python if we couldn't order in Firestore
+        if podcast_list:
+            def get_sort_key(p):
+                created = p.get('created_at')
+                if hasattr(created, 'timestamp'):
+                    return created.timestamp()
+                elif isinstance(created, str):
+                    try:
+                        return datetime.fromisoformat(created.replace('Z', '+00:00')).timestamp()
+                    except:
+                        return 0
+                return 0
+            podcast_list.sort(key=get_sort_key, reverse=True)
         
         print(f"✅ Admin: Found {len(podcast_list)} podcasts for subscriber {subscriber_id}")
         
@@ -3591,7 +3612,68 @@ async def admin_get_subscriber_podcasts(subscriber_id: str, admin_auth: bool = D
         
     except Exception as e:
         print(f"❌ Error fetching subscriber podcasts (admin): {e}")
-        raise HTTPException(status_code=500, detail="Failed to fetch podcasts")
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=f"Failed to fetch podcasts: {str(e)}")
+
+@app.get("/api/admin/podcasts")
+async def admin_get_all_podcasts(admin_auth: bool = Depends(verify_admin_api_key), limit: int = 500):
+    """Admin endpoint: Get all podcasts from all subscribers"""
+    if not db:
+        raise HTTPException(status_code=503, detail="Firestore service is unavailable")
+    
+    try:
+        # Get all podcast jobs, optionally limit
+        limit = min(limit, 2000)  # Cap at reasonable limit
+        podcasts_query = db.collection('podcast_jobs').limit(limit)
+        podcasts = podcasts_query.stream()
+        
+        podcast_list = []
+        for podcast in podcasts:
+            podcast_data = podcast.to_dict()
+            podcast_data['podcast_id'] = podcast.id
+            
+            # Get subscriber email if available
+            subscriber_id = podcast_data.get('subscriber_id')
+            subscriber_email = 'Unknown'
+            if subscriber_id:
+                try:
+                    subscriber_doc = db.collection('subscribers').document(subscriber_id).get()
+                    if subscriber_doc.exists:
+                        subscriber_data = subscriber_doc.to_dict()
+                        subscriber_email = subscriber_data.get('email', subscriber_id[:20] + '...')
+                except:
+                    subscriber_email = subscriber_id[:20] + '...'
+            
+            podcast_data['subscriber_email'] = subscriber_email
+            podcast_list.append(podcast_data)
+        
+        # Sort by created_at (newest first)
+        def get_sort_key(p):
+            created = p.get('created_at')
+            if hasattr(created, 'timestamp'):
+                return created.timestamp()
+            elif isinstance(created, str):
+                try:
+                    return datetime.fromisoformat(created.replace('Z', '+00:00')).timestamp()
+                except:
+                    return 0
+            return 0
+        
+        podcast_list.sort(key=get_sort_key, reverse=True)
+        
+        print(f"✅ Admin: Found {len(podcast_list)} total podcasts")
+        
+        return {
+            "podcasts": podcast_list,
+            "total_count": len(podcast_list)
+        }
+        
+    except Exception as e:
+        print(f"❌ Error fetching all podcasts (admin): {e}")
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=f"Failed to fetch podcasts: {str(e)}")
 
 @app.delete("/api/admin/podcasts/{podcast_id}/rss")
 async def admin_remove_podcast_from_rss(podcast_id: str, admin_auth: bool = Depends(verify_admin_api_key)):

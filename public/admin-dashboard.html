@@ -334,12 +334,19 @@
                 document.getElementById('modalSubscriberId').textContent = `ID: ${subscriberId}`;
                 document.getElementById('userPodcastsContent').innerHTML = '<div class="text-center py-8"><div class="loading-spinner inline-block"></div><p class="mt-4 text-gray-600">Loading podcasts...</p></div>';
                 
-                const response = await fetch(`${API_BASE_URL}/api/admin/subscribers/${subscriberId}/podcasts`, {
+                const response = await fetch(`${API_BASE_URL}/api/admin/subscribers/${encodeURIComponent(subscriberId)}/podcasts`, {
                     headers: getAuthHeaders()
                 });
                 
                 if (!response.ok) {
-                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                    let errorMsg = `HTTP ${response.status}: ${response.statusText}`;
+                    try {
+                        const errorData = await response.json();
+                        errorMsg = errorData.detail || errorData.message || errorMsg;
+                    } catch (e) {
+                        // If response isn't JSON, use status text
+                    }
+                    throw new Error(errorMsg);
                 }
                 
                 const data = await response.json();
@@ -470,20 +477,117 @@
         }
 
         async function loadAllPodcasts() {
-            // This would require aggregating podcasts from all subscribers
-            // For now, show message to use subscriber view
-            document.getElementById('podcastsTableBody').innerHTML = `
-                <tr>
-                    <td colspan="6" class="px-6 py-8 text-center text-gray-600">
-                        <p>To view and manage podcasts, please select a subscriber and click "View Podcasts".</p>
-                        <p class="text-sm mt-2">All podcasts view coming soon...</p>
+            try {
+                document.getElementById('loadingState').classList.remove('hidden');
+                document.getElementById('errorState').classList.add('hidden');
+                
+                const response = await fetch(`${API_BASE_URL}/api/admin/podcasts?limit=500`, {
+                    headers: getAuthHeaders()
+                });
+                
+                if (!response.ok) {
+                    if (response.status === 401 || response.status === 403) {
+                        throw new Error('Invalid API key. Please check your admin API key.');
+                    }
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const data = await response.json();
+                allPodcastsData = data.podcasts || [];
+                
+                document.getElementById('totalPodcasts').textContent = data.total_count || 0;
+                
+                // Count how many are in RSS
+                const inRssCount = allPodcastsData.filter(p => p.submitted_to_rss).length;
+                document.getElementById('inRssFeed').textContent = inRssCount;
+                
+                renderPodcastsTable(allPodcastsData);
+                
+                document.getElementById('loadingState').classList.add('hidden');
+                
+            } catch (error) {
+                console.error('Error loading all podcasts:', error);
+                document.getElementById('loadingState').classList.add('hidden');
+                document.getElementById('errorState').classList.remove('hidden');
+                document.getElementById('errorMessage').textContent = `Error: ${error.message}`;
+                
+                document.getElementById('podcastsTableBody').innerHTML = `
+                    <tr>
+                        <td colspan="6" class="px-6 py-8 text-center text-red-600">
+                            Error loading podcasts: ${error.message}
+                        </td>
+                    </tr>
+                `;
+            }
+        }
+
+        function renderPodcastsTable(podcasts) {
+            const tbody = document.getElementById('podcastsTableBody');
+            tbody.innerHTML = '';
+            
+            if (podcasts.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="6" class="px-6 py-8 text-center text-gray-600">
+                            No podcasts found.
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            podcasts.forEach((podcast) => {
+                const row = document.createElement('tr');
+                row.className = 'hover:bg-gray-50';
+                
+                const podcastId = podcast.podcast_id || podcast.id;
+                const title = podcast.title || podcast.request?.topic || 'Untitled';
+                const subscriberEmail = podcast.subscriber_email || 'Unknown';
+                const category = podcast.category || podcast.request?.category || 'Unknown';
+                const submitted = podcast.submitted_to_rss || false;
+                const created = formatDate(podcast.created_at || podcast.request?.created_at);
+                
+                row.innerHTML = `
+                    <td class="px-6 py-4 text-sm font-medium text-gray-900">
+                        <div class="max-w-xs truncate" title="${title.replace(/"/g, '&quot;')}">${title}</div>
                     </td>
-                </tr>
-            `;
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${subscriberEmail}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${category}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm">
+                        ${submitted 
+                            ? '<span class="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">In RSS</span>' 
+                            : '<span class="px-2 py-1 text-xs font-semibold rounded-full bg-gray-100 text-gray-800">Not in RSS</span>'}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${created}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm">
+                        <div class="flex gap-2">
+                            ${submitted ? `
+                            <button onclick="removeFromRss('${podcastId}', '${title.replace(/'/g, "\\'").replace(/"/g, '&quot;')}')" 
+                                    class="text-orange-600 hover:text-orange-900 font-medium text-xs">
+                                Remove RSS
+                            </button>
+                            ` : ''}
+                            <button onclick="deletePodcast('${podcastId}', '${title.replace(/'/g, "\\'").replace(/"/g, '&quot;')}')" 
+                                    class="text-red-600 hover:text-red-900 font-medium text-xs">
+                                🗑️ Delete
+                            </button>
+                        </div>
+                    </td>
+                `;
+                
+                tbody.appendChild(row);
+            });
         }
 
         function filterPodcasts() {
-            // Filter logic for podcasts search
+            const searchTerm = document.getElementById('podcastSearch').value.toLowerCase();
+            const filtered = allPodcastsData.filter(p => {
+                const title = (p.title || p.request?.topic || '').toLowerCase();
+                const email = (p.subscriber_email || '').toLowerCase();
+                const category = (p.category || p.request?.category || '').toLowerCase();
+                return title.includes(searchTerm) || email.includes(searchTerm) || category.includes(searchTerm);
+            });
+            renderPodcastsTable(filtered);
         }
 
         function formatDate(dateString) {
