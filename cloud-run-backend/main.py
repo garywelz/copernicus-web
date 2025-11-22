@@ -3025,20 +3025,30 @@ async def get_public_podcasts(category: Optional[str] = None, limit: int = 500):
         # Sort by generated_at in Python (descending - newest first)
         def get_sort_key(ep):
             gen_at = ep.get('created_at', '')
-            # Convert various date formats to comparable value
+            # Handle datetime objects
+            if isinstance(gen_at, datetime):
+                return gen_at
+            # Convert string dates to datetime for proper comparison
             if isinstance(gen_at, str):
                 try:
                     from datetime import datetime
                     # Try parsing common formats
                     for fmt in ['%Y-%m-%dT%H:%M:%S', '%a, %d %b %Y %H:%M:%S %Z', '%Y-%m-%d']:
                         try:
-                            return datetime.strptime(gen_at[:19], fmt)
+                            if 'T' in gen_at:
+                                # ISO format with time
+                                return datetime.fromisoformat(gen_at.replace('Z', '+00:00')[:19])
+                            else:
+                                # Try format string
+                                return datetime.strptime(gen_at[:19], fmt)
                         except:
                             continue
                 except:
                     pass
-            return gen_at
+            # Fallback: use string comparison or very old date
+            return datetime.min if isinstance(gen_at, str) and gen_at else datetime.min
         
+        from datetime import datetime
         podcast_list.sort(key=get_sort_key, reverse=True)
         # Limit after sorting
         podcast_list = podcast_list[:limit]
