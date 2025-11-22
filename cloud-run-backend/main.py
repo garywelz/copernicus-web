@@ -2996,15 +2996,10 @@ async def get_public_podcasts(category: Optional[str] = None, limit: int = 500):
         # Cap limit at 1000 to prevent excessive queries
         limit = min(limit, 1000)
         
-        # Try to order by generated_at, but fallback if index doesn't exist
-        try:
-            podcasts_query = query.order_by('generated_at', direction=firestore.Query.DESCENDING).limit(limit)
-            podcasts = podcasts_query.stream()
-        except Exception as order_error:
-            print(f"⚠️ Could not order by generated_at, trying without order: {order_error}")
-            # Fallback: just get the episodes without ordering
-            podcasts_query = query.limit(limit)
-            podcasts = podcasts_query.stream()
+        # Get episodes without ordering (Firestore requires index for filtered + ordered queries)
+        # We'll sort in Python instead
+        podcasts_query = query.limit(limit * 2)  # Get extra to account for missing fields
+        podcasts = podcasts_query.stream()
         
         podcast_list = []
         for episode in podcasts:
@@ -3026,6 +3021,27 @@ async def get_public_podcasts(category: Optional[str] = None, limit: int = 500):
                 'episode_link': data.get('episode_link'),
             }
             podcast_list.append(public_podcast)
+        
+        # Sort by generated_at in Python (descending - newest first)
+        def get_sort_key(ep):
+            gen_at = ep.get('created_at', '')
+            # Convert various date formats to comparable value
+            if isinstance(gen_at, str):
+                try:
+                    from datetime import datetime
+                    # Try parsing common formats
+                    for fmt in ['%Y-%m-%dT%H:%M:%S', '%a, %d %b %Y %H:%M:%S %Z', '%Y-%m-%d']:
+                        try:
+                            return datetime.strptime(gen_at[:19], fmt)
+                        except:
+                            continue
+                except:
+                    pass
+            return gen_at
+        
+        podcast_list.sort(key=get_sort_key, reverse=True)
+        # Limit after sorting
+        podcast_list = podcast_list[:limit]
         
         print(f"✅ Found {len(podcast_list)} published podcasts from episode catalog")
         
