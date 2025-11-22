@@ -2995,8 +2995,16 @@ async def get_public_podcasts(category: Optional[str] = None, limit: int = 500):
         
         # Cap limit at 1000 to prevent excessive queries
         limit = min(limit, 1000)
-        podcasts_query = query.order_by('generated_at', direction=firestore.Query.DESCENDING).limit(limit)
-        podcasts = podcasts_query.stream()
+        
+        # Try to order by generated_at, but fallback if index doesn't exist
+        try:
+            podcasts_query = query.order_by('generated_at', direction=firestore.Query.DESCENDING).limit(limit)
+            podcasts = podcasts_query.stream()
+        except Exception as order_error:
+            print(f"⚠️ Could not order by generated_at, trying without order: {order_error}")
+            # Fallback: just get the episodes without ordering
+            podcasts_query = query.limit(limit)
+            podcasts = podcasts_query.stream()
         
         podcast_list = []
         for episode in podcasts:
@@ -3028,8 +3036,11 @@ async def get_public_podcasts(category: Optional[str] = None, limit: int = 500):
         }
         
     except Exception as e:
+        import traceback
+        error_trace = traceback.format_exc()
         print(f"❌ Error fetching public podcasts: {e}")
-        raise HTTPException(status_code=500, detail="Failed to fetch published podcasts")
+        print(f"Error trace: {error_trace}")
+        raise HTTPException(status_code=500, detail=f"Failed to fetch published podcasts: {str(e)}")
 
 @app.get("/api/episodes")
 async def list_episode_catalog(category: Optional[str] = None, submitted: Optional[bool] = None, limit: int = 500):
