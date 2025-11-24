@@ -55,6 +55,10 @@
             "src": "/admin",
             "dest": "/public/admin-dashboard.html"
           },
+          {
+            "src": "/podcast-database-table.html",
+            "dest": "/public/podcast-database-table.html"
+          },
     {
       "src": "/create",
       "status": 307,
