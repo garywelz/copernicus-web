@@ -3669,7 +3669,7 @@ async def admin_get_legacy_podcasts(admin_auth: bool = Depends(verify_admin_api_
         traceback.print_exc()
         raise HTTPException(status_code=500, detail=f"Failed to fetch legacy podcasts: {str(e)}")
 
-@app.post("/api/admin/podcasts/assign-subscriber")
+@app.post("/api/admin/podcasts/assign-subscriber/{subscriber_id}")
 async def admin_assign_podcasts_to_subscriber(
     subscriber_id: str,
     request: AssignPodcastsRequest,
