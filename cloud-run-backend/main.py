@@ -2671,7 +2671,11 @@ class SubscriberProfile(BaseModel):
 
 class PodcastSubmission(BaseModel):
     podcast_id: str
-    submit_to_rss: bool = False
+    submit_to_rss: bool
+
+class AssignPodcastsRequest(BaseModel):
+    podcast_ids: Optional[List[str]] = None
+    assign_all_legacy: bool = False
 
 # --- Phase 1 Enhanced Database Models ---
 
@@ -3617,6 +3621,150 @@ async def sync_rss_status(admin_auth: bool = Depends(verify_admin_api_key)):
         raise HTTPException(status_code=500, detail=f"Failed to sync RSS status: {str(e)}")
 
 # Admin endpoints for podcast management
+# IMPORTANT: More specific routes must come BEFORE parameterized routes
+
+@app.get("/api/admin/podcasts/legacy")
+async def admin_get_legacy_podcasts(admin_auth: bool = Depends(verify_admin_api_key)):
+    """Admin endpoint: Get all podcasts without subscriber_id (legacy podcasts)"""
+    if not db:
+        raise HTTPException(status_code=503, detail="Firestore service is unavailable")
+    
+    try:
+        # Get all podcast jobs
+        podcasts_query = db.collection('podcast_jobs').limit(2000)
+        podcasts = podcasts_query.stream()
+        
+        legacy_podcasts = []
+        for podcast in podcasts:
+            podcast_data = podcast.to_dict() or {}
+            # Check if subscriber_id is missing or None
+            if not podcast_data.get('subscriber_id'):
+                podcast_data['podcast_id'] = podcast.id
+                legacy_podcasts.append(podcast_data)
+        
+        # Sort by created_at (newest first)
+        def get_sort_key(p):
+            created = p.get('created_at')
+            if hasattr(created, 'timestamp'):
+                return created.timestamp()
+            elif isinstance(created, str):
+                try:
+                    return datetime.fromisoformat(created.replace('Z', '+00:00')).timestamp()
+                except:
+                    return 0
+            return 0
+        
+        legacy_podcasts.sort(key=get_sort_key, reverse=True)
+        
+        print(f"✅ Admin: Found {len(legacy_podcasts)} legacy podcasts (without subscriber_id)")
+        
+        return {
+            "podcasts": legacy_podcasts,
+            "total_count": len(legacy_podcasts)
+        }
+        
+    except Exception as e:
+        print(f"❌ Error fetching legacy podcasts (admin): {e}")
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=f"Failed to fetch legacy podcasts: {str(e)}")
+
+@app.post("/api/admin/podcasts/assign-subscriber")
+async def admin_assign_podcasts_to_subscriber(
+    subscriber_id: str,
+    request: AssignPodcastsRequest,
+    admin_auth: bool = Depends(verify_admin_api_key)
+):
+    """Admin endpoint: Assign podcasts to a subscriber_id
+    
+    - If podcast_ids provided, assign only those podcasts
+    - If assign_all_legacy=True, assign all legacy podcasts (without subscriber_id) to this subscriber
+    """
+    if not db:
+        raise HTTPException(status_code=503, detail="Firestore service is unavailable")
+    
+    try:
+        # Verify subscriber exists
+        subscriber_doc = db.collection('subscribers').document(subscriber_id).get()
+        if not subscriber_doc.exists:
+            raise HTTPException(status_code=404, detail="Subscriber not found")
+        
+        subscriber_data = subscriber_doc.to_dict()
+        subscriber_email = subscriber_data.get('email', 'Unknown')
+        
+        podcasts_to_assign = []
+        
+        if request.assign_all_legacy:
+            # Get all legacy podcasts
+            podcasts_query = db.collection('podcast_jobs').limit(2000)
+            podcasts = podcasts_query.stream()
+            
+            for podcast in podcasts:
+                podcast_data = podcast.to_dict() or {}
+                if not podcast_data.get('subscriber_id'):
+                    podcasts_to_assign.append(podcast.id)
+        elif request.podcast_ids:
+            podcasts_to_assign = request.podcast_ids
+        else:
+            raise HTTPException(status_code=400, detail="Must provide either podcast_ids or set assign_all_legacy=True")
+        
+        # Assign podcasts
+        updated_count = 0
+        failed_count = 0
+        errors = []
+        
+        for podcast_id in podcasts_to_assign:
+            try:
+                podcast_doc = db.collection('podcast_jobs').document(podcast_id).get()
+                if not podcast_doc.exists:
+                    errors.append(f"Podcast {podcast_id} not found")
+                    failed_count += 1
+                    continue
+                
+                # Update the podcast
+                db.collection('podcast_jobs').document(podcast_id).update({
+                    'subscriber_id': subscriber_id,
+                    'assigned_by_admin': True,
+                    'assigned_at': datetime.utcnow().isoformat()
+                })
+                updated_count += 1
+                print(f"✅ Assigned podcast {podcast_id} to subscriber {subscriber_email}")
+                
+            except Exception as e:
+                error_msg = f"Failed to assign podcast {podcast_id}: {str(e)}"
+                errors.append(error_msg)
+                failed_count += 1
+                print(f"❌ {error_msg}")
+        
+        # Update subscriber's podcast count
+        if updated_count > 0:
+            subscriber_data = subscriber_doc.to_dict()
+            current_count = subscriber_data.get('podcasts_generated', 0)
+            db.collection('subscribers').document(subscriber_id).update({
+                'podcasts_generated': current_count + updated_count
+            })
+            print(f"✅ Updated subscriber {subscriber_email} podcast count by {updated_count}")
+        
+        result = {
+            "subscriber_id": subscriber_id,
+            "subscriber_email": subscriber_email,
+            "assigned_count": updated_count,
+            "failed_count": failed_count,
+            "errors": errors if errors else None,
+            "message": f"Assigned {updated_count} podcast(s) to {subscriber_email}"
+        }
+        
+        print(f"✅ Admin: {result['message']}")
+        return result
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"❌ Error assigning podcasts (admin): {e}")
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=f"Failed to assign podcasts: {str(e)}")
+
 @app.get("/api/admin/podcasts")
 async def admin_get_all_podcasts(admin_auth: bool = Depends(verify_admin_api_key), limit: int = 500):
     """Admin endpoint: Get all podcasts from all subscribers"""
@@ -3808,149 +3956,6 @@ async def admin_delete_podcast(podcast_id: str, admin_auth: bool = Depends(verif
         import traceback
         traceback.print_exc()
         raise HTTPException(status_code=500, detail="Failed to delete podcast")
-
-@app.get("/api/admin/podcasts/legacy")
-async def admin_get_legacy_podcasts(admin_auth: bool = Depends(verify_admin_api_key)):
-    """Admin endpoint: Get all podcasts without subscriber_id (legacy podcasts)"""
-    if not db:
-        raise HTTPException(status_code=503, detail="Firestore service is unavailable")
-    
-    try:
-        # Get all podcast jobs
-        podcasts_query = db.collection('podcast_jobs').limit(2000)
-        podcasts = podcasts_query.stream()
-        
-        legacy_podcasts = []
-        for podcast in podcasts:
-            podcast_data = podcast.to_dict() or {}
-            # Check if subscriber_id is missing or None
-            if not podcast_data.get('subscriber_id'):
-                podcast_data['podcast_id'] = podcast.id
-                legacy_podcasts.append(podcast_data)
-        
-        # Sort by created_at (newest first)
-        def get_sort_key(p):
-            created = p.get('created_at')
-            if hasattr(created, 'timestamp'):
-                return created.timestamp()
-            elif isinstance(created, str):
-                try:
-                    return datetime.fromisoformat(created.replace('Z', '+00:00')).timestamp()
-                except:
-                    return 0
-            return 0
-        
-        legacy_podcasts.sort(key=get_sort_key, reverse=True)
-        
-        print(f"✅ Admin: Found {len(legacy_podcasts)} legacy podcasts (without subscriber_id)")
-        
-        return {
-            "podcasts": legacy_podcasts,
-            "total_count": len(legacy_podcasts)
-        }
-        
-    except Exception as e:
-        print(f"❌ Error fetching legacy podcasts (admin): {e}")
-        import traceback
-        traceback.print_exc()
-        raise HTTPException(status_code=500, detail=f"Failed to fetch legacy podcasts: {str(e)}")
-
-@app.post("/api/admin/podcasts/assign-subscriber")
-async def admin_assign_podcasts_to_subscriber(
-    subscriber_id: str,
-    podcast_ids: Optional[List[str]] = None,
-    assign_all_legacy: bool = False,
-    admin_auth: bool = Depends(verify_admin_api_key)
-):
-    """Admin endpoint: Assign podcasts to a subscriber_id
-    
-    - If podcast_ids provided, assign only those podcasts
-    - If assign_all_legacy=True, assign all legacy podcasts (without subscriber_id) to this subscriber
-    """
-    if not db:
-        raise HTTPException(status_code=503, detail="Firestore service is unavailable")
-    
-    try:
-        # Verify subscriber exists
-        subscriber_doc = db.collection('subscribers').document(subscriber_id).get()
-        if not subscriber_doc.exists:
-            raise HTTPException(status_code=404, detail="Subscriber not found")
-        
-        subscriber_data = subscriber_doc.to_dict()
-        subscriber_email = subscriber_data.get('email', 'Unknown')
-        
-        podcasts_to_assign = []
-        
-        if assign_all_legacy:
-            # Get all legacy podcasts
-            podcasts_query = db.collection('podcast_jobs').limit(2000)
-            podcasts = podcasts_query.stream()
-            
-            for podcast in podcasts:
-                podcast_data = podcast.to_dict() or {}
-                if not podcast_data.get('subscriber_id'):
-                    podcasts_to_assign.append(podcast.id)
-        elif podcast_ids:
-            podcasts_to_assign = podcast_ids
-        else:
-            raise HTTPException(status_code=400, detail="Must provide either podcast_ids or set assign_all_legacy=True")
-        
-        # Assign podcasts
-        updated_count = 0
-        failed_count = 0
-        errors = []
-        
-        for podcast_id in podcasts_to_assign:
-            try:
-                podcast_doc = db.collection('podcast_jobs').document(podcast_id).get()
-                if not podcast_doc.exists:
-                    errors.append(f"Podcast {podcast_id} not found")
-                    failed_count += 1
-                    continue
-                
-                # Update the podcast
-                db.collection('podcast_jobs').document(podcast_id).update({
-                    'subscriber_id': subscriber_id,
-                    'assigned_by_admin': True,
-                    'assigned_at': datetime.utcnow().isoformat()
-                })
-                updated_count += 1
-                print(f"✅ Assigned podcast {podcast_id} to subscriber {subscriber_email}")
-                
-            except Exception as e:
-                error_msg = f"Failed to assign podcast {podcast_id}: {str(e)}"
-                errors.append(error_msg)
-                failed_count += 1
-                print(f"❌ {error_msg}")
-        
-        # Update subscriber's podcast count
-        if updated_count > 0:
-            subscriber_data = subscriber_doc.to_dict()
-            current_count = subscriber_data.get('podcasts_generated', 0)
-            db.collection('subscribers').document(subscriber_id).update({
-                'podcasts_generated': current_count + updated_count
-            })
-            print(f"✅ Updated subscriber {subscriber_email} podcast count by {updated_count}")
-        
-        result = {
-            "subscriber_id": subscriber_id,
-            "subscriber_email": subscriber_email,
-            "assigned_count": updated_count,
-            "failed_count": failed_count,
-            "errors": errors if errors else None,
-            "message": f"Assigned {updated_count} podcast(s) to {subscriber_email}"
-        }
-        
-        print(f"✅ Admin: {result['message']}")
-        return result
-        
-    except HTTPException:
-        raise
-    except Exception as e:
-        print(f"❌ Error assigning podcasts (admin): {e}")
-        import traceback
-        traceback.print_exc()
-        raise HTTPException(status_code=500, detail=f"Failed to assign podcasts: {str(e)}")
 
 def _markdown_to_html(markdown_text: str) -> str:
     """Convert markdown to HTML, fallback to paragraph-wrapped text on error."""
