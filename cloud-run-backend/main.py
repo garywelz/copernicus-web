@@ -3003,10 +3003,33 @@ async def get_subscriber_podcasts(subscriber_id: str):
         podcasts = podcasts_query.stream()
         
         podcast_list = []
+        # First, get all episodes to check RSS status
+        episodes_by_slug = {}
+        try:
+            episodes_query = db.collection(EPISODE_COLLECTION_NAME).stream()
+            for episode in episodes_query:
+                episode_data = episode.to_dict() or {}
+                slug = episode.id  # Episode ID is the canonical filename
+                episodes_by_slug[slug] = {
+                    'submitted_to_rss': episode_data.get('submitted_to_rss', False),
+                    'title': episode_data.get('title'),
+                }
+        except Exception as e:
+            print(f"⚠️  Could not load episodes for RSS status check: {e}")
+        
         for podcast in podcasts:
             podcast_data = podcast.to_dict()
             # Add podcast ID from document ID
             podcast_data['podcast_id'] = podcast.id
+            podcast_data['source'] = 'podcast_jobs'
+            
+            # Check RSS status from episodes collection if not set in podcast_jobs
+            if not podcast_data.get('submitted_to_rss'):
+                canonical = (podcast_data.get('result') or {}).get('canonical_filename')
+                if canonical and canonical in episodes_by_slug:
+                    podcast_data['submitted_to_rss'] = episodes_by_slug[canonical]['submitted_to_rss']
+                    print(f"✅ Updated RSS status for {canonical} from episodes collection: {podcast_data['submitted_to_rss']}")
+            
             podcast_list.append(podcast_data)
         
         print(f"✅ Found {len(podcast_list)} podcasts for subscriber {subscriber_id}")
