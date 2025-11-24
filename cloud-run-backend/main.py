@@ -3569,10 +3569,10 @@ async def sync_rss_status(admin_auth: bool = Depends(verify_admin_api_key)):
         
         print(f"📡 Found {len(rss_guids)} episodes in RSS feed")
         
-        # Update Firestore episodes
+        # Update Firestore episodes collection
         episodes_collection = db.collection(EPISODE_COLLECTION_NAME)
-        updated_count = 0
-        not_found_in_rss = 0
+        episodes_updated_count = 0
+        episodes_not_found_in_rss = 0
         
         # Get all episodes from Firestore
         all_episodes = episodes_collection.stream()
@@ -3591,8 +3591,8 @@ async def sync_rss_status(admin_auth: bool = Depends(verify_admin_api_key)):
                     "visibility": "public",
                     "updated_at": datetime.now(timezone.utc).isoformat()
                 })
-                updated_count += 1
-                print(f"✅ Marked {slug} as submitted_to_rss=True")
+                episodes_updated_count += 1
+                print(f"✅ Marked episode {slug} as submitted_to_rss=True")
             elif not is_in_rss and currently_marked:
                 # Update to mark as not submitted (in case it was removed from RSS)
                 episodes_collection.document(episode_doc.id).update({
@@ -3600,15 +3600,57 @@ async def sync_rss_status(admin_auth: bool = Depends(verify_admin_api_key)):
                     "visibility": "private",
                     "updated_at": datetime.now(timezone.utc).isoformat()
                 })
-                not_found_in_rss += 1
-                print(f"⚠️ Marked {slug} as submitted_to_rss=False (not in RSS feed)")
+                episodes_not_found_in_rss += 1
+                print(f"⚠️ Marked episode {slug} as submitted_to_rss=False (not in RSS feed)")
+        
+        # Also update podcast_jobs collection based on canonical_filename
+        podcast_jobs_updated_count = 0
+        podcast_jobs_not_found_in_rss = 0
+        
+        # Get all podcast jobs
+        all_podcast_jobs = db.collection('podcast_jobs').stream()
+        for job_doc in all_podcast_jobs:
+            job_data = job_doc.to_dict() or {}
+            result = job_data.get('result', {})
+            canonical = result.get('canonical_filename')
+            
+            if not canonical:
+                continue
+            
+            # Check if this podcast is in the RSS feed
+            is_in_rss = canonical in rss_guids
+            currently_marked = job_data.get("submitted_to_rss", False)
+            
+            if is_in_rss and not currently_marked:
+                # Update to mark as submitted
+                db.collection('podcast_jobs').document(job_doc.id).update({
+                    "submitted_to_rss": True,
+                    "updated_at": datetime.now(timezone.utc).isoformat()
+                })
+                podcast_jobs_updated_count += 1
+                print(f"✅ Marked podcast_job {job_doc.id} ({canonical}) as submitted_to_rss=True")
+            elif not is_in_rss and currently_marked:
+                # Update to mark as not submitted (in case it was removed from RSS)
+                db.collection('podcast_jobs').document(job_doc.id).update({
+                    "submitted_to_rss": False,
+                    "updated_at": datetime.now(timezone.utc).isoformat()
+                })
+                podcast_jobs_not_found_in_rss += 1
+                print(f"⚠️ Marked podcast_job {job_doc.id} ({canonical}) as submitted_to_rss=False (not in RSS feed)")
+        
+        total_updated = episodes_updated_count + podcast_jobs_updated_count
+        total_not_found = episodes_not_found_in_rss + podcast_jobs_not_found_in_rss
         
         result = {
             "rss_feed_episodes": len(rss_guids),
-            "updated_to_submitted": updated_count,
-            "updated_to_not_submitted": not_found_in_rss,
+            "episodes_updated_to_submitted": episodes_updated_count,
+            "episodes_updated_to_not_submitted": episodes_not_found_in_rss,
+            "podcast_jobs_updated_to_submitted": podcast_jobs_updated_count,
+            "podcast_jobs_updated_to_not_submitted": podcast_jobs_not_found_in_rss,
+            "total_updated_to_submitted": total_updated,
+            "total_updated_to_not_submitted": total_not_found,
             "rss_guids": sorted(list(rss_guids)),
-            "message": f"RSS sync complete: {updated_count} episodes marked as submitted, {not_found_in_rss} marked as not submitted"
+            "message": f"RSS sync complete: {total_updated} items marked as submitted ({episodes_updated_count} episodes, {podcast_jobs_updated_count} podcast_jobs), {total_not_found} marked as not submitted"
         }
         print(f"✅ RSS sync complete: {result['message']}")
         return result
