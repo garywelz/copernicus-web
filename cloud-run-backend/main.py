@@ -3934,54 +3934,89 @@ async def admin_get_all_podcasts(admin_auth: bool = Depends(verify_admin_api_key
 
 @app.delete("/api/admin/podcasts/{podcast_id}/rss")
 async def admin_remove_podcast_from_rss(podcast_id: str, admin_auth: bool = Depends(verify_admin_api_key)):
-    """Admin endpoint: Remove a podcast from RSS feed"""
+    """Admin endpoint: Remove a podcast from RSS feed
+    
+    Works with both podcast_jobs (if podcast_id is a job ID) and episodes collection
+    (if podcast_id starts with 'episode_' or is a canonical filename)
+    """
     if not db:
         raise HTTPException(status_code=503, detail="Firestore service is unavailable")
     
     try:
-        # Get podcast details
-        podcast_doc = db.collection('podcast_jobs').document(podcast_id).get()
-        if not podcast_doc.exists:
-            raise HTTPException(status_code=404, detail="Podcast not found")
+        podcast_data = None
+        canonical = None
+        subscriber_id = None
+        is_episode = False
         
-        podcast_data = podcast_doc.to_dict()
-        subscriber_id = podcast_data.get('subscriber_id')
-        canonical = (podcast_data.get('result') or {}).get('canonical_filename')
+        # Check if this is an episode ID (legacy podcast)
+        if podcast_id.startswith('episode_'):
+            # Extract the actual episode ID
+            episode_id = podcast_id.replace('episode_', '', 1)
+            episode_doc = db.collection(EPISODE_COLLECTION_NAME).document(episode_id).get()
+            if episode_doc.exists:
+                episode_data = episode_doc.to_dict() or {}
+                canonical = episode_id
+                is_episode = True
+                # Convert episode format to podcast format for RSS update
+                podcast_data = {
+                    'result': {
+                        'canonical_filename': canonical,
+                        'title': episode_data.get('title', ''),
+                        'audio_url': episode_data.get('audio_url', ''),
+                        'description_html': episode_data.get('description_html', ''),
+                        'summary': episode_data.get('summary', ''),
+                        'duration': episode_data.get('duration', ''),
+                    },
+                    'request': {
+                        'category': episode_data.get('category', ''),
+                        'duration': episode_data.get('duration', ''),
+                    }
+                }
+        else:
+            # Try podcast_jobs collection
+            podcast_doc = db.collection('podcast_jobs').document(podcast_id).get()
+            if podcast_doc.exists:
+                podcast_data = podcast_doc.to_dict()
+                subscriber_id = podcast_data.get('subscriber_id')
+                canonical = (podcast_data.get('result') or {}).get('canonical_filename')
         
-        if not subscriber_id:
-            raise HTTPException(status_code=400, detail="Podcast not associated with a subscriber")
+        if not podcast_data:
+            raise HTTPException(status_code=404, detail="Podcast not found in podcast_jobs or episodes")
         
-        # Get subscriber data for RSS update
-        subscriber_doc = db.collection('subscribers').document(subscriber_id).get()
-        subscriber_payload = subscriber_doc.to_dict() if subscriber_doc.exists else None
+        # Get subscriber data if available (for RSS update)
+        subscriber_payload = None
+        if subscriber_id:
+            subscriber_doc = db.collection('subscribers').document(subscriber_id).get()
+            subscriber_payload = subscriber_doc.to_dict() if subscriber_doc.exists else None
         
         # Remove from RSS feed
         await _update_rss_feed(podcast_data, subscriber_payload, False, None)
         
-        # Update podcast status
-        db.collection('podcast_jobs').document(podcast_id).update({
-            'submitted_to_rss': False,
-            'rss_removed_at': datetime.utcnow().isoformat(),
-            'rss_removed_by_admin': True
-        })
+        # Update podcast_jobs if it exists
+        if not is_episode and subscriber_id:
+            db.collection('podcast_jobs').document(podcast_id).update({
+                'submitted_to_rss': False,
+                'rss_removed_at': datetime.utcnow().isoformat(),
+                'rss_removed_by_admin': True
+            })
+            
+            # Update subscriber's RSS submission count
+            if subscriber_payload:
+                current_count = subscriber_payload.get('podcasts_submitted_to_rss', 0)
+                if current_count > 0:
+                    db.collection('subscribers').document(subscriber_id).update({
+                        'podcasts_submitted_to_rss': max(current_count - 1, 0)
+                    })
         
-        # Update episode catalog
+        # Update episode catalog (always update this)
         if canonical:
             _update_episode_submission_state(canonical, False, None)
         
-        # Update subscriber's RSS submission count
-        if subscriber_doc.exists:
-            subscriber_data = subscriber_doc.to_dict()
-            current_count = subscriber_data.get('podcasts_submitted_to_rss', 0)
-            if current_count > 0:
-                db.collection('subscribers').document(subscriber_id).update({
-                    'podcasts_submitted_to_rss': max(current_count - 1, 0)
-                })
-        
-        print(f"✅ Admin: Removed podcast {podcast_id} from RSS feed")
+        print(f"✅ Admin: Removed podcast {podcast_id} (canonical: {canonical}) from RSS feed")
         
         return {
             "podcast_id": podcast_id,
+            "canonical": canonical,
             "submitted_to_rss": False,
             "message": "Podcast removed from RSS feed by admin"
         }
@@ -3990,7 +4025,107 @@ async def admin_remove_podcast_from_rss(podcast_id: str, admin_auth: bool = Depe
         raise
     except Exception as e:
         print(f"❌ Error removing podcast from RSS (admin): {e}")
-        raise HTTPException(status_code=500, detail="Failed to remove podcast from RSS")
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=f"Failed to remove podcast from RSS: {str(e)}")
+
+@app.post("/api/admin/podcasts/{podcast_id}/rss")
+async def admin_add_podcast_to_rss(podcast_id: str, admin_auth: bool = Depends(verify_admin_api_key)):
+    """Admin endpoint: Add a podcast to RSS feed
+    
+    Works with both podcast_jobs (if podcast_id is a job ID) and episodes collection
+    (if podcast_id starts with 'episode_' or is a canonical filename)
+    """
+    if not db:
+        raise HTTPException(status_code=503, detail="Firestore service is unavailable")
+    
+    try:
+        podcast_data = None
+        canonical = None
+        subscriber_id = None
+        is_episode = False
+        
+        # Check if this is an episode ID (legacy podcast)
+        if podcast_id.startswith('episode_'):
+            # Extract the actual episode ID
+            episode_id = podcast_id.replace('episode_', '', 1)
+            episode_doc = db.collection(EPISODE_COLLECTION_NAME).document(episode_id).get()
+            if episode_doc.exists:
+                episode_data = episode_doc.to_dict() or {}
+                canonical = episode_id
+                is_episode = True
+                # Convert episode format to podcast format for RSS update
+                podcast_data = {
+                    'result': {
+                        'canonical_filename': canonical,
+                        'title': episode_data.get('title', ''),
+                        'audio_url': episode_data.get('audio_url', ''),
+                        'description_html': episode_data.get('description_html', ''),
+                        'summary': episode_data.get('summary', ''),
+                        'duration': episode_data.get('duration', ''),
+                        'thumbnail_url': episode_data.get('thumbnail_url', ''),
+                        'generated_at': episode_data.get('generated_at', episode_data.get('created_at', '')),
+                    },
+                    'request': {
+                        'category': episode_data.get('category', ''),
+                        'duration': episode_data.get('duration', ''),
+                    }
+                }
+        else:
+            # Try podcast_jobs collection
+            podcast_doc = db.collection('podcast_jobs').document(podcast_id).get()
+            if podcast_doc.exists:
+                podcast_data = podcast_doc.to_dict()
+                subscriber_id = podcast_data.get('subscriber_id')
+                canonical = (podcast_data.get('result') or {}).get('canonical_filename')
+        
+        if not podcast_data:
+            raise HTTPException(status_code=404, detail="Podcast not found in podcast_jobs or episodes")
+        
+        # Get subscriber data if available (for RSS update)
+        subscriber_payload = None
+        if subscriber_id:
+            subscriber_doc = db.collection('subscribers').document(subscriber_id).get()
+            subscriber_payload = subscriber_doc.to_dict() if subscriber_doc.exists else None
+        
+        # Add to RSS feed
+        await _update_rss_feed(podcast_data, subscriber_payload, True, None)
+        
+        # Update podcast_jobs if it exists
+        if not is_episode and subscriber_id:
+            db.collection('podcast_jobs').document(podcast_id).update({
+                'submitted_to_rss': True,
+                'rss_submitted_at': datetime.utcnow().isoformat(),
+                'rss_added_by_admin': True
+            })
+            
+            # Update subscriber's RSS submission count
+            if subscriber_payload:
+                current_count = subscriber_payload.get('podcasts_submitted_to_rss', 0)
+                db.collection('subscribers').document(subscriber_id).update({
+                    'podcasts_submitted_to_rss': current_count + 1
+                })
+        
+        # Update episode catalog (always update this)
+        if canonical:
+            _update_episode_submission_state(canonical, True, None)
+        
+        print(f"✅ Admin: Added podcast {podcast_id} (canonical: {canonical}) to RSS feed")
+        
+        return {
+            "podcast_id": podcast_id,
+            "canonical": canonical,
+            "submitted_to_rss": True,
+            "message": "Podcast added to RSS feed by admin"
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"❌ Error adding podcast to RSS (admin): {e}")
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=f"Failed to add podcast to RSS: {str(e)}")
 
 @app.delete("/api/admin/podcasts/{podcast_id}")
 async def admin_delete_podcast(podcast_id: str, admin_auth: bool = Depends(verify_admin_api_key)):
