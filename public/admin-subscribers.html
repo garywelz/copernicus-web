@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CopernicusAI - Subscriber Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .loading-spinner {
+            border: 3px solid #f3f4f6;
+            border-top: 3px solid #3b82f6;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="min-h-screen">
+        <!-- Header -->
+        <header class="bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                <h1 class="text-3xl font-bold">🔬 CopernicusAI - Subscriber Management</h1>
+                <p class="mt-2 text-blue-100">View and manage all registered subscribers</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            
+            <!-- Stats Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <div class="text-sm text-gray-500 mb-1">Total Subscribers</div>
+                    <div id="totalSubscribers" class="text-3xl font-bold text-blue-600">-</div>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <div class="text-sm text-gray-500 mb-1">With Attribution</div>
+                    <div id="withAttribution" class="text-3xl font-bold text-green-600">-</div>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <div class="text-sm text-gray-500 mb-1">Total Podcasts Generated</div>
+                    <div id="totalPodcasts" class="text-3xl font-bold text-purple-600">-</div>
+                </div>
+            </div>
+
+            <!-- Loading State -->
+            <div id="loadingState" class="flex justify-center items-center py-12">
+                <div class="loading-spinner"></div>
+                <span class="ml-4 text-gray-600">Loading subscribers...</span>
+            </div>
+
+            <!-- Error State -->
+            <div id="errorState" class="hidden bg-red-50 border-l-4 border-red-500 p-4 mb-6">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                        </svg>
+                    </div>
+                    <div class="ml-3">
+                        <p class="text-sm text-red-700" id="errorMessage">Error loading subscribers</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Subscribers Table -->
+            <div id="subscribersTable" class="hidden bg-white rounded-lg shadow-md overflow-hidden">
+                <div class="px-6 py-4 border-b border-gray-200 bg-gray-50">
+                    <h2 class="text-lg font-semibold text-gray-800">All Subscribers</h2>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">#</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Display Name</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Initials</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Attribution</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Podcasts</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Last Login</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="subscribersTableBody" class="bg-white divide-y divide-gray-200">
+                            <!-- Rows will be inserted here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Export Button -->
+            <div class="mt-6 flex justify-end">
+                <button id="exportButton" onclick="exportToCSV()" class="hidden bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-150">
+                    📊 Export to CSV
+                </button>
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        const API_BASE_URL = 'https://copernicus-podcast-api-phzp4ie2sq-uc.a.run.app';
+        let subscribersData = [];
+
+        async function loadSubscribers() {
+            try {
+                console.log('Fetching subscribers from API...');
+                const response = await fetch(`${API_BASE_URL}/api/admin/subscribers`);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const data = await response.json();
+                console.log('Received subscribers:', data);
+                
+                subscribersData = data.subscribers || [];
+                
+                // Update stats
+                document.getElementById('totalSubscribers').textContent = data.total_count || 0;
+                
+                const withAttribution = subscribersData.filter(s => s.show_attribution).length;
+                document.getElementById('withAttribution').textContent = withAttribution;
+                
+                const totalPodcasts = subscribersData.reduce((sum, s) => sum + (s.podcast_count || 0), 0);
+                document.getElementById('totalPodcasts').textContent = totalPodcasts;
+                
+                // Render table
+                renderTable(subscribersData);
+                
+                // Hide loading, show table
+                document.getElementById('loadingState').classList.add('hidden');
+                document.getElementById('subscribersTable').classList.remove('hidden');
+                document.getElementById('exportButton').classList.remove('hidden');
+                
+            } catch (error) {
+                console.error('Error loading subscribers:', error);
+                
+                // Show error state
+                document.getElementById('loadingState').classList.add('hidden');
+                document.getElementById('errorState').classList.remove('hidden');
+                document.getElementById('errorMessage').textContent = `Error: ${error.message}`;
+            }
+        }
+
+        function renderTable(subscribers) {
+            const tbody = document.getElementById('subscribersTableBody');
+            tbody.innerHTML = '';
+            
+            subscribers.forEach((subscriber, index) => {
+                const row = document.createElement('tr');
+                row.className = index % 2 === 0 ? 'bg-white' : 'bg-gray-50';
+                
+                // Format dates
+                const createdDate = formatDate(subscriber.created_at);
+                const lastLoginDate = formatDate(subscriber.last_login);
+                
+                row.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${index + 1}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${subscriber.email}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${subscriber.display_name}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${subscriber.initials}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm">
+                        ${subscriber.show_attribution 
+                            ? '<span class="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">Yes</span>' 
+                            : '<span class="px-2 py-1 text-xs font-semibold rounded-full bg-gray-100 text-gray-800">No</span>'}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${subscriber.podcast_count || 0}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${createdDate}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${lastLoginDate}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <button onclick="deleteSubscriber('${subscriber.subscriber_id}', '${subscriber.email}')" 
+                                class="text-red-600 hover:text-red-900 font-medium transition duration-150">
+                            🗑️ Delete
+                        </button>
+                    </td>
+                `;
+                
+                tbody.appendChild(row);
+            });
+        }
+
+        function formatDate(dateString) {
+            if (!dateString || dateString === 'Unknown' || dateString === 'Never' || dateString === 'N/A') {
+                return dateString;
+            }
+            
+            try {
+                const date = new Date(dateString);
+                return date.toLocaleDateString('en-US', { 
+                    year: 'numeric', 
+                    month: 'short', 
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+            } catch (e) {
+                return dateString;
+            }
+        }
+
+        async function deleteSubscriber(subscriberId, email) {
+            if (!confirm(`Are you sure you want to delete subscriber: ${email}?`)) {
+                return;
+            }
+            
+            try {
+                console.log(`Deleting subscriber: ${email} (ID: ${subscriberId})`);
+                
+                const response = await fetch(`${API_BASE_URL}/api/admin/subscribers/${subscriberId}`, {
+                    method: 'DELETE'
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const result = await response.json();
+                console.log('Delete result:', result);
+                
+                alert(`✅ Successfully deleted subscriber: ${email}`);
+                
+                // Reload the subscribers list
+                await loadSubscribers();
+                
+            } catch (error) {
+                console.error('Error deleting subscriber:', error);
+                alert(`❌ Failed to delete subscriber: ${error.message}`);
+            }
+        }
+
+        function exportToCSV() {
+            const headers = ['Email', 'Display Name', 'Initials', 'Show Attribution', 'Podcast Count', 'Created At', 'Last Login'];
+            const csvRows = [headers.join(',')];
+            
+            subscribersData.forEach(sub => {
+                const row = [
+                    `"${sub.email}"`,
+                    `"${sub.display_name}"`,
+                    `"${sub.initials}"`,
+                    sub.show_attribution ? 'Yes' : 'No',
+                    sub.podcast_count || 0,
+                    `"${sub.created_at}"`,
+                    `"${sub.last_login}"`
+                ];
+                csvRows.push(row.join(','));
+            });
+            
+            const csvContent = csvRows.join('\n');
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `copernicus-subscribers-${new Date().toISOString().split('T')[0]}.csv`;
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+
+        // Load subscribers on page load
+        window.addEventListener('DOMContentLoaded', loadSubscribers);
+    </script>
+</body>
+</html>
+

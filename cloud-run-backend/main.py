@@ -2330,6 +2330,12 @@ async def run_podcast_generation_job(job_id: str, request: PodcastRequest, subsc
             'engagement_metrics': engagement_metrics
         })
 
+        # NOTE: Option A Architecture - episodes as single source of truth for RSS
+        # AUTO-PROMOTE by default (YouTube-style): All podcasts are automatically promoted to episodes
+        # This gives users immediate publication ability without waiting for admin approval.
+        # Admin can still unpromote/remove if needed (moderation after the fact).
+        # - podcast_jobs: Complete generation history (all podcasts ever created)
+        # - episodes: Public catalog (auto-promoted, can be unpromoted if needed)
         try:
             _upsert_episode_document(
                 job_id,
@@ -2347,10 +2353,20 @@ async def run_podcast_generation_job(job_id: str, request: PodcastRequest, subsc
                 },
                 metadata_extended,
                 engagement_metrics,
-                submitted_to_rss=False,
+                submitted_to_rss=False,  # Not in RSS by default - user can add to RSS themselves
             )
+            
+            # Mark as promoted in podcast_jobs
+            db.collection('podcast_jobs').document(job_id).update({
+                'promoted_to_episodes': True,
+                'promoted_at': generated_timestamp,
+                'auto_promoted': True
+            })
+            
+            print(f"✅ Podcast {job_id} auto-promoted to episodes collection (ready for RSS)")
         except Exception as catalog_error:
-            print(f"⚠️ Failed to catalog episode {job_id}: {catalog_error}")
+            print(f"⚠️ Failed to auto-promote episode {job_id}: {catalog_error}")
+            # Continue anyway - podcast is still in podcast_jobs
         
         # Send email notification
         email_start_time = time.time()
@@ -3777,6 +3793,135 @@ async def admin_get_legacy_podcasts(admin_auth: bool = Depends(verify_admin_api_
         traceback.print_exc()
         raise HTTPException(status_code=500, detail=f"Failed to fetch legacy podcasts: {str(e)}")
 
+@app.post("/api/admin/podcasts/reassign")
+async def admin_reassign_podcasts(
+    request: dict,
+    admin_auth: bool = Depends(verify_admin_api_key)
+):
+    """Admin endpoint: Reassign podcasts from one subscriber to another
+    
+    Request body:
+    {
+        "from_subscriber_id": "subscriber_id_to_move_from",
+        "to_subscriber_id": "subscriber_id_to_move_to",
+        "podcast_ids": ["podcast_id1", "podcast_id2"]  # Optional: specific podcasts. If omitted, moves all.
+    }
+    """
+    if not db:
+        raise HTTPException(status_code=503, detail="Firestore service is unavailable")
+    
+    try:
+        from_subscriber_id = request.get('from_subscriber_id')
+        to_subscriber_id = request.get('to_subscriber_id')
+        podcast_ids = request.get('podcast_ids')
+        
+        if not from_subscriber_id or not to_subscriber_id:
+            raise HTTPException(status_code=400, detail="Both from_subscriber_id and to_subscriber_id are required")
+        
+        # Verify both subscribers exist
+        from_subscriber_doc = db.collection('subscribers').document(from_subscriber_id).get()
+        to_subscriber_doc = db.collection('subscribers').document(to_subscriber_id).get()
+        
+        if not from_subscriber_doc.exists:
+            raise HTTPException(status_code=404, detail=f"Source subscriber not found: {from_subscriber_id}")
+        if not to_subscriber_doc.exists:
+            raise HTTPException(status_code=404, detail=f"Target subscriber not found: {to_subscriber_id}")
+        
+        from_email = from_subscriber_doc.to_dict().get('email', from_subscriber_id)
+        to_email = to_subscriber_doc.to_dict().get('email', to_subscriber_id)
+        
+        # Find podcasts to reassign
+        if podcast_ids:
+            podcasts_to_reassign = podcast_ids
+        else:
+            # Get all podcasts from the source subscriber
+            podcasts_query = db.collection('podcast_jobs').where('subscriber_id', '==', from_subscriber_id)
+            podcasts_to_reassign = [podcast.id for podcast in podcasts_query.stream()]
+        
+        if not podcasts_to_reassign:
+            return {
+                "message": f"No podcasts found to reassign from {from_email}",
+                "reassigned_count": 0
+            }
+        
+        # Reassign podcasts
+        updated_count = 0
+        failed_count = 0
+        errors = []
+        
+        for podcast_id in podcasts_to_reassign:
+            try:
+                podcast_doc = db.collection('podcast_jobs').document(podcast_id).get()
+                if not podcast_doc.exists:
+                    errors.append(f"Podcast {podcast_id} not found")
+                    failed_count += 1
+                    continue
+                
+                podcast_data = podcast_doc.to_dict()
+                current_subscriber = podcast_data.get('subscriber_id')
+                
+                if current_subscriber != from_subscriber_id:
+                    errors.append(f"Podcast {podcast_id} belongs to different subscriber (expected {from_subscriber_id}, found {current_subscriber})")
+                    failed_count += 1
+                    continue
+                
+                # Update the podcast
+                db.collection('podcast_jobs').document(podcast_id).update({
+                    'subscriber_id': to_subscriber_id,
+                    'reassigned_by_admin': True,
+                    'reassigned_at': datetime.utcnow().isoformat(),
+                    'previous_subscriber_id': from_subscriber_id
+                })
+                updated_count += 1
+                print(f"✅ Reassigned podcast {podcast_id} from {from_email} to {to_email}")
+                
+            except Exception as e:
+                error_msg = f"Failed to reassign podcast {podcast_id}: {str(e)}"
+                errors.append(error_msg)
+                failed_count += 1
+                print(f"❌ {error_msg}")
+        
+        # Update subscriber podcast counts
+        if updated_count > 0:
+            # Decrease from_subscriber count
+            from_subscriber_data = from_subscriber_doc.to_dict()
+            from_current_count = from_subscriber_data.get('podcasts_generated', 0)
+            if from_current_count > 0:
+                db.collection('subscribers').document(from_subscriber_id).update({
+                    'podcasts_generated': max(from_current_count - updated_count, 0)
+                })
+            
+            # Increase to_subscriber count
+            to_subscriber_data = to_subscriber_doc.to_dict()
+            to_current_count = to_subscriber_data.get('podcasts_generated', 0)
+            db.collection('subscribers').document(to_subscriber_id).update({
+                'podcasts_generated': to_current_count + updated_count
+            })
+            
+            print(f"✅ Updated subscriber counts: {from_email} -{updated_count}, {to_email} +{updated_count}")
+        
+        result = {
+            "from_subscriber_id": from_subscriber_id,
+            "from_email": from_email,
+            "to_subscriber_id": to_subscriber_id,
+            "to_email": to_email,
+            "reassigned_count": updated_count,
+            "failed_count": failed_count,
+            "errors": errors if errors else None,
+            "message": f"Reassigned {updated_count} podcast(s) from {from_email} to {to_email}"
+        }
+        
+        print(f"✅ Admin: {result['message']}")
+        return result
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"❌ Error reassigning podcasts (admin): {e}")
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=f"Failed to reassign podcasts: {str(e)}")
+
 @app.post("/api/admin/podcasts/assign-subscriber/{subscriber_id}")
 async def admin_assign_podcasts_to_subscriber(
     subscriber_id: str,
@@ -3903,6 +4048,20 @@ async def admin_get_all_podcasts(admin_auth: bool = Depends(verify_admin_api_key
                     subscriber_email = subscriber_id[:20] + '...'
             
             podcast_data['subscriber_email'] = subscriber_email
+            
+            # Cross-reference RSS status from episodes collection for accuracy
+            canonical = (podcast_data.get('result') or {}).get('canonical_filename')
+            if canonical:
+                try:
+                    episode_doc = db.collection(EPISODE_COLLECTION_NAME).document(canonical).get()
+                    if episode_doc.exists:
+                        episode_data = episode_doc.to_dict() or {}
+                        # Use RSS status from episodes collection (source of truth)
+                        podcast_data['submitted_to_rss'] = episode_data.get('submitted_to_rss', False)
+                except Exception as e:
+                    print(f"⚠️  Could not check RSS status for {canonical}: {e}")
+                    # Keep the original submitted_to_rss value if we can't check
+            
             podcast_list.append(podcast_data)
         
         # Sort by created_at (newest first)
@@ -3919,11 +4078,15 @@ async def admin_get_all_podcasts(admin_auth: bool = Depends(verify_admin_api_key
         
         podcast_list.sort(key=get_sort_key, reverse=True)
         
-        print(f"✅ Admin: Found {len(podcast_list)} total podcasts")
+        # Count how many are actually in RSS (submitted_to_rss === True)
+        in_rss_count = sum(1 for p in podcast_list if p.get('submitted_to_rss') is True)
+        
+        print(f"✅ Admin: Found {len(podcast_list)} total podcasts, {in_rss_count} in RSS")
         
         return {
             "podcasts": podcast_list,
-            "total_count": len(podcast_list)
+            "total_count": len(podcast_list),
+            "in_rss_count": in_rss_count
         }
         
     except Exception as e:
@@ -4033,6 +4196,11 @@ async def admin_remove_podcast_from_rss(podcast_id: str, admin_auth: bool = Depe
 async def admin_add_podcast_to_rss(podcast_id: str, admin_auth: bool = Depends(verify_admin_api_key)):
     """Admin endpoint: Add a podcast to RSS feed
     
+    IMPORTANT (Option A Architecture): 
+    - Podcast must be in episodes collection to be added to RSS (promoted first)
+    - RSS status is tracked in episodes collection (single source of truth)
+    - This endpoint will auto-promote if not already promoted
+    
     Works with both podcast_jobs (if podcast_id is a job ID) and episodes collection
     (if podcast_id starts with 'episode_' or is a canonical filename)
     """
@@ -4088,10 +4256,47 @@ async def admin_add_podcast_to_rss(podcast_id: str, admin_auth: bool = Depends(v
             subscriber_doc = db.collection('subscribers').document(subscriber_id).get()
             subscriber_payload = subscriber_doc.to_dict() if subscriber_doc.exists else None
         
-        # Add to RSS feed
+        # OPTION A ARCHITECTURE: episodes is single source of truth for RSS
+        # Ensure podcast is promoted to episodes collection first
+        if not is_episode and canonical:
+            episode_doc = db.collection(EPISODE_COLLECTION_NAME).document(canonical).get()
+            if not episode_doc.exists:
+                # Auto-promote to episodes collection
+                print(f"⚠️  Podcast {podcast_id} not in episodes collection. Auto-promoting first...")
+                request_data = podcast_data.get('request') or {}
+                metadata_extended = podcast_data.get('metadata_extended') or {}
+                engagement_metrics = podcast_data.get('engagement_metrics') or {}
+                
+                # Get attribution if subscriber wants it
+                creator_attribution = None
+                if subscriber_payload and subscriber_payload.get('show_attribution', False):
+                    initials = subscriber_payload.get('initials')
+                    if initials:
+                        creator_attribution = initials
+                    elif subscriber_payload.get('display_name'):
+                        display_name = subscriber_payload['display_name']
+                        creator_attribution = "".join(part[0].upper() for part in display_name.split() if part).strip() or None
+                
+                _upsert_episode_document(
+                    podcast_id,
+                    subscriber_id,
+                    request_data,
+                    podcast_data.get('result') or {},
+                    metadata_extended,
+                    engagement_metrics,
+                    submitted_to_rss=False,  # Will be set to True below
+                    creator_attribution=creator_attribution,
+                )
+                print(f"✅ Auto-promoted {podcast_id} to episodes collection")
+        
+        # Add to RSS feed (uses episodes collection)
         await _update_rss_feed(podcast_data, subscriber_payload, True, None)
         
-        # Update podcast_jobs if it exists
+        # Update episodes collection - SINGLE SOURCE OF TRUTH for RSS status
+        if canonical:
+            _update_episode_submission_state(canonical, True, None)
+        
+        # Update podcast_jobs as reference (not source of truth)
         if not is_episode and subscriber_id:
             db.collection('podcast_jobs').document(podcast_id).update({
                 'submitted_to_rss': True,
@@ -4105,10 +4310,6 @@ async def admin_add_podcast_to_rss(podcast_id: str, admin_auth: bool = Depends(v
                 db.collection('subscribers').document(subscriber_id).update({
                     'podcasts_submitted_to_rss': current_count + 1
                 })
-        
-        # Update episode catalog (always update this)
-        if canonical:
-            _update_episode_submission_state(canonical, True, None)
         
         print(f"✅ Admin: Added podcast {podcast_id} (canonical: {canonical}) to RSS feed")
         
