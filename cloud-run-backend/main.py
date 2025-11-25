@@ -4078,10 +4078,19 @@ async def admin_get_all_podcasts(admin_auth: bool = Depends(verify_admin_api_key
         
         podcast_list.sort(key=get_sort_key, reverse=True)
         
-        # Count how many are actually in RSS (submitted_to_rss === True)
-        in_rss_count = sum(1 for p in podcast_list if p.get('submitted_to_rss') is True)
+        # Count RSS directly from episodes collection (single source of truth)
+        # Don't count from podcast_list because not all podcasts are in episodes yet
+        in_rss_count = 0
+        try:
+            episodes_query = db.collection(EPISODE_COLLECTION_NAME).where('submitted_to_rss', '==', True)
+            episodes_in_rss = episodes_query.stream()
+            in_rss_count = sum(1 for _ in episodes_in_rss)
+        except Exception as e:
+            print(f"⚠️  Could not count RSS from episodes collection: {e}")
+            # Fallback: count from podcast_list
+            in_rss_count = sum(1 for p in podcast_list if p.get('submitted_to_rss') is True)
         
-        print(f"✅ Admin: Found {len(podcast_list)} total podcasts, {in_rss_count} in RSS")
+        print(f"✅ Admin: Found {len(podcast_list)} total podcasts in podcast_jobs, {in_rss_count} in RSS (from episodes collection)")
         
         return {
             "podcasts": podcast_list,
