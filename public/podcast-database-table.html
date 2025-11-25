@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Copernicus Podcast Episode Catalog</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: linear-gradient(135deg, #1d4ed8 0%, #9333ea 100%);
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
+      color: white;
+      padding: 30px;
+      text-align: center;
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 2.2em;
+      font-weight: 400;
+    }
+
+    .header p {
+      margin: 10px 0 0 0;
+      opacity: 0.85;
+      font-size: 1.05em;
+    }
+
+    .controls {
+      padding: 20px 30px 0 30px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .refresh-btn {
+      background: #2563eb;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.9em;
+    }
+
+    .refresh-btn:hover {
+      background: #1d4ed8;
+    }
+
+    .filter-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: 0.9em;
+      color: #4b5563;
+    }
+
+    .filter-group select {
+      padding: 6px 10px;
+      border-radius: 4px;
+      border: 1px solid #d1d5db;
+      font-size: 0.9em;
+    }
+
+    .table-container {
+      padding: 20px 30px 30px 30px;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+      font-size: 0.9em;
+    }
+
+    th, td {
+      padding: 10px 8px;
+      text-align: left;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    th {
+      background: #f3f4f6;
+      font-weight: 600;
+      color: #111827;
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+
+    tr:hover {
+      background: #f9fafb;
+    }
+
+    .title-cell {
+      font-weight: 600;
+      color: #111827;
+      max-width: 260px;
+    }
+
+    .category-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 8px;
+      border-radius: 999px;
+      font-size: 0.8em;
+      background: #eff6ff;
+      color: #1d4ed8;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 8px;
+      border-radius: 999px;
+      font-size: 0.8em;
+    }
+
+    .status-published {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .status-draft {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .link-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .link-group a {
+      color: #2563eb;
+      text-decoration: none;
+      font-size: 0.86em;
+    }
+
+    .link-group a:hover {
+      text-decoration: underline;
+    }
+
+    .loading,
+    .error {
+      text-align: center;
+      padding: 40px;
+      color: #6b7280;
+    }
+
+    .error {
+      color: #b91c1c;
+    }
+
+    .summary {
+      padding: 10px 30px 0 30px;
+      font-size: 0.9em;
+      color: #6b7280;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>📻 Copernicus Podcast Episode Catalog</h1>
+      <p>Table view of all episodes from the canonical JSON catalog (Cloud Run + Firestore)</p>
+    </div>
+
+    <div id="loading" class="loading">
+      <p>Loading episode catalog from Cloud Run API…</p>
+    </div>
+
+    <div id="error" class="error" style="display:none;"></div>
+
+    <div id="content" style="display:none;">
+      <div class="controls">
+        <button class="refresh-btn" onclick="loadEpisodes()">🔄 Refresh</button>
+        <div class="filter-group">
+          <label>
+            Category:
+            <select id="categoryFilter" onchange="applyFilters()">
+              <option value="">All</option>
+              <option value="bio">Biology</option>
+              <option value="chem">Chemistry</option>
+              <option value="compsci">Computer Science</option>
+              <option value="math">Mathematics</option>
+              <option value="phys">Physics</option>
+            </select>
+          </label>
+          <label>
+            Status:
+            <select id="statusFilter" onchange="applyFilters()">
+              <option value="">All</option>
+              <option value="published">Published to RSS</option>
+              <option value="draft">Draft (not in RSS)</option>
+            </select>
+          </label>
+        </div>
+      </div>
+
+      <div class="summary" id="summaryText"></div>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Category</th>
+              <th>Duration</th>
+              <th>Status</th>
+              <th>Links</th>
+              <th>Episode ID</th>
+            </tr>
+          </thead>
+          <tbody id="episodeTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const CATALOG_API_URL =
+      'https://copernicus-podcast-api-204731194849.us-central1.run.app/api/episodes?limit=500';
+
+    let allEpisodes = [];
+
+    async function loadEpisodes() {
+      document.getElementById('loading').style.display = 'block';
+      document.getElementById('error').style.display = 'none';
+      document.getElementById('content').style.display = 'none';
+
+      try {
+        const response = await fetch(CATALOG_API_URL, { method: 'GET' });
+        if (!response.ok) {
+          throw new Error('HTTP ' + response.status + ': ' + response.statusText);
+        }
+        const data = await response.json();
+        allEpisodes = data.episodes || [];
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('content').style.display = 'block';
+        applyFilters();
+      } catch (err) {
+        document.getElementById('loading').style.display = 'none';
+        const errorDiv = document.getElementById('error');
+        errorDiv.textContent = 'Error loading episodes: ' + err.message;
+        errorDiv.style.display = 'block';
+      }
+    }
+
+    function applyFilters() {
+      const categoryFilter = document.getElementById('categoryFilter').value;
+      const statusFilter = document.getElementById('statusFilter').value;
+
+      let filtered = allEpisodes.slice();
+
+      if (categoryFilter) {
+        filtered = filtered.filter(ep => (ep.category_slug || '').toLowerCase() === categoryFilter);
+      }
+
+      if (statusFilter === 'published') {
+        filtered = filtered.filter(ep => ep.submitted_to_rss === true);
+      } else if (statusFilter === 'draft') {
+        filtered = filtered.filter(ep => !ep.submitted_to_rss);
+      }
+
+      renderTable(filtered);
+    }
+
+    function renderTable(episodes) {
+      const tbody = document.getElementById('episodeTableBody');
+      const summary = document.getElementById('summaryText');
+
+      summary.textContent = episodes.length + ' episodes shown (of ' + allEpisodes.length + ' total in catalog).';
+
+      if (!episodes.length) {
+        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; padding:20px; color:#9ca3af;">No episodes found for the current filters.</td></tr>';
+        return;
+      }
+
+      const rows = episodes.map(ep => {
+        const id = ep.episode_id || ep.slug || ep.canonical_filename || '';
+        const statusClass = ep.submitted_to_rss ? 'status-published' : 'status-draft';
+        const statusLabel = ep.submitted_to_rss ? 'Published to RSS' : 'Draft';
+        const duration = ep.duration || (ep.request && ep.request.duration) || '';
+        const categoryLabel = ep.category || ep.category_slug || '';
+
+        const episodePageUrl = id
+          ? `https://copernicusai.fyi/episodes/${encodeURIComponent(id)}`
+          : '';
+        const jsonUrl = id
+          ? `https://copernicus-podcast-api-204731194849.us-central1.run.app/api/episodes/${encodeURIComponent(id)}`
+          : '';
+        const audioUrl = ep.audio_url || '';
+        const transcriptUrl = ep.transcript_url || '';
+
+        return `
+          <tr>
+            <td class="title-cell">${escapeHtml(ep.title || 'Untitled Episode')}</td>
+            <td>${categoryLabel ? `<span class="category-pill">${escapeHtml(categoryLabel)}</span>` : ''}</td>
+            <td>${duration ? escapeHtml(String(duration)) : ''}</td>
+            <td><span class="status-pill ${statusClass}">${statusLabel}</span></td>
+            <td>
+              <div class="link-group">
+                ${episodePageUrl ? `<a href="${episodePageUrl}" target="_blank" rel="noopener noreferrer">Episode page (thumbnail, description, audio, transcript)</a>` : ''}
+                ${jsonUrl ? `<a href="${jsonUrl}" target="_blank" rel="noopener noreferrer">View JSON</a>` : ''}
+                ${audioUrl ? `<a href="${audioUrl}" target="_blank" rel="noopener noreferrer">Audio file</a>` : ''}
+                ${transcriptUrl ? `<a href="${transcriptUrl}" target="_blank" rel="noopener noreferrer">Transcript file</a>` : ''}
+              </div>
+            </td>
+            <td>${escapeHtml(id)}</td>
+          </tr>
+        `;
+      });
+
+      tbody.innerHTML = rows.join('');
+    }
+
+    function escapeHtml(value) {
+      if (value == null) return '';
+      return String(value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    window.addEventListener('load', loadEpisodes);
+  </script>
+</body>
+</html>
+
+
