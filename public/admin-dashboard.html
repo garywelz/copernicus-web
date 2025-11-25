@@ -373,7 +373,7 @@
                                     ${submitted ? '<span class="inline-block mt-2 px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">In RSS</span>' : '<span class="inline-block mt-2 px-2 py-1 text-xs font-semibold rounded-full bg-gray-100 text-gray-800">Not in RSS</span>'}
                                 </div>
                                 <div class="flex gap-2 ml-4">
-                                    ${submitted ? `<button onclick="removeFromRss('${podcastId}', '${title.replace(/'/g, "\\'")}')" class="text-orange-600 hover:text-orange-900 text-sm font-medium">Remove from RSS</button>` : ''}
+                                    ${submitted ? `<button onclick="removeFromRss('${podcastId}', '${title.replace(/'/g, "\\'")}')" class="text-orange-600 hover:text-orange-900 text-sm font-medium">Remove from RSS</button>` : `<button onclick="addToRss('${podcastId}', '${title.replace(/'/g, "\\'")}')" class="text-green-600 hover:text-green-900 text-sm font-medium">Add to RSS</button>`}
                                     <button onclick="deletePodcast('${podcastId}', '${title.replace(/'/g, "\\'")}')" class="text-red-600 hover:text-red-900 text-sm font-medium">🗑️ Delete</button>
                                 </div>
                             </div>
@@ -395,6 +395,35 @@
         }
 
         // Podcast Management
+        async function addToRss(podcastId, title) {
+            if (!confirm(`Add "${title}" to the RSS feed?`)) {
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/admin/podcasts/${podcastId}/rss`, {
+                    method: 'POST',
+                    headers: getAuthHeaders()
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                alert('✅ Successfully added podcast to RSS feed');
+                loadCurrentTab();
+                if (!document.getElementById('userPodcastsModal').classList.contains('hidden')) {
+                    // Reload user podcasts if modal is open
+                    const subscriberId = document.getElementById('modalSubscriberId').textContent.replace('ID: ', '');
+                    const email = document.getElementById('modalUserEmail').textContent.replace('Podcasts by: ', '');
+                    viewUserPodcasts(subscriberId, email);
+                }
+            } catch (error) {
+                console.error('Error adding to RSS:', error);
+                alert(`❌ Failed to add to RSS: ${error.message}`);
+            }
+        }
+
         async function removeFromRss(podcastId, title) {
             if (!confirm(`Are you sure you want to remove "${title}" from the RSS feed?`)) {
                 return;
@@ -566,7 +595,12 @@
                                     class="text-orange-600 hover:text-orange-900 font-medium text-xs">
                                 Remove RSS
                             </button>
-                            ` : ''}
+                            ` : `
+                            <button onclick="addToRss('${podcastId}', '${title.replace(/'/g, "\\'").replace(/"/g, '&quot;')}')" 
+                                    class="text-green-600 hover:text-green-900 font-medium text-xs">
+                                Add to RSS
+                            </button>
+                            `}
                             <button onclick="deletePodcast('${podcastId}', '${title.replace(/'/g, "\\'").replace(/"/g, '&quot;')}')" 
                                     class="text-red-600 hover:text-red-900 font-medium text-xs">
                                 🗑️ Delete
