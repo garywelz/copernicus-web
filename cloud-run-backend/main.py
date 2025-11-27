@@ -4731,7 +4731,17 @@ async def admin_get_all_podcasts(admin_auth: bool = Depends(verify_admin_api_key
         raise HTTPException(status_code=503, detail="Firestore service is unavailable")
     
     try:
-        # Get all podcast jobs, optionally limit
+        # First, get actual total count (without limit for counting)
+        total_podcasts_count = 0
+        try:
+            # Count all podcasts without limit for accurate total
+            all_podcasts_for_count = db.collection('podcast_jobs').stream()
+            total_podcasts_count = sum(1 for _ in all_podcasts_for_count)
+        except Exception as e:
+            structured_logger.warning("Could not count all podcasts",
+                                     error=str(e))
+        
+        # Get all podcast jobs, optionally limit for the returned list
         limit = min(limit, 2000)  # Cap at reasonable limit
         podcasts_query = db.collection('podcast_jobs').limit(limit)
         podcasts = podcasts_query.stream()
@@ -4804,9 +4814,13 @@ async def admin_get_all_podcasts(admin_auth: bool = Depends(verify_admin_api_key
                               in_rss_count=in_rss_count,
                               source="podcast_jobs and episodes collection")
         
+        # Use actual total count if we got it, otherwise fall back to returned list length
+        actual_total = total_podcasts_count if total_podcasts_count > 0 else len(podcast_list)
+        
         return {
             "podcasts": podcast_list,
-            "total_count": len(podcast_list),
+            "total_count": actual_total,  # Use accurate total count
+            "returned_count": len(podcast_list),  # How many we actually returned in this response
             "in_rss_count": in_rss_count
         }
         
