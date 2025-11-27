@@ -35,6 +35,7 @@ class ComprehensiveResearchPipeline:
         self.google_api_key = os.getenv("GOOGLE_API_KEY")
         self.news_api_key = os.getenv("NEWS_API_KEY")
         self.core_api_key = os.getenv("CORE_API_KEY")  # CORE aggregator API
+        self.youtube_api_key = os.getenv("YOUTUBE_API_KEY")  # YouTube Data API
         
         # API endpoints
         self.endpoints = {
@@ -45,7 +46,8 @@ class ComprehensiveResearchPipeline:
             "bioRxiv": "https://api.biorxiv.org/details",
             "core": "https://api.core.ac.uk/v3/search",
             "news_api": "https://newsapi.org/v2/everything",
-            "openrouter": "https://openrouter.ai/api/v1/chat/completions"
+            "openrouter": "https://openrouter.ai/api/v1/chat/completions",
+            "youtube": "https://www.googleapis.com/youtube/v3/search"
         }
         
         # Source weights for relevance scoring
@@ -112,6 +114,10 @@ class ComprehensiveResearchPipeline:
         
         # CORE aggregator for open access papers
         search_tasks.append(self._search_core(base_query, depth))
+        
+        # YouTube search for academic content (conference talks, lectures)
+        if self.youtube_api_key:
+            search_tasks.append(self._search_youtube(base_query, depth))
         
         # Current trends and news
         if include_social_trends:
@@ -182,61 +188,93 @@ class ComprehensiveResearchPipeline:
         return sources
 
     async def _search_arxiv(self, query: str, depth: str) -> List[ResearchSource]:
-        """Search arXiv for preprint papers via OpenRouter"""
+        """Search arXiv for preprint papers - PUBLIC API, no authentication required"""
         sources = []
         max_results = {"basic": 5, "comprehensive": 15, "exhaustive": 25}
         
         try:
-            # Use OpenRouter to search arXiv intelligently
+            # ArXiv is PUBLIC - search directly without OpenRouter
+            # Map query to ArXiv categories for better results
+            category_filter = self._map_to_arxiv_category(query)
+            
+            # Build search query - try category-specific first, then general
+            if category_filter:
+                search_query = f"cat:{category_filter}+AND+({query})"
+            else:
+                # General search across all fields
+                search_query = f"all:{query}"
+            
+            arxiv_params = {
+                "search_query": search_query,
+                "start": 0,
+                "max_results": max_results.get(depth, 15),
+                "sortBy": "relevance",
+                "sortOrder": "descending"
+            }
+            
             async with aiohttp.ClientSession() as session:
-                headers = {
-                    "Authorization": f"Bearer {self.openrouter_api_key}",
-                    "Content-Type": "application/json"
-                }
-                
-                # First, use AI to refine the search query for arXiv
-                refine_prompt = f"""
-                Convert this research query into optimal arXiv search terms: "{query}"
-                
-                Return only the refined search terms, focusing on:
-                - Key scientific concepts
-                - Relevant arXiv categories
-                - Technical terminology
-                
-                Refined query:"""
-                
-                ai_data = {
-                    "model": "anthropic/claude-3-haiku",
-                    "messages": [{"role": "user", "content": refine_prompt}],
-                    "max_tokens": 100
-                }
-                
-                async with session.post(self.endpoints["openrouter"], 
-                                      headers=headers, json=ai_data) as ai_response:
-                    if ai_response.status == 200:
-                        ai_result = await ai_response.json()
-                        refined_query = ai_result["choices"][0]["message"]["content"].strip()
-                    else:
-                        refined_query = query
-                
-                # Now search arXiv with refined query
-                arxiv_params = {
-                    "search_query": f"all:{refined_query}",
-                    "start": 0,
-                    "max_results": max_results.get(depth, 15),
-                    "sortBy": "relevance",
-                    "sortOrder": "descending"
-                }
-                
                 async with session.get(self.endpoints["arxiv"], params=arxiv_params) as response:
                     if response.status == 200:
                         xml_data = await response.text()
                         sources = self._parse_arxiv_xml(xml_data)
+                        print(f"✅ ArXiv search found {len(sources)} sources for: {query}")
+                    else:
+                        print(f"⚠️ ArXiv API returned status {response.status}")
         
         except Exception as e:
             print(f"arXiv search error: {e}")
+            # Try simpler search if category search failed
+            try:
+                simple_params = {
+                    "search_query": f"all:{query}",
+                    "start": 0,
+                    "max_results": max_results.get(depth, 15),
+                    "sortBy": "relevance"
+                }
+                async with aiohttp.ClientSession() as session:
+                    async with session.get(self.endpoints["arxiv"], params=simple_params) as response:
+                        if response.status == 200:
+                            xml_data = await response.text()
+                            sources = self._parse_arxiv_xml(xml_data)
+                            print(f"✅ ArXiv fallback search found {len(sources)} sources")
+            except Exception as e2:
+                print(f"ArXiv fallback search also failed: {e2}")
         
         return sources
+    
+    def _map_to_arxiv_category(self, query: str) -> str:
+        """Map search query to ArXiv category for better results"""
+        query_lower = query.lower()
+        
+        # Mathematics categories
+        if "number theory" in query_lower or "diophantine" in query_lower or "arithmetic" in query_lower:
+            return "math.NT"  # Number Theory
+        elif "algebra" in query_lower:
+            return "math.AC"  # Commutative Algebra
+        elif "geometry" in query_lower:
+            return "math.DG"  # Differential Geometry
+        elif "topology" in query_lower:
+            return "math.GT"  # Geometric Topology
+        elif "analysis" in query_lower:
+            return "math.AP"  # Analysis of PDEs
+        elif "probability" in query_lower or "statistics" in query_lower:
+            return "math.PR"  # Probability
+        elif "combinatorics" in query_lower:
+            return "math.CO"  # Combinatorics
+        elif "logic" in query_lower:
+            return "math.LO"  # Logic
+        
+        # Physics categories
+        elif "quantum" in query_lower:
+            return "quant-ph"  # Quantum Physics
+        elif "particle" in query_lower or "hep" in query_lower:
+            return "hep-th"  # High Energy Physics - Theory
+        
+        # General math if math-related but no specific category
+        if any(term in query_lower for term in ["math", "theorem", "proof", "conjecture"]):
+            return "math"  # General mathematics
+        
+        return ""  # No category filter - search all
 
     async def _search_nasa_ads(self, query: str, depth: str) -> List[ResearchSource]:
         """Search NASA ADS for astronomy/astrophysics papers"""
@@ -383,10 +421,11 @@ class ComprehensiveResearchPipeline:
         return sources
 
     async def _search_core(self, query: str, depth: str) -> List[ResearchSource]:
-        """Search CORE aggregator for open access research papers"""
+        """Search CORE aggregator for open access research papers - UK's largest aggregator"""
         sources = []
         
         if not self.core_api_key:
+            print(f"⚠️ CORE API key not available - skipping CORE search")
             return sources
         
         try:
@@ -396,11 +435,20 @@ class ComprehensiveResearchPipeline:
                     "Content-Type": "application/json"
                 }
                 
+                max_results = {"basic": 10, "comprehensive": 20, "exhaustive": 30}
+                
+                # Optimize query for CORE - detect subject area
+                subject_filter = self._detect_subject_for_core(query)
+                
                 params = {
                     "q": query,
-                    "limit": 20,
+                    "limit": max_results.get(depth, 20),
                     "page": 1
                 }
+                
+                # CORE supports subject filtering - add if detected
+                if subject_filter:
+                    params["subject"] = subject_filter
                 
                 async with session.get(
                     self.endpoints["core"],
@@ -428,9 +476,95 @@ class ComprehensiveResearchPipeline:
                                 keywords=paper.get("topics", [])
                             )
                             sources.append(source)
+                        
+                        print(f"✅ CORE search found {len(sources)} sources for: {query}")
+                        if subject_filter:
+                            print(f"   Subject filter: {subject_filter}")
+                    else:
+                        print(f"⚠️ CORE API returned status {response.status}")
         
         except Exception as e:
             print(f"CORE API search error: {e}")
+        
+        return sources
+    
+    def _detect_subject_for_core(self, query: str) -> str:
+        """Detect subject area from query for CORE filtering"""
+        query_lower = query.lower()
+        
+        # Mathematics
+        if any(term in query_lower for term in ["number theory", "math", "mathematics", "algebra", "geometry", 
+                                                  "topology", "analysis", "arithmetic", "diophantine", "theorem"]):
+            return "Mathematics"
+        
+        # Physics
+        if any(term in query_lower for term in ["physics", "quantum", "particle", "astrophysics", "cosmology"]):
+            return "Physics"
+        
+        # Biology
+        if any(term in query_lower for term in ["biology", "genetic", "molecular", "cell", "biochemistry", "neuroscience"]):
+            return "Biology"
+        
+        # Computer Science
+        if any(term in query_lower for term in ["computer science", "algorithm", "computing", "software", "programming"]):
+            return "Computer Science"
+        
+        # Chemistry
+        if any(term in query_lower for term in ["chemistry", "chemical", "molecular", "organic"]):
+            return "Chemistry"
+        
+        return ""  # No subject filter - search all
+
+    async def _search_youtube(self, query: str, depth: str) -> List[ResearchSource]:
+        """Search YouTube for academic content - conference talks, lectures, educational videos"""
+        sources = []
+        
+        if not self.youtube_api_key:
+            return sources
+        
+        try:
+            max_results = {"basic": 5, "comprehensive": 10, "exhaustive": 15}
+            
+            async with aiohttp.ClientSession() as session:
+                # Search for educational/academic content
+                params = {
+                    "part": "snippet",
+                    "q": f"{query} lecture OR conference OR academic OR research",
+                    "type": "video",
+                    "videoCategoryId": "27",  # Education category
+                    "order": "relevance",
+                    "maxResults": max_results.get(depth, 10),
+                    "key": self.youtube_api_key
+                }
+                
+                async with session.get(self.endpoints["youtube"], params=params) as response:
+                    if response.status == 200:
+                        data = await response.json()
+                        
+                        for item in data.get("items", []):
+                            snippet = item.get("snippet", {})
+                            video_id = item.get("id", {}).get("videoId", "")
+                            
+                            # Extract channel name as "author"
+                            channel_title = snippet.get("channelTitle", "YouTube")
+                            
+                            source = ResearchSource(
+                                title=snippet.get("title", ""),
+                                authors=[channel_title],
+                                abstract=snippet.get("description", "")[:500],
+                                url=f"https://www.youtube.com/watch?v={video_id}",
+                                publication_date=snippet.get("publishedAt", ""),
+                                source="youtube",
+                                keywords=snippet.get("tags", [])[:5] if snippet.get("tags") else None
+                            )
+                            sources.append(source)
+                        
+                        print(f"✅ YouTube search found {len(sources)} sources for: {query}")
+                    else:
+                        print(f"⚠️ YouTube API returned status {response.status}")
+        
+        except Exception as e:
+            print(f"YouTube API search error: {e}")
         
         return sources
 
