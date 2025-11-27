@@ -3949,6 +3949,155 @@ async def backfill_episode_catalog(limit: int = 200, admin_auth: bool = Depends(
                                error_trace=error_trace)
         raise HTTPException(status_code=500, detail=f"Failed to backfill episodes: {str(e)}")
 
+@app.post("/api/admin/rss/fix-untitled-episodes")
+async def fix_untitled_episodes_in_rss(admin_auth: bool = Depends(verify_admin_api_key)):
+    """Fix existing 'Untitled Episode' entries in RSS feed by looking up titles from Firestore.
+    
+    This scans the RSS feed for items with 'Untitled Episode' titles, looks them up in
+    Firestore (episodes collection or podcast_jobs), and updates the RSS feed with correct titles.
+    """
+    if not db:
+        raise HTTPException(status_code=503, detail="Firestore service is unavailable")
+    
+    try:
+        from google.cloud import storage
+        from google.api_core.exceptions import PreconditionFailed
+        import xml.etree.ElementTree as ET
+        import re
+        
+        structured_logger.info("Starting fix of untitled episodes in RSS feed")
+        
+        # Read RSS feed from GCS
+        storage_client = storage.Client()
+        bucket = storage_client.bucket(RSS_BUCKET_NAME)
+        blob = bucket.blob(RSS_FEED_BLOB_NAME)
+        
+        if not blob.exists():
+            raise HTTPException(status_code=404, detail="RSS feed file not found in storage")
+        
+        blob.reload()
+        current_generation = blob.generation
+        xml_bytes = blob.download_as_bytes()
+        root = ET.fromstring(xml_bytes)
+        channel = root.find("channel")
+        
+        if channel is None:
+            raise HTTPException(status_code=500, detail="RSS feed missing channel element")
+        
+        # Find all items with "Untitled Episode" titles
+        untitled_items = []
+        items = channel.findall("item")
+        for item in items:
+            title_elem = item.find("title")
+            if title_elem is not None:
+                title_text = title_elem.text or ""
+                # Remove CDATA markers if present
+                title_text = re.sub(r'<!\[CDATA\[(.*?)\]\]>', r'\1', title_text, flags=re.DOTALL)
+                if "Untitled Episode" in title_text or title_text.strip() == "":
+                    guid_elem = item.find("guid")
+                    guid = guid_elem.text if guid_elem is not None else None
+                    if guid:
+                        untitled_items.append((item, guid.strip()))
+        
+        structured_logger.info("Found untitled episodes in RSS feed",
+                              untitled_count=len(untitled_items))
+        
+        if not untitled_items:
+            return {
+                "message": "No untitled episodes found in RSS feed",
+                "fixed_count": 0,
+                "not_found_count": 0
+            }
+        
+        # Look up titles in Firestore and update RSS items
+        fixed_count = 0
+        not_found_count = 0
+        updates_made = False
+        
+        for item, guid in untitled_items:
+            title_found = None
+            topic_found = None
+            
+            # Try to find in episodes collection first
+            episode_doc = db.collection(EPISODE_COLLECTION_NAME).document(guid).get()
+            if episode_doc.exists:
+                episode_data = episode_doc.to_dict() or {}
+                title_found = episode_data.get("title")
+                if not title_found:
+                    topic_found = episode_data.get("topic")
+            else:
+                # Try to find in podcast_jobs collection using canonical_filename
+                podcast_jobs = db.collection('podcast_jobs').where('result.canonical_filename', '==', guid).limit(1).stream()
+                for job_doc in podcast_jobs:
+                    job_data = job_doc.to_dict() or {}
+                    result_data = job_data.get("result", {})
+                    title_found = result_data.get("title")
+                    if not title_found:
+                        request_data = job_data.get("request", {})
+                        topic_found = request_data.get("topic") or result_data.get("topic")
+                    break
+            
+            # Use topic as fallback if title not found
+            new_title = title_found or topic_found
+            if new_title and new_title.strip():
+                # Update title element (handle CDATA)
+                title_elem = item.find("title")
+                if title_elem is None:
+                    title_elem = ET.SubElement(item, "title")
+                title_elem.text = f"<![CDATA[{new_title.strip()}]]>"
+                
+                # Also update iTunes title if present
+                itunes_ns = "{http://www.itunes.com/dtds/podcast-1.0.dtd}"
+                itunes_title_elem = item.find(f"{itunes_ns}title")
+                if itunes_title_elem is None:
+                    itunes_title_elem = ET.SubElement(item, f"{itunes_ns}title")
+                itunes_title_elem.text = f"<![CDATA[{new_title.strip()}]]>"
+                
+                fixed_count += 1
+                updates_made = True
+                structured_logger.info("Fixed untitled episode in RSS feed",
+                                      guid=guid,
+                                      new_title=new_title.strip()[:60])
+            else:
+                not_found_count += 1
+                structured_logger.warning("Could not find title or topic for untitled episode",
+                                         guid=guid)
+        
+        # Save updated RSS feed if changes were made
+        if updates_made:
+            new_xml_bytes = ET.tostring(root, encoding="utf-8", xml_declaration=True)
+            # Restore CDATA markers (ElementTree escapes them by default)
+            xml_text = new_xml_bytes.decode("utf-8")
+            xml_text = xml_text.replace("&lt;![CDATA[", "<![CDATA[").replace("]]&gt;", "]]>")
+            new_xml_bytes = xml_text.encode("utf-8")
+            
+            try:
+                blob.upload_from_string(
+                    new_xml_bytes,
+                    content_type="application/rss+xml",
+                    if_generation_match=current_generation,
+                )
+                structured_logger.info("Updated RSS feed with fixed titles",
+                                      fixed_count=fixed_count,
+                                      not_found_count=not_found_count)
+            except PreconditionFailed:
+                raise HTTPException(status_code=409, detail="RSS feed was updated concurrently. Please retry.")
+        
+        return {
+            "message": f"Fixed {fixed_count} untitled episodes in RSS feed",
+            "fixed_count": fixed_count,
+            "not_found_count": not_found_count,
+            "total_untitled": len(untitled_items)
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        structured_logger.error("Failed to fix untitled episodes in RSS feed",
+                               error=str(e),
+                               error_type=type(e).__name__)
+        raise HTTPException(status_code=500, detail=f"Failed to fix untitled episodes: {str(e)}")
+
 @app.post("/api/admin/episodes/sync-rss-status")
 async def sync_rss_status(admin_auth: bool = Depends(verify_admin_api_key)):
     """Sync Firestore episode catalog with actual RSS feed contents.
