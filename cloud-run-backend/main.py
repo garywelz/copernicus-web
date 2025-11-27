@@ -4018,8 +4018,15 @@ async def fix_untitled_episodes_in_rss(admin_auth: bool = Depends(verify_admin_a
             title_found = None
             topic_found = None
             
-            # Try to find in episodes collection first
+            # Try to find in episodes collection first (by canonical_filename or episode_id)
             episode_doc = db.collection(EPISODE_COLLECTION_NAME).document(guid).get()
+            if not episode_doc.exists:
+                # Try finding by canonical_filename field
+                episodes_query = db.collection(EPISODE_COLLECTION_NAME).where('canonical_filename', '==', guid).limit(1).stream()
+                for ep_doc in episodes_query:
+                    episode_doc = ep_doc
+                    break
+            
             if episode_doc.exists:
                 episode_data = episode_doc.to_dict() or {}
                 title_found = episode_data.get("title")
@@ -4036,6 +4043,17 @@ async def fix_untitled_episodes_in_rss(admin_auth: bool = Depends(verify_admin_a
                         request_data = job_data.get("request", {})
                         topic_found = request_data.get("topic") or result_data.get("topic")
                     break
+                
+                # If still not found, try searching by job_id
+                if not title_found and not topic_found:
+                    job_doc = db.collection('podcast_jobs').document(guid).get()
+                    if job_doc.exists:
+                        job_data = job_doc.to_dict() or {}
+                        result_data = job_data.get("result", {})
+                        title_found = result_data.get("title")
+                        if not title_found:
+                            request_data = job_data.get("request", {})
+                            topic_found = request_data.get("topic") or result_data.get("topic")
             
             # Use topic as fallback if title not found
             new_title = title_found or topic_found
