@@ -2151,6 +2151,17 @@ This episode explores {research_context.topic}, examining recent breakthroughs a
                               description_length=len(fallback_desc),
                               topic=request.topic)
     
+    # CRITICAL: If title is missing or empty, use the topic as fallback
+    if not content.get('title') or not content.get('title', '').strip():
+        structured_logger.warning("LLM did not generate title field, using topic as fallback",
+                                 topic=request.topic)
+        content['title'] = request.topic
+    # Also ensure title closely matches topic - if title doesn't contain topic keywords, prefer topic
+    elif request.topic and request.topic.lower() not in content.get('title', '').lower():
+        structured_logger.info("Generated title doesn't clearly match topic, but keeping LLM-generated title",
+                              generated_title=content.get('title', '')[:60],
+                              topic=request.topic)
+    
     # Add research metadata to content
     content['research_quality_score'] = research_context.research_quality_score
     content['research_sources_used'] = len(research_context.research_sources)
@@ -2296,13 +2307,22 @@ async def run_podcast_generation_job(job_id: str, request: PodcastRequest, subsc
                 )
                 
                 content_memory_after = psutil.virtual_memory().percent
+                
+                # CRITICAL: Ensure title exists - use topic as fallback if missing
+                if isinstance(content, dict):
+                    if not content.get('title') or not content.get('title', '').strip():
+                        structured_logger.warning("LLM did not generate valid title, using topic as fallback",
+                                                 topic=request.topic)
+                        content['title'] = request.topic
+                
                 structured_logger.info("Content generation completed successfully", 
                                       job_id=job_id,
                                       memory_before=content_memory_before,
                                       memory_after=content_memory_after,
                                       memory_delta=content_memory_after - content_memory_before,
                                       content_type=type(content).__name__,
-                                      content_keys=list(content.keys()) if isinstance(content, dict) else None)
+                                      content_keys=list(content.keys()) if isinstance(content, dict) else None,
+                                      title=content.get('title', 'N/A')[:60] if isinstance(content, dict) else 'N/A')
                 
             except asyncio.TimeoutError:
                 structured_logger.error("Content generation timed out", 
@@ -2510,7 +2530,7 @@ async def run_podcast_generation_job(job_id: str, request: PodcastRequest, subsc
             'status': 'completed',
             'updated_at': datetime.utcnow().isoformat(),
             'result': {
-                'title': content.get('title', 'Untitled Podcast'),
+                'title': content.get('title') or request.topic or 'Untitled Podcast',
                 'script': content.get('script', ''),
                 'description': content.get('description', ''),
                 'audio_url': audio_url,
@@ -4982,11 +5002,16 @@ def _prepare_episode_document(
     category_info = _extract_category_from_filename(canonical, request_data.get("category"))
     now_iso = datetime.utcnow().isoformat()
 
+    # Use topic as fallback for title
+    episode_title = result_data.get("title") or request_data.get("topic") or result_data.get("topic") or "Untitled Episode"
+    if not episode_title or not episode_title.strip():
+        episode_title = request_data.get("topic") or result_data.get("topic") or "Untitled Episode"
+    
     episode_doc: Dict[str, Any] = {
         "episode_id": slug,
         "job_id": job_id,
         "subscriber_id": subscriber_id,
-        "title": result_data.get("title", "Untitled Episode"),
+        "title": episode_title.strip(),
         "slug": slug,
         "canonical_filename": canonical,
         "topic": request_data.get("topic"),
@@ -5130,8 +5155,14 @@ def _build_rss_item_data(podcast_data: Dict[str, Any], subscriber_data: Optional
 
     guid = canonical or result.get("topic") or podcast_data.get("job_id")
 
+    # Use topic as fallback for title instead of "Untitled Episode"
+    title = result.get("title") or request_data.get("topic") or result.get("topic") or "Untitled Episode"
+    # Ensure title is not empty or just whitespace
+    if not title or not title.strip():
+        title = request_data.get("topic") or result.get("topic") or "Untitled Episode"
+
     return {
-        "title": result.get("title", "Untitled Episode"),
+        "title": title.strip(),
         "description_html": description_html,
         "summary": summary_text or result.get("title", ""),
         "audio_url": audio_url,

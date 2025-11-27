@@ -295,15 +295,16 @@
                 if (response.ok) {
                     showMessage('Login successful! Redirecting to dashboard...', 'success');
                     
-                    // Store subscriber info
+                    // Store subscriber info - use same format as dashboard expects
+                    // Store full subscriber object (dashboard checks for 'subscriber' key)
+                    localStorage.setItem('subscriber', JSON.stringify(result));
+                    // Also store individual fields for backwards compatibility
                     localStorage.setItem('subscriber_id', result.subscriber_id);
                     localStorage.setItem('subscriber_email', result.email);
                     localStorage.setItem('subscriber_name', result.name);
                     
-                    // Redirect to dashboard
-                    setTimeout(() => {
-                        window.location.href = '/subscriber-dashboard.html';
-                    }, 1500);
+                    // Redirect to dashboard immediately (no delay needed)
+                    window.location.href = '/subscriber-dashboard.html';
                 } else {
                     showMessage(result.detail || 'Login failed. Please check your credentials.', 'error');
                 }

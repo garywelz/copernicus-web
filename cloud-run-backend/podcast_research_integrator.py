@@ -371,7 +371,7 @@ groundbreaking research. [Final thought on future implications]
 
 **OUTPUT FORMAT (JSON):**
 {{
-    "title": "Engaging title highlighting the paradigm shift in {research_context.topic}",
+    "title": "Engaging title closely matching '{research_context.topic}' - should directly reference the topic with compelling wording",
     "script": "Full dialogue script with {host_name.upper()}: and {expert_name.upper()}: labels",
     "description": "Comprehensive but CONCISE episode description (MUST be under 3000 characters) with:
         - Episode overview (1-2 paragraphs, concise)
