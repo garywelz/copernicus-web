@@ -3949,6 +3949,165 @@ async def backfill_episode_catalog(limit: int = 200, admin_auth: bool = Depends(
                                error_trace=error_trace)
         raise HTTPException(status_code=500, detail=f"Failed to backfill episodes: {str(e)}")
 
+@app.post("/api/admin/podcasts/cleanup-stuck")
+async def cleanup_stuck_podcasts(
+    older_than_days: int = 1,
+    status_filter: Optional[str] = "generating_content",
+    action: str = "mark_failed",  # "mark_failed" or "delete"
+    admin_auth: bool = Depends(verify_admin_api_key)
+):
+    """Clean up stuck podcasts that have been in generating_content (or other status) for too long.
+    
+    Args:
+        older_than_days: Only clean up podcasts older than this many days (default: 1)
+        status_filter: Status to look for (default: "generating_content")
+        action: What to do - "mark_failed" (default) or "delete"
+    
+    This will:
+    - Find all podcasts with the specified status older than X days
+    - Either mark them as "failed" or delete them completely
+    - Also clean up associated episodes if they exist
+    """
+    if not db:
+        raise HTTPException(status_code=503, detail="Firestore service is unavailable")
+    
+    try:
+        from datetime import timedelta
+        
+        cutoff_date = datetime.utcnow() - timedelta(days=older_than_days)
+        cutoff_iso = cutoff_date.isoformat()
+        
+        structured_logger.info("Starting cleanup of stuck podcasts",
+                              status_filter=status_filter,
+                              older_than_days=older_than_days,
+                              action=action,
+                              cutoff_date=cutoff_iso)
+        
+        # Find stuck podcasts
+        stuck_podcasts = []
+        podcasts_query = db.collection('podcast_jobs').where('status', '==', status_filter).stream()
+        
+        for podcast_doc in podcasts_query:
+            podcast_data = podcast_doc.to_dict() or {}
+            created_at = podcast_data.get('created_at') or podcast_data.get('updated_at', '')
+            
+            # Check if older than cutoff
+            try:
+                if created_at:
+                    created_date = datetime.fromisoformat(created_at.replace('Z', '+00:00'))
+                    if created_date.replace(tzinfo=None) < cutoff_date:
+                        stuck_podcasts.append({
+                            'podcast_id': podcast_doc.id,
+                            'topic': podcast_data.get('request', {}).get('topic', 'Unknown'),
+                            'created_at': created_at,
+                            'status': podcast_data.get('status'),
+                            'canonical': (podcast_data.get('result') or {}).get('canonical_filename')
+                        })
+            except Exception as e:
+                structured_logger.warning("Could not parse date for podcast",
+                                         podcast_id=podcast_doc.id,
+                                         created_at=created_at,
+                                         error=str(e))
+                # If we can't parse the date, include it anyway (better safe than sorry for very old ones)
+                stuck_podcasts.append({
+                    'podcast_id': podcast_doc.id,
+                    'topic': podcast_data.get('request', {}).get('topic', 'Unknown'),
+                    'created_at': created_at,
+                    'status': podcast_data.get('status'),
+                    'canonical': (podcast_data.get('result') or {}).get('canonical_filename')
+                })
+        
+        structured_logger.info("Found stuck podcasts",
+                              count=len(stuck_podcasts))
+        
+        if not stuck_podcasts:
+            return {
+                "message": f"No stuck podcasts found with status '{status_filter}' older than {older_than_days} days",
+                "cleaned_count": 0,
+                "action": action
+            }
+        
+        cleaned_count = 0
+        episodes_removed = 0
+        errors = []
+        
+        for stuck_podcast in stuck_podcasts:
+            podcast_id = stuck_podcast['podcast_id']
+            canonical = stuck_podcast.get('canonical')
+            
+            try:
+                if action == "delete":
+                    # Delete from podcast_jobs
+                    db.collection('podcast_jobs').document(podcast_id).delete()
+                    structured_logger.info("Deleted stuck podcast",
+                                          podcast_id=podcast_id,
+                                          topic=stuck_podcast['topic'])
+                    
+                    # Also delete from episodes collection if exists
+                    if canonical:
+                        episode_doc = db.collection(EPISODE_COLLECTION_NAME).document(canonical).get()
+                        if episode_doc.exists:
+                            db.collection(EPISODE_COLLECTION_NAME).document(canonical).delete()
+                            episodes_removed += 1
+                            structured_logger.info("Deleted associated episode",
+                                                  canonical=canonical)
+                
+                elif action == "mark_failed":
+                    # Mark as failed instead of deleting
+                    update_data = {
+                        'status': 'failed',
+                        'error': 'Podcast generation was stuck and was automatically marked as failed',
+                        'failed_at': datetime.utcnow().isoformat(),
+                        'updated_at': datetime.utcnow().isoformat()
+                    }
+                    db.collection('podcast_jobs').document(podcast_id).update(update_data)
+                    structured_logger.info("Marked stuck podcast as failed",
+                                          podcast_id=podcast_id,
+                                          topic=stuck_podcast['topic'])
+                
+                cleaned_count += 1
+                
+            except Exception as e:
+                error_msg = f"Failed to {action} podcast {podcast_id}: {str(e)}"
+                errors.append(error_msg)
+                structured_logger.error("Failed to clean up stuck podcast",
+                                       podcast_id=podcast_id,
+                                       action=action,
+                                       error=str(e))
+        
+        result = {
+            "message": f"Cleaned up {cleaned_count} stuck podcasts (status: {status_filter}, older than {older_than_days} days)",
+            "cleaned_count": cleaned_count,
+            "episodes_removed": episodes_removed,
+            "action": action,
+            "podcasts_cleaned": [
+                {
+                    "podcast_id": p['podcast_id'],
+                    "topic": p['topic'],
+                    "created_at": p['created_at']
+                }
+                for p in stuck_podcasts[:cleaned_count]
+            ]
+        }
+        
+        if errors:
+            result["errors"] = errors
+        
+        structured_logger.info("Cleanup of stuck podcasts complete",
+                              cleaned_count=cleaned_count,
+                              episodes_removed=episodes_removed,
+                              errors_count=len(errors))
+        
+        return result
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        structured_logger.error("Failed to cleanup stuck podcasts",
+                               error=str(e),
+                               error_type=type(e).__name__)
+        raise HTTPException(status_code=500, detail=f"Failed to cleanup stuck podcasts: {str(e)}")
+
 @app.post("/api/admin/rss/fix-untitled-episodes")
 async def fix_untitled_episodes_in_rss(admin_auth: bool = Depends(verify_admin_api_key)):
     """Fix existing 'Untitled Episode' entries in RSS feed by looking up titles from Firestore.
