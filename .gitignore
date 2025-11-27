@@ -1,72 +1,10 @@
-# Node modules
-node_modules/
+# Diagnostic scripts (temporary)
+cloud-run-backend/check_latest_failure.py
+cloud-run-backend/diagnose_issues.py
 
-# Python virtual environments
-venv/
-backend_venv/
-test_env/
-rss_venv/
-*venv/
-
-# Python cache
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-
-# Large binaries/tools
-bfg-1.14.0.jar
-bfg-1.14.0.jar:Zone.Identifier
-
-# Build output
+# Build artifacts
 .next/
-out/
-dist/
-
-# Local env files
-.env
 .env.local
-.env.*.local
 
-# OS files
-.DS_Store
-Thumbs.db
-
-# IDE/editor folders
-.vscode/
-.idea/
-
-# Log files
-*.log
-*.log*
-
-# Scripts/tools not for version control
-find_unused_gcs_files.py
-
-# Old or backup RSS/XML/CSV files
-copernicus-final-rss-feed.xml
-copernicus-final-rss-feed-cleaned.xml
-# backup/ is ignored, but canonical/ is tracked
-backup/
-
-# Misc
-*.swp
-*.wav
-*.mp3
-fixed_rss_feed.xml
-quantum_leap_*
-
-CURSOR_CONTEXT.md
-INTEGRATION_COMPLETE.md
-all_episode_titles.txt
-available_thumbnails.txt
-current_thumbnails.json
-math-news-ep1-description.md
-news-math-28032025.md
-news-phys-28032025.md
-physics-news-ep1-description.md
-podcast-episode-audit.csv
-regal-scholar-453620-r7-b4a72581927b.json
-server.log
-test.log
-.vercel
+# Documentation (optional - can commit if desired)
+# *.md
