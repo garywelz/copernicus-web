@@ -4667,32 +4667,65 @@ async def assign_canonical_filenames(request: dict, admin_auth: bool = Depends(v
         fix_all_missing = request.get('fix_all_missing', False)
         
         if fix_all_missing:
-            # Find all episodes in RSS feed that don't have canonical filenames
-            from google.cloud import storage
-            storage_client = storage.Client()
-            bucket = storage_client.bucket(RSS_BUCKET_NAME)
-            blob = bucket.blob(RSS_FEED_BLOB_NAME)
+            # Find ALL podcasts that don't have canonical filenames (not just in RSS feed)
+            import re
             
-            if not blob.exists():
-                raise HTTPException(status_code=404, detail="RSS feed file not found in storage")
+            # Pattern for canonical filenames: ever-{category}-{6 digits}
+            canonical_pattern = re.compile(r'^ever-(bio|chem|compsci|math|phys)-\d{6}$')
             
-            import xml.etree.ElementTree as ET
-            xml_bytes = blob.download_as_bytes()
-            root = ET.fromstring(xml_bytes)
-            channel = root.find("channel")
-            
-            if channel is None:
-                raise HTTPException(status_code=500, detail="RSS feed missing channel element")
-            
-            items = channel.findall("item")
             episode_guids = []
+            identifiers_to_fix = []
             
-            for item in items:
-                guid_elem = item.find("guid")
-                guid = guid_elem.text.strip() if guid_elem is not None and guid_elem.text else None
-                if guid and not guid.startswith('ever-') and not guid.startswith('news-'):
-                    # This is a UUID GUID, needs canonical filename
-                    episode_guids.append(guid)
+            # Check podcast_jobs collection
+            podcast_jobs = db.collection('podcast_jobs').stream()
+            for job_doc in podcast_jobs:
+                job_data = job_doc.to_dict() or {}
+                result = job_data.get('result', {})
+                canonical = result.get('canonical_filename')
+                job_id = job_doc.id
+                
+                # Check if canonical filename is missing or doesn't match pattern
+                is_canonical = False
+                if canonical:
+                    is_canonical = bool(canonical_pattern.match(canonical))
+                
+                if not is_canonical:
+                    identifiers_to_fix.append({
+                        'identifier': canonical or job_id,
+                        'job_id': job_id,
+                        'is_canonical_field': bool(canonical),
+                        'source': 'podcast_jobs'
+                    })
+                    # Use identifier as the GUID to process
+                    episode_guids.append(canonical or job_id)
+            
+            # Check episodes collection
+            episodes = db.collection(EPISODE_COLLECTION_NAME).stream()
+            for episode_doc in episodes:
+                episode_data = episode_doc.to_dict() or {}
+                canonical = episode_doc.id  # Episode ID is canonical filename
+                
+                # Check if canonical filename matches pattern
+                is_canonical = bool(canonical_pattern.match(canonical))
+                
+                if not is_canonical:
+                    # Check if we already have this
+                    job_id = episode_data.get('job_id')
+                    already_added = any(guid == canonical or guid == job_id for guid in episode_guids)
+                    
+                    if not already_added:
+                        identifiers_to_fix.append({
+                            'identifier': canonical,
+                            'job_id': job_id,
+                            'is_canonical_field': True,  # It's the episode ID
+                            'source': 'episodes'
+                        })
+                        episode_guids.append(canonical)
+            
+            structured_logger.info("Found podcasts missing canonical filenames",
+                                 count=len(episode_guids),
+                                 from_podcast_jobs=sum(1 for i in identifiers_to_fix if i['source'] == 'podcast_jobs'),
+                                 from_episodes=sum(1 for i in identifiers_to_fix if i['source'] == 'episodes'))
         
         if not episode_guids:
             return {
@@ -6098,6 +6131,130 @@ async def get_podcast_database(admin_auth: bool = Depends(verify_admin_api_key))
                                error=str(e),
                                error_type=type(e).__name__)
         raise HTTPException(status_code=500, detail=f"Failed to generate podcast database: {str(e)}")
+
+@app.get("/api/admin/podcasts/missing-canonical")
+async def list_podcasts_missing_canonical(admin_auth: bool = Depends(verify_admin_api_key)):
+    """List all podcasts that don't have canonical filenames in the format ever-category-25####.
+    
+    Returns podcasts using job_id or UUID GUIDs instead of canonical filenames.
+    """
+    if not db:
+        raise HTTPException(status_code=503, detail="Firestore service is unavailable")
+    
+    try:
+        import re
+        
+        structured_logger.info("Finding podcasts missing canonical filenames")
+        
+        # Pattern for canonical filenames: ever-{category}-{6 digits}
+        canonical_pattern = re.compile(r'^ever-(bio|chem|compsci|math|phys)-\d{6}$')
+        
+        missing_canonical = []
+        
+        # Check podcast_jobs collection
+        podcast_jobs = db.collection('podcast_jobs').stream()
+        for job_doc in podcast_jobs:
+            job_data = job_doc.to_dict() or {}
+            result = job_data.get('result', {})
+            canonical = result.get('canonical_filename')
+            job_id = job_doc.id
+            
+            # Check if canonical filename is missing or doesn't match pattern
+            is_canonical = False
+            if canonical:
+                is_canonical = bool(canonical_pattern.match(canonical))
+            
+            if not is_canonical:
+                subscriber_id = job_data.get('subscriber_id')
+                subscriber_email = 'Unknown'
+                if subscriber_id:
+                    try:
+                        subscriber_doc = db.collection('subscribers').document(subscriber_id).get()
+                        if subscriber_doc.exists:
+                            subscriber_data = subscriber_doc.to_dict() or {}
+                            subscriber_email = subscriber_data.get('email', 'Unknown')
+                    except:
+                        pass
+                
+                missing_canonical.append({
+                    'identifier': canonical or job_id,
+                    'job_id': job_id,
+                    'title': result.get('title') or job_data.get('request', {}).get('topic', 'Untitled'),
+                    'subscriber_email': subscriber_email,
+                    'category': job_data.get('request', {}).get('category', 'Unknown'),
+                    'current_canonical': canonical if canonical else None,
+                    'created_at': job_data.get('created_at') or result.get('generated_at'),
+                    'source': 'podcast_jobs'
+                })
+        
+        # Check episodes collection
+        episodes = db.collection(EPISODE_COLLECTION_NAME).stream()
+        for episode_doc in episodes:
+            episode_data = episode_doc.to_dict() or {}
+            canonical = episode_doc.id  # Episode ID is canonical filename
+            
+            # Check if canonical filename matches pattern
+            is_canonical = bool(canonical_pattern.match(canonical))
+            
+            if not is_canonical:
+                # Check if we already have this in missing_canonical from podcast_jobs
+                already_listed = False
+                for item in missing_canonical:
+                    if item.get('job_id') == episode_data.get('job_id') or item.get('identifier') == canonical:
+                        already_listed = True
+                        break
+                
+                if not already_listed:
+                    subscriber_id = episode_data.get('subscriber_id')
+                    subscriber_email = 'Unknown'
+                    if subscriber_id:
+                        try:
+                            subscriber_doc = db.collection('subscribers').document(subscriber_id).get()
+                            if subscriber_doc.exists:
+                                subscriber_data = subscriber_doc.to_dict() or {}
+                                subscriber_email = subscriber_data.get('email', 'Unknown')
+                        except:
+                            pass
+                    
+                    missing_canonical.append({
+                        'identifier': canonical,
+                        'job_id': episode_data.get('job_id'),
+                        'title': episode_data.get('title', 'Untitled'),
+                        'subscriber_email': subscriber_email,
+                        'category': episode_data.get('category') or (episode_data.get('request') or {}).get('category', 'Unknown'),
+                        'current_canonical': canonical,
+                        'created_at': episode_data.get('created_at') or episode_data.get('generated_at'),
+                        'source': 'episodes'
+                    })
+        
+        # Sort by created_at (oldest first, so we can assign numbers in order)
+        def get_sort_key(p):
+            created = p.get('created_at')
+            if hasattr(created, 'timestamp'):
+                return created.timestamp()
+            elif isinstance(created, str):
+                try:
+                    return datetime.fromisoformat(created.replace('Z', '+00:00')).timestamp()
+                except:
+                    return 0
+            return 0
+        
+        missing_canonical.sort(key=get_sort_key)
+        
+        structured_logger.info("Found podcasts missing canonical filenames",
+                              count=len(missing_canonical))
+        
+        return {
+            "podcasts_missing_canonical": missing_canonical,
+            "total_count": len(missing_canonical),
+            "message": f"Found {len(missing_canonical)} podcasts without canonical filenames"
+        }
+        
+    except Exception as e:
+        structured_logger.error("Failed to list podcasts missing canonical filenames",
+                               error=str(e),
+                               error_type=type(e).__name__)
+        raise HTTPException(status_code=500, detail=f"Failed to list missing canonical filenames: {str(e)}")
 
 @app.delete("/api/admin/podcasts/{podcast_id}/rss")
 async def admin_remove_podcast_from_rss(podcast_id: str, admin_auth: bool = Depends(verify_admin_api_key)):
