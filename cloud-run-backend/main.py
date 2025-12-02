@@ -4275,6 +4275,1021 @@ async def fix_untitled_episodes_in_rss(admin_auth: bool = Depends(verify_admin_a
                                error_type=type(e).__name__)
         raise HTTPException(status_code=500, detail=f"Failed to fix untitled episodes: {str(e)}")
 
+@app.post("/api/admin/rss/fix-thumbnails")
+async def fix_thumbnails_in_rss(admin_auth: bool = Depends(verify_admin_api_key)):
+    """Fix thumbnail URLs in RSS feed by checking if thumbnails exist in GCS.
+    
+    This scans all episodes in the RSS feed and:
+    1. Checks if thumbnails exist in GCS at the expected location
+    2. Updates RSS feed and Firestore with correct thumbnail URLs if found
+    3. Reports episodes with missing thumbnails
+    """
+    if not db:
+        raise HTTPException(status_code=503, detail="Firestore service is unavailable")
+    
+    try:
+        from google.cloud import storage
+        from google.api_core.exceptions import PreconditionFailed
+        import xml.etree.ElementTree as ET
+        import re
+        import requests
+        
+        structured_logger.info("Starting fix of thumbnail URLs in RSS feed")
+        
+        # Read RSS feed from GCS
+        storage_client = storage.Client()
+        bucket = storage_client.bucket(RSS_BUCKET_NAME)
+        blob = bucket.blob(RSS_FEED_BLOB_NAME)
+        
+        if not blob.exists():
+            raise HTTPException(status_code=404, detail="RSS feed file not found in storage")
+        
+        blob.reload()
+        current_generation = blob.generation
+        xml_bytes = blob.download_as_bytes()
+        root = ET.fromstring(xml_bytes)
+        channel = root.find("channel")
+        
+        if channel is None:
+            raise HTTPException(status_code=500, detail="RSS feed missing channel element")
+        
+        # GCS bucket for thumbnails
+        podcast_storage_bucket = storage_client.bucket("regal-scholar-453620-r7-podcast-storage")
+        
+        items = channel.findall("item")
+        itunes_ns = "{http://www.itunes.com/dtds/podcast-1.0.dtd}"
+        media_ns = "{http://search.yahoo.com/mrss/}"
+        
+        fixed_count = 0
+        missing_count = 0
+        already_correct_count = 0
+        updates_made = False
+        
+        for item in items:
+            guid_elem = item.find("guid")
+            guid = guid_elem.text.strip() if guid_elem is not None and guid_elem.text else None
+            
+            if not guid:
+                continue
+            
+            # Get current thumbnail URL from RSS feed
+            itunes_image_elem = item.find(f"{itunes_ns}image")
+            current_thumbnail_url = None
+            if itunes_image_elem is not None:
+                current_thumbnail_url = itunes_image_elem.get("href", "")
+            
+            # Expected thumbnail location in GCS
+            expected_thumbnail_blob_name = f"thumbnails/{guid}-thumb.jpg"
+            expected_thumbnail_url = f"https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/{expected_thumbnail_blob_name}"
+            
+            # Check if thumbnail exists in GCS
+            thumbnail_blob = podcast_storage_bucket.blob(expected_thumbnail_blob_name)
+            thumbnail_exists = thumbnail_blob.exists()
+            
+            # Also check if thumbnail is publicly accessible by trying to access the URL
+            thumbnail_accessible = False
+            if thumbnail_exists:
+                try:
+                    response = requests.head(expected_thumbnail_url, timeout=5)
+                    thumbnail_accessible = response.status_code == 200
+                except:
+                    pass
+            
+            if thumbnail_exists and thumbnail_accessible:
+                # Thumbnail exists and is accessible
+                if current_thumbnail_url != expected_thumbnail_url:
+                    # Update RSS feed with correct thumbnail URL
+                    if itunes_image_elem is None:
+                        itunes_image_elem = ET.SubElement(item, f"{itunes_ns}image")
+                    itunes_image_elem.set("href", expected_thumbnail_url)
+                    
+                    # Also update media:thumbnail if present
+                    media_thumb_elem = item.find(f"{media_ns}thumbnail")
+                    if media_thumb_elem is not None:
+                        media_thumb_elem.set("url", expected_thumbnail_url)
+                    
+                    # Update Firestore episodes collection
+                    try:
+                        episode_doc = db.collection(EPISODE_COLLECTION_NAME).document(guid).get()
+                        if episode_doc.exists:
+                            episode_doc.reference.update({
+                                'thumbnail_url': expected_thumbnail_url
+                            })
+                        
+                        # Also update podcast_jobs if exists
+                        podcast_jobs = db.collection('podcast_jobs').where('result.canonical_filename', '==', guid).limit(1).stream()
+                        for job_doc in podcast_jobs:
+                            job_data = job_doc.to_dict() or {}
+                            result = job_data.get('result', {})
+                            if result.get('thumbnail_url') != expected_thumbnail_url:
+                                job_doc.reference.update({
+                                    'result.thumbnail_url': expected_thumbnail_url
+                                })
+                            break
+                    except Exception as e:
+                        structured_logger.warning("Could not update Firestore with thumbnail URL",
+                                                 guid=guid,
+                                                 error=str(e))
+                    
+                    fixed_count += 1
+                    updates_made = True
+                    structured_logger.info("Fixed thumbnail URL in RSS feed",
+                                          guid=guid,
+                                          thumbnail_url=expected_thumbnail_url)
+                else:
+                    already_correct_count += 1
+            else:
+                # Thumbnail doesn't exist or isn't accessible
+                missing_count += 1
+                structured_logger.warning("Thumbnail missing or inaccessible for episode",
+                                         guid=guid,
+                                         exists=thumbnail_exists,
+                                         accessible=thumbnail_accessible)
+        
+        # Save updated RSS feed if changes were made
+        if updates_made:
+            new_xml_bytes = ET.tostring(root, encoding="utf-8", xml_declaration=True)
+            # Restore CDATA markers (ElementTree escapes them by default)
+            xml_text = new_xml_bytes.decode("utf-8")
+            xml_text = xml_text.replace("&lt;![CDATA[", "<![CDATA[").replace("]]&gt;", "]]>")
+            new_xml_bytes = xml_text.encode("utf-8")
+            
+            try:
+                blob.upload_from_string(
+                    new_xml_bytes,
+                    content_type="application/rss+xml",
+                    if_generation_match=current_generation,
+                )
+                structured_logger.info("Updated RSS feed with fixed thumbnail URLs",
+                                      fixed_count=fixed_count,
+                                      missing_count=missing_count)
+            except PreconditionFailed:
+                raise HTTPException(status_code=409, detail="RSS feed was updated concurrently. Please retry.")
+        
+        return {
+            "message": f"Thumbnail fix completed: {fixed_count} fixed, {already_correct_count} already correct, {missing_count} missing",
+            "fixed_count": fixed_count,
+            "already_correct_count": already_correct_count,
+            "missing_count": missing_count,
+            "total_episodes": len(items),
+            "rss_feed_updated": updates_made
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        structured_logger.error("Failed to fix thumbnails in RSS feed",
+                               error=str(e),
+                               error_type=type(e).__name__)
+        raise HTTPException(status_code=500, detail=f"Failed to fix thumbnails: {str(e)}")
+
+@app.get("/api/admin/rss/diagnose-thumbnails")
+async def diagnose_thumbnails(admin_auth: bool = Depends(verify_admin_api_key)):
+    """Diagnose thumbnail issues: identify missing thumbnails and episodes using default artwork.
+    
+    This endpoint:
+    1. Scans all episodes in RSS feed
+    2. Checks if thumbnails exist in GCS
+    3. Identifies episodes using default artwork instead of custom thumbnails
+    4. Returns detailed report of all thumbnail issues
+    """
+    if not db:
+        raise HTTPException(status_code=503, detail="Firestore service is unavailable")
+    
+    try:
+        from google.cloud import storage
+        import xml.etree.ElementTree as ET
+        import re
+        import requests
+        
+        structured_logger.info("Starting thumbnail diagnosis")
+        
+        # Read RSS feed from GCS
+        storage_client = storage.Client()
+        bucket = storage_client.bucket(RSS_BUCKET_NAME)
+        blob = bucket.blob(RSS_FEED_BLOB_NAME)
+        
+        if not blob.exists():
+            raise HTTPException(status_code=404, detail="RSS feed file not found in storage")
+        
+        xml_bytes = blob.download_as_bytes()
+        root = ET.fromstring(xml_bytes)
+        channel = root.find("channel")
+        
+        if channel is None:
+            raise HTTPException(status_code=500, detail="RSS feed missing channel element")
+        
+        # GCS bucket for thumbnails
+        podcast_storage_bucket = storage_client.bucket("regal-scholar-453620-r7-podcast-storage")
+        
+        items = channel.findall("item")
+        itunes_ns = "{http://www.itunes.com/dtds/podcast-1.0.dtd}"
+        
+        missing_thumbnails = []  # Episodes with no thumbnail file in GCS
+        using_default_artwork = []  # Episodes using DEFAULT_ARTWORK_URL
+        correct_thumbnails = []  # Episodes with correct custom thumbnails
+        inaccessible_thumbnails = []  # Thumbnails exist but not accessible
+        
+        for item in items:
+            guid_elem = item.find("guid")
+            guid = guid_elem.text.strip() if guid_elem is not None and guid_elem.text else None
+            
+            if not guid:
+                continue
+            
+            # Get title from RSS feed
+            title_elem = item.find("title")
+            title = title_elem.text if title_elem is not None else "Unknown"
+            # Remove CDATA markers
+            if title and "<![CDATA[" in title:
+                title = title.split("<![CDATA[")[1].split("]]>")[0] if "]]>" in title else title
+            
+            # Get thumbnail URL from RSS feed
+            itunes_image_elem = item.find(f"{itunes_ns}image")
+            rss_thumbnail_url = None
+            if itunes_image_elem is not None:
+                rss_thumbnail_url = itunes_image_elem.get("href", "")
+            
+            # Check if using default artwork
+            is_using_default = rss_thumbnail_url == DEFAULT_ARTWORK_URL or not rss_thumbnail_url
+            
+            # Expected thumbnail location in GCS
+            expected_thumbnail_blob_name = f"thumbnails/{guid}-thumb.jpg"
+            expected_thumbnail_url = f"https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/{expected_thumbnail_blob_name}"
+            
+            # Check if thumbnail exists in GCS
+            thumbnail_blob = podcast_storage_bucket.blob(expected_thumbnail_blob_name)
+            thumbnail_exists = thumbnail_blob.exists()
+            
+            # Check if thumbnail is publicly accessible
+            thumbnail_accessible = False
+            if thumbnail_exists:
+                try:
+                    response = requests.head(expected_thumbnail_url, timeout=5)
+                    thumbnail_accessible = response.status_code == 200
+                except:
+                    pass
+            
+            # Get episode info from Firestore for more details
+            episode_info = {
+                'guid': guid,
+                'title': title[:100] if title else 'Unknown',
+                'rss_thumbnail_url': rss_thumbnail_url,
+                'expected_thumbnail_url': expected_thumbnail_url,
+                'thumbnail_exists_in_gcs': thumbnail_exists,
+                'thumbnail_accessible': thumbnail_accessible,
+                'is_using_default_artwork': is_using_default
+            }
+            
+            # Try to get more details from Firestore
+            try:
+                episode_doc = db.collection(EPISODE_COLLECTION_NAME).document(guid).get()
+                if episode_doc.exists:
+                    episode_data = episode_doc.to_dict() or {}
+                    episode_info['firestore_thumbnail_url'] = episode_data.get('thumbnail_url')
+                    episode_info['created_at'] = episode_data.get('created_at') or episode_data.get('generated_at')
+                    episode_info['subscriber_email'] = 'Unknown'
+                    subscriber_id = episode_data.get('subscriber_id')
+                    if subscriber_id:
+                        subscriber_doc = db.collection('subscribers').document(subscriber_id).get()
+                        if subscriber_doc.exists:
+                            subscriber_data = subscriber_doc.to_dict() or {}
+                            episode_info['subscriber_email'] = subscriber_data.get('email', 'Unknown')
+            except Exception as e:
+                structured_logger.debug("Could not get Firestore data for episode",
+                                       guid=guid,
+                                       error=str(e))
+            
+            # Categorize the episode
+            if not thumbnail_exists:
+                missing_thumbnails.append(episode_info)
+            elif not thumbnail_accessible:
+                inaccessible_thumbnails.append(episode_info)
+            elif is_using_default:
+                using_default_artwork.append(episode_info)
+            else:
+                correct_thumbnails.append(episode_info)
+        
+        # Also check all episodes in Firestore (not just RSS feed) for completeness
+        all_episodes_missing_thumbnails = []
+        try:
+            all_episodes = db.collection(EPISODE_COLLECTION_NAME).stream()
+            for episode_doc in all_episodes:
+                episode_data = episode_doc.to_dict() or {}
+                canonical = episode_doc.id
+                thumbnail_url = episode_data.get('thumbnail_url', '')
+                
+                # Skip if already in RSS feed (we already checked it)
+                if canonical in [ep['guid'] for ep in missing_thumbnails + using_default_artwork + correct_thumbnails + inaccessible_thumbnails]:
+                    continue
+                
+                # Check if using default artwork
+                is_using_default = thumbnail_url == DEFAULT_ARTWORK_URL or not thumbnail_url
+                
+                # Check if thumbnail exists
+                expected_thumbnail_blob_name = f"thumbnails/{canonical}-thumb.jpg"
+                thumbnail_blob = podcast_storage_bucket.blob(expected_thumbnail_blob_name)
+                thumbnail_exists = thumbnail_blob.exists()
+                
+                if not thumbnail_exists or is_using_default:
+                    all_episodes_missing_thumbnails.append({
+                        'guid': canonical,
+                        'title': episode_data.get('title', 'Unknown')[:100],
+                        'thumbnail_url': thumbnail_url,
+                        'thumbnail_exists_in_gcs': thumbnail_exists,
+                        'is_using_default_artwork': is_using_default,
+                        'submitted_to_rss': episode_data.get('submitted_to_rss', False),
+                        'created_at': episode_data.get('created_at') or episode_data.get('generated_at')
+                    })
+        except Exception as e:
+            structured_logger.warning("Could not check all episodes for missing thumbnails",
+                                     error=str(e))
+        
+        result = {
+            "rss_feed_episodes": {
+                "total": len(items),
+                "correct_thumbnails": len(correct_thumbnails),
+                "missing_thumbnails": len(missing_thumbnails),
+                "using_default_artwork": len(using_default_artwork),
+                "inaccessible_thumbnails": len(inaccessible_thumbnails)
+            },
+            "missing_thumbnails_in_rss": missing_thumbnails,
+            "using_default_artwork_in_rss": using_default_artwork,
+            "inaccessible_thumbnails_in_rss": inaccessible_thumbnails,
+            "all_episodes_missing_thumbnails": all_episodes_missing_thumbnails,
+            "summary": {
+                "total_rss_episodes": len(items),
+                "rss_episodes_with_correct_thumbnails": len(correct_thumbnails),
+                "rss_episodes_missing_thumbnails": len(missing_thumbnails),
+                "rss_episodes_using_default": len(using_default_artwork),
+                "rss_episodes_inaccessible": len(inaccessible_thumbnails),
+                "other_episodes_missing_thumbnails": len(all_episodes_missing_thumbnails)
+            }
+        }
+        
+        structured_logger.info("Thumbnail diagnosis complete",
+                              total_rss_episodes=len(items),
+                              missing=len(missing_thumbnails),
+                              using_default=len(using_default_artwork),
+                              correct=len(correct_thumbnails))
+        
+        return result
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        structured_logger.error("Failed to diagnose thumbnails",
+                               error=str(e),
+                               error_type=type(e).__name__)
+        raise HTTPException(status_code=500, detail=f"Failed to diagnose thumbnails: {str(e)}")
+
+@app.post("/api/admin/podcasts/assign-canonical-filenames")
+async def assign_canonical_filenames(request: dict, admin_auth: bool = Depends(verify_admin_api_key)):
+    """Assign canonical filenames to episodes that are missing them.
+    
+    This endpoint:
+    1. Finds episodes/podcasts using UUID GUIDs instead of canonical filenames
+    2. Generates appropriate canonical filenames based on category and next available number
+    3. Updates Firestore and RSS feed with canonical filenames
+    
+    Request body:
+    {
+        "episode_guids": ["guid1", "guid2", ...]  # Optional: specific GUIDs to fix
+        OR
+        "fix_all_missing": true  # Fix all episodes missing canonical filenames
+    }
+    """
+    if not db:
+        raise HTTPException(status_code=503, detail="Firestore service is unavailable")
+    
+    try:
+        episode_guids = request.get('episode_guids', [])
+        fix_all_missing = request.get('fix_all_missing', False)
+        
+        if fix_all_missing:
+            # Find all episodes in RSS feed that don't have canonical filenames
+            from google.cloud import storage
+            storage_client = storage.Client()
+            bucket = storage_client.bucket(RSS_BUCKET_NAME)
+            blob = bucket.blob(RSS_FEED_BLOB_NAME)
+            
+            if not blob.exists():
+                raise HTTPException(status_code=404, detail="RSS feed file not found in storage")
+            
+            import xml.etree.ElementTree as ET
+            xml_bytes = blob.download_as_bytes()
+            root = ET.fromstring(xml_bytes)
+            channel = root.find("channel")
+            
+            if channel is None:
+                raise HTTPException(status_code=500, detail="RSS feed missing channel element")
+            
+            items = channel.findall("item")
+            episode_guids = []
+            
+            for item in items:
+                guid_elem = item.find("guid")
+                guid = guid_elem.text.strip() if guid_elem is not None and guid_elem.text else None
+                if guid and not guid.startswith('ever-') and not guid.startswith('news-'):
+                    # This is a UUID GUID, needs canonical filename
+                    episode_guids.append(guid)
+        
+        if not episode_guids:
+            return {
+                "message": "No episodes to assign canonical filenames to",
+                "assigned": [],
+                "failed": [],
+                "total": 0
+            }
+        
+        structured_logger.info("Starting canonical filename assignment",
+                              episode_count=len(episode_guids))
+        
+        assigned = []
+        failed = []
+        
+        # Get current highest episode numbers per category
+        category_max_numbers = {
+            "bio": 250040,
+            "chem": 250020,
+            "compsci": 250030,
+            "math": 250040,
+            "phys": 250041
+        }
+        
+        # Query Firestore to get actual max numbers
+        try:
+            all_podcasts = db.collection('podcast_jobs').stream()
+            for podcast in all_podcasts:
+                podcast_data = podcast.to_dict() or {}
+                result = podcast_data.get('result', {})
+                canonical = result.get('canonical_filename', '')
+                if canonical.startswith('ever-'):
+                    parts = canonical.split('-')
+                    if len(parts) >= 3:
+                        category = parts[1]
+                        try:
+                            number = int(parts[2])
+                            if category in category_max_numbers:
+                                category_max_numbers[category] = max(category_max_numbers[category], number)
+                        except:
+                            pass
+        except Exception as e:
+            structured_logger.warning("Could not query Firestore for max episode numbers",
+                                    error=str(e))
+        
+        for guid in episode_guids:
+            try:
+                # Get episode/podcast data
+                episode_doc = db.collection(EPISODE_COLLECTION_NAME).document(guid).get()
+                
+                title = None
+                topic = None
+                category = None
+                job_id = None
+                
+                if episode_doc.exists:
+                    episode_data = episode_doc.to_dict() or {}
+                    title = episode_data.get('title')
+                    topic = episode_data.get('topic') or (episode_data.get('request') or {}).get('topic')
+                    category = episode_data.get('category')
+                    job_id = episode_data.get('job_id')
+                else:
+                    # Try podcast_jobs - search by job_id if guid is a job_id
+                    job_doc = db.collection('podcast_jobs').document(guid).get()
+                    if job_doc.exists:
+                        job_data = job_doc.to_dict() or {}
+                        result = job_data.get('result', {})
+                        request_data = job_data.get('request', {})
+                        title = result.get('title') or request_data.get('topic')
+                        topic = request_data.get('topic')
+                        category = request_data.get('category') or result.get('category')
+                        job_id = guid
+                    else:
+                        # Try searching by canonical_filename matching guid (in case guid is already canonical)
+                        podcast_jobs = db.collection('podcast_jobs').where('result.canonical_filename', '==', guid).limit(1).stream()
+                        for job_doc in podcast_jobs:
+                            job_data = job_doc.to_dict() or {}
+                            result = job_data.get('result', {})
+                            request_data = job_data.get('request', {})
+                            title = result.get('title') or request_data.get('topic')
+                            topic = request_data.get('topic')
+                            category = request_data.get('category') or result.get('category')
+                            job_id = job_doc.id
+                            break
+                
+                if not category:
+                    # Try to determine category from topic/title
+                    topic_lower = (topic or title or "").lower()
+                    if any(word in topic_lower for word in ['biology', 'bio', 'cell', 'dna', 'protein', 'gene']):
+                        category = "Biology"
+                    elif any(word in topic_lower for word in ['chemistry', 'chem', 'molecule', 'compound', 'reaction']):
+                        category = "Chemistry"
+                    elif any(word in topic_lower for word in ['computer', 'computing', 'algorithm', 'software', 'code']):
+                        category = "Computer Science"
+                    elif any(word in topic_lower for word in ['math', 'mathematics', 'number', 'theorem', 'equation']):
+                        category = "Mathematics"
+                    elif any(word in topic_lower for word in ['physics', 'quantum', 'particle', 'energy', 'force']):
+                        category = "Physics"
+                    else:
+                        category = "Physics"  # Default
+                
+                # Map category to abbreviation
+                category_mapping = {
+                    "Biology": "bio",
+                    "Chemistry": "chem",
+                    "Computer Science": "compsci",
+                    "Mathematics": "math",
+                    "Physics": "phys"
+                }
+                category_abbrev = category_mapping.get(category, "phys")
+                
+                # Get next episode number for this category
+                next_episode = category_max_numbers.get(category_abbrev, 250000) + 1
+                category_max_numbers[category_abbrev] = next_episode
+                
+                # Generate canonical filename
+                canonical_filename = f"ever-{category_abbrev}-{next_episode:06d}"
+                
+                structured_logger.info("Assigning canonical filename",
+                                     guid=guid,
+                                     canonical_filename=canonical_filename,
+                                     category=category,
+                                     title=title[:60] if title else 'Unknown')
+                
+                # Update podcast_jobs if exists
+                if job_id:
+                    job_doc = db.collection('podcast_jobs').document(job_id).get()
+                    if job_doc.exists:
+                        job_doc.reference.update({
+                            'result.canonical_filename': canonical_filename,
+                            'updated_at': datetime.utcnow().isoformat()
+                        })
+                
+                # Update episodes collection
+                if episode_doc.exists:
+                    episode_doc.reference.update({
+                        'canonical_filename': canonical_filename,
+                        'updated_at': datetime.utcnow().isoformat()
+                    })
+                else:
+                    # Create episode document if it doesn't exist
+                    # We need to get the data from podcast_jobs first
+                    if job_id:
+                        job_doc = db.collection('podcast_jobs').document(job_id).get()
+                        if job_doc.exists:
+                            job_data = job_doc.to_dict() or {}
+                            result_data = job_data.get('result', {})
+                            request_data = job_data.get('request', {})
+                            
+                            # Create episode document
+                            episode_doc_data = {
+                                'episode_id': canonical_filename,
+                                'job_id': job_id,
+                                'subscriber_id': job_data.get('subscriber_id'),
+                                'title': title or result_data.get('title') or request_data.get('topic', 'Unknown'),
+                                'slug': canonical_filename,
+                                'canonical_filename': canonical_filename,
+                                'topic': topic or request_data.get('topic'),
+                                'category': category,
+                                'created_at': result_data.get('generated_at') or datetime.utcnow().isoformat(),
+                                'generated_at': result_data.get('generated_at') or datetime.utcnow().isoformat(),
+                                'updated_at': datetime.utcnow().isoformat(),
+                                'submitted_to_rss': job_data.get('submitted_to_rss', False),
+                                'audio_url': result_data.get('audio_url'),
+                                'thumbnail_url': result_data.get('thumbnail_url'),
+                                'transcript_url': result_data.get('transcript_url'),
+                                'description_url': result_data.get('description_url'),
+                            }
+                            db.collection(EPISODE_COLLECTION_NAME).document(canonical_filename).set(episode_doc_data)
+                
+                # Update RSS feed to use canonical filename as GUID
+                try:
+                    from google.api_core.exceptions import PreconditionFailed
+                    storage_client = storage.Client()
+                    bucket = storage_client.bucket(RSS_BUCKET_NAME)
+                    blob = bucket.blob(RSS_FEED_BLOB_NAME)
+                    
+                    if blob.exists():
+                        blob.reload()
+                        current_generation = blob.generation
+                        xml_bytes = blob.download_as_bytes()
+                        root = ET.fromstring(xml_bytes)
+                        channel = root.find("channel")
+                        
+                        if channel is not None:
+                            # Find item with old GUID and update it
+                            for item in channel.findall("item"):
+                                guid_elem = item.find("guid")
+                                if guid_elem is not None and guid_elem.text and guid_elem.text.strip() == guid:
+                                    # Update GUID to canonical filename
+                                    guid_elem.text = canonical_filename
+                                    
+                                    # Also update itunes:image and media:thumbnail URLs if they use the old GUID
+                                    itunes_ns = "{http://www.itunes.com/dtds/podcast-1.0.dtd}"
+                                    media_ns = "{http://search.yahoo.com/mrss/}"
+                                    
+                                    itunes_image_elem = item.find(f"{itunes_ns}image")
+                                    if itunes_image_elem is not None:
+                                        old_url = itunes_image_elem.get("href", "")
+                                        if guid in old_url:
+                                            new_url = old_url.replace(guid, canonical_filename)
+                                            itunes_image_elem.set("href", new_url)
+                                    
+                                    media_thumb_elem = item.find(f"{media_ns}thumbnail")
+                                    if media_thumb_elem is not None:
+                                        old_url = media_thumb_elem.get("url", "")
+                                        if guid in old_url:
+                                            new_url = old_url.replace(guid, canonical_filename)
+                                            media_thumb_elem.set("url", new_url)
+                                    
+                                    # Save updated RSS feed
+                                    new_xml_bytes = ET.tostring(root, encoding="utf-8", xml_declaration=True)
+                                    xml_text = new_xml_bytes.decode("utf-8")
+                                    xml_text = xml_text.replace("&lt;![CDATA[", "<![CDATA[").replace("]]&gt;", "]]>")
+                                    new_xml_bytes = xml_text.encode("utf-8")
+                                    
+                                    try:
+                                        blob.upload_from_string(
+                                            new_xml_bytes,
+                                            content_type="application/rss+xml",
+                                            if_generation_match=current_generation,
+                                        )
+                                        structured_logger.info("Updated RSS feed with canonical filename",
+                                                             old_guid=guid,
+                                                             canonical_filename=canonical_filename)
+                                    except PreconditionFailed:
+                                        structured_logger.warning("RSS feed was updated concurrently",
+                                                                 old_guid=guid)
+                                    break
+                except Exception as rss_error:
+                    structured_logger.warning("Could not update RSS feed with canonical filename",
+                                             guid=guid,
+                                             canonical_filename=canonical_filename,
+                                             error=str(rss_error))
+                
+                assigned.append({
+                    'guid': guid,
+                    'canonical_filename': canonical_filename,
+                    'title': title or topic or 'Unknown',
+                    'category': category
+                })
+                
+                structured_logger.info("Successfully assigned canonical filename",
+                                     guid=guid,
+                                     canonical_filename=canonical_filename)
+                
+            except Exception as e:
+                structured_logger.error("Failed to assign canonical filename",
+                                      guid=guid,
+                                      error=str(e),
+                                      error_type=type(e).__name__)
+                failed.append({
+                    'guid': guid,
+                    'error': str(e)
+                })
+        
+        return {
+            "message": f"Canonical filename assignment complete: {len(assigned)} succeeded, {len(failed)} failed",
+            "assigned": assigned,
+            "failed": failed,
+            "total": len(episode_guids),
+            "success_count": len(assigned),
+            "failure_count": len(failed)
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        structured_logger.error("Failed to assign canonical filenames",
+                               error=str(e),
+                               error_type=type(e).__name__)
+        raise HTTPException(status_code=500, detail=f"Failed to assign canonical filenames: {str(e)}")
+
+@app.post("/api/admin/rss/regenerate-thumbnails")
+async def regenerate_thumbnails(request: dict, admin_auth: bool = Depends(verify_admin_api_key)):
+    """Regenerate thumbnails for specific episodes.
+    
+    Request body:
+    {
+        "episode_guids": ["guid1", "guid2", ...]  # List of episode GUIDs (canonical filenames)
+        OR
+        "regenerate_all_missing": true  # Regenerate all episodes missing thumbnails
+    }
+    """
+    if not db:
+        raise HTTPException(status_code=503, detail="Firestore service is unavailable")
+    
+    try:
+        episode_guids = request.get('episode_guids', [])
+        regenerate_all_missing = request.get('regenerate_all_missing', False)
+        
+        if regenerate_all_missing:
+            # First diagnose to get all missing thumbnails
+            from google.cloud import storage
+            storage_client = storage.Client()
+            podcast_storage_bucket = storage_client.bucket("regal-scholar-453620-r7-podcast-storage")
+            
+            # Get all episodes in RSS feed
+            bucket = storage_client.bucket(RSS_BUCKET_NAME)
+            blob = bucket.blob(RSS_FEED_BLOB_NAME)
+            
+            if not blob.exists():
+                raise HTTPException(status_code=404, detail="RSS feed file not found in storage")
+            
+            import xml.etree.ElementTree as ET
+            xml_bytes = blob.download_as_bytes()
+            root = ET.fromstring(xml_bytes)
+            channel = root.find("channel")
+            
+            if channel is None:
+                raise HTTPException(status_code=500, detail="RSS feed missing channel element")
+            
+            items = channel.findall("item")
+            episode_guids = []
+            
+            for item in items:
+                guid_elem = item.find("guid")
+                guid = guid_elem.text.strip() if guid_elem is not None and guid_elem.text else None
+                if guid:
+                    # Check if thumbnail exists
+                    expected_thumbnail_blob_name = f"thumbnails/{guid}-thumb.jpg"
+                    thumbnail_blob = podcast_storage_bucket.blob(expected_thumbnail_blob_name)
+                    if not thumbnail_blob.exists():
+                        episode_guids.append(guid)
+        
+        if not episode_guids:
+            return {
+                "message": "No episodes to regenerate thumbnails for",
+                "regenerated": [],
+                "failed": [],
+                "total": 0
+            }
+        
+        structured_logger.info("Starting thumbnail regeneration",
+                              episode_count=len(episode_guids))
+        
+        regenerated = []
+        failed = []
+        
+        for guid in episode_guids:
+            try:
+                # Get episode data from Firestore
+                episode_doc = db.collection(EPISODE_COLLECTION_NAME).document(guid).get()
+                
+                title = None
+                topic = None
+                canonical_filename = guid
+                
+                # Check if GUID is already a canonical filename (starts with 'ever-')
+                is_canonical = guid.startswith('ever-')
+                
+                if episode_doc.exists:
+                    episode_data = episode_doc.to_dict() or {}
+                    title = episode_data.get('title')
+                    topic = episode_data.get('topic') or episode_data.get('request', {}).get('topic')
+                    # Prefer canonical_filename from episode, but if GUID is already canonical, use it
+                    stored_canonical = episode_data.get('canonical_filename')
+                    if stored_canonical:
+                        canonical_filename = stored_canonical
+                    elif is_canonical:
+                        canonical_filename = guid
+                    else:
+                        canonical_filename = stored_canonical or guid
+                else:
+                    # Try podcast_jobs collection - search by canonical_filename matching GUID
+                    # or by job_id if GUID is a job_id
+                    podcast_jobs = db.collection('podcast_jobs').where('result.canonical_filename', '==', guid).limit(1).stream()
+                    found_job = False
+                    for job_doc in podcast_jobs:
+                        job_data = job_doc.to_dict() or {}
+                        result = job_data.get('result', {})
+                        request_data = job_data.get('request', {})
+                        title = result.get('title') or request_data.get('topic')
+                        topic = request_data.get('topic')
+                        canonical_filename = result.get('canonical_filename') or guid
+                        found_job = True
+                        break
+                    
+                    # If not found, try searching by job_id
+                    if not found_job:
+                        job_doc = db.collection('podcast_jobs').document(guid).get()
+                        if job_doc.exists:
+                            job_data = job_doc.to_dict() or {}
+                            result = job_data.get('result', {})
+                            request_data = job_data.get('request', {})
+                            title = result.get('title') or request_data.get('topic')
+                            topic = request_data.get('topic')
+                            canonical_filename = result.get('canonical_filename') or guid
+                
+                # If GUID is already canonical, use it
+                if is_canonical and not canonical_filename.startswith('ever-'):
+                    canonical_filename = guid
+                
+                # If title/topic not found in Firestore, try RSS feed
+                if not title and not topic:
+                    try:
+                        from google.cloud import storage
+                        storage_client = storage.Client()
+                        bucket = storage_client.bucket(RSS_BUCKET_NAME)
+                        blob = bucket.blob(RSS_FEED_BLOB_NAME)
+                        
+                        if blob.exists():
+                            import xml.etree.ElementTree as ET
+                            import re
+                            xml_bytes = blob.download_as_bytes()
+                            root = ET.fromstring(xml_bytes)
+                            channel = root.find("channel")
+                            
+                            if channel is not None:
+                                for item in channel.findall("item"):
+                                    guid_elem = item.find("guid")
+                                    if guid_elem is not None and guid_elem.text and guid_elem.text.strip() == guid:
+                                        # Extract title from RSS
+                                        title_elem = item.find("title")
+                                        if title_elem is not None:
+                                            rss_title = title_elem.text or ""
+                                            # Remove CDATA markers
+                                            if "<![CDATA[" in rss_title:
+                                                rss_title = re.sub(r'<!\[CDATA\[(.*?)\]\]>', r'\1', rss_title, flags=re.DOTALL)
+                                            title = rss_title.strip() if rss_title.strip() else None
+                                        break
+                    except Exception as rss_error:
+                        structured_logger.debug("Could not get title from RSS feed",
+                                              guid=guid,
+                                              error=str(rss_error))
+                
+                # Use title or topic for thumbnail generation
+                if not title and not topic:
+                    failed.append({
+                        'guid': guid,
+                        'error': 'No title or topic found in Firestore or RSS feed'
+                    })
+                    continue
+                
+                thumbnail_topic = topic or title
+                thumbnail_title = title or topic
+                
+                # Check if thumbnail already exists with canonical naming before generating
+                from google.cloud import storage
+                storage_client = storage.Client()
+                podcast_storage_bucket = storage_client.bucket("regal-scholar-453620-r7-podcast-storage")
+                
+                # First, check if canonical filename is actually canonical (starts with 'ever-')
+                # If GUID is UUID but we have a canonical filename, use canonical
+                # If GUID is already canonical, use it
+                if canonical_filename.startswith('ever-'):
+                    # This is a proper canonical filename
+                    expected_thumbnail_path = f"thumbnails/{canonical_filename}-thumb.jpg"
+                else:
+                    # GUID is not canonical - check if we should use GUID or look for canonical
+                    # For now, if canonical_filename is same as guid and guid is UUID, 
+                    # we'll use it but log a warning
+                    expected_thumbnail_path = f"thumbnails/{canonical_filename}-thumb.jpg"
+                    if canonical_filename == guid and not guid.startswith('ever-'):
+                        structured_logger.warning("Using UUID as canonical filename for thumbnail",
+                                                 guid=guid,
+                                                 canonical_filename=canonical_filename)
+                
+                existing_thumbnail_blob = podcast_storage_bucket.blob(expected_thumbnail_path)
+                
+                if existing_thumbnail_blob.exists():
+                    # Thumbnail already exists with canonical naming
+                    existing_thumbnail_url = f"https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/{expected_thumbnail_path}"
+                    structured_logger.info("Thumbnail already exists, using existing",
+                                         guid=guid,
+                                         canonical_filename=canonical_filename,
+                                         thumbnail_path=expected_thumbnail_path,
+                                         thumbnail_url=existing_thumbnail_url)
+                    thumbnail_url = existing_thumbnail_url
+                else:
+                    structured_logger.info("Regenerating thumbnail for episode",
+                                         guid=guid,
+                                         canonical_filename=canonical_filename,
+                                         title=thumbnail_title,
+                                         topic=thumbnail_topic)
+                    
+                    # Generate thumbnail using canonical filename
+                    thumbnail_url = await generate_and_upload_thumbnail(
+                        thumbnail_title,
+                        thumbnail_topic,
+                        canonical_filename
+                    )
+                
+                # Update Firestore episodes collection
+                if episode_doc.exists:
+                    episode_doc.reference.update({
+                        'thumbnail_url': thumbnail_url,
+                        'updated_at': datetime.utcnow().isoformat()
+                    })
+                
+                # Update podcast_jobs if exists
+                podcast_jobs = db.collection('podcast_jobs').where('result.canonical_filename', '==', guid).limit(1).stream()
+                for job_doc in podcast_jobs:
+                    job_doc.reference.update({
+                        'result.thumbnail_url': thumbnail_url,
+                        'updated_at': datetime.utcnow().isoformat()
+                    })
+                    break
+                
+                # Update RSS feed if episode is in RSS
+                try:
+                    from google.api_core.exceptions import PreconditionFailed
+                    storage_client = storage.Client()
+                    bucket = storage_client.bucket(RSS_BUCKET_NAME)
+                    blob = bucket.blob(RSS_FEED_BLOB_NAME)
+                    
+                    if blob.exists():
+                        blob.reload()
+                        current_generation = blob.generation
+                        xml_bytes = blob.download_as_bytes()
+                        root = ET.fromstring(xml_bytes)
+                        channel = root.find("channel")
+                        
+                        if channel is not None:
+                            itunes_ns = "{http://www.itunes.com/dtds/podcast-1.0.dtd}"
+                            media_ns = "{http://search.yahoo.com/mrss/}"
+                            
+                            # Find the item with this GUID
+                            for item in channel.findall("item"):
+                                guid_elem = item.find("guid")
+                                if guid_elem is not None and guid_elem.text and guid_elem.text.strip() == guid:
+                                    # Update thumbnail URL in RSS feed
+                                    itunes_image_elem = item.find(f"{itunes_ns}image")
+                                    if itunes_image_elem is None:
+                                        itunes_image_elem = ET.SubElement(item, f"{itunes_ns}image")
+                                    itunes_image_elem.set("href", thumbnail_url)
+                                    
+                                    # Update media:thumbnail
+                                    media_thumb_elem = item.find(f"{media_ns}thumbnail")
+                                    if media_thumb_elem is not None:
+                                        media_thumb_elem.set("url", thumbnail_url)
+                                    
+                                    # Update media:content
+                                    media_content_elem = item.find(f"{media_ns}content")
+                                    if media_content_elem is not None:
+                                        media_content_elem.set("url", thumbnail_url)
+                                    
+                                    # Save updated RSS feed
+                                    new_xml_bytes = ET.tostring(root, encoding="utf-8", xml_declaration=True)
+                                    xml_text = new_xml_bytes.decode("utf-8")
+                                    xml_text = xml_text.replace("&lt;![CDATA[", "<![CDATA[").replace("]]&gt;", "]]>")
+                                    new_xml_bytes = xml_text.encode("utf-8")
+                                    
+                                    try:
+                                        blob.upload_from_string(
+                                            new_xml_bytes,
+                                            content_type="application/rss+xml",
+                                            if_generation_match=current_generation,
+                                        )
+                                        structured_logger.info("Updated RSS feed with new thumbnail URL",
+                                                             guid=guid)
+                                    except PreconditionFailed:
+                                        structured_logger.warning("RSS feed was updated concurrently, thumbnail URL not updated in RSS",
+                                                                 guid=guid)
+                                    break
+                except Exception as rss_error:
+                    structured_logger.warning("Could not update RSS feed with new thumbnail URL",
+                                             guid=guid,
+                                             error=str(rss_error))
+                
+                regenerated.append({
+                    'guid': guid,
+                    'title': thumbnail_title,
+                    'thumbnail_url': thumbnail_url
+                })
+                
+                structured_logger.info("Successfully regenerated thumbnail",
+                                     guid=guid,
+                                     thumbnail_url=thumbnail_url)
+                
+            except Exception as e:
+                structured_logger.error("Failed to regenerate thumbnail for episode",
+                                      guid=guid,
+                                      error=str(e),
+                                      error_type=type(e).__name__)
+                failed.append({
+                    'guid': guid,
+                    'error': str(e)
+                })
+        
+        return {
+            "message": f"Thumbnail regeneration complete: {len(regenerated)} succeeded, {len(failed)} failed",
+            "regenerated": regenerated,
+            "failed": failed,
+            "total": len(episode_guids),
+            "success_count": len(regenerated),
+            "failure_count": len(failed)
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        structured_logger.error("Failed to regenerate thumbnails",
+                               error=str(e),
+                               error_type=type(e).__name__)
+        raise HTTPException(status_code=500, detail=f"Failed to regenerate thumbnails: {str(e)}")
+
 @app.post("/api/admin/episodes/sync-rss-status")
 async def sync_rss_status(admin_auth: bool = Depends(verify_admin_api_key)):
     """Sync Firestore episode catalog with actual RSS feed contents.
@@ -4831,6 +5846,258 @@ async def admin_get_all_podcasts(admin_auth: bool = Depends(verify_admin_api_key
         import traceback
         traceback.print_exc()
         raise HTTPException(status_code=500, detail=f"Failed to fetch podcasts: {str(e)}")
+
+@app.get("/api/admin/podcasts/database")
+async def get_podcast_database(admin_auth: bool = Depends(verify_admin_api_key)):
+    """Get comprehensive database of all podcasts with canonical filenames, titles, subscribers, duration, and file sizes.
+    
+    Returns a table-ready format with all podcast information including:
+    - Canonical filename
+    - Title
+    - Subscriber email
+    - Duration
+    - Audio file size
+    - Episode page URL
+    - JSON API URL
+    """
+    if not db:
+        raise HTTPException(status_code=503, detail="Firestore service is unavailable")
+    
+    try:
+        from google.cloud import storage
+        import requests
+        from urllib.parse import urlparse
+        
+        structured_logger.info("Generating podcast database table")
+        
+        storage_client = storage.Client()
+        
+        # First, get RSS feed GUIDs to check RSS status
+        rss_guids = set()
+        try:
+            bucket = storage_client.bucket(RSS_BUCKET_NAME)
+            blob = bucket.blob(RSS_FEED_BLOB_NAME)
+            if blob.exists():
+                import xml.etree.ElementTree as ET
+                xml_bytes = blob.download_as_bytes()
+                root = ET.fromstring(xml_bytes)
+                channel = root.find("channel")
+                if channel is not None:
+                    for guid_elem in channel.findall(".//guid"):
+                        if guid_elem.text:
+                            rss_guids.add(guid_elem.text.strip())
+                structured_logger.info("Read RSS feed for status checking",
+                                     rss_guid_count=len(rss_guids))
+        except Exception as e:
+            structured_logger.warning("Could not read RSS feed for status checking",
+                                     error=str(e))
+        
+        # Get all podcasts from both collections
+        all_podcasts = []
+        canonical_filenames_seen = set()
+        job_ids_seen = set()
+        
+        # Get from podcast_jobs - include ALL podcasts, even without canonical filenames
+        podcast_jobs = db.collection('podcast_jobs').stream()
+        for job_doc in podcast_jobs:
+            job_data = job_doc.to_dict() or {}
+            result = job_data.get('result', {})
+            canonical = result.get('canonical_filename')
+            job_id = job_doc.id
+            
+            # Use job_id as identifier if no canonical filename
+            identifier = canonical or job_id
+            
+            if identifier in canonical_filenames_seen or job_id in job_ids_seen:
+                continue
+            
+            canonical_filenames_seen.add(identifier)
+            job_ids_seen.add(job_id)
+            
+            subscriber_id = job_data.get('subscriber_id')
+            subscriber_email = 'Unknown'
+            if subscriber_id:
+                try:
+                    subscriber_doc = db.collection('subscribers').document(subscriber_id).get()
+                    if subscriber_doc.exists:
+                        subscriber_data = subscriber_doc.to_dict() or {}
+                        subscriber_email = subscriber_data.get('email', 'Unknown')
+                except:
+                    pass
+            
+            # Check RSS status - use canonical if available, otherwise check by job_id
+            submitted_to_rss = False
+            if canonical:
+                submitted_to_rss = canonical in rss_guids
+                # Also check episodes collection for RSS status (source of truth)
+                try:
+                    episode_doc = db.collection(EPISODE_COLLECTION_NAME).document(canonical).get()
+                    if episode_doc.exists:
+                        episode_data = episode_doc.to_dict() or {}
+                        submitted_to_rss = episode_data.get('submitted_to_rss', submitted_to_rss)
+                except:
+                    pass
+            else:
+                # Check if job_id is in RSS feed (possible for legacy)
+                submitted_to_rss = job_id in rss_guids
+                # Also check podcast_jobs field as fallback
+                if not submitted_to_rss:
+                    submitted_to_rss = job_data.get('submitted_to_rss', False)
+            
+            all_podcasts.append({
+                'canonical_filename': canonical or job_id,  # Use job_id as fallback
+                'title': result.get('title') or job_data.get('request', {}).get('topic', 'Untitled'),
+                'subscriber_email': subscriber_email,
+                'subscriber_id': subscriber_id,
+                'duration': result.get('duration') or job_data.get('request', {}).get('duration', 'Unknown'),
+                'audio_url': result.get('audio_url', ''),
+                'created_at': job_data.get('created_at') or result.get('generated_at'),
+                'job_id': job_id,
+                'submitted_to_rss': submitted_to_rss,
+                'has_canonical': bool(canonical)
+            })
+        
+        # Get from episodes collection (may have additional episodes)
+        episodes = db.collection(EPISODE_COLLECTION_NAME).stream()
+        for episode_doc in episodes:
+            episode_data = episode_doc.to_dict() or {}
+            canonical = episode_doc.id  # Episode ID is canonical filename
+            
+            if canonical in canonical_filenames_seen:
+                # Update existing entry with episode data if needed
+                for podcast in all_podcasts:
+                    if podcast.get('canonical_filename') == canonical:
+                        # Update RSS status from episode (source of truth)
+                        podcast['submitted_to_rss'] = episode_data.get('submitted_to_rss', podcast.get('submitted_to_rss', False))
+                        # Update other fields if missing
+                        if not podcast.get('title') or podcast.get('title') == 'Untitled':
+                            podcast['title'] = episode_data.get('title', podcast.get('title'))
+                        if not podcast.get('audio_url'):
+                            podcast['audio_url'] = episode_data.get('audio_url', '')
+                        if not podcast.get('duration') or podcast.get('duration') == 'Unknown':
+                            podcast['duration'] = episode_data.get('duration', podcast.get('duration'))
+                        break
+                continue
+            
+            canonical_filenames_seen.add(canonical)
+            
+            subscriber_id = episode_data.get('subscriber_id')
+            subscriber_email = 'Unknown'
+            if subscriber_id:
+                try:
+                    subscriber_doc = db.collection('subscribers').document(subscriber_id).get()
+                    if subscriber_doc.exists:
+                        subscriber_data = subscriber_doc.to_dict() or {}
+                        subscriber_email = subscriber_data.get('email', 'Unknown')
+                except:
+                    pass
+            
+            # Check RSS status
+            submitted_to_rss = episode_data.get('submitted_to_rss', False) or canonical in rss_guids
+            
+            all_podcasts.append({
+                'canonical_filename': canonical,
+                'title': episode_data.get('title', 'Untitled'),
+                'subscriber_email': subscriber_email,
+                'subscriber_id': subscriber_id,
+                'duration': episode_data.get('duration', 'Unknown'),
+                'audio_url': episode_data.get('audio_url', ''),
+                'created_at': episode_data.get('created_at') or episode_data.get('generated_at'),
+                'job_id': episode_data.get('job_id'),
+                'submitted_to_rss': submitted_to_rss,
+                'has_canonical': True
+            })
+        
+        # Get file sizes from GCS
+        bucket = storage_client.bucket("regal-scholar-453620-r7-podcast-storage")
+        
+        for podcast in all_podcasts:
+            audio_url = podcast.get('audio_url', '')
+            file_size = None
+            
+            if audio_url:
+                try:
+                    # Extract blob path from URL
+                    if 'storage.googleapis.com' in audio_url:
+                        # Parse: https://storage.googleapis.com/bucket-name/path/to/file.mp3
+                        url_parts = urlparse(audio_url)
+                        blob_path = url_parts.path.lstrip('/')
+                        # Remove bucket name if present
+                        if blob_path.startswith('regal-scholar-453620-r7-podcast-storage/'):
+                            blob_path = blob_path.replace('regal-scholar-453620-r7-podcast-storage/', '')
+                        elif blob_path.startswith('regal-scholar-453620-r7-podcast-storage'):
+                            blob_path = blob_path.replace('regal-scholar-453620-r7-podcast-storage', '')
+                        
+                        blob = bucket.blob(blob_path)
+                        if blob.exists():
+                            blob.reload()
+                            file_size = blob.size  # Size in bytes
+                            # Convert to MB
+                            file_size_mb = file_size / (1024 * 1024)
+                            podcast['file_size_bytes'] = file_size
+                            podcast['file_size_mb'] = round(file_size_mb, 2)
+                            podcast['file_size_display'] = f"{file_size_mb:.2f} MB"
+                        else:
+                            podcast['file_size_display'] = 'Not found'
+                    else:
+                        # Try to get size via HEAD request
+                        try:
+                            response = requests.head(audio_url, timeout=5)
+                            content_length = response.headers.get('Content-Length')
+                            if content_length:
+                                file_size = int(content_length)
+                                file_size_mb = file_size / (1024 * 1024)
+                                podcast['file_size_bytes'] = file_size
+                                podcast['file_size_mb'] = round(file_size_mb, 2)
+                                podcast['file_size_display'] = f"{file_size_mb:.2f} MB"
+                            else:
+                                podcast['file_size_display'] = 'Unknown'
+                        except:
+                            podcast['file_size_display'] = 'Unknown'
+                except Exception as e:
+                    structured_logger.debug("Could not get file size for podcast",
+                                          canonical=podcast.get('canonical_filename'),
+                                          error=str(e))
+                    podcast['file_size_display'] = 'Unknown'
+            else:
+                podcast['file_size_display'] = 'No audio URL'
+            
+            # Generate episode page URL
+            canonical = podcast.get('canonical_filename')
+            podcast['episode_page_url'] = f"{EPISODE_BASE_URL}/{canonical}"
+            # Use the current request's host or default API URL
+            api_base = os.getenv("COPERNICUS_API_BASE_URL", "https://copernicus-podcast-api-204731194849.us-central1.run.app")
+            podcast['episode_json_url'] = f"{api_base}/api/episodes/{canonical}"
+        
+        # Sort by created_at (newest first)
+        def get_sort_key(p):
+            created = p.get('created_at')
+            if hasattr(created, 'timestamp'):
+                return created.timestamp()
+            elif isinstance(created, str):
+                try:
+                    return datetime.fromisoformat(created.replace('Z', '+00:00')).timestamp()
+                except:
+                    return 0
+            return 0
+        
+        all_podcasts.sort(key=get_sort_key, reverse=True)
+        
+        structured_logger.info("Generated podcast database table",
+                              total_podcasts=len(all_podcasts))
+        
+        return {
+            "podcasts": all_podcasts,
+            "total_count": len(all_podcasts),
+            "episode_base_url": EPISODE_BASE_URL,
+            "api_base_url": os.getenv("COPERNICUS_API_BASE_URL", "https://copernicus-podcast-api-204731194849.us-central1.run.app")
+        }
+        
+    except Exception as e:
+        structured_logger.error("Error generating podcast database table",
+                               error=str(e),
+                               error_type=type(e).__name__)
+        raise HTTPException(status_code=500, detail=f"Failed to generate podcast database: {str(e)}")
 
 @app.delete("/api/admin/podcasts/{podcast_id}/rss")
 async def admin_remove_podcast_from_rss(podcast_id: str, admin_auth: bool = Depends(verify_admin_api_key)):

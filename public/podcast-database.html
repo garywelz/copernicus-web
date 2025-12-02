@@ -132,6 +132,7 @@
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Subscriber</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Duration</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">File Size</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">In RSS</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                             </tr>
@@ -229,7 +230,7 @@
             if (podcasts.length === 0) {
                 tbody.innerHTML = `
                     <tr>
-                        <td colspan="7" class="px-6 py-8 text-center text-gray-600">
+                        <td colspan="8" class="px-6 py-8 text-center text-gray-600">
                             No podcasts found.
                         </td>
                     </tr>
@@ -246,9 +247,14 @@
                 const subscriber = podcast.subscriber_email || 'Unknown';
                 const duration = podcast.duration || 'Unknown';
                 const fileSize = podcast.file_size_display || 'Unknown';
+                const submittedToRss = podcast.submitted_to_rss || false;
                 const created = formatDate(podcast.created_at);
                 const episodePageUrl = podcast.episode_page_url || '#';
                 const episodeJsonUrl = podcast.episode_json_url || '#';
+                
+                const rssStatusBadge = submittedToRss 
+                    ? '<span class="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">Yes</span>'
+                    : '<span class="px-2 py-1 text-xs font-semibold rounded-full bg-gray-100 text-gray-800">No</span>';
                 
                 row.innerHTML = `
                     <td class="px-6 py-4 whitespace-nowrap text-sm font-mono text-gray-900">${canonical}</td>
@@ -260,6 +266,7 @@
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${subscriber}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${duration}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${fileSize}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-center">${rssStatusBadge}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${created}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm">
                         <div class="flex gap-2">
