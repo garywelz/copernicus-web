@@ -5977,17 +5977,35 @@ async def get_podcast_database(admin_auth: bool = Depends(verify_admin_api_key))
                 if not submitted_to_rss:
                     submitted_to_rss = job_data.get('submitted_to_rss', False)
             
+            # Extract category from canonical filename or request
+            category = job_data.get('request', {}).get('category', 'Unknown')
+            if not category or category == 'Unknown':
+                # Try to extract from canonical filename
+                if canonical:
+                    if '-bio-' in canonical or canonical.startswith('ever-bio-') or canonical.startswith('news-bio-'):
+                        category = 'Biology'
+                    elif '-chem-' in canonical or canonical.startswith('ever-chem-') or canonical.startswith('news-chem-'):
+                        category = 'Chemistry'
+                    elif '-compsci-' in canonical or canonical.startswith('ever-compsci-') or canonical.startswith('news-compsci-'):
+                        category = 'Computer Science'
+                    elif '-math-' in canonical or canonical.startswith('ever-math-') or canonical.startswith('news-math-'):
+                        category = 'Mathematics'
+                    elif '-phys-' in canonical or canonical.startswith('ever-phys-') or canonical.startswith('news-phys-'):
+                        category = 'Physics'
+            
             all_podcasts.append({
                 'canonical_filename': canonical or job_id,  # Use job_id as fallback
                 'title': result.get('title') or job_data.get('request', {}).get('topic', 'Untitled'),
                 'subscriber_email': subscriber_email,
                 'subscriber_id': subscriber_id,
+                'category': category,
                 'duration': result.get('duration') or job_data.get('request', {}).get('duration', 'Unknown'),
                 'audio_url': result.get('audio_url', ''),
                 'created_at': job_data.get('created_at') or result.get('generated_at'),
                 'job_id': job_id,
                 'submitted_to_rss': submitted_to_rss,
-                'has_canonical': bool(canonical)
+                'has_canonical': bool(canonical),
+                'podcast_id': canonical or job_id  # For compatibility with admin operations
             })
         
         # Get from episodes collection (may have additional episodes)
@@ -6009,6 +6027,9 @@ async def get_podcast_database(admin_auth: bool = Depends(verify_admin_api_key))
                             podcast['audio_url'] = episode_data.get('audio_url', '')
                         if not podcast.get('duration') or podcast.get('duration') == 'Unknown':
                             podcast['duration'] = episode_data.get('duration', podcast.get('duration'))
+                        # Update category from episode if available
+                        if episode_data.get('category'):
+                            podcast['category'] = episode_data.get('category')
                         break
                 continue
             
@@ -6028,17 +6049,35 @@ async def get_podcast_database(admin_auth: bool = Depends(verify_admin_api_key))
             # Check RSS status
             submitted_to_rss = episode_data.get('submitted_to_rss', False) or canonical in rss_guids
             
+            # Extract category from canonical filename or episode data
+            category = episode_data.get('category', 'Unknown')
+            if not category or category == 'Unknown':
+                # Try to extract from canonical filename
+                if canonical:
+                    if '-bio-' in canonical or canonical.startswith('ever-bio-') or canonical.startswith('news-bio-'):
+                        category = 'Biology'
+                    elif '-chem-' in canonical or canonical.startswith('ever-chem-') or canonical.startswith('news-chem-'):
+                        category = 'Chemistry'
+                    elif '-compsci-' in canonical or canonical.startswith('ever-compsci-') or canonical.startswith('news-compsci-'):
+                        category = 'Computer Science'
+                    elif '-math-' in canonical or canonical.startswith('ever-math-') or canonical.startswith('news-math-'):
+                        category = 'Mathematics'
+                    elif '-phys-' in canonical or canonical.startswith('ever-phys-') or canonical.startswith('news-phys-'):
+                        category = 'Physics'
+            
             all_podcasts.append({
                 'canonical_filename': canonical,
                 'title': episode_data.get('title', 'Untitled'),
                 'subscriber_email': subscriber_email,
                 'subscriber_id': subscriber_id,
+                'category': category,
                 'duration': episode_data.get('duration', 'Unknown'),
                 'audio_url': episode_data.get('audio_url', ''),
                 'created_at': episode_data.get('created_at') or episode_data.get('generated_at'),
                 'job_id': episode_data.get('job_id'),
                 'submitted_to_rss': submitted_to_rss,
-                'has_canonical': True
+                'has_canonical': True,
+                'podcast_id': canonical  # For compatibility with admin operations
             })
         
         # Get file sizes from GCS

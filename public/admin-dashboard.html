@@ -524,7 +524,8 @@
                     document.getElementById('errorState').classList.add('hidden');
                 }
                 
-                const response = await fetch(`${API_BASE_URL}/api/admin/podcasts?limit=500`, {
+                // Use podcast database endpoint as source of truth
+                const response = await fetch(`${API_BASE_URL}/api/admin/podcasts/database`, {
                     headers: getAuthHeaders()
                 });
                 
@@ -538,13 +539,19 @@
                 const data = await response.json();
                 allPodcastsData = data.podcasts || [];
                 
+                // Ensure podcast_id is set for operations (use canonical_filename or job_id)
+                allPodcastsData.forEach(podcast => {
+                    if (!podcast.podcast_id && !podcast.id) {
+                        podcast.podcast_id = podcast.canonical_filename || podcast.job_id;
+                        podcast.id = podcast.podcast_id;
+                    }
+                });
+                
                 const totalCount = data.total_count || allPodcastsData.length;
                 document.getElementById('totalPodcasts').textContent = totalCount;
                 
-                // Use API's in_rss_count if available, otherwise count from loaded data
-                const inRssCount = data.in_rss_count !== undefined 
-                    ? data.in_rss_count 
-                    : allPodcastsData.filter(p => p.submitted_to_rss === true).length;
+                // Count RSS from database data
+                const inRssCount = allPodcastsData.filter(p => p.submitted_to_rss === true).length;
                 document.getElementById('inRssFeed').textContent = inRssCount;
                 
                 if (!silent) {
