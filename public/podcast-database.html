@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CopernicusAI - Podcast Database</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .loading-spinner {
+            border: 3px solid #f3f4f6;
+            border-top: 3px solid #3b82f6;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        table {
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #e5e7eb;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f9fafb;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        tr:hover {
+            background-color: #f9fafb;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="min-h-screen">
+        <!-- Header -->
+        <header class="bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h1 class="text-3xl font-bold">📊 CopernicusAI - Podcast Database</h1>
+                        <p class="mt-2 text-blue-100">Complete database of all podcast episodes</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <a href="admin-dashboard.html" class="bg-white bg-opacity-20 hover:bg-opacity-30 px-4 py-2 rounded-lg transition duration-200">
+                            ← Back to Dashboard
+                        </a>
+                        <button onclick="showApiKeyModal()" class="bg-white bg-opacity-20 hover:bg-opacity-30 px-4 py-2 rounded-lg transition duration-200">
+                            🔑 Change API Key
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- API Key Modal -->
+        <div id="apiKeyModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+            <div class="bg-white rounded-lg p-6 max-w-md w-full mx-4">
+                <h2 class="text-xl font-bold mb-4">Admin API Key</h2>
+                <p class="text-sm text-gray-600 mb-4">Enter your admin API key to access this page:</p>
+                <input 
+                    type="password" 
+                    id="apiKeyInput"
+                    placeholder="Enter admin API key"
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"
+                >
+                <div class="flex gap-2">
+                    <button onclick="saveApiKey()" class="flex-1 bg-blue-600 text-white hover:bg-blue-700 px-4 py-2 rounded-lg font-medium transition duration-200">
+                        Save
+                    </button>
+                    <button onclick="hideApiKeyModal()" class="flex-1 bg-gray-200 text-gray-700 hover:bg-gray-300 px-4 py-2 rounded-lg font-medium transition duration-200">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <!-- Stats -->
+            <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                <div class="text-sm text-gray-500 mb-1">Total Podcasts in Database</div>
+                <div id="totalPodcasts" class="text-3xl font-bold text-blue-600">-</div>
+            </div>
+
+            <!-- Loading State -->
+            <div id="loadingState" class="flex justify-center items-center py-12">
+                <div class="loading-spinner"></div>
+                <span class="ml-4 text-gray-600">Loading podcast database...</span>
+            </div>
+
+            <!-- Error State -->
+            <div id="errorState" class="hidden bg-red-50 border-l-4 border-red-500 p-4 mb-6">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                        </svg>
+                    </div>
+                    <div class="ml-3">
+                        <p class="text-sm text-red-700" id="errorMessage">Error loading data</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Search and Filter -->
+            <div id="searchSection" class="hidden bg-white rounded-lg shadow-md p-4 mb-6">
+                <input 
+                    type="text" 
+                    id="databaseSearch"
+                    placeholder="Search by title, canonical filename, or subscriber email..."
+                    onkeyup="filterDatabase()"
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+            </div>
+
+            <!-- Database Table -->
+            <div id="databaseSection" class="hidden bg-white rounded-lg shadow-md overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="min-w-full">
+                        <thead>
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Canonical Filename</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Subscriber</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Duration</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">File Size</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="databaseTableBody" class="bg-white divide-y divide-gray-200">
+                            <!-- Rows will be inserted here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const API_BASE_URL = 'https://copernicus-podcast-api-204731194849.us-central1.run.app';
+        let adminApiKey = localStorage.getItem('admin_api_key') || '';
+        let allPodcastsData = [];
+
+        // API Key Management
+        function showApiKeyModal() {
+            document.getElementById('apiKeyModal').classList.remove('hidden');
+            document.getElementById('apiKeyInput').value = adminApiKey;
+        }
+
+        function hideApiKeyModal() {
+            document.getElementById('apiKeyModal').classList.add('hidden');
+        }
+
+        function saveApiKey() {
+            const key = document.getElementById('apiKeyInput').value.trim();
+            if (!key) {
+                alert('Please enter an API key');
+                return;
+            }
+            adminApiKey = key;
+            localStorage.setItem('admin_api_key', adminApiKey);
+            hideApiKeyModal();
+            loadDatabase();
+        }
+
+        function getAuthHeaders() {
+            return {
+                'X-Admin-API-Key': adminApiKey,
+                'Content-Type': 'application/json'
+            };
+        }
+
+        // Load Database
+        async function loadDatabase() {
+            if (!adminApiKey) {
+                showApiKeyModal();
+                return;
+            }
+
+            try {
+                document.getElementById('loadingState').classList.remove('hidden');
+                document.getElementById('errorState').classList.add('hidden');
+                document.getElementById('databaseSection').classList.add('hidden');
+                document.getElementById('searchSection').classList.add('hidden');
+                
+                const response = await fetch(`${API_BASE_URL}/api/admin/podcasts/database`, {
+                    headers: getAuthHeaders()
+                });
+                
+                if (!response.ok) {
+                    if (response.status === 401 || response.status === 403) {
+                        throw new Error('Invalid API key. Please check your admin API key.');
+                    }
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const data = await response.json();
+                allPodcastsData = data.podcasts || [];
+                
+                document.getElementById('totalPodcasts').textContent = data.total_count || 0;
+                
+                renderDatabaseTable(allPodcastsData);
+                
+                document.getElementById('loadingState').classList.add('hidden');
+                document.getElementById('databaseSection').classList.remove('hidden');
+                document.getElementById('searchSection').classList.remove('hidden');
+                
+            } catch (error) {
+                console.error('Error loading database:', error);
+                document.getElementById('loadingState').classList.add('hidden');
+                document.getElementById('errorState').classList.remove('hidden');
+                document.getElementById('errorMessage').textContent = `Error: ${error.message}`;
+            }
+        }
+
+        function renderDatabaseTable(podcasts) {
+            const tbody = document.getElementById('databaseTableBody');
+            tbody.innerHTML = '';
+            
+            if (podcasts.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="7" class="px-6 py-8 text-center text-gray-600">
+                            No podcasts found.
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            podcasts.forEach((podcast) => {
+                const row = document.createElement('tr');
+                row.className = 'hover:bg-gray-50';
+                
+                const canonical = podcast.canonical_filename || 'Unknown';
+                const title = podcast.title || 'Untitled';
+                const subscriber = podcast.subscriber_email || 'Unknown';
+                const duration = podcast.duration || 'Unknown';
+                const fileSize = podcast.file_size_display || 'Unknown';
+                const created = formatDate(podcast.created_at);
+                const episodePageUrl = podcast.episode_page_url || '#';
+                const episodeJsonUrl = podcast.episode_json_url || '#';
+                
+                row.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-mono text-gray-900">${canonical}</td>
+                    <td class="px-6 py-4 text-sm font-medium text-gray-900">
+                        <a href="${episodePageUrl}" target="_blank" class="text-blue-600 hover:text-blue-900 hover:underline">
+                            ${title}
+                        </a>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${subscriber}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${duration}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${fileSize}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${created}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm">
+                        <div class="flex gap-2">
+                            <a href="${episodePageUrl}" target="_blank" class="text-blue-600 hover:text-blue-900 font-medium">
+                                👁️ View Page
+                            </a>
+                            <a href="${episodeJsonUrl}" target="_blank" class="text-purple-600 hover:text-purple-900 font-medium">
+                                📄 JSON
+                            </a>
+                        </div>
+                    </td>
+                `;
+                
+                tbody.appendChild(row);
+            });
+        }
+
+        function filterDatabase() {
+            const searchTerm = document.getElementById('databaseSearch').value.toLowerCase();
+            const filtered = allPodcastsData.filter(p => {
+                const canonical = (p.canonical_filename || '').toLowerCase();
+                const title = (p.title || '').toLowerCase();
+                const subscriber = (p.subscriber_email || '').toLowerCase();
+                return canonical.includes(searchTerm) || title.includes(searchTerm) || subscriber.includes(searchTerm);
+            });
+            renderDatabaseTable(filtered);
+        }
+
+        function formatDate(dateString) {
+            if (!dateString || dateString === 'Unknown' || dateString === 'Never' || dateString === 'N/A') {
+                return dateString;
+            }
+            try {
+                const date = new Date(dateString);
+                return date.toLocaleDateString('en-US', { 
+                    year: 'numeric', 
+                    month: 'short', 
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+            } catch (e) {
+                return dateString;
+            }
+        }
+
+        // Initialize on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            if (!adminApiKey) {
+                showApiKeyModal();
+            } else {
+                loadDatabase();
+            }
+        });
+    </script>
+</body>
+</html>
+
