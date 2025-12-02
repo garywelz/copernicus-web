@@ -1,0 +1,33 @@
+nohup: ignoring input
+INFO:     Started server process [55955]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8002 (Press CTRL+C to quit)
+🚀 Starting Copernicus Podcast API on port 8002
+🔑 Google AI API Key: ✅ Found
+🎙️  Google Cloud TTS: Available via service account
+INFO:     127.0.0.1:41848 - "GET /health HTTP/1.1" 200 OK
+🔄 Legacy request converted: Quantum Memory Storage: Revolutionary Advances in Information Processing → Quantum Memory Storage: Revolutionary Advances in Information Processing (intermediate)
+INFO:     127.0.0.1:35850 - "POST /generate-podcast-legacy HTTP/1.1" 200 OK
+🚀 Starting research-driven podcast generation for job 9eab202c-3f72-4923-82f2-6b876dfb4bc9
+🔬 Generating research-driven content for: Quantum Memory Storage: Revolutionary Advances in Information Processing
+📚 Generating research-driven content for topic: Quantum Memory Storage: Revolutionary Advances in Information Processing
+🔄 Generating topic-based research content with Gemini...
+🎙️  Generating multi-voice character-driven audio for job 9eab202c-3f72-4923-82f2-6b876dfb4bc9
+🎭 Generating multi-voice audio for job 9eab202c-3f72-4923-82f2-6b876dfb4bc9
+🎯 Parsed 1 voice segments
+🎙️ Generating host segment 1/1
+🔗 Concatenating 1 audio segments
+🎵 Multi-voice audio uploaded to GCS: https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/audio/research-9eab202c-250728.mp3
+✅ Multi-voice audio generated: https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/audio/research-9eab202c-250728.mp3
+📝 Uploading episode description to GCS
+📝 Description uploaded to GCS: https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/descriptions/research-9eab202c-250728.md
+🖼️  Generating and uploading episode thumbnail
+🖼️ Thumbnail uploaded to GCS: https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/research-9eab202c-250728-thumb.jpg
+✅ Research-driven podcast generation completed for job 9eab202c-3f72-4923-82f2-6b876dfb4bc9
+INFO:     127.0.0.1:35660 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48872 - "GET /job/9eab202c-3f72-4923-82f2-6b876dfb4bc9 HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [55955]

@@ -262,9 +262,92 @@ class ElevenLabsVoiceService:
         
         return text
     
-    def _parse_script_segments(self, script: str) -> List[Dict[str, str]]:
-        """Parse script into [{speaker, content}] segments"""
+    def _parse_script_segments(self, script: str, host_voice_id: Optional[str] = None, expert_voice_id: Optional[str] = None, host_name: Optional[str] = None, expert_name: Optional[str] = None) -> List[Dict[str, str]]:
+        """Parse script into [{speaker, content}] segments
+        
+        Args:
+            script: The podcast script with speaker labels
+            host_voice_id: Voice ID selected for host (used to map names to roles)
+            expert_voice_id: Voice ID selected for expert (used to map names to roles)
+            host_name: Name of the host speaker (from voice ID mapping)
+            expert_name: Name of the expert speaker (from voice ID mapping)
+        """
         import re
+        
+        # Map voice IDs to names (for reverse lookup if needed)
+        VOICE_ID_TO_NAME = {
+            "XrExE9yKIg1WjnnlVkGX": "Matilda",
+            "EXAVITQu4vr4xnSDxMaL": "Bella",
+            "JBFqnCBsd6RMkjVDRZzb": "Sam",
+            "pNInz6obpgDQGcFmaJgB": "Adam",
+            "pqHfZKP75CvOlQylNhV4": "Bryan",
+            "onwK4e9ZLuTAKqWW03F9": "Daniel"
+        }
+        
+        # Build name-to-role mapping ONCE at start, prioritizing selected voice IDs
+        name_to_role = {}
+        
+        # CRITICAL: Map the actual selected names to their roles FIRST (these take priority)
+        if host_name:
+            name_to_role[host_name.lower()] = "host"
+            logger.info(f"🎙️ Mapped selected host name '{host_name}' to 'host' role")
+        if expert_name:
+            name_to_role[expert_name.lower()] = "expert"
+            logger.info(f"🎙️ Mapped selected expert name '{expert_name}' to 'expert' role")
+        
+        # Also map voice ID names if we have them (in case names don't match exactly)
+        if host_voice_id:
+            voice_host_name = VOICE_ID_TO_NAME.get(host_voice_id)
+            if voice_host_name and voice_host_name.lower() not in name_to_role:
+                name_to_role[voice_host_name.lower()] = "host"
+                logger.info(f"🎙️ Mapped voice ID host name '{voice_host_name}' to 'host' role")
+        if expert_voice_id:
+            voice_expert_name = VOICE_ID_TO_NAME.get(expert_voice_id)
+            if voice_expert_name and voice_expert_name.lower() not in name_to_role:
+                name_to_role[voice_expert_name.lower()] = "expert"
+                logger.info(f"🎙️ Mapped voice ID expert name '{voice_expert_name}' to 'expert' role")
+        
+        # Add name variant mappings (e.g., "brian" is variant of "bryan")
+        # If Bryan is mapped to a role, also map "brian" to the same role
+        if "bryan" in name_to_role:
+            name_to_role["brian"] = name_to_role["bryan"]
+            logger.info(f"🎙️ Mapped 'brian' as variant of 'bryan' to '{name_to_role['bryan']}' role")
+        
+        # Add fallback mappings for common names (only if not already mapped above)
+        fallback_mappings = {
+            "matilda": "host",
+            "bella": "host",  # Default fallback
+            "sam": "host",
+            "adam": "expert",  # Default fallback
+            "bryan": "expert",  # Default fallback (only if not mapped above)
+            "brian": "expert",  # Default fallback (variant of Bryan, only if not mapped above)
+            "daniel": "expert",
+            "bill": "questioner",
+            "lily": "correspondent",
+            # Legacy names
+            "sarah": "host",
+            "mary": "questioner",
+            "susan": "host",
+            "maya": "host",
+            "elena": "correspondent",
+            "anna": "questioner",
+            "emma": "host",
+            "gary": "expert",
+            "tom": "expert",
+            "bob": "correspondent",
+            "james": "expert",
+            "marcus": "expert",
+            "david": "questioner",
+            "john": "correspondent",
+            "michael": "expert",
+        }
+        
+        # Only add fallback mappings if they don't conflict with selected voices
+        for name, role in fallback_mappings.items():
+            if name not in name_to_role:
+                name_to_role[name] = role
+        
+        logger.info(f"🎭 Name-to-role mapping: {name_to_role}")
         
         # Debug: Log the first 500 characters of the script
         logger.info(f"🔍 Parsing script (first 500 chars): {script[:500]}...")
@@ -338,38 +421,10 @@ class ElevenLabsVoiceService:
                 first_name = name_match.group(1).strip().lower()
                 text = name_match.group(2).strip()
                 
-                # Map common speaker first names to voice roles with gender-appropriate assignments
-                name_to_role = {
-                    # PRIMARY VOICE NAMES (Current ElevenLabs voices - Phase 2.2)
-                    "matilda": "host",      # Matilda (female host) - XrExE9yKIg1WjnnlVkGX
-                    "bella": "host",        # Bella (female host) - pqHfZKP75CvOlQylNhV4
-                    "sam": "host",          # Sam (female host) - JBFqnCBsd6RMkjVDRZzb
-                    "adam": "expert",       # Adam (male expert) - pNInz6obpgDQGcFmaJgB
-                    "bryan": "expert",      # Bryan (male expert) - EXAVITQu4vr4xnSDxMaL
-                    "daniel": "expert",     # Daniel (male expert) - onwK4e9ZLuTAKqWW03F9
-                    "bill": "questioner",   # Bill (male) - iiidtqDt9FBdT1vfBluA
-                    "lily": "correspondent", # Lily (female) - Pt5YrLNyu6d2s3s4CVMg
-                    
-                    # Legacy female names -> Female voices
-                    "sarah": "host",        # Sarah (female)
-                    "mary": "questioner",   # Mary (female)
-                    "susan": "host",        # Susan (female)
-                    "maya": "host",         # Maya (female)
-                    "elena": "correspondent", # Elena (female)
-                    "anna": "questioner",   # Anna (female)
-                    "emma": "host",         # Emma (female)
-                    
-                    # Legacy male names -> Male voices
-                    "gary": "expert",       # Gary (male)
-                    "tom": "expert",        # Tom (male)
-                    "bob": "correspondent", # Bob (male)
-                    "james": "expert",      # James (male)
-                    "marcus": "expert",    # Marcus (male)
-                    "david": "questioner", # David (male)
-                    "john": "correspondent", # John (male)
-                    "michael": "expert",   # Michael (male)
-                }
-                current_speaker = name_to_role.get(first_name, "host")
+                # Use the pre-built name-to-role mapping (prioritizes selected voices)
+                mapped_role = name_to_role.get(first_name, "host")
+                current_speaker = mapped_role
+                logger.debug(f"🎭 Mapped speaker name '{first_name}' to role '{mapped_role}'")
                 current_content = [text] if text else []
                 
             else:
@@ -1003,18 +1058,35 @@ class ElevenLabsVoiceService:
             raise ValueError("Input script is empty or contains only whitespace. Cannot generate audio.")
         # --- End of Edit ---
         
+        # Map voice IDs to names for script parsing
+        VOICE_ID_TO_NAME = {
+            "XrExE9yKIg1WjnnlVkGX": "Matilda",  # Female, Professional
+            "EXAVITQu4vr4xnSDxMaL": "Bella",     # Female, British
+            "JBFqnCBsd6RMkjVDRZzb": "Sam",       # Female, American
+            "pNInz6obpgDQGcFmaJgB": "Adam",      # Male, Authoritative
+            "pqHfZKP75CvOlQylNhV4": "Bryan",     # Male, American
+            "onwK4e9ZLuTAKqWW03F9": "Daniel"     # Male, British
+        }
+        
+        # Determine speaker names from voice IDs
+        host_name = VOICE_ID_TO_NAME.get(host_voice_id, "Matilda") if host_voice_id else "Matilda"
+        expert_name = VOICE_ID_TO_NAME.get(expert_voice_id, "Adam") if expert_voice_id else "Adam"
+        
         # Override voice IDs if provided (Phase 2.2: Voice Selection)
         if host_voice_id:
             self.voice_configs['host'].voice_id = host_voice_id
-            logger.info(f"🎙️ Using custom host voice: {host_voice_id}")
+            self.voice_configs['host'].speaker_name = host_name
+            logger.info(f"🎙️ Using custom host voice: {host_voice_id} ({host_name})")
         if expert_voice_id:
             self.voice_configs['expert'].voice_id = expert_voice_id
-            logger.info(f"🎙️ Using custom expert voice: {expert_voice_id}")
+            self.voice_configs['expert'].speaker_name = expert_name
+            logger.info(f"🎙️ Using custom expert voice: {expert_voice_id} ({expert_name})")
         
         logger.info(f"🎵 Generating multi-voice audio with bumpers for {canonical_filename}")
         
         # Parse script into segments with different speakers
-        segments = self._parse_script_segments(script)
+        # Pass the voice ID mapping so parser can correctly map names to roles
+        segments = self._parse_script_segments(script, host_voice_id=host_voice_id, expert_voice_id=expert_voice_id, host_name=host_name, expert_name=expert_name)
         logger.info(f"📝 Parsed {len(segments)} script segments")
         
         if not segments:
