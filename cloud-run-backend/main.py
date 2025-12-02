@@ -3762,43 +3762,49 @@ async def admin_get_subscriber_podcasts(subscriber_id: str, admin_auth: bool = D
             podcast_data['source'] = 'podcast_jobs'
             podcast_list.append(podcast_data)
         
-        # Also check episodes collection for legacy episodes that might be linked
-        # For now, we'll include all episodes that are submitted_to_rss (legacy ones)
-        # In the future, we could add subscriber_id to episodes collection
+        # Also check episodes collection - only include episodes that belong to this subscriber
         if include_episodes:
             try:
-                # Get episodes that are in RSS feed (likely legacy ones)
-                episodes_query = db.collection(EPISODE_COLLECTION_NAME).where('submitted_to_rss', '==', True).limit(100)
+                # Get episodes that have subscriber_id matching this subscriber
+                episodes_query = db.collection(EPISODE_COLLECTION_NAME).where('subscriber_id', '==', subscriber_id)
                 episodes = episodes_query.stream()
                 
                 for episode in episodes:
                     episode_data = episode.to_dict() or {}
-                    # Check if this episode is already in podcast_list (by canonical filename)
+                    # Check if this episode is already in podcast_list (by canonical filename or job_id)
                     canonical = episode.id  # Episode ID is the canonical filename
+                    job_id = episode_data.get('job_id')
+                    
                     already_included = any(
-                        p.get('result', {}).get('canonical_filename') == canonical 
+                        (p.get('result', {}).get('canonical_filename') == canonical) or
+                        (job_id and p.get('podcast_id') == job_id)
                         for p in podcast_list
                     )
                     
                     if not already_included:
                         # Convert episode format to match podcast_jobs format
                         episode_podcast = {
-                            'podcast_id': f"episode_{episode.id}",
+                            'podcast_id': canonical or job_id or f"episode_{episode.id}",
                             'episode_id': episode.id,
+                            'job_id': job_id,
                             'title': episode_data.get('title', 'Untitled'),
                             'submitted_to_rss': episode_data.get('submitted_to_rss', False),
                             'result': {
                                 'canonical_filename': canonical,
                                 'audio_url': episode_data.get('audio_url', ''),
                                 'thumbnail_url': episode_data.get('thumbnail_url', ''),
+                                'title': episode_data.get('title', 'Untitled'),
+                            },
+                            'request': {
+                                'topic': episode_data.get('topic', ''),
+                                'category': episode_data.get('category', ''),
                             },
                             'created_at': episode_data.get('generated_at', episode_data.get('created_at', '')),
                             'source': 'episodes',
-                            'is_legacy': True,
                         }
                         podcast_list.append(episode_podcast)
             except Exception as e:
-                structured_logger.warning("Could not fetch episodes collection",
+                structured_logger.warning("Could not fetch episodes collection for subscriber",
                                         subscriber_id=subscriber_id,
                                         error=str(e))
         
@@ -6294,6 +6300,334 @@ async def list_podcasts_missing_canonical(admin_auth: bool = Depends(verify_admi
                                error=str(e),
                                error_type=type(e).__name__)
         raise HTTPException(status_code=500, detail=f"Failed to list missing canonical filenames: {str(e)}")
+
+@app.post("/api/admin/podcasts/fix-all-issues")
+async def fix_all_podcast_issues(admin_auth: bool = Depends(verify_admin_api_key)):
+    """Comprehensive endpoint to fix all podcast issues:
+    1. Revert 5 news podcasts from ever- format back to news- format
+    2. Fix podcast titles to remove 'Copernicus AI: Frontiers of Science - ' prefix
+    3. Update Firestore and RSS feed accordingly
+    """
+    if not db:
+        raise HTTPException(status_code=503, detail="Firestore service is unavailable")
+    
+    try:
+        from google.cloud import storage
+        from google.api_core.exceptions import PreconditionFailed
+        import xml.etree.ElementTree as ET
+        import re
+        
+        structured_logger.info("Starting comprehensive fix for all podcast issues")
+        
+        # Mapping of current (wrong) canonical to original (correct) canonical for news podcasts
+        news_reversions = {
+            "ever-bio-250041": "news-bio-28032025",
+            "ever-chem-250022": "news-chem-28032025",
+            "ever-compsci-250031": "news-compsci-28032025",
+            "ever-math-250041": "news-math-28032025",
+            "ever-phys-250043": "news-phys-28032025",
+        }
+        
+        title_prefix = "Copernicus AI: Frontiers of Science - "
+        
+        reverted_news = []
+        fixed_titles = []
+        errors = []
+        
+        # Step 1: Revert news podcasts
+        structured_logger.info("Reverting news podcasts", count=len(news_reversions))
+        
+        for current_canonical, original_canonical in news_reversions.items():
+            try:
+                # Find in podcast_jobs
+                podcast_jobs_query = db.collection('podcast_jobs').where('result.canonical_filename', '==', current_canonical).limit(1).stream()
+                job_doc = None
+                for doc in podcast_jobs_query:
+                    job_doc = doc
+                    break
+                
+                # Find in episodes
+                episode_doc = db.collection(EPISODE_COLLECTION_NAME).document(current_canonical).get()
+                
+                if not job_doc and not episode_doc.exists:
+                    structured_logger.warning("News podcast not found for reversion",
+                                            current_canonical=current_canonical,
+                                            original_canonical=original_canonical)
+                    errors.append(f"News podcast {current_canonical} not found")
+                    continue
+                
+                # Update podcast_jobs if exists
+                if job_doc:
+                    job_doc.reference.update({
+                        'result.canonical_filename': original_canonical,
+                        'updated_at': datetime.utcnow().isoformat()
+                    })
+                    structured_logger.info("Updated podcast_jobs with reverted canonical",
+                                         job_id=job_doc.id,
+                                         old=current_canonical,
+                                         new=original_canonical)
+                
+                # Update or create episode document
+                if episode_doc.exists:
+                    episode_data = episode_doc.to_dict() or {}
+                    # Create new episode document with original canonical
+                    new_episode_data = episode_data.copy()
+                    new_episode_data['canonical_filename'] = original_canonical
+                    new_episode_data['episode_id'] = original_canonical
+                    new_episode_data['slug'] = original_canonical
+                    new_episode_data['updated_at'] = datetime.utcnow().isoformat()
+                    
+                    # Set new document
+                    db.collection(EPISODE_COLLECTION_NAME).document(original_canonical).set(new_episode_data)
+                    
+                    # Delete old document if different
+                    if current_canonical != original_canonical:
+                        db.collection(EPISODE_COLLECTION_NAME).document(current_canonical).delete()
+                    
+                    structured_logger.info("Updated episodes collection with reverted canonical",
+                                         old=current_canonical,
+                                         new=original_canonical)
+                else:
+                    # Create episode document from podcast_jobs if it exists
+                    if job_doc:
+                        job_data = job_doc.to_dict() or {}
+                        result_data = job_data.get('result', {})
+                        request_data = job_data.get('request', {})
+                        
+                        episode_doc_data = {
+                            'episode_id': original_canonical,
+                            'job_id': job_doc.id,
+                            'subscriber_id': job_data.get('subscriber_id'),
+                            'title': result_data.get('title') or request_data.get('topic', 'Untitled'),
+                            'slug': original_canonical,
+                            'canonical_filename': original_canonical,
+                            'topic': request_data.get('topic'),
+                            'category': request_data.get('category', 'Unknown'),
+                            'created_at': result_data.get('generated_at') or datetime.utcnow().isoformat(),
+                            'generated_at': result_data.get('generated_at') or datetime.utcnow().isoformat(),
+                            'updated_at': datetime.utcnow().isoformat(),
+                            'submitted_to_rss': job_data.get('submitted_to_rss', False),
+                            'audio_url': result_data.get('audio_url'),
+                            'thumbnail_url': result_data.get('thumbnail_url'),
+                            'transcript_url': result_data.get('transcript_url'),
+                            'description_url': result_data.get('description_url'),
+                        }
+                        db.collection(EPISODE_COLLECTION_NAME).document(original_canonical).set(episode_doc_data)
+                
+                # Update RSS feed
+                try:
+                    storage_client = storage.Client()
+                    bucket = storage_client.bucket(RSS_BUCKET_NAME)
+                    blob = bucket.blob(RSS_FEED_BLOB_NAME)
+                    
+                    if blob.exists():
+                        blob.reload()
+                        current_generation = blob.generation
+                        xml_bytes = blob.download_as_bytes()
+                        root = ET.fromstring(xml_bytes)
+                        channel = root.find("channel")
+                        
+                        if channel is not None:
+                            for item in channel.findall("item"):
+                                guid_elem = item.find("guid")
+                                if guid_elem is not None and guid_elem.text and guid_elem.text.strip() == current_canonical:
+                                    # Update GUID to original canonical
+                                    guid_elem.text = original_canonical
+                                    
+                                    # Update thumbnail URLs if they use the old canonical
+                                    itunes_ns = "{http://www.itunes.com/dtds/podcast-1.0.dtd}"
+                                    media_ns = "{http://search.yahoo.com/mrss/}"
+                                    
+                                    itunes_image_elem = item.find(f"{itunes_ns}image")
+                                    if itunes_image_elem is not None:
+                                        old_url = itunes_image_elem.get("href", "")
+                                        if current_canonical in old_url:
+                                            new_url = old_url.replace(current_canonical, original_canonical)
+                                            itunes_image_elem.set("href", new_url)
+                                    
+                                    media_thumb_elem = item.find(f"{media_ns}thumbnail")
+                                    if media_thumb_elem is not None:
+                                        old_url = media_thumb_elem.get("url", "")
+                                        if current_canonical in old_url:
+                                            new_url = old_url.replace(current_canonical, original_canonical)
+                                            media_thumb_elem.set("url", new_url)
+                                    
+                                    # Save updated RSS feed
+                                    new_xml_bytes = ET.tostring(root, encoding="utf-8", xml_declaration=True)
+                                    xml_text = new_xml_bytes.decode("utf-8")
+                                    xml_text = xml_text.replace("&lt;![CDATA[", "<![CDATA[").replace("]]&gt;", "]]>")
+                                    new_xml_bytes = xml_text.encode("utf-8")
+                                    
+                                    try:
+                                        blob.upload_from_string(
+                                            new_xml_bytes,
+                                            content_type="application/rss+xml",
+                                            if_generation_match=current_generation,
+                                        )
+                                        structured_logger.info("Updated RSS feed with reverted canonical",
+                                                             old=current_canonical,
+                                                             new=original_canonical)
+                                    except PreconditionFailed:
+                                        structured_logger.warning("RSS feed was updated concurrently during reversion",
+                                                                 old=current_canonical,
+                                                                 new=original_canonical)
+                                    break
+                except Exception as rss_error:
+                    structured_logger.warning("Could not update RSS feed during news reversion",
+                                            current_canonical=current_canonical,
+                                            original_canonical=original_canonical,
+                                            error=str(rss_error))
+                
+                reverted_news.append({
+                    'old_canonical': current_canonical,
+                    'new_canonical': original_canonical
+                })
+                
+            except Exception as e:
+                structured_logger.error("Failed to revert news podcast",
+                                      current_canonical=current_canonical,
+                                      original_canonical=original_canonical,
+                                      error=str(e))
+                errors.append(f"Failed to revert {current_canonical}: {str(e)}")
+        
+        # Step 2: Fix titles (remove prefix)
+        structured_logger.info("Fixing podcast titles to remove prefix")
+        
+        # Get all podcasts to find ones with the prefix
+        all_podcasts = []
+        podcast_jobs = db.collection('podcast_jobs').stream()
+        for job_doc in podcast_jobs:
+            job_data = job_doc.to_dict() or {}
+            result = job_data.get('result', {})
+            title = result.get('title', '')
+            canonical = result.get('canonical_filename')
+            
+            if title.startswith(title_prefix):
+                all_podcasts.append({
+                    'type': 'podcast_jobs',
+                    'doc_id': job_doc.id,
+                    'canonical': canonical,
+                    'old_title': title,
+                    'new_title': title.replace(title_prefix, '', 1)
+                })
+        
+        episodes = db.collection(EPISODE_COLLECTION_NAME).stream()
+        for episode_doc in episodes:
+            episode_data = episode_doc.to_dict() or {}
+            title = episode_data.get('title', '')
+            canonical = episode_doc.id
+            
+            if title.startswith(title_prefix):
+                # Check if already in list
+                if not any(p.get('canonical') == canonical for p in all_podcasts):
+                    all_podcasts.append({
+                        'type': 'episodes',
+                        'doc_id': canonical,
+                        'canonical': canonical,
+                        'old_title': title,
+                        'new_title': title.replace(title_prefix, '', 1)
+                    })
+        
+        # Update titles
+        for podcast in all_podcasts:
+            try:
+                if podcast['type'] == 'podcast_jobs':
+                    db.collection('podcast_jobs').document(podcast['doc_id']).update({
+                        'result.title': podcast['new_title'],
+                        'updated_at': datetime.utcnow().isoformat()
+                    })
+                elif podcast['type'] == 'episodes':
+                    db.collection(EPISODE_COLLECTION_NAME).document(podcast['doc_id']).update({
+                        'title': podcast['new_title'],
+                        'updated_at': datetime.utcnow().isoformat()
+                    })
+                
+                # Update RSS feed title if present
+                try:
+                    storage_client = storage.Client()
+                    bucket = storage_client.bucket(RSS_BUCKET_NAME)
+                    blob = bucket.blob(RSS_FEED_BLOB_NAME)
+                    
+                    if blob.exists():
+                        blob.reload()
+                        current_generation = blob.generation
+                        xml_bytes = blob.download_as_bytes()
+                        root = ET.fromstring(xml_bytes)
+                        channel = root.find("channel")
+                        
+                        if channel is not None:
+                            for item in channel.findall("item"):
+                                guid_elem = item.find("guid")
+                                if guid_elem is not None and guid_elem.text and guid_elem.text.strip() == podcast['canonical']:
+                                    title_elem = item.find("title")
+                                    if title_elem is not None:
+                                        old_title_text = title_elem.text or ""
+                                        # Remove CDATA markers if present
+                                        if "<![CDATA[" in old_title_text:
+                                            old_title_text = re.sub(r'<!\[CDATA\[(.*?)\]\]>', r'\1', old_title_text, flags=re.DOTALL)
+                                        
+                                        if old_title_text.startswith(title_prefix):
+                                            new_title_text = old_title_text.replace(title_prefix, '', 1)
+                                            title_elem.text = f"<![CDATA[{new_title_text}]]>"
+                                            
+                                            # Save updated RSS feed
+                                            new_xml_bytes = ET.tostring(root, encoding="utf-8", xml_declaration=True)
+                                            xml_text = new_xml_bytes.decode("utf-8")
+                                            xml_text = xml_text.replace("&lt;![CDATA[", "<![CDATA[").replace("]]&gt;", "]]>")
+                                            new_xml_bytes = xml_text.encode("utf-8")
+                                            
+                                            try:
+                                                blob.upload_from_string(
+                                                    new_xml_bytes,
+                                                    content_type="application/rss+xml",
+                                                    if_generation_match=current_generation,
+                                                )
+                                                structured_logger.info("Updated RSS feed with fixed title",
+                                                                     canonical=podcast['canonical'],
+                                                                     new_title=podcast['new_title'])
+                                            except PreconditionFailed:
+                                                structured_logger.warning("RSS feed was updated concurrently during title fix",
+                                                                        canonical=podcast['canonical'])
+                                            break
+                except Exception as rss_error:
+                    structured_logger.warning("Could not update RSS feed during title fix",
+                                            canonical=podcast['canonical'],
+                                            error=str(rss_error))
+                
+                fixed_titles.append({
+                    'canonical': podcast['canonical'],
+                    'old_title': podcast['old_title'],
+                    'new_title': podcast['new_title']
+                })
+                
+            except Exception as e:
+                structured_logger.error("Failed to fix title",
+                                      canonical=podcast.get('canonical'),
+                                      error=str(e))
+                errors.append(f"Failed to fix title for {podcast.get('canonical')}: {str(e)}")
+        
+        structured_logger.info("Comprehensive fix completed",
+                             news_reverted=len(reverted_news),
+                             titles_fixed=len(fixed_titles),
+                             errors=len(errors))
+        
+        return {
+            "message": f"Fix completed: {len(reverted_news)} news podcasts reverted, {len(fixed_titles)} titles fixed",
+            "news_reverted": reverted_news,
+            "titles_fixed": fixed_titles,
+            "errors": errors,
+            "total_news_reverted": len(reverted_news),
+            "total_titles_fixed": len(fixed_titles),
+            "total_errors": len(errors)
+        }
+        
+    except Exception as e:
+        import traceback
+        error_trace = traceback.format_exc()
+        structured_logger.error("Failed to fix all podcast issues",
+                               error=str(e),
+                               error_trace=error_trace)
+        raise HTTPException(status_code=500, detail=f"Failed to fix all issues: {str(e)}")
 
 @app.delete("/api/admin/podcasts/{podcast_id}/rss")
 async def admin_remove_podcast_from_rss(podcast_id: str, admin_auth: bool = Depends(verify_admin_api_key)):
