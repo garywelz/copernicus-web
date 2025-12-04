@@ -1043,7 +1043,7 @@ Return JSON with:
                                    response_length=len(response_text),
                                    topic=request.topic)
             
-            content = self._extract_json_from_response(response_text)
+            content = _extract_json_from_response(response_text)
             
         else:
             structured_logger.info("Using Google AI API (fallback)",
@@ -1055,7 +1055,7 @@ Return JSON with:
             response = model.generate_content(prompt)
             response_text = response.text
             
-            content = self._extract_json_from_response(response_text)
+            content = _extract_json_from_response(response_text)
         
         structured_logger.info("Content generated successfully",
                               content_keys=list(content.keys()) if isinstance(content, dict) else None,
