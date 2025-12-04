@@ -322,10 +322,12 @@ Your podcast has TWO speakers only:
 - Target duration: {duration}
 - Format: {format_type}
 
-**CONTENT LENGTH REQUIREMENTS - CRITICAL:**
+**CONTENT LENGTH REQUIREMENTS - ABSOLUTELY CRITICAL:**
 - **MINIMUM REQUIRED: {calculate_minimum_words_for_duration(duration)} words** (based on 150 words per minute)
 - **TARGET: {int(calculate_minimum_words_for_duration(duration) / 0.9)} words** for full duration coverage
+- **MANDATORY: Your script MUST be at least {calculate_minimum_words_for_duration(duration)} words long**
 - **FAILURE WARNING: Scripts under {calculate_minimum_words_for_duration(duration)} words will be REJECTED and generation will fail - ensure you meet or exceed this minimum**
+- **WORD COUNT CHECK: Before submitting, count the words in your script. If it's under {calculate_minimum_words_for_duration(duration)} words, you MUST expand it with more dialogue, examples, and detailed explanations.**
 
 **CITATION STYLE IN DIALOGUE:**
 - When citing papers, mention: Author names, publication, and title
@@ -378,7 +380,7 @@ groundbreaking research. [Final thought on future implications]
 **OUTPUT FORMAT (JSON):**
 {{
     "title": "Engaging title closely matching '{research_context.topic}' - should directly reference the topic with compelling wording",
-    "script": "Full dialogue script with {host_name.upper()}: and {expert_name.upper()}: labels",
+    "script": "Full dialogue script with {host_name.upper()}: and {expert_name.upper()}: labels. **CRITICAL: This script MUST be at least {calculate_minimum_words_for_duration(duration)} words long. Count the words before submitting. If under {calculate_minimum_words_for_duration(duration)} words, expand it with more dialogue, examples, and detailed explanations until it reaches the minimum.**",
     "description": "Comprehensive but CONCISE episode description (MUST be under 3000 characters) with:
         - Episode overview (1-2 paragraphs, concise)
         - Key concepts explored (3-4 bullet points, brief)
