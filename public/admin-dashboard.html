@@ -336,8 +336,8 @@
                 
                 row.innerHTML = `
                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${subscriber.email || 'N/A'}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${subscriber.display_name || 'N/A'}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${subscriber.podcast_count || 0}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${subscriber.display_name || subscriber.name || 'N/A'}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${subscriber.podcasts_generated || subscriber.podcast_count || 0}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${formatDate(subscriber.created_at)}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm">
                         <button onclick="viewUserPodcasts('${subscriber.subscriber_id}', '${(subscriber.email || 'User').replace(/'/g, "\\'")}')" 
@@ -387,11 +387,11 @@
                 
                 let html = '<div class="space-y-4">';
                 podcasts.forEach(podcast => {
-                const podcastId = podcast.podcast_id || podcast.id;
-                const title = podcast.title || podcast.request?.topic || 'Untitled';
+                const podcastId = podcast.podcast_id || podcast.id || podcast.canonical_filename;
+                const title = podcast.title || podcast.result?.title || podcast.request?.topic || 'Untitled';
                 const submitted = podcast.submitted_to_rss || false;
                 const promoted = podcast.promoted_to_episodes !== false; // Default to true if not set (legacy), but check for explicit false
-                const created = formatDate(podcast.created_at || podcast.request?.created_at);
+                const created = formatDate(podcast.created_at || podcast.result?.generated_at || podcast.request?.created_at);
                 
                 html += `
                         <div class="border border-gray-200 rounded-lg p-4 hover:bg-gray-50">
