@@ -673,6 +673,55 @@ async def sync_rss_status(admin_auth: bool = Depends(verify_admin_api_key)):
                                error_type=type(e).__name__)
         raise HTTPException(status_code=500, detail=f"Failed to sync RSS status: {str(e)}")
 
+@router.get("/podcasts/failed")
+async def admin_get_failed_podcasts(admin_auth: bool = Depends(verify_admin_api_key)):
+    """Get all failed podcast jobs with error details - Admin endpoint"""
+    if not db:
+        raise HTTPException(status_code=503, detail="Firestore service is unavailable")
+    
+    try:
+        failed_jobs = []
+        
+        # Get all failed podcast jobs
+        podcast_jobs = db.collection('podcast_jobs').where('status', '==', 'failed').stream()
+        
+        for job_doc in podcast_jobs:
+            job_data = job_doc.to_dict() or {}
+            request_data = job_data.get('request', {})
+            result = job_data.get('result', {})
+            
+            failed_jobs.append({
+                'job_id': job_doc.id,
+                'topic': request_data.get('topic', 'Unknown'),
+                'title': result.get('title') or request_data.get('topic', 'Untitled'),
+                'category': request_data.get('category', ''),
+                'duration': request_data.get('duration', ''),
+                'expertise_level': request_data.get('expertise_level', ''),
+                'subscriber_id': job_data.get('subscriber_id'),
+                'error': job_data.get('error', 'No error message'),
+                'error_type': job_data.get('error_type', ''),
+                'created_at': job_data.get('created_at', ''),
+                'updated_at': job_data.get('updated_at', ''),
+                'status': job_data.get('status', 'failed')
+            })
+        
+        # Sort by created_at descending (most recent first)
+        failed_jobs.sort(key=lambda x: x.get('created_at', ''), reverse=True)
+        
+        structured_logger.info("Retrieved failed podcasts",
+                              total_count=len(failed_jobs))
+        
+        return {
+            "failed_jobs": failed_jobs,
+            "total_count": len(failed_jobs)
+        }
+        
+    except Exception as e:
+        structured_logger.error("Failed to get failed podcasts",
+                               error=str(e),
+                               error_type=type(e).__name__)
+        raise HTTPException(status_code=500, detail=f"Failed to get failed podcasts: {str(e)}")
+
 @router.get("/podcasts/legacy")
 async def admin_get_legacy_podcasts(admin_auth: bool = Depends(verify_admin_api_key)):
     """Get legacy podcasts (from podcast_jobs but not in episodes) - Admin endpoint"""
