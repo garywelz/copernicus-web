@@ -21,6 +21,7 @@ from research_pipeline import ComprehensiveResearchPipeline, ResearchSource
 from enhanced_research_service import EnhancedResearchService, PaperAnalysis
 from paper_processor import analyze_paper_with_gemini, ResearchPaper, AnalyzeOptions, PaperAnalysis as GeminiPaperAnalysis
 from copernicus_character import get_copernicus_character, get_character_prompt, CopernicusCharacter
+from utils.script_validation import calculate_minimum_words_for_duration
 
 @dataclass
 class PodcastResearchContext:
@@ -320,6 +321,11 @@ Your podcast has TWO speakers only:
 - Each speaker: 10-15 speaking turns
 - Target duration: {duration}
 - Format: {format_type}
+
+**CONTENT LENGTH REQUIREMENTS - CRITICAL:**
+- **MINIMUM REQUIRED: {calculate_minimum_words_for_duration(duration)} words** (based on 150 words per minute)
+- **TARGET: {int(calculate_minimum_words_for_duration(duration) / 0.9)} words** for full duration coverage
+- **FAILURE WARNING: Scripts under {calculate_minimum_words_for_duration(duration)} words will be REJECTED and generation will fail - ensure you meet or exceed this minimum**
 
 **CITATION STYLE IN DIALOGUE:**
 - When citing papers, mention: Author names, publication, and title
