@@ -408,49 +408,94 @@ async def get_podcast_database(
             # The database flag should be kept in sync via the sync_rss_status endpoint
             submitted_to_rss = episode_data.get('submitted_to_rss', False)
             
-            # Get duration
-            duration = episode_data.get('duration') or episode_data.get('request', {}).get('duration') or 'Unknown'
+            # Get duration - check multiple sources including podcast_jobs
+            duration = episode_data.get('duration')
+            audio_url = episode_data.get('audio_url')
+            
+            # If duration or audio_url is missing, check podcast_jobs
+            if (not duration or duration == 'Unknown' or not audio_url):
+                try:
+                    job_query = db.collection('podcast_jobs').where('result.canonical_filename', '==', canonical).limit(1).stream()
+                    for job_doc in job_query:
+                        job_data = job_doc.to_dict() or {}
+                        result = job_data.get('result', {})
+                        if not duration or duration == 'Unknown':
+                            duration = result.get('duration') or job_data.get('request', {}).get('duration') or duration
+                        if not audio_url:
+                            audio_url = result.get('audio_url') or audio_url
+                        break
+                except Exception as e:
+                    structured_logger.debug("Could not check podcast_jobs for missing data",
+                                          canonical=canonical,
+                                          error=str(e))
+            
+            # Final fallback for duration
+            if not duration or duration == 'Unknown':
+                request_data = episode_data.get('request', {})
+                duration = request_data.get('duration') or 'Unknown'
             
             # Get file size from GCS
             file_size_display = 'Unknown'
-            audio_url = episode_data.get('audio_url')
             if audio_url:
                 try:
-                    # Extract blob name from URL
-                    parsed = urlparse(audio_url)
-                    if 'storage.googleapis.com' in parsed.netloc:
-                        # URL format: https://storage.googleapis.com/{bucket}/{path}
-                        path_parts = parsed.path.lstrip('/').split('/')
+                    # Use the same blob extraction method as RSS service
+                    def extract_blob_name_from_url(url: str):
+                        """Extract the blob name within the bucket from a public GCS URL."""
+                        if not url:
+                            return None
+                        parsed = urlparse(url)
+                        path = parsed.path.lstrip("/")
+                        if not path:
+                            return None
+                        # Handle different URL formats
+                        # Format 1: https://storage.googleapis.com/bucket-name/path/to/file.mp3
+                        # Format 2: https://storage.googleapis.com/bucket-name/path/to/file.mp3 (bucket in path)
+                        if path.startswith(f"{RSS_BUCKET_NAME}/"):
+                            return path[len(RSS_BUCKET_NAME) + 1:]
+                        # If path doesn't start with bucket, try to find it
+                        path_parts = path.split('/')
+                        if len(path_parts) > 1 and path_parts[0] == RSS_BUCKET_NAME:
+                            return '/'.join(path_parts[1:])
+                        # Otherwise return the full path (might already be relative to bucket)
+                        return path
+                    
+                    blob_name = extract_blob_name_from_url(audio_url)
+                    if blob_name:
+                        # Get blob size
+                        storage_client = storage.Client()
+                        bucket = storage_client.bucket(RSS_BUCKET_NAME)
+                        blob = bucket.blob(blob_name)
                         
-                        # Find bucket name in path and get everything after it
-                        blob_path = None
-                        if RSS_BUCKET_NAME in path_parts:
-                            bucket_index = path_parts.index(RSS_BUCKET_NAME)
-                            if bucket_index < len(path_parts) - 1:
-                                blob_path = '/'.join(path_parts[bucket_index + 1:])
-                        elif len(path_parts) > 1:
-                            # If bucket not explicitly in path, assume first part is bucket
-                            blob_path = '/'.join(path_parts[1:])
+                        if blob.exists():
+                            blob.reload()
+                            size_bytes = blob.size
+                            # Format file size
+                            if size_bytes >= 1024 * 1024:  # MB
+                                file_size_display = f"{size_bytes / (1024 * 1024):.2f} MB"
+                            elif size_bytes >= 1024:  # KB
+                                file_size_display = f"{size_bytes / 1024:.2f} KB"
+                            else:
+                                file_size_display = f"{size_bytes} bytes"
                         else:
-                            # Just use the path as-is
-                            blob_path = parsed.path.lstrip('/')
-                        
-                        if blob_path:
-                            # Get blob size
-                            storage_client = storage.Client()
-                            bucket = storage_client.bucket(RSS_BUCKET_NAME)
-                            blob = bucket.blob(blob_path)
-                            
-                            if blob.exists():
-                                blob.reload()
-                                size_bytes = blob.size
-                                # Format file size
-                                if size_bytes >= 1024 * 1024:  # MB
-                                    file_size_display = f"{size_bytes / (1024 * 1024):.2f} MB"
-                                elif size_bytes >= 1024:  # KB
-                                    file_size_display = f"{size_bytes / 1024:.2f} KB"
-                                else:
-                                    file_size_display = f"{size_bytes} bytes"
+                            # Try alternative paths if first attempt fails
+                            alt_paths = [
+                                f"audio/{canonical}.mp3",
+                                f"generated/audio/{canonical}.mp3",
+                                f"audio/{canonical}-audio.mp3",
+                                f"generated/audio/{canonical}-audio.mp3"
+                            ]
+                            for alt_path in alt_paths:
+                                alt_blob = bucket.blob(alt_path)
+                                if alt_blob.exists():
+                                    alt_blob.reload()
+                                    size_bytes = alt_blob.size
+                                    if size_bytes >= 1024 * 1024:
+                                        file_size_display = f"{size_bytes / (1024 * 1024):.2f} MB"
+                                    elif size_bytes >= 1024:
+                                        file_size_display = f"{size_bytes / 1024:.2f} KB"
+                                    else:
+                                        file_size_display = f"{size_bytes} bytes"
+                                    break
                 except Exception as e:
                     structured_logger.debug("Could not get file size for podcast",
                                           canonical=canonical,
