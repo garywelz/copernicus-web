@@ -928,23 +928,46 @@ Return JSON with:
         self,
         request: PodcastRequest,
         research_context: PodcastResearchContext,
-        google_key: str
+        google_key: str,
+        retry_attempt: int = 0
     ) -> dict:
         """
         Generate 2-speaker podcast content from research context
         Uses the research integrator to create Copernicus-spirit content
+        
+        Args:
+            retry_attempt: Attempt number (0 = first attempt, 1+ = retries)
+                          Used to strengthen prompt on retries
         """
         structured_logger.info("Generating 2-speaker content from research sources",
                               research_sources_count=len(research_context.research_sources),
-                              topic=request.topic)
+                              topic=request.topic,
+                              retry_attempt=retry_attempt)
         
         research_integrator = PodcastResearchIntegrator(google_key)
+        
+        # Strengthen instructions on retries if script was too short
+        min_words = calculate_minimum_words_for_duration(request.duration)
+        additional_instructions = request.additional_instructions or ""
+        
+        if retry_attempt > 0:
+            additional_instructions += f"""
+
+**⚠️ RETRY ATTEMPT - PREVIOUS SCRIPT WAS TOO SHORT ⚠️**
+- Your previous script was REJECTED because it was too short (under {min_words} words)
+- **YOU MUST generate a script with AT LEAST {min_words} words - this is mandatory**
+- Expand the dialogue significantly - add more examples, explanations, discussion points
+- Increase dialogue segments to 15-20 turns per speaker (not 10-15)
+- Add more technical depth, examples, implications, and future directions
+- The script MUST be substantially longer to pass validation
+- DO NOT generate a short script again - make it longer this time
+"""
         
         prompt = research_integrator.build_2_speaker_research_prompt(
             research_context=research_context,
             duration=request.duration,
             format_type=request.format_type,
-            additional_instructions=request.additional_instructions or "",
+            additional_instructions=additional_instructions,
             host_voice_id=request.host_voice_id,
             expert_voice_id=request.expert_voice_id
         )
@@ -964,7 +987,7 @@ Return JSON with:
                         model=model_name,
                         contents=prompt,
                         config=types.GenerateContentConfig(
-                            max_output_tokens=8192,
+                            max_output_tokens=16384,  # Increased for longer scripts
                             temperature=0.8,
                             top_p=0.95
                         )
@@ -986,7 +1009,7 @@ Return JSON with:
                                     model=fallback_model,
                                     contents=prompt,
                                     config=types.GenerateContentConfig(
-                                        max_output_tokens=8192,
+                                        max_output_tokens=16384,  # Increased for longer scripts
                                         temperature=0.8,
                                         top_p=0.95
                                     )
@@ -1021,7 +1044,7 @@ Return JSON with:
                                                  model=model_name)
                             model = genai.GenerativeModel(model_name)
                             generation_config = genai.types.GenerationConfig(
-                                max_output_tokens=8192,
+                                max_output_tokens=16384,  # Increased for longer scripts
                                 temperature=0.8,
                                 top_p=0.95
                             )
@@ -1652,42 +1675,95 @@ This episode explores {research_context.topic}, examining recent breakthroughs a
                                       research_quality=research_context.research_quality_score,
                                       memory_before=content_memory_before)
                 
-                try:
-                    # Generate 2-speaker podcast from research
-                    content = await asyncio.wait_for(
-                        self.generate_content_from_research_context(request, research_context, google_key),
-                        timeout=600  # 10 minute timeout for content generation
-                    )
+                # Retry loop for content generation - regenerate if script is too short
+                max_retries = 2
+                content = None
+                min_words = calculate_minimum_words_for_duration(request.duration)
+                
+                for attempt in range(max_retries + 1):
+                    try:
+                        # Generate 2-speaker podcast from research
+                        generated_content = await asyncio.wait_for(
+                            self.generate_content_from_research_context(request, research_context, google_key, retry_attempt=attempt),
+                            timeout=600  # 10 minute timeout for content generation
+                        )
+                        
+                        # Check if script is long enough
+                        script = generated_content.get('script', '') if isinstance(generated_content, dict) else ''
+                        word_count = len(script.split()) if script else 0
+                        
+                        if word_count >= min_words:
+                            content = generated_content
+                            structured_logger.info(f"Content generation succeeded on attempt {attempt + 1}",
+                                                  job_id=job_id,
+                                                  word_count=word_count,
+                                                  min_required=min_words)
+                            break
+                        else:
+                            if attempt < max_retries:
+                                structured_logger.warning(f"Script too short on attempt {attempt + 1}, retrying with stronger prompt",
+                                                         job_id=job_id,
+                                                         word_count=word_count,
+                                                         min_required=min_words,
+                                                         attempt=attempt + 1,
+                                                         max_retries=max_retries + 1)
+                                await asyncio.sleep(2)  # Brief delay before retry
+                            else:
+                                # Last attempt - use what we have and let validation catch it
+                                content = generated_content
+                                structured_logger.warning("Script too short after all retries, proceeding to validation",
+                                                         job_id=job_id,
+                                                         word_count=word_count,
+                                                         min_required=min_words)
                     
-                    content_memory_after = psutil.virtual_memory().percent
-                    
-                    # CRITICAL: Ensure title exists - use topic as fallback if missing
-                    if isinstance(content, dict):
-                        if not content.get('title') or not content.get('title', '').strip():
-                            structured_logger.warning("LLM did not generate valid title, using topic as fallback",
-                                                     topic=request.topic)
-                            content['title'] = request.topic
-                    
-                    structured_logger.info("Content generation completed successfully", 
-                                          job_id=job_id,
-                                          memory_before=content_memory_before,
-                                          memory_after=content_memory_after,
-                                          memory_delta=content_memory_after - content_memory_before,
-                                          content_type=type(content).__name__,
-                                          content_keys=list(content.keys()) if isinstance(content, dict) else None,
-                                          title=content.get('title', 'N/A')[:60] if isinstance(content, dict) else 'N/A')
-                    
-                except asyncio.TimeoutError:
-                    structured_logger.error("Content generation timed out", 
-                                           job_id=job_id,
-                                           timeout_seconds=600)
-                    raise Exception("Content generation timed out after 10 minutes")
-                except Exception as e:
-                    structured_logger.error("Content generation failed", 
-                                           job_id=job_id,
-                                           error=str(e),
-                                           error_type=type(e).__name__)
-                    raise
+                    except asyncio.TimeoutError:
+                        if attempt < max_retries:
+                            structured_logger.warning(f"Content generation timed out on attempt {attempt + 1}, retrying",
+                                                     job_id=job_id,
+                                                     attempt=attempt + 1)
+                            await asyncio.sleep(2)
+                            continue
+                        else:
+                            structured_logger.error("Content generation timed out after all retries", 
+                                                   job_id=job_id,
+                                                   timeout_seconds=600)
+                            raise Exception("Content generation timed out after 10 minutes")
+                    except Exception as e:
+                        if attempt < max_retries:
+                            structured_logger.warning(f"Content generation failed on attempt {attempt + 1}, retrying",
+                                                     job_id=job_id,
+                                                     error=str(e),
+                                                     attempt=attempt + 1)
+                            await asyncio.sleep(2)
+                            continue
+                        else:
+                            structured_logger.error("Content generation failed after all retries", 
+                                                   job_id=job_id,
+                                                   error=str(e),
+                                                   error_type=type(e).__name__)
+                            raise
+                
+                if not content:
+                    raise Exception("Failed to generate content after all retry attempts")
+                
+                content_memory_after = psutil.virtual_memory().percent
+                
+                # CRITICAL: Ensure title exists - use topic as fallback if missing
+                if isinstance(content, dict):
+                    if not content.get('title') or not content.get('title', '').strip():
+                        structured_logger.warning("LLM did not generate valid title, using topic as fallback",
+                                                 topic=request.topic)
+                        content['title'] = request.topic
+                
+                structured_logger.info("Content generation completed successfully", 
+                                      job_id=job_id,
+                                      memory_before=content_memory_before,
+                                      memory_after=content_memory_after,
+                                      memory_delta=content_memory_after - content_memory_before,
+                                      content_type=type(content).__name__,
+                                      content_keys=list(content.keys()) if isinstance(content, dict) else None,
+                                      title=content.get('title', 'N/A')[:60] if isinstance(content, dict) else 'N/A',
+                                      script_word_count=len(content.get('script', '').split()) if isinstance(content, dict) else 0)
             
             # ═════════════════════════════════════════════════════════════════
             # ✅ PHASE 3: VALIDATE CONTENT (NO FAKE FALLBACKS!)
