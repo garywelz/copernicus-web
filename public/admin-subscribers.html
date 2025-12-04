@@ -130,7 +130,7 @@
                 const withAttribution = subscribersData.filter(s => s.show_attribution).length;
                 document.getElementById('withAttribution').textContent = withAttribution;
                 
-                const totalPodcasts = subscribersData.reduce((sum, s) => sum + (s.podcast_count || 0), 0);
+                const totalPodcasts = subscribersData.reduce((sum, s) => sum + (s.podcasts_generated || s.podcast_count || 0), 0);
                 document.getElementById('totalPodcasts').textContent = totalPodcasts;
                 
                 // Render table
@@ -173,7 +173,7 @@
                             ? '<span class="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">Yes</span>' 
                             : '<span class="px-2 py-1 text-xs font-semibold rounded-full bg-gray-100 text-gray-800">No</span>'}
                     </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${subscriber.podcast_count || 0}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${subscriber.podcasts_generated || subscriber.podcast_count || 0}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${createdDate}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${lastLoginDate}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
@@ -247,7 +247,7 @@
                     `"${sub.display_name}"`,
                     `"${sub.initials}"`,
                     sub.show_attribution ? 'Yes' : 'No',
-                    sub.podcast_count || 0,
+                    sub.podcasts_generated || sub.podcast_count || 0,
                     `"${sub.created_at}"`,
                     `"${sub.last_login}"`
                 ];

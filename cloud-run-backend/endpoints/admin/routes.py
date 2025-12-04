@@ -64,6 +64,7 @@ async def list_all_subscribers(admin_auth: bool = Depends(verify_admin_api_key))
                 'email': subscriber_data.get('email', 'N/A'),
                 'name': subscriber_data.get('name'),
                 'podcasts_generated': podcast_count,
+                'podcast_count': podcast_count,  # Alias for backward compatibility
                 'created_at': subscriber_data.get('created_at'),
                 'last_login': subscriber_data.get('last_login')
             })
