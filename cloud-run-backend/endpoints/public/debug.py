@@ -12,9 +12,18 @@ from utils.auth import verify_admin_api_key
 from utils.step_tracking import with_step
 from config.database import db
 
-# Import the PodcastRequest model and functions we need
-# TODO: Move these to appropriate service modules later
-from main import PodcastRequest, generate_research_driven_content
+# Import the PodcastRequest model from models (avoid circular import)
+from models.podcast import PodcastRequest
+
+# Lazy import to avoid circular dependency
+def _get_generate_research_driven_content():
+    """Lazy import to avoid circular dependency with main.py"""
+    import sys
+    if 'main' in sys.modules:
+        return sys.modules['main'].generate_research_driven_content
+    # Import only when needed
+    from main import generate_research_driven_content
+    return generate_research_driven_content
 
 router = APIRouter()
 
@@ -40,6 +49,9 @@ async def debug_content_generation(
             # Test content generation with timeout and detailed logging
             structured_logger.info("Calling generate_research_driven_content", 
                                   job_id=job_id)
+            
+            # Get function lazily to avoid circular import
+            generate_research_driven_content = _get_generate_research_driven_content()
             
             content = await asyncio.wait_for(
                 generate_research_driven_content(request),
