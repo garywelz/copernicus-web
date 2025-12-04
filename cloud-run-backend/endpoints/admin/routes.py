@@ -17,6 +17,8 @@ from config.database import db
 from config.constants import EPISODE_COLLECTION_NAME, RSS_BUCKET_NAME, RSS_FEED_BLOB_NAME, DEFAULT_ARTWORK_URL
 from services.rss_service import rss_service
 from services.episode_service import episode_service
+from google.cloud import storage
+from urllib.parse import urlparse
 
 router = APIRouter(prefix="/api/admin", tags=["admin"])
 
@@ -406,6 +408,54 @@ async def get_podcast_database(
             # The database flag should be kept in sync via the sync_rss_status endpoint
             submitted_to_rss = episode_data.get('submitted_to_rss', False)
             
+            # Get duration
+            duration = episode_data.get('duration') or episode_data.get('request', {}).get('duration') or 'Unknown'
+            
+            # Get file size from GCS
+            file_size_display = 'Unknown'
+            audio_url = episode_data.get('audio_url')
+            if audio_url:
+                try:
+                    # Extract blob name from URL
+                    parsed = urlparse(audio_url)
+                    if 'storage.googleapis.com' in parsed.netloc:
+                        # URL format: https://storage.googleapis.com/{bucket}/{path}
+                        path_parts = parsed.path.lstrip('/').split('/')
+                        
+                        # Find bucket name in path and get everything after it
+                        blob_path = None
+                        if RSS_BUCKET_NAME in path_parts:
+                            bucket_index = path_parts.index(RSS_BUCKET_NAME)
+                            if bucket_index < len(path_parts) - 1:
+                                blob_path = '/'.join(path_parts[bucket_index + 1:])
+                        elif len(path_parts) > 1:
+                            # If bucket not explicitly in path, assume first part is bucket
+                            blob_path = '/'.join(path_parts[1:])
+                        else:
+                            # Just use the path as-is
+                            blob_path = parsed.path.lstrip('/')
+                        
+                        if blob_path:
+                            # Get blob size
+                            storage_client = storage.Client()
+                            bucket = storage_client.bucket(RSS_BUCKET_NAME)
+                            blob = bucket.blob(blob_path)
+                            
+                            if blob.exists():
+                                blob.reload()
+                                size_bytes = blob.size
+                                # Format file size
+                                if size_bytes >= 1024 * 1024:  # MB
+                                    file_size_display = f"{size_bytes / (1024 * 1024):.2f} MB"
+                                elif size_bytes >= 1024:  # KB
+                                    file_size_display = f"{size_bytes / 1024:.2f} KB"
+                                else:
+                                    file_size_display = f"{size_bytes} bytes"
+                except Exception as e:
+                    structured_logger.debug("Could not get file size for podcast",
+                                          canonical=canonical,
+                                          error=str(e))
+            
             # Generate URLs for episode page and JSON API
             from urllib.parse import quote
             episode_page_url = f"https://copernicusai.fyi/episodes/{quote(canonical, safe='')}"
@@ -420,8 +470,10 @@ async def get_podcast_database(
                 'subscriber_id': ep_subscriber_id,
                 'in_rss': submitted_to_rss,  # Use database flag as source of truth
                 'submitted_to_rss': submitted_to_rss,
+                'duration': duration,
+                'file_size_display': file_size_display,
                 'created_at': episode_data.get('created_at') or episode_data.get('generated_at'),
-                'audio_url': episode_data.get('audio_url'),
+                'audio_url': audio_url,
                 'thumbnail_url': episode_data.get('thumbnail_url'),
                 'episode_page_url': episode_page_url,
                 'episode_json_url': episode_json_url
