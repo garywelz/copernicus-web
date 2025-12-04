@@ -10,12 +10,21 @@ import re
 API_BASE_URL = "https://copernicus-podcast-api-204731194849.us-central1.run.app"
 
 def get_admin_key():
-    """Get admin API key from environment or user input"""
-    api_key = os.getenv("ADMIN_API_KEY")
-    if not api_key:
-        print("Please set ADMIN_API_KEY environment variable or enter it:")
-        api_key = input("Admin API Key: ").strip()
-    return api_key
+    """Get admin API key from Google Secret Manager"""
+    try:
+        from google.cloud import secretmanager
+        GCP_PROJECT_ID = "regal-scholar-453620-r7"
+        client = secretmanager.SecretManagerServiceClient()
+        name = f"projects/{GCP_PROJECT_ID}/secrets/admin-api-key/versions/latest"
+        response = client.access_secret_version(request={"name": name})
+        return response.payload.data.decode("UTF-8").strip()
+    except Exception as e:
+        # Fallback to environment variable
+        api_key = os.getenv("ADMIN_API_KEY")
+        if not api_key:
+            print(f"Error: Could not get admin API key from Secret Manager: {e}")
+            sys.exit(1)
+        return api_key
 
 def check_database_status():
     """Check database status and show canonical filename patterns"""

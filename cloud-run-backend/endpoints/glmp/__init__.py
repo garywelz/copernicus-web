@@ -1,0 +1,2 @@
+"""GLMP endpoints"""
+
