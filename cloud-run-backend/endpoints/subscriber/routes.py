@@ -218,6 +218,23 @@ async def get_subscriber_profile(subscriber_id: str):
         actual_podcast_count = len(all_canonical_filenames)
         subscriber_data['podcasts_generated'] = actual_podcast_count
         
+        # Calculate RSS submission count dynamically
+        rss_count = 0
+        try:
+            # Count episodes that are submitted to RSS
+            episodes_query = db.collection(EPISODE_COLLECTION_NAME).where('subscriber_id', '==', subscriber_id).stream()
+            for episode_doc in episodes_query:
+                episode_data = episode_doc.to_dict() or {}
+                if episode_data.get('submitted_to_rss', False):
+                    rss_count += 1
+        except Exception as e:
+            structured_logger.debug("Could not count RSS submissions for subscriber profile",
+                                   subscriber_id=subscriber_id,
+                                   error=str(e))
+        
+        # Override stored RSS count with actual calculated count
+        subscriber_data['podcasts_submitted_to_rss'] = rss_count
+        
         return subscriber_data
         
     except HTTPException:

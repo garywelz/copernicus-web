@@ -348,8 +348,9 @@ async def get_podcast_database(
                 except:
                     pass
             
-            # Check RSS status using rss_service
-            in_rss = rss_service.is_episode_in_rss_feed(canonical)
+            # Use database flag for RSS status (more efficient than checking RSS feed for every episode)
+            # The database flag should be kept in sync via the sync_rss_status endpoint
+            submitted_to_rss = episode_data.get('submitted_to_rss', False)
             
             podcasts_list.append({
                 'canonical_filename': canonical,
@@ -358,8 +359,8 @@ async def get_podcast_database(
                 'category': episode_data.get('category', ''),
                 'subscriber_email': subscriber_email_found,
                 'subscriber_id': ep_subscriber_id,
-                'in_rss': in_rss,
-                'submitted_to_rss': episode_data.get('submitted_to_rss', False),
+                'in_rss': submitted_to_rss,  # Use database flag as source of truth
+                'submitted_to_rss': submitted_to_rss,
                 'created_at': episode_data.get('created_at') or episode_data.get('generated_at'),
                 'audio_url': episode_data.get('audio_url'),
                 'thumbnail_url': episode_data.get('thumbnail_url')

@@ -115,6 +115,25 @@
                 </div>
             </div>
 
+            <!-- Toast Notification -->
+            <div id="toastNotification" class="fixed top-4 right-4 z-50 hidden">
+                <div class="bg-white rounded-lg shadow-lg border-l-4 p-4 max-w-md">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0">
+                            <svg id="toastIcon" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"></svg>
+                        </div>
+                        <div class="ml-3 flex-1">
+                            <p id="toastMessage" class="text-sm font-medium"></p>
+                        </div>
+                        <button onclick="hideToast()" class="ml-4 text-gray-400 hover:text-gray-600">
+                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
             <!-- Subscribers Tab Content -->
             <div id="content-subscribers" class="hidden">
                 <div class="bg-white rounded-lg shadow-md overflow-hidden">
@@ -385,8 +404,8 @@
                                     </div>
                                 </div>
                                 <div class="flex gap-2 ml-4 flex-wrap">
-                                    ${submitted ? `<button onclick="removeFromRss('${podcastId}', '${title.replace(/'/g, "\\'")}')" class="text-orange-600 hover:text-orange-900 text-sm font-medium">Remove from RSS</button>` : `<button onclick="addToRss('${podcastId}', '${title.replace(/'/g, "\\'")}')" class="text-green-600 hover:text-green-900 text-sm font-medium">Add to RSS</button>`}
-                                    <button onclick="deletePodcast('${podcastId}', '${title.replace(/'/g, "\\'")}')" class="text-red-600 hover:text-red-900 text-sm font-medium">🗑️ Delete</button>
+                                    ${submitted ? `<button onclick="removeFromRss('${podcastId}', '${title.replace(/'/g, "\\'")}', this)" class="text-orange-600 hover:text-orange-900 text-sm font-medium">Remove from RSS</button>` : `<button onclick="addToRss('${podcastId}', '${title.replace(/'/g, "\\'")}', this)" class="text-green-600 hover:text-green-900 text-sm font-medium">Add to RSS</button>`}
+                                    <button onclick="deletePodcast('${podcastId}', '${title.replace(/'/g, "\\'")}', this)" class="text-red-600 hover:text-red-900 text-sm font-medium">🗑️ Delete</button>
                                 </div>
                             </div>
                         </div>
@@ -407,90 +426,164 @@
         }
 
         // Podcast Management
-        async function addToRss(podcastId, title) {
-            if (!confirm(`Add "${title}" to the RSS feed?`)) {
+        async function addToRss(podcastId, title, buttonElement) {
+            // Non-blocking confirmation
+            const confirmed = await new Promise(resolve => {
+                setTimeout(() => {
+                    resolve(confirm(`Add "${title}" to the RSS feed?`));
+                }, 0);
+            });
+            
+            if (!confirmed) {
                 return;
             }
             
-            try {
-                const response = await fetch(`${API_BASE_URL}/api/admin/podcasts/${podcastId}/rss`, {
-                    method: 'POST',
-                    headers: getAuthHeaders()
-                });
+            // Optimistically update UI immediately
+            const button = buttonElement || document.querySelector(`button[onclick*="addToRss('${podcastId}'"]`);
+            if (button) {
+                const originalText = button.textContent;
+                button.disabled = true;
+                button.textContent = '⏳ Adding...';
                 
-                if (!response.ok) {
-                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-                }
-                
-                alert('✅ Successfully added podcast to RSS feed');
-                loadCurrentTab();
-                if (!document.getElementById('userPodcastsModal').classList.contains('hidden')) {
-                    // Reload user podcasts if modal is open
-                    const subscriberId = document.getElementById('modalSubscriberId').textContent.replace('ID: ', '');
-                    const email = document.getElementById('modalUserEmail').textContent.replace('Podcasts by: ', '');
-                    viewUserPodcasts(subscriberId, email);
-                }
-            } catch (error) {
-                console.error('Error adding to RSS:', error);
-                alert(`❌ Failed to add to RSS: ${error.message}`);
+                setTimeout(async () => {
+                    try {
+                        const response = await fetch(`${API_BASE_URL}/api/admin/podcasts/${podcastId}/rss`, {
+                            method: 'POST',
+                            headers: getAuthHeaders()
+                        });
+                        
+                        if (!response.ok) {
+                            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                        }
+                        
+                        showToast('✅ Successfully added podcast to RSS feed', 'success');
+                        
+                        requestAnimationFrame(() => {
+                            setTimeout(() => {
+                                loadCurrentTab();
+                                if (!document.getElementById('userPodcastsModal').classList.contains('hidden')) {
+                                    const subscriberId = document.getElementById('modalSubscriberId').textContent.replace('ID: ', '');
+                                    const email = document.getElementById('modalUserEmail').textContent.replace('Podcasts by: ', '');
+                                    viewUserPodcasts(subscriberId, email);
+                                }
+                            }, 0);
+                        });
+                    } catch (error) {
+                        console.error('Error adding to RSS:', error);
+                        showToast(`❌ Failed to add to RSS: ${error.message}`, 'error');
+                        button.disabled = false;
+                        button.textContent = originalText;
+                    }
+                }, 0);
             }
         }
 
-        async function removeFromRss(podcastId, title) {
-            if (!confirm(`Are you sure you want to remove "${title}" from the RSS feed?`)) {
+        async function removeFromRss(podcastId, title, buttonElement) {
+            // Non-blocking confirmation - use setTimeout to yield to browser
+            const confirmed = await new Promise(resolve => {
+                setTimeout(() => {
+                    resolve(confirm(`Are you sure you want to remove "${title}" from the RSS feed?`));
+                }, 0);
+            });
+            
+            if (!confirmed) {
                 return;
             }
             
-            try {
-                const response = await fetch(`${API_BASE_URL}/api/admin/podcasts/${podcastId}/rss`, {
-                    method: 'DELETE',
-                    headers: getAuthHeaders()
-                });
+            // Optimistically update UI immediately
+            const button = buttonElement || document.querySelector(`button[onclick*="removeFromRss('${podcastId}'"]`);
+            if (button) {
+                const originalText = button.textContent;
+                button.disabled = true;
+                button.textContent = '⏳ Removing...';
                 
-                if (!response.ok) {
-                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-                }
-                
-                alert('✅ Successfully removed podcast from RSS feed');
-                loadCurrentTab();
-                if (!document.getElementById('userPodcastsModal').classList.contains('hidden')) {
-                    // Reload user podcasts if modal is open
-                    const subscriberId = document.getElementById('modalSubscriberId').textContent.replace('ID: ', '');
-                    const email = document.getElementById('modalUserEmail').textContent.replace('Podcasts by: ', '');
-                    viewUserPodcasts(subscriberId, email);
-                }
-            } catch (error) {
-                console.error('Error removing from RSS:', error);
-                alert(`❌ Failed to remove from RSS: ${error.message}`);
+                // Use setTimeout to yield control before blocking operations
+                setTimeout(async () => {
+                    try {
+                        const response = await fetch(`${API_BASE_URL}/api/admin/podcasts/${podcastId}/rss`, {
+                            method: 'DELETE',
+                            headers: getAuthHeaders()
+                        });
+                        
+                        if (!response.ok) {
+                            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                        }
+                        
+                        // Show non-blocking toast notification
+                        showToast('✅ Successfully removed podcast from RSS feed', 'success');
+                        
+                        // Defer reload to next frame to avoid blocking
+                        requestAnimationFrame(() => {
+                            setTimeout(() => {
+                                loadCurrentTab();
+                                if (!document.getElementById('userPodcastsModal').classList.contains('hidden')) {
+                                    const subscriberId = document.getElementById('modalSubscriberId').textContent.replace('ID: ', '');
+                                    const email = document.getElementById('modalUserEmail').textContent.replace('Podcasts by: ', '');
+                                    viewUserPodcasts(subscriberId, email);
+                                }
+                            }, 0);
+                        });
+                    } catch (error) {
+                        console.error('Error removing from RSS:', error);
+                        showToast(`❌ Failed to remove from RSS: ${error.message}`, 'error');
+                        
+                        // Restore button state
+                        button.disabled = false;
+                        button.textContent = originalText;
+                    }
+                }, 0);
             }
         }
 
-        async function deletePodcast(podcastId, title) {
-            if (!confirm(`Are you sure you want to permanently delete "${title}"? This cannot be undone.`)) {
+        async function deletePodcast(podcastId, title, buttonElement) {
+            // Non-blocking confirmation
+            const confirmed = await new Promise(resolve => {
+                setTimeout(() => {
+                    resolve(confirm(`Are you sure you want to permanently delete "${title}"? This cannot be undone.`));
+                }, 0);
+            });
+            
+            if (!confirmed) {
                 return;
             }
             
-            try {
-                const response = await fetch(`${API_BASE_URL}/api/admin/podcasts/${podcastId}`, {
-                    method: 'DELETE',
-                    headers: getAuthHeaders()
-                });
+            // Optimistically update UI immediately
+            const button = buttonElement || document.querySelector(`button[onclick*="deletePodcast('${podcastId}'"]`);
+            if (button) {
+                const originalText = button.textContent;
+                button.disabled = true;
+                button.textContent = '⏳ Deleting...';
                 
-                if (!response.ok) {
-                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-                }
-                
-                alert('✅ Successfully deleted podcast');
-                loadCurrentTab();
-                if (!document.getElementById('userPodcastsModal').classList.contains('hidden')) {
-                    // Reload user podcasts if modal is open
-                    const subscriberId = document.getElementById('modalSubscriberId').textContent.replace('ID: ', '');
-                    const email = document.getElementById('modalUserEmail').textContent.replace('Podcasts by: ', '');
-                    viewUserPodcasts(subscriberId, email);
-                }
-            } catch (error) {
-                console.error('Error deleting podcast:', error);
-                alert(`❌ Failed to delete podcast: ${error.message}`);
+                setTimeout(async () => {
+                    try {
+                        const response = await fetch(`${API_BASE_URL}/api/admin/podcasts/${podcastId}`, {
+                            method: 'DELETE',
+                            headers: getAuthHeaders()
+                        });
+                        
+                        if (!response.ok) {
+                            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                        }
+                        
+                        showToast('✅ Successfully deleted podcast', 'success');
+                        
+                        requestAnimationFrame(() => {
+                            setTimeout(() => {
+                                loadCurrentTab();
+                                if (!document.getElementById('userPodcastsModal').classList.contains('hidden')) {
+                                    const subscriberId = document.getElementById('modalSubscriberId').textContent.replace('ID: ', '');
+                                    const email = document.getElementById('modalUserEmail').textContent.replace('Podcasts by: ', '');
+                                    viewUserPodcasts(subscriberId, email);
+                                }
+                            }, 0);
+                        });
+                    } catch (error) {
+                        console.error('Error deleting podcast:', error);
+                        showToast(`❌ Failed to delete podcast: ${error.message}`, 'error');
+                        button.disabled = false;
+                        button.textContent = originalText;
+                    }
+                }, 0);
             }
         }
 
@@ -550,8 +643,8 @@
                 const totalCount = data.total_count || allPodcastsData.length;
                 document.getElementById('totalPodcasts').textContent = totalCount;
                 
-                // Count RSS from database data
-                const inRssCount = allPodcastsData.filter(p => p.submitted_to_rss === true).length;
+                // Count RSS from actual RSS feed check (use in_rss field if available, fallback to submitted_to_rss)
+                const inRssCount = allPodcastsData.filter(p => p.in_rss === true || p.submitted_to_rss === true).length;
                 document.getElementById('inRssFeed').textContent = inRssCount;
                 
                 if (!silent) {
@@ -615,8 +708,8 @@
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${created}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm">
                         <div class="flex gap-1 flex-wrap">
-                            ${submitted ? `<button onclick="removeFromRss('${podcastId}', '${title.replace(/'/g, "\\'").replace(/"/g, '&quot;')}')" class="text-orange-600 hover:text-orange-900 font-medium text-xs">Remove RSS</button>` : `<button onclick="addToRss('${podcastId}', '${title.replace(/'/g, "\\'").replace(/"/g, '&quot;')}')" class="text-green-600 hover:text-green-900 font-medium text-xs">Add RSS</button>`}
-                            <button onclick="deletePodcast('${podcastId}', '${title.replace(/'/g, "\\'").replace(/"/g, '&quot;')}')" class="text-red-600 hover:text-red-900 font-medium text-xs">🗑️ Delete</button>
+                            ${submitted ? `<button onclick="removeFromRss('${podcastId}', '${title.replace(/'/g, "\\'").replace(/"/g, '&quot;')}', this)" class="text-orange-600 hover:text-orange-900 font-medium text-xs">Remove RSS</button>` : `<button onclick="addToRss('${podcastId}', '${title.replace(/'/g, "\\'").replace(/"/g, '&quot;')}', this)" class="text-green-600 hover:text-green-900 font-medium text-xs">Add RSS</button>`}
+                            <button onclick="deletePodcast('${podcastId}', '${title.replace(/'/g, "\\'").replace(/"/g, '&quot;')}', this)" class="text-red-600 hover:text-red-900 font-medium text-xs">🗑️ Delete</button>
                         </div>
                     </td>
                 `;
@@ -652,6 +745,42 @@
             } catch (e) {
                 return dateString;
             }
+        }
+
+        // Toast notification functions (non-blocking)
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toastNotification');
+            const toastMessage = document.getElementById('toastMessage');
+            const toastIcon = document.getElementById('toastIcon');
+            
+            toastMessage.textContent = message;
+            
+            // Set icon and color based on type
+            if (type === 'success') {
+                toast.classList.remove('border-red-500');
+                toast.classList.add('border-green-500');
+                toastIcon.innerHTML = '<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>';
+                toastIcon.classList.remove('text-red-500');
+                toastIcon.classList.add('text-green-500');
+            } else {
+                toast.classList.remove('border-green-500');
+                toast.classList.add('border-red-500');
+                toastIcon.innerHTML = '<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>';
+                toastIcon.classList.remove('text-green-500');
+                toastIcon.classList.add('text-red-500');
+            }
+            
+            toast.classList.remove('hidden');
+            
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                hideToast();
+            }, 5000);
+        }
+
+        function hideToast() {
+            const toast = document.getElementById('toastNotification');
+            toast.classList.add('hidden');
         }
 
         // Initialize on page load

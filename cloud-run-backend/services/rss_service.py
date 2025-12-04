@@ -355,6 +355,44 @@ class RSSService:
         await asyncio.to_thread(_sync_update)
     
     @staticmethod
+    def is_episode_in_rss_feed(canonical: Optional[str]) -> bool:
+        """Check if an episode (by canonical filename/GUID) exists in the RSS feed."""
+        if not canonical:
+            return False
+        
+        try:
+            storage_client = storage.Client()
+            bucket = storage_client.bucket(RSS_BUCKET_NAME)
+            blob = bucket.blob(RSS_FEED_BLOB_NAME)
+            
+            if not blob.exists():
+                return False
+            
+            xml_bytes = blob.download_as_bytes()
+            root = ET.fromstring(xml_bytes)
+            channel = root.find("channel")
+            
+            if channel is None:
+                return False
+            
+            # Check all items in the RSS feed for matching GUID
+            for item in channel.findall("item"):
+                guid_el = item.find("guid")
+                if guid_el is not None and guid_el.text:
+                    guid_text = guid_el.text.strip()
+                    if guid_text == canonical:
+                        return True
+            
+            return False
+            
+        except Exception as e:
+            structured_logger.warning("Failed to check RSS feed for episode",
+                                     canonical=canonical,
+                                     error=str(e))
+            # On error, return False (episode not in RSS)
+            return False
+    
+    @staticmethod
     def update_episode_submission_state(
         canonical: Optional[str],
         submitted: bool,
