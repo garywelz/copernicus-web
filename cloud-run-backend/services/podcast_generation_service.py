@@ -56,6 +56,7 @@ from config.constants import (
 from config.database import db
 from services.episode_service import episode_service
 from services.canonical_service import canonical_service
+from utils.script_validation import validate_script_length
 
 # Retry decorator for upload operations
 def retry_upload(max_retries=3, delay=2):
@@ -1741,8 +1742,23 @@ This episode explores {research_context.topic}, examining recent breakthroughs a
                 
                 error_detail = f"Invalid content received: {str(content)[:200]}..."
                 raise ValueError(f"Content generation returned empty, incomplete, or placeholder data. Details: {error_detail}")
+            
+            # Validate script length matches duration requirement
+            script = content.get('script', '')
+            is_valid, error_msg = validate_script_length(script, request.duration)
+            if not is_valid:
+                word_count = len(script.split())
+                structured_logger.error("Script length validation failed",
+                                       job_id=job_id,
+                                       duration=request.duration,
+                                       script_word_count=word_count,
+                                       error=error_msg)
+                raise ValueError(f"Script does not meet duration requirement. {error_msg}")
+            
             structured_logger.info("Content validation passed",
-                                  job_id=job_id)
+                                  job_id=job_id,
+                                  script_word_count=len(script.split()),
+                                  duration=request.duration)
             # --- End of Robust Content Validation ---       
             # Determine canonical filename based on topic category, format type, and next available episode number
             canonical_filename = await self.determine_canonical_filename(request.topic, content["title"], request.category, request.format_type)
