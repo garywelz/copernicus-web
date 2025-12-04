@@ -406,6 +406,11 @@ async def get_podcast_database(
             # The database flag should be kept in sync via the sync_rss_status endpoint
             submitted_to_rss = episode_data.get('submitted_to_rss', False)
             
+            # Generate URLs for episode page and JSON API
+            from urllib.parse import quote
+            episode_page_url = f"https://copernicusai.fyi/episodes/{quote(canonical, safe='')}"
+            episode_json_url = f"https://copernicus-podcast-api-phzp4ie2sq-uc.a.run.app/api/episodes/{quote(canonical, safe='')}"
+            
             podcasts_list.append({
                 'canonical_filename': canonical,
                 'title': episode_data.get('title', 'Untitled'),
@@ -417,7 +422,9 @@ async def get_podcast_database(
                 'submitted_to_rss': submitted_to_rss,
                 'created_at': episode_data.get('created_at') or episode_data.get('generated_at'),
                 'audio_url': episode_data.get('audio_url'),
-                'thumbnail_url': episode_data.get('thumbnail_url')
+                'thumbnail_url': episode_data.get('thumbnail_url'),
+                'episode_page_url': episode_page_url,
+                'episode_json_url': episode_json_url
             })
         
         # Sort by created_at descending
