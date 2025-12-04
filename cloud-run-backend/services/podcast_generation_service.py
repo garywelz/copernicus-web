@@ -56,7 +56,7 @@ from config.constants import (
 from config.database import db
 from services.episode_service import episode_service
 from services.canonical_service import canonical_service
-from utils.script_validation import validate_script_length
+from utils.script_validation import validate_script_length, calculate_minimum_words_for_duration
 
 # Retry decorator for upload operations
 def retry_upload(max_retries=3, delay=2):
@@ -617,6 +617,10 @@ Return JSON with:
         character = get_copernicus_character()
         character_prompt = get_character_prompt(character)
         
+        # Calculate minimum word count for explicit requirement
+        min_words = calculate_minimum_words_for_duration(request.duration)
+        target_words = int(min_words / 0.9)  # Target for full duration
+        
         prompt = f"""{character_prompt}
 
 Create a compelling {request.duration} research podcast script about "{request.topic}" for {request.expertise_level} audience.
@@ -633,11 +637,13 @@ Create a compelling {request.duration} research podcast script about "{request.t
 Create a natural dialogue between HOST, EXPERT, and QUESTIONER that follows this structure:
 {chr(10).join([f"- {step}" for step in character.structure])}
 
-**Content Length Requirements:**
-- Target duration: {request.duration} (approximately 1500-2000 words for 10 minutes)
+**Content Length Requirements - CRITICAL:**
+- Target duration: {request.duration}
+- **MINIMUM REQUIRED: {min_words} words** (based on 150 words per minute)
+- **TARGET: {target_words} words** for full duration coverage
 - Each speaker should have 8-12 substantial dialogue segments
 - Include detailed technical explanations and comprehensive coverage
-- Ensure the script is long enough to fill the full {request.duration}
+- **FAILURE WARNING: Scripts under {min_words} words will be REJECTED and generation will fail - ensure you meet or exceed this minimum**
 
 **CRITICAL FORMAT REQUIREMENTS - THIS IS MANDATORY:**
 - **MUST** use speaker labels at the beginning of each line: "HOST:", "EXPERT:", "QUESTIONER:"
