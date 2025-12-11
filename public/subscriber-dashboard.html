@@ -346,11 +346,11 @@
                         <div class="border border-gray-200 rounded-lg p-4">
                             <div class="flex justify-between items-start">
                                 <div class="flex-1">
-                                    <h3 class="text-lg font-semibold text-gray-900" x-text="podcast.request?.topic || 'Untitled'"></h3>
+                                    <h3 class="text-lg font-semibold text-gray-900" x-text="podcast.title || podcast.request?.topic || podcast.topic || 'Untitled'"></h3>
                                     <p class="text-sm text-gray-600 mt-1">
-                                        <span x-text="podcast.request?.category"></span> • 
-                                        <span x-text="podcast.request?.expertise_level"></span> • 
-                                        <span x-text="podcast.request?.duration"></span>
+                                        <span x-text="podcast.category || podcast.request?.category"></span> • 
+                                        <span x-text="podcast.request?.expertise_level || 'intermediate'"></span> • 
+                                        <span x-text="podcast.request?.duration || '5-10 minutes'"></span>
                                     </p>
                                     <p class="text-sm text-gray-500 mt-2">
                                         Created: <span x-text="new Date(podcast.created_at).toLocaleDateString()"></span>
@@ -440,7 +440,7 @@
             console.log('🚀 dashboardApp() called - initializing app');
             return {
                 // API Configuration
-                API_BASE_URL: 'https://copernicus-podcast-api-204731194849.us-central1.run.app',
+                API_BASE_URL: 'https://copernicus-podcast-api-phzp4ie2sq-uc.a.run.app',
                 
                 // State
                 authenticated: false,
