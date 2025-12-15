@@ -707,29 +707,31 @@ Return JSON with:
     "description": "Comprehensive episode description following established format"
 }}
 
-**CRITICAL: Generate a comprehensive description using this EXACT format:**
+**CRITICAL: Generate a CONCISE description using this EXACT format:**
 
-## Episode Overview
-[2-3 engaging paragraphs introducing the research paper and its significance]
+**LENGTH REQUIREMENT: The description content (excluding References, Episode Details, and Hashtags) MUST be under 2000-2500 characters total. This leaves room for complete References and Hashtags sections which will be added separately. Be concise and focused.**
+
+IMPORTANT: Do NOT include a "## Episode Overview" header. Start directly with 1-2 engaging paragraphs (CONCISE) introducing the research paper, its significance, and why this research matters. Explain the broader context and implications. Make it compelling but brief. Begin the description immediately without any section header for the opening content.
 
 ## Key Concepts Explored
-- [Key Finding 1]: [Explanation with implications]
-- [Key Finding 2]: [Explanation with applications]
-- [Paradigm Shift]: [How this changes the field]
-- [Future Direction]: [What this enables next]
+- [Key Finding 1]: [Brief explanation with implications - keep to 1-2 sentences]
+- [Key Finding 2]: [Brief explanation with applications - keep to 1-2 sentences]
+- [Key Finding 3]: [Brief explanation - keep to 1-2 sentences]
+- [Paradigm Shift]: [How this changes the field - keep to 1-2 sentences]
+- [Future Direction]: [What this enables next - keep to 1-2 sentences]
 
 ## Research Insights
-[Paragraph about the paper's methodology, breakthrough findings, and contribution to the field]
+[1 paragraph (CONCISE) about the paper's methodology, breakthrough findings, and contribution to the field. Keep it brief and focused on what makes this research unique.]
 
 ## Practical Applications
-[Paragraph about real-world applications and technological implementations of this research]
+[1 paragraph (CONCISE) about real-world applications and potential uses of this research. Be specific but brief.]
 
 ## Future Directions
-[Paragraph about future research directions enabled by this work and long-term implications]
+[1 paragraph (CONCISE) about future research directions enabled by this work and long-term implications. Keep it brief.]
 
 ## References
 - {citation}
-- [Additional relevant citations in DOI format]
+- [Additional relevant citations in DOI format - include 3-5 key references with complete DOIs/URLs]
 
 ## Episode Details
 - **Duration**: {request.duration}
@@ -739,7 +741,7 @@ Return JSON with:
 
 ---
 
-#CopernicusAI #SciencePodcast #ResearchPaper #AcademicDiscussion #ResearchInsights
+**NOTE: Hashtags will be added automatically after generation. Do NOT include hashtags in your response.**
 
 """
     
@@ -1005,29 +1007,31 @@ Return JSON with:
     "description": "Comprehensive episode description following established format"
 }}
 
-**CRITICAL: Generate a comprehensive description using this EXACT format:**
+**CRITICAL: Generate a CONCISE description using this EXACT format:**
 
-## Episode Overview
-[2-3 engaging paragraphs introducing the research paper and its significance]
+**LENGTH REQUIREMENT: The description content (excluding References, Episode Details, and Hashtags) MUST be under 2000-2500 characters total. This leaves room for complete References and Hashtags sections which will be added separately. Be concise and focused.**
+
+IMPORTANT: Do NOT include a "## Episode Overview" header. Start directly with 1-2 engaging paragraphs (CONCISE) introducing the research paper, its significance, and why this research matters. Explain the broader context and implications. Make it compelling but brief. Begin the description immediately without any section header for the opening content.
 
 ## Key Concepts Explored
-- [Key Finding 1]: [Explanation with implications]
-- [Key Finding 2]: [Explanation with applications]
-- [Paradigm Shift]: [How this changes the field]
-- [Future Direction]: [What this enables next]
+- [Key Finding 1]: [Brief explanation with implications - keep to 1-2 sentences]
+- [Key Finding 2]: [Brief explanation with applications - keep to 1-2 sentences]
+- [Key Finding 3]: [Brief explanation - keep to 1-2 sentences]
+- [Paradigm Shift]: [How this changes the field - keep to 1-2 sentences]
+- [Future Direction]: [What this enables next - keep to 1-2 sentences]
 
 ## Research Insights
-[Paragraph about the paper's methodology, breakthrough findings, and contribution to the field]
+[1 paragraph (CONCISE) about the paper's methodology, breakthrough findings, and contribution to the field. Keep it brief and focused on what makes this research unique.]
 
 ## Practical Applications
-[Paragraph about real-world applications and technological implementations of this research]
+[1 paragraph (CONCISE) about real-world applications and potential uses of this research. Be specific but brief.]
 
 ## Future Directions
-[Paragraph about future research directions enabled by this work and long-term implications]
+[1 paragraph (CONCISE) about future research directions enabled by this work and long-term implications. Keep it brief.]
 
 ## References
 - {citation}
-- [Additional relevant citations in DOI format]
+- [Additional relevant citations in DOI format - include 3-5 key references with complete DOIs/URLs]
 
 ## Episode Details
 - **Duration**: {request.duration}
@@ -1037,7 +1041,7 @@ Return JSON with:
 
 ---
 
-#CopernicusAI #SciencePodcast #ResearchPaper #AcademicDiscussion #ResearchInsights
+**NOTE: Hashtags will be added automatically after generation. Do NOT include hashtags in your response.**
 
 """
     
@@ -1131,23 +1135,26 @@ Return JSON with:
 
 **CRITICAL: Generate a comprehensive description using this EXACT format:**
 
+Generate a detailed, engaging episode description (aim for 2500-3500 characters to maximize discoverability). Be thorough and informative while remaining accessible.
+
 ## Episode Overview
-[2-3 engaging paragraphs introducing the topic and its significance in the field]
+[3-4 engaging paragraphs introducing the topic, its significance in the field, and why this research area matters. Explain the broader context, historical background, and implications. Make it compelling and informative.]
 
 ## Key Concepts Explored
-- [Concept 1]: [Brief explanation with technical depth]
-- [Concept 2]: [Brief explanation with practical applications]
-- [Concept 3]: [Brief explanation with future implications]
-- [Concept 4]: [Brief explanation with interdisciplinary connections]
+- [Concept 1]: [Detailed explanation with technical depth, implications, and connections to broader field]
+- [Concept 2]: [Detailed explanation with practical applications and real-world relevance]
+- [Concept 3]: [Detailed explanation with future implications and emerging possibilities]
+- [Concept 4]: [Detailed explanation with interdisciplinary connections and cross-field impact]
+- [Concept 5]: [Additional important concept or methodology with context]
 
 ## Research Insights
-[Paragraph about current research developments, recent breakthroughs, and methodological advances]
+[2-3 paragraphs about current research developments, recent breakthroughs, methodological advances, experimental techniques, and what makes this area of research exciting. Discuss cutting-edge findings and their significance.]
 
 ## Practical Applications
-[Paragraph about real-world applications, industry impact, and technological implementations]
+[2-3 paragraphs about real-world applications, industry impact, technological implementations, and potential uses. Be specific about how this research could be applied in practice, including examples from different sectors.]
 
 ## Future Directions
-[Paragraph about emerging research directions, potential breakthroughs, and long-term implications]
+[2-3 paragraphs about emerging research directions, potential breakthroughs on the horizon, long-term implications, unanswered questions, and where this field is heading. Discuss both near-term and long-term possibilities.]
 
 ## References
 - [Author et al. (Year). Title. Journal. DOI: 10.xxxx/xxxx]
@@ -1292,7 +1299,7 @@ async def generate_audio_google_tts(script: str, job_id: str) -> str:
     return f"https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/audio/demo-{job_id[:8]}.mp3"
 
 @retry_upload(max_retries=3, delay=2)
-async def upload_description_to_gcs(description: str, canonical_filename: str) -> str:
+async def upload_description_to_gcs(description: str, canonical_filename: str, title: str = "", topic: str = "") -> str:
     """Upload episode description to GCS descriptions folder with hashtags"""
     try:
         from google.cloud import storage
@@ -1326,12 +1333,15 @@ async def upload_description_to_gcs(description: str, canonical_filename: str) -
             # Hashtags already added, don't duplicate
             enhanced_description = description
         else:
-            # Extract topic from description for better hashtag generation
-            topic_match = re.search(r'^#\s*(.+)', description, re.MULTILINE)
-            topic_for_hashtags = topic_match.group(1) if topic_match else ""
+            # Extract topic from description for better hashtag generation if not provided
+            if not topic:
+                topic_match = re.search(r'^#\s*(.+)', description, re.MULTILINE)
+                topic_for_hashtags = topic_match.group(1) if topic_match else ""
+            else:
+                topic_for_hashtags = topic
             
-            # Generate context-aware hashtags based on description content
-            hashtags = generate_relevant_hashtags(topic_for_hashtags, category, "", description)
+            # Generate context-aware hashtags using title, topic, and description
+            hashtags = generate_relevant_hashtags(topic_for_hashtags, category, title or "", description)
             
             # Add hashtags section (don't add References header - it's already in description if needed)
             enhanced_description = f"{description}\n\n## Hashtags\n{hashtags}"
@@ -1344,16 +1354,39 @@ async def upload_description_to_gcs(description: str, canonical_filename: str) -
                                    max_length=MAX_DESCRIPTION_LENGTH,
                                    canonical_filename=canonical_filename)
             
-            # Try to preserve references by trimming the middle content first
-            # Split into sections
-            sections = enhanced_description.split('\n\n')
-            references_sections = [s for s in sections if 'References' in s or s.strip().startswith('- ') or 'DOI:' in s or 'http' in s]
-            other_sections = [s for s in sections if s not in references_sections]
-            hashtag_sections = [s for s in sections if s.strip().startswith('#')]
+            # Try to preserve references and hashtags by trimming the middle content first
+            # First, extract References section more precisely
+            references_text = ""
+            hashtags_text = ""
+            main_content = enhanced_description
+            
+            # Extract References section (look for ## References header)
+            if '## References' in enhanced_description:
+                ref_parts = enhanced_description.split('## References', 1)
+                main_content = ref_parts[0]
+                ref_remainder = ref_parts[1]
+                # Get everything until next ## header or end
+                if '##' in ref_remainder:
+                    ref_section = ref_remainder.split('##')[0]
+                    references_text = '## References' + ref_section
+                    # Check if there's a Hashtags section after References
+                    if 'Hashtags' in ref_remainder:
+                        hashtag_parts = ref_remainder.split('## Hashtags', 1)
+                        hashtags_text = '## Hashtags' + hashtag_parts[1] if len(hashtag_parts) > 1 else ""
+                else:
+                    # References section goes to end
+                    references_text = '## References' + ref_remainder
+            elif '## Hashtags' in enhanced_description:
+                # No References but Hashtags exist
+                hashtag_parts = enhanced_description.split('## Hashtags', 1)
+                main_content = hashtag_parts[0]
+                hashtags_text = '## Hashtags' + hashtag_parts[1] if len(hashtag_parts) > 1 else ""
+            
+            # Split main content into sections for trimming
+            sections = main_content.split('\n\n')
+            other_sections = [s for s in sections if s.strip()]
             
             # Reserve space for references and hashtags (prioritize these)
-            references_text = '\n\n'.join(references_sections)
-            hashtags_text = '\n\n'.join(hashtag_sections)
             reserved_space = len(references_text) + len(hashtags_text) + 100  # 100 char buffer
             
             # Trim other sections to fit
@@ -1373,7 +1406,50 @@ async def upload_description_to_gcs(description: str, canonical_filename: str) -
                     break
             
             # Rebuild description with full references and hashtags
-            enhanced_description = '\n\n'.join(trimmed_other + references_sections + hashtag_sections)
+            main_content_trimmed = '\n\n'.join(trimmed_other)
+            if references_text:
+                enhanced_description = main_content_trimmed + '\n\n' + references_text
+            else:
+                enhanced_description = main_content_trimmed
+            
+            if hashtags_text:
+                enhanced_description += '\n\n' + hashtags_text
+            elif not hashtags_text and not ("## Hashtags" in enhanced_description or "#CopernicusAI" in enhanced_description):
+                # If hashtags were somehow lost, regenerate them
+                hashtags = generate_relevant_hashtags(topic_for_hashtags, category, title or "", description)
+                enhanced_description += f"\n\n## Hashtags\n{hashtags}"
+            
+            # Final check - if still too long, trim hashtags section more carefully
+            if len(enhanced_description) > MAX_DESCRIPTION_LENGTH:
+                # Keep main content and references, trim hashtags if needed
+                desc_with_refs = main_content_trimmed
+                if references_text:
+                    desc_with_refs += '\n\n' + references_text
+                
+                hashtags_available_space = MAX_DESCRIPTION_LENGTH - len(desc_with_refs) - len("\n\n## Hashtags\n")
+                if hashtags_available_space > 50:
+                    if hashtags_text:
+                        # Extract hashtag content (remove ## Hashtags header)
+                        hashtag_content = hashtags_text.replace('## Hashtags', '').strip()
+                        if len(hashtag_content) > hashtags_available_space:
+                            hashtag_lines = hashtag_content.split('\n')
+                            trimmed_hashtags = []
+                            current_len = 0
+                            for line in hashtag_lines:
+                                if current_len + len(line) + 1 <= hashtags_available_space:
+                                    trimmed_hashtags.append(line)
+                                    current_len += len(line) + 1
+                                else:
+                                    break
+                            hashtag_content = '\n'.join(trimmed_hashtags)
+                        enhanced_description = desc_with_refs + f"\n\n## Hashtags\n{hashtag_content}"
+                    else:
+                        # Regenerate hashtags if missing
+                        hashtags = generate_relevant_hashtags(topic_for_hashtags, category, title or "", description)
+                        hashtag_content = hashtags[:hashtags_available_space] if len(hashtags) > hashtags_available_space else hashtags
+                        enhanced_description = desc_with_refs + f"\n\n## Hashtags\n{hashtag_content}"
+                else:
+                    enhanced_description = desc_with_refs
             
             structured_logger.debug("Trimmed description, preserving full references",
                                    canonical_filename=canonical_filename,
@@ -1584,20 +1660,137 @@ async def generate_and_upload_thumbnail(title: str, topic: str, canonical_filena
                                      canonical_filename=canonical_filename)
             return await generate_fallback_thumbnail(canonical_filename, topic)
         
-        # Create sophisticated DALL-E prompt based on episode content
-        dalle_prompt = f"""A stunning scientific visualization representing {topic} research. 
-        Style: Modern digital art, professional scientific illustration, high-tech aesthetic.
-        Visual elements: Abstract molecular structures, flowing data streams, particle physics effects, neural networks, or quantum field representations related to {topic}.
-        Color palette: Deep space blues and purples with bright cyan, electric blue, and white accents. Gradient backgrounds.
-        Composition: Centered, balanced, visually striking for podcast thumbnail.
-        Quality: Ultra-high resolution, clean, sophisticated, suitable for Spotify/iTunes/YouTube.
-        NO TEXT, NO WORDS, NO TITLES - pure visual scientific concept art.
-        Mood: Cutting-edge research, discovery, innovation, future technology."""
+        # Extract category from canonical filename for more specific visuals
+        # Each discipline has a DISTINCT visual style and color palette
+        import re
+        category_styles = {
+            "bio": {
+                "visual_elements": "intricate biological structures, cellular networks, DNA double helices, protein complexes, neural pathways, microscopic organisms, organic cellular membranes, biomolecular interactions, living tissue patterns",
+                "color_palette": "vibrant greens and blues (nature's palette), with accents of soft purple and warm yellows. Organic, life-affirming colors. Rich emerald greens transitioning to deep ocean blues, with biological purple accents",
+                "style": "organic and flowing, biomorphic shapes, natural biological patterns, cellular textures, living tissue aesthetics, microscopic world visualization",
+                "mood": "vital, dynamic, life-sustaining, biological complexity, natural organization"
+            },
+            "chem": {
+                "visual_elements": "molecular structures, chemical bonds, crystal lattices, reaction pathways, atomic orbitals, electron clouds, molecular models, chemical formulas visualized, periodic table patterns, bond formations",
+                "color_palette": "cool blues and purples with bright accent colors (reaction energies). Atomic blues, molecular purples, with vibrant orange and yellow energy bursts for reactions. Clean, precise color schemes",
+                "style": "geometric and precise, molecular symmetry, crystalline structures, atomic precision, clean lines and structured forms, laboratory aesthetics",
+                "mood": "precise, transformative, energetic reactions, molecular precision, structured complexity"
+            },
+            "compsci": {
+                "visual_elements": "neural networks, data streams, algorithmic patterns, binary code, circuit patterns, digital networks, code visualizations, data flow diagrams, network topologies, computational graphs, binary matrices",
+                "color_palette": "digital blues and cyans with electric accents. Neon blues, electric cyan, digital greens, with bright white and electric purple highlights. High-tech, digital aesthetics",
+                "style": "digital and algorithmic, pixel-perfect, network diagrams, data visualization aesthetics, circuit board patterns, tech-forward design",
+                "mood": "innovative, computational, data-driven, high-tech, algorithmic precision"
+            },
+            "math": {
+                "visual_elements": "geometric patterns, fractal structures, mathematical equations visualized, abstract symmetries, topological surfaces, geometric transformations, mathematical proofs visualized, abstract mathematical spaces, geometric constructions, symmetry patterns",
+                "color_palette": "elegant monochromatic with mathematical accents. Deep purples, rich blues, elegant grays, with precise white and gold mathematical symbols. Clean, abstract, elegant",
+                "style": "geometric and abstract, perfect symmetry, mathematical elegance, topological beauty, abstract geometric forms, precise mathematical visualization",
+                "mood": "elegant, abstract, perfectly structured, mathematical beauty, timeless precision"
+            },
+            "phys": {
+                "visual_elements": "quantum fields, particle interactions, wave functions, electromagnetic fields, cosmic structures, energy patterns, particle accelerations, wave interferences, quantum probability clouds, cosmic phenomena, energy transformations",
+                "color_palette": "cosmic purples and deep space blues with energetic highlights. Deep space purples, cosmic blues, with bright white energy bursts and golden particle trails. Cosmic and energetic",
+                "style": "energetic and cosmic, particle effects, wave patterns, quantum field visualizations, cosmic phenomena, energy flows, dynamic motion",
+                "mood": "energetic, cosmic, fundamental forces, quantum mysteries, universal scale"
+            }
+        }
+        
+        category = None
+        if canonical_filename:
+            parts = canonical_filename.split("-")
+            if len(parts) >= 2:
+                cat_match = parts[1] if len(parts) > 1 else None
+                if cat_match in category_styles:
+                    category = cat_match
+        
+        # Get category-specific style
+        if category and category in category_styles:
+            style_config = category_styles[category]
+            visual_elements = style_config["visual_elements"]
+            color_palette = style_config["color_palette"]
+            style_description = style_config["style"]
+            mood_description = style_config["mood"]
+        else:
+            # Default fallback
+            visual_elements = "abstract scientific structures, flowing data streams, particle effects, neural networks, quantum field representations"
+            color_palette = "deep cosmic blues transitioning to vibrant cyan and electric blue, with accents of luminous white and subtle purple"
+            style_description = "modern scientific illustration"
+            mood_description = "cutting-edge scientific discovery"
+        
+        # Extract specific visual concepts from title for more targeted imagery
+        title_keywords = []
+        title_lower = title.lower()
+        
+        # Map title keywords to specific visual concepts
+        visual_keyword_mapping = {
+            "supramolecular": "supramolecular assemblies, molecular self-organization, host-guest complexes, intricate molecular networks",
+            "self-assembly": "self-assembling structures, dynamic molecular organization, spontaneous pattern formation, hierarchical structures",
+            "metalloenzyme": "metallic enzyme active sites, metal-ion coordination complexes, catalytic metal centers, biomolecular metal clusters",
+            "bioinspired": "nature-inspired structures, biomimetic designs, biological patterns, evolutionary design principles",
+            "catalysis": "catalytic reaction mechanisms, active site interactions, molecular transformations, reaction pathways",
+            "graph neural": "neural network graphs, interconnected nodes, data flow patterns, network topology visualizations",
+            "federated learning": "distributed computational networks, privacy-preserving data flows, decentralized learning systems",
+            "quantum sensing": "quantum measurement devices, precision sensors, quantum field detectors, metrology instruments",
+            "topological": "topological structures, geometric transformations, shape classifications, persistent homology representations",
+            "epigenetic": "epigenetic modifications, DNA methylation patterns, chromatin structures, gene expression networks",
+            "immunotherapy": "immune cell interactions, T-cell activation, antibody structures, cancer cell targeting mechanisms",
+            "optimization": "algorithmic optimization paths, gradient flows, search space visualizations, convergence patterns",
+            "persistent homology": "topological persistence diagrams, barcode representations, shape analysis, multi-scale structures"
+        }
+        
+        # Find matching visual concepts from title
+        title_specific_visuals = []
+        for keyword, visuals in visual_keyword_mapping.items():
+            if keyword in title_lower:
+                title_specific_visuals.append(visuals)
+                title_keywords.append(keyword)
+        
+            # Combine category visuals with title-specific visuals
+            if title_specific_visuals:
+                specific_visuals = ", ".join(title_specific_visuals[:3])  # Limit to 3 most relevant
+                enhanced_visual_elements = f"{specific_visuals}. Additionally include {visual_elements}"
+            else:
+                enhanced_visual_elements = visual_elements
+            
+            # Build the enhanced prompt with category-specific styling
+            if category and category in category_styles:
+                style_config = category_styles[category]
+                category_style_text = f"""
+Discipline-Specific Style: {style_config['style']}
+Visual Aesthetic: {style_config['mood']}
+Color Approach: {style_config['color_palette']}
+"""
+            else:
+                category_style_text = ""
+            
+            # Create enhanced DALL-E prompt with title-specific details and distinct discipline styling
+            dalle_prompt = f"""Create a breathtaking scientific visualization for a research podcast episode titled "{title}".
+
+The podcast explores: {topic}
+Discipline Category: {category.upper() if category else 'Science'}
+
+{category_style_text}
+
+Visual Style: Ultra-modern scientific illustration, photorealistic 3D rendering with depth and dimension. Professional digital art with cinematic lighting and dramatic composition. The style should be distinctly recognizable as belonging to this scientific discipline.
+
+Key Visual Elements: {enhanced_visual_elements} specifically related to "{title}". Focus on the most distinctive and recognizable visual concepts from the title. Dynamic, flowing compositions that suggest motion and discovery. Include subtle abstract patterns that represent breakthrough thinking and paradigm shifts. Ensure the visual elements clearly identify this as {category.upper() if category else 'scientific'} content.
+
+Color Palette: {color_palette}. High contrast for maximum visual impact. Professional color grading. The color scheme should be distinctly characteristic of this discipline and immediately recognizable.
+
+Composition: Square format optimized for podcast platforms. Centered focal point with surrounding elements creating visual flow. Balanced negative space. Depth-of-field effect with foreground elements sharp and background slightly blurred for dimension.
+
+Technical Quality: Ultra-high resolution, crystal-clear detail, professional photography quality. No pixelation or artifacts. Suitable for high-DPI displays and large format printing.
+
+Important: Absolutely NO text, NO words, NO titles, NO labels. Pure visual scientific concept art that tells a story through imagery alone. The visual style must be distinctive enough that viewers can identify the scientific discipline at a glance.
+
+Mood and Atmosphere: {mood_description}. Convey the excitement and importance of scientific advancement in this specific field. The thumbnail should feel uniquely representative of {category.upper() if category else 'scientific'} research."""
         
         # Generate image with DALL-E 3
         structured_logger.info("Generating DALL-E 3 thumbnail",
                               canonical_filename=canonical_filename,
-                              topic=topic)
+                              topic=topic,
+                              category=category or "generic")
         
         headers = {
             "Authorization": f"Bearer {openai_api_key}",
@@ -1608,7 +1801,7 @@ async def generate_and_upload_thumbnail(title: str, topic: str, canonical_filena
             "model": "dall-e-3",
             "prompt": dalle_prompt,
             "n": 1,
-            "size": "1024x1024",  # Standard square format for podcast platforms
+            "size": "1024x1024",  # Square format required for podcast platforms (DALL-E 3 max square)
             "quality": "hd",
             "style": "vivid"
         }

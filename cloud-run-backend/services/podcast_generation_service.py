@@ -17,7 +17,7 @@ import psutil
 import gc
 import os
 from datetime import datetime
-from typing import Optional, Dict, Any
+from typing import Optional, Dict, Any, List
 from functools import wraps
 
 # External dependencies
@@ -334,6 +334,26 @@ class PodcastGenerationService:
         
         character_prompt = get_character_prompt(character, paper_analysis_dict)
         
+        # Map voice IDs to names for script generation
+        VOICE_ID_TO_NAME = {
+            "XrExE9yKIg1WjnnlVkGX": "Matilda",
+            "EXAVITQu4vr4xnSDxMaL": "Bella",
+            "JBFqnCBsd6RMkjVDRZzb": "Sam",
+            "pNInz6obpgDQGcFmaJgB": "Adam",
+            "pqHfZKP75CvOlQylNhV4": "Bryan",
+            "onwK4e9ZLuTAKqWW03F9": "Daniel"
+        }
+        
+        # Determine actual speaker names from selected voice IDs
+        host_name = VOICE_ID_TO_NAME.get(request.host_voice_id, "Matilda") if request.host_voice_id else "Matilda"
+        expert_name = VOICE_ID_TO_NAME.get(request.expert_voice_id, "Adam") if request.expert_voice_id else "Adam"
+        
+        structured_logger.info("Using selected voices for script generation",
+                              host_voice_id=request.host_voice_id,
+                              expert_voice_id=request.expert_voice_id,
+                              host_name=host_name,
+                              expert_name=expert_name)
+        
         # Enhanced prompt with multi-voice structure
         prompt = f"""{character_prompt}
 
@@ -355,10 +375,12 @@ Create a natural dialogue between HOST, EXPERT, and QUESTIONER that follows this
 {chr(10).join([f"- {step}" for step in character.structure])}
 
 **CRITICAL SPEAKER POLICY:**
-- ALL speakers must be FICTIONAL with first names ONLY (e.g., "Matilda", "Adam", "Bill")
-- NO titles (Dr., Professor, PhD), NO surnames, NO real person identification
-- When introducing speakers, use only first names (e.g., "Let's bring in Adam, our expert...")
+- The HOST speaker must be named "{host_name}" (use this exact name for all HOST lines)
+- The EXPERT speaker must be named "{expert_name}" (use this exact name for all EXPERT lines)
+- ALL speakers must be FICTIONAL with first names ONLY - NO titles (Dr., Professor, PhD), NO surnames, NO real person identification
+- When introducing speakers, use only first names (e.g., "Let's bring in {expert_name}, our expert...")
 - NEVER use "Dr." or any academic titles in the script
+- IMPORTANT: Use "{host_name}" for HOST and "{expert_name}" for EXPERT consistently throughout the script
 
 **ROLE CONSISTENCY REQUIREMENTS:**
 - **HOST**: Guides the conversation, asks introductory questions, provides context
@@ -368,10 +390,10 @@ Create a natural dialogue between HOST, EXPERT, and QUESTIONER that follows this
 - **Maintain character consistency** throughout the entire dialogue
 
 **Script Format Requirements:**
-- Create natural dialogue without speaker labels in the final script
-- Write as continuous narrative with clear speaker transitions
-- Use phrases like "Sarah explains" or "Marcus adds" instead of "EXPERT:" labels
-- Make the conversation flow naturally without technical markers
+- **MUST** use speaker labels: "{host_name.upper()}:", "{expert_name.upper()}:", "QUESTIONER:"
+- Use "{host_name}" for all HOST lines and "{expert_name}" for all EXPERT lines consistently
+- Write as a conversation between speakers with clear speaker labels at the start of each dialogue block
+- Make the conversation flow naturally with proper speaker transitions
 - **Include academic references naturally in conversation** (e.g., "As shown in the Nature Neuroscience study..." or "Research published in NeuroImage demonstrates...")
 - **AVOID speaking DOI numbers, publication dates, or technical citation details** - keep references conversational
 - Focus on paradigm-shifting implications and research insights
@@ -397,33 +419,34 @@ Create a natural dialogue between HOST, EXPERT, and QUESTIONER that follows this
 Return JSON with:
 {{
     "title": "Engaging podcast title highlighting paradigm shift",
-    "script": "Multi-voice podcast script with HOST:, EXPERT:, QUESTIONER: markers and natural dialogue",
+    "script": "Multi-voice podcast script with {host_name.upper()}:, {expert_name.upper()}:, QUESTIONER: markers and natural dialogue using these exact speaker names",
     "description": "Comprehensive episode description following established format"
 }}
 
-**CRITICAL: Generate a comprehensive description using this EXACT format:**
+**CRITICAL: Generate a CONCISE description using this EXACT format:**
 
-## Episode Overview
-[2-3 engaging paragraphs introducing the research paper and its significance]
+**LENGTH REQUIREMENT: The description content (excluding References, Episode Details, and Hashtags) MUST be under 2000-2500 characters total. This leaves room for complete References and Hashtags sections which will be added separately. Be concise and focused.**
+
+IMPORTANT: Do NOT include a "## Episode Overview" header. Start directly with 1-2 engaging paragraphs (CONCISE) introducing the research paper and its significance. Begin the description immediately without any section header for the opening content.
 
 ## Key Concepts Explored
-- [Key Finding 1]: [Explanation with implications]
-- [Key Finding 2]: [Explanation with applications]
-- [Paradigm Shift]: [How this changes the field]
-- [Future Direction]: [What this enables next]
+- [Key Finding 1]: [Brief explanation with implications - keep to 1-2 sentences]
+- [Key Finding 2]: [Brief explanation with applications - keep to 1-2 sentences]
+- [Paradigm Shift]: [How this changes the field - keep to 1-2 sentences]
+- [Future Direction]: [What this enables next - keep to 1-2 sentences]
 
 ## Research Insights
-[Paragraph about the paper's methodology, breakthrough findings, and contribution to the field]
+[1 paragraph (CONCISE) about the paper's methodology, breakthrough findings, and contribution to the field. Keep it brief and focused.]
 
 ## Practical Applications
-[Paragraph about real-world applications and technological implementations of this research]
+[1 paragraph (CONCISE) about real-world applications and potential uses of this research. Be specific but brief.]
 
 ## Future Directions
-[Paragraph about future research directions enabled by this work and long-term implications]
+[1 paragraph (CONCISE) about future research directions enabled by this work and long-term implications. Keep it brief.]
 
 ## References
 - {citation}
-- [Additional relevant citations in DOI format]
+- [Additional relevant citations in DOI format - include 3-5 key references with complete DOIs/URLs]
 
 ## Episode Details
 - **Duration**: {request.duration}
@@ -433,7 +456,7 @@ Return JSON with:
 
 ---
 
-#CopernicusAI #SciencePodcast #ResearchPaper #AcademicDiscussion #ResearchInsights
+**NOTE: Hashtags will be added automatically after generation. Do NOT include hashtags in your response.**
 
 """
         
@@ -489,6 +512,26 @@ Return JSON with:
         character_prompt = get_character_prompt(character)
         citation = format_citation(paper)
         
+        # Map voice IDs to names for script generation
+        VOICE_ID_TO_NAME = {
+            "XrExE9yKIg1WjnnlVkGX": "Matilda",
+            "EXAVITQu4vr4xnSDxMaL": "Bella",
+            "JBFqnCBsd6RMkjVDRZzb": "Sam",
+            "pNInz6obpgDQGcFmaJgB": "Adam",
+            "pqHfZKP75CvOlQylNhV4": "Bryan",
+            "onwK4e9ZLuTAKqWW03F9": "Daniel"
+        }
+        
+        # Determine actual speaker names from selected voice IDs
+        host_name = VOICE_ID_TO_NAME.get(request.host_voice_id, "Matilda") if request.host_voice_id else "Matilda"
+        expert_name = VOICE_ID_TO_NAME.get(request.expert_voice_id, "Adam") if request.expert_voice_id else "Adam"
+        
+        structured_logger.info("Using selected voices for Vertex AI script generation",
+                              host_voice_id=request.host_voice_id,
+                              expert_voice_id=request.expert_voice_id,
+                              host_name=host_name,
+                              expert_name=expert_name)
+        
         prompt = f"""{character_prompt}
 
 Create a compelling {request.duration} research podcast script analyzing this groundbreaking paper for {request.expertise_level} audience.
@@ -509,13 +552,17 @@ Create a natural dialogue between HOST, EXPERT, and QUESTIONER that follows this
 {chr(10).join([f"- {step}" for step in character.structure])}
 
 **CRITICAL SPEAKER POLICY:**
-- ALL speakers must be FICTIONAL with first names ONLY (e.g., "Matilda", "Adam", "Bill")
-- NO titles (Dr., Professor, PhD), NO surnames, NO real person identification
-- When introducing speakers, use only first names (e.g., "Let's bring in Adam, our expert...")
+- The HOST speaker must be named "{host_name}" (use this exact name for all HOST lines)
+- The EXPERT speaker must be named "{expert_name}" (use this exact name for all EXPERT lines)
+- ALL speakers must be FICTIONAL with first names ONLY - NO titles (Dr., Professor, PhD), NO surnames, NO real person identification
+- When introducing speakers, use only first names (e.g., "Let's bring in {expert_name}, our expert...")
 - NEVER use "Dr." or any academic titles in the script
+- IMPORTANT: Use "{host_name}" for HOST and "{expert_name}" for EXPERT consistently throughout the script
 
 **Script Format Requirements:**
-- Use "HOST:", "EXPERT:", and "QUESTIONER:" to mark each speaker clearly
+- Use "{host_name.upper()}:", "{expert_name.upper()}:", and "QUESTIONER:" to mark each speaker clearly
+- The HOST speaker is "{host_name}" - use this exact name for all HOST speaker labels
+- The EXPERT speaker is "{expert_name}" - use this exact name for all EXPERT speaker labels
 - Write natural dialogue that flows between speakers
 - Include proper academic citations with DOIs where relevant
 - Focus on paradigm-shifting implications and research insights
@@ -525,33 +572,34 @@ Create a natural dialogue between HOST, EXPERT, and QUESTIONER that follows this
 Return JSON with:
 {{
     "title": "Engaging podcast title highlighting paradigm shift",
-    "script": "Multi-voice podcast script with HOST:, EXPERT:, QUESTIONER: markers and natural dialogue",
+    "script": "Multi-voice podcast script with {host_name.upper()}:, {expert_name.upper()}:, QUESTIONER: markers and natural dialogue using these exact speaker names",
     "description": "Comprehensive episode description following established format"
 }}
 
-**CRITICAL: Generate a comprehensive description using this EXACT format:**
+**CRITICAL: Generate a CONCISE description using this EXACT format:**
 
-## Episode Overview
-[2-3 engaging paragraphs introducing the research paper and its significance]
+**LENGTH REQUIREMENT: The description content (excluding References, Episode Details, and Hashtags) MUST be under 2000-2500 characters total. This leaves room for complete References and Hashtags sections which will be added separately. Be concise and focused.**
+
+IMPORTANT: Do NOT include a "## Episode Overview" header. Start directly with 1-2 engaging paragraphs (CONCISE) introducing the research paper and its significance. Begin the description immediately without any section header for the opening content.
 
 ## Key Concepts Explored
-- [Key Finding 1]: [Explanation with implications]
-- [Key Finding 2]: [Explanation with applications]
-- [Paradigm Shift]: [How this changes the field]
-- [Future Direction]: [What this enables next]
+- [Key Finding 1]: [Brief explanation with implications - keep to 1-2 sentences]
+- [Key Finding 2]: [Brief explanation with applications - keep to 1-2 sentences]
+- [Paradigm Shift]: [How this changes the field - keep to 1-2 sentences]
+- [Future Direction]: [What this enables next - keep to 1-2 sentences]
 
 ## Research Insights
-[Paragraph about the paper's methodology, breakthrough findings, and contribution to the field]
+[1 paragraph (CONCISE) about the paper's methodology, breakthrough findings, and contribution to the field. Keep it brief and focused.]
 
 ## Practical Applications
-[Paragraph about real-world applications and technological implementations of this research]
+[1 paragraph (CONCISE) about real-world applications and potential uses of this research. Be specific but brief.]
 
 ## Future Directions
-[Paragraph about future research directions enabled by this work and long-term implications]
+[1 paragraph (CONCISE) about future research directions enabled by this work and long-term implications. Keep it brief.]
 
 ## References
 - {citation}
-- [Additional relevant citations in DOI format]
+- [Additional relevant citations in DOI format - include 3-5 key references with complete DOIs/URLs]
 
 ## Episode Details
 - **Duration**: {request.duration}
@@ -561,7 +609,7 @@ Return JSON with:
 
 ---
 
-#CopernicusAI #SciencePodcast #ResearchPaper #AcademicDiscussion #ResearchInsights
+**NOTE: Hashtags will be added automatically after generation. Do NOT include hashtags in your response.**
 
 """
         
@@ -621,6 +669,26 @@ Return JSON with:
         min_words = calculate_minimum_words_for_duration(request.duration)
         target_words = int(min_words / 0.9)  # Target for full duration
         
+        # Map voice IDs to names for script generation
+        VOICE_ID_TO_NAME = {
+            "XrExE9yKIg1WjnnlVkGX": "Matilda",
+            "EXAVITQu4vr4xnSDxMaL": "Bella",
+            "JBFqnCBsd6RMkjVDRZzb": "Sam",
+            "pNInz6obpgDQGcFmaJgB": "Adam",
+            "pqHfZKP75CvOlQylNhV4": "Bryan",
+            "onwK4e9ZLuTAKqWW03F9": "Daniel"
+        }
+        
+        # Determine actual speaker names from selected voice IDs
+        host_name = VOICE_ID_TO_NAME.get(request.host_voice_id, "Matilda") if request.host_voice_id else "Matilda"
+        expert_name = VOICE_ID_TO_NAME.get(request.expert_voice_id, "Adam") if request.expert_voice_id else "Adam"
+        
+        structured_logger.info("Using selected voices for topic-based script generation",
+                              host_voice_id=request.host_voice_id,
+                              expert_voice_id=request.expert_voice_id,
+                              host_name=host_name,
+                              expert_name=expert_name)
+        
         prompt = f"""{character_prompt}
 
 Create a compelling {request.duration} research podcast script about "{request.topic}" for {request.expertise_level} audience.
@@ -630,8 +698,11 @@ Create a compelling {request.duration} research podcast script about "{request.t
 **CRITICAL SHOW REQUIREMENTS:**
 - The show name is ALWAYS "Copernicus AI: Frontiers of Science" - never use any other title
 - HOST must introduce the show as "Welcome to Copernicus AI: Frontiers of Science"
-- All speakers use FIRST NAMES ONLY (e.g., Matilda, Adam, Bill) - NO surnames, titles, or honorifics
+- The HOST speaker must be named "{host_name}" (use this exact name for all HOST lines)
+- The EXPERT speaker must be named "{expert_name}" (use this exact name for all EXPERT lines)
+- All speakers use FIRST NAMES ONLY - NO surnames, titles, or honorifics
 - Speakers are clearly fictional characters, not real people
+- IMPORTANT: Use "{host_name}" for HOST and "{expert_name}" for EXPERT consistently throughout the script
 
 **Multi-Voice Script Requirements:**
 Create a natural dialogue between HOST, EXPERT, and QUESTIONER that follows this structure:
@@ -646,20 +717,23 @@ Create a natural dialogue between HOST, EXPERT, and QUESTIONER that follows this
 - **FAILURE WARNING: Scripts under {min_words} words will be REJECTED and generation will fail - ensure you meet or exceed this minimum**
 
 **CRITICAL FORMAT REQUIREMENTS - THIS IS MANDATORY:**
-- **MUST** use speaker labels at the beginning of each line: "HOST:", "EXPERT:", "QUESTIONER:"
+- **MUST** use speaker labels at the beginning of each line: "{host_name.upper()}:", "{expert_name.upper()}:", "QUESTIONER:"
+- **CRITICAL: Use the exact names "{host_name}" for HOST and "{expert_name}" for EXPERT in all speaker labels**
 - **DO NOT** write in narrative format - write as a conversation between speakers
 - **NEVER** start with "Welcome to Copernicus AI" without a speaker label
-- **NEVER** use phrases like "Matilda explains" or "Adam adds" - use speaker labels instead
+- **NEVER** use phrases like "{host_name} explains" or "{expert_name} adds" - use speaker labels instead
 - **EXAMPLE FORMAT:**
-  HOST: Welcome to Copernicus AI: Frontiers of Science. Today we're discussing {request.topic}.
-  EXPERT: Thank you for having me. This is a fascinating area of research.
+  {host_name.upper()}: Welcome to Copernicus AI: Frontiers of Science. Today we're discussing {request.topic}.
+  {expert_name.upper()}: Thank you for having me. This is a fascinating area of research.
   QUESTIONER: Can you explain what makes this topic so significant?
-  HOST: That's a great question. Let's dive into the details.
+  {host_name.upper()}: That's a great question. Let's dive into the details.
 
-**MANDATORY:** Every line of dialogue must start with a speaker label. Do not write any narrative text without speaker labels. The script must be a pure dialogue format with HOST:, EXPERT:, QUESTIONER: labels.
+**MANDATORY:** Every line of dialogue must start with a speaker label. Do not write any narrative text without speaker labels. The script must be a pure dialogue format with {host_name.upper()}:, {expert_name.upper()}:, QUESTIONER: labels. Use "{host_name}" for all HOST lines and "{expert_name}" for all EXPERT lines.
 
 **Format Guidelines:**
-- Use "HOST:", "EXPERT:", and "QUESTIONER:" to mark each speaker clearly
+- Use "{host_name.upper()}:", "{expert_name.upper()}:", and "QUESTIONER:" to mark each speaker clearly
+- The HOST speaker is "{host_name}" - use this name in all HOST speaker labels
+- The EXPERT speaker is "{expert_name}" - use this name in all EXPERT speaker labels
 - HOST introduces the topic and guides the conversation for "Copernicus AI: Frontiers of Science"
 - EXPERT provides technical analysis and research insights about {request.topic}
 - QUESTIONER asks clarifying questions and represents audience curiosity
@@ -680,31 +754,31 @@ Create natural dialogue that explores:
 Return JSON with:
 {{
     "title": "Engaging podcast title highlighting paradigm shifts in {request.topic}",
-    "script": "Multi-voice podcast script with HOST:, EXPERT:, QUESTIONER: markers and natural dialogue",
+    "script": "Multi-voice podcast script with {host_name.upper()}:, {expert_name.upper()}:, QUESTIONER: markers and natural dialogue using these exact speaker names",
     "description": "Comprehensive episode description following established format"
 }}
 
 **CRITICAL: Generate a separate comprehensive description using this EXACT format:**
 
-After generating the main content, create a detailed description following this structure:
+After generating the main content, create a detailed description following this structure. Generate a detailed, engaging episode description (aim for 2500-3500 characters to maximize discoverability). Be thorough and informative while remaining accessible.
 
-## Episode Overview
-[2-3 engaging paragraphs introducing the topic and its significance in the field]
+IMPORTANT: Do NOT include a "## Episode Overview" header. Start directly with 3-4 engaging paragraphs introducing the topic, its significance in the field, and why this research area matters. Explain the broader context, historical background, and implications. Make it compelling and informative. Begin the description immediately without any section header for the opening content.
 
 ## Key Concepts Explored
-- [Concept 1]: [Brief explanation with technical depth]
-- [Concept 2]: [Brief explanation with practical applications]
-- [Concept 3]: [Brief explanation with future implications]
-- [Concept 4]: [Brief explanation with interdisciplinary connections]
+- [Concept 1]: [Detailed explanation with technical depth, implications, and connections to broader field]
+- [Concept 2]: [Detailed explanation with practical applications and real-world relevance]
+- [Concept 3]: [Detailed explanation with future implications and emerging possibilities]
+- [Concept 4]: [Detailed explanation with interdisciplinary connections and cross-field impact]
+- [Concept 5]: [Additional important concept or methodology with context]
 
 ## Research Insights
-[Paragraph about current research developments, recent breakthroughs, and methodological advances]
+[2-3 paragraphs about current research developments, recent breakthroughs, methodological advances, experimental techniques, and what makes this area of research exciting. Discuss cutting-edge findings and their significance.]
 
 ## Practical Applications
-[Paragraph about real-world applications, industry impact, and technological implementations]
+[2-3 paragraphs about real-world applications, industry impact, technological implementations, and potential uses. Be specific about how this research could be applied in practice, including examples from different sectors.]
 
 ## Future Directions
-[Paragraph about emerging research directions, potential breakthroughs, and long-term implications]
+[2-3 paragraphs about emerging research directions, potential breakthroughs on the horizon, long-term implications, unanswered questions, and where this field is heading. Discuss both near-term and long-term possibilities.]
 
 ## References
 - [Author et al. (Year). Title. Journal. DOI: 10.xxxx/xxxx]
@@ -840,14 +914,13 @@ Create natural dialogue that explores:
 Return JSON with:
 {{
     "title": "Engaging podcast title highlighting paradigm shifts in {request.topic}",
-    "script": "Multi-voice podcast script with HOST:, EXPERT:, QUESTIONER: markers and natural dialogue",
+    "script": "Multi-voice podcast script with {host_name.upper()}:, {expert_name.upper()}:, QUESTIONER: markers and natural dialogue using these exact speaker names",
     "description": "Comprehensive episode description following established format"
 }}
 
 **CRITICAL: Generate a comprehensive description using this EXACT format:**
 
-## Episode Overview
-[2-3 engaging paragraphs introducing the topic and its significance in the field]
+IMPORTANT: Do NOT include a "## Episode Overview" header. Start directly with 2-3 engaging paragraphs introducing the topic and its significance in the field. Begin the description immediately without any section header for the opening content.
 
 ## Key Concepts Explored
 - [Concept 1]: [Brief explanation with technical depth]
@@ -1094,39 +1167,104 @@ Return JSON with:
                               description_length=len(content.get('description', '')) if isinstance(content, dict) else 0,
                               topic=request.topic)
         
-        # CRITICAL: If description is missing, create fallback
+        # CRITICAL: If description is missing, create comprehensive fallback
         if not content.get('description'):
-            structured_logger.warning("LLM did not generate description field, creating fallback",
+            structured_logger.warning("LLM did not generate description field, creating comprehensive fallback",
                                      topic=request.topic)
             
-            fallback_desc = f"""## Episode Overview
+            # Build comprehensive fallback description (2500-3500 characters target)
+            topic = research_context.topic
+            
+            # Opening paragraphs (3-4 paragraphs, no header)
+            opening = f"""This episode delves deep into {topic}, a rapidly evolving field that stands at the intersection of cutting-edge research and transformative applications. Recent breakthroughs in this area have revealed fundamental insights that challenge our conventional understanding and open new pathways for scientific discovery and technological innovation.
 
-This episode explores {research_context.topic}, examining recent breakthroughs and their implications.
+The significance of {topic} extends far beyond its immediate domain, with implications that span multiple disciplines and industries. As researchers continue to push the boundaries of knowledge, we're witnessing paradigm shifts that reshape how we approach complex problems and understand the underlying mechanisms at play.
 
-## Key Concepts Explored
+What makes this research area particularly compelling is its ability to bridge theoretical foundations with practical applications, creating opportunities for real-world impact while advancing our fundamental understanding. The interdisciplinary nature of this work means that discoveries in one field can catalyze breakthroughs in others, creating a rich ecosystem of innovation and discovery.
 
-- Recent research developments in {research_context.topic}
-- Paradigm shifts and revolutionary findings
-- Practical applications and future directions
-
-## Research Insights
-
-{research_context.key_findings[0] if research_context.key_findings else 'Cutting-edge research findings from leading scientists.'}
-
-## References
-
-"""
+In this comprehensive exploration, we'll examine the latest research developments, analyze breakthrough findings, and discuss the far-reaching implications for both science and society. Through detailed analysis of recent publications and cutting-edge methodologies, we'll uncover the revolutionary potential of this field and its capacity to transform our approach to complex challenges."""
+            
+            # Key Concepts section
+            key_concepts = "## Key Concepts Explored\n\n"
+            if research_context.key_findings:
+                for i, finding in enumerate(research_context.key_findings[:5], 1):
+                    key_concepts += f"- **{finding}**: This finding represents a significant advancement in our understanding, with implications that extend across multiple domains and applications.\n"
+            else:
+                key_concepts += f"- **Recent research developments in {topic}**: Current studies are revealing new insights into fundamental mechanisms and processes that were previously poorly understood.\n"
+                key_concepts += f"- **Paradigm shifts and revolutionary findings**: The field is experiencing transformative changes that challenge existing models and open new research directions.\n"
+                key_concepts += f"- **Interdisciplinary connections**: Research in {topic} is creating bridges between traditionally separate fields, enabling novel approaches and insights.\n"
+                key_concepts += f"- **Practical applications and future directions**: The theoretical advances are finding applications in diverse areas, from technology to medicine to fundamental science.\n"
+            
+            # Research Insights section (2-3 paragraphs)
+            insights = "## Research Insights\n\n"
+            if research_context.paradigm_shifts:
+                insights += f"Recent research in {topic} has identified several paradigm shifts that fundamentally alter our understanding of the field. "
+                insights += f"{research_context.paradigm_shifts[0] if research_context.paradigm_shifts else 'These shifts represent transformative changes in how we conceptualize and approach key problems.'} "
+                insights += f"The methodological advances driving these discoveries combine rigorous theoretical frameworks with innovative experimental approaches, enabling researchers to probe deeper into complex systems and uncover previously hidden patterns and mechanisms.\n\n"
+            else:
+                insights += f"Current research in {topic} is characterized by methodological innovations that enable unprecedented precision and depth of analysis. "
+                insights += f"Researchers are employing cutting-edge techniques that combine computational modeling, experimental validation, and theoretical frameworks to address fundamental questions. "
+                insights += f"These approaches are revealing new layers of complexity and providing insights that challenge existing paradigms while opening new avenues for investigation.\n\n"
+            
+            insights += f"The significance of these findings extends beyond their immediate domain, with implications for understanding fundamental processes, developing new technologies, and addressing pressing challenges. "
+            insights += f"As the field continues to evolve, we're seeing convergence between different research approaches and the emergence of unified frameworks that can accommodate diverse phenomena and applications."
+            
+            # Practical Applications section (2-3 paragraphs)
+            applications = "## Practical Applications\n\n"
+            applications += f"The research developments in {topic} are finding applications across multiple sectors, demonstrating the practical value of fundamental scientific inquiry. "
+            applications += f"In technology, these advances are enabling new capabilities and improving performance in systems that rely on understanding complex processes and interactions. "
+            applications += f"The insights gained from this research are informing the design of more efficient algorithms, more robust systems, and more effective solutions to real-world problems.\n\n"
+            applications += f"Beyond technology, applications are emerging in fields ranging from healthcare to environmental science to industrial processes. "
+            applications += f"The interdisciplinary nature of this research means that discoveries can be rapidly translated into practical tools and approaches that address pressing societal needs. "
+            applications += f"As our understanding deepens, we can expect to see even more innovative applications that leverage these fundamental insights."
+            
+            # Future Directions section (2-3 paragraphs)
+            future = "## Future Directions\n\n"
+            # Extract future_research_directions from paper_analyses
+            future_directions = []
+            for analysis in research_context.paper_analyses:
+                if hasattr(analysis, 'future_research_directions') and analysis.future_research_directions:
+                    future_directions.extend(analysis.future_research_directions)
+            
+            if future_directions:
+                future += f"Looking ahead, research in {topic} is poised to explore several exciting directions. "
+                future += f"{future_directions[0] if future_directions else 'Future work will likely focus on addressing remaining questions and extending current findings to new contexts.'} "
+                future += f"These directions represent both near-term opportunities for immediate impact and long-term trajectories that could fundamentally reshape the field.\n\n"
+            else:
+                future += f"The future of {topic} research holds tremendous promise, with several emerging directions that could yield transformative insights. "
+                future += f"Researchers are beginning to explore connections between previously separate areas, developing unified frameworks that can accommodate diverse phenomena. "
+                future += f"These efforts are likely to reveal new principles and mechanisms that will guide future research and applications.\n\n"
+            
+            future += f"Long-term implications include the potential for paradigm-shifting discoveries that could open entirely new research areas and applications. "
+            future += f"As methodological capabilities continue to advance and interdisciplinary collaborations deepen, we can expect to see accelerated progress in understanding fundamental mechanisms and developing practical solutions. "
+            future += f"The field is positioned to make significant contributions to both scientific knowledge and societal challenges in the coming years."
+            
+            # References section
+            references = "## References\n\n"
             for i, source in enumerate(research_context.research_sources[:5], 1):
                 authors = ', '.join(source.authors[:2]) + (' et al.' if len(source.authors) > 2 else '')
-                fallback_desc += f"- {authors}. {source.title}. {source.source}. "
+                references += f"- {authors}. {source.title}. {source.source}. "
                 if source.doi:
-                    fallback_desc += f"DOI: {source.doi}"
+                    references += f"DOI: {source.doi}"
                 elif source.url:
-                    fallback_desc += f"Available: {source.url}"
-                fallback_desc += "\n"
+                    references += f"Available: {source.url}"
+                references += "\n"
+            
+            # Combine all sections
+            fallback_desc = f"""{opening}
+
+{key_concepts}
+
+{insights}
+
+{applications}
+
+{future}
+
+{references}"""
             
             content['description'] = fallback_desc
-            structured_logger.info("Created fallback description",
+            structured_logger.info("Created comprehensive fallback description",
                                   description_length=len(fallback_desc),
                                   topic=request.topic)
         
@@ -1162,15 +1300,66 @@ This episode explores {research_context.topic}, examining recent breakthroughs a
     
     @retry_upload(max_retries=3, delay=2)
     @retry_upload(max_retries=3, delay=2)
-    async def upload_description_to_gcs(self, description: str, canonical_filename: str) -> str:
-        """Upload episode description to GCS descriptions folder with hashtags"""
+    async def upload_description_to_gcs(self, description: str, canonical_filename: str, title: str = "", topic: str = "", job_id: str = None) -> str:
+        """Upload episode description to GCS descriptions folder with hashtags and references"""
         try:
             from google.cloud import storage
+            from google.cloud import firestore
             from content_fixes import generate_relevant_hashtags, validate_academic_references
             
             # Initialize GCS client
             storage_client = storage.Client()
             bucket = storage_client.bucket("regal-scholar-453620-r7-podcast-storage")
+            
+            # CRITICAL: Ensure references section exists - add from job metadata if missing
+            if '## References' not in description and job_id:
+                structured_logger.warning("References missing in upload_description_to_gcs, adding from job metadata",
+                                         job_id=job_id,
+                                         canonical_filename=canonical_filename)
+                try:
+                    db = firestore.Client(project='regal-scholar-453620-r7', database='copernicusai')
+                    job_doc = db.collection('podcast_jobs').document(job_id).get()
+                    if job_doc.exists:
+                        job_data = job_doc.to_dict()
+                        references_text = "\n\n## References\n\n"
+                        
+                        # Try real_citations first
+                        real_citations = job_data.get('real_citations', [])
+                        if real_citations:
+                            for citation in real_citations[:5]:
+                                references_text += f"- {citation}\n"
+                        else:
+                            # Fall back to research_sources_summary
+                            research_summary = job_data.get('research_sources_summary', [])
+                            if research_summary:
+                                for source_info in research_summary[:5]:
+                                    title = source_info.get('title', '')
+                                    source_type = source_info.get('source', '')
+                                    doi = source_info.get('doi', '')
+                                    authors_list = source_info.get('authors', [])
+                                    authors = ', '.join(authors_list[:2]) + (' et al.' if len(authors_list) > 2 else '') if authors_list else ''
+                                    if title:
+                                        if authors:
+                                            references_text += f"- {authors}. {title}. {source_type}. "
+                                        else:
+                                            references_text += f"- {title}. {source_type}. "
+                                        if doi:
+                                            references_text += f"DOI: {doi}"
+                                        elif source_info.get('url'):
+                                            references_text += f"Available: {source_info.get('url')}"
+                                        references_text += "\n"
+                        
+                        # Insert references before hashtags if they exist, otherwise at the end
+                        if '## Hashtags' in description:
+                            desc_parts = description.split('## Hashtags')
+                            description = desc_parts[0].rstrip() + references_text.rstrip() + '\n\n## Hashtags' + ('## Hashtags'.join(desc_parts[1:]) if len(desc_parts) > 1 else '')
+                        else:
+                            description = description.rstrip() + references_text.rstrip()
+                except Exception as e:
+                    structured_logger.error("Could not add references in upload_description_to_gcs",
+                                           job_id=job_id,
+                                           error=str(e))
+                    # Continue without references rather than failing
             
             # Extract topic from canonical filename for hashtag generation
             filename_parts = canonical_filename.split('-')
@@ -1196,12 +1385,15 @@ This episode explores {research_context.topic}, examining recent breakthroughs a
                 # Hashtags already added, don't duplicate
                 enhanced_description = description
             else:
-                # Extract topic from description for better hashtag generation
-                topic_match = re.search(r'^#\s*(.+)', description, re.MULTILINE)
-                topic_for_hashtags = topic_match.group(1) if topic_match else ""
+                # Extract topic from description for better hashtag generation if not provided
+                if not topic:
+                    topic_match = re.search(r'^#\s*(.+)', description, re.MULTILINE)
+                    topic_for_hashtags = topic_match.group(1) if topic_match else ""
+                else:
+                    topic_for_hashtags = topic
                 
-                # Generate context-aware hashtags based on description content
-                hashtags = generate_relevant_hashtags(topic_for_hashtags, category, "", description)
+                # Generate context-aware hashtags using title, topic, and description
+                hashtags = generate_relevant_hashtags(topic_for_hashtags, category, title or "", description)
                 
                 # Add hashtags section
                 enhanced_description = f"{description}\n\n## Hashtags\n{hashtags}"
@@ -1214,15 +1406,39 @@ This episode explores {research_context.topic}, examining recent breakthroughs a
                                        max_length=MAX_DESCRIPTION_LENGTH,
                                        canonical_filename=canonical_filename)
                 
-                # Try to preserve references by trimming the middle content first
-                sections = enhanced_description.split('\n\n')
-                references_sections = [s for s in sections if 'References' in s or s.strip().startswith('- ') or 'DOI:' in s or 'http' in s]
-                other_sections = [s for s in sections if s not in references_sections]
-                hashtag_sections = [s for s in sections if s.strip().startswith('#')]
+                # Try to preserve references and hashtags by trimming the middle content first
+                # First, extract References section more precisely
+                references_text = ""
+                hashtags_text = ""
+                main_content = enhanced_description
+                
+                # Extract References section (look for ## References header)
+                if '## References' in enhanced_description:
+                    ref_parts = enhanced_description.split('## References', 1)
+                    main_content = ref_parts[0]
+                    ref_remainder = ref_parts[1]
+                    # Get everything until next ## header or end
+                    if '##' in ref_remainder:
+                        ref_section = ref_remainder.split('##')[0]
+                        references_text = '## References' + ref_section
+                        # Check if there's a Hashtags section after References
+                        if 'Hashtags' in ref_remainder:
+                            hashtag_parts = ref_remainder.split('## Hashtags', 1)
+                            hashtags_text = '## Hashtags' + hashtag_parts[1] if len(hashtag_parts) > 1 else ""
+                    else:
+                        # References section goes to end
+                        references_text = '## References' + ref_remainder
+                elif '## Hashtags' in enhanced_description:
+                    # No References but Hashtags exist
+                    hashtag_parts = enhanced_description.split('## Hashtags', 1)
+                    main_content = hashtag_parts[0]
+                    hashtags_text = '## Hashtags' + hashtag_parts[1] if len(hashtag_parts) > 1 else ""
+                
+                # Split main content into sections for trimming
+                sections = main_content.split('\n\n')
+                other_sections = [s for s in sections if s.strip()]
                 
                 # Reserve space for references and hashtags
-                references_text = '\n\n'.join(references_sections)
-                hashtags_text = '\n\n'.join(hashtag_sections)
                 reserved_space = len(references_text) + len(hashtags_text) + 100
                 
                 # Trim other sections to fit
@@ -1241,7 +1457,50 @@ This episode explores {research_context.topic}, examining recent breakthroughs a
                         break
                 
                 # Rebuild description with full references and hashtags
-                enhanced_description = '\n\n'.join(trimmed_other + references_sections + hashtag_sections)
+                main_content_trimmed = '\n\n'.join(trimmed_other)
+                if references_text:
+                    enhanced_description = main_content_trimmed + '\n\n' + references_text
+                else:
+                    enhanced_description = main_content_trimmed
+                
+                if hashtags_text:
+                    enhanced_description += '\n\n' + hashtags_text
+                elif not hashtags_text and not ("## Hashtags" in enhanced_description or "#CopernicusAI" in enhanced_description):
+                    # If hashtags were somehow lost, regenerate them
+                    hashtags = generate_relevant_hashtags(topic_for_hashtags, category, title or "", description)
+                    enhanced_description += f"\n\n## Hashtags\n{hashtags}"
+                
+                # Final check - if still too long, trim hashtags section more carefully
+                if len(enhanced_description) > MAX_DESCRIPTION_LENGTH:
+                    # Keep main content and references, trim hashtags if needed
+                    desc_with_refs = main_content_trimmed
+                    if references_text:
+                        desc_with_refs += '\n\n' + references_text
+                    
+                    hashtags_available_space = MAX_DESCRIPTION_LENGTH - len(desc_with_refs) - len("\n\n## Hashtags\n")
+                    if hashtags_available_space > 50:
+                        if hashtags_text:
+                            # Extract hashtag content (remove ## Hashtags header)
+                            hashtag_content = hashtags_text.replace('## Hashtags', '').strip()
+                            if len(hashtag_content) > hashtags_available_space:
+                                hashtag_lines = hashtag_content.split('\n')
+                                trimmed_hashtags = []
+                                current_len = 0
+                                for line in hashtag_lines:
+                                    if current_len + len(line) + 1 <= hashtags_available_space:
+                                        trimmed_hashtags.append(line)
+                                        current_len += len(line) + 1
+                                    else:
+                                        break
+                                hashtag_content = '\n'.join(trimmed_hashtags)
+                            enhanced_description = desc_with_refs + f"\n\n## Hashtags\n{hashtag_content}"
+                        else:
+                            # Regenerate hashtags if missing
+                            hashtags = generate_relevant_hashtags(topic_for_hashtags, category, title or "", description)
+                            hashtag_content = hashtags[:hashtags_available_space] if len(hashtags) > hashtags_available_space else hashtags
+                            enhanced_description = desc_with_refs + f"\n\n## Hashtags\n{hashtag_content}"
+                    else:
+                        enhanced_description = desc_with_refs
             
             # Create description filename
             description_filename = f"{canonical_filename}.md"
@@ -1436,11 +1695,12 @@ This episode explores {research_context.topic}, examining recent breakthroughs a
         topic: str, 
         canonical_filename: str
     ) -> str:
-        """Generate AI thumbnail using DALL-E 3 with 1792x1792 dimensions for podcast platforms"""
+        """Generate AI thumbnail using DALL-E 3 with maximum resolution for podcast platforms"""
         try:
             import requests
             from google.cloud import storage
             import io
+            import re
             
             # Initialize GCS client
             storage_client = storage.Client()
@@ -1453,20 +1713,122 @@ This episode explores {research_context.topic}, examining recent breakthroughs a
                                          canonical_filename=canonical_filename)
                 return await self.generate_fallback_thumbnail(canonical_filename, topic)
             
-            # Create sophisticated DALL-E prompt based on episode content
-            dalle_prompt = f"""A stunning scientific visualization representing {topic} research. 
-            Style: Modern digital art, professional scientific illustration, high-tech aesthetic.
-            Visual elements: Abstract molecular structures, flowing data streams, particle physics effects, neural networks, or quantum field representations related to {topic}.
-            Color palette: Deep space blues and purples with bright cyan, electric blue, and white accents. Gradient backgrounds.
-            Composition: Centered, balanced, visually striking for podcast thumbnail.
-            Quality: Ultra-high resolution, clean, sophisticated, suitable for Spotify/iTunes/YouTube.
-            NO TEXT, NO WORDS, NO TITLES - pure visual scientific concept art.
-            Mood: Cutting-edge research, discovery, innovation, future technology."""
+            # Extract category from canonical filename for more specific visuals
+            # Each discipline has a DISTINCT visual style and color palette
+            category_styles = {
+                "bio": {
+                    "visual_elements": "intricate biological structures, cellular networks, DNA double helices, protein complexes, neural pathways, microscopic organisms, organic cellular membranes, biomolecular interactions, living tissue patterns",
+                    "color_palette": "vibrant greens and blues (nature's palette), with accents of soft purple and warm yellows. Organic, life-affirming colors. Rich emerald greens transitioning to deep ocean blues, with biological purple accents",
+                    "style": "organic and flowing, biomorphic shapes, natural biological patterns, cellular textures, living tissue aesthetics, microscopic world visualization",
+                    "mood": "vital, dynamic, life-sustaining, biological complexity, natural organization"
+                },
+                "chem": {
+                    "visual_elements": "molecular structures, chemical bonds, crystal lattices, reaction pathways, atomic orbitals, electron clouds, molecular models, chemical formulas visualized, periodic table patterns, bond formations",
+                    "color_palette": "cool blues and purples with bright accent colors (reaction energies). Atomic blues, molecular purples, with vibrant orange and yellow energy bursts for reactions. Clean, precise color schemes",
+                    "style": "geometric and precise, molecular symmetry, crystalline structures, atomic precision, clean lines and structured forms, laboratory aesthetics",
+                    "mood": "precise, transformative, energetic reactions, molecular precision, structured complexity"
+                },
+                "compsci": {
+                    "visual_elements": "neural networks, data streams, algorithmic patterns, binary code, circuit patterns, digital networks, code visualizations, data flow diagrams, network topologies, computational graphs, binary matrices",
+                    "color_palette": "digital blues and cyans with electric accents. Neon blues, electric cyan, digital greens, with bright white and electric purple highlights. High-tech, digital aesthetics",
+                    "style": "digital and algorithmic, pixel-perfect, network diagrams, data visualization aesthetics, circuit board patterns, tech-forward design",
+                    "mood": "innovative, computational, data-driven, high-tech, algorithmic precision"
+                },
+                "math": {
+                    "visual_elements": "geometric patterns, fractal structures, mathematical equations visualized, abstract symmetries, topological surfaces, geometric transformations, mathematical proofs visualized, abstract mathematical spaces, geometric constructions, symmetry patterns",
+                    "color_palette": "elegant monochromatic with mathematical accents. Deep purples, rich blues, elegant grays, with precise white and gold mathematical symbols. Clean, abstract, elegant",
+                    "style": "geometric and abstract, perfect symmetry, mathematical elegance, topological beauty, abstract geometric forms, precise mathematical visualization",
+                    "mood": "elegant, abstract, perfectly structured, mathematical beauty, timeless precision"
+                },
+                "phys": {
+                    "visual_elements": "quantum fields, particle interactions, wave functions, electromagnetic fields, cosmic structures, energy patterns, particle accelerations, wave interferences, quantum probability clouds, cosmic phenomena, energy transformations",
+                    "color_palette": "cosmic purples and deep space blues with energetic highlights. Deep space purples, cosmic blues, with bright white energy bursts and golden particle trails. Cosmic and energetic",
+                    "style": "energetic and cosmic, particle effects, wave patterns, quantum field visualizations, cosmic phenomena, energy flows, dynamic motion",
+                    "mood": "energetic, cosmic, fundamental forces, quantum mysteries, universal scale"
+                }
+            }
+            
+            category = None
+            if canonical_filename:
+                parts = canonical_filename.split("-")
+                if len(parts) >= 2:
+                    cat_match = parts[1] if len(parts) > 1 else None
+                    if cat_match in category_styles:
+                        category = cat_match
+            
+            # Get category-specific style
+            if category and category in category_styles:
+                style_config = category_styles[category]
+                visual_elements = style_config["visual_elements"]
+                color_palette = style_config["color_palette"]
+                style_description = style_config["style"]
+                mood_description = style_config["mood"]
+            else:
+                # Default fallback
+                visual_elements = "abstract scientific structures, flowing data streams, particle effects, neural networks, quantum field representations"
+                color_palette = "deep cosmic blues transitioning to vibrant cyan and electric blue, with accents of luminous white and subtle purple"
+                style_description = "modern scientific illustration"
+                mood_description = "cutting-edge scientific discovery"
+            
+            # Extract specific visual concepts from title for more targeted imagery
+            title_keywords = []
+            title_lower = title.lower()
+            
+            # Map title keywords to specific visual concepts
+            visual_keyword_mapping = {
+                "supramolecular": "supramolecular assemblies, molecular self-organization, host-guest complexes, intricate molecular networks",
+                "self-assembly": "self-assembling structures, dynamic molecular organization, spontaneous pattern formation, hierarchical structures",
+                "metalloenzyme": "metallic enzyme active sites, metal-ion coordination complexes, catalytic metal centers, biomolecular metal clusters",
+                "bioinspired": "nature-inspired structures, biomimetic designs, biological patterns, evolutionary design principles",
+                "catalysis": "catalytic reaction mechanisms, active site interactions, molecular transformations, reaction pathways",
+                "graph neural": "neural network graphs, interconnected nodes, data flow patterns, network topology visualizations",
+                "federated learning": "distributed computational networks, privacy-preserving data flows, decentralized learning systems",
+                "quantum sensing": "quantum measurement devices, precision sensors, quantum field detectors, metrology instruments",
+                "topological": "topological structures, geometric transformations, shape classifications, persistent homology representations",
+                "epigenetic": "epigenetic modifications, DNA methylation patterns, chromatin structures, gene expression networks",
+                "immunotherapy": "immune cell interactions, T-cell activation, antibody structures, cancer cell targeting mechanisms",
+                "optimization": "algorithmic optimization paths, gradient flows, search space visualizations, convergence patterns",
+                "persistent homology": "topological persistence diagrams, barcode representations, shape analysis, multi-scale structures"
+            }
+            
+            # Find matching visual concepts from title
+            title_specific_visuals = []
+            for keyword, visuals in visual_keyword_mapping.items():
+                if keyword in title_lower:
+                    title_specific_visuals.append(visuals)
+                    title_keywords.append(keyword)
+            
+            # Combine category visuals with title-specific visuals
+            if title_specific_visuals:
+                specific_visuals = ", ".join(title_specific_visuals[:3])  # Limit to 3 most relevant
+                enhanced_visual_elements = f"{specific_visuals}. Additionally include {visual_elements}"
+            else:
+                enhanced_visual_elements = visual_elements
+            
+            # Create enhanced DALL-E prompt with title-specific details
+            dalle_prompt = f"""Create a breathtaking scientific visualization for a research podcast episode titled "{title}".
+
+The podcast explores: {topic}
+
+Visual Style: Ultra-modern scientific illustration, photorealistic 3D rendering with depth and dimension. Professional digital art with cinematic lighting and dramatic composition.
+
+Key Visual Elements: {enhanced_visual_elements} specifically related to "{title}". Focus on the most distinctive and recognizable visual concepts from the title. Dynamic, flowing compositions that suggest motion and discovery. Include subtle abstract patterns that represent breakthrough thinking and paradigm shifts.
+
+Color Palette: Rich, sophisticated gradients - deep cosmic blues transitioning to vibrant cyan and electric blue, with accents of luminous white and subtle purple. High contrast for maximum visual impact. Professional color grading.
+
+Composition: Square format optimized for podcast platforms. Centered focal point with surrounding elements creating visual flow. Balanced negative space. Depth-of-field effect with foreground elements sharp and background slightly blurred for dimension.
+
+Technical Quality: Ultra-high resolution, crystal-clear detail, professional photography quality. No pixelation or artifacts. Suitable for high-DPI displays and large format printing.
+
+Important: Absolutely NO text, NO words, NO titles, NO labels. Pure visual scientific concept art that tells a story through imagery alone.
+
+Mood and Atmosphere: Cutting-edge scientific discovery, innovation, breakthrough research, future technology, paradigm-shifting insights. Convey the excitement and importance of scientific advancement."""
             
             # Generate image with DALL-E 3
             structured_logger.info("Generating DALL-E 3 thumbnail",
                                   canonical_filename=canonical_filename,
-                                  topic=topic)
+                                  topic=topic,
+                                  category=category or "generic")
             
             headers = {
                 "Authorization": f"Bearer {openai_api_key}",
@@ -1477,7 +1839,7 @@ This episode explores {research_context.topic}, examining recent breakthroughs a
                 "model": "dall-e-3",
                 "prompt": dalle_prompt,
                 "n": 1,
-                "size": "1024x1024",  # Standard square format for podcast platforms
+                "size": "1024x1024",  # Square format required for podcast platforms (DALL-E 3 max square)
                 "quality": "hd",
                 "style": "vivid"
             }
@@ -1524,6 +1886,190 @@ This episode explores {research_context.topic}, examining recent breakthroughs a
                                    canonical_filename=canonical_filename,
                                    error=str(e))
             return await self.generate_fallback_thumbnail(canonical_filename, topic)
+    
+    async def generate_episode_images(
+        self,
+        title: str,
+        topic: str,
+        canonical_filename: str,
+        description: str = "",
+        num_images: int = 2
+    ) -> List[str]:
+        """
+        Generate 1-2 additional images for the episode (beyond the thumbnail).
+        These are still images that can be displayed during audio playback.
+        
+        Args:
+            title: Episode title
+            topic: Episode topic
+            canonical_filename: Canonical filename for the episode
+            description: Episode description (optional, for context)
+            num_images: Number of images to generate (1-2, default 2)
+        
+        Returns:
+            List of public image URLs
+        """
+        image_urls = []
+        
+        try:
+            import requests
+            from google.cloud import storage
+            
+            # Limit to 1-2 images
+            num_images = max(1, min(2, num_images))
+            
+            # Initialize GCS client
+            storage_client = storage.Client()
+            bucket = storage_client.bucket(self.bucket_name)
+            
+            # Get OpenAI API key
+            openai_api_key = await self.get_openai_api_key_from_secret_manager()
+            if not openai_api_key:
+                structured_logger.warning("No OpenAI API key for episode images, skipping",
+                                         canonical_filename=canonical_filename)
+                return []
+            
+            # Extract category for style consistency
+            category = None
+            if canonical_filename:
+                parts = canonical_filename.split("-")
+                if len(parts) >= 2:
+                    category = parts[1] if len(parts) > 1 else None
+            
+            # Generate images with different visual focuses
+            image_prompts = []
+            
+            if num_images == 1:
+                # Single image: comprehensive overview
+                image_prompts.append(
+                    f"""Create a detailed scientific visualization for a research podcast episode titled "{title}".
+
+The podcast explores: {topic}
+
+Visual Style: Professional scientific illustration, photorealistic 3D rendering. High-quality digital art with cinematic lighting.
+
+Key Visual Elements: Abstract scientific concepts related to "{title}". Dynamic composition showing breakthrough research and paradigm-shifting discoveries. Include visual metaphors for innovation and scientific advancement.
+
+Color Palette: Rich, sophisticated gradients - deep blues transitioning to vibrant cyan, with accents of white and purple. High contrast for visual impact.
+
+Composition: Landscape format (16:9 ratio), optimized for display during audio playback. Centered focal point with surrounding elements creating visual flow.
+
+Technical Quality: Ultra-high resolution, crystal-clear detail. No text, words, titles, or labels. Pure visual scientific concept art."""
+                )
+            else:
+                # Two images: different aspects
+                # Image 1: Conceptual overview
+                image_prompts.append(
+                    f"""Create a conceptual scientific visualization for a research podcast episode titled "{title}".
+
+The podcast explores: {topic}
+
+Visual Style: Abstract scientific illustration, modern 3D rendering. Professional digital art.
+
+Key Visual Elements: High-level conceptual representation of "{title}". Abstract patterns representing breakthrough thinking, paradigm shifts, and revolutionary discoveries.
+
+Color Palette: Deep cosmic blues with vibrant cyan accents and subtle purple highlights.
+
+Composition: Landscape format (16:9), wide view. Balanced composition with visual flow.
+
+Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual concept art."""
+                )
+                
+                # Image 2: Detailed technical view
+                image_prompts.append(
+                    f"""Create a detailed technical scientific visualization for a research podcast episode titled "{title}".
+
+The podcast explores: {topic}
+
+Visual Style: Detailed technical illustration, precise scientific rendering. Professional digital art with technical accuracy.
+
+Key Visual Elements: Technical details and specific mechanisms related to "{title}". Focus on the intricate scientific processes, molecular structures, or computational patterns that make this research significant.
+
+Color Palette: Rich technical blues with precise white highlights and electric cyan details.
+
+Composition: Landscape format (16:9), detailed view. Technical precision with visual appeal.
+
+Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual technical concept art."""
+                )
+            
+            # Generate each image
+            for i, prompt in enumerate(image_prompts):
+                try:
+                    structured_logger.info("Generating episode image",
+                                         canonical_filename=canonical_filename,
+                                         image_number=i+1,
+                                         total_images=num_images)
+                    
+                    headers = {
+                        "Authorization": f"Bearer {openai_api_key}",
+                        "Content-Type": "application/json"
+                    }
+                    
+                    payload = {
+                        "model": "dall-e-3",
+                        "prompt": prompt,
+                        "n": 1,
+                        "size": "1792x1024",  # Landscape format for display during playback
+                        "quality": "hd",
+                        "style": "vivid"
+                    }
+                    
+                    response = requests.post(
+                        "https://api.openai.com/v1/images/generations",
+                        headers=headers,
+                        json=payload,
+                        timeout=60
+                    )
+                    
+                    if response.status_code == 200:
+                        result = response.json()
+                        image_url = result['data'][0]['url']
+                        
+                        # Download and upload to GCS
+                        img_response = requests.get(image_url, timeout=30)
+                        if img_response.status_code == 200:
+                            image_filename = f"{canonical_filename}-image-{i+1}.jpg"
+                            blob = bucket.blob(f"episode-images/{image_filename}")
+                            blob.upload_from_string(img_response.content, content_type="image/jpeg")
+                            blob.make_public()
+                            
+                            public_url = f"https://storage.googleapis.com/{self.bucket_name}/episode-images/{image_filename}"
+                            image_urls.append(public_url)
+                            
+                            structured_logger.info("Episode image uploaded",
+                                                 canonical_filename=canonical_filename,
+                                                 image_number=i+1,
+                                                 public_url=public_url)
+                        else:
+                            structured_logger.warning("Failed to download episode image",
+                                                     canonical_filename=canonical_filename,
+                                                     image_number=i+1,
+                                                     status_code=img_response.status_code)
+                    else:
+                        structured_logger.warning("DALL-E API error for episode image",
+                                                 canonical_filename=canonical_filename,
+                                                 image_number=i+1,
+                                                 status_code=response.status_code)
+                
+                except Exception as e:
+                    structured_logger.error("Error generating episode image",
+                                          canonical_filename=canonical_filename,
+                                          image_number=i+1,
+                                          error=str(e))
+                    # Continue with other images even if one fails
+            
+            structured_logger.info("Episode images generation complete",
+                                 canonical_filename=canonical_filename,
+                                 images_generated=len(image_urls),
+                                 requested=num_images)
+            
+            return image_urls
+        
+        except Exception as e:
+            structured_logger.error("Error in generate_episode_images",
+                                 canonical_filename=canonical_filename,
+                                 error=str(e))
+            return []
     
     async def run_podcast_generation_job(
         self, 
@@ -1622,11 +2168,23 @@ This episode explores {research_context.topic}, examining recent breakthroughs a
                                       sources_count=len(research_context.research_sources),
                                       paradigm_shifts_count=len(research_context.paradigm_shifts))
                 
-                # Store research metadata in job
+                # Store research metadata in job (including sources for references)
+                research_sources_summary = []
+                for source in research_context.research_sources[:10]:
+                    research_sources_summary.append({
+                        'title': source.title,
+                        'source': source.source,
+                        'doi': source.doi,
+                        'url': source.url,
+                        'authors': source.authors[:3]  # Store first 3 authors
+                    })
+                
                 job_ref.update({
                     'research_sources_count': len(research_context.research_sources),
                     'research_quality_score': research_context.research_quality_score,
                     'paradigm_shifts_count': len(research_context.paradigm_shifts),
+                    'research_sources_summary': research_sources_summary,
+                    'real_citations': research_context.real_citations[:10],  # Store citations for references
                     'updated_at': datetime.utcnow().isoformat()
                 })
                 
@@ -1801,6 +2359,99 @@ This episode explores {research_context.topic}, examining recent breakthroughs a
 
 """
             
+            # CRITICAL: Ensure references section exists - add from research_context if missing
+            if '## References' not in content['description']:
+                # References are missing - add them from research_context
+                structured_logger.warning("LLM did not include References section, adding from research context",
+                                         job_id=job_id,
+                                         topic=request.topic)
+                
+                # Build references from research_context (available from research phase)
+                references_text = "\n\n## References\n\n"
+                references_added = False
+                
+                # Try to use research_context directly (it should be in scope)
+                try:
+                    # research_context is defined in the outer scope above
+                    if research_context:
+                        # Use real_citations first (already formatted)
+                        if research_context.real_citations:
+                            for citation in research_context.real_citations[:5]:
+                                references_text += f"- {citation}\n"
+                            references_added = True
+                        elif research_context.research_sources:
+                            # Build from research_sources
+                            for source in research_context.research_sources[:5]:
+                                authors = ', '.join(source.authors[:2]) + (' et al.' if len(source.authors) > 2 else '')
+                                references_text += f"- {authors}. {source.title}. {source.source}. "
+                                if source.doi:
+                                    references_text += f"DOI: {source.doi}"
+                                elif source.url:
+                                    references_text += f"Available: {source.url}"
+                                references_text += "\n"
+                            references_added = True
+                except NameError:
+                    # research_context not in scope, use fallback
+                    structured_logger.warning("research_context not in scope, using job metadata",
+                                             job_id=job_id)
+                    pass
+                except Exception as e:
+                    structured_logger.warning("Error accessing research_context, using job metadata",
+                                             job_id=job_id,
+                                             error=str(e))
+                    pass
+                
+                # Fallback: get from job metadata if research_context wasn't accessible
+                if not references_added:
+                    try:
+                        job_doc = db.collection('podcast_jobs').document(job_id).get()
+                        if job_doc.exists:
+                            job_data = job_doc.to_dict()
+                            # Try real_citations first
+                            real_citations = job_data.get('real_citations', [])
+                            if real_citations:
+                                for citation in real_citations[:5]:
+                                    references_text += f"- {citation}\n"
+                                references_added = True
+                            else:
+                                # Fall back to research_sources_summary
+                                research_summary = job_data.get('research_sources_summary', [])
+                                if research_summary:
+                                    for source_info in research_summary[:5]:
+                                        title = source_info.get('title', '')
+                                        source_type = source_info.get('source', '')
+                                        doi = source_info.get('doi', '')
+                                        authors_list = source_info.get('authors', [])
+                                        authors = ', '.join(authors_list[:2]) + (' et al.' if len(authors_list) > 2 else '') if authors_list else ''
+                                        if title:
+                                            if authors:
+                                                references_text += f"- {authors}. {title}. {source_type}. "
+                                            else:
+                                                references_text += f"- {title}. {source_type}. "
+                                            if doi:
+                                                references_text += f"DOI: {doi}"
+                                            elif source_info.get('url'):
+                                                references_text += f"Available: {source_info.get('url')}"
+                                            references_text += "\n"
+                                    references_added = True
+                    except Exception as e:
+                        structured_logger.error("Could not retrieve research sources from job metadata",
+                                               job_id=job_id,
+                                               error=str(e))
+                
+                # Last resort: add warning message
+                if not references_added:
+                    structured_logger.error("CRITICAL: Could not add references - no research data available",
+                                           job_id=job_id)
+                    references_text += "Research references from the sources used for this episode.\n"
+                
+                # Insert references before hashtags if they exist, otherwise at the end
+                if '## Hashtags' in content['description']:
+                    desc_parts = content['description'].split('## Hashtags')
+                    content['description'] = desc_parts[0].rstrip() + references_text.rstrip() + '\n\n## Hashtags' + ('## Hashtags'.join(desc_parts[1:]) if len(desc_parts) > 1 else '')
+                else:
+                    content['description'] = content['description'].rstrip() + references_text.rstrip()
+            
             # Validate academic references in description if they exist
             if '## References' in content['description']:
                 # Extract references section
@@ -1915,7 +2566,13 @@ This episode explores {research_context.topic}, examining recent breakthroughs a
             structured_logger.info("Uploading episode description to GCS",
                                   job_id=job_id,
                                   memory_before_percent=round(description_memory_before, 1))
-            description_url = await self.upload_description_to_gcs(content["description"], canonical_filename)
+            description_url = await self.upload_description_to_gcs(
+                content["description"], 
+                canonical_filename,
+                title=content.get("title", ""),
+                topic=request.topic,
+                job_id=job_id
+            )
             description_time = time.time() - description_start_time
             structured_logger.info("Description completed",
                                   job_id=job_id,
@@ -1941,6 +2598,33 @@ This episode explores {research_context.topic}, examining recent breakthroughs a
                                   job_id=job_id,
                                   thumbnail_time_seconds=round(thumbnail_time, 2),
                                   thumbnail_url=thumbnail_url)
+            
+            # Generate episode images (1-2 still images for display during audio playback)
+            episode_images = []
+            try:
+                images_start_time = time.time()
+                structured_logger.info("Generating episode images",
+                                     job_id=job_id,
+                                     memory_before_percent=round(psutil.virtual_memory().percent, 1))
+                
+                episode_images = await self.generate_episode_images(
+                    content["title"],
+                    request.topic,
+                    canonical_filename,
+                    description=content.get("description", ""),
+                    num_images=2  # Generate 2 images by default
+                )
+                
+                images_time = time.time() - images_start_time
+                structured_logger.info("Episode images completed",
+                                     job_id=job_id,
+                                     images_time_seconds=round(images_time, 2),
+                                     images_generated=len(episode_images))
+            except Exception as e:
+                structured_logger.warning("Failed to generate episode images, continuing without them",
+                                       job_id=job_id,
+                                       error=str(e))
+                episode_images = []
             
             # Extract keywords from content for search/discovery
             keywords_indexed = []
@@ -1991,6 +2675,7 @@ This episode explores {research_context.topic}, examining recent breakthroughs a
                     'description': content.get('description', ''),
                     'audio_url': audio_url,
                     'thumbnail_url': thumbnail_url,
+                    'episode_images': episode_images,  # Array of 1-2 image URLs
                     'transcript_url': transcript_url,
                     'description_url': description_url,
                     'duration': request.duration,
@@ -2024,6 +2709,7 @@ This episode explores {research_context.topic}, examining recent breakthroughs a
                         **content,
                         "audio_url": audio_url,
                         "thumbnail_url": thumbnail_url,
+                        "episode_images": episode_images,  # Array of 1-2 image URLs
                         "transcript_url": transcript_url,
                         "description_url": description_url,
                         "duration": request.duration,
