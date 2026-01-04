@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mathematics Processes Database Summary Table</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 300;
+        }
+        
+        .header p {
+            margin: 10px 0 0 0;
+            opacity: 0.8;
+            font-size: 1.1em;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 30px;
+            background: #f8f9fa;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            border-left: 4px solid #3498db;
+        }
+        
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin: 0;
+        }
+        
+        .stat-label {
+            color: #7f8c8d;
+            font-size: 0.9em;
+            margin: 5px 0 0 0;
+        }
+        
+        .table-container {
+            padding: 30px;
+            overflow-x: auto;
+        }
+        
+        .table-header {
+            background: #34495e;
+            color: white;
+            padding: 20px;
+            margin: -30px -30px 20px -30px;
+        }
+        
+        .table-header h2 {
+            margin: 0;
+            font-size: 1.8em;
+            font-weight: 300;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 0.9em;
+        }
+        
+        th, td {
+            padding: 12px 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background: #ecf0f1;
+            font-weight: 600;
+            color: #2c3e50;
+            position: sticky;
+            top: 0;
+            cursor: pointer;
+        }
+        
+        th:hover {
+            background: #d5dbdb;
+        }
+        
+        tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .process-name {
+            font-weight: 600;
+            color: #2c3e50;
+            max-width: 300px;
+        }
+        
+        .subcategory {
+            background: #e8f4f8;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            color: #2980b9;
+        }
+        
+        .complexity {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: 600;
+        }
+        
+        .complexity.low {
+            background: #d5f4e6;
+            color: #27ae60;
+        }
+        
+        .complexity.medium {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .complexity.high {
+            background: #fadbd8;
+            color: #e74c3c;
+        }
+        
+        .number {
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 50px;
+            color: #7f8c8d;
+        }
+        
+        .error {
+            text-align: center;
+            padding: 50px;
+            color: #e74c3c;
+        }
+        
+        .refresh-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+            margin: 10px;
+        }
+        
+        .refresh-btn:hover {
+            background: #2980b9;
+        }
+        
+        .breakdown {
+            padding: 30px;
+            background: #f8f9fa;
+            border-top: 1px solid #ecf0f1;
+        }
+        
+        .breakdown h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .breakdown-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .breakdown-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .breakdown-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        
+        .breakdown-item:last-child {
+            border-bottom: none;
+        }
+        
+        .breakdown-label {
+            color: #7f8c8d;
+        }
+        
+        .breakdown-count {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        a {
+            color: #2c3e50;
+            text-decoration: none;
+        }
+        
+        a:hover {
+            color: #3498db;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔢 Mathematics Processes Database</h1>
+            <p>Programming Framework - Interactive Database Analysis</p>
+            <button class="refresh-btn" onclick="loadData()">🔄 Refresh Data</button>
+        </div>
+        
+        <div id="loading" class="loading">
+            <h3>Loading mathematics processes database...</h3>
+            <p>Fetching process data from metadata.json</p>
+        </div>
+        
+        <div id="error" class="error" style="display: none;">
+            <h3>❌ Error Loading Data</h3>
+            <p>Could not fetch mathematics processes metadata. Please check your connection and try again.</p>
+        </div>
+        
+        <div id="content" style="display: none;">
+            <div class="stats-grid" id="statsGrid">
+                <!-- Stats will be populated here -->
+            </div>
+            
+            <div class="table-container">
+                <div class="table-header">
+                    <h2>📊 Process Database Table</h2>
+                    <p style="margin: 10px 0 0 0; opacity: 0.8; font-size: 0.9em;">
+                        💡 Click on any process name to view its interactive flowchart
+                    </p>
+                </div>
+                <table id="processTable">
+                    <thead>
+                        <tr>
+                            <th onclick="sortTable(0)">Process Name ↕</th>
+                            <th onclick="sortTable(1)">Subcategory ↕</th>
+                            <th onclick="sortTable(2)">Complexity ↕</th>
+                            <th onclick="sortTable(3)">Nodes ↕</th>
+                            <th onclick="sortTable(4)">AND Gates ↕</th>
+                            <th onclick="sortTable(5)">OR Gates ↕</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <!-- Data will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="breakdown">
+                <h3>📈 Database Analysis</h3>
+                <div class="breakdown-grid" id="breakdownGrid">
+                    <!-- Breakdown will be populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Determine metadata URL based on where this file is hosted
+        // If hosted on GCS, use GCS URL; if local, use relative path
+        const METADATA_URL = window.location.hostname.includes('storage.googleapis.com') 
+            ? 'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/math-processes-database/metadata.json'
+            : './metadata.json';
+        
+        let currentSortColumn = -1;
+        let sortDirection = 1;
+        
+        async function loadData() {
+            console.log('🔄 Starting data load from:', METADATA_URL);
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('error').style.display = 'none';
+            document.getElementById('content').style.display = 'none';
+            
+            try {
+                console.log('📡 Fetching metadata...');
+                const response = await fetch(METADATA_URL);
+                console.log('📥 Response status:', response.status, response.statusText);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                console.log('🔍 Parsing JSON...');
+                const data = await response.json();
+                console.log('✅ Data loaded successfully:', data.totalProcesses, 'processes');
+                
+                populateData(data);
+                
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('content').style.display = 'block';
+                
+            } catch (error) {
+                console.error('❌ Error loading data:', error);
+                console.error('Error details:', {
+                    message: error.message,
+                    name: error.name,
+                    stack: error.stack
+                });
+                
+                // Update error message with more details
+                const errorDiv = document.getElementById('error');
+                errorDiv.innerHTML = `
+                    <h3>❌ Error Loading Data</h3>
+                    <p>Could not fetch mathematics processes metadata. Please check your connection and try again.</p>
+                    <p style="font-size: 0.9em; color: #95a5a6; margin-top: 10px;">
+                        Error: ${error.message}
+                    </p>
+                    <p style="font-size: 0.9em; color: #95a5a6; margin-top: 10px;">
+                        URL: ${METADATA_URL}
+                    </p>
+                    <button onclick="loadData()" style="margin-top: 20px; padding: 10px 20px; background: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                        Retry
+                    </button>
+                `;
+                
+                document.getElementById('loading').style.display = 'none';
+                errorDiv.style.display = 'block';
+            }
+        }
+        
+        function populateData(data) {
+            const processes = data.processes || [];
+            
+            // Populate stats cards (simplified - no entity counts)
+            const statsGrid = document.getElementById('statsGrid');
+            const subcategoryCount = Object.keys(data.subcategoryCounts || {}).length;
+            statsGrid.innerHTML = `
+                <div class="stat-card">
+                    <div class="stat-number">${processes.length}</div>
+                    <div class="stat-label">Total Processes</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${subcategoryCount}</div>
+                    <div class="stat-label">Subcategories</div>
+                </div>
+            `;
+            
+            // Populate table with AND/OR gate counts
+            const tableBody = document.getElementById('tableBody');
+            tableBody.innerHTML = processes.map(process => {
+                const processId = process.id || '';
+                const processName = process.name || 'Unknown';
+                // Link to individual process page
+                const processUrl = `https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/math-processes-database/processes/${processId}.html`;
+                
+                return `
+                <tr>
+                    <td class="process-name">
+                        <a href="${processUrl}" target="_blank" rel="noopener noreferrer" 
+                           style="color: #2c3e50; text-decoration: none; font-weight: 600;"
+                           onmouseover="this.style.color='#3498db'; this.style.textDecoration='underline';"
+                           onmouseout="this.style.color='#2c3e50'; this.style.textDecoration='none';">
+                            ${processName}
+                        </a>
+                    </td>
+                    <td><span class="subcategory">${process.subcategory || 'Unknown'}</span></td>
+                    <td><span class="complexity ${process.complexity || 'medium'}">${process.complexity || 'medium'}</span></td>
+                    <td class="number">${process.node_count || 0}</td>
+                    <td class="number">${process.and_gates || 0}</td>
+                    <td class="number">${process.or_gates || 0}</td>
+                </tr>
+            `;
+            }).join('');
+            
+            // Calculate breakdowns
+            const subcategoryCounts = data.subcategoryCounts || {};
+            const complexityCounts = data.complexityCounts || {};
+            
+            // Populate breakdown with subcategory list and suggestion link
+            const breakdownGrid = document.getElementById('breakdownGrid');
+            breakdownGrid.innerHTML = `
+                <div class="breakdown-card">
+                    <h4>📂 Subcategories</h4>
+                    ${Object.entries(subcategoryCounts).map(([subcategory, count]) => `
+                        <div class="breakdown-item">
+                            <span class="breakdown-label">${subcategory.replace(/_/g, ' ')}</span>
+                            <span class="breakdown-count">${count} process${count !== 1 ? 'es' : ''}</span>
+                        </div>
+                    `).join('')}
+                </div>
+                <div class="breakdown-card">
+                    <h4>💡 Suggest a Process</h4>
+                    <p class="text-sm text-gray-600 mb-3">
+                        Have an idea for a mathematics process that should be visualized? We'd love to hear from you!
+                    </p>
+                    <a href="https://forms.gle/YOUR_FORM_ID" 
+                       target="_blank"
+                       class="inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition text-sm font-medium">
+                        Suggest a Mathematics Process →
+                    </a>
+                </div>
+            `;
+        }
+        
+        function sortTable(columnIndex) {
+            const table = document.getElementById('processTable');
+            const tbody = table.querySelector('tbody');
+            const rows = Array.from(tbody.querySelectorAll('tr'));
+            
+            // Toggle sort direction if clicking same column
+            if (currentSortColumn === columnIndex) {
+                sortDirection *= -1;
+            } else {
+                currentSortColumn = columnIndex;
+                sortDirection = 1;
+            }
+            
+            rows.sort((a, b) => {
+                const aCell = a.cells[columnIndex];
+                const bCell = b.cells[columnIndex];
+                
+                let aValue = aCell.textContent.trim();
+                let bValue = bCell.textContent.trim();
+                
+                // Handle numeric columns (Nodes, AND Gates, OR Gates)
+                if (columnIndex === 3 || columnIndex === 4 || columnIndex === 5) {
+                    aValue = parseInt(aValue) || 0;
+                    bValue = parseInt(bValue) || 0;
+                    return (aValue - bValue) * sortDirection;
+                }
+                
+                // Handle text columns
+                return aValue.localeCompare(bValue) * sortDirection;
+            });
+            
+            // Remove all rows and re-append in sorted order
+            rows.forEach(row => tbody.removeChild(row));
+            rows.forEach(row => tbody.appendChild(row));
+            
+            // Update header arrows
+            const headers = table.querySelectorAll('th');
+            headers.forEach((header, index) => {
+                if (index === columnIndex) {
+                    header.textContent = header.textContent.replace(/ ↕| ↑| ↓/, '') + (sortDirection > 0 ? ' ↑' : ' ↓');
+                } else {
+                    header.textContent = header.textContent.replace(/ ↕| ↑| ↓/, '') + ' ↕';
+                }
+            });
+        }
+        
+        // Load data on page load
+        window.addEventListener('load', loadData);
+    </script>
+</body>
+</html>
+
