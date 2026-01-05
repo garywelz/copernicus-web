@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binomial Coefficient Calculation - Mathematics Process</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .mermaid-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="gradient-bg text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="text-center">
+                <div class="text-4xl mb-4">🔢</div>
+                <h1 class="text-4xl font-bold mb-4">Binomial Coefficient Calculation</h1>
+                <p class="text-lg opacity-90">Mathematics Process Visualization</p>
+                <div class="mt-4">
+                    <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/math-processes-database/mathematics-database-table.html" 
+                       class="text-white hover:text-gray-200 underline">
+                        ← Back to Mathematics Processes Database
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Process Information -->
+        <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">Process Information</h2>
+            
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                <div>
+                    <h3 class="font-semibold text-gray-800 mb-2">Category</h3>
+                    <p class="text-gray-600">mathematics</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-800 mb-2">Subcategory</h3>
+                    <p class="text-gray-600">Combinatorics</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-800 mb-2">Complexity</h3>
+                    <p class="text-gray-600">low</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-800 mb-2">Nodes</h3>
+                    <p class="text-gray-600">4</p>
+                </div>
+            </div>
+            
+            <div class="mb-6"><h3 class="font-semibold text-gray-800 mb-2">Description</h3><p class="text-gray-600">Compute combinations using binomial coefficients</p></div>
+            
+            <div class="mb-6">
+                <h3 class="font-semibold text-gray-800 mb-2">Source Information</h3>
+                <p class="text-gray-600">Source information to be added - please specify the book, paper, or reference material used by the LLM to generate this flowchart.</p>
+                
+            </div>
+        </div>
+
+        <!-- Flowchart Visualization -->
+        <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">Process Flowchart</h2>
+            <div class="mermaid-container">
+                <div class="mermaid">
+graph TD
+A1[[Input: n (Total items), k (Items to choose)]] --&gt; B1([Check: n &gt;= 0 and k &gt;= 0])
+B1 -- Yes --&gt; C1([Check: k &lt;= n])
+B1 -- No --&gt; Z1[[Output: Error - Invalid Input]]
+C1 -- Yes --&gt; D1([Check: k == 0 or
+k == n])
+D1 -- Yes --&gt; E1[[Output: 1]]
+D1 -- No --&gt; F1([Check: k &gt; n/2])
+F1 -- Yes --&gt; G1([k = n - k])
+F1 -- No --&gt; H1([Initialize: result = 1])
+G1 --&gt; H1
+H1 --&gt; I1{Loop: i from 1 to k}
+I1 -- Yes --&gt; J1["[result = result * (n - i + 1)]"]
+J1 --&gt; K1([result = result / i])
+K1 --&gt; L1([i = i + 1])
+L1 --&gt; I1
+I1 -- No --&gt; M1[[Output: result]]
+C1 -- No --&gt; Z1
+
+style A1 fill:#ff6b6b,color:#fff
+style B1 fill:#ffd43b,color:#000
+style Z1 fill:#b197fc,color:#fff
+style C1 fill:#ffd43b,color:#000
+style E1 fill:#b197fc,color:#fff
+style F1 fill:#ffd43b,color:#000
+style G1 fill:#51cf66,color:#fff
+style H1 fill:#ffd43b,color:#000
+style I1 fill:#ffd43b,color:#000
+style J1 fill:#51cf66,color:#fff
+style K1 fill:#51cf66,color:#fff
+style L1 fill:#51cf66,color:#fff
+style M1 fill:#b197fc,color:#fff
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Entities/Concepts -->
+        <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">Key Concepts</h2>
+            <div class="flex flex-wrap gap-2">
+                <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">[Input: n (Total items), k (Items to choose)</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">[Check: n >= 0 and k >= 0</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">[Check: k <= n</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">[Output: Error - Invalid Input</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">[Check: k == 0 or k == n</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">[Output: 1</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">[Check: k > n/2</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">[k = n - k</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">[Initialize: result = 1</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">[Loop: i from 1 to k</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">[result = result * (n - i + 1)</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">[result = result / i</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">[i = i + 1</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">[Output: result</span>
+            </div>
+        </div>
+
+        <!-- Suggestion Box -->
+        <div class="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl shadow-lg p-8 mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">💡 Suggest Improvements</h2>
+            <p class="text-gray-700 mb-4">
+                Have suggestions for improving this process visualization? Found an error or want to add more detail? 
+                We'd love to hear from you!
+            </p>
+            <a href="https://forms.gle/YOUR_FORM_ID" 
+               target="_blank"
+               class="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition text-lg font-medium">
+                Suggest Improvements →
+            </a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-sm opacity-75">Part of the Copernicus AI Knowledge Engine</p>
+            <p class="text-xs opacity-50 mt-2">&copy; 2025 Gary Welz. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        mermaid.initialize({ startOnLoad: true, theme: 'default' });
+    </script>
+</body>
+</html>

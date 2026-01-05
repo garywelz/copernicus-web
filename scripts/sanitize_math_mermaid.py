@@ -5,6 +5,8 @@ Sanitize Mermaid blocks in the Mathematics Processes HTML pages.
 What it fixes (based on observed failures in math-processes-database pages):
 - Inline/concatenated `style ...` directives mixed into node/edge statements
   (Mermaid parses more reliably when style statements are separate lines).
+- Pretty-prints Mermaid so `graph TD` is on its own line and edge statements are
+  split to one-per-line (easier debugging, more reliable parsing).
 - A common typo for decision nodes: `{[` ... `]}` -> `{` ... `}`.
 - Raw HTML-significant characters inside Mermaid source (`<`, `>`, `&`) that can be
   interpreted by the browser as tags/entities, corrupting the Mermaid text content.
@@ -55,6 +57,73 @@ SUP_TAG_RE = re.compile(r"<sup>([\s\S]*?)</sup>", re.IGNORECASE)
 
 # HTML entity detection to avoid double-escaping.
 KNOWN_ENTITY_RE = re.compile(r"&(?:[a-zA-Z]+|#\d+|#x[0-9A-Fa-f]+);")
+
+# Mermaid "graph"/"flowchart" header, often incorrectly glued to the first statement.
+GRAPH_HEADER_RE = re.compile(r"^\s*(graph|flowchart)\s+(TD|LR|TB|RL)\b", re.IGNORECASE | re.MULTILINE)
+
+
+def _pretty_print_mermaid_edges(src: str) -> Tuple[str, int]:
+    """
+    Best-effort pretty printer: puts Mermaid "graph/flowchart" header on its own line
+    and splits concatenated edge chains so each edge starts on its own line.
+
+    This is intentionally heuristic (not a full Mermaid parser), tuned for the
+    observed math-process pages.
+    """
+    changes = 0
+    before = src
+
+    # Ensure the first "graph TD"/"flowchart TD" header is on its own line.
+    # Example: "graph TD A1[...]" -> "graph TD\nA1[...]"
+    def _split_header_line(m: re.Match) -> str:
+        return f"{m.group(1)} {m.group(2)}"
+
+    # Normalize any header to "graph|flowchart DIR", then insert newline after it
+    # if more content follows on the same line.
+    src = GRAPH_HEADER_RE.sub(_split_header_line, src)
+    src2, n = re.subn(
+        r"^\s*((?:graph|flowchart)\s+(?:TD|LR|TB|RL)\b)\s+",
+        r"\1\n",
+        src,
+        flags=re.IGNORECASE | re.MULTILINE,
+    )
+    if n:
+        src = src2
+        changes += 1
+
+    # Split concatenated statements before the start of an edge statement.
+    # Insert a newline when we see: <punctuation-ending-a-node-or-label> <ID> <edge-op>
+    # e.g. "]) B1 -- Yes -->" or '" C1 -- Yes -->' or "} I1 -- Yes -->"
+    src2, n = re.subn(
+        r'([\]\)\}"]) +(?=[A-Za-z]\w*\s*--)',
+        r"\1\n",
+        src,
+    )
+    if n:
+        src = src2
+        changes += 1
+
+    # Also split edge chains where one edge ends with a bare node id and the next edge starts.
+    # e.g. "G1 --> H1 H1 --> I1" -> "G1 --> H1\nH1 --> I1"
+    src2, n = re.subn(
+        r"(\b[A-Za-z]\w*\b)\s+(?=[A-Za-z]\w*\s*--)",
+        r"\1\n",
+        src,
+    )
+    if n:
+        src = src2
+        changes += 1
+
+    # Cleanup: trim spaces around newlines.
+    src2 = re.sub(r"[ \t]+\n", "\n", src)
+    src2 = re.sub(r"\n[ \t]+", "\n", src2)
+    if src2 != src:
+        src = src2
+        changes += 1
+
+    if src != before:
+        changes = max(changes, 1)
+    return src, changes
 
 
 @dataclass(frozen=True)
@@ -169,6 +238,12 @@ def _sanitize_mermaid_source(src: str) -> Tuple[str, int]:
     src = re.sub(r"[ \t]+", " ", src)
     src = re.sub(r" *\n *", "\n", src)
     src = re.sub(r"\n{3,}", "\n\n", src).strip() + "\n"
+
+    # Pretty-print edges onto separate lines (done before HTML-escaping).
+    src2, pretty_changes = _pretty_print_mermaid_edges(src)
+    if pretty_changes and src2 != src:
+        src = src2
+        changes += 1
 
     # HTML-sanitize the Mermaid text so it doesn't get corrupted by HTML parsing.
     escaped = _escape_html_for_mermaid(src)
