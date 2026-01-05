@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bayes' Theorem Application - Mathematics Process</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .mermaid-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="gradient-bg text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="text-center">
+                <div class="text-4xl mb-4">🔢</div>
+                <h1 class="text-4xl font-bold mb-4">Bayes' Theorem Application</h1>
+                <p class="text-lg opacity-90">Mathematics Process Visualization</p>
+                <div class="mt-4">
+                    <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/math-processes-database/mathematics-database-table.html" 
+                       class="text-white hover:text-gray-200 underline">
+                        ← Back to Mathematics Processes Database
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Process Information -->
+        <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">Process Information</h2>
+            
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                <div>
+                    <h3 class="font-semibold text-gray-800 mb-2">Category</h3>
+                    <p class="text-gray-600">mathematics</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-800 mb-2">Subcategory</h3>
+                    <p class="text-gray-600">Probability Theory</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-800 mb-2">Complexity</h3>
+                    <p class="text-gray-600">low</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-800 mb-2">Nodes</h3>
+                    <p class="text-gray-600">10</p>
+                </div>
+            </div>
+            
+            <div class="mb-6"><h3 class="font-semibold text-gray-800 mb-2">Description</h3><p class="text-gray-600">Update probabilities using conditional probability</p></div>
+            
+            <div class="mb-6">
+                <h3 class="font-semibold text-gray-800 mb-2">Source Information</h3>
+                <p class="text-gray-600">Source information to be added - please specify the book, paper, or reference material used by the LLM to generate this flowchart.</p>
+                
+            </div>
+        </div>
+
+        <!-- Flowchart Visualization -->
+        <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">Process Flowchart</h2>
+            <div class="mermaid-container">
+                <div class="mermaid">
+graph TD A1[Define Prior Probability P of A]
+
+A1 --&gt; B1[Input: P of A]
+A2[Define Conditional Probability P of B given A]
+
+A2 --&gt; B2[Input: P of B given A]
+A3[Define Marginal Probability P of B]
+
+A3 --&gt; B3[Input: P of B or P of B given not A and P of not A]
+
+B1 --&gt; C1{Is P of B directly available?}
+
+B2 --&gt; C1
+B3 --&gt; C1
+C1 --&gt;|Yes| D1[Calculate P of A times P of B given A]
+
+C1 --&gt;|No| E1[Calculate P of not A equals 1 minus P of A]
+
+E1 --&gt; F1[Calculate P of B equals P of B given A times P of A plus P of B given not A times P of not A]
+
+D1 --&gt; G1[Intermediate: Numerator equals P of A times P of B given A]
+
+F1 --&gt; G2[Intermediate: Denominator equals P of B]
+
+D1 --&gt; H1[Calculate P of A given B equals P of B given A times P of A divided by P of B]
+
+G1 --&gt; H1
+G2 --&gt; H1
+H1 --&gt; I1[Output: Posterior Probability P of A given B]
+
+style A1 fill:#ff6b6b,color:#fff
+style A2 fill:#ff6b6b,color:#fff
+style A3 fill:#ff6b6b,color:#fff
+style B1 fill:#ffd43b,color:#000
+style B2 fill:#ffd43b,color:#000
+style B3 fill:#ffd43b,color:#000
+style C1 fill:#ffd43b,color:#000
+style D1 fill:#51cf66,color:#fff
+style E1 fill:#51cf66,color:#fff
+style F1 fill:#51cf66,color:#fff
+style H1 fill:#51cf66,color:#fff
+style G1 fill:#74c0fc,color:#fff
+style G2 fill:#74c0fc,color:#fff
+style I1 fill:#b197fc,color:#fff
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Entities/Concepts -->
+        <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">Key Concepts</h2>
+            <div class="flex flex-wrap gap-2">
+                <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Define Prior Probability P of A</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Input: P of A</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Define Conditional Probability P of B given A</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Input: P of B given A</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Define Marginal Probability P of B</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Input: P of B or P of B given not A and P of not A</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Is P of B directly available?} B2 --> C1 B3 --> C1 C1 -->|Yes| D1[Calculate P of A times P of B given A</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Calculate P of not A equals 1 minus P of A</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Calculate P of B equals P of B given A times P of A plus P of B given not A times P of not A</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Intermediate: Numerator equals P of A times P of B given A</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Intermediate: Denominator equals P of B</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Calculate P of A given B equals P of B given A times P of A divided by P of B</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Output: Posterior Probability P of A given B</span>
+            </div>
+        </div>
+
+        <!-- Suggestion Box -->
+        <div class="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl shadow-lg p-8 mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">💡 Suggest Improvements</h2>
+            <p class="text-gray-700 mb-4">
+                Have suggestions for improving this process visualization? Found an error or want to add more detail? 
+                We'd love to hear from you!
+            </p>
+            <a href="https://forms.gle/YOUR_FORM_ID" 
+               target="_blank"
+               class="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition text-lg font-medium">
+                Suggest Improvements →
+            </a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-sm opacity-75">Part of the Copernicus AI Knowledge Engine</p>
+            <p class="text-xs opacity-50 mt-2">&copy; 2025 Gary Welz. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        mermaid.initialize({ startOnLoad: true, theme: 'default' });
+    </script>
+</body>
+</html>
