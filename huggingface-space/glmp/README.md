@@ -12,6 +12,35 @@ license: mit
 
 A microscope for biological processes. GLMP applies the Programming Framework to visualize complex biochemical processes as interactive flowcharts, revealing the logic of life at the molecular level.
 
+## 📚 Prior Work & Research Contributions
+
+### Overview
+The Genome Logic Modeling Project (GLMP) represents **prior work** that demonstrates the first successful application of the Programming Framework to biological process visualization. This research establishes a novel methodology for transforming complex biochemical processes into structured, interactive visual flowcharts using LLM-powered analysis and Mermaid visualization technology.
+
+### 🔬 Research Contributions
+- **Biological Process Visualization:** 50+ processes mapped across 6 major categories
+- **LLM-Powered Analysis:** Automated extraction using Google Gemini 2.0 Flash
+- **Interactive Visualization:** Mermaid.js-based dynamic flowchart system
+- **Knowledge Engine Integration:** Links to Copernicus AI and Programming Framework
+
+### ⚙️ Technical Achievements
+- **Structured Database:** JSON format in Google Cloud Storage
+- **Process Coverage:** Central Dogma, Metabolism, Signaling, Proteins, Photosynthesis, DNA Repair
+- **Scalable Architecture:** GCS-based storage with web viewer integration
+- **Metadata-Rich Format:** Categories, versions, references, source papers
+
+### 🎯 Position Within CopernicusAI Knowledge Engine
+GLMP serves as a **specialized application component** of the CopernicusAI Knowledge Engine, demonstrating how the Programming Framework can be applied to domain-specific scientific visualization. It integrates with:
+
+- Programming Framework (meta-tool)
+- Copernicus AI (main knowledge engine)
+- **Knowledge Engine Dashboard** (✅ Implemented December 2025) - Fully operational web interface with knowledge graph visualization, vector search, RAG queries, and content browsing. Live at: https://copernicus-frontend-phzp4ie2sq-uc.a.run.app/knowledge-engine
+- Research Papers Metadata Database
+- Science Video Database
+- Multi-modal learning integration
+
+This work establishes a proof-of-concept for domain-specific applications of the Programming Framework, demonstrating its utility in biological sciences and potential for extension to other scientific disciplines. The Knowledge Engine now provides a unified interface for exploring biological processes alongside research papers, podcasts, and other content types.
+
 ## 🎯 What is GLMP?
 
 The Genome Logic Modeling Project is the first specialized application of the [Programming Framework](https://huggingface.co/spaces/garywelz/programming_framework) to the domain of biology. It transforms complex biochemical processes into clear, visual flowcharts that reveal the step-by-step logic underlying life's molecular machinery.
@@ -95,11 +124,14 @@ Each file contains:
 - [Programming Framework](https://huggingface.co/spaces/garywelz/programming_framework) - The meta-tool powering GLMP
 - [Copernicus AI](https://huggingface.co/spaces/garywelz/copernicusai) - Knowledge engine integrating GLMP with AI podcasts
 
-## 📄 Publications
+### How to Cite This Work
 
-- Welz, G. (2025). "The Programming Framework: A Universal Method for Process Analysis Using LLMs and Visual Flowcharts"
-- Welz, G. (2025). "GLMP: Genome Logic Modeling for Biochemical Process Visualization"
-- Welz, G. (2025). "Linking GLMP Visualizations to AI-Generated Podcasts for Enhanced Learning"
+Welz, G. (2024–2025). *Genome Logic Modeling Project (GLMP)*.
+Hugging Face Spaces. https://huggingface.co/spaces/garywelz/glmp
+
+This project serves as a testbed for integrating AI systems into scientific reasoning pipelines, enabling both human and AI agents to analyze, compare, and extend biological knowledge structures.
+
+GLMP is designed as infrastructure for AI-assisted science, not as a static visualization collection.
 
 ## 💻 Technology Stack
 

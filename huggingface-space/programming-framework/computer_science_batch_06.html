@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Computer Science Batch 06 - Artificial Intelligence - Programming Framework Analysis</title>
+    <style>
+        body { 
+            font-family: 'Times New Roman', Times, serif, 'Arial Unicode MS'; 
+            margin: 0; 
+            background: #ffffff; 
+            color: #000000; 
+            line-height: 1.6; 
+            font-size: 12pt; 
+        }
+        .container { 
+            max-width: 1000px; 
+            margin: 0 auto; 
+            padding: 1.5rem; 
+        }
+        h1, h2, h3 { 
+            color: #000000; 
+            margin-top: 1.5rem; 
+            margin-bottom: 0.75rem; 
+        }
+        h1 { 
+            font-size: 18pt; 
+            text-align: center; 
+        }
+        h2 { 
+            font-size: 16pt; 
+            border-bottom: 2px solid #000; 
+            padding-bottom: 0.5rem; 
+        }
+        h3 { 
+            font-size: 14pt; 
+        }
+        p { 
+            margin-bottom: 1rem; 
+            text-align: justify; 
+        }
+        .figure { 
+            margin: 2rem 0; 
+            text-align: center; 
+            border: 1px solid #ccc; 
+            padding: 1rem; 
+            background: #f9f9f9; 
+        }
+        .figure-caption { 
+            margin-top: 1rem; 
+            font-style: italic; 
+            text-align: left; 
+        }
+        .mermaid { 
+            background: white; 
+            padding: 1rem; 
+            border-radius: 4px; 
+        }
+        .navigation {
+            margin: 3rem 0;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+        .nav-link {
+            color: #007bff;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border: 1px solid #007bff;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        .nav-link:hover {
+            background: #007bff;
+            color: white;
+        }
+        .footer {
+            margin-top: 3rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .contact-info {
+            margin-top: 1rem;
+        }
+        .contact-info p {
+            margin: 0.25rem 0;
+            text-align: center;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({ 
+            startOnLoad: true, 
+            theme: 'default', 
+            flowchart: { 
+                useMaxWidth: false, 
+                htmlLabels: true,
+                curve: 'linear',
+                nodeSpacing: 30,
+                rankSpacing: 30,
+                padding: 10
+            },
+            themeVariables: {
+                fontFamily: 'Arial Unicode MS, Arial, sans-serif'
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Computer Science Batch 06 - Artificial Intelligence - Programming Framework Analysis</h1>
+        
+        <p>This document presents artificial intelligence processes analyzed using the Programming Framework methodology. Each process is represented as a computational flowchart with standardized color coding: Red for triggers/inputs, Yellow for structures/objects, Green for processing/operations, Blue for intermediates/states, and Violet for products/outputs. Yellow nodes use black text for optimal readability, while all other colors use white text.</p>
+
+        <h2>1. Machine Learning Process</h2>
+        <div class="figure">
+            <div class="mermaid">
+graph TD
+    A1[Data Input] --> B1[Machine Learning Method]
+    C1[Feature Engineering] --> D1[Model Training]
+    E1[Model Evaluation] --> F1[Machine Learning Analysis]
+    
+    B1 --> G1[Supervised Learning]
+    D1 --> H1[Unsupervised Learning]
+    F1 --> I1[Reinforcement Learning]
+    
+    G1 --> J1[Classification Algorithm]
+    H1 --> K1[Clustering Algorithm]
+    I1 --> L1[Q Learning]
+    
+    J1 --> M1[Model Optimization]
+    K1 --> L1
+    L1 --> N1[Policy Learning]
+    
+    M1 --> O1[Hyperparameter Tuning]
+    N1 --> P1[Model Validation]
+    O1 --> Q1[Machine Learning Process]
+    
+    P1 --> R1[Machine Learning Validation]
+    Q1 --> S1[Machine Learning Verification]
+    R1 --> T1[Machine Learning Result]
+    
+    S1 --> U1[Machine Learning Analysis]
+    T1 --> V1[Machine Learning Parameters]
+    U1 --> W1[Machine Learning Output]
+    
+    V1 --> X1[Machine Learning Analysis]
+    W1 --> Y1[Machine Learning Final Result]
+    X1 --> Z1[Machine Learning Complete]
+    
+    style A1 fill:#ff6b6b,color:#fff
+    style C1 fill:#ff6b6b,color:#fff
+    style E1 fill:#ff6b6b,color:#fff
+    
+    style B1 fill:#ffd43b,color:#000
+    style D1 fill:#ffd43b,color:#000
+    style F1 fill:#ffd43b,color:#000
+    style G1 fill:#ffd43b,color:#000
+    style H1 fill:#ffd43b,color:#000
+    style I1 fill:#ffd43b,color:#000
+    style J1 fill:#ffd43b,color:#000
+    style K1 fill:#ffd43b,color:#000
+    style L1 fill:#ffd43b,color:#000
+    style M1 fill:#ffd43b,color:#000
+    style N1 fill:#ffd43b,color:#000
+    style O1 fill:#ffd43b,color:#000
+    style P1 fill:#ffd43b,color:#000
+    style Q1 fill:#ffd43b,color:#000
+    style R1 fill:#ffd43b,color:#000
+    style S1 fill:#ffd43b,color:#000
+    style T1 fill:#ffd43b,color:#000
+    style U1 fill:#ffd43b,color:#000
+    style V1 fill:#ffd43b,color:#000
+    style W1 fill:#ffd43b,color:#000
+    style X1 fill:#ffd43b,color:#000
+    style Y1 fill:#ffd43b,color:#000
+    style Z1 fill:#ffd43b,color:#000
+    
+    style M1 fill:#51cf66,color:#fff
+    style N1 fill:#51cf66,color:#fff
+    style O1 fill:#51cf66,color:#fff
+    style P1 fill:#51cf66,color:#fff
+    style Q1 fill:#51cf66,color:#fff
+    style R1 fill:#51cf66,color:#fff
+    style S1 fill:#51cf66,color:#fff
+    style T1 fill:#51cf66,color:#fff
+    style U1 fill:#51cf66,color:#fff
+    style V1 fill:#51cf66,color:#fff
+    style W1 fill:#51cf66,color:#fff
+    style X1 fill:#51cf66,color:#fff
+    style Y1 fill:#51cf66,color:#fff
+    style Z1 fill:#51cf66,color:#fff
+    
+    style Z1 fill:#b197fc,color:#fff
+            </div>
+            
+            <div style="margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center;">
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#ff6b6b;"></span>Triggers & Inputs
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#ffd43b;"></span>Machine Learning Methods
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#51cf66;"></span>Machine Learning Operations
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#74c0fc;"></span>Intermediates
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#b197fc;"></span>Products
+                </div>
+            </div>
+            
+            <div class="figure-caption">
+                <strong>Figure 1.</strong> Machine Learning Process. This artificial intelligence process visualization demonstrates machine learning algorithms and model training. The flowchart shows data inputs and feature engineering, machine learning methods and model training, machine learning operations and evaluation, intermediate results, and final machine learning outputs.
+            </div>
+        </div>
+
+        <h2>2. Neural Network Process</h2>
+        <div class="figure">
+            <div class="mermaid">
+graph TD
+    A2[Neural Input] --> B2[Neural Network Method]
+    C2[Layer Processing] --> D2[Activation Function]
+    E2[Backpropagation] --> F2[Neural Network Analysis]
+    
+    B2 --> G2[Feedforward Network]
+    D2 --> H2[Convolutional Network]
+    F2 --> I2[Recurrent Network]
+    
+    G2 --> J2[Weight Initialization]
+    H2 --> K2[Convolution Operation]
+    I2 --> L2[Memory Cell]
+    
+    J2 --> M2[Forward Propagation]
+    K2 --> L2
+    L2 --> N2[Gradient Descent]
+    
+    M2 --> O2[Loss Calculation]
+    N2 --> P2[Weight Update]
+    O2 --> Q2[Neural Network Process]
+    
+    P2 --> R2[Neural Network Validation]
+    Q2 --> S2[Neural Network Verification]
+    R2 --> T2[Neural Network Result]
+    
+    S2 --> U2[Neural Network Analysis]
+    T2 --> V2[Neural Network Parameters]
+    U2 --> W2[Neural Network Output]
+    
+    V2 --> X2[Neural Network Analysis]
+    W2 --> Y2[Neural Network Final Result]
+    X2 --> Z2[Neural Network Complete]
+    
+    style A2 fill:#ff6b6b,color:#fff
+    style C2 fill:#ff6b6b,color:#fff
+    style E2 fill:#ff6b6b,color:#fff
+    
+    style B2 fill:#ffd43b,color:#000
+    style D2 fill:#ffd43b,color:#000
+    style F2 fill:#ffd43b,color:#000
+    style G2 fill:#ffd43b,color:#000
+    style H2 fill:#ffd43b,color:#000
+    style I2 fill:#ffd43b,color:#000
+    style J2 fill:#ffd43b,color:#000
+    style K2 fill:#ffd43b,color:#000
+    style L2 fill:#ffd43b,color:#000
+    style M2 fill:#ffd43b,color:#000
+    style N2 fill:#ffd43b,color:#000
+    style O2 fill:#ffd43b,color:#000
+    style P2 fill:#ffd43b,color:#000
+    style Q2 fill:#ffd43b,color:#000
+    style R2 fill:#ffd43b,color:#000
+    style S2 fill:#ffd43b,color:#000
+    style T2 fill:#ffd43b,color:#000
+    style U2 fill:#ffd43b,color:#000
+    style V2 fill:#ffd43b,color:#000
+    style W2 fill:#ffd43b,color:#000
+    style X2 fill:#ffd43b,color:#000
+    style Y2 fill:#ffd43b,color:#000
+    style Z2 fill:#ffd43b,color:#000
+    
+    style M2 fill:#51cf66,color:#fff
+    style N2 fill:#51cf66,color:#fff
+    style O2 fill:#51cf66,color:#fff
+    style P2 fill:#51cf66,color:#fff
+    style Q2 fill:#51cf66,color:#fff
+    style R2 fill:#51cf66,color:#fff
+    style S2 fill:#51cf66,color:#fff
+    style T2 fill:#51cf66,color:#fff
+    style U2 fill:#51cf66,color:#fff
+    style V2 fill:#51cf66,color:#fff
+    style W2 fill:#51cf66,color:#fff
+    style X2 fill:#51cf66,color:#fff
+    style Y2 fill:#51cf66,color:#fff
+    style Z2 fill:#51cf66,color:#fff
+    
+    style Z2 fill:#b197fc,color:#fff
+            </div>
+            
+            <div style="margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center;">
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#ff6b6b;"></span>Triggers & Inputs
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#ffd43b;"></span>Neural Network Methods
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#51cf66;"></span>Neural Network Operations
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#74c0fc;"></span>Intermediates
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#b197fc;"></span>Products
+                </div>
+            </div>
+            
+            <div class="figure-caption">
+                <strong>Figure 2.</strong> Neural Network Process. This artificial intelligence process visualization demonstrates neural network architecture and training. The flowchart shows neural inputs and layer processing, neural network methods and activation functions, neural network operations and backpropagation, intermediate results, and final neural network outputs.
+            </div>
+        </div>
+
+        <h2>3. Natural Language Processing Process</h2>
+        <div class="figure">
+            <div class="mermaid">
+graph TD
+    A3[Text Input] --> B3[NLP Method]
+    C3[Tokenization] --> D3[Language Model]
+    E3[Semantic Analysis] --> F3[NLP Analysis]
+    
+    B3 --> G3[Transformer Model]
+    D3 --> H3[Word Embeddings]
+    F3 --> I3[Sequence Model]
+    
+    G3 --> J3[Attention Mechanism]
+    H3 --> K3[Context Understanding]
+    I3 --> L3[Text Generation]
+    
+    J3 --> M3[Language Understanding]
+    K3 --> L3
+    L3 --> N3[Sentiment Analysis]
+    
+    M3 --> O3[Text Classification]
+    N3 --> P3[Entity Recognition]
+    O3 --> Q3[NLP Process]
+    
+    P3 --> R3[NLP Validation]
+    Q3 --> S3[NLP Verification]
+    R3 --> T3[NLP Result]
+    
+    S3 --> U3[NLP Analysis]
+    T3 --> V3[NLP Parameters]
+    U3 --> W3[NLP Output]
+    
+    V3 --> X3[NLP Analysis]
+    W3 --> Y3[NLP Final Result]
+    X3 --> Z3[NLP Complete]
+    
+    style A3 fill:#ff6b6b,color:#fff
+    style C3 fill:#ff6b6b,color:#fff
+    style E3 fill:#ff6b6b,color:#fff
+    
+    style B3 fill:#ffd43b,color:#000
+    style D3 fill:#ffd43b,color:#000
+    style F3 fill:#ffd43b,color:#000
+    style G3 fill:#ffd43b,color:#000
+    style H3 fill:#ffd43b,color:#000
+    style I3 fill:#ffd43b,color:#000
+    style J3 fill:#ffd43b,color:#000
+    style K3 fill:#ffd43b,color:#000
+    style L3 fill:#ffd43b,color:#000
+    style M3 fill:#ffd43b,color:#000
+    style N3 fill:#ffd43b,color:#000
+    style O3 fill:#ffd43b,color:#000
+    style P3 fill:#ffd43b,color:#000
+    style Q3 fill:#ffd43b,color:#000
+    style R3 fill:#ffd43b,color:#000
+    style S3 fill:#ffd43b,color:#000
+    style T3 fill:#ffd43b,color:#000
+    style U3 fill:#ffd43b,color:#000
+    style V3 fill:#ffd43b,color:#000
+    style W3 fill:#ffd43b,color:#000
+    style X3 fill:#ffd43b,color:#000
+    style Y3 fill:#ffd43b,color:#000
+    style Z3 fill:#ffd43b,color:#000
+    
+    style M3 fill:#51cf66,color:#fff
+    style N3 fill:#51cf66,color:#fff
+    style O3 fill:#51cf66,color:#fff
+    style P3 fill:#51cf66,color:#fff
+    style Q3 fill:#51cf66,color:#fff
+    style R3 fill:#51cf66,color:#fff
+    style S3 fill:#51cf66,color:#fff
+    style T3 fill:#51cf66,color:#fff
+    style U3 fill:#51cf66,color:#fff
+    style V3 fill:#51cf66,color:#fff
+    style W3 fill:#51cf66,color:#fff
+    style X3 fill:#51cf66,color:#fff
+    style Y3 fill:#51cf66,color:#fff
+    style Z3 fill:#51cf66,color:#fff
+    
+    style Z3 fill:#b197fc,color:#fff
+            </div>
+            
+            <div style="margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center;">
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#ff6b6b;"></span>Triggers & Inputs
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#ffd43b;"></span>NLP Methods
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#51cf66;"></span>NLP Operations
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#74c0fc;"></span>Intermediates
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#b197fc;"></span>Products
+                </div>
+            </div>
+            
+            <div class="figure-caption">
+                <strong>Figure 3.</strong> Natural Language Processing Process. This artificial intelligence process visualization demonstrates NLP techniques and language understanding. The flowchart shows text inputs and tokenization, NLP methods and language models, NLP operations and semantic analysis, intermediate results, and final NLP outputs.
+            </div>
+        </div>
+
+        <div class="navigation">
+            <h3>Navigation</h3>
+            <div class="nav-links">
+                <a href="computer_science_index.html" class="nav-link">← Back to Computer Science Index</a>
+                <a href="computer_science_batch_05.html" class="nav-link">← Previous: Operating Systems</a>
+                <a href="computer_science_batch_07.html" class="nav-link">Next: Computer Graphics →</a>
+                <a href="index.html" class="nav-link">Programming Framework Home</a>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><strong>Generated using the Programming Framework methodology</strong></p>
+            <p>Each flowchart preserves maximum detail through optimized Mermaid configuration</p>
+            <div class="contact-info">
+                <p><strong>Gary Welz</strong></p>
+                <p>Retired Faculty Member</p>
+                <p>John Jay College, CUNY (Department of Mathematics and Computer Science)</p>
+                <p>Borough of Manhattan Community College, CUNY</p>
+                <p>CUNY Graduate Center (New Media Lab)</p>
+                <p>Email: gwelz@jjay.cuny.edu</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

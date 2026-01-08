@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chemistry Batch 12: Spectroscopy & Analysis - Programming Framework</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background: white;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 2rem;
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        h1 {
+            text-align: center;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+        }
+        .figure {
+            margin: 2rem 0;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #f9f9f9;
+        }
+        .figure-caption {
+            margin-top: 1rem;
+            font-style: italic;
+            text-align: center;
+            color: #666;
+        }
+        .mermaid {
+            background: white;
+            padding: 1rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+        }
+        .navigation {
+            background: #ecf0f1;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+            text-align: center;
+        }
+        .navigation a {
+            color: #3498db;
+            text-decoration: none;
+            margin: 0 1rem;
+            font-weight: bold;
+        }
+        .navigation a:hover {
+            text-decoration: underline;
+        }
+        .process-title {
+            background: #3498db;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Chemistry Batch 12: Spectroscopy & Analysis</h1>
+        
+        <div class="navigation">
+            <a href="index.html">← Back to Programming Framework</a>
+            <a href="chemistry_index.html">← Back to Chemistry Index</a>
+        </div>
+
+        <div class="process-title">Process 1: UV-Vis Spectroscopy</div>
+        <div class="figure">
+            <div class="mermaid">
+graph TD
+    A1[Light Source] --> B1[UV-Vis Spectroscopy Method]
+    C1[Sample Solution] --> D1[Wavelength Control]
+    E1[Detector System] --> F1[Data Collection]
+    
+    B1 --> G1[Monochromator Setup]
+    D1 --> H1[Wavelength Selection]
+    F1 --> I1[Signal Processing]
+    
+    G1 --> J1[Light Dispersion]
+    H1 --> K1[Wavelength Range]
+    I1 --> L1[Absorbance Measurement]
+    
+    J1 --> M1[Light Transmission]
+    K1 --> L1
+    L1 --> N1[Electronic Transitions]
+    
+    M1 --> O1[Sample Irradiation]
+    N1 --> P1[Absorption Process]
+    O1 --> Q1[Spectroscopic Analysis]
+    
+    P1 --> R1[Absorbance Spectrum]
+    Q1 --> S1[Peak Analysis]
+    R1 --> T1[Concentration Determination]
+    
+    S1 --> U1[Beer's Law Analysis]
+    T1 --> V1[Concentration Calculation]
+    U1 --> W1[Spectroscopic Efficiency]
+    
+    V1 --> X1[Sample Characterization]
+    W1 --> Y1[Process Optimization]
+    X1 --> Z1[Final Absorption Spectrum]
+    
+    Y1 --> Z1
+    
+    style A1 fill:#ff6b6b,color:#fff
+    style C1 fill:#ff6b6b,color:#fff
+    style E1 fill:#ff6b6b,color:#fff
+    
+    style B1 fill:#ffd43b,color:#000
+    style D1 fill:#ffd43b,color:#000
+    style F1 fill:#ffd43b,color:#000
+    style G1 fill:#ffd43b,color:#000
+    style H1 fill:#ffd43b,color:#000
+    style I1 fill:#ffd43b,color:#000
+    style J1 fill:#ffd43b,color:#000
+    style K1 fill:#ffd43b,color:#000
+    style L1 fill:#ffd43b,color:#000
+    
+    style M1 fill:#51cf66,color:#fff
+    style N1 fill:#51cf66,color:#fff
+    style O1 fill:#51cf66,color:#fff
+    style P1 fill:#51cf66,color:#fff
+    style Q1 fill:#51cf66,color:#fff
+    style R1 fill:#51cf66,color:#fff
+    style S1 fill:#51cf66,color:#fff
+    style T1 fill:#51cf66,color:#fff
+    style U1 fill:#51cf66,color:#fff
+    style V1 fill:#51cf66,color:#fff
+    style W1 fill:#51cf66,color:#fff
+    style X1 fill:#51cf66,color:#fff
+    style Y1 fill:#51cf66,color:#fff
+    
+    style Z1 fill:#b197fc,color:#fff
+            </div>
+            <div class="figure-caption">
+                <strong>Figure 1.</strong> UV-Vis spectroscopy process showing electronic transitions, absorbance measurement, and concentration determination.
+            </div>
+        </div>
+
+        <div class="process-title">Process 2: IR Spectroscopy</div>
+        <div class="figure">
+            <div class="mermaid">
+graph TD
+    A2[IR Radiation] --> B2[IR Spectroscopy Method]
+    C2[Molecular Sample] --> D2[Wavelength Control]
+    E2[Detector System] --> F2[Data Collection]
+    
+    B2 --> G2[IR Source Setup]
+    D2 --> H2[Wavelength Selection]
+    F2 --> I2[Signal Processing]
+    
+    G2 --> J2[Radiation Generation]
+    H2 --> K2[Frequency Range]
+    I2 --> L2[Transmittance Measurement]
+    
+    J2 --> M2[Radiation Transmission]
+    K2 --> L2
+    L2 --> N2[Molecular Vibrations]
+    
+    M2 --> O2[Sample Irradiation]
+    N2 --> P2[Vibrational Absorption]
+    O2 --> Q2[Spectroscopic Analysis]
+    
+    P2 --> R2[IR Spectrum]
+    Q2 --> S2[Peak Assignment]
+    R2 --> T2[Functional Group Analysis]
+    
+    S2 --> U2[Vibrational Analysis]
+    T2 --> V2[Group Identification]
+    U2 --> W2[Spectroscopic Efficiency]
+    
+    V2 --> X2[Molecular Characterization]
+    W2 --> Y2[Process Optimization]
+    X2 --> Z2[Final IR Spectrum]
+    
+    Y2 --> Z2
+    
+    style A2 fill:#ff6b6b,color:#fff
+    style C2 fill:#ff6b6b,color:#fff
+    style E2 fill:#ff6b6b,color:#fff
+    
+    style B2 fill:#ffd43b,color:#000
+    style D2 fill:#ffd43b,color:#000
+    style F2 fill:#ffd43b,color:#000
+    style G2 fill:#ffd43b,color:#000
+    style H2 fill:#ffd43b,color:#000
+    style I2 fill:#ffd43b,color:#000
+    style J2 fill:#ffd43b,color:#000
+    style K2 fill:#ffd43b,color:#000
+    style L2 fill:#ffd43b,color:#000
+    
+    style M2 fill:#51cf66,color:#fff
+    style N2 fill:#51cf66,color:#fff
+    style O2 fill:#51cf66,color:#fff
+    style P2 fill:#51cf66,color:#fff
+    style Q2 fill:#51cf66,color:#fff
+    style R2 fill:#51cf66,color:#fff
+    style S2 fill:#51cf66,color:#fff
+    style T2 fill:#51cf66,color:#fff
+    style U2 fill:#51cf66,color:#fff
+    style V2 fill:#51cf66,color:#fff
+    style W2 fill:#51cf66,color:#fff
+    style X2 fill:#51cf66,color:#fff
+    style Y2 fill:#51cf66,color:#fff
+    
+    style Z2 fill:#b197fc,color:#fff
+            </div>
+            <div class="figure-caption">
+                <strong>Figure 2.</strong> IR spectroscopy process illustrating molecular vibrations, functional group analysis, and molecular characterization.
+            </div>
+        </div>
+
+        <div class="process-title">Process 3: NMR Spectroscopy</div>
+        <div class="figure">
+            <div class="mermaid">
+graph TD
+    A3[Magnetic Field] --> B3[NMR Spectroscopy Method]
+    C3[Nuclear Sample] --> D3[Radiofrequency Control]
+    E3[Detector System] --> F3[Data Collection]
+    
+    B3 --> G3[Magnet Setup]
+    D3 --> H3[RF Pulse Control]
+    F3 --> I3[Signal Processing]
+    
+    G3 --> J3[Field Alignment]
+    H3 --> K3[Pulse Sequence]
+    I3 --> L3[Free Induction Decay]
+    
+    J3 --> M3[Nuclear Alignment]
+    K3 --> L3
+    L3 --> N3[Nuclear Spin Transitions]
+    
+    M3 --> O3[Sample Irradiation]
+    N3 --> P3[Spin Relaxation]
+    O3 --> Q3[Spectroscopic Analysis]
+    
+    P3 --> R3[NMR Spectrum]
+    Q3 --> S3[Chemical Shift Analysis]
+    R3 --> T3[Molecular Structure]
+    
+    S3 --> U3[Spin Analysis]
+    T3 --> V3[Structure Determination]
+    U3 --> W3[Spectroscopic Efficiency]
+    
+    V3 --> X3[Molecular Characterization]
+    W3 --> Y3[Process Optimization]
+    X3 --> Z3[Final NMR Spectrum]
+    
+    Y3 --> Z3
+    
+    style A3 fill:#ff6b6b,color:#fff
+    style C3 fill:#ff6b6b,color:#fff
+    style E3 fill:#ff6b6b,color:#fff
+    
+    style B3 fill:#ffd43b,color:#000
+    style D3 fill:#ffd43b,color:#000
+    style F3 fill:#ffd43b,color:#000
+    style G3 fill:#ffd43b,color:#000
+    style H3 fill:#ffd43b,color:#000
+    style I3 fill:#ffd43b,color:#000
+    style J3 fill:#ffd43b,color:#000
+    style K3 fill:#ffd43b,color:#000
+    style L3 fill:#ffd43b,color:#000
+    
+    style M3 fill:#51cf66,color:#fff
+    style N3 fill:#51cf66,color:#fff
+    style O3 fill:#51cf66,color:#fff
+    style P3 fill:#51cf66,color:#fff
+    style Q3 fill:#51cf66,color:#fff
+    style R3 fill:#51cf66,color:#fff
+    style S3 fill:#51cf66,color:#fff
+    style T3 fill:#51cf66,color:#fff
+    style U3 fill:#51cf66,color:#fff
+    style V3 fill:#51cf66,color:#fff
+    style W3 fill:#51cf66,color:#fff
+    style X3 fill:#51cf66,color:#fff
+    style Y3 fill:#51cf66,color:#fff
+    
+    style Z3 fill:#b197fc,color:#fff
+            </div>
+            <div class="figure-caption">
+                <strong>Figure 3.</strong> NMR spectroscopy process showing nuclear spin transitions, chemical shift analysis, and molecular structure determination.
+            </div>
+        </div>
+
+        <div class="process-title">Process 4: Mass Spectrometry</div>
+        <div class="figure">
+            <div class="mermaid">
+graph TD
+    A4[Sample Molecules] --> B4[Mass Spectrometry Method]
+    C4[Ionization Source] --> D4[Mass Analyzer]
+    E4[Detector System] --> F4[Data Collection]
+    
+    B4 --> G4[Sample Introduction]
+    D4 --> H4[Mass Separation]
+    F4 --> I4[Signal Processing]
+    
+    G4 --> J4[Sample Vaporization]
+    H4 --> K4[Mass-to-Charge Ratio]
+    I4 --> L4[Ion Detection]
+    
+    J4 --> M4[Molecular Ionization]
+    K4 --> L4
+    L4 --> N4[Ion Separation]
+    
+    M4 --> O4[Ion Formation]
+    N4 --> P4[Mass Analysis]
+    O4 --> Q4[Spectroscopic Analysis]
+    
+    P4 --> R4[Mass Spectrum]
+    Q4 --> S4[Fragmentation Analysis]
+    R4 --> T4[Molecular Weight]
+    
+    S4 --> U4[Fragmentation Pattern]
+    T4 --> V4[Molecular Identification]
+    U4 --> W4[Spectroscopic Efficiency]
+    
+    V4 --> X4[Molecular Characterization]
+    W4 --> Y4[Process Optimization]
+    X4 --> Z4[Final Mass Spectrum]
+    
+    Y4 --> Z4
+    
+    style A4 fill:#ff6b6b,color:#fff
+    style C4 fill:#ff6b6b,color:#fff
+    style E4 fill:#ff6b6b,color:#fff
+    
+    style B4 fill:#ffd43b,color:#000
+    style D4 fill:#ffd43b,color:#000
+    style F4 fill:#ffd43b,color:#000
+    style G4 fill:#ffd43b,color:#000
+    style H4 fill:#ffd43b,color:#000
+    style I4 fill:#ffd43b,color:#000
+    style J4 fill:#ffd43b,color:#000
+    style K4 fill:#ffd43b,color:#000
+    style L4 fill:#ffd43b,color:#000
+    
+    style M4 fill:#51cf66,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style O4 fill:#51cf66,color:#fff
+    style P4 fill:#51cf66,color:#fff
+    style Q4 fill:#51cf66,color:#fff
+    style R4 fill:#51cf66,color:#fff
+    style S4 fill:#51cf66,color:#fff
+    style T4 fill:#51cf66,color:#fff
+    style U4 fill:#51cf66,color:#fff
+    style V4 fill:#51cf66,color:#fff
+    style W4 fill:#51cf66,color:#fff
+    style X4 fill:#51cf66,color:#fff
+    style Y4 fill:#51cf66,color:#fff
+    
+    style Z4 fill:#b197fc,color:#fff
+            </div>
+            <div class="figure-caption">
+                <strong>Figure 4.</strong> Mass spectrometry process showing ionization, fragmentation, and molecular weight determination.
+            </div>
+        </div>
+
+        <div class="process-title">Process 5: Chromatography</div>
+        <div class="figure">
+            <div class="mermaid">
+graph TD
+    A5[Sample Mixture] --> B5[Chromatography Method]
+    C5[Stationary Phase] --> D5[Mobile Phase]
+    E5[Detector System] --> F5[Data Collection]
+    
+    B5 --> G5[Column Preparation]
+    D5 --> H5[Flow Control]
+    F5 --> I5[Signal Processing]
+    
+    G5 --> J5[Column Packing]
+    H5 --> K5[Flow Rate]
+    I5 --> L5[Retention Time]
+    
+    J5 --> M5[Sample Injection]
+    K5 --> L5
+    L5 --> N5[Separation Process]
+    
+    M5 --> O5[Sample Loading]
+    N5 --> P5[Chromatographic Separation]
+    O5 --> Q5[Analytical Process]
+    
+    P5 --> R5[Chromatogram]
+    Q5 --> S5[Peak Analysis]
+    R5 --> T5[Component Separation]
+    
+    S5 --> U5[Retention Analysis]
+    T5 --> V5[Component Identification]
+    U5 --> W5[Chromatographic Efficiency]
+    
+    V5 --> X5[Sample Characterization]
+    W5 --> Y5[Process Optimization]
+    X5 --> Z5[Final Chromatogram]
+    
+    Y5 --> Z5
+    
+    style A5 fill:#ff6b6b,color:#fff
+    style C5 fill:#ff6b6b,color:#fff
+    style E5 fill:#ff6b6b,color:#fff
+    
+    style B5 fill:#ffd43b,color:#000
+    style D5 fill:#ffd43b,color:#000
+    style F5 fill:#ffd43b,color:#000
+    style G5 fill:#ffd43b,color:#000
+    style H5 fill:#ffd43b,color:#000
+    style I5 fill:#ffd43b,color:#000
+    style J5 fill:#ffd43b,color:#000
+    style K5 fill:#ffd43b,color:#000
+    style L5 fill:#ffd43b,color:#000
+    
+    style M5 fill:#51cf66,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style O5 fill:#51cf66,color:#fff
+    style P5 fill:#51cf66,color:#fff
+    style Q5 fill:#51cf66,color:#fff
+    style R5 fill:#51cf66,color:#fff
+    style S5 fill:#51cf66,color:#fff
+    style T5 fill:#51cf66,color:#fff
+    style U5 fill:#51cf66,color:#fff
+    style V5 fill:#51cf66,color:#fff
+    style W5 fill:#51cf66,color:#fff
+    style X5 fill:#51cf66,color:#fff
+    style Y5 fill:#51cf66,color:#fff
+    
+    style Z5 fill:#b197fc,color:#fff
+            </div>
+            <div class="figure-caption">
+                <strong>Figure 5.</strong> Chromatography process showing separation, retention analysis, and component identification.
+            </div>
+        </div>
+
+        <div class="navigation">
+            <a href="index.html">← Back to Programming Framework</a>
+            <a href="chemistry_index.html">← Back to Chemistry Index</a>
+        </div>
+
+        <p style="margin-bottom: 0.5rem;"><strong>Gary Welz</strong></p>
+        <p style="margin-bottom: 0.5rem;">Retired Faculty Member</p>
+        <p style="margin-bottom: 0.5rem;">John Jay College, CUNY (Department of Mathematics and Computer Science)</p>
+        <p style="margin-bottom: 0.5rem;">Borough of Manhattan Community College, CUNY</p>
+        <p style="margin-bottom: 0.5rem;">CUNY Graduate Center (New Media Lab)</p>
+        <p style="margin-bottom: 0.5rem;">Email: gwelz@jjay.cuny.edu</p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+</body>
+</html>

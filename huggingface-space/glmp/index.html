@@ -38,6 +38,68 @@
         </div>
     </header>
 
+    <!-- Prior Work & Research Contributions -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="bg-gradient-to-r from-green-50 to-blue-50 rounded-xl shadow-lg p-8 mb-8">
+            <h2 class="text-3xl font-bold text-gray-900 mb-6">📚 Prior Work & Research Contributions</h2>
+            
+            <div class="bg-white rounded-lg p-6 mb-6">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">Overview</h3>
+                <p class="text-gray-700 mb-4">
+                    The Genome Logic Modeling Project (GLMP) represents <strong>prior work</strong> that demonstrates the first 
+                    successful application of the Programming Framework to biological process visualization. This research establishes 
+                    a novel methodology for transforming complex biochemical processes into structured, interactive visual flowcharts 
+                    using LLM-powered analysis and Mermaid visualization technology.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                <div class="bg-white rounded-lg p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-3">🔬 Research Contributions</h3>
+                    <ul class="text-sm text-gray-700 space-y-2">
+                        <li>• <strong>Biological Process Visualization:</strong> 50+ processes mapped across 6 major categories</li>
+                        <li>• <strong>LLM-Powered Analysis:</strong> Automated extraction using Google Gemini 2.0 Flash</li>
+                        <li>• <strong>Interactive Visualization:</strong> Mermaid.js-based dynamic flowchart system</li>
+                        <li>• <strong>Knowledge Engine Integration:</strong> Links to Copernicus AI and Programming Framework</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white rounded-lg p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-3">⚙️ Technical Achievements</h3>
+                    <ul class="text-sm text-gray-700 space-y-2">
+                        <li>• <strong>Structured Database:</strong> JSON format in Google Cloud Storage</li>
+                        <li>• <strong>Process Coverage:</strong> Central Dogma, Metabolism, Signaling, Proteins, Photosynthesis, DNA Repair</li>
+                        <li>• <strong>Scalable Architecture:</strong> GCS-based storage with web viewer integration</li>
+                        <li>• <strong>Metadata-Rich Format:</strong> Categories, versions, references, source papers</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg p-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-3">🎯 Position Within CopernicusAI Knowledge Engine</h3>
+                <p class="text-gray-700 mb-3">
+                    GLMP serves as a <strong>specialized application component</strong> of the CopernicusAI Knowledge Engine, 
+                    demonstrating how the Programming Framework can be applied to domain-specific scientific visualization. It integrates with:
+                </p>
+                <div class="grid md:grid-cols-2 gap-4 text-sm mb-3">
+                    <ul class="text-gray-700 space-y-1">
+                        <li>• Programming Framework (meta-tool)</li>
+                        <li>• Copernicus AI (main knowledge engine)</li>
+                        <li>• Research Papers Metadata Database</li>
+                    </ul>
+                    <ul class="text-gray-700 space-y-1">
+                        <li>• Science Video Database</li>
+                        <li>• Multi-modal learning integration</li>
+                    </ul>
+                </div>
+                <p class="text-gray-600 text-sm italic">
+                    This work establishes a proof-of-concept for domain-specific applications of the Programming Framework, 
+                    demonstrating its utility in biological sciences and potential for extension to other scientific disciplines.
+                </p>
+            </div>
+        </div>
+    </section>
+
     <!-- Quick Stats -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8">
         <div class="grid md:grid-cols-4 gap-4">
@@ -87,58 +149,19 @@
         </div>
     </section>
 
-    <!-- Interactive GLMP Viewer -->
+    <!-- GLMP Database Table -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div class="bg-gradient-to-r from-green-50 to-blue-50 rounded-xl p-8">
-            <h2 class="text-3xl font-bold text-gray-900 mb-6">🎨 Interactive GLMP Viewer</h2>
-            <div class="bg-white rounded-lg shadow-md p-6">
-                <div class="mb-6">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-3">🎨 Interactive GLMP Viewer</h3>
-                    <p class="text-gray-600 mb-4">
-                        Access the full interactive GLMP viewer with all available biological processes.
-                    </p>
-                    <div class="flex flex-wrap gap-3">
-                        <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/viewer/index.html" 
-                           target="_blank"
-                           class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700 transition-colors shadow-sm">
-                            🧬 Open Full GLMP Viewer
-                        </a>
-                        <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/viewer/index.html?process=ecoli_lac_operon" 
-                           target="_blank"
-                           class="inline-flex items-center px-6 py-3 border border-gray-300 text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 transition-colors shadow-sm">
-                            🧪 View E. coli Lac Operon Example
-                        </a>
-                    </div>
-                </div>
-                
-                <!-- Embedded iframe viewer -->
-                <div class="border rounded-lg overflow-hidden">
-                    <div class="bg-gray-100 px-4 py-2 border-b">
-                        <span class="text-sm font-medium text-gray-700">Live GLMP Viewer</span>
-                        <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/viewer/index.html" 
-                           target="_blank" 
-                           class="text-xs text-green-600 hover:text-green-700 ml-2">Open in new tab →</a>
-                    </div>
-                    <iframe 
-                        src="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/viewer/index.html" 
-                        class="w-full h-96 border-0"
-                        title="GLMP Interactive Viewer">
-                    </iframe>
-                </div>
-                
-                <div class="mt-4 p-3 bg-green-50 rounded text-sm text-gray-700">
-                    <strong>✅ Live Data:</strong> This viewer loads directly from the GLMP database in Google Cloud Storage.
-                </div>
-                
-                <div class="mt-4 p-4 bg-blue-50 rounded-lg">
-                    <h4 class="font-semibold text-gray-800 mb-2">💾 Database Location</h4>
-                    <p class="text-sm text-gray-600 mb-2">All GLMP flowcharts are stored in Google Cloud Storage:</p>
-                    <a href="https://console.cloud.google.com/storage/browser/regal-scholar-453620-r7-podcast-storage/glmp-v2" 
-                       target="_blank"
-                       class="text-green-600 hover:text-green-700 text-sm font-mono">
-                        gs://regal-scholar-453620-r7-podcast-storage/glmp-v2/
-                    </a>
-                </div>
+            <h2 class="text-3xl font-bold text-gray-900 mb-6">📊 GLMP Database</h2>
+            <div class="bg-white rounded-lg shadow-md p-6 text-center">
+                <p class="text-gray-700 mb-6">
+                    Access the interactive GLMP database table with all available biological processes, metadata, and analysis.
+                </p>
+                <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-database-table.html" 
+                   target="_blank"
+                   class="inline-flex items-center px-8 py-4 border border-transparent text-lg font-medium rounded-md text-white bg-green-600 hover:bg-green-700 transition-colors shadow-lg">
+                    🧬 Open GLMP Database Table
+                </a>
             </div>
         </div>
     </section>
@@ -228,37 +251,6 @@
         </div>
     </section>
 
-    <!-- Publications & Research -->
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div class="bg-white rounded-xl shadow-lg p-8">
-            <h2 class="text-3xl font-bold text-gray-900 mb-6">📄 Publications & Research</h2>
-            
-            <div class="space-y-4">
-                <div class="border-l-4 border-green-500 pl-4 py-2">
-                    <h3 class="font-semibold text-gray-900">Welz, G. (2025)</h3>
-                    <p class="text-gray-700">"The Programming Framework: A Universal Method for Process Analysis Using LLMs and Visual Flowcharts"</p>
-                    <p class="text-sm text-gray-500 mt-1">Introduces the meta-tool underlying GLMP</p>
-                </div>
-
-                <div class="border-l-4 border-blue-500 pl-4 py-2">
-                    <h3 class="font-semibold text-gray-900">Welz, G. (2025)</h3>
-                    <p class="text-gray-700">"GLMP: Genome Logic Modeling for Biochemical Process Visualization"</p>
-                    <p class="text-sm text-gray-500 mt-1">Application of the Programming Framework to biology</p>
-                </div>
-
-                <div class="border-l-4 border-purple-500 pl-4 py-2">
-                    <h3 class="font-semibold text-gray-900">Integration with Copernicus AI</h3>
-                    <p class="text-gray-700">"Linking GLMP Visualizations to AI-Generated Podcasts for Enhanced Learning"</p>
-                    <p class="text-sm text-gray-500 mt-1">
-                        <a href="https://huggingface.co/spaces/garywelz/copernicusai" class="text-green-600 hover:text-green-700">
-                            View Copernicus AI Project →
-                        </a>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- How to Use -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div class="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-8">
@@ -324,6 +316,27 @@
                    target="_blank" rel="noopener noreferrer">
                     Visit Copernicus AI →
                 </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- How to Cite This Work -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="bg-white rounded-xl shadow-lg p-8">
+            <h2 class="text-3xl font-bold text-gray-900 mb-6">How to Cite This Work</h2>
+            <div class="bg-gray-50 rounded-lg p-6 mb-4">
+                <p class="text-gray-800 font-mono text-lg leading-relaxed mb-4">
+                    Welz, G. (2024–2025). <em>Genome Logic Modeling Project (GLMP)</em>.<br>
+                    Hugging Face Spaces. https://huggingface.co/spaces/garywelz/glmp
+                </p>
+            </div>
+            <div class="bg-green-50 rounded-lg p-4">
+                <p class="text-gray-700 mb-2">
+                    This project serves as a testbed for integrating AI systems into scientific reasoning pipelines, enabling both human and AI agents to analyze, compare, and extend biological knowledge structures.
+                </p>
+                <p class="text-gray-700 font-semibold">
+                    GLMP is designed as infrastructure for AI-assisted science, not as a static visualization collection.
+                </p>
             </div>
         </div>
     </section>

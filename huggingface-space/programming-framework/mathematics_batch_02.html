@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mathematics Batch 02 - Analysis & Calculus - Programming Framework Analysis</title>
+    <style>
+        body { 
+            font-family: 'Times New Roman', Times, serif, 'Arial Unicode MS'; 
+            margin: 0; 
+            background: #ffffff; 
+            color: #000000; 
+            line-height: 1.6; 
+            font-size: 12pt; 
+        }
+        .container { 
+            max-width: 1000px; 
+            margin: 0 auto; 
+            padding: 1.5rem; 
+        }
+        h1, h2, h3 { 
+            color: #000000; 
+            margin-top: 1.5rem; 
+            margin-bottom: 0.75rem; 
+        }
+        h1 { 
+            font-size: 18pt; 
+            text-align: center; 
+        }
+        h2 { 
+            font-size: 16pt; 
+            border-bottom: 2px solid #000; 
+            padding-bottom: 0.5rem; 
+        }
+        h3 { 
+            font-size: 14pt; 
+        }
+        p { 
+            margin-bottom: 1rem; 
+            text-align: justify; 
+        }
+        .figure { 
+            margin: 2rem 0; 
+            text-align: center; 
+            border: 1px solid #ccc; 
+            padding: 1rem; 
+            background: #f9f9f9; 
+        }
+        .figure-caption { 
+            margin-top: 1rem; 
+            font-style: italic; 
+            text-align: left; 
+        }
+        .mermaid { 
+            background: white; 
+            padding: 1rem; 
+            border-radius: 4px; 
+        }
+        .navigation {
+            margin: 3rem 0;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+        .nav-link {
+            color: #007bff;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border: 1px solid #007bff;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        .nav-link:hover {
+            background: #007bff;
+            color: white;
+        }
+        .footer {
+            margin-top: 3rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .contact-info {
+            margin-top: 1rem;
+        }
+        .contact-info p {
+            margin: 0.25rem 0;
+            text-align: center;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({ 
+            startOnLoad: true, 
+            theme: 'default', 
+            flowchart: { 
+                useMaxWidth: false, 
+                htmlLabels: true,
+                curve: 'linear',
+                nodeSpacing: 30,
+                rankSpacing: 30,
+                padding: 10
+            },
+            themeVariables: {
+                fontFamily: 'Arial Unicode MS, Arial, sans-serif'
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Mathematics Batch 02 - Analysis & Calculus - Programming Framework Analysis</h1>
+        
+        <p>This document presents analysis and calculus processes analyzed using the Programming Framework methodology. Each process is represented as a computational flowchart with standardized color coding: Red for triggers/inputs, Yellow for structures/objects, Green for processing/operations, Blue for intermediates/states, and Violet for products/outputs. Yellow nodes use black text for optimal readability, while all other colors use white text.</p>
+
+        <h2>1. Limit Calculation Process</h2>
+        <div class="figure">
+            <div class="mermaid">
+graph TD
+    A1[Function f of x] --> B1[Point of Interest]
+    C1[Approach Direction] --> D1[Limit Analysis]
+    E1[Indeterminate Forms] --> F1[L'Hopital Rule]
+    
+    B1 --> G1[Direct Substitution]
+    D1 --> H1[Left Hand Limit]
+    F1 --> I1[Right Hand Limit]
+    
+    G1 --> J1[Limit Evaluation]
+    H1 --> K1[Limit from Below]
+    I1 --> L1[Limit from Above]
+    
+    J1 --> M1[Limit Exists Question]
+    K1 --> L1
+    L1 --> N1[Limit Comparison]
+    
+    M1 --> O1[Limit Value]
+    N1 --> P1[One Sided Limits]
+    O1 --> Q1[Limit Calculation Process]
+    
+    P1 --> R1[Limit Validation]
+    Q1 --> S1[Limit Verification]
+    R1 --> T1[Limit Calculation Result]
+    
+    S1 --> U1[Limit Calculation Validation]
+    T1 --> V1[Limit Calculation Parameters]
+    U1 --> W1[Limit Calculation Output]
+    
+    V1 --> X1[Limit Calculation Analysis]
+    W1 --> Y1[Limit Calculation Final Result]
+    X1 --> Z1[Limit Calculation Analysis Complete]
+    
+    style A1 fill:#ff6b6b,color:#fff
+    style C1 fill:#ff6b6b,color:#fff
+    style E1 fill:#ff6b6b,color:#fff
+    
+    style B1 fill:#ffd43b,color:#000
+    style D1 fill:#ffd43b,color:#000
+    style F1 fill:#ffd43b,color:#000
+    style G1 fill:#ffd43b,color:#000
+    style H1 fill:#ffd43b,color:#000
+    style I1 fill:#ffd43b,color:#000
+    style J1 fill:#ffd43b,color:#000
+    style K1 fill:#ffd43b,color:#000
+    style L1 fill:#ffd43b,color:#000
+    style M1 fill:#ffd43b,color:#000
+    style N1 fill:#ffd43b,color:#000
+    style O1 fill:#ffd43b,color:#000
+    style P1 fill:#ffd43b,color:#000
+    style Q1 fill:#ffd43b,color:#000
+    style R1 fill:#ffd43b,color:#000
+    style S1 fill:#ffd43b,color:#000
+    style T1 fill:#ffd43b,color:#000
+    style U1 fill:#ffd43b,color:#000
+    style V1 fill:#ffd43b,color:#000
+    style W1 fill:#ffd43b,color:#000
+    style X1 fill:#ffd43b,color:#000
+    style Y1 fill:#ffd43b,color:#000
+    style Z1 fill:#ffd43b,color:#000
+    
+    style M1 fill:#51cf66,color:#fff
+    style N1 fill:#51cf66,color:#fff
+    style O1 fill:#51cf66,color:#fff
+    style P1 fill:#51cf66,color:#fff
+    style Q1 fill:#51cf66,color:#fff
+    style R1 fill:#51cf66,color:#fff
+    style S1 fill:#51cf66,color:#fff
+    style T1 fill:#51cf66,color:#fff
+    style U1 fill:#51cf66,color:#fff
+    style V1 fill:#51cf66,color:#fff
+    style W1 fill:#51cf66,color:#fff
+    style X1 fill:#51cf66,color:#fff
+    style Y1 fill:#51cf66,color:#fff
+    style Z1 fill:#51cf66,color:#fff
+    
+    style Z1 fill:#b197fc,color:#fff
+            </div>
+            
+            <div style="margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center;">
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#ff6b6b;"></span>Triggers & Inputs
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#ffd43b;"></span>Limit Methods
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#51cf66;"></span>Limit Operations
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#74c0fc;"></span>Intermediates
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#b197fc;"></span>Products
+                </div>
+            </div>
+            
+            <div class="figure-caption">
+                <strong>Figure 1.</strong> Limit Calculation Process. This analysis process visualization demonstrates limit evaluation and convergence analysis. The flowchart shows function inputs and approach directions, limit methods and evaluation strategies, limit operations and comparisons, intermediate results, and final limit calculation outputs.
+            </div>
+        </div>
+
+        <h2>2. Derivative Calculation Process</h2>
+        <div class="figure">
+            <div class="mermaid">
+graph TD
+    A2[Function f of x] --> B2[Differentiation Method]
+    C2[Point of Evaluation] --> D2[Derivative Analysis]
+    E2[Chain Rule] --> F2[Product Rule]
+    
+    B2 --> G2[Power Rule]
+    D2 --> H2[Quotient Rule]
+    F2 --> I2[Implicit Differentiation]
+    
+    G2 --> J2[Constant Rule]
+    H2 --> K2[Trigonometric Derivatives]
+    I2 --> L2[Logarithmic Derivatives]
+    
+    J2 --> M2[Sum Rule]
+    K2 --> L2
+    L2 --> N2[Exponential Derivatives]
+    
+    M2 --> O2[Difference Rule]
+    N2 --> P2[Inverse Function Derivatives]
+    O2 --> Q2[Derivative Calculation Process]
+    
+    P2 --> R2[Derivative Validation]
+    Q2 --> S2[Derivative Verification]
+    R2 --> T2[Derivative Calculation Result]
+    
+    S2 --> U2[Derivative Calculation Validation]
+    T2 --> V2[Derivative Calculation Parameters]
+    U2 --> W2[Derivative Calculation Output]
+    
+    V2 --> X2[Derivative Calculation Analysis]
+    W2 --> Y2[Derivative Calculation Final Result]
+    X2 --> Z2[Derivative Calculation Analysis Complete]
+    
+    style A2 fill:#ff6b6b,color:#fff
+    style C2 fill:#ff6b6b,color:#fff
+    style E2 fill:#ff6b6b,color:#fff
+    
+    style B2 fill:#ffd43b,color:#000
+    style D2 fill:#ffd43b,color:#000
+    style F2 fill:#ffd43b,color:#000
+    style G2 fill:#ffd43b,color:#000
+    style H2 fill:#ffd43b,color:#000
+    style I2 fill:#ffd43b,color:#000
+    style J2 fill:#ffd43b,color:#000
+    style K2 fill:#ffd43b,color:#000
+    style L2 fill:#ffd43b,color:#000
+    style M2 fill:#ffd43b,color:#000
+    style N2 fill:#ffd43b,color:#000
+    style O2 fill:#ffd43b,color:#000
+    style P2 fill:#ffd43b,color:#000
+    style Q2 fill:#ffd43b,color:#000
+    style R2 fill:#ffd43b,color:#000
+    style S2 fill:#ffd43b,color:#000
+    style T2 fill:#ffd43b,color:#000
+    style U2 fill:#ffd43b,color:#000
+    style V2 fill:#ffd43b,color:#000
+    style W2 fill:#ffd43b,color:#000
+    style X2 fill:#ffd43b,color:#000
+    style Y2 fill:#ffd43b,color:#000
+    style Z2 fill:#ffd43b,color:#000
+    
+    style M2 fill:#51cf66,color:#fff
+    style N2 fill:#51cf66,color:#fff
+    style O2 fill:#51cf66,color:#fff
+    style P2 fill:#51cf66,color:#fff
+    style Q2 fill:#51cf66,color:#fff
+    style R2 fill:#51cf66,color:#fff
+    style S2 fill:#51cf66,color:#fff
+    style T2 fill:#51cf66,color:#fff
+    style U2 fill:#51cf66,color:#fff
+    style V2 fill:#51cf66,color:#fff
+    style W2 fill:#51cf66,color:#fff
+    style X2 fill:#51cf66,color:#fff
+    style Y2 fill:#51cf66,color:#fff
+    style Z2 fill:#51cf66,color:#fff
+    
+    style Z2 fill:#b197fc,color:#fff
+            </div>
+            
+            <div style="margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center;">
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#ff6b6b;"></span>Triggers & Inputs
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#ffd43b;"></span>Differentiation Methods
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#51cf66;"></span>Derivative Operations
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#74c0fc;"></span>Intermediates
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#b197fc;"></span>Products
+                </div>
+            </div>
+            
+            <div class="figure-caption">
+                <strong>Figure 2.</strong> Derivative Calculation Process. This analysis process visualization demonstrates differentiation techniques and rate of change analysis. The flowchart shows function inputs and differentiation methods, differentiation methods and rules, derivative operations and calculations, intermediate results, and final derivative calculation outputs.
+            </div>
+        </div>
+
+        <h2>3. Integral Calculation Process</h2>
+        <div class="figure">
+            <div class="mermaid">
+graph TD
+    A3[Function f of x] --> B3[Integration Method]
+    C3[Integration Limits] --> D3[Integral Analysis]
+    E3[Substitution Method] --> F3[Integration by Parts]
+    
+    B3 --> G3[Power Rule Integration]
+    D3 --> H3[Trigonometric Integration]
+    F3 --> I3[Partial Fractions]
+    
+    G3 --> J3[Exponential Integration]
+    H3 --> I3
+    I3 --> K3[Logarithmic Integration]
+    
+    J3 --> L3[Definite Integral]
+    K3 --> M3[Indefinite Integral]
+    L3 --> N3[Area Calculation]
+    
+    M3 --> O3[Antiderivative]
+    N3 --> P3[Fundamental Theorem]
+    O3 --> Q3[Integral Calculation Process]
+    
+    P3 --> R3[Integral Validation]
+    Q3 --> S3[Integral Verification]
+    R3 --> T3[Integral Calculation Result]
+    
+    S3 --> U3[Integral Calculation Validation]
+    T3 --> V3[Integral Calculation Parameters]
+    U3 --> W3[Integral Calculation Output]
+    
+    V3 --> X3[Integral Calculation Analysis]
+    W3 --> Y3[Integral Calculation Final Result]
+    X3 --> Z3[Integral Calculation Analysis Complete]
+    
+    style A3 fill:#ff6b6b,color:#fff
+    style C3 fill:#ff6b6b,color:#fff
+    style E3 fill:#ff6b6b,color:#fff
+    
+    style B3 fill:#ffd43b,color:#000
+    style D3 fill:#ffd43b,color:#000
+    style F3 fill:#ffd43b,color:#000
+    style G3 fill:#ffd43b,color:#000
+    style H3 fill:#ffd43b,color:#000
+    style I3 fill:#ffd43b,color:#000
+    style J3 fill:#ffd43b,color:#000
+    style K3 fill:#ffd43b,color:#000
+    style L3 fill:#ffd43b,color:#000
+    style M3 fill:#ffd43b,color:#000
+    style N3 fill:#ffd43b,color:#000
+    style O3 fill:#ffd43b,color:#000
+    style P3 fill:#ffd43b,color:#000
+    style Q3 fill:#ffd43b,color:#000
+    style R3 fill:#ffd43b,color:#000
+    style S3 fill:#ffd43b,color:#000
+    style T3 fill:#ffd43b,color:#000
+    style U3 fill:#ffd43b,color:#000
+    style V3 fill:#ffd43b,color:#000
+    style W3 fill:#ffd43b,color:#000
+    style X3 fill:#ffd43b,color:#000
+    style Y3 fill:#ffd43b,color:#000
+    style Z3 fill:#ffd43b,color:#000
+    
+    style M3 fill:#51cf66,color:#fff
+    style N3 fill:#51cf66,color:#fff
+    style O3 fill:#51cf66,color:#fff
+    style P3 fill:#51cf66,color:#fff
+    style Q3 fill:#51cf66,color:#fff
+    style R3 fill:#51cf66,color:#fff
+    style S3 fill:#51cf66,color:#fff
+    style T3 fill:#51cf66,color:#fff
+    style U3 fill:#51cf66,color:#fff
+    style V3 fill:#51cf66,color:#fff
+    style W3 fill:#51cf66,color:#fff
+    style X3 fill:#51cf66,color:#fff
+    style Y3 fill:#51cf66,color:#fff
+    style Z3 fill:#51cf66,color:#fff
+    
+    style Z3 fill:#b197fc,color:#fff
+            </div>
+            
+            <div style="margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center;">
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#ff6b6b;"></span>Triggers & Inputs
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#ffd43b;"></span>Integration Methods
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#51cf66;"></span>Integral Operations
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#74c0fc;"></span>Intermediates
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#b197fc;"></span>Products
+                </div>
+            </div>
+            
+            <div class="figure-caption">
+                <strong>Figure 3.</strong> Integral Calculation Process. This analysis process visualization demonstrates integration techniques and area calculation. The flowchart shows function inputs and integration methods, integration methods and techniques, integral operations and calculations, intermediate results, and final integral calculation outputs.
+            </div>
+        </div>
+
+        <div class="navigation">
+            <h3>Navigation</h3>
+            <div class="nav-links">
+                <a href="mathematics_index.html" class="nav-link">← Back to Mathematics Index</a>
+                <a href="mathematics_batch_01.html" class="nav-link">← Previous: Number Theory</a>
+                <a href="mathematics_batch_03.html" class="nav-link">Next: Abstract Algebra →</a>
+                <a href="index.html" class="nav-link">Programming Framework Home</a>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><strong>Generated using the Programming Framework methodology</strong></p>
+            <p>Each flowchart preserves maximum detail through optimized Mermaid configuration</p>
+            <div class="contact-info">
+                <p><strong>Gary Welz</strong></p>
+                <p>Retired Faculty Member</p>
+                <p>John Jay College, CUNY (Department of Mathematics and Computer Science)</p>
+                <p>Borough of Manhattan Community College, CUNY</p>
+                <p>CUNY Graduate Center (New Media Lab)</p>
+                <p>Email: gwelz@jjay.cuny.edu</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

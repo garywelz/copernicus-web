@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Physics - Programming Framework Analysis</title>
+    <style>
+        body { 
+            font-family: 'Times New Roman', Times, serif, 'Arial Unicode MS'; 
+            margin: 0; 
+            background: #ffffff; 
+            color: #000000; 
+            line-height: 1.6; 
+            font-size: 12pt; 
+        }
+        .container { 
+            max-width: 1000px; 
+            margin: 0 auto; 
+            padding: 1.5rem; 
+        }
+        h1, h2, h3 { 
+            color: #000000; 
+            margin-top: 1.5rem; 
+            margin-bottom: 0.75rem; 
+        }
+        h1 { 
+            font-size: 18pt; 
+            text-align: center; 
+        }
+        h2 { 
+            font-size: 16pt; 
+            border-bottom: 2px solid #000; 
+            padding-bottom: 0.5rem; 
+        }
+        h3 { 
+            font-size: 14pt; 
+        }
+        p { 
+            margin-bottom: 1rem; 
+            text-align: justify; 
+        }
+        .subtitle {
+            text-align: center;
+            font-style: italic;
+            color: #666;
+            margin-bottom: 2rem;
+        }
+        .overview {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        .color-legend {
+            margin: 2rem 0;
+        }
+        .color-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin: 1rem 0;
+        }
+        .color-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .color-box {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        .batch-navigation {
+            margin: 3rem 0;
+        }
+        .batch-category {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        .batch-links {
+            margin-top: 1rem;
+        }
+        .batch-link {
+            display: block;
+            padding: 1rem;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #000;
+            transition: all 0.3s ease;
+            margin-bottom: 1rem;
+        }
+        .batch-link:hover {
+            background: #007bff;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .batch-number {
+            display: block;
+            font-weight: bold;
+            color: #007bff;
+        }
+        .batch-link:hover .batch-number {
+            color: white;
+        }
+        .batch-title {
+            display: block;
+            font-size: 14pt;
+            margin: 0.5rem 0;
+        }
+        .batch-count {
+            display: block;
+            font-size: 10pt;
+            color: #666;
+        }
+        .batch-link:hover .batch-count {
+            color: #ccc;
+        }
+        .navigation {
+            margin: 3rem 0;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+        .nav-link {
+            color: #007bff;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border: 1px solid #007bff;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        .nav-link:hover {
+            background: #007bff;
+            color: white;
+        }
+        .footer {
+            margin-top: 3rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .contact-info {
+            margin-top: 1rem;
+        }
+        .contact-info p {
+            margin: 0.25rem 0;
+            text-align: center;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({ 
+            startOnLoad: true, 
+            theme: 'default', 
+            flowchart: { 
+                useMaxWidth: false, 
+                htmlLabels: true,
+                curve: 'linear',
+                nodeSpacing: 30,
+                rankSpacing: 30,
+                padding: 10
+            },
+            themeVariables: {
+                fontFamily: 'Arial Unicode MS, Arial, sans-serif'
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Physics - Programming Framework Analysis</h1>
+        <p class="subtitle">Systematic visualization of physical processes and quantum phenomena</p>
+
+        <section class="overview">
+            <h2>Physics Overview</h2>
+            <p>This collection demonstrates the Programming Framework's application to physical processes across all major branches of physics. Each batch contains detailed flowcharts representing the computational logic and physical principles inherent in natural phenomena.</p>
+            
+            <div class="color-legend">
+                <h3>Universal Color Coding System</h3>
+                <div class="color-grid">
+                    <div class="color-item">
+                        <span class="color-box" style="background: #ff6b6b;"></span>
+                        <span class="color-label">Red - Triggers & Inputs</span>
+                    </div>
+                    <div class="color-item">
+                        <span class="color-box" style="background: #ffd43b;"></span>
+                        <span class="color-label">Yellow - Structures & Objects</span>
+                    </div>
+                    <div class="color-item">
+                        <span class="color-box" style="background: #51cf66;"></span>
+                        <span class="color-label">Green - Processing & Operations</span>
+                    </div>
+                    <div class="color-item">
+                        <span class="color-box" style="background: #74c0fc;"></span>
+                        <span class="color-label">Blue - Intermediates & States</span>
+                    </div>
+                    <div class="color-item">
+                        <span class="color-box" style="background: #b197fc;"></span>
+                        <span class="color-label">Violet - Products & Outputs</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="batch-navigation">
+            <h2>Physics Process Batches</h2>
+            
+            <div class="batch-category">
+                <h3>🔬 Classical Mechanics</h3>
+                <div class="batch-links">
+                    <a href="physics_batch_01.html" class="batch-link">
+                        <span class="batch-number">Batch 01</span>
+                        <span class="batch-title">Newtonian Dynamics & Lagrangian Mechanics</span>
+                        <span class="batch-count">3 processes</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="batch-category">
+                <h3>⚡ Electromagnetism</h3>
+                <div class="batch-links">
+                    <a href="physics_batch_02.html" class="batch-link">
+                        <span class="batch-number">Batch 02</span>
+                        <span class="batch-title">Maxwell Equations & Electromagnetic Waves</span>
+                        <span class="batch-count">3 processes</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="batch-category">
+                <h3>🌡️ Thermodynamics</h3>
+                <div class="batch-links">
+                    <a href="physics_batch_03.html" class="batch-link">
+                        <span class="batch-number">Batch 03</span>
+                        <span class="batch-title">Statistical Mechanics & Entropy</span>
+                        <span class="batch-count">3 processes</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="batch-category">
+                <h3>⚛️ Quantum Mechanics</h3>
+                <div class="batch-links">
+                    <a href="physics_batch_04.html" class="batch-link">
+                        <span class="batch-number">Batch 04</span>
+                        <span class="batch-title">Wave Functions & Quantum States</span>
+                        <span class="batch-count">3 processes</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="batch-category">
+                <h3>🌌 Relativity</h3>
+                <div class="batch-links">
+                    <a href="physics_batch_05.html" class="batch-link">
+                        <span class="batch-number">Batch 05</span>
+                        <span class="batch-title">Special & General Relativity</span>
+                        <span class="batch-count">3 processes</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="batch-category">
+                <h3>🔭 Astrophysics</h3>
+                <div class="batch-links">
+                    <a href="physics_batch_06.html" class="batch-link">
+                        <span class="batch-number">Batch 06</span>
+                        <span class="batch-title">Stellar Evolution & Cosmology</span>
+                        <span class="batch-count">3 processes</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="batch-category">
+                <h3>🔬 Particle Physics</h3>
+                <div class="batch-links">
+                    <a href="physics_batch_07.html" class="batch-link">
+                        <span class="batch-number">Batch 07</span>
+                        <span class="batch-title">Standard Model & Particle Interactions</span>
+                        <span class="batch-count">3 processes</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <div class="navigation">
+            <h3>Navigation</h3>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">← Back to Programming Framework</a>
+                <a href="mathematics_index.html" class="nav-link">Mathematics Processes</a>
+                <a href="chemistry_index.html" class="nav-link">Chemistry Processes</a>
+                <a href="computer_science_index.html" class="nav-link">Computer Science Processes</a>
+                <a href="https://huggingface.co/spaces/garywelz/glmp" class="nav-link" target="_blank">Biology Processes (GLMP)</a>
+            </div>
+        </section>
+
+        <div class="footer">
+            <p><strong>Generated using the Programming Framework methodology</strong></p>
+            <p>Each flowchart preserves maximum detail through optimized Mermaid configuration</p>
+            <div class="contact-info">
+                <p><strong>Gary Welz</strong></p>
+                <p>Retired Faculty Member</p>
+                <p>John Jay College, CUNY (Department of Mathematics and Computer Science)</p>
+                <p>Borough of Manhattan Community College, CUNY</p>
+                <p>CUNY Graduate Center (New Media Lab)</p>
+                <p>Email: gwelz@jjay.cuny.edu</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research Paper Metadata Database</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%);
+        }
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="gradient-bg text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <div class="text-center">
+                <div class="text-6xl mb-4">📚</div>
+                <h1 class="text-5xl font-bold mb-4">Research Paper Metadata Database</h1>
+                <p class="text-xl opacity-90 mb-6">Centralized Metadata Repository for Scientific Research</p>
+                <p class="text-lg opacity-75 max-w-3xl mx-auto">
+                    A structured metadata repository designed to enable AI-powered visualization and analysis 
+                    of research structure with the goal of expanding research in interesting, useful, and practical ways.
+                </p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Prior Work & Research Contributions -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl shadow-lg p-8 mb-8">
+            <h2 class="text-3xl font-bold text-gray-900 mb-6">📚 Prior Work & Research Contributions</h2>
+            
+            <div class="bg-white rounded-lg p-6 mb-6">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">Overview</h3>
+                <p class="text-gray-700 mb-4">
+                    The Research Paper Metadata Database represents <strong>prior work</strong> that demonstrates the creation of a structured 
+                    metadata repository for scientific research papers. This project establishes a foundation for using AI tools to visualize 
+                    and analyze the structure of scientific research, enabling systematic exploration of research patterns, citation networks, 
+                    and interdisciplinary connections.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                <div class="bg-white rounded-lg p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-3">🔬 Research Contributions</h3>
+                    <ul class="text-sm text-gray-700 space-y-2">
+                        <li>• <strong>Structured Metadata Repository:</strong> Centralized database of research paper metadata</li>
+                        <li>• <strong>AI-Powered Preprocessing:</strong> LLM-based entity extraction and annotation</li>
+                        <li>• <strong>Citation Network Analysis:</strong> Cross-reference linking and relationship mapping</li>
+                        <li>• <strong>Integration Framework:</strong> Designed for CopernicusAI Knowledge Engine integration</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white rounded-lg p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-3">⚙️ Technical Achievements</h3>
+                    <ul class="text-sm text-gray-700 space-y-2">
+                        <li>• <strong>JSON-Based Storage:</strong> Structured metadata format for programmatic access</li>
+                        <li>• <strong>Entity Extraction:</strong> Automated extraction of genes, proteins, compounds, equations</li>
+                        <li>• <strong>Quality Assessment:</strong> Automated quality scoring and relevance metrics</li>
+                        <li>• <strong>API Architecture:</strong> RESTful API design for external access</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg p-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-3">🎯 Position Within CopernicusAI Knowledge Engine</h3>
+                <p class="text-gray-700 mb-3">
+                    The Research Paper Metadata Database serves as a <strong>core data infrastructure component</strong> of the CopernicusAI Knowledge Engine, providing:
+                </p>
+                <div class="grid md:grid-cols-2 gap-4 text-sm mb-3">
+                    <ul class="text-gray-700 space-y-1">
+                        <li>• Foundation for knowledge graph construction</li>
+                        <li>• Integration with AI podcast generation</li>
+                        <li>• Support for GLMP source references</li>
+                    </ul>
+                    <ul class="text-gray-700 space-y-1">
+                        <li>• Science Video Database integration</li>
+                        <li>• Programming Framework support</li>
+                    </ul>
+                </div>
+                <p class="text-gray-600 text-sm italic">
+                    This work establishes a proof-of-concept for AI-assisted research metadata management, demonstrating how structured data 
+                    can enable systematic analysis and visualization of scientific research patterns.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Goals -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="bg-white rounded-xl shadow-lg p-8">
+            <h2 class="text-3xl font-bold text-gray-900 mb-6">🎯 Project Goals</h2>
+            <p class="text-gray-700 mb-4">
+                This project creates a database of scientific research paper metadata for the purpose of:
+            </p>
+            <ul class="text-gray-700 space-y-2">
+                <li>• Using AI tools to visualize and analyze the structure of scientific research</li>
+                <li>• Expanding research in interesting, useful, and practical ways</li>
+                <li>• Enabling systematic exploration of research patterns and connections</li>
+                <li>• Supporting knowledge graph construction and semantic search</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Technical Architecture -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="bg-white rounded-xl shadow-lg p-8">
+            <h2 class="text-3xl font-bold text-gray-900 mb-6">🔧 Technical Architecture</h2>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-3">Metadata Structure</h3>
+                    <ul class="text-sm text-gray-600 space-y-1">
+                        <li>• DOI, arXiv ID, publication info</li>
+                        <li>• Abstracts & key findings</li>
+                        <li>• Extracted entities</li>
+                        <li>• Citation networks</li>
+                        <li>• Paradigm shift indicators</li>
+                        <li>• Quality scores</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-3">AI-Powered Preprocessing</h3>
+                    <ul class="text-sm text-gray-600 space-y-1">
+                        <li>• LLM-based entity extraction</li>
+                        <li>• Automatic categorization</li>
+                        <li>• Keyword extraction</li>
+                        <li>• Citation tracking</li>
+                        <li>• Quality assessment</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-3">Integration Features</h3>
+                    <ul class="text-sm text-gray-600 space-y-1">
+                        <li>• DOI/arXiv ID resolution</li>
+                        <li>• Cross-reference linking</li>
+                        <li>• Podcast-to-paper tracking</li>
+                        <li>• Search & query capabilities</li>
+                        <li>• API access</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Related Projects -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <h2 class="text-3xl font-bold text-gray-900 mb-6 text-center">🔗 Related Projects</h2>
+        
+        <div class="grid md:grid-cols-2 gap-6">
+            <div class="bg-white rounded-lg shadow-md p-6 card-hover">
+                <h3 class="text-xl font-semibold text-gray-900 mb-3">🔬 Copernicus AI</h3>
+                <p class="text-gray-600 mb-4">
+                    Main knowledge engine integrating metadata with AI podcasts and research synthesis.
+                </p>
+                <a href="https://huggingface.co/spaces/garywelz/copernicusai" 
+                   class="text-blue-600 hover:text-blue-700 font-semibold"
+                   target="_blank" rel="noopener noreferrer">
+                    Visit Copernicus AI →
+                </a>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md p-6 card-hover">
+                <h3 class="text-xl font-semibold text-gray-900 mb-3">🧬 GLMP</h3>
+                <p class="text-gray-600 mb-4">
+                    Genome Logic Modeling Project using metadata for source paper references.
+                </p>
+                <a href="https://huggingface.co/spaces/garywelz/glmp" 
+                   class="text-blue-600 hover:text-blue-700 font-semibold"
+                   target="_blank" rel="noopener noreferrer">
+                    Explore GLMP →
+                </a>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md p-6 card-hover">
+                <h3 class="text-xl font-semibold text-gray-900 mb-3">🛠️ Programming Framework</h3>
+                <p class="text-gray-600 mb-4">
+                    Universal process analysis tool that can utilize metadata for research analysis.
+                </p>
+                <a href="https://huggingface.co/spaces/garywelz/programming_framework" 
+                   class="text-blue-600 hover:text-blue-700 font-semibold"
+                   target="_blank" rel="noopener noreferrer">
+                    Explore Framework →
+                </a>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md p-6 card-hover">
+                <h3 class="text-xl font-semibold text-gray-900 mb-3">🎬 Science Video Database</h3>
+                <p class="text-gray-600 mb-4">
+                    Video content management with potential metadata linking.
+                </p>
+                <a href="https://huggingface.co/spaces/garywelz/sciencevideodb" 
+                   class="text-blue-600 hover:text-blue-700 font-semibold"
+                   target="_blank" rel="noopener noreferrer">
+                    Visit Video Database →
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- How to Cite This Work -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="bg-white rounded-xl shadow-lg p-8">
+            <h2 class="text-3xl font-bold text-gray-900 mb-6">How to Cite This Work</h2>
+            <div class="bg-gray-50 rounded-lg p-6 mb-4">
+                <p class="text-gray-800 font-mono text-lg leading-relaxed mb-4">
+                    Welz, G. (2024–2025). <em>Research Paper Metadata Database</em>.<br>
+                    Hugging Face Spaces. https://huggingface.co/spaces/garywelz/metadata_database
+                </p>
+            </div>
+            <div class="bg-blue-50 rounded-lg p-4">
+                <p class="text-gray-700 mb-2">
+                    This project serves as infrastructure for AI-assisted research analysis, enabling systematic visualization and exploration of scientific research patterns through structured metadata management.
+                </p>
+                <p class="text-gray-700 font-semibold">
+                    The Research Paper Metadata Database is designed as infrastructure for AI-assisted science, providing the foundational data layer for knowledge graph construction and semantic search capabilities within the CopernicusAI Knowledge Engine.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="gradient-bg text-white py-8 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-lg font-semibold mb-2">Research Paper Metadata Database</p>
+            <p class="text-sm opacity-75">Part of the Copernicus AI Knowledge Engine</p>
+            <p class="text-xs opacity-50 mt-4">&copy; 2025 Gary Welz. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
+

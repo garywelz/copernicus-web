@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Physics Batch 07 - Particle Physics - Programming Framework Analysis</title>
+    <style>
+        body { 
+            font-family: 'Times New Roman', Times, serif, 'Arial Unicode MS'; 
+            margin: 0; 
+            background: #ffffff; 
+            color: #000000; 
+            line-height: 1.6; 
+            font-size: 12pt; 
+        }
+        .container { 
+            max-width: 1000px; 
+            margin: 0 auto; 
+            padding: 1.5rem; 
+        }
+        h1, h2, h3 { 
+            color: #000000; 
+            margin-top: 1.5rem; 
+            margin-bottom: 0.75rem; 
+        }
+        h1 { 
+            font-size: 18pt; 
+            text-align: center; 
+        }
+        h2 { 
+            font-size: 16pt; 
+            border-bottom: 2px solid #000; 
+            padding-bottom: 0.5rem; 
+        }
+        h3 { 
+            font-size: 14pt; 
+        }
+        p { 
+            margin-bottom: 1rem; 
+            text-align: justify; 
+        }
+        .figure { 
+            margin: 2rem 0; 
+            text-align: center; 
+            border: 1px solid #ccc; 
+            padding: 1rem; 
+            background: #f9f9f9; 
+        }
+        .figure-caption { 
+            margin-top: 1rem; 
+            font-style: italic; 
+            text-align: left; 
+        }
+        .mermaid { 
+            background: white; 
+            padding: 1rem; 
+            border-radius: 4px; 
+        }
+        .navigation {
+            margin: 3rem 0;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+        .nav-link {
+            color: #007bff;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border: 1px solid #007bff;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        .nav-link:hover {
+            background: #007bff;
+            color: white;
+        }
+        .footer {
+            margin-top: 3rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .contact-info {
+            margin-top: 1rem;
+        }
+        .contact-info p {
+            margin: 0.25rem 0;
+            text-align: center;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({ 
+            startOnLoad: true, 
+            theme: 'default', 
+            flowchart: { 
+                useMaxWidth: false, 
+                htmlLabels: true,
+                curve: 'linear',
+                nodeSpacing: 30,
+                rankSpacing: 30,
+                padding: 10
+            },
+            themeVariables: {
+                fontFamily: 'Arial Unicode MS, Arial, sans-serif'
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Physics Batch 07 - Particle Physics - Programming Framework Analysis</h1>
+        
+        <p>This document presents particle physics processes analyzed using the Programming Framework methodology. Each process is represented as a computational flowchart with standardized color coding: Red for triggers/inputs, Yellow for structures/objects, Green for processing/operations, Blue for intermediates/states, and Violet for products/outputs. Yellow nodes use black text for optimal readability, while all other colors use white text.</p>
+
+        <h2>1. Particle Collision Process</h2>
+        <div class="figure">
+            <div class="mermaid">
+graph TD
+    A1[Particle Beam] --> B1[Particle Collision Method]
+    C1[Collision Energy] --> D1[Particle Interaction]
+    E1[Collision Products] --> F1[Particle Collision Analysis]
+    
+    B1 --> G1[Proton Proton Collision]
+    D1 --> H1[Electron Positron Collision]
+    F1 --> I1[Heavy Ion Collision]
+    
+    G1 --> J1[Collision Cross Section]
+    H1 --> K1[Collision Rate]
+    I1 --> L1[Collision Power]
+    
+    J1 --> M1[Collision Yield]
+    K1 --> L1
+    L1 --> N1[Collision Efficiency]
+    
+    M1 --> O1[Collision Detection]
+    N1 --> P1[Collision Analysis]
+    O1 --> Q1[Particle Collision Process]
+    
+    P1 --> R1[Particle Collision Validation]
+    Q1 --> S1[Particle Collision Verification]
+    R1 --> T1[Particle Collision Result]
+    
+    S1 --> U1[Particle Collision Analysis]
+    T1 --> V1[Particle Collision Parameters]
+    U1 --> W1[Particle Collision Output]
+    
+    V1 --> X1[Particle Collision Analysis]
+    W1 --> Y1[Particle Collision Final Result]
+    X1 --> Z1[Particle Collision Complete]
+    
+    style A1 fill:#ff6b6b,color:#fff
+    style C1 fill:#ff6b6b,color:#fff
+    style E1 fill:#ff6b6b,color:#fff
+    
+    style B1 fill:#ffd43b,color:#000
+    style D1 fill:#ffd43b,color:#000
+    style F1 fill:#ffd43b,color:#000
+    style G1 fill:#ffd43b,color:#000
+    style H1 fill:#ffd43b,color:#000
+    style I1 fill:#ffd43b,color:#000
+    style J1 fill:#ffd43b,color:#000
+    style K1 fill:#ffd43b,color:#000
+    style L1 fill:#ffd43b,color:#000
+    style M1 fill:#ffd43b,color:#000
+    style N1 fill:#ffd43b,color:#000
+    style O1 fill:#ffd43b,color:#000
+    style P1 fill:#ffd43b,color:#000
+    style Q1 fill:#ffd43b,color:#000
+    style R1 fill:#ffd43b,color:#000
+    style S1 fill:#ffd43b,color:#000
+    style T1 fill:#ffd43b,color:#000
+    style U1 fill:#ffd43b,color:#000
+    style V1 fill:#ffd43b,color:#000
+    style W1 fill:#ffd43b,color:#000
+    style X1 fill:#ffd43b,color:#000
+    style Y1 fill:#ffd43b,color:#000
+    style Z1 fill:#ffd43b,color:#000
+    
+    style M1 fill:#51cf66,color:#fff
+    style N1 fill:#51cf66,color:#fff
+    style O1 fill:#51cf66,color:#fff
+    style P1 fill:#51cf66,color:#fff
+    style Q1 fill:#51cf66,color:#fff
+    style R1 fill:#51cf66,color:#fff
+    style S1 fill:#51cf66,color:#fff
+    style T1 fill:#51cf66,color:#fff
+    style U1 fill:#51cf66,color:#fff
+    style V1 fill:#51cf66,color:#fff
+    style W1 fill:#51cf66,color:#fff
+    style X1 fill:#51cf66,color:#fff
+    style Y1 fill:#51cf66,color:#fff
+    style Z1 fill:#51cf66,color:#fff
+    
+    style Z1 fill:#b197fc,color:#fff
+            </div>
+            
+            <div style="margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center;">
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#ff6b6b;"></span>Triggers & Inputs
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#ffd43b;"></span>Particle Collision Methods
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#51cf66;"></span>Particle Collision Operations
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#74c0fc;"></span>Intermediates
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#b197fc;"></span>Products
+                </div>
+            </div>
+            
+            <div class="figure-caption">
+                <strong>Figure 1.</strong> Particle Collision Process. This particle physics process visualization demonstrates particle collisions and high energy physics. The flowchart shows particle inputs and collision energy, particle collision methods and particle interactions, particle collision operations and collision products, intermediate results, and final particle collision outputs.
+            </div>
+        </div>
+
+        <h2>2. Standard Model Process</h2>
+        <div class="figure">
+            <div class="mermaid">
+graph TD
+    A2[Elementary Particle] --> B2[Standard Model Method]
+    C2[Particle Properties] --> D2[Gauge Theory]
+    E2[Particle Interactions] --> F2[Standard Model Analysis]
+    
+    B2 --> G2[Quark Model]
+    D2 --> H2[Electroweak Theory]
+    F2 --> I2[Quantum Chromodynamics]
+    
+    G2 --> J2[Quark Properties]
+    H2 --> K2[Gauge Bosons]
+    I2 --> L2[Strong Force]
+    
+    J2 --> M2[Particle Mass]
+    K2 --> L2
+    L2 --> N2[Particle Charge]
+    
+    M2 --> O2[Particle Spin]
+    N2 --> P2[Particle Flavor]
+    O2 --> Q2[Standard Model Process]
+    
+    P2 --> R2[Standard Model Validation]
+    Q2 --> S2[Standard Model Verification]
+    R2 --> T2[Standard Model Result]
+    
+    S2 --> U2[Standard Model Analysis]
+    T2 --> V2[Standard Model Parameters]
+    U2 --> W2[Standard Model Output]
+    
+    V2 --> X2[Standard Model Analysis]
+    W2 --> Y2[Standard Model Final Result]
+    X2 --> Z2[Standard Model Complete]
+    
+    style A2 fill:#ff6b6b,color:#fff
+    style C2 fill:#ff6b6b,color:#fff
+    style E2 fill:#ff6b6b,color:#fff
+    
+    style B2 fill:#ffd43b,color:#000
+    style D2 fill:#ffd43b,color:#000
+    style F2 fill:#ffd43b,color:#000
+    style G2 fill:#ffd43b,color:#000
+    style H2 fill:#ffd43b,color:#000
+    style I2 fill:#ffd43b,color:#000
+    style J2 fill:#ffd43b,color:#000
+    style K2 fill:#ffd43b,color:#000
+    style L2 fill:#ffd43b,color:#000
+    style M2 fill:#ffd43b,color:#000
+    style N2 fill:#ffd43b,color:#000
+    style O2 fill:#ffd43b,color:#000
+    style P2 fill:#ffd43b,color:#000
+    style Q2 fill:#ffd43b,color:#000
+    style R2 fill:#ffd43b,color:#000
+    style S2 fill:#ffd43b,color:#000
+    style T2 fill:#ffd43b,color:#000
+    style U2 fill:#ffd43b,color:#000
+    style V2 fill:#ffd43b,color:#000
+    style W2 fill:#ffd43b,color:#000
+    style X2 fill:#ffd43b,color:#000
+    style Y2 fill:#ffd43b,color:#000
+    style Z2 fill:#ffd43b,color:#000
+    
+    style M2 fill:#51cf66,color:#fff
+    style N2 fill:#51cf66,color:#fff
+    style O2 fill:#51cf66,color:#fff
+    style P2 fill:#51cf66,color:#fff
+    style Q2 fill:#51cf66,color:#fff
+    style R2 fill:#51cf66,color:#fff
+    style S2 fill:#51cf66,color:#fff
+    style T2 fill:#51cf66,color:#fff
+    style U2 fill:#51cf66,color:#fff
+    style V2 fill:#51cf66,color:#fff
+    style W2 fill:#51cf66,color:#fff
+    style X2 fill:#51cf66,color:#fff
+    style Y2 fill:#51cf66,color:#fff
+    style Z2 fill:#51cf66,color:#fff
+    
+    style Z2 fill:#b197fc,color:#fff
+            </div>
+            
+            <div style="margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center;">
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#ff6b6b;"></span>Triggers & Inputs
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#ffd43b;"></span>Standard Model Methods
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#51cf66;"></span>Standard Model Operations
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#74c0fc;"></span>Intermediates
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#b197fc;"></span>Products
+                </div>
+            </div>
+            
+            <div class="figure-caption">
+                <strong>Figure 2.</strong> Standard Model Process. This particle physics process visualization demonstrates the Standard Model and fundamental particles. The flowchart shows particle inputs and particle properties, Standard Model methods and gauge theory, Standard Model operations and particle interactions, intermediate results, and final Standard Model outputs.
+            </div>
+        </div>
+
+        <h2>3. Higgs Mechanism Process</h2>
+        <div class="figure">
+            <div class="mermaid">
+graph TD
+    A3[Higgs Field] --> B3[Higgs Mechanism Method]
+    C3[Spontaneous Symmetry Breaking] --> D3[Mass Generation]
+    E3[Higgs Boson] --> F3[Higgs Mechanism Analysis]
+    
+    B3 --> G3[Higgs Potential]
+    D3 --> H3[Vacuum Expectation Value]
+    F3 --> I3[Higgs Boson Detection]
+    
+    G3 --> J3[Higgs Mass]
+    H3 --> K3[Higgs Coupling]
+    I3 --> L3[Higgs Decay]
+    
+    J3 --> M3[Higgs Production]
+    K3 --> L3
+    L3 --> N3[Higgs Branching Ratio]
+    
+    M3 --> O3[Higgs Cross Section]
+    N3 --> P3[Higgs Width]
+    O3 --> Q3[Higgs Mechanism Process]
+    
+    P3 --> R3[Higgs Mechanism Validation]
+    Q3 --> S3[Higgs Mechanism Verification]
+    R3 --> T3[Higgs Mechanism Result]
+    
+    S3 --> U3[Higgs Mechanism Analysis]
+    T3 --> V3[Higgs Mechanism Parameters]
+    U3 --> W3[Higgs Mechanism Output]
+    
+    V3 --> X3[Higgs Mechanism Analysis]
+    W3 --> Y3[Higgs Mechanism Final Result]
+    X3 --> Z3[Higgs Mechanism Complete]
+    
+    style A3 fill:#ff6b6b,color:#fff
+    style C3 fill:#ff6b6b,color:#fff
+    style E3 fill:#ff6b6b,color:#fff
+    
+    style B3 fill:#ffd43b,color:#000
+    style D3 fill:#ffd43b,color:#000
+    style F3 fill:#ffd43b,color:#000
+    style G3 fill:#ffd43b,color:#000
+    style H3 fill:#ffd43b,color:#000
+    style I3 fill:#ffd43b,color:#000
+    style J3 fill:#ffd43b,color:#000
+    style K3 fill:#ffd43b,color:#000
+    style L3 fill:#ffd43b,color:#000
+    style M3 fill:#ffd43b,color:#000
+    style N3 fill:#ffd43b,color:#000
+    style O3 fill:#ffd43b,color:#000
+    style P3 fill:#ffd43b,color:#000
+    style Q3 fill:#ffd43b,color:#000
+    style R3 fill:#ffd43b,color:#000
+    style S3 fill:#ffd43b,color:#000
+    style T3 fill:#ffd43b,color:#000
+    style U3 fill:#ffd43b,color:#000
+    style V3 fill:#ffd43b,color:#000
+    style W3 fill:#ffd43b,color:#000
+    style X3 fill:#ffd43b,color:#000
+    style Y3 fill:#ffd43b,color:#000
+    style Z3 fill:#ffd43b,color:#000
+    
+    style M3 fill:#51cf66,color:#fff
+    style N3 fill:#51cf66,color:#fff
+    style O3 fill:#51cf66,color:#fff
+    style P3 fill:#51cf66,color:#fff
+    style Q3 fill:#51cf66,color:#fff
+    style R3 fill:#51cf66,color:#fff
+    style S3 fill:#51cf66,color:#fff
+    style T3 fill:#51cf66,color:#fff
+    style U3 fill:#51cf66,color:#fff
+    style V3 fill:#51cf66,color:#fff
+    style W3 fill:#51cf66,color:#fff
+    style X3 fill:#51cf66,color:#fff
+    style Y3 fill:#51cf66,color:#fff
+    style Z3 fill:#51cf66,color:#fff
+    
+    style Z3 fill:#b197fc,color:#fff
+            </div>
+            
+            <div style="margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center;">
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#ff6b6b;"></span>Triggers & Inputs
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#ffd43b;"></span>Higgs Mechanism Methods
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#51cf66;"></span>Higgs Mechanism Operations
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#74c0fc;"></span>Intermediates
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#b197fc;"></span>Products
+                </div>
+            </div>
+            
+            <div class="figure-caption">
+                <strong>Figure 3.</strong> Higgs Mechanism Process. This particle physics process visualization demonstrates the Higgs mechanism and mass generation. The flowchart shows Higgs inputs and spontaneous symmetry breaking, Higgs mechanism methods and mass generation, Higgs mechanism operations and Higgs boson, intermediate results, and final Higgs mechanism outputs.
+            </div>
+        </div>
+
+        <div class="navigation">
+            <h3>Navigation</h3>
+            <div class="nav-links">
+                <a href="physics_index.html" class="nav-link">← Back to Physics Index</a>
+                <a href="physics_batch_06.html" class="nav-link">← Previous: Nuclear Physics</a>
+                <a href="index.html" class="nav-link">Programming Framework Home</a>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><strong>Generated using the Programming Framework methodology</strong></p>
+            <p>Each flowchart preserves maximum detail through optimized Mermaid configuration</p>
+            <div class="contact-info">
+                <p><strong>Gary Welz</strong></p>
+                <p>Retired Faculty Member</p>
+                <p>John Jay College, CUNY (Department of Mathematics and Computer Science)</p>
+                <p>Borough of Manhattan Community College, CUNY</p>
+                <p>CUNY Graduate Center (New Media Lab)</p>
+                <p>Email: gwelz@jjay.cuny.edu</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

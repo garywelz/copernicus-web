@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Biology Processes - Programming Framework Analysis</title>
+    <style>
+        body { 
+            font-family: 'Times New Roman', Times, serif, 'Arial Unicode MS'; 
+            margin: 0; 
+            background: #ffffff; 
+            color: #000000; 
+            line-height: 1.6; 
+            font-size: 12pt; 
+        }
+        .container { 
+            max-width: 1000px; 
+            margin: 0 auto; 
+            padding: 1.5rem; 
+        }
+        h1, h2, h3 { 
+            color: #000000; 
+            margin-top: 1.5rem; 
+            margin-bottom: 0.75rem; 
+        }
+        h1 { 
+            font-size: 18pt; 
+            text-align: center; 
+        }
+        h2 { 
+            font-size: 16pt; 
+            border-bottom: 2px solid #000; 
+            padding-bottom: 0.5rem; 
+        }
+        h3 { 
+            font-size: 14pt; 
+        }
+        p { 
+            margin-bottom: 1rem; 
+            text-align: justify; 
+        }
+        .figure { 
+            margin: 1rem 0; 
+            text-align: center; 
+            border: 1px solid #ccc; 
+            padding: 1rem; 
+            background: #f9f9f9; 
+        }
+        .figure-caption { 
+            margin-top: 1rem; 
+            font-style: italic; 
+            text-align: left; 
+        }
+        .mermaid { 
+            background: white; 
+            padding: 1rem; 
+            border-radius: 4px; 
+        }
+        .color-legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+            justify-content: center;
+        }
+        .color-legend span {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 999px;
+            border: 1px solid rgba(0,0,0,.08);
+            background: #fff;
+            font-size: 0.9rem;
+        }
+        .color-box {
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+            border: 1px solid rgba(0,0,0,.15);
+        }
+        .glmp-link {
+            background: #e8f5e8;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            border-left: 4px solid #28a745;
+        }
+        .glmp-link h3 {
+            margin-top: 0;
+            color: #28a745;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({ 
+            startOnLoad: true, 
+            theme: 'default', 
+            flowchart: { 
+                useMaxWidth: false, 
+                htmlLabels: true,
+                curve: 'linear',
+                nodeSpacing: 50,
+                rankSpacing: 50,
+                padding: 20
+            },
+            themeVariables: {
+                fontFamily: 'Arial Unicode MS, Arial, sans-serif'
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Biology Processes - Programming Framework Analysis</h1>
+        
+        <div class="glmp-link" style="background: #e8f5e9; padding: 1.5rem; margin: 1.5rem 0; border-left: 4px solid #4caf50; border-radius: 5px;">
+            <h3>🔗 GLMP (Genome Logic Modeling Project) Connection</h3>
+            <p>This analysis is based on the comprehensive biological dataset from the <strong>Genome Logic Modeling Project (GLMP)</strong>, which contains 50+ analyzed biological processes across multiple organisms and systems.</p>
+            <p><strong>GLMP Resources:</strong></p>
+            <ul>
+                <li><a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-database-table.html" target="_blank" style="font-weight: bold; color: #1976d2;">🗄️ GLMP Database Table</a> - Interactive database with all biological processes (opens in new tab)</li>
+                <li><a href="https://huggingface.co/spaces/garywelz/glmp" target="_blank">GLMP Hugging Face Space</a> - Live demonstration and evidence base (opens in new tab)</li>
+            </ul>
+            <p>The GLMP represents the first successful application of the Programming Framework to biological processes, demonstrating how biological systems function as sophisticated computational programs with complex regulatory logic, decision trees, and feedback mechanisms.</p>
+        </div>
+        
+        <p>This document presents representative biological processes analyzed using the Programming Framework methodology. Each process is represented as a computational flowchart with standardized color coding: Red for triggers/inputs, Yellow for structures/objects, Green for processing/operations, Blue for intermediates/states, and Violet for products/outputs. Yellow nodes use black text for optimal readability, while all other colors use white text.</p>
+
+        <h2>1. Beta-Galactosidase Regulation System (E. coli)</h2>
+        <div class="figure">
+            <div class="mermaid">
+graph TD
+    %% Environmental Inputs
+    A[Lactose in Environment] --> B[Lactose Transport]
+    C[Glucose in Environment] --> D[Glucose Transport]
+    E[Low Energy Status] --> F[Energy Stress Signal]
+    
+    %% Transport Processes
+    B --> G[Lactose Permease LacY]
+    G --> H[Lactose Inside Cell]
+    H --> I[Lactose Availability]
+    D --> J[Glucose Transporters]
+    J --> K[Glucose Inside Cell]
+    K --> L[High Glucose Status]
+    
+    %% Regulatory Logic Gates
+    I --> M[Is Lactose Present Question]
+    L --> N[Is Glucose Present Question]
+    F --> O[Is Energy Low Question]
+    
+    %% Repressor Logic
+    M -->|No| P[Lac Repressor Active]
+    M -->|Yes| Q[Lac Repressor Inactive]
+    P --> R[Repressor Binds Operator]
+    R --> S[Transcription Blocked]
+    Q --> T[Repressor Released]
+    T --> U[Operator Free]
+    
+    %% CAP-cAMP Logic
+    N -->|Yes| V[Low cAMP Levels]
+    N -->|No| W[High cAMP Levels]
+    O --> W
+    W --> X[cAMP-CAP Complex]
+    V --> Y[No CAP Binding]
+    X --> Z[CAP Binds Promoter]
+    Y --> AA[No CAP Binding]
+    
+    %% Transcription Control
+    U --> BB[Operator Free Question]
+    Z --> CC[CAP Bound Question]
+    BB -->|Yes| DD[RNA Polymerase Binding]
+    BB -->|No| EE[Transcription Blocked]
+    CC -->|Yes| FF[Strong Transcription]
+    CC -->|No| GG[Weak Transcription]
+    
+    %% Gene Expression
+    DD --> HH[Transcription Initiation]
+    FF --> II[lacZ mRNA Synthesis]
+    FF --> JJ[lacY mRNA Synthesis]
+    FF --> KK[lacA mRNA Synthesis]
+    
+    %% Protein Synthesis
+    II --> LL[LacZ Translation]
+    JJ --> MM[LacY Translation]
+    KK --> NN[LacA Translation]
+    
+    %% Functional Proteins
+    LL --> OO[Beta-Galactosidase Enzyme]
+    MM --> PP[Lactose Permease]
+    NN --> QQ[Galactoside Acetyltransferase]
+    
+    %% Metabolic Functions
+    OO --> RR[Lactose Hydrolysis]
+    PP --> SS[Lactose Transport]
+    QQ --> TT[Galactoside Modification]
+    
+    %% Final Products
+    RR --> UU[Glucose + Galactose]
+    SS --> VV[Lactose Uptake]
+    TT --> WW[Detoxification]
+    
+    %% Energy Production
+    UU --> XX[Glycolysis]
+    VV --> YY[Lactose Processing]
+    WW --> ZZ[Cell Protection]
+    
+    %% System Equilibrium
+    XX --> AAA[Energy Production]
+    YY --> BBB[Lactose Consumption]
+    ZZ --> CCC[Cell Survival]
+    
+    %% Feedback Control
+    AAA --> DDD[Energy Status Improved]
+    BBB --> EEE[Lactose Depletion]
+    CCC --> FFF[Reduced Energy Stress]
+    
+    %% Dynamic Equilibrium
+    DDD --> GGG[Reduced Lactose Signal]
+    EEE --> HHH[Maintained Homeostasis]
+    FFF --> III[System Equilibrium]
+    
+    %% Styling - Biological Color Scheme
+    %% Red: Triggers & Inputs
+    style A fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    
+    %% Yellow: Structures & Objects
+    style G fill:#ffd43b,color:#000
+    style J fill:#ffd43b,color:#000
+    style P fill:#ffd43b,color:#000
+    style Q fill:#ffd43b,color:#000
+    style X fill:#ffd43b,color:#000
+    style OO fill:#ffd43b,color:#000
+    style PP fill:#ffd43b,color:#000
+    style QQ fill:#ffd43b,color:#000
+    
+    %% Green: Processing & Operations
+    style B fill:#51cf66,color:#fff
+    style D fill:#51cf66,color:#fff
+    style F fill:#51cf66,color:#fff
+    style H fill:#51cf66,color:#fff
+    style K fill:#51cf66,color:#fff
+    style R fill:#51cf66,color:#fff
+    style T fill:#51cf66,color:#fff
+    style W fill:#51cf66,color:#fff
+    style Z fill:#51cf66,color:#fff
+    style DD fill:#51cf66,color:#fff
+    style FF fill:#51cf66,color:#fff
+    style HH fill:#51cf66,color:#fff
+    style II fill:#51cf66,color:#fff
+    style JJ fill:#51cf66,color:#fff
+    style KK fill:#51cf66,color:#fff
+    style LL fill:#51cf66,color:#fff
+    style MM fill:#51cf66,color:#fff
+    style NN fill:#51cf66,color:#fff
+    style RR fill:#51cf66,color:#fff
+    style SS fill:#51cf66,color:#fff
+    style TT fill:#51cf66,color:#fff
+    style XX fill:#51cf66,color:#fff
+    style YY fill:#51cf66,color:#fff
+    style ZZ fill:#51cf66,color:#fff
+    style DDD fill:#51cf66,color:#fff
+    style EEE fill:#51cf66,color:#fff
+    style FFF fill:#51cf66,color:#fff
+    
+    %% Blue: Intermediates & States
+    style I fill:#74c0fc,color:#fff
+    style L fill:#74c0fc,color:#fff
+    style U fill:#74c0fc,color:#fff
+    style AA fill:#74c0fc,color:#fff
+    style UU fill:#74c0fc,color:#fff
+    style VV fill:#74c0fc,color:#fff
+    style WW fill:#74c0fc,color:#fff
+    style AAA fill:#74c0fc,color:#fff
+    style BBB fill:#74c0fc,color:#fff
+    style CCC fill:#74c0fc,color:#fff
+    style GGG fill:#74c0fc,color:#fff
+    style HHH fill:#74c0fc,color:#fff
+    style III fill:#74c0fc,color:#fff
+    
+    %% Violet: Products & Outputs
+    style M fill:#b197fc,color:#fff
+    style N fill:#b197fc,color:#fff
+    style O fill:#b197fc,color:#fff
+    style BB fill:#b197fc,color:#fff
+    style CC fill:#b197fc,color:#fff
+    style EE fill:#b197fc,color:#fff
+    style GG fill:#b197fc,color:#fff
+            </div>
+            <div class="color-legend">
+                <span><span class="color-box" style="background:#ff6b6b;"></span>Environmental Inputs</span>
+                <span><span class="color-box" style="background:#ffd43b;"></span>Enzymes & Proteins</span>
+                <span><span class="color-box" style="background:#51cf66;"></span>Metabolic Reactions</span>
+                <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates & States</span>
+                <span><span class="color-box" style="background:#b197fc;"></span>Products & Outputs</span>
+            </div>
+            <div class="figure-caption">
+                <strong>Figure 1.</strong> β-Galactosidase Regulation System. This comprehensive computational flowchart demonstrates the Programming Framework's ability to represent complex genetic regulatory networks with complete feedback loops and system equilibrium. The visualization shows environmental inputs (lactose, glucose, energy status), regulatory complexes and enzymes (Lac repressor, CAP-cAMP complex, β-galactosidase), intermediate states and logic gates, functional outputs (glucose + galactose, lactose uptake, detoxification), and dynamic feedback control mechanisms.
+            </div>
+        </div>
+
+        <h2>2. Yeast Cell Cycle Control System</h2>
+        <div class="figure">
+            <div class="mermaid">
+graph TD
+    %% Environmental Inputs
+    A[Nutrient Availability] --> B[Nutrient Sensing]
+    C[Cell Size] --> D[Size Checkpoint]
+    E[DNA Damage] --> F[Damage Detection]
+    
+    %% Sensing Mechanisms
+    B --> G[Nutrient Transporters]
+    D --> H[Size Sensors]
+    F --> I[DNA Repair Enzymes]
+    
+    %% Signal Processing
+    G --> J[Nutrient Signal Processing]
+    H --> K[Size Signal Processing]
+    I --> L[Damage Signal Processing]
+    
+    %% Decision Logic
+    J --> M[Nutrients Sufficient Question]
+    K --> N[Size Adequate Question]
+    L --> O[DNA Intact Question]
+    
+    %% Cell Cycle Progression
+    M -->|Yes| P[G1 Phase Entry]
+    N -->|Yes| Q[G1/S Transition]
+    O -->|Yes| R[S Phase Entry]
+    
+    %% Checkpoint Controls
+    M -->|No| S[G1 Arrest]
+    N -->|No| T[Size Arrest]
+    O -->|No| U[DNA Repair Arrest]
+    
+    %% DNA Replication
+    P --> V[DNA Replication Initiation]
+    Q --> W[Replication Fork Formation]
+    R --> X[DNA Synthesis]
+    
+    %% Mitosis Preparation
+    V --> Y[G2 Phase Entry]
+    W --> Z[Replication Completion]
+    X --> AA[DNA Duplication]
+    
+    %% Mitosis Control
+    Y --> BB[Mitosis Entry]
+    Z --> CC[Spindle Formation]
+    AA --> DD[Chromosome Condensation]
+    
+    %% Cell Division
+    BB --> EE[Anaphase]
+    CC --> FF[Chromosome Separation]
+    DD --> GG[Cytokinesis]
+    
+    %% Final Products
+    EE --> HH[Two Daughter Cells]
+    FF --> II[Chromosome Segregation]
+    GG --> JJ[Cell Division Complete]
+    
+    %% Styling - Biological Color Scheme
+    %% Red: Triggers & Inputs
+    style A fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    
+    %% Yellow: Structures & Objects
+    style G fill:#ffd43b,color:#000
+    style H fill:#ffd43b,color:#000
+    style I fill:#ffd43b,color:#000
+    style P fill:#ffd43b,color:#000
+    style Q fill:#ffd43b,color:#000
+    style R fill:#ffd43b,color:#000
+    style S fill:#ffd43b,color:#000
+    style T fill:#ffd43b,color:#000
+    style U fill:#ffd43b,color:#000
+    
+    %% Green: Processing & Operations
+    style B fill:#51cf66,color:#fff
+    style D fill:#51cf66,color:#fff
+    style F fill:#51cf66,color:#fff
+    style J fill:#51cf66,color:#fff
+    style K fill:#51cf66,color:#fff
+    style L fill:#51cf66,color:#fff
+    style V fill:#51cf66,color:#fff
+    style W fill:#51cf66,color:#fff
+    style X fill:#51cf66,color:#fff
+    style Y fill:#51cf66,color:#fff
+    style Z fill:#51cf66,color:#fff
+    style AA fill:#51cf66,color:#fff
+    style BB fill:#51cf66,color:#fff
+    style CC fill:#51cf66,color:#fff
+    style DD fill:#51cf66,color:#fff
+    style EE fill:#51cf66,color:#fff
+    style FF fill:#51cf66,color:#fff
+    style GG fill:#51cf66,color:#fff
+    
+    %% Blue: Intermediates & States
+    style M fill:#74c0fc,color:#fff
+    style N fill:#74c0fc,color:#fff
+    style O fill:#74c0fc,color:#fff
+    
+    %% Violet: Products & Outputs
+    style HH fill:#b197fc,color:#fff
+    style II fill:#b197fc,color:#fff
+    style JJ fill:#b197fc,color:#fff
+            </div>
+            <div class="color-legend">
+                <span><span class="color-box" style="background:#ff6b6b;"></span>Environmental Inputs</span>
+                <span><span class="color-box" style="background:#ffd43b;"></span>Enzymes & Proteins</span>
+                <span><span class="color-box" style="background:#51cf66;"></span>Metabolic Reactions</span>
+                <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates & States</span>
+                <span><span class="color-box" style="background:#b197fc;"></span>Products & Outputs</span>
+            </div>
+            <div class="figure-caption">
+                <strong>Figure 2.</strong> Yeast Cell Cycle Control System. This biological process visualization demonstrates the computational logic of eukaryotic cell cycle regulation. The flowchart shows environmental inputs (nutrients, cell size, DNA damage), sensing mechanisms and regulatory proteins, signal processing and decision logic, cell cycle progression through G1, S, G2, and M phases, checkpoint controls, and final cell division products.
+            </div>
+        </div>
+
+        <h2>3. Photosynthesis Process (Plant Systems)</h2>
+        <div class="figure">
+            <div class="mermaid">
+graph TD
+    %% Light Input
+    A[Sunlight] --> B[Light Absorption]
+    C[CO2 in Atmosphere] --> D[CO2 Diffusion]
+    E[Water in Soil] --> F[Water Uptake]
+    
+    %% Light Reactions
+    B --> G[Chlorophyll Molecules]
+    G --> H[Photosystem II]
+    H --> I[Electron Transport Chain]
+    I --> J[Photosystem I]
+    
+    %% Water Splitting
+    F --> K[Water Transport]
+    K --> L[Water Splitting Complex]
+    L --> M[Oxygen Evolution]
+    L --> N[Proton Release]
+    L --> O[Electron Donation]
+    
+    %% Electron Transport
+    O --> P[Electron Flow]
+    P --> Q[NADP+ Reduction]
+    Q --> R[NADPH Production]
+    N --> S[Proton Gradient]
+    S --> T[ATP Synthesis]
+    
+    %% Calvin Cycle
+    D --> U[CO2 Fixation]
+    U --> V[Ribulose-1,5-bisphosphate]
+    V --> W[3-Phosphoglycerate]
+    W --> X[Glyceraldehyde-3-phosphate]
+    
+    %% Sugar Synthesis
+    X --> Y[Glucose Synthesis]
+    Y --> Z[Starch Formation]
+    Y --> AA[Sucrose Transport]
+    
+    %% Final Products
+    M --> BB[Oxygen Gas]
+    R --> CC[NADPH Pool]
+    T --> DD[ATP Pool]
+    Z --> EE[Starch Storage]
+    AA --> FF[Sucrose Export]
+    
+    %% Styling - Biological Color Scheme
+    %% Red: Triggers & Inputs
+    style A fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    
+    %% Yellow: Structures & Objects
+    style G fill:#ffd43b,color:#000
+    style H fill:#ffd43b,color:#000
+    style J fill:#ffd43b,color:#000
+    style L fill:#ffd43b,color:#000
+    style V fill:#ffd43b,color:#000
+    
+    %% Green: Processing & Operations
+    style B fill:#51cf66,color:#fff
+    style D fill:#51cf66,color:#fff
+    style F fill:#51cf66,color:#fff
+    style I fill:#51cf66,color:#fff
+    style K fill:#51cf66,color:#fff
+    style M fill:#51cf66,color:#fff
+    style N fill:#51cf66,color:#fff
+    style O fill:#51cf66,color:#fff
+    style P fill:#51cf66,color:#fff
+    style Q fill:#51cf66,color:#fff
+    style S fill:#51cf66,color:#fff
+    style T fill:#51cf66,color:#fff
+    style U fill:#51cf66,color:#fff
+    style W fill:#51cf66,color:#fff
+    style X fill:#51cf66,color:#fff
+    style Y fill:#51cf66,color:#fff
+    style Z fill:#51cf66,color:#fff
+    style AA fill:#51cf66,color:#fff
+    
+    %% Blue: Intermediates & States
+    style R fill:#74c0fc,color:#fff
+    style DD fill:#74c0fc,color:#fff
+    style CC fill:#74c0fc,color:#fff
+    
+    %% Violet: Products & Outputs
+    style BB fill:#b197fc,color:#fff
+    style EE fill:#b197fc,color:#fff
+    style FF fill:#b197fc,color:#fff
+            </div>
+            <div class="color-legend">
+                <span><span class="color-box" style="background:#ff6b6b;"></span>Environmental Inputs</span>
+                <span><span class="color-box" style="background:#ffd43b;"></span>Enzymes & Proteins</span>
+                <span><span class="color-box" style="background:#51cf66;"></span>Metabolic Reactions</span>
+                <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates & States</span>
+                <span><span class="color-box" style="background:#b197fc;"></span>Products & Outputs</span>
+            </div>
+            <div class="figure-caption">
+                <strong>Figure 3.</strong> Photosynthesis Process. This biological process visualization demonstrates the computational logic of photosynthetic energy conversion. The flowchart shows environmental inputs (sunlight, CO2, water), photosynthetic complexes and enzymes (chlorophyll, photosystems, Calvin cycle enzymes), light and dark reactions, electron transport and ATP synthesis, sugar synthesis pathways, and final products (oxygen, glucose, starch, sucrose).
+            </div>
+        </div>
+
+        <h2>4. Bacterial Quorum Sensing System</h2>
+        <div class="figure">
+            <div class="mermaid">
+graph TD
+    %% Environmental Inputs
+    A[Cell Density] --> B[Density Sensing]
+    C[Autoinducer Molecules] --> D[Autoinducer Production]
+    E[Environmental Conditions] --> F[Stress Detection]
+    
+    %% Sensing Mechanisms
+    B --> G[Density Sensors]
+    D --> H[Autoinducer Synthases]
+    F --> I[Stress Response Proteins]
+    
+    %% Signal Processing
+    G --> J[Density Signal Processing]
+    H --> K[Autoinducer Accumulation]
+    I --> L[Stress Signal Processing]
+    
+    %% Threshold Logic
+    J --> M[Autoinducer Above Threshold Question]
+    K --> N[Quorum Reached Question]
+    L --> O[Stress Conditions Question]
+    
+    %% Gene Regulation
+    M -->|Yes| P[LuxR Activation]
+    N -->|Yes| Q[Quorum Response]
+    O -->|Yes| R[Stress Response]
+    
+    %% Response Pathways
+    P --> S[Target Gene Expression]
+    Q --> T[Biofilm Formation]
+    R --> U[Antibiotic Production]
+    
+    %% Collective Behaviors
+    S --> V[Luminescence]
+    T --> W[Matrix Production]
+    U --> X[Antimicrobial Synthesis]
+    
+    %% Final Products
+    V --> Y[Light Emission]
+    W --> Z[Biofilm Structure]
+    X --> AA[Antibiotic Molecules]
+    
+    %% Styling - Biological Color Scheme
+    %% Red: Triggers & Inputs
+    style A fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    
+    %% Yellow: Structures & Objects
+    style G fill:#ffd43b,color:#000
+    style H fill:#ffd43b,color:#000
+    style I fill:#ffd43b,color:#000
+    style P fill:#ffd43b,color:#000
+    style Q fill:#ffd43b,color:#000
+    style R fill:#ffd43b,color:#000
+    
+    %% Green: Processing & Operations
+    style B fill:#51cf66,color:#fff
+    style D fill:#51cf66,color:#fff
+    style F fill:#51cf66,color:#fff
+    style J fill:#51cf66,color:#fff
+    style K fill:#51cf66,color:#fff
+    style L fill:#51cf66,color:#fff
+    style S fill:#51cf66,color:#fff
+    style T fill:#51cf66,color:#fff
+    style U fill:#51cf66,color:#fff
+    style V fill:#51cf66,color:#fff
+    style W fill:#51cf66,color:#fff
+    style X fill:#51cf66,color:#fff
+    
+    %% Blue: Intermediates & States
+    style M fill:#74c0fc,color:#fff
+    style N fill:#74c0fc,color:#fff
+    style O fill:#74c0fc,color:#fff
+    
+    %% Violet: Products & Outputs
+    style Y fill:#b197fc,color:#fff
+    style Z fill:#b197fc,color:#fff
+    style AA fill:#b197fc,color:#fff
+            </div>
+            <div class="color-legend">
+                <span><span class="color-box" style="background:#ff6b6b;"></span>Environmental Inputs</span>
+                <span><span class="color-box" style="background:#ffd43b;"></span>Enzymes & Proteins</span>
+                <span><span class="color-box" style="background:#51cf66;"></span>Metabolic Reactions</span>
+                <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates & States</span>
+                <span><span class="color-box" style="background:#b197fc;"></span>Products & Outputs</span>
+            </div>
+            <div class="figure-caption">
+                <strong>Figure 4.</strong> Bacterial Quorum Sensing System. This biological process visualization demonstrates the computational logic of bacterial communication and collective behavior. The flowchart shows environmental inputs (cell density, autoinducer molecules, stress conditions), sensing mechanisms and regulatory proteins, signal processing and threshold logic, gene regulation and response pathways, collective behaviors, and final products (light emission, biofilm structure, antibiotic molecules).
+            </div>
+        </div>
+
+        <h2>5. Circadian Clock System (Mammalian)</h2>
+        <div class="figure">
+            <div class="mermaid">
+graph TD
+    %% Environmental Inputs
+    A[Light/Dark Cycle] --> B[Light Detection]
+    C[Temperature] --> D[Temperature Sensing]
+    E[Feeding Schedule] --> F[Metabolic Sensing]
+    
+    %% Input Processing
+    B --> G[Retinal Photoreceptors]
+    D --> H[Temperature Sensors]
+    F --> I[Metabolic Sensors]
+    
+    %% Signal Transmission
+    G --> J[Light Signal to SCN]
+    H --> K[Temperature Signal]
+    I --> L[Metabolic Signal]
+    
+    %% Central Clock
+    J --> M[Suprachiasmatic Nucleus]
+    K --> N[Clock Gene Expression]
+    L --> O[Metabolic Clock]
+    
+    %% Molecular Oscillator
+    M --> P[CLOCK-BMAL1 Complex]
+    N --> Q[PER-CRY Complex]
+    O --> R[REV-ERB alpha slash beta]
+    
+    %% Feedback Loops
+    P --> S[Target Gene Activation]
+    Q --> T[Clock Gene Repression]
+    R --> U[BMAL1 Repression]
+    
+    %% Output Pathways
+    S --> V[Hormone Secretion]
+    T --> W[Metabolic Regulation]
+    U --> X[Sleep-Wake Cycle]
+    
+    %% Physiological Outputs
+    V --> Y[Cortisol Rhythm]
+    W --> Z[Glucose Metabolism]
+    X --> AA[Sleep Regulation]
+    
+    %% Styling - Biological Color Scheme
+    %% Red: Triggers & Inputs
+    style A fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    
+    %% Yellow: Structures & Objects
+    style G fill:#ffd43b,color:#000
+    style H fill:#ffd43b,color:#000
+    style I fill:#ffd43b,color:#000
+    style M fill:#ffd43b,color:#000
+    style P fill:#ffd43b,color:#000
+    style Q fill:#ffd43b,color:#000
+    style R fill:#ffd43b,color:#000
+    
+    %% Green: Processing & Operations
+    style B fill:#51cf66,color:#fff
+    style D fill:#51cf66,color:#fff
+    style F fill:#51cf66,color:#fff
+    style J fill:#51cf66,color:#fff
+    style K fill:#51cf66,color:#fff
+    style L fill:#51cf66,color:#fff
+    style N fill:#51cf66,color:#fff
+    style O fill:#51cf66,color:#fff
+    style S fill:#51cf66,color:#fff
+    style T fill:#51cf66,color:#fff
+    style U fill:#51cf66,color:#fff
+    style V fill:#51cf66,color:#fff
+    style W fill:#51cf66,color:#fff
+    style X fill:#51cf66,color:#fff
+    
+    %% Blue: Intermediates & States
+    style Y fill:#74c0fc,color:#fff
+    style Z fill:#74c0fc,color:#fff
+    style AA fill:#74c0fc,color:#fff
+    
+    %% Violet: Products & Outputs
+    style Y fill:#b197fc,color:#fff
+    style Z fill:#b197fc,color:#fff
+    style AA fill:#b197fc,color:#fff
+            </div>
+            <div class="color-legend">
+                <span><span class="color-box" style="background:#ff6b6b;"></span>Environmental Inputs</span>
+                <span><span class="color-box" style="background:#ffd43b;"></span>Enzymes & Proteins</span>
+                <span><span class="color-box" style="background:#51cf66;"></span>Metabolic Reactions</span>
+                <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates & States</span>
+                <span><span class="color-box" style="background:#b197fc;"></span>Products & Outputs</span>
+            </div>
+            <div class="figure-caption">
+                <strong>Figure 5.</strong> Circadian Clock System. This biological process visualization demonstrates the computational logic of mammalian circadian rhythm regulation. The flowchart shows environmental inputs (light/dark cycle, temperature, feeding schedule), sensory mechanisms and clock proteins, signal transmission and central clock processing, molecular oscillator feedback loops, output pathways, and physiological outputs (hormone rhythms, metabolic regulation, sleep-wake cycles).
+            </div>
+        </div>
+    </div>
+</body>
+</html>

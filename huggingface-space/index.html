@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Copernicus AI - Knowledge Engine for Scientific Discovery</title>
+    <title>Copernicus AI - Research-Driven Podcast Generation Platform</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .gradient-bg {
@@ -16,6 +16,13 @@
             transform: translateY(-4px);
             box-shadow: 0 20px 40px rgba(0,0,0,0.15);
         }
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -25,188 +32,453 @@
             <div class="text-center">
                 <div class="text-6xl mb-4">🔬</div>
                 <h1 class="text-5xl font-bold mb-4">Copernicus AI</h1>
-                <p class="text-xl opacity-90 mb-6">A Knowledge Engine for Scientific Discovery</p>
-                <p class="text-lg opacity-75 max-w-3xl mx-auto">
-                    Transforming cutting-edge research into accessible AI-powered podcasts and building 
-                    a comprehensive knowledge graph connecting concepts, papers, and insights across scientific disciplines.
+                <p class="text-xl opacity-90 mb-6">Knowledge Engine for Scientific Discovery</p>
+                <p class="text-lg opacity-75 max-w-4xl mx-auto">
+                    A collaborative research platform that transforms cutting-edge scientific research into accessible, 
+                    multi-format tools for collective knowledge exploration. These are research instruments—like microscopes 
+                    for observing the collective knowledge of humanity—enabling hypothesis formation, testing, and discovery 
+                    across scientific disciplines.
                 </p>
             </div>
         </div>
     </header>
 
-    <!-- Mission Statement -->
+    <!-- Abstract/Summary -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
-            <h2 class="text-3xl font-bold text-gray-900 mb-4">🎯 Our Mission</h2>
-            <p class="text-lg text-gray-700 leading-relaxed">
-                Inspired by the historical Copernicus who challenged accepted knowledge with evidence and rigorous analysis, 
-                Copernicus AI aims to expand human knowledge by creating tools that help us verify, generate, and transmit 
-                scientific insights. As AI systems become more capable, we build instruments—like the Programming Framework, 
-                GLMP, and AI podcasts—that enable humans to explore, understand, and communicate knowledge with the same depth 
-                and speed that AI possesses.
+        <div class="bg-white rounded-xl shadow-lg p-8 mb-8 border-l-4 border-purple-600">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">📋 Summary</h2>
+            <p class="text-lg text-gray-700 leading-relaxed mb-3">
+                <strong>CopernicusAI</strong> is an operational research platform that synthesizes scientific literature from 250+ million papers into AI-generated podcasts, integrates with a knowledge graph of 12,000+ indexed papers, and provides collaborative tools for research discovery. The system demonstrates production-ready multi-source research synthesis with full citation tracking and evidence-based content generation requiring minimum 3 research sources per episode.
+            </p>
+            <p class="text-gray-600">
+                The platform includes a fully operational Knowledge Engine Dashboard (deployed December 2025) with interactive knowledge graph visualization, vector search, and RAG capabilities, enabling researchers to explore, query, and synthesize scientific knowledge across disciplines.
             </p>
         </div>
     </section>
 
-    <!-- Main Features -->
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">🚀 Core Components</h2>
-        
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-            <!-- AI Podcast Generation -->
-            <div class="bg-white rounded-lg shadow-md p-6 card-hover">
-                <div class="text-4xl mb-4">🎙️</div>
-                <h3 class="text-xl font-bold text-gray-900 mb-3">AI Podcast Generation</h3>
-                <p class="text-gray-600 mb-4">
-                    Multi-voice AI podcasts (5-10 minutes) synthesizing research papers into engaging conversations. 
-                    Powered by Google Gemini 2.0 for content and ElevenLabs for realistic voice synthesis.
+    <!-- Prior Work: CopernicusAI Research Interface -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="bg-gradient-to-r from-purple-50 to-blue-50 rounded-xl shadow-lg p-8 mb-8">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">Prior Work & Current Status</h2>
+            
+            <div class="bg-white rounded-lg p-6 mb-6">
+                <h3 class="text-xl font-semibold text-gray-900 mb-3">Prior Work (2024-2025)</h3>
+                <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                    CopernicusAI is an active research prototype exploring AI-generated audio briefings as an interface for assisted scientific research.
                 </p>
-                <ul class="text-sm text-gray-500 space-y-1">
-                    <li>✓ 32+ episodes across 5 disciplines</li>
-                    <li>✓ Scientific references included</li>
-                    <li>✓ Subscriber-generated content</li>
-                    <li>✓ RSS feed distribution</li>
-                </ul>
+                <p class="text-gray-700 mb-4">
+                    The system allows any user to generate, refine, and share AI-generated science podcasts based on structured prompts, enabling rapid orientation to a topic, iterative deepening, and personalized research briefings.
+                </p>
+                <p class="text-gray-700 mb-4">
+                    Rather than functioning as a static content platform, CopernicusAI supports collectively generated and shared research artifacts, analogous to community-driven knowledge platforms (e.g., discussion forums), but grounded in scientific sources and metadata-aware workflows.
+                </p>
+                <div class="bg-blue-50 rounded-lg p-4 mt-4">
+                    <h3 class="font-semibold text-gray-900 mb-2">This work demonstrates technical feasibility for:</h3>
+                    <ul class="text-gray-700 space-y-1">
+                        <li>• AI-assisted research briefing and orientation</li>
+                        <li>• Iterative question refinement via conversational interfaces</li>
+                        <li>• Integration of text, audio, and metadata in research workflows</li>
+                    </ul>
+                </div>
             </div>
-
-            <!-- Programming Framework -->
-            <div class="bg-white rounded-lg shadow-md p-6 card-hover">
-                <div class="text-4xl mb-4">🔧</div>
-                <h3 class="text-xl font-bold text-gray-900 mb-3">Programming Framework</h3>
-                <p class="text-gray-600 mb-4">
-                    A meta-tool for process analysis combining LLMs with Mermaid visualization. 
-                    Universal method for dissecting complex processes across any discipline.
+            
+            <div class="bg-green-50 border-2 border-green-200 rounded-lg p-6">
+                <h3 class="text-xl font-semibold text-gray-900 mb-3">Current Implementation (December 2025)</h3>
+                <p class="text-gray-700 mb-3">
+                    The Knowledge Engine Dashboard is <strong>fully operational</strong> and deployed to Google Cloud Run, providing unified access to all components with interactive knowledge graph visualization, vector search, RAG queries, and content browsing.
                 </p>
-                <ul class="text-sm text-gray-500 space-y-1">
-                    <li>✓ Domain-agnostic analysis</li>
-                    <li>✓ Visual flowchart generation</li>
-                    <li>✓ Process decomposition</li>
-                    <li>✓ Knowledge extraction</li>
-                </ul>
-            </div>
-
-            <!-- GLMP -->
-            <div class="bg-white rounded-lg shadow-md p-6 card-hover">
-                <div class="text-4xl mb-4">🧬</div>
-                <h3 class="text-xl font-bold text-gray-900 mb-3">GLMP - Genome Logic</h3>
-                <p class="text-gray-600 mb-4">
-                    Genome Logic Modeling Project: A specialized "microscope" applying the Programming Framework 
-                    to visualize biochemical processes as interactive flowcharts.
+                <p class="text-sm text-gray-600">
+                    See the "Knowledge Engine Ecosystem" section below for details.
                 </p>
-                <ul class="text-sm text-gray-500 space-y-1">
-                    <li>✓ Biological process mapping</li>
-                    <li>✓ JSON-based flowcharts</li>
-                    <li>✓ Pathway visualization</li>
-                    <li>✓ Research insights</li>
-                </ul>
-            </div>
-
-            <!-- Research Papers DB -->
-            <div class="bg-white rounded-lg shadow-md p-6 card-hover">
-                <div class="text-4xl mb-4">📚</div>
-                <h3 class="text-xl font-bold text-gray-900 mb-3">Research Papers Database</h3>
-                <p class="text-gray-600 mb-4">
-                    Centralized repository of scientific literature with AI preprocessing. Extracts key findings, 
-                    entities, and summaries for reuse across podcasts.
-                </p>
-                <ul class="text-sm text-gray-500 space-y-1">
-                    <li>✓ DOI/arXiv integration</li>
-                    <li>✓ LLM-powered preprocessing</li>
-                    <li>✓ Entity extraction (genes, proteins)</li>
-                    <li>✓ Citation tracking</li>
-                </ul>
-            </div>
-
-            <!-- Knowledge Graph -->
-            <div class="bg-white rounded-lg shadow-md p-6 card-hover">
-                <div class="text-4xl mb-4">🕸️</div>
-                <h3 class="text-xl font-bold text-gray-900 mb-3">Knowledge Graph (Phase 2)</h3>
-                <p class="text-gray-600 mb-4">
-                    Connects concepts, papers, podcasts, and GLMP visualizations. Enables discovery of 
-                    cross-disciplinary patterns and semantic search.
-                </p>
-                <ul class="text-sm text-gray-500 space-y-1">
-                    <li>✓ Concept relationships</li>
-                    <li>✓ Paper-podcast links</li>
-                    <li>✓ Cross-discipline discovery</li>
-                    <li>✓ Semantic queries</li>
-                </ul>
-            </div>
-
-            <!-- Subscriber Platform -->
-            <div class="bg-white rounded-lg shadow-md p-6 card-hover">
-                <div class="text-4xl mb-4">👥</div>
-                <h3 class="text-xl font-bold text-gray-900 mb-3">Subscriber Platform</h3>
-                <p class="text-gray-600 mb-4">
-                    YouTube-style interface for creators to prompt, manage, and share podcasts. 
-                    Browse public catalog or generate custom content.
-                </p>
-                <ul class="text-sm text-gray-500 space-y-1">
-                    <li>✓ Account management</li>
-                    <li>✓ Custom podcast generation</li>
-                    <li>✓ Source paper integration</li>
-                    <li>✓ RSS feed publishing</li>
-                </ul>
             </div>
         </div>
     </section>
 
-    <!-- Database Architecture -->
+    <!-- Mission & Vision -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">🎯 Mission & Vision</h2>
+            <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                Inspired by Nicolaus Copernicus who challenged accepted knowledge with evidence and rigorous analysis, 
+                <strong>Copernicus AI</strong> creates collaborative research tools that enable collective participation in 
+                scientific discovery. These platforms are instruments for exploring humanity's collective knowledge—tools for 
+                hypothesis formation, testing, and collaborative research, not just educational content.
+            </p>
+            <p class="text-gray-600">
+                Just as a microscope enables observation of the microscopic world, Copernicus AI tools enable observation and 
+                exploration of humanity's collective knowledge. Subscribers collaborate to prompt, generate, and refine research 
+                content—sharing discoveries publicly or keeping them private. As large language models (LLMs) and AI systems 
+                gain unprecedented knowledge, Copernicus AI provides the infrastructure for human-AI collaborative knowledge 
+                exploration, with evidence-based truth-seeking as our guiding principle.
+            </p>
+        </div>
+    </section>
+
+    <!-- Knowledge Engine Ecosystem -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div class="bg-gradient-to-r from-purple-50 to-blue-50 rounded-xl p-8 mb-8">
-            <h2 class="text-3xl font-bold text-gray-900 mb-6">🗄️ Database Architecture</h2>
+        <div class="bg-gradient-to-r from-purple-50 to-indigo-50 rounded-xl shadow-lg p-8 mb-8">
+            <h2 class="text-3xl font-bold text-gray-900 mb-6 text-center">🧩 CopernicusAI Knowledge Engine</h2>
+            <p class="text-lg text-gray-700 mb-6 text-center max-w-4xl mx-auto">
+                An integrated ecosystem of research and collaboration tools designed to assist scientists in their workflow, 
+                from research discovery through knowledge synthesis to multi-format content generation.
+            </p>
             
-            <div class="grid md:grid-cols-2 gap-6">
-                <div>
-                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Firestore Collections</h3>
-                    <ul class="space-y-2 text-gray-700">
-                        <li><strong>subscribers</strong> - User accounts, preferences, usage analytics</li>
-                        <li><strong>podcast_jobs</strong> - Generated podcasts with metadata, engagement metrics</li>
-                        <li><strong>research_papers</strong> - Scientific papers with AI preprocessing</li>
+            <!-- Knowledge Engine Implementation Status -->
+            <div class="bg-green-50 border-2 border-green-200 rounded-xl p-6 mb-6">
+                <div class="flex items-center mb-3">
+                    <span class="text-3xl mr-3">✅</span>
+                    <h3 class="text-xl font-bold text-gray-900">Knowledge Engine Dashboard - Fully Operational (December 2025)</h3>
+                </div>
+                <p class="text-gray-700 mb-4">
+                    The Knowledge Engine is now <strong>fully implemented and deployed</strong> with a working web dashboard providing unified access to all components.
+                </p>
+                <div class="grid md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <h4 class="font-semibold text-gray-800 mb-2">Key Features:</h4>
+                        <ul class="text-sm text-gray-700 space-y-1">
+                            <li>✓ Interactive Knowledge Graph (12,000+ papers)</li>
+                            <li>✓ Vector Search (semantic similarity)</li>
+                            <li>✓ RAG System (with citations)</li>
+                            <li>✓ Content Browsing (papers, podcasts, processes)</li>
+                            <li>✓ Statistics Dashboard</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-gray-800 mb-2">Live System:</h4>
+                        <p class="text-sm text-gray-700 mb-2">
+                            <a href="https://copernicus-frontend-phzp4ie2sq-uc.a.run.app/knowledge-engine" 
+                               target="_blank" rel="noopener noreferrer"
+                               class="text-blue-600 hover:underline font-medium">
+                                https://copernicus-frontend-phzp4ie2sq-uc.a.run.app/knowledge-engine (opens in new tab)
+                            </a>
+                        </p>
+                        <p class="text-xs text-gray-600">
+                            Fully deployed to Google Cloud Run, accessible 24/7
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+                <div class="bg-white rounded-lg p-6 card-hover">
+                    <div class="text-3xl mb-3">🔬</div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Copernicus AI</h3>
+                    <p class="text-sm text-gray-600 mb-3">Core synthesis & distribution platform for AI-powered research and podcast generation</p>
+                    <p class="text-xs text-gray-500 italic">This platform</p>
+                </div>
+                
+                <div class="bg-white rounded-lg p-6 card-hover border-2 border-green-300">
+                    <div class="text-3xl mb-3">🗺️</div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Knowledge Engine Dashboard</h3>
+                    <p class="text-sm text-gray-600 mb-3">✅ Fully operational web interface with knowledge graph, vector search, RAG queries, and content browsing</p>
+                    <a href="https://copernicus-frontend-phzp4ie2sq-uc.a.run.app/knowledge-engine" target="_blank" class="text-xs text-blue-600 hover:underline">Live System →</a>
+                </div>
+                
+                <div class="bg-white rounded-lg p-6 card-hover">
+                    <div class="text-3xl mb-3">🛠️</div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Programming Framework</h3>
+                    <p class="text-sm text-gray-600 mb-3">Foundational meta-tool for universal process analysis across disciplines</p>
+                    <a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" class="text-xs text-blue-600 hover:underline">Explore →</a>
+                </div>
+                
+                <div class="bg-white rounded-lg p-6 card-hover">
+                    <div class="text-3xl mb-3">🧬</div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">GLMP</h3>
+                    <p class="text-sm text-gray-600 mb-3">Biological process visualization - 50+ processes mapped</p>
+                    <a href="https://huggingface.co/spaces/garywelz/glmp" target="_blank" class="text-xs text-blue-600 hover:underline">Explore →</a>
+                </div>
+                
+                <div class="bg-white rounded-lg p-6 card-hover">
+                    <div class="text-3xl mb-3">📚</div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Metadata Database</h3>
+                    <p class="text-sm text-gray-600 mb-3">Core data infrastructure for research paper metadata and citation networks</p>
+                    <a href="https://huggingface.co/spaces/garywelz/metadata_database" target="_blank" class="text-xs text-blue-600 hover:underline">Explore →</a>
+                </div>
+                
+                <div class="bg-white rounded-lg p-6 card-hover">
+                    <div class="text-3xl mb-3">🎬</div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Video Database</h3>
+                    <p class="text-sm text-gray-600 mb-3">Multi-modal content with transcript-based search for scientific videos</p>
+                    <a href="https://huggingface.co/spaces/garywelz/sciencevideodb" target="_blank" class="text-xs text-blue-600 hover:underline">Explore →</a>
+                </div>
+                
+                <div class="bg-white rounded-lg p-6 card-hover border-2 border-dashed border-gray-300">
+                    <div class="text-3xl mb-3 opacity-50">➕</div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Future Components</h3>
+                    <p class="text-sm text-gray-600 mb-3">Additional tools, databases, and collaboration features will be added as the project develops</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Statistics -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="grid md:grid-cols-2 gap-6 mb-12">
+            <div class="bg-white rounded-lg shadow-md p-6 text-center">
+                <div class="stat-number mb-2">250+</div>
+                <div class="text-gray-600 font-semibold">Million Papers</div>
+                <div class="text-sm text-gray-500 mt-1">Accessible via APIs (As of January 2025)</div>
+            </div>
+            <div class="bg-white rounded-lg shadow-md p-6 text-center">
+                <div class="stat-number mb-2">12,000+</div>
+                <div class="text-gray-600 font-semibold">Indexed Papers</div>
+                <div class="text-sm text-gray-500 mt-1">In Knowledge Engine - Mathematics (As of December 2025)</div>
+            </div>
+            <div class="bg-white rounded-lg shadow-md p-6 text-center">
+                <div class="stat-number mb-2">64+</div>
+                <div class="text-gray-600 font-semibold">Podcast Episodes</div>
+                <div class="text-sm text-gray-500 mt-1">Generated across 5 disciplines</div>
+            </div>
+            <div class="bg-white rounded-lg shadow-md p-6 text-center">
+                <div class="stat-number mb-2">8+</div>
+                <div class="text-gray-600 font-semibold">Academic Databases</div>
+                <div class="text-sm text-gray-500 mt-1">Integrated research sources</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Platform Capabilities -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">🌟 Core Platform Capabilities</h2>
+        
+        <div class="space-y-8">
+            <!-- AI Podcast Generation -->
+            <div class="bg-white rounded-xl shadow-lg p-8">
+                <div class="flex items-start mb-4">
+                    <span class="text-4xl mr-4">🎙️</span>
+                    <div class="flex-1">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-3">AI-Powered Podcast Generation</h3>
+                        <p class="text-gray-600 mb-4">
+                            Collaborative research platform where subscribers prompt and generate multi-voice AI podcasts 
+                            (5-10 minutes) synthesizing research from multiple academic sources. Subscribers can share their 
+                            podcasts publicly or keep them private. Evidence-based content generation requiring minimum 3 
+                            research sources per episode.
+                        </p>
+                        <div class="grid md:grid-cols-2 gap-4 mt-4">
+                            <div>
+                                <h4 class="font-semibold text-gray-800 mb-2">Key Features:</h4>
+                                <ul class="text-sm text-gray-600 space-y-1">
+                                    <li>✓ Comprehensive research integration (8+ databases)</li>
+                                    <li>✓ Professional multi-speaker dialogue</li>
+                                    <li>✓ AI-generated scientific visualizations</li>
+                                    <li>✓ RSS feed distribution</li>
+                                    <li>✓ Quality scoring & relevance ranking</li>
+                                    <li>✓ Paradigm shift identification</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800 mb-2">Research Integration:</h4>
+                                <ul class="text-sm text-gray-600 space-y-1">
+                                    <li>✓ Real-time discovery from 8+ APIs</li>
+                                    <li>✓ Parallel search across databases</li>
+                                    <li>✓ Automatic citation extraction</li>
+                                    <li>✓ Source validation & verification</li>
+                                    <li>✓ Interdisciplinary connection analysis</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LLM Integration -->
+            <div class="bg-white rounded-xl shadow-lg p-8">
+                <div class="flex items-start mb-4">
+                    <span class="text-4xl mr-4">🤖</span>
+                    <div class="flex-1">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-3">Advanced LLM Integration</h3>
+                        <p class="text-gray-600 mb-4">Multi-model architecture with intelligent model selection:</p>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <h4 class="font-semibold text-gray-800 mb-2">Primary Models:</h4>
+                                <ul class="text-sm text-gray-600 space-y-1">
+                                    <li>• <strong>Google Gemini 3</strong> - Latest research analysis and content generation</li>
+                                    <li>• <strong>OpenAI GPT-4/GPT-3.5</strong> - Content synthesis and quality validation</li>
+                                    <li>• <strong>Anthropic Claude 3</strong> (Sonnet, Haiku) - Alternative reasoning paths</li>
+                                    <li>• <strong>ElevenLabs TTS</strong> - Multi-voice text-to-speech synthesis</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800 mb-2">Capabilities:</h4>
+                                <ul class="text-sm text-gray-600 space-y-1">
+                                    <li>• Multi-paper analysis & synthesis</li>
+                                    <li>• Paradigm shift detection</li>
+                                    <li>• Entity extraction (genes, proteins, compounds)</li>
+                                    <li>• Citation tracking & cross-references</li>
+                                    <li>• Content quality scoring</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Research Resources -->
+            <div class="bg-white rounded-xl shadow-lg p-8">
+                <div class="flex items-start mb-4">
+                    <span class="text-4xl mr-4">📊</span>
+                    <div class="flex-1">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-3">Research Resource Access</h3>
+                        <p class="text-gray-600 mb-4">
+                            Comprehensive academic database coverage with <strong>250+ million research papers</strong> accessible 
+                            through integrated APIs.
+                        </p>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <h4 class="font-semibold text-gray-800 mb-2">Academic Databases:</h4>
+                                <ul class="text-sm text-gray-600 space-y-1">
+                                    <li>• PubMed/NCBI (~30+ million papers)</li>
+                                    <li>• arXiv (~2+ million preprints)</li>
+                                    <li>• NASA ADS (~15+ million papers)</li>
+                                    <li>• Zenodo (100K+ datasets)</li>
+                                    <li>• bioRxiv/medRxiv (preprints)</li>
+                                    <li>• CORE (~200+ million papers)</li>
+                                    <li>• Google Scholar (comprehensive)</li>
+                                    <li>• News API (current events)</li>
+                                    <li>• YouTube Data API (academic videos)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Audio and Video Podcast Production -->
+            <div class="bg-white rounded-xl shadow-lg p-8">
+                <div class="flex items-start mb-4">
+                    <span class="text-4xl mr-4">🎙️</span>
+                    <div class="flex-1">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-3">Audio and Video Podcast Production</h3>
+                        <p class="text-gray-600 mb-4">
+                            <strong>Operating Audio Podcast System:</strong> Full production and distribution platform for subscriber-generated 
+                            podcasts. Users can prompt, generate, publish, and distribute audio podcasts with RSS feed support for 
+                            Spotify, Apple Podcasts, and Google Podcasts.
+                        </p>
+                        <div class="bg-green-50 rounded-lg p-4 mb-4">
+                            <h4 class="font-semibold text-gray-800 mb-2">Current Audio Capabilities (Operational):</h4>
+                            <ul class="text-sm text-gray-700 space-y-1">
+                                <li>✓ Multi-voice AI podcast generation</li>
+                                <li>✓ Research-driven content creation</li>
+                                <li>✓ RSS feed distribution</li>
+                                <li>✓ Public and private podcast options</li>
+                                <li>✓ Professional audio quality</li>
+                            </ul>
+                        </div>
+                        <div class="bg-blue-50 rounded-lg p-4 mt-4">
+                            <h4 class="font-semibold text-gray-800 mb-2">Video Production (Future - Phase 2+):</h4>
+                            <p class="text-sm text-gray-700 mb-2">Advanced video features planned for future development:</p>
+                            <ul class="text-sm text-gray-700 space-y-2">
+                                <li>• <strong>Visual Content Integration:</strong> Automated extraction from papers, web scraping, JSON database integration</li>
+                                <li>• <strong>Dynamic Visualizations:</strong> Scientific animations, real-time charts, LaTeX rendering</li>
+                                <li>• <strong>External Video Quoting:</strong> YouTube segment extraction with attribution & fair use compliance</li>
+                                <li>• <strong>Advanced Composition:</strong> Multi-layer video, auto subtitles, text overlays, professional transitions</li>
+                            </ul>
+                            <p class="text-xs text-gray-600 mt-2">
+                                See: <a href="https://huggingface.co/spaces/garywelz/sciencevideodb" class="text-blue-600 hover:underline">Science Video Database</a> - Companion project for research video content management.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Research Papers Metadata Database -->
+            <div class="bg-white rounded-xl shadow-lg p-8">
+                <div class="flex items-start mb-4">
+                    <span class="text-4xl mr-4">📚</span>
+                    <div class="flex-1">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-3">Research Papers Metadata Database (Phase 2)</h3>
+                        <p class="text-gray-600 mb-4">
+                            A centralized <strong>metadata repository</strong> (not a file archive) providing structured JSON objects 
+                            with AI-powered preprocessing.
+                        </p>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <h4 class="font-semibold text-gray-800 mb-2">Structured JSON Objects:</h4>
+                                <ul class="text-sm text-gray-600 space-y-1">
+                                    <li>• DOI, arXiv ID, publication info</li>
+                                    <li>• Abstracts & key findings</li>
+                                    <li>• Extracted entities (genes, proteins, compounds, equations)</li>
+                                    <li>• Citation networks & cross-references</li>
+                                    <li>• Paradigm shift indicators</li>
+                                    <li>• Quality scores & relevance metrics</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800 mb-2">AI-Powered Preprocessing:</h4>
+                                <ul class="text-sm text-gray-600 space-y-1">
+                                    <li>• LLM-based entity extraction</li>
+                                    <li>• Automatic categorization</li>
+                                    <li>• Keyword extraction & semantic tagging</li>
+                                    <li>• Citation tracking & mapping</li>
+                                    <li>• Quality assessment</li>
+                                    <li>• RESTful API access</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Methodological Details -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+            <h2 class="text-3xl font-bold text-gray-900 mb-6">🔬 Methodology & System Design</h2>
+            
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                <div class="bg-blue-50 rounded-lg p-6">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Multi-Source Validation Process</h3>
+                    <p class="text-gray-700 mb-3">
+                        The system requires a <strong>minimum of 3 research sources</strong> per podcast episode. Each source is:
+                    </p>
+                    <ul class="text-sm text-gray-700 space-y-2">
+                        <li>• Retrieved from authoritative academic databases (PubMed, arXiv, NASA ADS, etc.)</li>
+                        <li>• Validated for authenticity and publication status</li>
+                        <li>• Scored for quality and relevance to the research topic</li>
+                        <li>• Cross-referenced to verify consistency and eliminate conflicting information</li>
+                        <li>• Processed through parallel API queries for comprehensive coverage</li>
                     </ul>
                 </div>
                 
-                <div>
-                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Google Cloud Storage</h3>
-                    <ul class="space-y-2 text-gray-700">
-                        <li><strong>audio/</strong> - MP3 podcast files (multi-voice synthesis)</li>
-                        <li><strong>transcripts/</strong> - Full text transcripts</li>
-                        <li><strong>descriptions/</strong> - Markdown descriptions with references</li>
-                        <li><strong>thumbnails/</strong> - AI-generated episode artwork</li>
-                        <li><strong>glmp-v2/</strong> - Genome Logic flowcharts (JSON)</li>
+                <div class="bg-green-50 rounded-lg p-6">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Quality Assurance Mechanisms</h3>
+                    <ul class="text-sm text-gray-700 space-y-2">
+                        <li>• <strong>Source Verification:</strong> Automated checking of DOI, arXiv IDs, and publication metadata</li>
+                        <li>• <strong>Relevance Scoring:</strong> LLM-based assessment of paper relevance to query</li>
+                        <li>• <strong>Paradigm Shift Detection:</strong> Identification of revolutionary vs. incremental research</li>
+                        <li>• <strong>Citation Extraction:</strong> Automatic extraction and formatting of citations</li>
+                        <li>• <strong>Content Validation:</strong> Multi-model verification (Gemini, GPT-4, Claude) for accuracy</li>
                     </ul>
                 </div>
             </div>
-
-            <div class="mt-6 p-4 bg-white rounded-lg">
-                <h4 class="font-semibold text-gray-800 mb-2">Enhanced Metadata (Phase 1)</h4>
-                <p class="text-sm text-gray-600">
-                    Each podcast now includes: source papers (DOIs/URLs), extracted keywords, quality scores, 
-                    GLMP visualization links, and engagement metrics (plays, ratings, shares).
+            
+            <div class="bg-purple-50 rounded-lg p-6 mb-6">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">Citation Extraction & Verification</h3>
+                <p class="text-gray-700 mb-3">
+                    The system automatically extracts and formats citations from research papers:
                 </p>
+                <ul class="text-sm text-gray-700 space-y-2">
+                    <li>• DOI resolution and metadata enrichment</li>
+                    <li>• arXiv ID parsing and preprint identification</li>
+                    <li>• Author, title, and publication information extraction</li>
+                    <li>• Cross-reference linking between related papers</li>
+                    <li>• Citation network analysis for relationship mapping</li>
+                </ul>
             </div>
-        </div>
-    </section>
-
-    <!-- Disciplines -->
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <h2 class="text-3xl font-bold text-gray-900 mb-6 text-center">📊 Scientific Disciplines</h2>
-        
-        <div class="flex flex-wrap justify-center gap-4 mb-8">
-            <div class="bg-green-100 text-green-800 px-6 py-3 rounded-full font-semibold">
-                🧬 Biology (9 podcasts)
-            </div>
-            <div class="bg-purple-100 text-purple-800 px-6 py-3 rounded-full font-semibold">
-                ⚗️ Chemistry (4 podcasts)
-            </div>
-            <div class="bg-gray-100 text-gray-800 px-6 py-3 rounded-full font-semibold">
-                💻 Computer Science (6 podcasts)
-            </div>
-            <div class="bg-red-100 text-red-800 px-6 py-3 rounded-full font-semibold">
-                📐 Mathematics (6 podcasts)
-            </div>
-            <div class="bg-blue-100 text-blue-800 px-6 py-3 rounded-full font-semibold">
-                ⚛️ Physics (7 podcasts)
+            
+            <div class="bg-orange-50 rounded-lg p-6">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">Paradigm Shift Detection Implementation</h3>
+                <p class="text-gray-700 mb-3">
+                    The system uses LLM analysis to identify paradigm-shifting research by:
+                </p>
+                <ul class="text-sm text-gray-700 space-y-2">
+                    <li>• Analyzing citation patterns and impact metrics</li>
+                    <li>• Detecting novel methodologies or breakthrough discoveries</li>
+                    <li>• Comparing against established knowledge frameworks</li>
+                    <li>• Identifying interdisciplinary connections and cross-domain insights</li>
+                    <li>• Flagging research that challenges existing paradigms</li>
+                </ul>
             </div>
         </div>
     </section>
@@ -216,36 +488,304 @@
         <div class="bg-white rounded-xl shadow-lg p-8">
             <h2 class="text-3xl font-bold text-gray-900 mb-6">⚙️ Technology Stack</h2>
             
-            <div class="grid md:grid-cols-3 gap-6">
+            <div class="grid md:grid-cols-3 gap-6 mb-6">
                 <div>
-                    <h3 class="text-lg font-semibold text-gray-800 mb-3">AI & ML</h3>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-3">AI & Machine Learning</h3>
                     <ul class="text-sm text-gray-600 space-y-1">
-                        <li>• Google Gemini 2.0 Flash</li>
-                        <li>• Vertex AI</li>
+                        <li>• Google Gemini 3</li>
+                        <li>• Google Vertex AI (model orchestration)</li>
+                        <li>• OpenAI GPT-4/GPT-3.5</li>
+                        <li>• Anthropic Claude 3</li>
                         <li>• ElevenLabs TTS</li>
-                        <li>• Entity extraction</li>
+                        <li>• DALL-E 3</li>
+                        <li>• Cloud Vision API</li>
+                        <li>• Video Intelligence API</li>
                     </ul>
                 </div>
                 
                 <div>
-                    <h3 class="text-lg font-semibold text-gray-800 mb-3">Backend</h3>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-3">Backend Infrastructure</h3>
                     <ul class="text-sm text-gray-600 space-y-1">
                         <li>• FastAPI (Python)</li>
                         <li>• Google Cloud Run</li>
                         <li>• Firestore (NoSQL)</li>
                         <li>• Cloud Storage</li>
+                        <li>• Cloud Functions</li>
+                        <li>• Cloud Tasks</li>
+                        <li>• Secret Manager</li>
                     </ul>
                 </div>
                 
                 <div>
                     <h3 class="text-lg font-semibold text-gray-800 mb-3">Frontend</h3>
                     <ul class="text-sm text-gray-600 space-y-1">
-                        <li>• Static HTML/Alpine.js</li>
+                        <li>• Next.js 15.5.7</li>
+                        <li>• Alpine.js</li>
                         <li>• Tailwind CSS</li>
-                        <li>• Vercel (hosting)</li>
-                        <li>• Responsive design</li>
+                        <li>• Vercel</li>
                     </ul>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Limitations & Future Work -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+            <h2 class="text-3xl font-bold text-gray-900 mb-6">🔍 Limitations & Future Directions</h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-yellow-50 rounded-lg p-6 border-l-4 border-yellow-400">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Current Limitations</h3>
+                    <ul class="text-sm text-gray-700 space-y-2">
+                        <li>• <strong>Discipline Coverage:</strong> Mathematics currently has the most complete indexing (12,000+ papers); other disciplines are being expanded</li>
+                        <li>• <strong>Source Bias:</strong> Coverage depends on database API availability and open access policies</li>
+                        <li>• <strong>LLM Accuracy:</strong> Content generation relies on LLM accuracy; multi-source validation mitigates but doesn't eliminate errors</li>
+                        <li>• <strong>Real-Time Updates:</strong> Knowledge graph updates require manual or scheduled processing cycles</li>
+                        <li>• <strong>Language:</strong> Currently optimized for English-language research papers</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-blue-50 rounded-lg p-6 border-l-4 border-blue-400">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Future Development</h3>
+                    <ul class="text-sm text-gray-700 space-y-2">
+                        <li>• <strong>Multi-Discipline Expansion:</strong> Expanding knowledge graph to Biology, Chemistry, Physics, Computer Science</li>
+                        <li>• <strong>Process Databases:</strong> Creating comprehensive flowchart databases for all 5 disciplines (~50 processes each)</li>
+                        <li>• <strong>Advanced Video Features:</strong> Dynamic visualizations, animations, and multi-layer composition</li>
+                        <li>• <strong>Multi-Language Support:</strong> Extending to non-English research papers</li>
+                        <li>• <strong>Enhanced Validation:</strong> Peer review mechanisms and user feedback integration</li>
+                        <li>• <strong>Real-Time Updates:</strong> Automated continuous knowledge graph updates</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Research & Collaborative Tools -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="bg-gradient-to-r from-green-50 to-blue-50 rounded-xl p-8">
+            <h2 class="text-3xl font-bold text-gray-900 mb-6">🔬 Collaborative Research Tools</h2>
+            
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                <div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Collaborative Research Tools</h3>
+                    <p class="text-gray-700 mb-3">
+                        These platforms enable collective participation and collaboration across diverse user communities:
+                    </p>
+                    <ul class="text-gray-700 space-y-2">
+                        <li>• <strong>Researchers</strong> - Tools for hypothesis formation and testing, cross-disciplinary synthesis</li>
+                        <li>• <strong>Collaborators</strong> - Collective knowledge exploration and refinement</li>
+                        <li>• <strong>Subscribers</strong> - Prompt, generate, and share podcasts (public or private)</li>
+                        <li>• <strong>Community</strong> - User suggestions, comments, and collaborative flowchart improvement (GLMP)</li>
+                    </ul>
+                    <p class="text-gray-600 mt-4 italic">
+                        Like a microscope enables observation of the microscopic world, these tools enable observation and 
+                        exploration of humanity's collective knowledge.
+                    </p>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Key Innovations</h3>
+                    <ul class="text-gray-700 space-y-2">
+                        <li>• Multi-source validation (min 3 sources)</li>
+                        <li>• Evidence-based generation</li>
+                        <li>• Paradigm shift detection</li>
+                        <li>• Interdisciplinary connections</li>
+                        <li>• Multiple expertise levels</li>
+                        <li>• Full citation tracking</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Prior Work & Research Contributions -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="bg-gradient-to-r from-purple-50 to-blue-50 rounded-xl shadow-lg p-8">
+            <h2 class="text-3xl font-bold text-gray-900 mb-6">📚 Prior Work & Research Contributions</h2>
+            
+            <div class="bg-white rounded-lg p-6 mb-6">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">Overview</h3>
+                <p class="text-gray-700 mb-4">
+                    This platform represents <strong>prior work</strong> that demonstrates foundational research and development 
+                    achievements in AI-powered scientific knowledge synthesis, collaborative research tools, and multi-modal content 
+                    generation. These contributions establish the technical foundation and proof-of-concept for the broader 
+                    <strong>CopernicusAI Knowledge Engine</strong> initiative.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                <div class="bg-white rounded-lg p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-3">🔬 Research Contributions</h3>
+                    <ul class="text-sm text-gray-700 space-y-2">
+                        <li>• <strong>AI-Powered Research Synthesis:</strong> Production system for multi-source research synthesis using LLMs</li>
+                        <li>• <strong>Multi-Model Architecture:</strong> Intelligent model selection with Gemini 3, GPT-4, Claude 3</li>
+                        <li>• <strong>Collaborative Platform:</strong> Subscriber-driven content generation with public/private sharing</li>
+                        <li>• <strong>Knowledge Engine Integration:</strong> Architecture for Research Papers DB, Video DB, GLMP, Framework</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white rounded-lg p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-3">⚙️ Technical Achievements</h3>
+                    <ul class="text-sm text-gray-700 space-y-2">
+                        <li>• <strong>250+ Million Papers:</strong> Accessible via 8+ integrated academic databases</li>
+                        <li>• <strong>64+ Episodes:</strong> Generated across 5 scientific disciplines</li>
+                        <li>• <strong>Production Deployment:</strong> Live platform with operational API and RSS distribution</li>
+                        <li>• <strong>Scalable Architecture:</strong> Serverless microservices on Google Cloud</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg p-6 mb-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-3">🎯 Position Within CopernicusAI Knowledge Engine</h3>
+                <p class="text-gray-700 mb-3">
+                    This platform serves as the <strong>core synthesis and distribution component</strong> of the CopernicusAI Knowledge Engine. 
+                    The Knowledge Engine is an integrated ecosystem of research and collaboration tools that work together to assist scientists 
+                    in their workflow, from research discovery through knowledge synthesis to multi-format content generation.
+                </p>
+                <div class="bg-blue-50 rounded-lg p-4 mb-3">
+                    <h4 class="font-semibold text-gray-900 mb-2">Current Components:</h4>
+                    <div class="grid md:grid-cols-2 gap-4 text-sm">
+                        <ul class="text-gray-700 space-y-1">
+                            <li>1. <strong>Copernicus AI</strong> (This platform) - Core synthesis & distribution</li>
+                            <li>2. <strong>Programming Framework</strong> - Foundational meta-tool</li>
+                            <li>3. <strong>GLMP</strong> - Biological process visualization</li>
+                        </ul>
+                        <ul class="text-gray-700 space-y-1">
+                            <li>4. <strong>Research Paper Metadata Database</strong> - Data infrastructure</li>
+                            <li>5. <strong>Science Video Database</strong> - Multi-modal content</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="bg-purple-50 rounded-lg p-4">
+                    <h4 class="font-semibold text-gray-900 mb-2">Future Development:</h4>
+                    <p class="text-gray-700 text-sm">
+                        The Knowledge Engine is designed to grow and evolve. Additional tools, databases, and collaboration components 
+                        will be added as the project develops, expanding capabilities for AI-assisted scientific research and knowledge discovery.
+                    </p>
+                </div>
+            </div>
+
+            <div class="bg-blue-50 rounded-lg p-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-3">📖 Citation Information</h3>
+                <p class="text-sm text-gray-700 mb-3">
+                    <strong>For Grant Proposals (NSF/DOE):</strong>
+                </p>
+                <div class="bg-white rounded p-4 font-mono text-sm text-gray-800 mb-4">
+                    <p class="mb-2">Welz, G. (2025). Copernicus AI: Knowledge Engine for Scientific Discovery.</p>
+                    <p class="mb-2">Hugging Face Space. https://huggingface.co/spaces/garywelz/copernicusai</p>
+                    <p>Live Platform: https://www.copernicusai.fyi</p>
+                </div>
+                <div class="bg-white rounded p-4 mb-4">
+                    <p class="text-sm font-semibold text-gray-700 mb-2">BibTeX Format:</p>
+                    <pre class="bg-gray-900 text-green-400 p-3 rounded text-xs overflow-x-auto"><code>@misc{welz2025copernicusai,
+  title={Copernicus AI: Knowledge Engine for Scientific Discovery},
+  author={Welz, Gary},
+  year={2025},
+  url={https://huggingface.co/spaces/garywelz/copernicusai},
+  note={Hugging Face Space, Live Platform: https://www.copernicusai.fyi}
+}</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Data Availability Statement -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+            <h2 class="text-3xl font-bold text-gray-900 mb-6">📊 Data Availability Statement</h2>
+            
+            <div class="bg-blue-50 rounded-lg p-6 mb-4">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">Platform Access</h3>
+                <ul class="text-gray-700 space-y-2">
+                    <li>• <strong>Live Platform:</strong> <a href="https://www.copernicusai.fyi" target="_blank" class="text-blue-600 hover:underline">https://www.copernicusai.fyi</a> (opens in new tab)</li>
+                    <li>• <strong>Knowledge Engine Dashboard:</strong> <a href="https://copernicus-frontend-phzp4ie2sq-uc.a.run.app/knowledge-engine" target="_blank" class="text-blue-600 hover:underline">https://copernicus-frontend-phzp4ie2sq-uc.a.run.app/knowledge-engine</a> (opens in new tab)</li>
+                    <li>• <strong>API Base URL:</strong> <code class="bg-gray-100 px-2 py-1 rounded">https://copernicus-podcast-api-phzp4ie2sq-uc.a.run.app</code></li>
+                    <li>• <strong>RSS Feed:</strong> <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/feeds/copernicus-mvp-rss-feed.xml" target="_blank" class="text-blue-600 hover:underline">Available for public access</a> (opens in new tab)</li>
+                </ul>
+            </div>
+            
+            <div class="bg-green-50 rounded-lg p-6 mb-4">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">Data & Code Availability</h3>
+                <ul class="text-gray-700 space-y-2">
+                    <li>• <strong>Hugging Face Spaces:</strong> All components accessible at <a href="https://huggingface.co/garywelz" target="_blank" class="text-blue-600 hover:underline">https://huggingface.co/garywelz</a> (opens in new tab)</li>
+                    <li>• <strong>Process Flowcharts (GLMP):</strong> JSON files stored in Google Cloud Storage, accessible via <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-database-table.html" target="_blank" class="text-blue-600 hover:underline">GLMP Database Table</a> (opens in new tab)</li>
+                    <li>• <strong>Research Paper Metadata:</strong> 12,000+ indexed papers with metadata accessible through Knowledge Engine Dashboard</li>
+                    <li>• <strong>API Documentation:</strong> RESTful API endpoints available for programmatic access (see API Documentation section)</li>
+                </ul>
+            </div>
+            
+            <div class="bg-purple-50 rounded-lg p-6">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">Reproducibility Information</h3>
+                <ul class="text-gray-700 space-y-2">
+                    <li>• <strong>Technology Stack:</strong> All technologies and versions documented in Technology Stack section</li>
+                    <li>• <strong>LLM Models:</strong> Google Gemini 3, OpenAI GPT-4/GPT-3.5, Anthropic Claude 3 (versions specified in documentation)</li>
+                    <li>• <strong>Source Citations:</strong> All podcast episodes include full citations to source papers</li>
+                    <li>• <strong>Metadata:</strong> Complete metadata for all generated content available through API</li>
+                    <li>• <strong>License:</strong> MIT License - see license information in space metadata</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- How to Cite This Work -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="bg-white rounded-xl shadow-lg p-8">
+            <h2 class="text-3xl font-bold text-gray-900 mb-6">How to Cite This Work</h2>
+            <div class="bg-gray-50 rounded-lg p-6 mb-4">
+                <p class="text-gray-800 font-mono text-lg leading-relaxed mb-4">
+                    Welz, G. (2024–2025). <em>CopernicusAI: AI-Generated Audio Briefings as a Research Interface</em>.<br>
+                    Hugging Face Spaces. https://huggingface.co/spaces/garywelz/copernicusai
+                </p>
+                
+                <div class="border-t border-gray-300 pt-4 mt-4">
+                    <p class="text-sm font-semibold text-gray-700 mb-2">BibTeX Format:</p>
+                    <pre class="bg-gray-800 text-green-400 p-4 rounded text-sm overflow-x-auto"><code>@misc{welz2025copernicusai,
+  title={CopernicusAI: AI-Generated Audio Briefings as a Research Interface},
+  author={Welz, Gary},
+  year={2024--2025},
+  url={https://huggingface.co/spaces/garywelz/copernicusai},
+  note={Hugging Face Space}
+}</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Grant Support & Collaboration -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="bg-white rounded-xl shadow-lg p-8">
+            <h2 class="text-3xl font-bold text-gray-900 mb-6">🌐 Grant Support & Collaboration</h2>
+            
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-3">Grant Applications Supported</h3>
+                <p class="text-gray-700 mb-4">
+                    This platform is designed to support grant applications to:
+                </p>
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div class="bg-blue-50 rounded-lg p-4">
+                        <h4 class="font-semibold text-gray-800 mb-2">NSF</h4>
+                        <p class="text-sm text-gray-600">National Science Foundation - Science education and research infrastructure</p>
+                    </div>
+                    <div class="bg-green-50 rounded-lg p-4">
+                        <h4 class="font-semibold text-gray-800 mb-2">DOE</h4>
+                        <p class="text-sm text-gray-600">Department of Energy - Scientific computing and data science</p>
+                    </div>
+                    <div class="bg-purple-50 rounded-lg p-4">
+                        <h4 class="font-semibold text-gray-800 mb-2">SAIR Foundation</h4>
+                        <p class="text-sm text-gray-600">AI research and development initiatives</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div>
+                <h3 class="text-xl font-semibold text-gray-800 mb-3">Collaboration Opportunities</h3>
+                <ul class="text-gray-700 space-y-2">
+                    <li>• Integration with academic institutions</li>
+                    <li>• Partnership with research organizations</li>
+                    <li>• Open data initiatives</li>
+                    <li>• Educational program development</li>
+                </ul>
             </div>
         </div>
     </section>
@@ -253,53 +793,86 @@
     <!-- Links & Resources -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div class="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-8">
-            <h2 class="text-3xl font-bold text-gray-900 mb-6 text-center">🔗 Links & Resources</h2>
+            <h2 class="text-3xl font-bold text-gray-900 mb-6 text-center">🔗 Live Platform & Resources</h2>
             
             <div class="grid md:grid-cols-2 gap-6">
                 <div class="bg-white rounded-lg p-6">
-                    <h3 class="text-xl font-semibold text-gray-800 mb-4">🌐 Live Platform</h3>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">🌐 Production Deployment</h3>
                     <ul class="space-y-2">
                         <li>
-                            <a href="https://www.copernicusai.fyi" target="_blank" 
+                            <a href="https://www.copernicusai.fyi" target="_blank" rel="noopener noreferrer"
                                class="text-blue-600 hover:text-blue-800 font-medium">
-                                🏠 Homepage - Browse Podcasts
+                                🏠 Homepage - Browse Podcasts (opens in new tab)
                             </a>
                         </li>
                         <li>
-                            <a href="https://www.copernicusai.fyi/subscriber-dashboard.html" target="_blank" 
+                            <a href="https://www.copernicusai.fyi/subscriber-dashboard.html" target="_blank" rel="noopener noreferrer"
                                class="text-blue-600 hover:text-blue-800 font-medium">
-                                📊 Creator Dashboard
+                                📊 Creator Dashboard (opens in new tab)
                             </a>
                         </li>
                         <li>
-                            <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/feeds/copernicus-mvp-rss-feed.xml" target="_blank" 
+                            <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/feeds/copernicus-mvp-rss-feed.xml" target="_blank" rel="noopener noreferrer"
                                class="text-blue-600 hover:text-blue-800 font-medium">
-                                📡 RSS Feed
+                                📡 RSS Feed (opens in new tab)
                             </a>
                         </li>
                     </ul>
                 </div>
                 
                 <div class="bg-white rounded-lg p-6">
-                    <h3 class="text-xl font-semibold text-gray-800 mb-4">🧬 Related Projects</h3>
-                    <ul class="space-y-2">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">🧩 Knowledge Engine Components</h3>
+                    <p class="text-sm text-gray-600 mb-4">
+                        The CopernicusAI Knowledge Engine is an integrated ecosystem of research and collaboration tools. 
+                        The <strong>Knowledge Engine Dashboard is now fully operational</strong> (December 2025) with a working web interface providing unified access to all components.
+                    </p>
+                    <div class="bg-green-50 rounded-lg p-4 mb-4">
+                        <h4 class="font-semibold text-gray-800 mb-2">✅ Knowledge Engine Dashboard (Implemented)</h4>
+                        <p class="text-sm text-gray-700 mb-2">
+                            Fully operational web interface with knowledge graph visualization (12,000+ papers), vector search, RAG queries, and content browsing.
+                        </p>
+                        <a href="https://copernicus-frontend-phzp4ie2sq-uc.a.run.app/knowledge-engine" 
+                           target="_blank" rel="noopener noreferrer"
+                           class="text-blue-600 hover:underline text-sm font-medium">
+                            Live System: https://copernicus-frontend-phzp4ie2sq-uc.a.run.app/knowledge-engine → (opens in new tab)
+                        </a>
+                    </div>
+                    <ul class="space-y-3">
                         <li>
-                            <a href="https://huggingface.co/spaces/garywelz/glmp" target="_blank" 
+                            <a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" rel="noopener noreferrer"
                                class="text-blue-600 hover:text-blue-800 font-medium">
-                                🔬 GLMP - Genome Logic Modeling
+                                🛠️ Programming Framework (opens in new tab)
                             </a>
+                            <p class="text-sm text-gray-600 mt-1 ml-6">
+                                Foundational meta-tool for universal process analysis across any discipline
+                            </p>
                         </li>
                         <li>
-                            <a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" 
+                            <a href="https://huggingface.co/spaces/garywelz/glmp" target="_blank" rel="noopener noreferrer"
                                class="text-blue-600 hover:text-blue-800 font-medium">
-                                🛠️ Programming Framework
+                                🧬 GLMP - Genome Logic Modeling Project (opens in new tab)
                             </a>
+                            <p class="text-sm text-gray-600 mt-1 ml-6">
+                                First application of Programming Framework to biology - 50+ biological processes visualized
+                            </p>
                         </li>
                         <li>
-                            <a href="https://console.cloud.google.com/storage/browser/regal-scholar-453620-r7-podcast-storage/glmp-v2" target="_blank" 
+                            <a href="https://huggingface.co/spaces/garywelz/metadata_database" target="_blank" rel="noopener noreferrer"
                                class="text-blue-600 hover:text-blue-800 font-medium">
-                                📁 GLMP Data Collection (GCS)
+                                📚 Research Paper Metadata Database (opens in new tab)
                             </a>
+                            <p class="text-sm text-gray-600 mt-1 ml-6">
+                                Core data infrastructure for structured research paper metadata and citation networks
+                            </p>
+                        </li>
+                        <li>
+                            <a href="https://huggingface.co/spaces/garywelz/sciencevideodb" target="_blank" rel="noopener noreferrer"
+                               class="text-blue-600 hover:text-blue-800 font-medium">
+                                🎬 Science Video Database (opens in new tab)
+                            </a>
+                            <p class="text-sm text-gray-600 mt-1 ml-6">
+                                Multi-modal content component with transcript-based search for scientific videos
+                            </p>
                         </li>
                     </ul>
                 </div>
@@ -310,10 +883,10 @@
     <!-- API Endpoints -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div class="bg-gray-900 text-white rounded-xl p-8">
-            <h2 class="text-3xl font-bold mb-6">🔌 API Endpoints</h2>
+            <h2 class="text-3xl font-bold mb-6">🔌 API Documentation</h2>
             <p class="text-gray-300 mb-6">Base URL: <code class="bg-gray-800 px-2 py-1 rounded">https://copernicus-podcast-api-phzp4ie2sq-uc.a.run.app</code></p>
             
-            <div class="grid md:grid-cols-2 gap-4 text-sm">
+            <div class="grid md:grid-cols-3 gap-4 text-sm">
                 <div>
                     <h4 class="font-semibold text-blue-300 mb-2">Podcast Generation</h4>
                     <ul class="space-y-1 text-gray-400">
@@ -324,7 +897,7 @@
                 </div>
                 
                 <div>
-                    <h4 class="font-semibold text-blue-300 mb-2">Research Papers (Phase 1)</h4>
+                    <h4 class="font-semibold text-blue-300 mb-2">Research Endpoints</h4>
                     <ul class="space-y-1 text-gray-400">
                         <li>POST /api/papers/upload</li>
                         <li>GET /api/papers/{paper_id}</li>
@@ -332,33 +905,26 @@
                         <li>POST /api/papers/{id}/link-podcast/{id}</li>
                     </ul>
                 </div>
+                
+                <div>
+                    <h4 class="font-semibold text-blue-300 mb-2">Admin Endpoints</h4>
+                    <ul class="space-y-1 text-gray-400">
+                        <li>GET /api/admin/subscribers</li>
+                        <li>POST /api/admin/podcasts/fix-missing-titles</li>
+                        <li>GET /api/admin/podcasts/catalog</li>
+                    </ul>
+                </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Vision -->
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div class="bg-white rounded-xl shadow-lg p-8 text-center">
-            <h2 class="text-3xl font-bold text-gray-900 mb-4">🌟 The Vision</h2>
-            <blockquote class="text-xl text-gray-700 italic mb-6">
-                "I want to know a lot, and I want to be confident that I am learning and disseminating the truth."
-            </blockquote>
-            <p class="text-gray-600 max-w-3xl mx-auto leading-relaxed">
-                As LLMs and other forms of AI gain more knowledge and intelligence, the Copernicus AI project enables 
-                humans to keep up with what the AIs are capable of knowing and revealing. We're building the infrastructure 
-                for human-AI collaborative knowledge exploration, with truth-seeking as our North Star.
-            </p>
         </div>
     </section>
 
     <!-- Footer -->
     <footer class="gradient-bg text-white py-8 mt-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <p class="text-lg font-semibold mb-2">Copernicus AI - Expanding Human Knowledge</p>
-            <p class="text-sm opacity-75">Built with Google Cloud, Gemini AI, ElevenLabs, and Vercel</p>
+            <p class="text-lg font-semibold mb-2">Copernicus AI - Advancing Scientific Knowledge</p>
+            <p class="text-sm opacity-75">Built with Google Cloud, Gemini AI, OpenAI, Anthropic Claude, and ElevenLabs</p>
             <p class="text-xs opacity-50 mt-4">&copy; 2025 Copernicus AI. All rights reserved.</p>
         </div>
     </footer>
 </body>
 </html>
-

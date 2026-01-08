@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Chemistry Batch 05 - Biochemistry - Programming Framework Analysis</title>
+    <style>
+        body { 
+            font-family: 'Times New Roman', Times, serif, 'Arial Unicode MS'; 
+            margin: 0; 
+            background: #ffffff; 
+            color: #000000; 
+            line-height: 1.6; 
+            font-size: 12pt; 
+        }
+        .container { 
+            max-width: 1000px; 
+            margin: 0 auto; 
+            padding: 1.5rem; 
+        }
+        h1, h2, h3 { 
+            color: #000000; 
+            margin-top: 1.5rem; 
+            margin-bottom: 0.75rem; 
+        }
+        h1 { 
+            font-size: 18pt; 
+            text-align: center; 
+        }
+        h2 { 
+            font-size: 16pt; 
+            border-bottom: 2px solid #000; 
+            padding-bottom: 0.5rem; 
+        }
+        h3 { 
+            font-size: 14pt; 
+        }
+        p { 
+            margin-bottom: 1rem; 
+            text-align: justify; 
+        }
+        .figure { 
+            margin: 2rem 0; 
+            text-align: center; 
+            border: 1px solid #ccc; 
+            padding: 1rem; 
+            background: #f9f9f9; 
+        }
+        .figure-caption { 
+            margin-top: 1rem; 
+            font-style: italic; 
+            text-align: left; 
+        }
+        .mermaid { 
+            background: white; 
+            padding: 1rem; 
+            border-radius: 4px; 
+        }
+        .navigation {
+            margin: 3rem 0;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+        .nav-link {
+            color: #007bff;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border: 1px solid #007bff;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        .nav-link:hover {
+            background: #007bff;
+            color: white;
+        }
+        .footer {
+            margin-top: 3rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .contact-info {
+            margin-top: 1rem;
+        }
+        .contact-info p {
+            margin: 0.25rem 0;
+            text-align: center;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({ 
+            startOnLoad: true, 
+            theme: 'default', 
+            flowchart: { 
+                useMaxWidth: false, 
+                htmlLabels: true,
+                curve: 'linear',
+                nodeSpacing: 30,
+                rankSpacing: 30,
+                padding: 10
+            },
+            themeVariables: {
+                fontFamily: 'Arial Unicode MS, Arial, sans-serif'
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Chemistry Batch 05 - Biochemistry - Programming Framework Analysis</h1>
+        
+        <p>This document presents biochemistry processes analyzed using the Programming Framework methodology. Each process is represented as a computational flowchart with standardized color coding: Red for triggers/inputs, Yellow for structures/objects, Green for processing/operations, Blue for intermediates/states, and Violet for products/outputs. Yellow nodes use black text for optimal readability, while all other colors use white text.</p>
+
+        <h2>1. Enzyme Kinetics Process</h2>
+        <div class="figure">
+            <div class="mermaid">
+graph TD
+    A1[Substrate Binding] --> B1[Enzyme Method]
+    C1[Active Site] --> D1[Enzyme Substrate Complex]
+    E1[Catalytic Reaction] --> F1[Enzyme Kinetics Analysis]
+    
+    B1 --> G1[Michaelis Menten]
+    D1 --> H1[Lock and Key Model]
+    F1 --> I1[Induced Fit Model]
+    
+    G1 --> J1[Km Determination]
+    H1 --> K1[Substrate Specificity]
+    I1 --> L1[Conformational Change]
+    
+    J1 --> M1[Vmax Calculation]
+    K1 --> L1
+    L1 --> N1[Transition State]
+    
+    M1 --> O1[Turnover Number]
+    N1 --> P1[Product Formation]
+    O1 --> Q1[Enzyme Kinetics Process]
+    
+    P1 --> R1[Enzyme Kinetics Validation]
+    Q1 --> S1[Enzyme Kinetics Verification]
+    R1 --> T1[Enzyme Kinetics Result]
+    
+    S1 --> U1[Enzyme Kinetics Analysis]
+    T1 --> V1[Enzyme Kinetics Parameters]
+    U1 --> W1[Enzyme Kinetics Output]
+    
+    V1 --> X1[Enzyme Kinetics Analysis]
+    W1 --> Y1[Enzyme Kinetics Final Result]
+    X1 --> Z1[Enzyme Kinetics Complete]
+    
+    style A1 fill:#ff6b6b,color:#fff
+    style C1 fill:#ff6b6b,color:#fff
+    style E1 fill:#ff6b6b,color:#fff
+    
+    style B1 fill:#ffd43b,color:#000
+    style D1 fill:#ffd43b,color:#000
+    style F1 fill:#ffd43b,color:#000
+    style G1 fill:#ffd43b,color:#000
+    style H1 fill:#ffd43b,color:#000
+    style I1 fill:#ffd43b,color:#000
+    style J1 fill:#ffd43b,color:#000
+    style K1 fill:#ffd43b,color:#000
+    style L1 fill:#ffd43b,color:#000
+    style M1 fill:#ffd43b,color:#000
+    style N1 fill:#ffd43b,color:#000
+    style O1 fill:#ffd43b,color:#000
+    style P1 fill:#ffd43b,color:#000
+    style Q1 fill:#ffd43b,color:#000
+    style R1 fill:#ffd43b,color:#000
+    style S1 fill:#ffd43b,color:#000
+    style T1 fill:#ffd43b,color:#000
+    style U1 fill:#ffd43b,color:#000
+    style V1 fill:#ffd43b,color:#000
+    style W1 fill:#ffd43b,color:#000
+    style X1 fill:#ffd43b,color:#000
+    style Y1 fill:#ffd43b,color:#000
+    style Z1 fill:#ffd43b,color:#000
+    
+    style M1 fill:#51cf66,color:#fff
+    style N1 fill:#51cf66,color:#fff
+    style O1 fill:#51cf66,color:#fff
+    style P1 fill:#51cf66,color:#fff
+    style Q1 fill:#51cf66,color:#fff
+    style R1 fill:#51cf66,color:#fff
+    style S1 fill:#51cf66,color:#fff
+    style T1 fill:#51cf66,color:#fff
+    style U1 fill:#51cf66,color:#fff
+    style V1 fill:#51cf66,color:#fff
+    style W1 fill:#51cf66,color:#fff
+    style X1 fill:#51cf66,color:#fff
+    style Y1 fill:#51cf66,color:#fff
+    style Z1 fill:#51cf66,color:#fff
+    
+    style Z1 fill:#b197fc,color:#fff
+            </div>
+            
+            <div style="margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center;">
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#ff6b6b;"></span>Triggers & Inputs
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#ffd43b;"></span>Enzyme Methods
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#51cf66;"></span>Enzyme Operations
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#74c0fc;"></span>Intermediates
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#b197fc;"></span>Products
+                </div>
+            </div>
+            
+            <div class="figure-caption">
+                <strong>Figure 1.</strong> Enzyme Kinetics Process. This biochemistry process visualization demonstrates enzyme catalytic mechanisms and kinetic analysis. The flowchart shows substrate inputs and active site binding, enzyme methods and complex formation, enzyme operations and catalytic reactions, intermediate results, and final enzyme kinetics outputs.
+            </div>
+        </div>
+
+        <h2>2. Metabolism Process</h2>
+        <div class="figure">
+            <div class="mermaid">
+graph TD
+    A2[Metabolic Pathway] --> B2[Metabolism Method]
+    C2[Energy Source] --> D2[Metabolic Regulation]
+    E2[Biochemical Reaction] --> F2[Metabolism Analysis]
+    
+    B2 --> G2[Glycolysis]
+    D2 --> H2[Krebs Cycle]
+    F2 --> I2[Oxidative Phosphorylation]
+    
+    G2 --> J2[Glucose Breakdown]
+    H2 --> K2[Citric Acid Cycle]
+    I2 --> L2[Electron Transport]
+    
+    J2 --> M2[ATP Production]
+    K2 --> L2
+    L2 --> N2[NADH Formation]
+    
+    M2 --> O2[Energy Metabolism]
+    N2 --> P2[Metabolic Flux]
+    O2 --> Q2[Metabolism Process]
+    
+    P2 --> R2[Metabolism Validation]
+    Q2 --> S2[Metabolism Verification]
+    R2 --> T2[Metabolism Result]
+    
+    S2 --> U2[Metabolism Analysis]
+    T2 --> V2[Metabolism Parameters]
+    U2 --> W2[Metabolism Output]
+    
+    V2 --> X2[Metabolism Analysis]
+    W2 --> Y2[Metabolism Final Result]
+    X2 --> Z2[Metabolism Process Complete]
+    
+    style A2 fill:#ff6b6b,color:#fff
+    style C2 fill:#ff6b6b,color:#fff
+    style E2 fill:#ff6b6b,color:#fff
+    
+    style B2 fill:#ffd43b,color:#000
+    style D2 fill:#ffd43b,color:#000
+    style F2 fill:#ffd43b,color:#000
+    style G2 fill:#ffd43b,color:#000
+    style H2 fill:#ffd43b,color:#000
+    style I2 fill:#ffd43b,color:#000
+    style J2 fill:#ffd43b,color:#000
+    style K2 fill:#ffd43b,color:#000
+    style L2 fill:#ffd43b,color:#000
+    style M2 fill:#ffd43b,color:#000
+    style N2 fill:#ffd43b,color:#000
+    style O2 fill:#ffd43b,color:#000
+    style P2 fill:#ffd43b,color:#000
+    style Q2 fill:#ffd43b,color:#000
+    style R2 fill:#ffd43b,color:#000
+    style S2 fill:#ffd43b,color:#000
+    style T2 fill:#ffd43b,color:#000
+    style U2 fill:#ffd43b,color:#000
+    style V2 fill:#ffd43b,color:#000
+    style W2 fill:#ffd43b,color:#000
+    style X2 fill:#ffd43b,color:#000
+    style Y2 fill:#ffd43b,color:#000
+    style Z2 fill:#ffd43b,color:#000
+    
+    style M2 fill:#51cf66,color:#fff
+    style N2 fill:#51cf66,color:#fff
+    style O2 fill:#51cf66,color:#fff
+    style P2 fill:#51cf66,color:#fff
+    style Q2 fill:#51cf66,color:#fff
+    style R2 fill:#51cf66,color:#fff
+    style S2 fill:#51cf66,color:#fff
+    style T2 fill:#51cf66,color:#fff
+    style U2 fill:#51cf66,color:#fff
+    style V2 fill:#51cf66,color:#fff
+    style W2 fill:#51cf66,color:#fff
+    style X2 fill:#51cf66,color:#fff
+    style Y2 fill:#51cf66,color:#fff
+    style Z2 fill:#51cf66,color:#fff
+    
+    style Z2 fill:#b197fc,color:#fff
+            </div>
+            
+            <div style="margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center;">
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#ff6b6b;"></span>Triggers & Inputs
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#ffd43b;"></span>Metabolism Methods
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#51cf66;"></span>Metabolism Operations
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#74c0fc;"></span>Intermediates
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#b197fc;"></span>Products
+                </div>
+            </div>
+            
+            <div class="figure-caption">
+                <strong>Figure 2.</strong> Metabolism Process. This biochemistry process visualization demonstrates metabolic pathways and energy production. The flowchart shows metabolic inputs and energy sources, metabolism methods and pathway regulation, metabolism operations and biochemical reactions, intermediate results, and final metabolism outputs.
+            </div>
+        </div>
+
+        <h2>3. Protein Structure Process</h2>
+        <div class="figure">
+            <div class="mermaid">
+graph TD
+    A3[Amino Acid Sequence] --> B3[Protein Structure Method]
+    C3[Primary Structure] --> D3[Secondary Structure]
+    E3[Tertiary Structure] --> F3[Protein Structure Analysis]
+    
+    B3 --> G3[X Ray Crystallography]
+    D3 --> H3[NMR Spectroscopy]
+    F3 --> I3[Cryo EM]
+    
+    G3 --> J3[Alpha Helix]
+    H3 --> K3[Beta Sheet]
+    I3 --> L3[Protein Folding]
+    
+    J3 --> M3[Disulfide Bonds]
+    K3 --> L3
+    L3 --> N3[Hydrophobic Core]
+    
+    M3 --> O3[Quaternary Structure]
+    N3 --> P3[Protein Function]
+    O3 --> Q3[Protein Structure Process]
+    
+    P3 --> R3[Protein Structure Validation]
+    Q3 --> S3[Protein Structure Verification]
+    R3 --> T3[Protein Structure Result]
+    
+    S3 --> U3[Protein Structure Analysis]
+    T3 --> V3[Protein Structure Parameters]
+    U3 --> W3[Protein Structure Output]
+    
+    V3 --> X3[Protein Structure Analysis]
+    W3 --> Y3[Protein Structure Final Result]
+    X3 --> Z3[Protein Structure Complete]
+    
+    style A3 fill:#ff6b6b,color:#fff
+    style C3 fill:#ff6b6b,color:#fff
+    style E3 fill:#ff6b6b,color:#fff
+    
+    style B3 fill:#ffd43b,color:#000
+    style D3 fill:#ffd43b,color:#000
+    style F3 fill:#ffd43b,color:#000
+    style G3 fill:#ffd43b,color:#000
+    style H3 fill:#ffd43b,color:#000
+    style I3 fill:#ffd43b,color:#000
+    style J3 fill:#ffd43b,color:#000
+    style K3 fill:#ffd43b,color:#000
+    style L3 fill:#ffd43b,color:#000
+    style M3 fill:#ffd43b,color:#000
+    style N3 fill:#ffd43b,color:#000
+    style O3 fill:#ffd43b,color:#000
+    style P3 fill:#ffd43b,color:#000
+    style Q3 fill:#ffd43b,color:#000
+    style R3 fill:#ffd43b,color:#000
+    style S3 fill:#ffd43b,color:#000
+    style T3 fill:#ffd43b,color:#000
+    style U3 fill:#ffd43b,color:#000
+    style V3 fill:#ffd43b,color:#000
+    style W3 fill:#ffd43b,color:#000
+    style X3 fill:#ffd43b,color:#000
+    style Y3 fill:#ffd43b,color:#000
+    style Z3 fill:#ffd43b,color:#000
+    
+    style M3 fill:#51cf66,color:#fff
+    style N3 fill:#51cf66,color:#fff
+    style O3 fill:#51cf66,color:#fff
+    style P3 fill:#51cf66,color:#fff
+    style Q3 fill:#51cf66,color:#fff
+    style R3 fill:#51cf66,color:#fff
+    style S3 fill:#51cf66,color:#fff
+    style T3 fill:#51cf66,color:#fff
+    style U3 fill:#51cf66,color:#fff
+    style V3 fill:#51cf66,color:#fff
+    style W3 fill:#51cf66,color:#fff
+    style X3 fill:#51cf66,color:#fff
+    style Y3 fill:#51cf66,color:#fff
+    style Z3 fill:#51cf66,color:#fff
+    
+    style Z3 fill:#b197fc,color:#fff
+            </div>
+            
+            <div style="margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center;">
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#ff6b6b;"></span>Triggers & Inputs
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#ffd43b;"></span>Protein Structure Methods
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#51cf66;"></span>Protein Structure Operations
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#74c0fc;"></span>Intermediates
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#b197fc;"></span>Products
+                </div>
+            </div>
+            
+            <div class="figure-caption">
+                <strong>Figure 3.</strong> Protein Structure Process. This biochemistry process visualization demonstrates protein structure determination and analysis. The flowchart shows amino acid inputs and primary structure, protein structure methods and secondary structure, protein structure operations and tertiary structure, intermediate results, and final protein structure outputs.
+            </div>
+        </div>
+
+        <div class="navigation">
+            <h3>Navigation</h3>
+            <div class="nav-links">
+                <a href="chemistry_index.html" class="nav-link">← Back to Chemistry Index</a>
+                <a href="chemistry_batch_04.html" class="nav-link">← Previous: Inorganic Chemistry</a>
+                <a href="chemistry_batch_06.html" class="nav-link">Next: Materials Chemistry →</a>
+                <a href="index.html" class="nav-link">Programming Framework Home</a>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><strong>Generated using the Programming Framework methodology</strong></p>
+            <p>Each flowchart preserves maximum detail through optimized Mermaid configuration</p>
+            <div class="contact-info">
+                <p><strong>Gary Welz</strong></p>
+                <p>Retired Faculty Member</p>
+                <p>John Jay College, CUNY (Department of Mathematics and Computer Science)</p>
+                <p>Borough of Manhattan Community College, CUNY</p>
+                <p>CUNY Graduate Center (New Media Lab)</p>
+                <p>Email: gwelz@jjay.cuny.edu</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
