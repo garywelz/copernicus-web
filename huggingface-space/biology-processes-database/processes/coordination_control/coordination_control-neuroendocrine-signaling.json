@@ -1,0 +1,91 @@
+{
+  "id": "coordination_control-neuroendocrine-signaling",
+  "name": "Neuroendocrine Signaling",
+  "category": "biology",
+  "subcategory": "coordination_control",
+  "subcategory_name": "Coordination & Control",
+  "description": "Neuroendocrine Signaling process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 6,
+    "edges": 5,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nN1[\"Stimulus / Internal Signal\"]\nN2[\"Sensors / Receptors\"]\nN3[\"Signal Transduction\"]\nN4[\"Integration Center (neural/endocrine)\"]\nN5[\"Effector Activation\"]\nN6[\"Physiological Response\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\nN5 --> N6\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ffd43b,color:#000\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#74c0fc,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Neuroendocrine Signaling. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "Editor's evaluation: Mating activates neuroendocrine pathways signaling hunger in Drosophila females",
+      "authors": "Sen, Sonia",
+      "journal": "",
+      "year": "2023",
+      "pubmed": null,
+      "doi": "10.7554/elife.85117.sa0",
+      "url": "https://doi.org/10.7554/elife.85117.sa0"
+    },
+    {
+      "title": "Neuroendocrine Secretory Protein 55",
+      "authors": "",
+      "journal": "Encyclopedia of Signaling Molecules",
+      "year": "2018",
+      "pubmed": null,
+      "doi": "10.1007/978-3-319-67199-4_102539",
+      "url": "https://doi.org/10.1007/978-3-319-67199-4_102539"
+    },
+    {
+      "title": "The Ouroboros of Inflammatory Signaling to the Brain for the Control of Neuroendocrine Function",
+      "authors": "Hodes, Georgia E.",
+      "journal": "Oxford Research Encyclopedia of Neuroscience",
+      "year": "2021",
+      "pubmed": null,
+      "doi": "10.1093/acrefore/9780190264086.013.197",
+      "url": "https://doi.org/10.1093/acrefore/9780190264086.013.197"
+    }
+  ],
+  "keywords": [
+    "neuroendocrine",
+    "signaling"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-15",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+}

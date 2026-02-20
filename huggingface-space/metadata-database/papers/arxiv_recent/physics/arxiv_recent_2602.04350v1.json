@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2602.04350v1",
+  "arxiv_id": "2602.04350v1",
+  "title": "Quantum-Assisted Design of Space-Terrestrial Integrated Networks",
+  "authors": [
+    "Chiara Vercellino",
+    "Giacomo Vitali",
+    "Paolo Viviani",
+    "Alberto Scionti",
+    "Olivier Terzo",
+    "Bartolomeo Montrucchio",
+    "Pascal Jahan Elahi",
+    "Ugo Varetto"
+  ],
+  "author_string": "Chiara Vercellino, Giacomo Vitali, Paolo Viviani, Alberto Scionti, Olivier Terzo et al.",
+  "journal": "arXiv:2602.04350v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Achieving ubiquitous global connectivity requires integrating satellite and terrestrial networks, particularly to serve remote and underserved regions. In this work, we investigate the design and optimization of Space-Terrestrial Integrated Networks (STINs) using a hybrid quantum-classical approach. We formalize three key combinatorial optimization problems: the Satellite Selection Problem (SSP), the Gateway Selection Problem (GSP), and the Spectrum Assignment Problem (SAP), each capturing critical aspects of network deployment and operation. Leveraging neutral-atom quantum processors, we map the SSP onto a Maximum Weight Independent Set problem, embedding it onto the Aquila platform and solving it via the Quantum Adiabatic Algorithm (QAA). Postprocessing ensures feasible solutions that guide downstream GSP and SAP optimization. Benchmarking across 165 realistic remote regions shows that QAA solutions closely match classical exact solvers and outperform greedy heuristics, while subsequent GSP and SAP outcomes remain largely robust to differences in initial satellite selection. These results demonstrate that quantum optimization achieves performance broadly comparable to classical approaches for end-to-end STIN design, with rare instances where it can even surpass state-of-the-art solvers. This suggests that, while not yet consistently superior, quantum methods may offer competitive advantages for larger or more complex instances of the underlying combinatorial subproblems.",
+  "categories": [
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": "16 pages, 6 figures, 2 tables",
+  "published_date": "2026-02-04T09:18:10Z",
+  "updated_date": "2026-02-04T09:18:10Z",
+  "url": "https://arxiv.org/abs/2602.04350v1",
+  "pdf_url": "https://arxiv.org/pdf/2602.04350v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-02-05T07:00:33.003888",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph"
+  ]
+}

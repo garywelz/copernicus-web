@@ -1,0 +1,30 @@
+{
+  "id": "arxiv_2601.11385v1",
+  "arxiv_id": "2601.11385v1",
+  "title": "X-raying the arXiv: A Large-Scale Analysis of arXiv Submissions' Source Files",
+  "authors": [
+    "Giovanni Apruzzese",
+    "Aurore Fass"
+  ],
+  "author_string": "Giovanni Apruzzese, Aurore Fass",
+  "journal": "arXiv:2601.11385v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "arXiv is the largest open-access repository for scientific literature. When submitting a paper, authors upload the manuscript's source files, from which the final PDF is compiled. These source files are also publicly downloadable, potentially exposing data unrelated to the published paper -- such as figures, documents, or comments -- that may unintentionally reveal confidential information or simply waste storage space. We thus ask ourselves: \"What can be found within the source files of arXiv submissions?\"   We present a longitudinal analysis of ~600,000 submissions appeared on arXiv between 2015--2025. For each submission, we examine the uploaded source files to quantify and characterize data not required for producing the respective PDF. On average, 27% of the data in each submission are unnecessary, totaling >580 GB of redundant content across our dataset. Qualitative inspection reveals the presence of offensive/inappropriate text (e.g., \"WTF does this mean?\") and experimental details that could disclose ongoing research. We have contacted arXiv's leadership team, as well as the authors of affected papers to alert them of these issues. Finally, we propose recommendations and an automated tool to detect and analyze arXiv submissions residual data at scale, aiming to improve data hygiene in the arXiv's ecosystem.",
+  "categories": [
+    "cs.NI"
+  ],
+  "primary_category": "cs.NI",
+  "comment": null,
+  "published_date": "2026-01-16T15:52:24Z",
+  "updated_date": "2026-01-16T15:52:24Z",
+  "url": "https://arxiv.org/abs/2601.11385v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11385v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:30.213767",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.NI"
+  ]
+}

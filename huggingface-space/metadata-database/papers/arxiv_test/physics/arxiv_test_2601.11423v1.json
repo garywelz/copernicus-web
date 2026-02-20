@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2601.11423v1",
+  "arxiv_id": "2601.11423v1",
+  "title": "Noisy Analysis of Quantum SMOTE on Condition Monitoring and Fault Classification in Industrial and Energy Systems",
+  "authors": [
+    "Amit S. Patel",
+    "Himanshukumar R. Patel",
+    "Bikash K. Behera"
+  ],
+  "author_string": "Amit S. Patel, Himanshukumar R. Patel, Bikash K. Behera",
+  "journal": "arXiv:2601.11423v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Imbalanced datasets are a fundamental issue in industrial condition monitoring and fault classification pipelines, causing classical machine learning models to overfit the majority classes while failing to learn the minority fault patterns. This work presents a detailed benchmarking and robustness investigation of classical classifiers under class imbalance mitigation using the Quantum Synthetic Minority Oversampling Technique (QSMOTE) and quantum-inspired perturbations modelled using six noise channels. Four different datasets, the Solar Panel Image Dataset (SPID), the CWRU Bearing Dataset (CWRUBD), the Engine Failure Detection Dataset (EFDD), and the Industrial Fault Detection Dataset (IFDD), are tested across multi-class scenarios to determine the universality of these impacts. The results show that QSMOTE consistently corrects distributional skew and significantly enhances the performance of non-linear classifiers such as Random Forests (RF), Support Vector Machines (SVM), and Decision Trees (DT), yielding improvements of up to 170% on EFDD and achieving near-perfect accuracy ($\\geq$0.99) on IFDD. Linear and probabilistic models, such as Linear Regression (LR) and Naive Bayes (NB), produce mixed results, with significant degradation in overlapping feature spaces due to interpolation-induced boundary distortion. A parallel robustness analysis under different noise models reveals that ensemble models (RF) and margin-based learners (SVM) maintain strong resilience, often preserving over 95% of baseline accuracy even under maximum noise. In contrast, NB and DT show substantial instability, especially on high-variance datasets. The findings establish a rigorous baseline for understanding how classical models behave under realistic imbalance and quantum-inspired noise.",
+  "categories": [
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": "44 pages, 9 figures",
+  "published_date": "2026-01-16T16:44:38Z",
+  "updated_date": "2026-01-16T16:44:38Z",
+  "url": "https://arxiv.org/abs/2601.11423v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11423v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:18:15.371496",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph"
+  ]
+}

@@ -1,0 +1,91 @@
+{
+  "id": "behavior_communication-migration-process",
+  "name": "Migration Process",
+  "category": "biology",
+  "subcategory": "behavior_communication",
+  "subcategory_name": "Behavior & Communication",
+  "description": "Migration Process process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 9,
+    "edges": 6,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 1,
+      "total": 1
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\n    A15[Seasonal Cues] --> B15[Orientation Mechanism]\n    C15[Internal Compass] --> D15[Navigation System]\n    B15 --> E15[Direction Selection]\n    D15 --> E15\n    E15 --> F15[Path Following]\n    F15 --> G15[Energy Management]\n    G15 --> H15[Stopover Behavior]\n    H15 --> I15[Destination Arrival]\n    \n    style A15 fill:#ff6b6b,color:#fff\n    style C15 fill:#ff6b6b,color:#fff\n    style B15 fill:#ffd43b,color:#000\n    style D15 fill:#ffd43b,color:#000\n    style E15 fill:#51cf66,color:#fff\n    style F15 fill:#51cf66,color:#fff\n    style G15 fill:#74c0fc,color:#fff\n    style H15 fill:#74c0fc,color:#fff\n    style I15 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Migration Process. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "Migration Process",
+      "authors": "Malik, Sahil; Sistla, Srini",
+      "journal": "Pro SharePoint Migration",
+      "year": "2012",
+      "pubmed": null,
+      "doi": "10.1007/978-1-4302-4483-7_1",
+      "url": "https://doi.org/10.1007/978-1-4302-4483-7_1"
+    },
+    {
+      "title": "Caste, Ethnicity and Migration: Linking Recruitment and Labour Process",
+      "authors": "",
+      "journal": "India Migration Report 2011",
+      "year": "2012",
+      "pubmed": null,
+      "doi": "10.4324/9780203085264-18",
+      "url": "https://doi.org/10.4324/9780203085264-18"
+    },
+    {
+      "title": "Migration chains and migration networks: researching migration as a social process",
+      "authors": "Gabriel Anghel, Remus",
+      "journal": "Research Handbook on the Sociology of Migration",
+      "year": "2024",
+      "pubmed": null,
+      "doi": "10.4337/9781839105463.00012",
+      "url": "https://doi.org/10.4337/9781839105463.00012"
+    }
+  ],
+  "keywords": [
+    "migration",
+    "process"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+}

@@ -1,0 +1,92 @@
+{
+  "id": "growth_morphogenesis-skeletal-growth-process",
+  "name": "Skeletal Growth Process",
+  "category": "biology",
+  "subcategory": "growth_morphogenesis",
+  "subcategory_name": "Growth & Morphogenesis",
+  "description": "Skeletal Growth Process process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 9,
+    "edges": 7,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\n    A11[Cartilage Template] --> B11[Chondrocyte Proliferation]\n    B11 --> C11[Ossification Center]\n    C11 --> D11[Osteoblast Differentiation]\n    D11 --> E11[Bone Matrix Deposition]\n    E11 --> F11[Mineralization]\n    F11 --> G11[Bone Remodeling]\n    G11 --> H11[Growth Plate Activity]\n    H11 --> I11[Longitudinal Growth]\n    \n    style A11 fill:#ff6b6b,color:#fff\n    style B11 fill:#ffd43b,color:#000\n    style C11 fill:#ffd43b,color:#000\n    style D11 fill:#51cf66,color:#fff\n    style E11 fill:#51cf66,color:#fff\n    style F11 fill:#74c0fc,color:#fff\n    style G11 fill:#51cf66,color:#fff\n    style H11 fill:#74c0fc,color:#fff\n    style I11 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Skeletal Growth Process. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "Crossref work (10.3030/101064167)",
+      "authors": "",
+      "journal": "",
+      "year": "2022",
+      "pubmed": null,
+      "doi": "10.3030/101064167",
+      "url": "https://doi.org/10.3030/101064167"
+    },
+    {
+      "title": "RELATIONSHIP OF THE CROWN GROWTH ACTIVITY AND THE RADIAL INCREMENT OF THE SCOTS PINE SKELETAL ORGANS",
+      "authors": "Zabuga, G.A.",
+      "journal": "Process Management and Scientific Developments",
+      "year": "None",
+      "pubmed": null,
+      "doi": "10.34660/inf.2019.2.42117",
+      "url": "https://doi.org/10.34660/inf.2019.2.42117"
+    },
+    {
+      "title": "Role of Growth Hormone in the Promotion of Linear Skeletal Growth",
+      "authors": "Ohlsson, Claes; Isgaard, Jörgen; Lindahl, Anders; Isaksson, Olle G. P.",
+      "journal": "The Somatotrophic Axis and the Reproductive Process in Health and Disease",
+      "year": "1995",
+      "pubmed": null,
+      "doi": "10.1007/978-1-4612-2518-8_9",
+      "url": "https://doi.org/10.1007/978-1-4612-2518-8_9"
+    }
+  ],
+  "keywords": [
+    "skeletal",
+    "growth",
+    "process"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+}

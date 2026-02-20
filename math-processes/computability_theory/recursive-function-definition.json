@@ -1,0 +1,35 @@
+{
+  "id": "recursive-function-definition",
+  "title": "Recursive Function Definition",
+  "description": "Define functions using recursion",
+  "category": "mathematics",
+  "subcategory": "computability_theory",
+  "mermaid": "graph TD A1[Start: Initial Problem Definition] style A1 fill:#ff6b6b,color:#FFFFFF B1[B1: Identify Recursive Structure] style B1 fill:#ffd43b,color:#000000 C1[C1: Define Base Case(s)] style C1 fill:#51cf66,color:#FFFFFF D1[D1: Formulate Recursive Step(s)] style D1 fill:#51cf66,color:#FFFFFF E1[E1: Check for Termination Condition] style E1 fill:#ffd43b,color:#000000 F1{F1: Base Case Reached?} style F1 fill:#ffd43b,color:#000000 G1[G1: Return Base Case Value] style G1 fill:#b197fc,color:#FFFFFF H1[H1: Apply Recursive Step] style H1 fill:#51cf66,color:#FFFFFF I1[I1: Update Input for Recursive Call] style I1 fill:#74c0fc,color:#FFFFFF J1[J1: Call Function Recursively] style J1 fill:#74c0fc,color:#FFFFFF K1[K1: Combine Results from Recursive Calls] style K1 fill:#51cf66,color:#FFFFFF L1[L1: Return Combined Result] style L1 fill:#b197fc,color:#FFFFFF M1[M1: Test Function with Examples] style M1 fill:#51cf66,color:#FFFFFF N1{N1: All Tests Pass?} style N1 fill:#ffd43b,color:#000000 O1[O1: Function Definition Complete] style O1 fill:#b197fc,color:#FFFFFF P1[P1: Refine Base Case(s) or Recursive Step(s)] style P1 fill:#51cf66,color:#FFFFFF Q1[Q1: Analyze Time/Space Complexity] style Q1 fill:#51cf66,color:#FFFFFF R1{R1: Complexity Acceptable?} style R1 fill:#ffd43b,color:#000000 S1[S1: Optimize Algorithm] style S1 fill:#51cf66,color:#FFFFFF Z1[End] style Z1 fill:#b197fc,color:#FFFFFF A1 --> B1 B1 --> C1 C1 --> D1 D1 --> E1 E1 --> F1 F1 -- Yes --> G1 F1 -- No --> H1 H1 --> I1 I1 --> J1 J1 --> E1 G1 --> K1 K1 --> L1 L1 --> M1 M1 --> N1 N1 -- Yes --> Q1 N1 -- No --> P1 P1 --> C1 Q1 --> R1 R1 -- Yes --> O1 R1 -- No --> S1 S1 --> B1 O1 --> Z1",
+  "entities": [
+    "Start: Initial Problem Definition",
+    "B1: Identify Recursive Structure",
+    "C1: Define Base Case(s)",
+    "D1: Formulate Recursive Step(s)",
+    "E1: Check for Termination Condition",
+    "F1: Base Case Reached?}style F1 fill:#ffd43b,color:#000000 G1[G1: Return Base Case Value",
+    "H1: Apply Recursive Step",
+    "I1: Update Input for Recursive Call",
+    "J1: Call Function Recursively",
+    "K1: Combine Results from Recursive Calls",
+    "L1: Return Combined Result",
+    "M1: Test Function with Examples",
+    "N1: All Tests Pass?}style N1 fill:#ffd43b,color:#000000 O1[O1: Function Definition Complete",
+    "P1: Refine Base Case(s) or Recursive Step(s)",
+    "Q1: Analyze Time/Space Complexity",
+    "R1: Complexity Acceptable?}style R1 fill:#ffd43b,color:#000000 S1[S1: Optimize Algorithm",
+    "End"
+  ],
+  "metadata": {
+    "source": "programming_framework",
+    "color_scheme": "discipline_based",
+    "node_count": 17,
+    "complexity": "low"
+  },
+  "sources": [],
+  "source_text": "Source information to be added - please specify the book, paper, or reference material used by the LLM to generate this flowchart."
+}

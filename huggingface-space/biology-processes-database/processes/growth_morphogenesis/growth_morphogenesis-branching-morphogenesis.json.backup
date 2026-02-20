@@ -1,0 +1,92 @@
+{
+  "category": "biology",
+  "colorScheme": {
+    "blue": {
+      "category": "Intermediates & States",
+      "hex": "#74c0fc"
+    },
+    "green": {
+      "category": "Processing & Operations",
+      "hex": "#51cf66"
+    },
+    "red": {
+      "category": "Triggers & Inputs",
+      "hex": "#ff6b6b"
+    },
+    "violet": {
+      "category": "Products & Outputs",
+      "hex": "#b197fc"
+    },
+    "yellow": {
+      "category": "Structures & Objects",
+      "hex": "#ffd43b"
+    }
+  },
+  "complexity": {
+    "conditionals": 1,
+    "detailLevel": "low",
+    "edges": 10,
+    "level": "low",
+    "logicGates": {
+      "andGates": 0,
+      "orGates": 0,
+      "total": 0
+    },
+    "nodes": 10
+  },
+  "created": "2026-01-08",
+  "description": "Branching Morphogenesis in Plants/Animals. This process represents a higher-level biological mechanism distinct from molecular/biochemical processes covered in GLMP.",
+  "id": "growth_morphogenesis-branching-morphogenesis",
+  "keywords": [
+    "morphogenesis",
+    "branching",
+    "growth",
+    "plants/animals"
+  ],
+  "lastUpdated": "2026-01-08",
+  "mermaid": "graph TD\n    A12[Primary Structure] --> B12[Branching Signal]\n    B12 --> C12[Pattern Formation]\n    C12 --> D12[Tip Growth]\n    D12 --> E12{Lateral Inhibition?}\n    E12 -->|Yes| F12[Branch Suppression]\n    E12 -->|No| G12[Branch Initiation]\n    F12 --> H12[Pattern Maintenance]\n    G12 --> I12[Secondary Branching]\n    H12 --> J12[Final Architecture]\n    I12 --> J12\n    \n    style A12 fill:#ff6b6b,color:#fff\n    style B12 fill:#ff6b6b,color:#fff\n    style C12 fill:#ffd43b,color:#000\n    style D12 fill:#51cf66,color:#fff\n    style E12 fill:#74c0fc,color:#fff\n    style F12 fill:#51cf66,color:#fff\n    style G12 fill:#51cf66,color:#fff\n    style H12 fill:#74c0fc,color:#fff\n    style I12 fill:#74c0fc,color:#fff\n    style J12 fill:#b197fc,color:#fff",
+  "name": "Branching Morphogenesis",
+  "notes": "Higher-level biological process. GLMP covers biochemical/molecular processes; this database covers organismal/ecological processes.",
+  "organism": "Plants/Animals",
+  "relatedProcesses": [],
+  "sources": [
+    {
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "notes": "Higher-level biological process visualization: Branching Morphogenesis. Created using the Programming Framework methodology for organismal and ecological process analysis.",
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "year": "2025"
+    },
+    {
+      "authors": "Davies, JA.",
+      "doi": "10.1146/annurev.cellbio.18.041602.100918",
+      "journal": "Annu Rev Cell Dev Biol",
+      "pubmed": "12192196",
+      "title": "Regulation of branching morphogenesis",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/12192196",
+      "year": "2002"
+    },
+    {
+      "authors": "Bennett, T., Leyser, O.",
+      "doi": "10.1146/annurev-arplant-050213-035848",
+      "journal": "Annu Rev Plant Biol",
+      "pubmed": "24274768",
+      "title": "Developmental Mechanisms of Plant Branching",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/24274768",
+      "year": "2014"
+    },
+    {
+      "authors": "Hannezo, E., Stern, JD.",
+      "doi": "10.1016/j.cell.2018.05.025",
+      "journal": "Cell",
+      "pubmed": "29859152",
+      "title": "Principles of Organogenesis: Insights from Branching Morphogenesis",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/29859152",
+      "year": "2018"
+    }
+  ],
+  "subcategory": "growth_morphogenesis",
+  "subcategory_name": "Growth & Morphogenesis",
+  "verified": false
+}

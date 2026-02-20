@@ -1,0 +1,93 @@
+{
+  "id": "quantum_chemistry-molecular-dynamics-simulation-setup",
+  "name": "Molecular Dynamics Simulation Setup",
+  "category": "chemistry",
+  "subcategory": "quantum_chemistry",
+  "subcategory_name": "Quantum Chemistry",
+  "description": "Molecular Dynamics Simulation Setup process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 6,
+    "edges": 5,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nN1[\"Molecular Hamiltonian Setup\"]\nN2[\"Basis Set/Representation\"]\nN3[\"Electronic Structure Method\"]\nN4[\"Solve Schrödinger Equation (approx.)\"]\nN5[\"Wavefunction/Density\"]\nN6[\"Energies/Orbitals/Properties\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\nN5 --> N6\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ffd43b,color:#000\n    style N3 fill:#ffd43b,color:#000\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#74c0fc,color:#fff\n    style N6 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Molecular Dynamics Simulation Setup. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "Molecular dynamics simulations of protein aggregation: protocols for simulation setup and analysis with Markov state models and transition networks",
+      "authors": "Samantray, Suman; Schumann, Wibke; Illig, Alexander-Maurice; Carballo-Pacheco, Martin; Paul, Arghadwip; Barz, Bogdan; Strodel, Birgit",
+      "journal": "",
+      "year": "2020",
+      "pubmed": null,
+      "doi": "10.1101/2020.04.25.060269",
+      "url": "https://doi.org/10.1101/2020.04.25.060269"
+    },
+    {
+      "title": "Control techniques of molecular dynamics simulation",
+      "authors": "Zhou, Kun; Liu, Bo",
+      "journal": "Molecular Dynamics Simulation",
+      "year": "2022",
+      "pubmed": null,
+      "doi": "10.1016/b978-0-12-816419-8.00008-8",
+      "url": "https://doi.org/10.1016/b978-0-12-816419-8.00008-8"
+    },
+    {
+      "title": "Fundamentals of classical molecular dynamics simulation",
+      "authors": "Zhou, Kun; Liu, Bo",
+      "journal": "Molecular Dynamics Simulation",
+      "year": "2022",
+      "pubmed": null,
+      "doi": "10.1016/b978-0-12-816419-8.00006-4",
+      "url": "https://doi.org/10.1016/b978-0-12-816419-8.00006-4"
+    }
+  ],
+  "keywords": [
+    "molecular",
+    "dynamics",
+    "simulation",
+    "setup"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-15",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+}

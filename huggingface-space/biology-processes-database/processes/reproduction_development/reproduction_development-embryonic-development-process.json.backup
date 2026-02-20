@@ -1,0 +1,84 @@
+{
+  "category": "biology",
+  "colorScheme": {
+    "blue": {
+      "category": "Intermediates & States",
+      "hex": "#74c0fc"
+    },
+    "green": {
+      "category": "Processing & Operations",
+      "hex": "#51cf66"
+    },
+    "red": {
+      "category": "Triggers & Inputs",
+      "hex": "#ff6b6b"
+    },
+    "violet": {
+      "category": "Products & Outputs",
+      "hex": "#b197fc"
+    },
+    "yellow": {
+      "category": "Structures & Objects",
+      "hex": "#ffd43b"
+    }
+  },
+  "complexity": {
+    "conditionals": 0,
+    "detailLevel": "low",
+    "edges": 15,
+    "level": "low",
+    "logicGates": {
+      "andGates": 0,
+      "orGates": 0,
+      "total": 0
+    },
+    "nodes": 14
+  },
+  "created": "2026-01-08",
+  "description": "Embryonic Development Process in Animals. This process represents a higher-level biological mechanism distinct from molecular/biochemical processes covered in GLMP.",
+  "id": "reproduction_development-embryonic-development-process",
+  "keywords": [
+    "reproduction",
+    "animals",
+    "process",
+    "development",
+    "embryonic"
+  ],
+  "lastUpdated": "2026-01-08",
+  "mermaid": "graph TD\n    A4[Fertilized Egg] --> B4[Cleavage Divisions]\n    B4 --> C4[Morula Formation]\n    C4 --> D4[Blastula Formation]\n    D4 --> E4[Gastrulation]\n    E4 --> F4[Germ Layer Formation]\n    F4 --> G4[Ectoderm]\n    F4 --> H4[Mesoderm]\n    F4 --> I4[Endoderm]\n    G4 --> J4[Organogenesis]\n    H4 --> J4\n    I4 --> J4\n    J4 --> K4[Neurulation]\n    K4 --> L4[Limb Bud Formation]\n    L4 --> M4[Organ Maturation]\n    M4 --> N4[Fetal Development]\n    \n    style A4 fill:#ff6b6b,color:#fff\n    style B4 fill:#ffd43b,color:#000\n    style C4 fill:#ffd43b,color:#000\n    style D4 fill:#ffd43b,color:#000\n    style E4 fill:#51cf66,color:#fff\n    style F4 fill:#51cf66,color:#fff\n    style G4 fill:#74c0fc,color:#fff\n    style H4 fill:#74c0fc,color:#fff\n    style I4 fill:#74c0fc,color:#fff\n    style J4 fill:#51cf66,color:#fff\n    style K4 fill:#51cf66,color:#fff\n    style L4 fill:#74c0fc,color:#fff\n    style M4 fill:#74c0fc,color:#fff\n    style N4 fill:#b197fc,color:#fff",
+  "name": "Embryonic Development Process",
+  "notes": "Higher-level biological process. GLMP covers biochemical/molecular processes; this database covers organismal/ecological processes.",
+  "organism": "Animals",
+  "relatedProcesses": [],
+  "sources": [
+    {
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "notes": "Higher-level biological process visualization: Embryonic Development Process. Created using the Programming Framework methodology for organismal and ecological process analysis.",
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "year": "2025"
+    },
+    {
+      "authors": "St Johnston D, N\u00fcsslein-Volhard C.",
+      "doi": "10.1016/0092-8674(92)90184-j",
+      "journal": "Cell",
+      "pubmed": "1311283",
+      "title": "The early development of Drosophila melanogaster",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/1311283",
+      "year": "1992"
+    },
+    {
+      "authors": "Patel NH, Seaver EC.",
+      "doi": "10.1146/annurev-cellbio-120219-035414",
+      "journal": "Annu Rev Cell Dev Biol",
+      "pubmed": "34610114",
+      "title": "Conservation and Divergence of Developmental Mechanisms in Animal Evolution",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/34610114",
+      "year": "2021"
+    }
+  ],
+  "subcategory": "reproduction_development",
+  "subcategory_name": "Reproduction & Development",
+  "verified": false
+}

@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2006.04658v1",
+  "arxiv_id": "2006.04658v1",
+  "title": "Toward a Better Understanding and Evaluation of Tree Structures on Flash SSDs",
+  "authors": [
+    "Diego Didona",
+    "Nikolas Ioannou",
+    "Radu Stoica",
+    "Kornilios Kourtis"
+  ],
+  "author_string": "Diego Didona, Nikolas Ioannou, Radu Stoica, Kornilios Kourtis",
+  "journal": "arXiv:2006.04658v1",
+  "journal_ref": null,
+  "year": "2020",
+  "doi": null,
+  "abstract": "Solid-state drives (SSDs) are extensively used to deploy persistent data stores, as they provide low latency random access, high write throughput, high data density, and low cost. Tree-based data structures are widely used to build persistent data stores, and indeed they lie at the backbone of many of the data management systems used in production and research today. In this paper, we show that benchmarking a persistent tree-based data structure on an SSD is a complex process, which may easily incur subtle pitfalls that can lead to an inaccurate performance assessment. At a high-level, these pitfalls stem from the interaction of complex software running on complex hardware. On one hand, tree structures implement internal operations that have nontrivial effects on performance. On the other hand, SSDs employ firmware logic to deal with the idiosyncrasies of the underlying flash memory, which are well known to lead to complex performance dynamics. We identify seven benchmarking pitfalls using RocksDB and WiredTiger, two widespread implementations of an LSM-Tree and a B+Tree, respectively. We show that such pitfalls can lead to incorrect measurements of key performance indicators, hinder the reproducibility and the representativeness of the results, and lead to suboptimal deployments in production environments. We also provide guidelines on how to avoid these pitfalls to obtain more reliable performance measurements, and to perform more thorough and fair comparison among different design points.",
+  "categories": [
+    "cs.DB",
+    "cs.PF"
+  ],
+  "primary_category": "cs.PF",
+  "comment": null,
+  "published_date": "2020-06-08T15:03:09Z",
+  "updated_date": "2020-06-08T15:03:09Z",
+  "url": "https://arxiv.org/abs/2006.04658v1",
+  "pdf_url": "https://arxiv.org/pdf/2006.04658v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:23.485071",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.DB",
+    "cs.PF"
+  ]
+}

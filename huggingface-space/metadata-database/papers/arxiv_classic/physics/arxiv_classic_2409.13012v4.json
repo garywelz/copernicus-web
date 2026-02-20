@@ -1,0 +1,37 @@
+{
+  "id": "arxiv_2409.13012v4",
+  "arxiv_id": "2409.13012v4",
+  "title": "Transfer Matrix and Lattice Dilatation Operator for High-Quality Fixed Points in Tensor Network Renormalization Group",
+  "authors": [
+    "Nikolay Ebel",
+    "Tom Kennedy",
+    "Slava Rychkov"
+  ],
+  "author_string": "Nikolay Ebel, Tom Kennedy, Slava Rychkov",
+  "journal": "Phys.Rev.B 112 (2025) 10, 104424",
+  "journal_ref": "Phys.Rev.B 112 (2025) 10, 104424",
+  "year": "2024",
+  "doi": "10.1103/y5fk-l98w",
+  "abstract": "Tensor network renormalization group maps study critical points of 2d lattice models like the Ising model by finding the fixed point of the RG map. In a prior work arXiv:2408.10312 we showed that by adding a rotation to the RG map, the Newton method could be implemented to find an extremely accurate fixed point. For a particular RG map (Gilt-TNR) we studied the spectrum of the Jacobian of the RG map at the fixed point and found good agreement between the eigenvalues corresponding to relevant and marginal operators and their known exact values. In this companion work we use two further methods to extract many more scaling dimensions from this Newton method fixed point, and compare the numerical results with the predictions of conformal field theory (CFT). The first method is the well-known transfer matrix (TM), while the second method we refer to as the lattice dilatation operator (LDO). We introduce some extensions of these method that provide also spins of the CFT operators, modulo an integer. With comparable computing resources, the TM and LDO methods perform equally well. The agreement for the scaling dimensions and spins is excellent up to the scaling dimesnion 4.125, and reasonably good up to 2 units higher. Some of the eigenvalues of the Jacobian of the RG map can come from perturbations associated with total derivative interactions and so are not universal. In some past studies (arXiv:2102.08136, arXiv:2305.09899) such non-universal eigenvalues did not appear in the Jacobian. We explain this surprising result by showing that their RG map has the unusual property that the Jacobian is equivalent to the LDO operator.",
+  "categories": [
+    "cond-mat.stat-mech",
+    "cond-mat.str-el",
+    "hep-lat",
+    "hep-th",
+    "math-ph"
+  ],
+  "primary_category": "math-ph",
+  "comment": "25+13 pages, 5 tables, 6 figures, data in ancillary files. V4: better numerical results for TM method using TM of width r=4; a more accurate comparison of TM and LDO; version published in Phys.Rev.B",
+  "published_date": "2024-09-19T18:00:01Z",
+  "updated_date": "2025-10-09T14:57:51Z",
+  "url": "https://arxiv.org/abs/2409.13012v4",
+  "pdf_url": "https://arxiv.org/pdf/2409.13012v4.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:30:25.491878",
+  "category": "physics",
+  "subcategories": [
+    "cond-mat.stat-mech",
+    "cond-mat.str-el",
+    "hep-lat"
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "id": "arxiv_2601.09388v1",
+  "arxiv_id": "2601.09388v1",
+  "title": "Sparse quantum state preparation with improved Toffoli cost",
+  "authors": [
+    "Felix Rupprecht",
+    "Sabine Wölk"
+  ],
+  "author_string": "Felix Rupprecht, Sabine Wölk",
+  "journal": "arXiv:2601.09388v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "The preparation of quantum states is one of the most fundamental tasks in quantum computing, and a key primitive in many quantum algorithms. Of particular interest to areas such as quantum simulation and linear-system solvers are sparse quantum states, which contain only a small number $s$ of non-zero computational basis states compared to a generic state. In this work, we present an approach that prepares $s$-sparse states on $n$ qubits, reducing the number of Toffoli gates required compared to prior art. We work in the established framework of first preparing a dense state on a $\\lceil{\\log(s)}\\rceil$-qubit sub-register, and then mapping this state to the target state via an isometry, with the latter step dominating the cost of the full algorithm. The speed-up is achieved by designing an efficient algorithm for finding and implementing the isometry. The worst-case Toffoli cost of our isometry circuit, which may be viewed as a batched version of an approach by Malvetti et al., is essentially $2s$ for sufficiently large values of $n$, yielding roughly a $\\log(s)/2$ improvement factor over the state-of-the-art. In numerical benchmarks on randomly chosen states, the cost is closer to $s$. With the improved isometry circuit, we examine the dense-state preparation step and present ways to optimize the joint cost of both steps, particularly in the case of target states with purely real coefficients, by outsourcing some sub-tasks from the dense-state preparation to the isometry.",
+  "categories": [
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": "20 (16 + 4) pages, 10 Figures, code available, feedback and comments welcome",
+  "published_date": "2026-01-14T11:28:27Z",
+  "updated_date": "2026-01-14T11:28:27Z",
+  "url": "https://arxiv.org/abs/2601.09388v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.09388v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:02.854050",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph"
+  ]
+}

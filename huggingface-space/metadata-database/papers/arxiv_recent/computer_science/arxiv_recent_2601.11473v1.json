@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2601.11473v1",
+  "arxiv_id": "2601.11473v1",
+  "title": "A Probabilistic Approach to Trajectory-Based Optimal Experimental Design",
+  "authors": [
+    "Ahmed Attia"
+  ],
+  "author_string": "Ahmed Attia",
+  "journal": "arXiv:2601.11473v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We present a novel probabilistic approach for optimal path experimental design. In this approach a discrete path optimization problem is defined on a static navigation mesh, and trajectories are modeled as random variables governed by a parametric Markov policy. The discrete path optimization problem is then replaced with an equivalent stochastic optimization problem over the policy parameters, resulting in an optimal probability model that samples estimates of the optimal discrete path. This approach enables exploration of the utility function's distribution tail and treats the utility function of the design as a black box, making it applicable to linear and nonlinear inverse problems and beyond experimental design. Numerical verification and analysis are carried out by using a parameter identification problem widely used in model-based optimal experimental design.",
+  "categories": [
+    "math.OC",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": "42 Figures, this version includes supplementary material as appendices",
+  "published_date": "2026-01-16T17:58:16Z",
+  "updated_date": "2026-01-16T17:58:16Z",
+  "url": "https://arxiv.org/abs/2601.11473v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11473v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:30.210003",
+  "category": "computer_science",
+  "subcategories": [
+    "math.OC",
+    "cs.LG"
+  ]
+}

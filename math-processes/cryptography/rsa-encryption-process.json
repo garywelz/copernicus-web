@@ -1,0 +1,22 @@
+{
+  "id": "rsa-encryption-process",
+  "title": "RSA Encryption Process",
+  "description": "Encrypt message using RSA public-key cryptography",
+  "category": "mathematics",
+  "subcategory": "cryptography",
+  "mermaid": "graph TD A1[Generate Two Large Primes p and q] --> B1(Calculate n = p * q) style A1 fill:#ff6b6b,color:#fff style B1 fill:#ffd43b,color:#000 B1 --> C1[\"Calculate the totient of n: φ(n) = (p-1) * (q-1)\"] style C1 fill:#51cf66,color:#fff C1 --> D1[\"Choose an integer e such that 1 < e < φ(n) and gcd(e, φ(n)) = 1\"] style D1 fill:#ffd43b,color:#000 D1 --> E1{Is gcd(e, φ(n)) = 1?} style E1 fill:#ffd43b,color:#000 E1 -- Yes --> F1[\"Calculate d, the modular multiplicative inverse of e modulo φ(n): d ≡ e^-1 (mod φ(n))\"] style F1 fill:#51cf66,color:#fff E1 -- No --> D1 F1 --> G1[\"Public Key: (n, e)\"] style G1 fill:#b197fc,color:#fff F1 --> H1[\"Private Key: (n, d)\"] style H1 fill:#b197fc,color:#fff I1[Input Message M (M < n)] --> J1(Encryption: C = M^e mod n) style I1 fill:#ff6b6b,color:#fff style J1 fill:#51cf66,color:#fff J1 --> K1(Ciphertext C) style K1 fill:#b197fc,color:#fff L1[Ciphertext C] --> M1(Decryption: M = C^d mod n) style L1 fill:#ff6b6b,color:#fff style M1 fill:#51cf66,color:#fff M1 --> N1(Original Message M) style N1 fill:#b197fc,color:#fff G1 --> J1 H1 --> M1",
+  "entities": [
+    "Generate Two Large Primes p and q",
+    "/\"Calculate n = p * q\"/)style A1 fill:#ff6b6b,color:#fff style B1 fill:#ffd43b,color:#000 B1 --> C1(/\"Calculate the totient of n: φ(n) = (p-1) * (q-1)\"/)style C1 fill:#51cf66,color:#fff C1 --> D1(/\"Choose an integer e such that 1 < e < φ(n) and gcd(e, φ(n)) = 1\"/)style D1 fill:#ffd43b,color:#000 D1 --> E1{/\"Is gcd(e, φ(n)) = 1?\"/}style E1 fill:#ffd43b,color:#000 E1 -- Yes --> F1(/\"Calculate d, the modular multiplicative inverse of e modulo φ(n): d ≡ e^-1 (mod φ(n))\"/)style F1 fill:#51cf66,color:#fff E1 -- No --> D1 F1 --> G1(/\"Public Key: (n, e)\"/)style G1 fill:#b197fc,color:#fff F1 --> H1(/\"Private Key: (n, d)\"/)style H1 fill:#b197fc,color:#fff I1[Input Message M (M < n)",
+    "/\"Encryption: C = M^e mod n\"/)style I1 fill:#ff6b6b,color:#fff style J1 fill:#51cf66,color:#fff J1 --> K1(/\"Ciphertext C\"/)style K1 fill:#b197fc,color:#fff L1[Ciphertext C",
+    "/\"Decryption: M = C^d mod n\"/)style L1 fill:#ff6b6b,color:#fff style M1 fill:#51cf66,color:#fff M1 --> N1(/\"Original Message M\"/"
+  ],
+  "metadata": {
+    "source": "programming_framework",
+    "color_scheme": "discipline_based",
+    "node_count": 3,
+    "complexity": "low"
+  },
+  "sources": [],
+  "source_text": "Source information to be added - please specify the book, paper, or reference material used by the LLM to generate this flowchart."
+}

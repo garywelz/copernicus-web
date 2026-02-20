@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2602.03113v1",
+  "arxiv_id": "2602.03113v1",
+  "title": "Validating a Koopman-Quantum Hybrid Paradigm for Diagnostic Denoising of Fusion Devices",
+  "authors": [
+    "Tie-Jun Wang",
+    "Run-Qing Zhang",
+    "Ling Qian",
+    "Yun-Tao Song",
+    "Ting Lan",
+    "Hai-Qing Liu",
+    "Keren Li"
+  ],
+  "author_string": "Tie-Jun Wang, Run-Qing Zhang, Ling Qian, Yun-Tao Song, Ting Lan et al.",
+  "journal": "arXiv:2602.03113v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "The potential of Quantum Machine Learning (QML) in data-intensive science is strictly bottlenecked the difficulty of interfacing high-dimensional, chaotic classical data into resource-limited, noisy quantum processors. To bridge this gap, we introduce a physics-informed Koopman-Quantum hybrid framework, theoretically grounded in a representation-level structural isomorphism we establish between the Koopman operator, which linearizes nonlinear dynamics, and quantum evolution. Based on this theoretical foundation, we design a realizable NISQ-friendly pipeline: the Koopman operator functions as a physics-aware \"data distiller,\" compressing waveforms into compact, \"quantum-ready\" features, which are subsequently processed by a modular, parallel quantum neural network. We validated this framework on 4,763 labeled channel sequences from 433 discharges of the tokamak system. The results demonstrate that our model achieves 97.0\\% accuracy in screening corrupted diagnostic data, matching the performance of state-of-the-art deep classical CNNs while using orders-of-magnitude fewer trainable parameters. This work establishes a practical, physics-grounded paradigm for leveraging quantum processing in constrained environments, offering a scalable path for quantum-enhanced edge computing.",
+  "categories": [
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": "27 pages, 4 figures",
+  "published_date": "2026-02-03T05:14:15Z",
+  "updated_date": "2026-02-03T05:14:15Z",
+  "url": "https://arxiv.org/abs/2602.03113v1",
+  "pdf_url": "https://arxiv.org/pdf/2602.03113v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-02-04T07:47:31.298487",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph"
+  ]
+}

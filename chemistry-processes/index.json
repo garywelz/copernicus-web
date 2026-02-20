@@ -1,0 +1,429 @@
+{
+  "subject": "chemistry",
+  "total_processes": 56,
+  "total_batches": 14,
+  "batch_stats": {
+    "batch_01": 3,
+    "batch_02": 3,
+    "batch_03": 3,
+    "batch_04": 3,
+    "batch_05": 3,
+    "batch_06": 3,
+    "batch_07": 3,
+    "batch_08": 5,
+    "batch_09": 5,
+    "batch_10": 5,
+    "batch_11": 5,
+    "batch_12": 5,
+    "batch_13": 5,
+    "batch_14": 5
+  },
+  "subcategories": {
+    "organic_chemistry": 6,
+    "physical_chemistry": 3,
+    "analytical_chemistry": 3,
+    "biochemistry": 3,
+    "materials_chemistry": 8,
+    "environmental_chemistry": 3,
+    "electrochemical_processes": 5,
+    "surface_chemistry_catalysis": 5,
+    "thermodynamic_processes": 5,
+    "kinetic_processes": 5,
+    "spectroscopy_analysis": 5,
+    "quantum_chemistry": 5
+  },
+  "processes": [
+    {
+      "id": "organic-reaction-mechanisms-process",
+      "title": "Organic Reaction Mechanisms Process",
+      "category": "chemistry",
+      "subcategory": "organic_chemistry",
+      "batch": "batch_01"
+    },
+    {
+      "id": "organic-synthesis-pathways-process",
+      "title": "Organic Synthesis Pathways Process",
+      "category": "chemistry",
+      "subcategory": "organic_chemistry",
+      "batch": "batch_01"
+    },
+    {
+      "id": "stereochemistry-analysis-process",
+      "title": "Stereochemistry Analysis Process",
+      "category": "chemistry",
+      "subcategory": "organic_chemistry",
+      "batch": "batch_01"
+    },
+    {
+      "id": "thermodynamic-calculations-process",
+      "title": "Thermodynamic Calculations Process",
+      "category": "chemistry",
+      "subcategory": "physical_chemistry",
+      "batch": "batch_02"
+    },
+    {
+      "id": "chemical-kinetics-process",
+      "title": "Chemical Kinetics Process",
+      "category": "chemistry",
+      "subcategory": "physical_chemistry",
+      "batch": "batch_02"
+    },
+    {
+      "id": "spectroscopy-analysis-process",
+      "title": "Spectroscopy Analysis Process",
+      "category": "chemistry",
+      "subcategory": "physical_chemistry",
+      "batch": "batch_02"
+    },
+    {
+      "id": "spectroscopy-analysis-process",
+      "title": "Spectroscopy Analysis Process",
+      "category": "chemistry",
+      "subcategory": "analytical_chemistry",
+      "batch": "batch_03"
+    },
+    {
+      "id": "chromatography-process",
+      "title": "Chromatography Process",
+      "category": "chemistry",
+      "subcategory": "analytical_chemistry",
+      "batch": "batch_03"
+    },
+    {
+      "id": "electrochemical-analysis-process",
+      "title": "Electrochemical Analysis Process",
+      "category": "chemistry",
+      "subcategory": "analytical_chemistry",
+      "batch": "batch_03"
+    },
+    {
+      "id": "coordination-chemistry-process",
+      "title": "Coordination Chemistry Process",
+      "category": "chemistry",
+      "subcategory": "organic_chemistry",
+      "batch": "batch_04"
+    },
+    {
+      "id": "catalysis-process",
+      "title": "Catalysis Process",
+      "category": "chemistry",
+      "subcategory": "organic_chemistry",
+      "batch": "batch_04"
+    },
+    {
+      "id": "solid-state-chemistry-process",
+      "title": "Solid State Chemistry Process",
+      "category": "chemistry",
+      "subcategory": "organic_chemistry",
+      "batch": "batch_04"
+    },
+    {
+      "id": "enzyme-kinetics-process",
+      "title": "Enzyme Kinetics Process",
+      "category": "chemistry",
+      "subcategory": "biochemistry",
+      "batch": "batch_05"
+    },
+    {
+      "id": "metabolism-process",
+      "title": "Metabolism Process",
+      "category": "chemistry",
+      "subcategory": "biochemistry",
+      "batch": "batch_05"
+    },
+    {
+      "id": "protein-structure-process",
+      "title": "Protein Structure Process",
+      "category": "chemistry",
+      "subcategory": "biochemistry",
+      "batch": "batch_05"
+    },
+    {
+      "id": "polymer-chemistry-process",
+      "title": "Polymer Chemistry Process",
+      "category": "chemistry",
+      "subcategory": "materials_chemistry",
+      "batch": "batch_06"
+    },
+    {
+      "id": "nanomaterials-process",
+      "title": "Nanomaterials Process",
+      "category": "chemistry",
+      "subcategory": "materials_chemistry",
+      "batch": "batch_06"
+    },
+    {
+      "id": "composite-materials-process",
+      "title": "Composite Materials Process",
+      "category": "chemistry",
+      "subcategory": "materials_chemistry",
+      "batch": "batch_06"
+    },
+    {
+      "id": "atmospheric-chemistry-process",
+      "title": "Atmospheric Chemistry Process",
+      "category": "chemistry",
+      "subcategory": "environmental_chemistry",
+      "batch": "batch_07"
+    },
+    {
+      "id": "water-chemistry-process",
+      "title": "Water Chemistry Process",
+      "category": "chemistry",
+      "subcategory": "environmental_chemistry",
+      "batch": "batch_07"
+    },
+    {
+      "id": "green-chemistry-process",
+      "title": "Green Chemistry Process",
+      "category": "chemistry",
+      "subcategory": "environmental_chemistry",
+      "batch": "batch_07"
+    },
+    {
+      "id": "electrochemical-cell-design",
+      "title": "Electrochemical Cell Design",
+      "category": "chemistry",
+      "subcategory": "electrochemical_processes",
+      "batch": "batch_08"
+    },
+    {
+      "id": "battery-chemistry",
+      "title": "Battery Chemistry",
+      "category": "chemistry",
+      "subcategory": "electrochemical_processes",
+      "batch": "batch_08"
+    },
+    {
+      "id": "corrosion-mechanisms",
+      "title": "Corrosion Mechanisms",
+      "category": "chemistry",
+      "subcategory": "electrochemical_processes",
+      "batch": "batch_08"
+    },
+    {
+      "id": "electroplating",
+      "title": "Electroplating",
+      "category": "chemistry",
+      "subcategory": "electrochemical_processes",
+      "batch": "batch_08"
+    },
+    {
+      "id": "electrolysis",
+      "title": "Electrolysis",
+      "category": "chemistry",
+      "subcategory": "electrochemical_processes",
+      "batch": "batch_08"
+    },
+    {
+      "id": "heterogeneous-catalysis",
+      "title": "Heterogeneous Catalysis",
+      "category": "chemistry",
+      "subcategory": "surface_chemistry_catalysis",
+      "batch": "batch_09"
+    },
+    {
+      "id": "photocatalysis",
+      "title": "Photocatalysis",
+      "category": "chemistry",
+      "subcategory": "surface_chemistry_catalysis",
+      "batch": "batch_09"
+    },
+    {
+      "id": "enzyme-catalysis",
+      "title": "Enzyme Catalysis",
+      "category": "chemistry",
+      "subcategory": "surface_chemistry_catalysis",
+      "batch": "batch_09"
+    },
+    {
+      "id": "zeolite-catalysis",
+      "title": "Zeolite Catalysis",
+      "category": "chemistry",
+      "subcategory": "surface_chemistry_catalysis",
+      "batch": "batch_09"
+    },
+    {
+      "id": "supported-catalysts",
+      "title": "Supported Catalysts",
+      "category": "chemistry",
+      "subcategory": "surface_chemistry_catalysis",
+      "batch": "batch_09"
+    },
+    {
+      "id": "phase-transitions",
+      "title": "Phase Transitions",
+      "category": "chemistry",
+      "subcategory": "thermodynamic_processes",
+      "batch": "batch_10"
+    },
+    {
+      "id": "solution-thermodynamics",
+      "title": "Solution Thermodynamics",
+      "category": "chemistry",
+      "subcategory": "thermodynamic_processes",
+      "batch": "batch_10"
+    },
+    {
+      "id": "chemical-equilibrium",
+      "title": "Chemical Equilibrium",
+      "category": "chemistry",
+      "subcategory": "thermodynamic_processes",
+      "batch": "batch_10"
+    },
+    {
+      "id": "thermochemistry",
+      "title": "Thermochemistry",
+      "category": "chemistry",
+      "subcategory": "thermodynamic_processes",
+      "batch": "batch_10"
+    },
+    {
+      "id": "entropy-changes",
+      "title": "Entropy Changes",
+      "category": "chemistry",
+      "subcategory": "thermodynamic_processes",
+      "batch": "batch_10"
+    },
+    {
+      "id": "reaction-mechanisms",
+      "title": "Reaction Mechanisms",
+      "category": "chemistry",
+      "subcategory": "kinetic_processes",
+      "batch": "batch_11"
+    },
+    {
+      "id": "temperature-effects",
+      "title": "Temperature Effects",
+      "category": "chemistry",
+      "subcategory": "kinetic_processes",
+      "batch": "batch_11"
+    },
+    {
+      "id": "concentration-effects",
+      "title": "Concentration Effects",
+      "category": "chemistry",
+      "subcategory": "kinetic_processes",
+      "batch": "batch_11"
+    },
+    {
+      "id": "catalyst-effects",
+      "title": "Catalyst Effects",
+      "category": "chemistry",
+      "subcategory": "kinetic_processes",
+      "batch": "batch_11"
+    },
+    {
+      "id": "pressure-effects",
+      "title": "Pressure Effects",
+      "category": "chemistry",
+      "subcategory": "kinetic_processes",
+      "batch": "batch_11"
+    },
+    {
+      "id": "uv-vis-spectroscopy",
+      "title": "UV-Vis Spectroscopy",
+      "category": "chemistry",
+      "subcategory": "spectroscopy_analysis",
+      "batch": "batch_12"
+    },
+    {
+      "id": "ir-spectroscopy",
+      "title": "IR Spectroscopy",
+      "category": "chemistry",
+      "subcategory": "spectroscopy_analysis",
+      "batch": "batch_12"
+    },
+    {
+      "id": "nmr-spectroscopy",
+      "title": "NMR Spectroscopy",
+      "category": "chemistry",
+      "subcategory": "spectroscopy_analysis",
+      "batch": "batch_12"
+    },
+    {
+      "id": "mass-spectrometry",
+      "title": "Mass Spectrometry",
+      "category": "chemistry",
+      "subcategory": "spectroscopy_analysis",
+      "batch": "batch_12"
+    },
+    {
+      "id": "chromatography",
+      "title": "Chromatography",
+      "category": "chemistry",
+      "subcategory": "spectroscopy_analysis",
+      "batch": "batch_12"
+    },
+    {
+      "id": "molecular-orbitals",
+      "title": "Molecular Orbitals",
+      "category": "chemistry",
+      "subcategory": "quantum_chemistry",
+      "batch": "batch_13"
+    },
+    {
+      "id": "electronic-transitions",
+      "title": "Electronic Transitions",
+      "category": "chemistry",
+      "subcategory": "quantum_chemistry",
+      "batch": "batch_13"
+    },
+    {
+      "id": "computational-methods",
+      "title": "Computational Methods",
+      "category": "chemistry",
+      "subcategory": "quantum_chemistry",
+      "batch": "batch_13"
+    },
+    {
+      "id": "reaction-pathways",
+      "title": "Reaction Pathways",
+      "category": "chemistry",
+      "subcategory": "quantum_chemistry",
+      "batch": "batch_13"
+    },
+    {
+      "id": "spectroscopic-calculations",
+      "title": "Spectroscopic Calculations",
+      "category": "chemistry",
+      "subcategory": "quantum_chemistry",
+      "batch": "batch_13"
+    },
+    {
+      "id": "crystal-structure",
+      "title": "Crystal Structure",
+      "category": "chemistry",
+      "subcategory": "materials_chemistry",
+      "batch": "batch_14"
+    },
+    {
+      "id": "polymorphism",
+      "title": "Polymorphism",
+      "category": "chemistry",
+      "subcategory": "materials_chemistry",
+      "batch": "batch_14"
+    },
+    {
+      "id": "defects-doping",
+      "title": "Defects & Doping",
+      "category": "chemistry",
+      "subcategory": "materials_chemistry",
+      "batch": "batch_14"
+    },
+    {
+      "id": "nanomaterials",
+      "title": "Nanomaterials",
+      "category": "chemistry",
+      "subcategory": "materials_chemistry",
+      "batch": "batch_14"
+    },
+    {
+      "id": "composite-materials",
+      "title": "Composite Materials",
+      "category": "chemistry",
+      "subcategory": "materials_chemistry",
+      "batch": "batch_14"
+    }
+  ]
+}

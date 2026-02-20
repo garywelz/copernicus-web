@@ -1,0 +1,92 @@
+{
+  "id": "security-secure-software-update",
+  "name": "Secure Software Update",
+  "category": "computer_science",
+  "subcategory": "security",
+  "subcategory_name": "Security & Cryptography",
+  "description": "Secure Software Update process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 10,
+    "edges": 10,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 1,
+      "andGates": 1,
+      "total": 2
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nN1[\"Update Available\"]\nN2[\"Device State\"]\nN3[\"Manifest\"]\nN4[\"Choose Approach\"]\nN5[\"Signature/Keys\"]\nN6[\"Download Payload\"]\nN7[\"Verify Signature\"]\nN8[\"Install Atomically\"]\nN9[\"Integrate Results\"]\nN10[\"Updated System\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\nN4 --> N7\nN5 --> N6\nN7 --> N8\nN6 --> N9\nN8 --> N9\nN9 --> N10\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ff6b6b,color:#fff\n    style N3 fill:#ffd43b,color:#000\n    style N4 fill:#ffd43b,color:#000\n    style N5 fill:#ffd43b,color:#000\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#74c0fc,color:#fff\n    style N10 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Secure Software Update. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "An approach for secure software update in Infotainment system",
+      "authors": "Gandhi, Kapilan Kulayan Arumugam; Arumugam, Chamundeswari",
+      "journal": "Proceedings of the 10th Innovations in Software Engineering Conference",
+      "year": "2017",
+      "pubmed": null,
+      "doi": "10.1145/3021460.3021475",
+      "url": "https://doi.org/10.1145/3021460.3021475"
+    },
+    {
+      "title": "Secure Over-the-Air Software Update for Connected Vehicles",
+      "authors": "Ghosal, Amrita; Halder, Subir; Conti, Mauro",
+      "journal": "SSRN Electronic Journal",
+      "year": "2022",
+      "pubmed": null,
+      "doi": "10.2139/ssrn.4183394",
+      "url": "https://doi.org/10.2139/ssrn.4183394"
+    },
+    {
+      "title": "Auto update – safe and secure over-the-air (SOTA) software update for advanced driving assistance systems",
+      "authors": "Koegel, Markus; Wolf, Marko",
+      "journal": "Proceedings",
+      "year": "2018",
+      "pubmed": null,
+      "doi": "10.1007/978-3-658-21444-9_9",
+      "url": "https://doi.org/10.1007/978-3-658-21444-9_9"
+    }
+  ],
+  "keywords": [
+    "secure",
+    "software",
+    "update"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-15",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+}

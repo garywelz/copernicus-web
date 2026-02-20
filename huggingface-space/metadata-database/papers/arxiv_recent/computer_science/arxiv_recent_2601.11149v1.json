@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2601.11149v1",
+  "arxiv_id": "2601.11149v1",
+  "title": "Sensing Mutual Information for Communication Signal with Deterministic Pilots and Random Data Payloads",
+  "authors": [
+    "Lei Xie",
+    "Hengtao He",
+    "Jun Tong",
+    "Fan Liu",
+    "Shenghui Song"
+  ],
+  "author_string": "Lei Xie, Hengtao He, Jun Tong, Fan Liu, Shenghui Song",
+  "journal": "arXiv:2601.11149v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "The recent emergence of the integrated sensing and communication (ISAC) framework has sparked significant interest in quantifying the sensing capabilities inherent in communication signals. However, existing literature has mainly focused on scenarios involving either purely random or purely deterministic waveforms. This overlooks a critical reality: operational communication standards invariably utilize a hybrid structure comprising both deterministic pilots for channel estimation and random payloads for data transmission. To bridge this gap, this paper investigates the sensing mutual information (SMI) and precoding design specifically for ISAC systems employing communication signals with both pilots and data payloads. First, by utilizing random matrix theory (RMT), we derive a tractable closed-form expression for the SMI that accurately accounts for the statistical properties of the hybrid signal. Building upon this theoretical foundation, we formulate a precoding optimization problem to maximize SMI with constraints on the transmit power and communication rate, which is solved via an efficient alternating direction method of multipliers framework. Simulation results validate the accuracy of the theoretical results and demonstrate the superiority of the proposed precoding design over conventional benchmarks.",
+  "categories": [
+    "cs.IT"
+  ],
+  "primary_category": "cs.IT",
+  "comment": null,
+  "published_date": "2026-01-16T10:07:13Z",
+  "updated_date": "2026-01-16T10:07:13Z",
+  "url": "https://arxiv.org/abs/2601.11149v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11149v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:33.862281",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.IT"
+  ]
+}

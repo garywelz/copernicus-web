@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2601.06588v1",
+  "arxiv_id": "2601.06588v1",
+  "title": "TCLNet: A Hybrid Transformer-CNN Framework Leveraging Language Models as Lossless Compressors for CSI Feedback",
+  "authors": [
+    "Zijiu Yang",
+    "Qianqian Yang",
+    "Shunpu Tang",
+    "Tingting Yang",
+    "Zhiguo Shi"
+  ],
+  "author_string": "Zijiu Yang, Qianqian Yang, Shunpu Tang, Tingting Yang, Zhiguo Shi",
+  "journal": "arXiv:2601.06588v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "In frequency division duplexing (FDD) massive multiple-input multiple-output (MIMO) systems, downlink channel state information (CSI) plays a crucial role in achieving high spectrum and energy efficiency. However, the CSI feedback overhead becomes a major bottleneck as the number of antennas increases. Although existing deep learning-based CSI compression methods have shown great potential, they still face limitations in capturing both local and global features of CSI, thereby limiting achievable compression efficiency. To address these issues, we propose TCLNet, a unified CSI compression framework that integrates a hybrid Transformer-CNN architecture for lossy compression with a hybrid language model (LM) and factorized model (FM) design for lossless compression. The lossy module jointly exploits local features and global context, while the lossless module adaptively switches between context-aware coding and parallel coding to optimize the rate-distortion-complexity (RDC) trade-off. Extensive experiments on both real-world and simulated datasets demonstrate that the proposed TCLNet outperforms existing approaches in terms of reconstruction accuracy and transmission efficiency, achieving up to a 5 dB performance gain across diverse scenarios. Moreover, we show that large language models (LLMs) can be leveraged as zero-shot CSI lossless compressors via carefully designed prompts.",
+  "categories": [
+    "cs.IT",
+    "physics.comp-ph"
+  ],
+  "primary_category": "physics.comp-ph",
+  "comment": null,
+  "published_date": "2026-01-10T14:54:40Z",
+  "updated_date": "2026-01-10T14:54:40Z",
+  "url": "https://arxiv.org/abs/2601.06588v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.06588v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-14T13:33:28.430881",
+  "category": "physics",
+  "subcategories": [
+    "cs.IT",
+    "physics.comp-ph"
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2601.07198v1",
+  "arxiv_id": "2601.07198v1",
+  "title": "Direct temperature readout in nonequilibrium quantum thermometry",
+  "authors": [
+    "Yan Xie",
+    "Junjie Liu"
+  ],
+  "author_string": "Yan Xie, Junjie Liu",
+  "journal": "arXiv:2601.07198v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Quantum thermometry aims to measure temperature in nanoscale quantum systems, paralleling classical thermometry. However, temperature is not a quantum observable, and most theoretical studies have therefore concentrated on analyzing fundamental precision limits set by the quantum Fisher information through the quantum Cramer-Rao bound. In contrast, whether a direct temperature readout can be achieved in quantum thermometry remains largely unexplored, particularly under the nonequilibrium conditions prevalent in real-world applications. To address this, we develop a direct temperature readout scheme based on a thermodynamic inference strategy. The scheme integrates two conceptual developments: (i) By applying the maximum entropy principle with the thermometer's mean energy as a constraint, we assign a reference temperature to the nonequilibrium thermometer. We demonstrate that this reference temperature outperforms a commonly used effective temperature defined through equilibrium analogy. (ii) We obtain positive semi-definite error functions that lower-bound the deviation of the reference temperature from the true temperature-in analogy to the quantum Cramer-Rao bound for the mean squared error-and vanish upon thermalization with the sample. Combining the reference temperature with these error functions, we introduce a notion of corrected dynamical temperature which furnishes a postprocessed temperature readout under nonequilibrium conditions. We validate the corrected dynamical temperature in a qubit-based thermometer under a range of nonequilibrium initial states, confirming its capability to estimate the true temperature. Importantly, we find that increasing quantum coherence can enhance the precision of this readout.",
+  "categories": [
+    "quant-ph",
+    "cond-mat.stat-mech"
+  ],
+  "primary_category": "cond-mat.stat-mech",
+  "comment": "14 pages, 4 figures, comments are welcome!",
+  "published_date": "2026-01-12T04:44:40Z",
+  "updated_date": "2026-01-12T04:44:40Z",
+  "url": "https://arxiv.org/abs/2601.07198v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.07198v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:35.457036",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph",
+    "cond-mat.stat-mech"
+  ]
+}

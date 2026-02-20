@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2601.05245v1",
+  "arxiv_id": "2601.05245v1",
+  "title": "Optimal Lower Bounds for Online Multicalibration",
+  "authors": [
+    "Natalie Collina",
+    "Jiuyao Lu",
+    "Georgy Noarov",
+    "Aaron Roth"
+  ],
+  "author_string": "Natalie Collina, Jiuyao Lu, Georgy Noarov, Aaron Roth",
+  "journal": "arXiv:2601.05245v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We prove tight lower bounds for online multicalibration, establishing an information-theoretic separation from marginal calibration.   In the general setting where group functions can depend on both context and the learner's predictions, we prove an $Ω(T^{2/3})$ lower bound on expected multicalibration error using just three disjoint binary groups. This matches the upper bounds of Noarov et al. (2025) up to logarithmic factors and exceeds the $O(T^{2/3-\\varepsilon})$ upper bound for marginal calibration (Dagan et al., 2025), thereby separating the two problems.   We then turn to lower bounds for the more difficult case of group functions that may depend on context but not on the learner's predictions. In this case, we establish an $\\widetildeΩ(T^{2/3})$ lower bound for online multicalibration via a $Θ(T)$-sized group family constructed using orthogonal function systems, again matching upper bounds up to logarithmic factors.",
+  "categories": [
+    "cs.LG",
+    "math.ST",
+    "stat.ML"
+  ],
+  "primary_category": "stat.ML",
+  "comment": null,
+  "published_date": "2026-01-08T18:59:32Z",
+  "updated_date": "2026-01-08T18:59:32Z",
+  "url": "https://arxiv.org/abs/2601.05245v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.05245v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:26.894287",
+  "category": "mathematics",
+  "subcategories": [
+    "cs.LG",
+    "math.ST",
+    "stat.ML"
+  ]
+}

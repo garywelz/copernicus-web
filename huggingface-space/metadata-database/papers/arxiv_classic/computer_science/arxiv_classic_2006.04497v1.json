@@ -1,0 +1,37 @@
+{
+  "id": "arxiv_2006.04497v1",
+  "arxiv_id": "2006.04497v1",
+  "title": "Learning under Invariable Bayesian Safety",
+  "authors": [
+    "Gal Bahar",
+    "Omer Ben-Porat",
+    "Kevin Leyton-Brown",
+    "Moshe Tennenholtz"
+  ],
+  "author_string": "Gal Bahar, Omer Ben-Porat, Kevin Leyton-Brown, Moshe Tennenholtz",
+  "journal": "arXiv:2006.04497v1",
+  "journal_ref": null,
+  "year": "2020",
+  "doi": null,
+  "abstract": "A recent body of work addresses safety constraints in explore-and-exploit systems. Such constraints arise where, for example, exploration is carried out by individuals whose welfare should be balanced with overall welfare. In this paper, we adopt a model inspired by recent work on a bandit-like setting for recommendations. We contribute to this line of literature by introducing a safety constraint that should be respected in every round and determines that the expected value in each round is above a given threshold. Due to our modeling, the safe explore-and-exploit policy deserves careful planning, or otherwise, it will lead to sub-optimal welfare. We devise an asymptotically optimal algorithm for the setting and analyze its instance-dependent convergence rate.",
+  "categories": [
+    "cs.GT",
+    "cs.AI",
+    "cs.CY",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": null,
+  "published_date": "2020-06-08T12:07:59Z",
+  "updated_date": "2020-06-08T12:07:59Z",
+  "url": "https://arxiv.org/abs/2006.04497v1",
+  "pdf_url": "https://arxiv.org/pdf/2006.04497v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:23.481361",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.GT",
+    "cs.AI",
+    "cs.CY"
+  ]
+}

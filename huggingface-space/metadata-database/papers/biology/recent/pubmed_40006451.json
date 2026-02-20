@@ -1,0 +1,29 @@
+{
+  "id": "pubmed_40006451",
+  "pmid": "40006451",
+  "title": "Bridging Neuroscience and Machine Learning: A Gender-Based Electroencephalogram Framework for Guilt Emotion Identification.",
+  "authors": [
+    "Zaidi, Saima Raza",
+    "Khan, Najeed Ahmed",
+    "Hasan, Muhammad Abul"
+  ],
+  "author_string": "Zaidi, Saima Raza, Khan, Najeed Ahmed, Hasan, Muhammad Abul",
+  "journal": "Sensors (Basel)",
+  "journal_full": "Sensors (Basel, Switzerland)",
+  "year": "",
+  "doi": "10.3390/s25041222",
+  "abstract": "This study explores the link between the emotion \"guilt\" and human EEG data, and investigates the influence of gender differences on the expression of guilt and neutral emotions in response to visual stimuli. Additionally, the stimuli used in the study were developed to ignite guilt and neutral emotions. Two emotions, \"guilt\" and \"neutral\", were recorded from 16 participants after these emotions were induced using storyboards as pictorial stimuli. These storyboards were developed based on various guilt-provoking events shared by another group of participants. In the pre-processing step, collected data were de-noised using bandpass filters and ICA, then segmented into smaller sections for further analysis. Two approaches were used to feed these data to the SVM classifier. First, the novel approach employed involved feeding the data to SVM classifier without computing any features. This method provided an average accuracy of 83%. In the second approach, data were divided into Alpha, Beta, Gamma, Theta and Delta frequency bands using Discrete Wavelet Decomposition. Afterward, the computed features, including entropy, Hjorth parameters and Band Power, were fed to SVM classifiers. This approach achieved an average accuracy of 63%. The findings of both classification methodologies indicate that females are more expressive in response to depicted stimuli and that their brain cells exhibit higher feature values. Moreover, females displayed higher accuracy than males in all bands except the Delta band.",
+  "keywords": [
+    "EEG",
+    "brain–computer interaction",
+    "emotion recognition",
+    "guilt",
+    "machine learning"
+  ],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/40006451",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T17:01:33.876837",
+  "category": "biology",
+  "subcategories": []
+}

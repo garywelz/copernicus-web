@@ -1,0 +1,91 @@
+{
+  "id": "sensory_perception-thermoregulation-sensing",
+  "name": "Thermoregulation Sensing",
+  "category": "biology",
+  "subcategory": "sensory_perception",
+  "subcategory_name": "Sensory & Perception",
+  "description": "Thermoregulation Sensing process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 6,
+    "edges": 5,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nN1[\"External Stimulus\"]\nN2[\"Sensory Organ/Cells\"]\nN3[\"Transduction to Neural Signal\"]\nN4[\"Neural Pathways\"]\nN5[\"Perception/Interpretation\"]\nN6[\"Behavioral/Physiological Output\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\nN5 --> N6\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ffd43b,color:#000\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#74c0fc,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Thermoregulation Sensing. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "Radiative Cooling Smart Textiles with Integrated Sensing for Adaptive Thermoregulation",
+      "authors": "",
+      "journal": "",
+      "year": "None",
+      "pubmed": null,
+      "doi": "10.1021/acsmaterialslett.4c01624.s001",
+      "url": "https://doi.org/10.1021/acsmaterialslett.4c01624.s001"
+    },
+    {
+      "title": "BEYOND THERMOREGULATION",
+      "authors": "Süsskind, Charles",
+      "journal": "Microwaves and Thermoregulation",
+      "year": "1983",
+      "pubmed": null,
+      "doi": "10.1016/b978-0-12-044020-7.50017-9",
+      "url": "https://doi.org/10.1016/b978-0-12-044020-7.50017-9"
+    },
+    {
+      "title": "EVOLUTION OF THERMOREGULATION",
+      "authors": "Whittow, G.Causey",
+      "journal": "Comparative Physiology of Thermoregulation",
+      "year": "1973",
+      "pubmed": null,
+      "doi": "10.1016/b978-0-12-747603-2.50011-4",
+      "url": "https://doi.org/10.1016/b978-0-12-747603-2.50011-4"
+    }
+  ],
+  "keywords": [
+    "thermoregulation",
+    "sensing"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-15",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+}

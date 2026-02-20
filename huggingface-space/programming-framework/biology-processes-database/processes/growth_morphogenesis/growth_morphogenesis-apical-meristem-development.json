@@ -1,0 +1,94 @@
+{
+  "id": "growth_morphogenesis-apical-meristem-development",
+  "name": "Apical Meristem Development",
+  "category": "biology",
+  "subcategory": "growth_morphogenesis",
+  "subcategory_name": "Growth & Morphogenesis",
+  "organism": "Plants",
+  "description": "Apical Meristem Development in Plants. This process represents a higher-level biological mechanism distinct from molecular/biochemical processes covered in GLMP.",
+  "complexity": {
+    "nodes": 9,
+    "edges": 10,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "low",
+    "detailLevel": "low"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\n    A9[Embryonic Meristem] --> B9[Cell Division Zone]\n    B9 --> C9[Cell Elongation Zone]\n    C9 --> D9[Cell Differentiation Zone]\n    D9 --> E9[Leaf Primordia]\n    D9 --> F9[Stem Tissue]\n    D9 --> G9[Vascular Tissue]\n    E9 --> H9[Organ Formation]\n    F9 --> H9\n    G9 --> H9\n    H9 --> I9[Growth Continuation]\n    \n    style A9 fill:#ff6b6b,color:#fff\n    style B9 fill:#ffd43b,color:#000\n    style C9 fill:#ffd43b,color:#000\n    style D9 fill:#51cf66,color:#fff\n    style E9 fill:#74c0fc,color:#fff\n    style F9 fill:#74c0fc,color:#fff\n    style G9 fill:#74c0fc,color:#fff\n    style H9 fill:#51cf66,color:#fff\n    style I9 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "notes": "Higher-level biological process visualization: Apical Meristem Development. Created using the Programming Framework methodology for organismal and ecological process analysis."
+    },
+    {
+      "title": "The Arabidopsis WUSCHEL gene encodes a novel homeodomain protein that is required for maintenance of shoot meristem stem cells",
+      "authors": "Schoof H, Busch M, Kulkarni B, Wetterauer S, Kölle K, Käufer F, Schneitz J, Prunelle D, Jürgens G, Simon R.",
+      "journal": "Cell",
+      "year": "2000",
+      "pubmed": "10692949",
+      "doi": "10.1016/S0092-8674(00)80662-7",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/10692949"
+    },
+    {
+      "title": "Dependence of stem cell fate on CLV3 signalling and WUSCHEL feedback regulation in the Arabidopsis shoot meristem",
+      "authors": "Brand U, Hobe M, Simon R.",
+      "journal": "Nature",
+      "year": "2000",
+      "pubmed": "10766236",
+      "doi": "10.1038/35006093",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/10766236"
+    },
+    {
+      "title": "The Shoot Apical Meristem: A Central Control Zone for Plant Development",
+      "authors": "Veit B.",
+      "journal": "Annu Rev Plant Biol",
+      "year": "2009",
+      "pubmed": "19400787",
+      "doi": "10.1146/annurev.arplant.043008.092100",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/19400787"
+    }
+  ],
+  "keywords": [
+    "growth",
+    "apical",
+    "plants",
+    "development",
+    "morphogenesis",
+    "meristem"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-08",
+  "verified": false,
+  "notes": "Higher-level biological process. GLMP covers biochemical/molecular processes; this database covers organismal/ecological processes."
+}

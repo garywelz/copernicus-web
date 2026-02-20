@@ -1,0 +1,91 @@
+{
+  "id": "quantum_chemistry-reaction-pathways",
+  "name": "Reaction Pathways",
+  "category": "chemistry",
+  "subcategory": "quantum_chemistry",
+  "subcategory_name": "Quantum Chemistry",
+  "description": "Reaction Pathways process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 26,
+    "edges": 22,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 1,
+      "total": 1
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nA4[Reactant State] --> B4[Reaction Pathway Method]\nC4[Transition States] --> D4[Energy Surface Analysis]\nE4[Product State] --> F4[Pathway Calculation]\nB4 --> G4[Pathway Identification]\nD4 --> H4[Energy Surface Mapping]\nF4 --> I4[Reaction Coordinate]\nG4 --> J4[Initial State]\nH4 --> K4[Energy Barriers]\nI4 --> L4[Coordinate Analysis]\nJ4 --> M4[Reaction Initiation]\nK4 --> L4\nL4 --> N4[Transition State]\nM4 --> O4[Pathway Evolution]\nN4 --> P4[Reaction Progress]\nO4 --> Q4[Quantum Analysis]\nP4 --> R4[Product Formation]\nQ4 --> S4[Pathway Analysis]\nR4 --> T4[Reaction Properties]\nS4 --> U4[Barrier Analysis]\nT4 --> V4[Property Calculation]\nU4 --> W4[Pathway Efficiency]\nV4 --> X4[Reaction Characterization]\nW4 --> Y4[Process Optimization]\nX4 --> Z4[Final Reaction Pathway]\nY4 --> Z4\n\n    style A4 fill:#ff6b6b,color:#fff\n    style C4 fill:#ff6b6b,color:#fff\n    style E4 fill:#ff6b6b,color:#fff\n    style B4 fill:#ffd43b,color:#000\n    style D4 fill:#ffd43b,color:#000\n    style F4 fill:#ffd43b,color:#000\n    style G4 fill:#ffd43b,color:#000\n    style H4 fill:#ffd43b,color:#000\n    style I4 fill:#ffd43b,color:#000\n    style J4 fill:#ffd43b,color:#000\n    style K4 fill:#ffd43b,color:#000\n    style L4 fill:#ffd43b,color:#000\n    style M4 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style O4 fill:#51cf66,color:#fff\n    style P4 fill:#51cf66,color:#fff\n    style Q4 fill:#51cf66,color:#fff\n    style R4 fill:#51cf66,color:#fff\n    style S4 fill:#51cf66,color:#fff\n    style T4 fill:#51cf66,color:#fff\n    style U4 fill:#51cf66,color:#fff\n    style V4 fill:#51cf66,color:#fff\n    style W4 fill:#51cf66,color:#fff\n    style X4 fill:#51cf66,color:#fff\n    style Y4 fill:#51cf66,color:#fff\n    style Z4 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Reaction Pathways. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "Chlorination of Amino Acids: Reaction Pathways and Reaction Rates",
+      "authors": "",
+      "journal": "",
+      "year": "None",
+      "pubmed": null,
+      "doi": "10.1021/acs.est.6b04440.s001",
+      "url": "https://doi.org/10.1021/acs.est.6b04440.s001"
+    },
+    {
+      "title": "Exploring the Multiple Reaction  Pathways for the H + cyc-C3H6 Reaction",
+      "authors": "",
+      "journal": "",
+      "year": "None",
+      "pubmed": null,
+      "doi": "10.1021/jp0458194.s001",
+      "url": "https://doi.org/10.1021/jp0458194.s001"
+    },
+    {
+      "title": "Multiple Reaction Pathways in the Morphinone Reductase-Catalyzed Hydride Transfer Reaction",
+      "authors": "",
+      "journal": "",
+      "year": "None",
+      "pubmed": null,
+      "doi": "10.1021/acsomega.0c03472.s001",
+      "url": "https://doi.org/10.1021/acsomega.0c03472.s001"
+    }
+  ],
+  "keywords": [
+    "reaction",
+    "pathways"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+}

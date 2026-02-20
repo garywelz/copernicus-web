@@ -1,0 +1,40 @@
+{
+  "id": "arxiv_2303.14326v3",
+  "arxiv_id": "2303.14326v3",
+  "title": "Stable computation of entanglement entropy for 2D interacting fermion systems",
+  "authors": [
+    "Gaopei Pan",
+    "Yuan Da Liao",
+    "Weilun Jiang",
+    "Jonathan D'Emidio",
+    "Yang Qi",
+    "Zi Yang Meng"
+  ],
+  "author_string": "Gaopei Pan, Yuan Da Liao, Weilun Jiang, Jonathan D'Emidio, Yang Qi et al.",
+  "journal": "Phys. Rev. B 108, L081123 (2023)",
+  "journal_ref": "Phys. Rev. B 108, L081123 (2023)",
+  "year": "2023",
+  "doi": "10.1103/PhysRevB.108.L081123",
+  "abstract": "There is no doubt that the information hidden in entanglement entropy (EE), for example, the $n$-th order Rényi EE, i.e., $S^{A}_n=\\frac{1}{1-n}\\ln \\Tr (ρ_A^n)$ where $ρ_A=\\mathrm{Tr}_{\\overline{A}}ρ$ is the reduced density matrix, can be used to infer the organizing principle of 2D interacting fermion systems, ranging from spontaneous symmetry breaking phases, quantum critical points to topologically ordered states. It is far from clear, however, whether the EE can actually be obtained with the precision required to observe these fundamental features -- usually in the form of universal finite size scaling behavior. Even for the prototypical 2D interacting fermion model -- the Hubbard model, to all existing numerical algorithms, the computation of the EE has not been succeeded with reliable data that the universal scaling regime can be accessed. Here we explain the reason for these unsuccessful attempts in EE computations in quantum Monte Carlo simulations in the past decades and more importantly, show how to overcome the conceptual and computational barrier with the incremental algorithm, such that the stable computation of the EE in 2D interacting fermion systems can be achieved and universal scaling information can be extracted. Relevance towards the experimental 2D interacting fermion systems is discussed.",
+  "categories": [
+    "cond-mat.str-el",
+    "cond-mat.stat-mech",
+    "math-ph",
+    "physics.comp-ph",
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": "6+4 pages, 4+4 figures",
+  "published_date": "2023-03-25T01:56:09Z",
+  "updated_date": "2023-08-29T02:27:44Z",
+  "url": "https://arxiv.org/abs/2303.14326v3",
+  "pdf_url": "https://arxiv.org/pdf/2303.14326v3.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-02-03T13:20:30.628107",
+  "category": "physics",
+  "subcategories": [
+    "cond-mat.str-el",
+    "cond-mat.stat-mech",
+    "math-ph"
+  ]
+}

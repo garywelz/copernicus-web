@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feedback Loops as Loops - TDA Seminar</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; background: #1a1a2e; color: #eee; }
+    .slide { min-height: 100vh; padding: 2rem 3rem; display: none; }
+    .slide.active { display: block; }
+    .slide h1 { font-size: 2rem; margin: 0 0 1.5rem 0; color: #4fc3f7; border-bottom: 2px solid #4fc3f7; padding-bottom: 0.5rem; }
+    .slide ul { font-size: 1.25rem; line-height: 1.7; margin: 0; padding-left: 1.5rem; max-width: 50rem; }
+    .slide li { margin-bottom: 0.5rem; }
+    .slide a { color: #4fc3f7; text-decoration: none; }
+    .slide a:hover { text-decoration: underline; }
+    .slide.title-slide { text-align: center; padding-top: 15vh; }
+    .slide.title-slide h1 { font-size: 2.2rem; border: none; }
+    .slide.title-slide p { font-size: 1.2rem; margin: 0.5rem 0; opacity: 0.9; }
+    .nav { position: fixed; bottom: 1rem; right: 1rem; z-index: 10; }
+    .nav button { padding: 0.5rem 1rem; margin-left: 0.5rem; font-size: 1rem; cursor: pointer; background: #4fc3f7; color: #1a1a2e; border: none; border-radius: 4px; }
+    .nav button:hover { background: #81d4fa; }
+    .slide-num { position: fixed; bottom: 1rem; left: 1rem; opacity: 0.6; font-size: 0.9rem; }
+    .slide-scroll-image { max-height: 60vh; overflow: auto; margin-top: 1rem; border: 1px solid rgba(79, 195, 247, 0.3); border-radius: 6px; background: #0d1117; }
+    .slide-scroll-image img { display: block; max-width: 100%; height: auto; }
+  </style>
+</head>
+<body>
+  <div class="slide title-slide active">
+    <h1>Feedback Loops as Loops</h1>
+    <p>Topological Data Analysis of Genetic Regulatory Circuits</p>
+    <p style="margin-top: 2rem;">Gary Welz</p>
+    <p>CopernicusAI / CUNY Graduate Center (PoI)</p>
+    <p>Collaboration with Dr. Mikael Vejdemo-Johansson</p>
+    <p style="margin-top: 2rem; font-size: 1rem;">March 13, 2026</p>
+  </div>
+
+  <div class="slide">
+    <h1>From papers to flowcharts</h1>
+    <p style="font-size: 1.15rem; line-height: 1.6; max-width: 52rem; margin-bottom: 1.25rem;">First attempt at the β-galactosidase flow chart in 1995. This appeared in an article in <em>The X Advisor</em>, an online magazine for Unix developers. The article was entitled “Is the Genome Like a Computer Program?” and contained excerpts from my conversations with biologists on the bionet.genome.chromosome newsgroup. The article was archived at the Wayback Machine (Internet Archive); the newsgroup discussions are archived by Google.</p>
+    <p style="font-size: 1.05rem; line-height: 1.6; max-width: 52rem; margin-bottom: 1rem;">The 1995 chart was created from text alone — the same process LLMs use today. The source was Berg & Singer (1992, pp. 71–73). This shows that diagrams are only as detailed and reliable as their source material; using different sources for the same process can yield different charts.</p>
+    <p style="margin-bottom: 0.5rem; font-size: 1.05rem;"><a href="https://web.archive.org/web/19970310064130/http://landru.unx.com/DD/advisor/docs/jul95/welz.genome0.shtml" target="_blank" rel="noopener">1995 article (Internet Archive)</a> | Source: Berg, P. & Singer, M. (1992). <em>Dealing With Genes</em>. University Science Books, pp. 71–73.</p>
+    <p style="margin-bottom: 0.75rem; font-size: 0.95rem;">bionet.genome.chromosome thread: <a href="http://www.bio.net/bionet/mm/biochrom/1995-April/000537.html" target="_blank" rel="noopener">first posting</a> (flowchart with “and”/“or”) · <a href="http://www.bio.net/bionet/mm/biochrom/1995-April/000539.html" target="_blank" rel="noopener">Robbins</a>: “care must be taken in interpreting that flow chart”; “computer-science insights… potentially huge payoffs” · <a href="http://www.bio.net/bionet/mm/biochrom/1995-April/000540.html" target="_blank" rel="noopener">Dellaire</a>: genome structure (not just sequence) encodes how the code is read—context spatial/temporal · <a href="http://www.bio.net/bionet/mm/biochrom/1995-April/000543.html" target="_blank" rel="noopener">Robbins</a>.</p>
+    <img src="https://huggingface.co/spaces/garywelz/glmp/resolve/main/b-galchart2.gif" alt="Beta-galactosidase / Lac flowchart (GLMP, 1995)" style="max-width: 100%; height: auto; display: block;">
+  </div>
+
+  <div class="slide">
+    <h1>Same chart, 30 years later</h1>
+    <p style="font-size: 1.15rem; line-height: 1.6; max-width: 52rem; margin-bottom: 1rem;">This is the <strong>same</strong> Lac operon / β-galactosidase idea — but generated with LLMs and Mermaid Markdown. The original chart was so time-consuming that the idea sat dormant for decades. Now we can produce any of these flowcharts from a single prompt in seconds.</p>
+    <p style="margin-bottom: 0.75rem;"><a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/viewer/index.html?process=ecoli_lac_operon" target="_blank" rel="noopener">Lac Operon (GLMP viewer)</a></p>
+    <div class="slide-scroll-image" aria-label="First LLM-generated Mermaid β-galactosidase flowchart (scroll to see full image)">
+      <img src="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/bgachartMedium.webp" alt="First LLM-generated Mermaid Markdown flowchart: β-galactosidase / Lac operon">
+    </div>
+  </div>
+
+  <div class="slide">
+    <h1>The Innovation: Text to Visual Data</h1>
+    <p style="font-size: 1.05rem; margin-bottom: 1rem; max-width: 52rem;">Traditional TDA starts from numerical data. Here we start from text — paper descriptions — and turn them into visual flowcharts first. That shift is what makes the rest possible.</p>
+    <ul>
+      <li>Traditional TDA: Numerical data → Feature vectors → Topology</li>
+      <li>This work: Text (papers) → Visual flowcharts → Features → Topology</li>
+      <li>Key: Mermaid Markdown converts textual process descriptions into structured flowcharts</li>
+      <li>Flowcharts become visual data; TDA reveals structure</li>
+      <li>We extract topology from descriptions, not from direct measurements</li>
+    </ul>
+  </div>
+
+  <div class="slide">
+    <h1>The Question</h1>
+    <p style="font-size: 1.05rem; margin-bottom: 1rem; max-width: 52rem;">We’re asking whether the <em>shape</em> of these circuits — as captured by topology — lines up with what biologists already know: feedback loops, cascades, and regulatory motifs.</p>
+    <ul>
+      <li>Can we detect regulatory structure (feedback, cascades) from circuit topology?</li>
+      <li>Feedback loops are literally loops — they should appear in H₁</li>
+      <li>Can text-derived visual data support that?</li>
+    </ul>
+  </div>
+
+  <div class="slide">
+    <h1>The GLMP Database</h1>
+    <p style="font-size: 1.05rem; margin-bottom: 1rem; max-width: 52rem;">The Genome Logic Modeling Project gives us 108 processes — each one a Mermaid flowchart with nodes, conditionals, and explicit OR/AND/NOT logic. That structure is exactly what we feed into TDA.</p>
+    <ul>
+      <li>108 genetic regulatory circuits</li>
+      <li>E. coli (66), S. cerevisiae (38), Bacillus subtilis (4)</li>
+      <li>Each process: Mermaid flowchart (nodes, conditionals, OR/AND/NOT gates)</li>
+      <li>Examples: <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/viewer/index.html?process=ecoli_lac_operon" target="_blank" rel="noopener">lac operon</a>, <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/viewer/index.html?process=ecoli_sos_response" target="_blank" rel="noopener">SOS response</a>, <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/viewer/index.html?process=ecoli_e._coli_two_component_signaling" target="_blank" rel="noopener">two-component signaling</a></li>
+      <li><a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-database-table.html" target="_blank" rel="noopener">Full set: GLMP Database Table</a> (click any process for flowchart)</li>
+      <li>Code: github.com/garywelz/glmp</li>
+    </ul>
+  </div>
+
+  <div class="slide">
+    <h1>GLMP: References in JSON & Feedback</h1>
+    <p style="font-size: 1.05rem; margin-bottom: 1rem; max-width: 52rem;">Each process in GLMP is grounded in literature: the JSON holds PubMed/DOI and the viewer lets anyone suggest improvements. So the flowcharts are citable and correctable.</p>
+    <ul style="margin-bottom: 1rem;">
+      <li>Each process JSON includes <strong>references</strong>: PubMed, DOI, sources</li>
+      <li>Viewer accepts <strong>feedback</strong> — suggest corrections or improvements</li>
+      <li>Example: <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/viewer/index.html?process=ecoli_chemotaxis" target="_blank" rel="noopener">Chemotaxis flowchart</a></li>
+    </ul>
+    <p style="opacity: 0.9; font-size: 0.98rem;">Scroll down in the viewer to see Sources &amp; Citations, Metadata, and the Improve-this-process form.</p>
+  </div>
+
+  <div class="slide">
+    <h1>From Flowcharts to Features</h1>
+    <p style="font-size: 1.05rem; margin-bottom: 1rem; max-width: 52rem;">We don’t use the full graph structure for TDA — we summarize each flowchart into a few numbers: how many nodes, how many conditionals, how many of each logic gate. That gives us a feature vector per process.</p>
+    <ul>
+      <li>Node count, conditional count</li>
+      <li>OR gates, AND gates, NOT gates</li>
+      <li>Standardized (zero mean, unit variance)</li>
+      <li>108 processes × 5 features</li>
+      <li>These capture circuit complexity and logic structure</li>
+    </ul>
+  </div>
+
+  <div class="slide">
+    <h1>TDA Pipeline</h1>
+    <p style="font-size: 1.05rem; margin-bottom: 1rem; max-width: 52rem;">From the feature matrix we build a distance between every pair of processes, then run a Vietoris–Rips filtration and use Ripser to get persistence diagrams. The cocycles tell us which processes sit on which topological loop.</p>
+    <ul>
+      <li>Feature matrix → Euclidean distance</li>
+      <li>Vietoris-Rips filtration</li>
+      <li>Ripser (maxdim=2), cocycle extraction</li>
+      <li>Output: persistence diagrams (H₀, H₁, H₂)</li>
+      <li>Cocycles tell us which processes form each H₁ loop</li>
+    </ul>
+  </div>
+
+  <div class="slide">
+    <h1>Persistence Diagram</h1>
+    <p style="font-size: 1.05rem; margin-bottom: 1rem; max-width: 52rem;">Here’s the persistence diagram. We get one component per process in H₀, and 33 loops in H₁. The question is whether those H₁ loops line up with known biology — feedback circuits, stress responses, and so on.</p>
+    <ul>
+      <li>H₀: 108 components (one per process)</li>
+      <li>H₁: 33 loops</li>
+      <li>H₂: 4 voids</li>
+      <li>Key question: Do these loops correspond to biological structure?</li>
+    </ul>
+    <img src="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp_persistence_diagram.png" alt="Persistence diagram" style="max-width: 55%; height: auto; margin-top: 1rem; display: block;">
+  </div>
+
+  <div class="slide">
+    <h1>Top H₁ Loop #1 (Persistence = 0.330)</h1>
+    <p style="font-size: 1.05rem; margin-bottom: 1rem; max-width: 52rem;">The most persistent loop ties together 27 processes — ara, SOS, stringent response, catabolite repression, Pho, quorum sensing, heat shock, GAL, MAPK mating. They’re not the same pathway, but they share a “regulatory with feedback” flavor, and they span E. coli, yeast, and Bacillus.</p>
+    <ul>
+      <li>27 processes: <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/viewer/index.html?process=ecoli_ara_operon" target="_blank" rel="noopener">ara operon</a>, <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/viewer/index.html?process=ecoli_sos_response" target="_blank" rel="noopener">SOS</a>, <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/viewer/index.html?process=ecoli_stringent_response" target="_blank" rel="noopener">stringent response</a>, <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/viewer/index.html?process=ecoli_catabolite_repression" target="_blank" rel="noopener">catabolite repression</a>, <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/viewer/index.html?process=ecoli_pho_regulon" target="_blank" rel="noopener">Pho regulon</a>, <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/viewer/index.html?process=ecoli_quorum_sensing" target="_blank" rel="noopener">quorum sensing</a>, <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/viewer/index.html?process=ecoli_heat_shock_response" target="_blank" rel="noopener">heat shock</a>, <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/viewer/index.html?process=yeast_gal_regulation" target="_blank" rel="noopener">GAL</a>, <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/viewer/index.html?process=yeast_mapk_mating" target="_blank" rel="noopener">MAPK mating</a></li>
+      <li>Common thread: regulatory circuits with feedback</li>
+      <li>Cross-organism: E. coli, yeast, Bacillus</li>
+    </ul>
+  </div>
+
+  <div class="slide">
+    <h1>Example: Ara Operon (Loop #1) — AraC dual regulation</h1>
+    <p style="font-size: 1.05rem; margin-bottom: 1rem; max-width: 52rem;">AraC can act as repressor or activator depending on arabinose; there’s DNA looping and integration with CRP–cAMP. This is one of the 27 processes in the top H₁ loop — same “feedback plus logic” theme.</p>
+    <p><a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/viewer/index.html?process=ecoli_ara_operon" target="_blank" rel="noopener">Ara Operon flowchart (GLMP viewer)</a></p>
+  </div>
+
+  <div class="slide">
+    <h1>Top H₁ Loop #3 (Persistence = 0.302)</h1>
+    <p style="font-size: 1.05rem; margin-bottom: 1rem; max-width: 52rem;">Loop #3 has only four processes — Lac operon, antibiotic efflux pumps, phosphate regulation, translation termination. Lac is the classic negative-feedback example; topology is grouping by that kind of regulatory logic, not just “same pathway.”</p>
+    <ul>
+      <li>4 processes: <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/viewer/index.html?process=ecoli_lac_operon" target="_blank" rel="noopener">Lac operon</a>, <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/viewer/index.html?process=ecoli_antibiotic_efflux_pumps" target="_blank" rel="noopener">antibiotic efflux pumps</a>, <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/viewer/index.html?process=ecoli_phosphate_regulation" target="_blank" rel="noopener">phosphate regulation</a>, <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/viewer/index.html?process=ecoli_translation_termination" target="_blank" rel="noopener">translation termination</a></li>
+      <li><a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/viewer/index.html?process=ecoli_lac_operon" target="_blank" rel="noopener">Lac operon</a> = textbook negative feedback</li>
+      <li>Topology groups by regulatory logic, not just metabolic function</li>
+    </ul>
+  </div>
+
+  <div class="slide">
+    <h1>Example: Two-Component EnvZ–OmpR (Loop #5)</h1>
+    <p style="font-size: 1.05rem; margin-bottom: 1rem; max-width: 52rem;">EnvZ–OmpR is the textbook two-component system: sensor kinase, phosphotransfer, response regulator, then gene expression. It sits in the same H₁ loop as oxidative stress and yeast ER-associated degradation — again, a shared “signaling with feedback” shape.</p>
+    <p><a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/viewer/index.html?process=ecoli_e._coli_two_component_signaling" target="_blank" rel="noopener">Two-Component Signal Transduction (EnvZ-OmpR) flowchart (GLMP viewer)</a></p>
+  </div>
+
+  <div class="slide">
+    <h1>Top H₁ Loop #5 (Persistence = 0.231)</h1>
+    <p style="font-size: 1.05rem; margin-bottom: 1rem; max-width: 52rem;">Three processes in this loop: EnvZ–OmpR, oxidative stress response, and yeast ER-associated degradation. So we’re seeing E. coli and yeast in the same topological loop — the structure of the circuit is what’s shared, not the organism.</p>
+    <ul>
+      <li>3 processes: <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/viewer/index.html?process=ecoli_e._coli_two_component_signaling" target="_blank" rel="noopener">Two-component EnvZ-OmpR</a>, <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/viewer/index.html?process=ecoli_oxidative_stress_response" target="_blank" rel="noopener">oxidative stress response</a>, <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/viewer/index.html?process=yeast_yeast_er_associated_degradation" target="_blank" rel="noopener">yeast ER-associated degradation</a></li>
+      <li><a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/viewer/index.html?process=ecoli_e._coli_two_component_signaling" target="_blank" rel="noopener">EnvZ-OmpR</a> = paradigm two-component signaling with feedback</li>
+      <li>Cross-organism: regulatory logic transcends species</li>
+    </ul>
+  </div>
+
+  <div class="slide">
+    <h1>Biological Coherence Check</h1>
+    <p style="font-size: 1.05rem; margin-bottom: 1rem; max-width: 52rem;">We took a set of circuits that biologists already agree have feedback — lac, trp, ara, two-component, SOS, heat shock, catabolite repression, Pho — and asked where they land in our H₁ loops. They cluster where we’d expect: lac in Loop #3, two-component in #5, and many stress and nutrient circuits in Loop #1. So the topology is picking up real regulatory structure.</p>
+    <ul>
+      <li>Known feedback circuits: <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/viewer/index.html?process=ecoli_lac_operon" target="_blank" rel="noopener">lac</a>, <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/viewer/index.html?process=ecoli_trp_operon" target="_blank" rel="noopener">trp</a>, <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/viewer/index.html?process=ecoli_ara_operon" target="_blank" rel="noopener">ara</a> operons; <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/viewer/index.html?process=ecoli_e._coli_two_component_signaling" target="_blank" rel="noopener">two-component</a>; <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/viewer/index.html?process=ecoli_sos_response" target="_blank" rel="noopener">SOS</a>, <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/viewer/index.html?process=ecoli_heat_shock_response" target="_blank" rel="noopener">heat shock</a>; <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/viewer/index.html?process=ecoli_catabolite_repression" target="_blank" rel="noopener">catabolite repression</a>, <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/viewer/index.html?process=ecoli_pho_regulon" target="_blank" rel="noopener">Pho</a></li>
+      <li>Result: lac (Loop #3), two-component (Loop #5), many stress/nutrient circuits (Loop #1)</li>
+      <li>Interpretation: topology captures genuine regulatory architecture</li>
+    </ul>
+  </div>
+
+  <div class="slide">
+    <h1>Organism Patterns</h1>
+    <p style="font-size: 1.05rem; margin-bottom: 1rem; max-width: 52rem;">Some loops are organism-specific — for example Loop #2 is all yeast, Loop #3 all E. coli. Others, like Loop #1 and #5, mix E. coli, yeast, and Bacillus. So we see both universal regulatory motifs and ones that are tied to a single organism.</p>
+    <ul>
+      <li>Species-specific: Loop #2 (all yeast), Loop #3 (all E. coli)</li>
+      <li>Cross-organism: Loop #1, Loop #5</li>
+      <li>Some motifs are universal; others organism-specific</li>
+    </ul>
+  </div>
+
+  <div class="slide">
+    <h1>Why These Features Work</h1>
+    <p style="font-size: 1.05rem; line-height: 1.6; max-width: 52rem; margin-bottom: 0.75rem;">The coherence check runs in the opposite direction from the concern: we are not inferring biology from topology — we are asking whether topology recovers known biology.</p>
+    <p style="font-size: 1.05rem; line-height: 1.6; max-width: 52rem; margin-bottom: 0.75rem;">If 5 structural counts were biologically meaningless, known feedback circuits would scatter randomly across H₁ loops. They do not.</p>
+    <p style="font-size: 1.05rem; line-height: 1.6; max-width: 52rem; margin-bottom: 0.75rem;">Lac → Loop #3. Two-component → Loop #5. Stress and nutrient circuits → Loop #1. This matches the regulatory architecture biologists already recognize.</p>
+    <p style="font-size: 1.05rem; line-height: 1.6; max-width: 52rem;">Conclusion: simple features appear sufficient to capture coarse regulatory topology. Richer features are the next step, not a prerequisite for the current result.</p>
+  </div>
+
+  <div class="slide">
+    <h1>Limitations and Caveats</h1>
+    <ul>
+      <li><em>Sample size:</em> 108 processes — enough to reveal structure, but scaling to 200–500+ is a priority.</li>
+      <li><em>Feature sensitivity:</em> We used 5 structural counts. Ablation shows node_count is most load-bearing; coherence is distributed across features, not a single-feature artifact.</li>
+      <li><em>Graph-theoretic enrichment:</em> cycle rank, longest path length, AND/OR gate ratios — planned for next pipeline iteration.</li>
+      <li><em>LLM-generated flowcharts</em> require expert fact-checking; the GLMP viewer feedback mechanism is one avenue for community validation.</li>
+      <li><em>Open question:</em> Does topology predict regulatory function, or correlate with known biology? The coherence check supports the latter; prediction requires prospective validation.</li>
+    </ul>
+  </div>
+
+  <div class="slide">
+    <h1>Next Steps</h1>
+    <p style="font-size: 1.05rem; margin-bottom: 1rem; max-width: 52rem;">We’re moving toward Mapper, ablation and null-model validation, and richer features. A longer-term goal is to use flowcharts and TDA as a kind of <strong>Rosetta Stone</strong>: linking topological structure to the genetic “machine code” on the chromosome — the sequence motifs that implement AND/OR/NOT connectives.</p>
+    <ul>
+      <li><strong>Rosetta Stone goal:</strong> Topology → shared regulatory sequence motifs (binding-site logic for AND/OR/NOT) — falsifiable if circuits in the same H₁ loop share enriched motifs</li>
+      <li>Mapper: circuit classes as nodes</li>
+      <li>Feature ablation study: rerun TDA dropping one feature at a time to test H₁ loop stability</li>
+      <li>Null model permutation test (n=1,000): p = 0.022 — significant at p &lt; 0.05</li>
+      <li>Graph-theoretic features: cycle rank, longest path, gate ratios — planned for next pipeline iteration</li>
+      <li>Persistent cohomology: circular coordinates for feedback depth</li>
+      <li>Scaling: 200–500+ processes; 314 across biology, chemistry, physics, math, CS</li>
+      <li>Collaboration: Dr. Vejdemo-Johansson, CUNY TDA group; biologist validation</li>
+      <li>Open source: github.com/garywelz/glmp/tree/main/tda-analysis</li>
+    </ul>
+  </div>
+
+  <div class="slide">
+    <h1>Acknowledgments and Questions</h1>
+    <ul>
+      <li>Collaborators: Dr. Mikael Vejdemo-Johansson, Jordan Matuszewski</li>
+      <li>GLMP: <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-database-table.html" target="_blank" rel="noopener">Database table</a> · github.com/garywelz/glmp</li>
+      <li>TDA analysis: github.com/garywelz/glmp/tree/main/tda-analysis</li>
+      <li><strong>Questions?</strong></li>
+      <li style="margin-top: 2rem;">Gary Welz | garywelz@gmail.com | 917-593-2537</li>
+    </ul>
+  </div>
+
+  <div class="nav">
+    <button type="button" id="prev">Previous</button>
+    <button type="button" id="next">Next</button>
+  </div>
+  <div class="slide-num"><span id="current">1</span> / <span id="total">15</span></div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const total = slides.length;
+    document.getElementById('total').textContent = total;
+    let idx = 0;
+    function show(i) {
+      idx = Math.max(0, Math.min(i, total - 1));
+      slides.forEach((s, k) => s.classList.toggle('active', k === idx));
+      document.getElementById('current').textContent = idx + 1;
+    }
+    document.getElementById('prev').onclick = () => show(idx - 1);
+    document.getElementById('next').onclick = () => show(idx + 1);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); show(idx + 1); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); show(idx - 1); }
+    });
+    show(0);
+  </script>
+</body>
+</html>

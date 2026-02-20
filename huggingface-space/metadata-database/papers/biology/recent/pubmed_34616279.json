@@ -1,0 +1,31 @@
+{
+  "id": "pubmed_34616279",
+  "pmid": "34616279",
+  "title": "Across-Area Synchronization Supports Feature Integration in a Biophysical Network Model of Working Memory.",
+  "authors": [
+    "Barbosa, Joao",
+    "Babushkin, Vahan",
+    "Temudo, Ainsley",
+    "Sreenivasan, Kartik K",
+    "Compte, Albert"
+  ],
+  "author_string": "Barbosa, Joao, Babushkin, Vahan, Temudo, Ainsley, Sreenivasan, Kartik K, Compte, Albert",
+  "journal": "Front Neural Circuits",
+  "journal_full": "Frontiers in neural circuits",
+  "year": "",
+  "doi": "10.3389/fncir.2021.716965",
+  "abstract": "Working memory function is severely limited. One key limitation that constrains the ability to maintain multiple items in working memory simultaneously is so-called swap errors. These errors occur when an inaccurate response is in fact accurate relative to a non-target stimulus, reflecting the failure to maintain the appropriate association or \"binding\" between the features that define one object (e.g., color and location). The mechanisms underlying feature binding in working memory remain unknown. Here, we tested the hypothesis that features are bound in memory through synchrony across feature-specific neural assemblies. We built a biophysical neural network model composed of two one-dimensional attractor networks - one for color and one for location - simulating feature storage in different cortical areas. Within each area, gamma oscillations were induced during bump attractor activity through the interplay of fast recurrent excitation and slower feedback inhibition. As a result, different memorized items were held at different phases of the network's oscillation. These two areas were then reciprocally connected via weak cortico-cortical excitation, accomplishing binding between color and location through the synchronization of pairs of bumps across the two areas. Encoding and decoding of color-location associations was accomplished through rate coding, overcoming a long-standing limitation of binding through synchrony. In some simulations, swap errors arose: \"color bumps\" abruptly changed their phase relationship with \"location bumps.\" This model, which leverages the explanatory power of similar attractor models, specifies a plausible mechanism for feature binding and makes specific predictions about swap errors that are testable at behavioral and neurophysiological levels.",
+  "keywords": [
+    "attractor network",
+    "binding",
+    "multi-area",
+    "oscillations",
+    "working memory"
+  ],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/34616279",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T17:01:28.109038",
+  "category": "biology",
+  "subcategories": []
+}

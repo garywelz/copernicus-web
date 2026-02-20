@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2601.11150v1",
+  "arxiv_id": "2601.11150v1",
+  "title": "Bayesian optimisation for Bayesian evidence (BOBE) -- a fast and efficient likelihood emulator for model selection",
+  "authors": [
+    "Nathan Cohen",
+    "Jan Hamann",
+    "Ameek Malhotra"
+  ],
+  "author_string": "Nathan Cohen, Jan Hamann, Ameek Malhotra",
+  "journal": "arXiv:2601.11150v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "The formalism of Bayesian model selection provides a very elegant way of ranking different physical models in terms of how compatible they are with a given set of observed data. However, its practical application is often hampered by the challenge of having to compute the Bayesian evidence - a multi-dimensional integral over the product of likelihood and prior probability. This usually necessitates a large number of function calls to the likelihood, which may become prohibitive in case of \"slow\", costly to evaluate likelihoods. A possible solution to this problem lies in approximating the slow full likelihood by a fast emulated likelihood. In this paper, we introduce BOBE (Bayesian Optimisation for Bayesian Evidence), a method to construct a Gaussian Process Regression (GPR)-based emulator. BOBE utilises a Bayesian Optimisation algorithm designed specifically to (i) provide a realistic estimate of the emulator's uncertainty and its impact on the evidence calculation, and (ii) minimise the number of likelihood evaluations required in order to meet a given evidence accuracy goal. We apply it to a number of toy examples as well as actual cosmological likelihoods, and demonstrate that training the emulator to a sufficient accuracy takes a factor of $O(10^3)$ fewer direct likelihood evaluations than would be needed if one were to directly compute the evidence integral via nested sampling. BOBE's overhead is independent of the likelihood computation time $t_L$, making it particularly useful for \"expensive\" likelihoods with $t_L \\gtrsim 1$~s. BOBE is written in Python, supports MPI parallelisation, takes advantage of automatic differentiation and just-in-time-compilation provided by JAX, can straightforwardly be implemented with cosmological data analysis frameworks such as Cobaya, and is available for download from https://github.com/Ameek94/BOBE.",
+  "categories": [
+    "astro-ph.CO",
+    "gr-qc",
+    "hep-ph"
+  ],
+  "primary_category": "hep-ph",
+  "comment": "29 Pages, 13 Figures",
+  "published_date": "2026-01-16T10:07:50Z",
+  "updated_date": "2026-01-16T10:07:50Z",
+  "url": "https://arxiv.org/abs/2601.11150v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11150v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:18:36.090803",
+  "category": "physics",
+  "subcategories": [
+    "astro-ph.CO",
+    "gr-qc",
+    "hep-ph"
+  ]
+}

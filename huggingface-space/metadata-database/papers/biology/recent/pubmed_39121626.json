@@ -1,0 +1,27 @@
+{
+  "id": "pubmed_39121626",
+  "pmid": "39121626",
+  "title": "Improving medium-range streamflow forecasts over South Korea with a dual-encoder transformer model.",
+  "authors": [
+    "Lee, Dong-Gi",
+    "Ahn, Kuk-Hyun"
+  ],
+  "author_string": "Lee, Dong-Gi, Ahn, Kuk-Hyun",
+  "journal": "J Environ Manage",
+  "journal_full": "Journal of environmental management",
+  "year": "",
+  "doi": "10.1016/j.jenvman.2024.122114",
+  "abstract": "Accurate and reliable hydrological forecasts play a pivotal role in ensuring water security, facilitating flood preparedness, and supporting agriculture activities. This study investigates the potential of hydrological forecasting in South Korea, focusing on medium-range lead times ranging from 1 to 10 days. The methodology involves leveraging a Transformer neural network, a model entirely based on attention mechanisms. Specifically, our study introduces the Dualformer, a dual-encoder-based transformer model capable of accommodating two distinct datasets: historical and forecast meteorological data. The performance of this proposed model, along with its variants designed to test specific structural aspects, is evaluated in predicting daily streamflow across 473 grid cells covering extensive regions within the study area. Furthermore, the proposed model is assessed against the performance of a recently developed approach aiming for the same objective. These models are trained using historical meteorological variables and geographic characteristics, alongside the Global Ensemble Forecast System, version 12 (GEFSv12) reforecasts, in addition to historical runoff. The results indicate that our proposed model performs competitively, especially for relatively short lead times while effectively managing information from two distinct data sources. For instance, the mean Nash-Sutcliffe efficiency for 473 grids is 0.664 for the first one-day lead when using the Dualformer, whereas the benchmark model achieves a score of 0.535. Additionally, we observe an additional enhancement in Dualformer's performance when utilizing a larger dataset. Finally, we conclude this paper with a discussion regarding potential improvements to the forecast model through the incorporation of additional input and modeling structures.",
+  "keywords": [
+    "Dualformer",
+    "Hydrological forecasting",
+    "Medium-range forecasing",
+    "Transformer neural network"
+  ],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/39121626",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T17:02:14.268602",
+  "category": "biology",
+  "subcategories": []
+}

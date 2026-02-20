@@ -39,8 +39,9 @@ The Programming Framework represents **prior work** that demonstrates a novel me
 The Programming Framework serves as the **foundational meta-tool** of the CopernicusAI Knowledge Engine, providing the underlying methodology that enables specialized applications:
 
 - **GLMP (Genome Logic Modeling Project)** - First specialized application demonstrating biological process visualization
-- **Copernicus AI** - Main knowledge engine integrating Framework outputs with AI podcasts and research synthesis
-- **Knowledge Engine Dashboard** (✅ Implemented December 2025) - Fully operational web interface with knowledge graph visualization, vector search, RAG queries, and content browsing. Processes from Chemistry, Physics, Mathematics, and Computer Science are accessible through the unified dashboard. Live at: https://copernicus-frontend-phzp4ie2sq-uc.a.run.app/knowledge-engine
+- **CopernicusAI** - Main knowledge engine integrating Framework outputs with AI podcasts and research synthesis
+- **Research Tools Dashboard** (✅ Implemented December 2025) - Fully operational web interface with knowledge graph visualization, vector search, RAG queries, and content browsing. Processes from Chemistry, Physics, Mathematics, and Computer Science are accessible through the unified dashboard. Live at: https://copernicus-frontend-phzp4ie2sq-uc.a.run.app/knowledge-engine
+- **Public Project Interface** (✅ Implemented January 2025) - Comprehensive public-facing page providing access to all CopernicusAI Knowledge Engine components. Live at: https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/copernicusai-public-reviewer.html
 - **Research Papers Metadata Database** - Integration for linking processes to source literature (12,000+ papers indexed)
 - **Science Video Database** - Potential integration for multi-modal process explanations
 
@@ -85,20 +86,21 @@ First specialized application: visualizing biochemical processes like DNA replic
 The Programming Framework has been applied across multiple scientific disciplines. Explore interactive flowchart collections organized by domain:
 
 ### 🧬 Biology
-- [Biology Processes Collection](https://huggingface.co/spaces/garywelz/programming_framework/blob/main/biology_processes.html) - Links to the Genome Logic Modeling Project (GLMP)
+- [Biology Processes Database](https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/biology-processes-database/biology-database-table.html) - Interactive database with 52 higher-level organismal processes across 8 categories (reproduction, development, behavior, defense, nutrition, sensory, transport, coordination)
+- [GLMP Database Table](https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-database-table.html) - Genome Logic Modeling Project: Biochemical/molecular processes database (50+ processes)
+- **Note:** Biology Processes Database focuses on organismal, developmental, behavioral, and ecological processes. GLMP focuses on molecular-level biochemical processes. Together they provide comprehensive biological process coverage.
 
 ### ⚗️ Chemistry
-- [Chemistry Index](https://huggingface.co/spaces/garywelz/programming_framework/blob/main/chemistry_index.html) - Main index for chemistry processes with links to all chemistry batches
+- [Chemistry Database Table](https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/chemistry-processes-database/chemistry-database-table.html) - Interactive database with 56 processes across 14 subcategories
 
 ### 🔢 Mathematics
-- [Mathematics Index](https://huggingface.co/spaces/garywelz/programming_framework/blob/main/mathematics_index.html) - Main index for mathematics processes with links to all mathematics batches
-- **Note:** A comprehensive mathematics processes database with ~50 processes is planned for implementation. Mathematics processes are accessible through the [Knowledge Engine Dashboard](https://copernicus-frontend-phzp4ie2sq-uc.a.run.app/knowledge-engine) (12,000+ indexed mathematics papers).
+- [Mathematics Database Table](https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/mathematics-database-table.html) - Interactive database with 20 processes across 7 subcategories
 
 ### ⚛️ Physics
-- [Physics Processes Collection](https://huggingface.co/spaces/garywelz/programming_framework/blob/main/physics_processes.html) - Overview of physics process diagrams
+- [Physics Database Table](https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/physics-processes-database/physics-database-table.html) - Interactive database with 21 processes across 7 subcategories
 
 ### 💻 Computer Science
-- [Computer Science Index](https://huggingface.co/spaces/garywelz/programming_framework/blob/main/computer_science_index.html) - Main index for computer science processes
+- [Computer Science Database Table](https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/computer-science-processes-database/computer-science-database-table.html) - Interactive database with 21 processes across 7 subcategories
 
 ## 🔧 Technical Architecture
 
@@ -122,7 +124,7 @@ The Programming Framework has been applied across multiple scientific discipline
 
 ### Integration Points
 - GLMP specialized collections
-- Copernicus AI knowledge graph
+- CopernicusAI knowledge graph
 - Research papers database
 - API endpoints for programmatic access
 
@@ -144,9 +146,9 @@ The Programming Framework is designed as infrastructure for AI-assisted science,
 First specialized application of the Programming Framework to biochemical processes. 100+ biological pathways visualized.
 - [Visit GLMP →](https://huggingface.co/spaces/garywelz/glmp)
 
-### 🔬 Copernicus AI
+### 🔬 CopernicusAI
 Knowledge engine integrating the Programming Framework with AI podcasts, research papers, and knowledge graph for scientific discovery.
-- [Visit Copernicus AI →](https://huggingface.co/spaces/garywelz/copernicusai)
+- [Visit CopernicusAI →](https://huggingface.co/spaces/garywelz/copernicusai)
 
 ## 🎨 Interactive Demo
 

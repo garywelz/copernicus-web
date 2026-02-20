@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2601.11389v1",
+  "arxiv_id": "2601.11389v1",
+  "title": "Hyperparameter Optimization of Constraint Programming Solvers",
+  "authors": [
+    "Hedieh Haddad",
+    "Thibault Falque",
+    "Pierre Talbot",
+    "Pascal Bouvry"
+  ],
+  "author_string": "Hedieh Haddad, Thibault Falque, Pierre Talbot, Pascal Bouvry",
+  "journal": "arXiv:2601.11389v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "The performance of constraint programming solvers is highly sensitive to the choice of their hyperparameters. Manually finding the best solver configuration is a difficult, time-consuming task that typically requires expert knowledge. In this paper, we introduce probe and solve algorithm, a novel two-phase framework for automated hyperparameter optimization integrated into the CPMpy library. This approach partitions the available time budget into two phases: a probing phase that explores different sets of hyperparameters using configurable hyperparameter optimization methods, followed by a solving phase where the best configuration found is used to tackle the problem within the remaining time.   We implement and compare two hyperparameter optimization methods within the probe and solve algorithm: Bayesian optimization and Hamming distance search. We evaluate the algorithm on two different constraint programming solvers, ACE and Choco, across 114 combinatorial problem instances, comparing their performance against the solver's default configurations.   Results show that using Bayesian optimization, the algorithm outperforms the solver's default configurations, improving solution quality for ACE in 25.4% of instances and matching the default performance in 57.9%, and for Choco, achieving superior results in 38.6% of instances. It also consistently surpasses Hamming distance search within the same framework, confirming the advantage of model-based exploration over simple local search. Overall, the probe and solve algorithm offers a practical, resource-aware approach for tuning constraint solvers that yields robust improvements across diverse problem types.",
+  "categories": [
+    "cs.AI"
+  ],
+  "primary_category": "cs.AI",
+  "comment": "28 pages, 3 figures. Submitted to Journal of Combinatorial Optimization. Special Issue: Recent applications, models and algorithms in Combinatorial Optimization",
+  "published_date": "2026-01-16T16:02:36Z",
+  "updated_date": "2026-01-16T16:02:36Z",
+  "url": "https://arxiv.org/abs/2601.11389v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11389v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:30.213657",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.AI"
+  ]
+}

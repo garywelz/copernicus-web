@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2602.04513v1",
+  "arxiv_id": "2602.04513v1",
+  "title": "A scalability benchmark study of model order reduction techniques for very large, strongly coupled vibroacoustic problems",
+  "authors": [
+    "Sander Metting van Rijn",
+    "Linus Taenzer",
+    "Paolo Tiso",
+    "Bart Van Damme"
+  ],
+  "author_string": "Sander Metting van Rijn, Linus Taenzer, Paolo Tiso, Bart Van Damme",
+  "journal": "arXiv:2602.04513v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Model Order Reduction (MOR) can significantly reduce the computational cost of vibroacoustic simulations. While most MOR research focuses on single-domain systems (e.g., structural dynamics or computational fluid mechanics), this work compares MOR techniques for large multi-domain problems to identify methods that remain efficient and accurate at very large scales. In particular, harmonic response simulations of vibroacoustic fluid-structure coupled systems used to compute transfer functions from an input force to either structural acceleration or pressure in the heavy fluid domain are of high interest. To achieve this, the most common MOR techniques based on modal methods and Krylov subspace methods are compared for multi-material systems. To assess the feasibility and accuracy of these techniques for different system sizes, a scalable benchmark model of a water-filled Plexiglass cylinder is developed, with mesh sizes from 10,000 to 1,000,000 Degrees of Freedom (DOF). The quality of the models is assured by validation against experimental data. The geometry, model data, and experimental results are made available so that they can be used as a benchmark for further studies. For systems larger than 100,000 DOF, the investigated modal methods become impractical due to memory limitations, even on powerful workstations. Among the tested techniques, a Krylov subspace two-level orthogonal Arnoldi reduction, combined with symmetrization and conditioning of the system matrices, provides the most accurate and efficient approximation of the target transfer functions - particularly for large-scale models up to 1,000,000 DOF. This approach achieves a speedup of up to 600 times compared to the full model.",
+  "categories": [
+    "physics.app-ph"
+  ],
+  "primary_category": "physics.app-ph",
+  "comment": "21 pages, 11 figures",
+  "published_date": "2026-02-04T13:00:20Z",
+  "updated_date": "2026-02-04T13:00:20Z",
+  "url": "https://arxiv.org/abs/2602.04513v1",
+  "pdf_url": "https://arxiv.org/pdf/2602.04513v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-02-05T07:00:33.002037",
+  "category": "physics",
+  "subcategories": [
+    "physics.app-ph"
+  ]
+}

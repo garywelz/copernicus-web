@@ -1,0 +1,97 @@
+{
+  "acquired_date": "2026-01-08T00:00:00Z",
+  "category": "physics",
+  "colorScheme": {
+    "blue": {
+      "category": "Intermediates & States",
+      "hex": "#74c0fc"
+    },
+    "green": {
+      "category": "Processing & Operations",
+      "hex": "#51cf66"
+    },
+    "red": {
+      "category": "Triggers & Inputs",
+      "hex": "#ff6b6b"
+    },
+    "violet": {
+      "category": "Products & Outputs",
+      "hex": "#b197fc"
+    },
+    "yellow": {
+      "category": "Structures & Objects",
+      "hex": "#ffd43b"
+    }
+  },
+  "complexity": {
+    "conditionals": 0,
+    "detailLevel": "medium",
+    "edges": 24,
+    "level": "medium",
+    "logicGates": {
+      "andGates": 1,
+      "orGates": 0,
+      "total": 1
+    },
+    "nodes": 26
+  },
+  "created": "2026-01-08",
+  "description": "Electromagnetic Induction Process. This electromagnetism process visualization demonstrates electromagnetic induction and power generation. The flowchart shows flux inputs and conductor motion, electromagnetic induction methods and flux changes, electromagnetic induction operations and induced currents, intermediate results, and final electromagnetic induction outputs.",
+  "id": "process_physics_electromagnetic-induction",
+  "keywords": [
+    "mechanics",
+    "induction",
+    "quantum",
+    "electromagnetic"
+  ],
+  "lastUpdated": "2026-01-08",
+  "mermaid": "graph TD\nA3[Magnetic Flux] --> B3[Electromagnetic Induction Method]\nC3[Conductor Motion] --> D3[Flux Change]\nE3[Induced Current] --> F3[Electromagnetic Induction Analysis]\nB3 --> G3[Faraday's Law]\nD3 --> H3[Lenz's Law]\nF3 --> I3[Induction Coil]\nG3 --> J3[EMF Generation]\nH3 --> K3[Current Direction]\nI3 --> L3[Induction Loop]\nJ3 --> M3[Voltage Induction]\nK3 --> L3\nL3 --> N3[Current Flow]\nM3 --> O3[Power Generation]\nN3 --> P3[Energy Transfer]\nO3 --> Q3[Electromagnetic Induction Process]\nP3 --> R3[Electromagnetic Induction Validation]\nQ3 --> S3[Electromagnetic Induction Verification]\nR3 --> T3[Electromagnetic Induction Result]\nS3 --> U3[Electromagnetic Induction Analysis]\nT3 --> V3[Electromagnetic Induction Parameters]\nU3 --> W3[Electromagnetic Induction Output]\nV3 --> X3[Electromagnetic Induction Analysis]\nW3 --> Y3[Electromagnetic Induction Final Result]\nX3 --> Z3[Electromagnetic Induction Complete]\n\n    style A3 fill:#ff6b6b,color:#fff\n    style C3 fill:#ff6b6b,color:#fff\n    style E3 fill:#ff6b6b,color:#fff\n    style B3 fill:#ffd43b,color:#000\n    style D3 fill:#ffd43b,color:#000\n    style F3 fill:#ffd43b,color:#000\n    style G3 fill:#ffd43b,color:#000\n    style H3 fill:#ffd43b,color:#000\n    style I3 fill:#ffd43b,color:#000\n    style J3 fill:#ffd43b,color:#000\n    style K3 fill:#ffd43b,color:#000\n    style L3 fill:#ffd43b,color:#000\n    style M3 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style O3 fill:#51cf66,color:#fff\n    style P3 fill:#51cf66,color:#fff\n    style Q3 fill:#51cf66,color:#fff\n    style R3 fill:#51cf66,color:#fff\n    style S3 fill:#51cf66,color:#fff\n    style T3 fill:#51cf66,color:#fff\n    style U3 fill:#51cf66,color:#fff\n    style V3 fill:#51cf66,color:#fff\n    style W3 fill:#51cf66,color:#fff\n    style X3 fill:#51cf66,color:#fff\n    style Y3 fill:#51cf66,color:#fff\n    style Z3 fill:#b197fc,color:#fff",
+  "name": "Electromagnetic Induction",
+  "notes": "Converted from physics batch HTML. Process number: 3.",
+  "relatedProcesses": [],
+  "related_papers": [
+    "crossref_10_1103_RevModPhys_90_015002",
+    "crossref_10_1103_RevModPhys_82_1_395"
+  ],
+  "related_podcasts": [],
+  "related_processes": [],
+  "related_videos": [],
+  "source": "programming_framework",
+  "sources": [
+    {
+      "authors": "Welz, G.",
+      "doi": null,
+      "journal": "CopernicusAI Knowledge Engine",
+      "notes": "Chemistry process visualization: Electromagnetic Induction. Created using the Programming Framework methodology for process analysis and visualization.",
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "year": "2025"
+    },
+    {
+      "authors": "Armitage, NP, Fradkin, E, van der Heijden, GAF",
+      "doi": "10.1103/RevModPhys.90.015002",
+      "journal": "Rev. Mod. Phys.",
+      "paper_id": "crossref_10_1103_RevModPhys_90_015002",
+      "pubmed": null,
+      "title": "Electromagnetic response of topological materials",
+      "url": "https://doi.org/10.1103/RevModPhys.90.015002",
+      "year": "2018"
+    },
+    {
+      "authors": "Zheludev, NI, Kivshar, YS",
+      "doi": "10.1103/RevModPhys.82.1.395",
+      "journal": "Rev. Mod. Phys.",
+      "paper_id": "crossref_10_1103_RevModPhys_82_1_395",
+      "pubmed": null,
+      "title": "Metamaterials: Fundamentals and applications",
+      "url": "https://doi.org/10.1103/RevModPhys.82.1.395",
+      "year": "2010"
+    }
+  ],
+  "subcategories": [
+    "quantum_mechanics"
+  ],
+  "subcategory": "quantum_mechanics",
+  "subcategory_name": "Quantum Mechanics",
+  "verified": false
+}

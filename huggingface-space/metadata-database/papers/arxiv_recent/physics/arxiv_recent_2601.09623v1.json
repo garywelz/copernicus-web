@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2601.09623v1",
+  "arxiv_id": "2601.09623v1",
+  "title": "Introduction to the Combination of Reduced Order Models and Domain Decomposition: State of the Art and Perspectives",
+  "authors": [
+    "Shenhui Ruan",
+    "Andreas G. Class",
+    "Gianluigi Rozza"
+  ],
+  "author_string": "Shenhui Ruan, Andreas G. Class, Gianluigi Rozza",
+  "journal": "arXiv:2601.09623v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Reduced Order Models (ROMs) have been regarded as an efficient alternative to conventional high-fidelity Computational Fluid Dynamics (CFD) for accelerating the design and optimization processes in engineering applications. Many industrial geometries feature repeating subdomains or contain sub-regions governed by distinct physical phenomena, making them well-suited to Domain Decomposition (DD) techniques. The integration of ROM and DD is promising to further reduce computational costs by constructing local ROMs and assembling them into global solutions. Due to the complexity and necessity of coupling ROMs, many approaches have been proposed in recent years. This review provides a concise overview of existing methodologies combining ROM and DD. We categorize existing methods into intrusive (projection-based) and non-intrusive (data-driven) frameworks. Various strategies for generating local reduced bases and coupling them across subdomains are illustrated. Particular emphasis is placed on intrusive techniques, including equations, numerical algorithms, and practical implementations. The non-intrusive framework is also discussed, highlighting its general procedures, basic formulations, and underlying principles. Finally, we summarise the state of the literature, identify open challenges, and present perspectives on future implementation from an engineering viewpoint.",
+  "categories": [
+    "math.NA",
+    "physics.flu-dyn"
+  ],
+  "primary_category": "physics.flu-dyn",
+  "comment": null,
+  "published_date": "2026-01-14T16:50:13Z",
+  "updated_date": "2026-01-14T16:50:13Z",
+  "url": "https://arxiv.org/abs/2601.09623v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.09623v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:49.121377",
+  "category": "physics",
+  "subcategories": [
+    "math.NA",
+    "physics.flu-dyn"
+  ]
+}

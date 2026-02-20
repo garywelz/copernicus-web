@@ -1,0 +1,30 @@
+{
+  "id": "arxiv_2601.07479v1",
+  "arxiv_id": "2601.07479v1",
+  "title": "Derivative-free discrete gradient methods",
+  "authors": [
+    "Håkon Noren Myhr",
+    "Sølve Eidnes"
+  ],
+  "author_string": "Håkon Noren Myhr, Sølve Eidnes",
+  "journal": "Journal of Computational Dynamics 11.3 (2024): 256-273",
+  "journal_ref": "Journal of Computational Dynamics 11.3 (2024): 256-273",
+  "year": "2026",
+  "doi": "10.3934/jcd.2024004",
+  "abstract": "Discrete gradient methods are a class of numerical integrators producing solutions with exact preservation of first integrals of ordinary differential equations. In this paper, we apply order theory combined with the symmetrized Itoh--Abe discrete gradient and finite differences to construct an integral-preserving fourth-order method that is derivative-free. The numerical scheme is implicit and a convergence result for Newton's iterations is provided, taking into account how the error due to the finite difference approximations affects the convergence rate. Numerical experiments verify the order and show that the derivative-free method is significantly faster than obtaining derivatives by automatic differentiation. Finally, an experiment using topographic data as the potential function of a Hamiltonian oscillator demonstrates how this method allows the simulation of discrete-time dynamics from a Hamiltonian that is a combination of data and analytical expressions.",
+  "categories": [
+    "math.NA"
+  ],
+  "primary_category": "math.NA",
+  "comment": "18 pages, 7 figures",
+  "published_date": "2026-01-12T12:32:48Z",
+  "updated_date": "2026-01-12T12:32:48Z",
+  "url": "https://arxiv.org/abs/2601.07479v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.07479v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:11.151290",
+  "category": "mathematics",
+  "subcategories": [
+    "math.NA"
+  ]
+}

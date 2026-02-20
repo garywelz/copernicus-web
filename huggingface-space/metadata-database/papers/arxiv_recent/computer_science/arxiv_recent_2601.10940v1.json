@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2601.10940v1",
+  "arxiv_id": "2601.10940v1",
+  "title": "HOSL: Hybrid-Order Split Learning for Memory-Constrained Edge Training",
+  "authors": [
+    " Aakriti",
+    "Zhe Li",
+    "Dandan Liang",
+    "Chao Huang",
+    "Rui Li",
+    "Haibo Yang"
+  ],
+  "author_string": " Aakriti, Zhe Li, Dandan Liang, Chao Huang, Rui Li et al.",
+  "journal": "arXiv:2601.10940v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Split learning (SL) enables collaborative training of large language models (LLMs) between resource-constrained edge devices and compute-rich servers by partitioning model computation across the network boundary. However, existing SL systems predominantly rely on first-order (FO) optimization, which requires clients to store intermediate quantities such as activations for backpropagation. This results in substantial memory overhead, largely negating benefits of model partitioning. In contrast, zeroth-order (ZO) optimization eliminates backpropagation and significantly reduces memory usage, but often suffers from slow convergence and degraded performance. In this work, we propose HOSL, a novel Hybrid-Order Split Learning framework that addresses this fundamental trade-off between memory efficiency and optimization effectiveness by strategically integrating ZO optimization on the client side with FO optimization on the server side. By employing memory-efficient ZO gradient estimation at the client, HOSL eliminates backpropagation and activation storage, reducing client memory consumption. Meanwhile, server-side FO optimization ensures fast convergence and competitive performance. Theoretically, we show that HOSL achieves a $\\mathcal{O}(\\sqrt{d_c/TQ})$ rate, which depends on client-side model dimension $d_c$ rather than the full model dimension $d$, demonstrating that convergence improves as more computation is offloaded to the server. Extensive experiments on OPT models (125M and 1.3B parameters) across 6 tasks demonstrate that HOSL reduces client GPU memory by up to 3.7$\\times$ compared to the FO method while achieving accuracy within 0.20%-4.23% of this baseline. Furthermore, HOSL outperforms the ZO baseline by up to 15.55%, validating the effectiveness of our hybrid strategy for memory-efficient training on edge devices.",
+  "categories": [
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": "12 pages, 2 figures, 6 tables. Submitted to WiOpt 2026",
+  "published_date": "2026-01-16T01:54:00Z",
+  "updated_date": "2026-01-16T01:54:00Z",
+  "url": "https://arxiv.org/abs/2601.10940v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.10940v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:37.516788",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.LG"
+  ]
+}

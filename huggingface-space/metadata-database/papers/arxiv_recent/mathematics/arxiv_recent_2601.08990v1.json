@@ -1,0 +1,30 @@
+{
+  "id": "arxiv_2601.08990v1",
+  "arxiv_id": "2601.08990v1",
+  "title": "Nonlinear Inverse Iterations for Spin-Orbit Coupled Quantum Gases",
+  "authors": [
+    "Patrick Henning",
+    "Laura Huynh"
+  ],
+  "author_string": "Patrick Henning, Laura Huynh",
+  "journal": "arXiv:2601.08990v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "This work concerns the computation of ground states of two-component spin-orbit coupled Bose-Einstein condensates (SO-coupled BECs), modelled by a coupled nonlinear eigenvalue problem of Gross-Pitaevskii type. Spin-orbit coupling gives rise to fascinating phenomena, including supersolid-like phases with spatially modulated densities. However, in such complex settings, conventional numerical approaches, such as generalized inverse iterations or gradient descent, often converge very slowly. To overcome this issue, we apply the concept of the J-method [E.~Jarlebring, S.~Kvaal, W.~Michiels. SIAM~J.~Sci.~Comput.~36-4,~2014] to construct a nonlinear inverse iteration scheme whose convergence can be accelerated through spectral shifting, analogous to techniques used for linear eigenproblems. For a fixed shift parameter, we establish local linear convergence rates determined by spectral gaps in the neighbourhood of each quasi-unique ground state. With adaptively chosen shifts, superlinear convergence is observed, which we verify through numerical experiments.",
+  "categories": [
+    "math.NA"
+  ],
+  "primary_category": "math.NA",
+  "comment": null,
+  "published_date": "2026-01-13T21:28:56Z",
+  "updated_date": "2026-01-13T21:28:56Z",
+  "url": "https://arxiv.org/abs/2601.08990v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.08990v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:52.507188",
+  "category": "mathematics",
+  "subcategories": [
+    "math.NA"
+  ]
+}

@@ -1,0 +1,94 @@
+{
+  "category": "biology",
+  "colorScheme": {
+    "blue": {
+      "category": "Intermediates & States",
+      "hex": "#74c0fc"
+    },
+    "green": {
+      "category": "Processing & Operations",
+      "hex": "#51cf66"
+    },
+    "red": {
+      "category": "Triggers & Inputs",
+      "hex": "#ff6b6b"
+    },
+    "violet": {
+      "category": "Products & Outputs",
+      "hex": "#b197fc"
+    },
+    "yellow": {
+      "category": "Structures & Objects",
+      "hex": "#ffd43b"
+    }
+  },
+  "complexity": {
+    "conditionals": 0,
+    "detailLevel": "low",
+    "edges": 10,
+    "level": "low",
+    "logicGates": {
+      "andGates": 0,
+      "orGates": 0,
+      "total": 0
+    },
+    "nodes": 9
+  },
+  "created": "2026-01-08",
+  "description": "Apical Meristem Development in Plants. This process represents a higher-level biological mechanism distinct from molecular/biochemical processes covered in GLMP.",
+  "id": "growth_morphogenesis-apical-meristem-development",
+  "keywords": [
+    "growth",
+    "apical",
+    "plants",
+    "development",
+    "morphogenesis",
+    "meristem"
+  ],
+  "lastUpdated": "2026-01-08",
+  "mermaid": "graph TD\n    A9[Embryonic Meristem] --> B9[Cell Division Zone]\n    B9 --> C9[Cell Elongation Zone]\n    C9 --> D9[Cell Differentiation Zone]\n    D9 --> E9[Leaf Primordia]\n    D9 --> F9[Stem Tissue]\n    D9 --> G9[Vascular Tissue]\n    E9 --> H9[Organ Formation]\n    F9 --> H9\n    G9 --> H9\n    H9 --> I9[Growth Continuation]\n    \n    style A9 fill:#ff6b6b,color:#fff\n    style B9 fill:#ffd43b,color:#000\n    style C9 fill:#ffd43b,color:#000\n    style D9 fill:#51cf66,color:#fff\n    style E9 fill:#74c0fc,color:#fff\n    style F9 fill:#74c0fc,color:#fff\n    style G9 fill:#74c0fc,color:#fff\n    style H9 fill:#51cf66,color:#fff\n    style I9 fill:#b197fc,color:#fff",
+  "name": "Apical Meristem Development",
+  "notes": "Higher-level biological process. GLMP covers biochemical/molecular processes; this database covers organismal/ecological processes.",
+  "organism": "Plants",
+  "relatedProcesses": [],
+  "sources": [
+    {
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "notes": "Higher-level biological process visualization: Apical Meristem Development. Created using the Programming Framework methodology for organismal and ecological process analysis.",
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "year": "2025"
+    },
+    {
+      "authors": "Schoof H, Lenhard M, J\u00fcrgens G, Laux T, Schneitz T, Gerd M",
+      "doi": "10.1016/S0092-8674(00)80709-6",
+      "journal": "Cell",
+      "pubmed": "10760175",
+      "title": "The stem cell population of Arabidopsis thaliana meristems is regulated by a CLAVATA-WUSCHEL feedback loop",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/10760175",
+      "year": "2000"
+    },
+    {
+      "authors": "Laux T",
+      "doi": "10.1146/annurev-arplant-042817-040220",
+      "journal": "Annu Rev Plant Biol",
+      "pubmed": "29400923",
+      "title": "Plant Stem Cells: A History of Perpetual Youth",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/29400923",
+      "year": "2018"
+    },
+    {
+      "authors": "Gordon SP, Heisler MG, Schmid M, Lohmann JU",
+      "doi": "10.1038/nature07935",
+      "journal": "Nature",
+      "pubmed": "19349980",
+      "title": "Patterning the Arabidopsis shoot apical meristem by a regulatory feedback loop",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/19349980",
+      "year": "2009"
+    }
+  ],
+  "subcategory": "growth_morphogenesis",
+  "subcategory_name": "Growth & Morphogenesis",
+  "verified": false
+}

@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2601.11089v1",
+  "arxiv_id": "2601.11089v1",
+  "title": "MiCA: A Mobility-Informed Causal Adapter for Lightweight Epidemic Forecasting",
+  "authors": [
+    "Suhan Guo",
+    "Jiahong Deng",
+    "Furao Shen"
+  ],
+  "author_string": "Suhan Guo, Jiahong Deng, Furao Shen",
+  "journal": "arXiv:2601.11089v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Accurate forecasting of infectious disease dynamics is critical for public health planning and intervention. Human mobility plays a central role in shaping the spatial spread of epidemics, but mobility data are noisy, indirect, and difficult to integrate reliably with disease records. Meanwhile, epidemic case time series are typically short and reported at coarse temporal resolution. These conditions limit the effectiveness of parameter-heavy mobility-aware forecasters that rely on clean and abundant data. In this work, we propose the Mobility-Informed Causal Adapter (MiCA), a lightweight and architecture-agnostic module for epidemic forecasting. MiCA infers mobility relations through causal discovery and integrates them into temporal forecasting models via gated residual mixing. This design allows lightweight forecasters to selectively exploit mobility-derived spatial structure while remaining robust under noisy and data-limited conditions, without introducing heavy relational components such as graph neural networks or full attention. Extensive experiments on four real-world epidemic datasets, including COVID-19 incidence, COVID-19 mortality, influenza, and dengue, show that MiCA consistently improves lightweight temporal backbones, achieving an average relative error reduction of 7.5\\% across forecasting horizons. Moreover, MiCA attains performance competitive with SOTA spatio-temporal models while remaining lightweight.",
+  "categories": [
+    "cs.AI"
+  ],
+  "primary_category": "cs.AI",
+  "comment": null,
+  "published_date": "2026-01-16T08:41:06Z",
+  "updated_date": "2026-01-16T08:41:06Z",
+  "url": "https://arxiv.org/abs/2601.11089v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11089v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:33.863762",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.AI"
+  ]
+}

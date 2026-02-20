@@ -1,0 +1,109 @@
+process_id,process_name,organism,category,complexity,node_count,conditional_count,or_gates,and_gates,not_gates
+ecoli_aerobic_respiration,Aerobic Respiration and Electron Transport,E. coli,Metabolic Pathway,unknown,80,78,7,2,2
+ecoli_amino_acid_biosynthesis,Amino Acid Biosynthesis Pathways,E. coli,Metabolic Pathway,detailed,81,62,7,1,5
+ecoli_anaerobic_respiration,Anaerobic Respiration Regulation (ArcAB and FNR),E. coli,Metabolic Regulation,detailed,84,61,8,1,7
+ecoli_antibiotic_efflux_pumps,Antibiotic Efflux Pumps,E. coli,Biological Process,detailed,55,73,1,1,4
+ecoli_ara_operon,Arabinose Operon and AraC Dual Regulation,E. coli,Gene Regulation,detailed,59,35,2,2,3
+ecoli_arginine_biosynthesis,Arginine Biosynthesis and Regulation,E. coli,Metabolic Regulation,detailed,57,51,1,0,4
+ecoli_base_excision_repair,Base Excision Repair (BER),E. coli,DNA Repair,detailed,67,66,0,11,3
+ecoli_biofilm_formation,E. coli Biofilm Formation,E. coli,Signal Transduction,detailed,65,54,0,10,4
+ecoli_catabolite_repression,Catabolite Repression and Global Carbon Control,E. coli,Metabolic Regulation,detailed,54,30,2,2,4
+ecoli_cell_division,Cell Division and FtsZ Ring Assembly,E. coli,Cell Division,detailed,79,59,6,1,4
+ecoli_chemotaxis,E. coli Chemotaxis,E. coli,Signal Transduction,detailed,64,59,0,15,1
+ecoli_cold_shock_response,Cold Shock Response,E. coli,Stress Response,detailed,57,80,2,0,6
+ecoli_dna_damage_checkpoint,DNA Damage Checkpoint and Cell Cycle Arrest,E. coli,DNA Repair,detailed,86,65,7,0,16
+ecoli_dna_replication_elongation,DNA Replication Elongation,E. coli,DNA Replication,detailed,64,67,0,13,0
+ecoli_dna_replication_initiation,DNA Replication Initiation at oriC,E. coli,DNA Replication,detailed,19,23,0,0,1
+ecoli_dna_replication_termination,DNA Replication Termination,E. coli,DNA Replication,detailed,69,63,0,15,2
+ecoli_e._coli_acid_resistance,"Acid Resistance Systems (AR1, AR2, AR3)",E. coli,Stress Response,detailed,68,37,5,0,4
+ecoli_e._coli_flagellar_assembly,E. coli Flagellar Assembly,E. coli,Biological Process,detailed,63,62,0,6,0
+ecoli_e._coli_heat_shock_response,Heat Shock Response and σ32 (RpoH) Regulation,E. coli,Stress Response,detailed,72,15,2,2,5
+ecoli_e._coli_osmotic_stress_response,E. coli Osmotic Stress Response,E. coli,Stress Response,detailed,57,65,0,6,0
+ecoli_e._coli_stringent_response,E. coli Stringent Response,E. coli,Biological Process,detailed,60,45,0,5,4
+ecoli_e._coli_two_component_signaling,Two-Component Signal Transduction (EnvZ-OmpR Paradigm),E. coli,Signal Transduction,detailed,67,13,5,2,5
+ecoli_envelope_stress_response,E. coli Envelope Stress Response,E. coli,Stress Response,detailed,61,69,0,3,5
+ecoli_fatty_acid_degradation,Fatty Acid β-Oxidation and Regulation,E. coli,Metabolic Pathway,detailed,67,58,3,5,7
+ecoli_fatty_acid_synthesis,Fatty Acid Synthesis (Type II FAS),E. coli,Metabolic Pathway,detailed,55,54,2,0,4
+ecoli_flagellar_assembly,Flagellar Assembly and FlhDC Regulation,E. coli,Developmental Program,detailed,65,55,4,0,1
+ecoli_glycolysis,Glycolysis (Embden-Meyerhof-Parnas Pathway),E. coli,Metabolic Pathway,detailed,80,59,6,0,1
+ecoli_heat_shock_response,Heat Shock Response and Protein Quality Control,E. coli,Stress Response,detailed,66,35,1,2,2
+ecoli_heavy_metal_resistance,Heavy Metal Resistance (Copper and Zinc Homeostasis),E. coli,Stress Response,detailed,96,59,6,3,7
+ecoli_homologous_recombination,Homologous Recombination,E. coli,DNA Repair,detailed,80,66,9,0,5
+ecoli_iron_homeostasis,Iron Homeostasis,E. coli,Biological Process,detailed,56,70,2,0,11
+ecoli_lac_operon,Lac Operon Regulation,E. coli,Gene Regulation,maximum,58,57,3,2,6
+ecoli_mal_regulon,Maltose Regulon and Multi-Operon Coordination,E. coli,Metabolic Regulation,detailed,59,37,3,3,1
+ecoli_mismatch_repair,DNA Mismatch Repair (MMR),E. coli,DNA Repair,detailed,95,78,0,18,6
+ecoli_nitrogen_assimilation,Nitrogen Assimilation and Ntr Regulation,E. coli,Metabolic Regulation,detailed,61,37,1,3,0
+ecoli_nucleotide_biosynthesis,Nucleotide Biosynthesis (Purine and Pyrimidine Synthesis),E. coli,Metabolic Pathway,detailed,79,57,3,4,2
+ecoli_nucleotide_excision_repair,Nucleotide Excision Repair (NER),E. coli,DNA Repair,detailed,81,68,0,12,0
+ecoli_outer_membrane_assembly,Outer Membrane Protein Assembly via BAM Complex,E. coli,Protein Transport,detailed,73,57,2,7,5
+ecoli_oxidative_stress_response,Oxidative Stress Response (OxyR and SoxRS),E. coli,Stress Response,detailed,77,62,7,0,2
+ecoli_pentose_phosphate_pathway,Pentose Phosphate Pathway (Oxidative and Non-oxidative),E. coli,Metabolic Pathway,detailed,56,51,5,2,2
+ecoli_peptidoglycan_biosynthesis,Peptidoglycan Biosynthesis and Cell Wall Assembly,E. coli,Cell Wall Biogenesis,unknown,95,95,7,2,4
+ecoli_periplasmic_stress,Periplasmic and Membrane Stress (Cpx Response),E. coli,Stress Response,detailed,76,60,8,0,10
+ecoli_phage_defense,Bacteriophage Defense Systems (R-M and CRISPR),E. coli,Innate Immunity,detailed,69,55,4,5,5
+ecoli_pho_regulon,Phosphate Starvation Response (Pho Regulon),E. coli,Metabolic Regulation,detailed,60,39,2,2,1
+ecoli_phosphate_regulation,Phosphate Regulation,E. coli,Gene Regulation,detailed,64,75,4,0,6
+ecoli_phosphate_transport,Phosphate Transport via Pst and Pit Systems,E. coli,Nutrient Transport,detailed,68,49,4,4,4
+ecoli_protein_folding_chaperones,Protein Folding Chaperones,E. coli,Biological Process,detailed,57,47,11,0,4
+ecoli_quorum_sensing,E. coli Quorum Sensing,E. coli,Signal Transduction,detailed,51,54,0,7,5
+ecoli_ribosome_assembly,Ribosome Assembly and Maturation,E. coli,Translation Machinery,detailed,57,53,0,9,2
+ecoli_rna_polymerase_recycling,RNA Polymerase Recycling and Reinitiation,E. coli,Gene Expression,detailed,52,46,0,8,3
+ecoli_sigma_factor_competition,Sigma Factor Competition and Global Transcriptional Control,E. coli,Gene Regulation,detailed,71,56,0,10,1
+ecoli_sos_response,E. coli SOS Response,E. coli,DNA Repair,detailed,74,62,0,11,7
+ecoli_starvation_response,General Starvation Response (RpoS/σS),E. coli,Stress Response,detailed,92,65,7,0,10
+ecoli_stringent_response,Stringent Response and ppGpp-Mediated Growth Control,E. coli,Stress Response,detailed,63,37,2,2,1
+ecoli_sulfur_metabolism,Sulfur Assimilation and Cysteine Biosynthesis,E. coli,Metabolic Pathway,detailed,74,55,3,3,5
+ecoli_tca_cycle,Tricarboxylic Acid Cycle (TCA/Krebs Cycle),E. coli,Metabolic Pathway,detailed,83,65,8,0,0
+ecoli_transcription_elongation,Transcription Elongation,E. coli,Gene Expression,detailed,58,67,9,0,7
+ecoli_transcription_regulation,Transcription Initiation and Regulation,E. coli,Gene Expression,detailed,20,24,0,0,3
+ecoli_transcription_termination,Transcription Termination,E. coli,Gene Expression,detailed,64,59,7,0,10
+ecoli_translation_elongation,Translation Elongation,E. coli,Protein Synthesis,detailed,54,65,6,1,2
+ecoli_translation_initiation,Translation Initiation,E. coli,Protein Synthesis,detailed,84,68,0,14,7
+ecoli_translation_termination,Translation Termination and Ribosome Recycling,E. coli,Protein Synthesis,detailed,61,62,6,0,6
+ecoli_trp_operon,Tryptophan Operon with Attenuation,E. coli,Gene Regulation,detailed,67,44,2,1,9
+ecoli_tryptophan_biosynthesis,Tryptophan Biosynthesis via Anthranilate,E. coli,Metabolic Pathway,detailed,68,58,3,3,8
+ecoli_two_component_signaling,Two-Component Signal Transduction (EnvZ-OmpR),E. coli,Signal Transduction,detailed,47,33,2,1,1
+ecoli_type_iii_secretion,E. coli Type III Secretion System,E. coli,Protein Transport,detailed,64,56,0,12,3
+yeast_aerobic_respiration,Aerobic Respiration and Oxidative Phosphorylation,S. cerevisiae,Metabolic Pathway,unknown,84,83,5,2,5
+yeast_alcoholic_fermentation,Alcoholic Fermentation (Ethanol Production),S. cerevisiae,Metabolic Pathway,unknown,75,83,7,1,3
+yeast_autophagy,Yeast Autophagy,S. cerevisiae,Protein Quality Control,detailed,80,59,0,12,6
+yeast_cell_cycle_checkpoints,Cell Cycle Checkpoints and Surveillance,S. cerevisiae,Cell Cycle,unknown,90,99,7,1,14
+yeast_cell_cycle_control,Cell Cycle Control and CDK Regulation,S. cerevisiae,Cell Cycle,detailed,22,25,0,0,1
+yeast_cell_wall_integrity,Cell Wall Integrity (CWI) Pathway and Pkc1 Signaling,S. cerevisiae,Stress Response,detailed,85,81,6,3,3
+yeast_chromatin_silencing,Chromatin Silencing at Telomeres and HM Loci,S. cerevisiae,Gene Regulation,detailed,78,65,3,7,18
+yeast_dna_replication,DNA Replication and Origin Licensing,S. cerevisiae,DNA Replication,unknown,89,87,5,5,5
+yeast_er_stress_response,ER Stress Response and Unfolded Protein Response,S. cerevisiae,Stress Response,detailed,68,57,3,5,3
+yeast_gal_regulation,GAL Gene Regulation,S. cerevisiae,Gene Regulation,detailed,64,51,2,1,5
+yeast_gcn4_starvation,Gcn4 Amino Acid Starvation Response (GAAC),S. cerevisiae,Stress Response,detailed,80,57,2,2,5
+yeast_glycolysis,Glycolysis and Glucose Metabolism,S. cerevisiae,Metabolic Pathway,detailed,68,53,4,0,3
+yeast_heat_shock_response,Heat Shock Response,S. cerevisiae,Stress Response,detailed,57,57,6,0,2
+yeast_hog_pathway,HOG Pathway (High Osmolarity Glycerol Response),S. cerevisiae,Signal Transduction,detailed,94,69,8,2,6
+yeast_mapk_mating,MAPK Pheromone Response Pathway (Mating),S. cerevisiae,Signal Transduction,detailed,78,70,4,8,5
+yeast_mating_response,Yeast Mating Response,S. cerevisiae,Signal Transduction,detailed,82,71,0,18,7
+yeast_mating_type_switching,Mating Type Switching and HO Endonuclease Control,S. cerevisiae,Gene Regulation,detailed,58,51,4,2,2
+yeast_meiosis_regulation,Meiosis Initiation and IME1 Regulation,S. cerevisiae,Developmental Decision,detailed,64,55,5,1,8
+yeast_mitochondrial_biogenesis,Mitochondrial Biogenesis and Retrograde Signaling,S. cerevisiae,Organelle Biology,detailed,62,60,4,5,5
+yeast_mitochondrial_import,Yeast Mitochondrial Protein Import,S. cerevisiae,Protein Transport,detailed,76,62,0,15,1
+yeast_nitrogen_metabolism,Nitrogen Catabolite Repression (NCR) and TORC1 Signaling,S. cerevisiae,Metabolic Regulation,detailed,63,50,3,3,5
+yeast_nucleotide_excision_repair,Nucleotide Excision Repair (NER) Pathway,S. cerevisiae,DNA Repair,detailed,51,50,0,9,0
+yeast_osmotic_stress_response,Osmotic Stress Response,S. cerevisiae,Stress Response,detailed,60,74,2,0,1
+yeast_oxidative_stress_response,Oxidative Stress Response,S. cerevisiae,Stress Response,detailed,42,49,3,2,3
+yeast_pka_pathway,cAMP-PKA Pathway (Glucose Sensing and Growth Control),S. cerevisiae,Signal Transduction,detailed,78,57,5,2,8
+yeast_protein_folding,Protein Folding,S. cerevisiae,Biological Process,detailed,62,46,11,0,7
+yeast_ribosome_biogenesis,Ribosome Biogenesis and rRNA Processing,S. cerevisiae,Gene Expression,unknown,89,88,7,5,3
+yeast_rna_splicing,Pre-mRNA Splicing by the Spliceosome,S. cerevisiae,Gene Expression,detailed,80,65,1,10,2
+yeast_snf1_pathway,Snf1/AMPK Energy Sensing Pathway,S. cerevisiae,Signal Transduction,detailed,69,56,5,1,10
+yeast_tor_signaling,TOR Signaling Pathway (Nutrient Sensing),S. cerevisiae,Signal Transduction,detailed,91,71,8,0,15
+yeast_ubiquitin_proteasome,Ubiquitin-Proteasome System and Protein Degradation,S. cerevisiae,Protein Quality Control,detailed,62,56,0,10,4
+yeast_unfolded_protein_response,Yeast Unfolded Protein Response (UPR),S. cerevisiae,Stress Response,detailed,76,60,0,13,6
+yeast_vesicle_trafficking,Vesicle Trafficking and COPII-Mediated ER-to-Golgi Transport,S. cerevisiae,Protein Transport,detailed,80,60,2,11,3
+yeast_yeast_cell_polarity,Yeast Cell Polarity,S. cerevisiae,Biological Process,detailed,55,45,0,7,1
+yeast_yeast_er_associated_degradation,Yeast ER-Associated Degradation,S. cerevisiae,Biological Process,detailed,43,41,0,2,1
+yeast_yeast_glycolysis_regulation,Yeast Glycolysis Regulation,S. cerevisiae,Gene Regulation,detailed,49,63,0,1,1
+yeast_yeast_peroxisome_biogenesis,Yeast Peroxisome Biogenesis,S. cerevisiae,Biological Process,detailed,60,61,0,6,0
+yeast_yeast_vacuolar_protein_sorting,Yeast Vacuolar Protein Sorting,S. cerevisiae,Biological Process,detailed,54,62,0,3,3
+bacillus_biofilm_formation,Biofilm Formation and Matrix Production,Bacillus subtilis,Developmental Decision,detailed,64,50,4,2,6
+bacillus_competence_development,Competence Development and DNA Uptake,Bacillus subtilis,Developmental Decision,detailed,55,50,2,1,5
+bacillus_germination,Spore Germination,Bacillus subtilis,Developmental Decision,unknown,85,80,6,2,2
+bacillus_sporulation_initiation,Sporulation Initiation and Spo0A Phosphorelay,Bacillus subtilis,Developmental Decision,detailed,66,61,6,1,2

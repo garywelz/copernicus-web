@@ -1,0 +1,38 @@
+{
+  "id": "arxiv_2601.09037v1",
+  "arxiv_id": "2601.09037v1",
+  "title": "Probabilistic Computers for MIMO Detection: From Sparsification to 2D Parallel Tempering",
+  "authors": [
+    "M Mahmudul Hasan Sajeeb",
+    "Corentin Delacour",
+    "Kevin Callahan-Coray",
+    "Sanjay Seshan",
+    "Tathagata Srimani",
+    "Kerem Y. Camsari"
+  ],
+  "author_string": "M Mahmudul Hasan Sajeeb, Corentin Delacour, Kevin Callahan-Coray, Sanjay Seshan, Tathagata Srimani et al.",
+  "journal": "arXiv:2601.09037v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Probabilistic computers built from p-bits offer a promising path for combinatorial optimization, but the dense connectivity required by real-world problems scales poorly in hardware. Here, we address this through graph sparsification with auxiliary copy variables and demonstrate a fully on-chip parallel tempering solver on an FPGA. Targeting MIMO detection, a dense, NP-hard problem central to wireless communications, we fit 15 temperature replicas of a 128-node sparsified system (1,920 p-bits) entirely on-chip and achieve bit error rates significantly below conventional linear detectors. We report complete end-to-end solution times of 4.7 ms per instance, with all loading, sampling, readout, and verification overheads included. ASIC projections in 7 nm technology indicate about 90 MHz operation with less than 200 mW power dissipation, suggesting that massive parallelism across multiple chips could approach the throughput demands of next-generation wireless systems. However, sparsification introduces sensitivity to the copy-constraint strength. Employing Two-Dimensional Parallel Tempering (2D-PT), which exchanges replicas across both temperature and constraint dimensions, we demonstrate over 10X faster convergence without manual parameter tuning. These results establish an on-chip p-bit architecture and a scalable algorithmic framework for dense combinatorial optimization.",
+  "categories": [
+    "cs.ET",
+    "cond-mat.dis-nn",
+    "cs.DC"
+  ],
+  "primary_category": "cs.DC",
+  "comment": null,
+  "published_date": "2026-01-14T00:01:58Z",
+  "updated_date": "2026-01-14T00:01:58Z",
+  "url": "https://arxiv.org/abs/2601.09037v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.09037v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:06.566400",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.ET",
+    "cond-mat.dis-nn",
+    "cs.DC"
+  ]
+}

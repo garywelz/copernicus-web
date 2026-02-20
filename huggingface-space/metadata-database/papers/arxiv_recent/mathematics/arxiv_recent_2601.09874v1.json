@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2601.09874v1",
+  "arxiv_id": "2601.09874v1",
+  "title": "Model selection by cross-validation in an expectile linear regression",
+  "authors": [
+    "Bilel Bousselmi",
+    "Gabriela Ciuperca"
+  ],
+  "author_string": "Bilel Bousselmi, Gabriela Ciuperca",
+  "journal": "arXiv:2601.09874v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "For linear models that may have asymmetric errors, we study variable selection by cross-validation. The data are split into training and validation sets, with the number of observations in the validation set much larger than in the training set. For the model coefficients, the expectile or adaptive LASSO expectile estimators are calculated on the training set. These estimators will be used to calculate the cross-validation mean score (CVS) on the validation set. We show that the model that minimizes CVS is consistent in two cases: when the number of explanatory variables is fixed or when it depends on the number of observations. Monte Carlo simulations confirm the theoretical results and demonstrate the superiority of our estimation method compared to two others in the literature. The usefulness of the CV expectile model selection technique is illustrated by applying it to real data sets.",
+  "categories": [
+    "stat.ME",
+    "math.ST",
+    "stat.CO"
+  ],
+  "primary_category": "stat.CO",
+  "comment": null,
+  "published_date": "2026-01-14T21:11:43Z",
+  "updated_date": "2026-01-14T21:11:43Z",
+  "url": "https://arxiv.org/abs/2601.09874v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.09874v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:49.117042",
+  "category": "mathematics",
+  "subcategories": [
+    "stat.ME",
+    "math.ST",
+    "stat.CO"
+  ]
+}

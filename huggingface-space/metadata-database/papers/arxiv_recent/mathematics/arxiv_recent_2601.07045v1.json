@@ -1,0 +1,30 @@
+{
+  "id": "arxiv_2601.07045v1",
+  "arxiv_id": "2601.07045v1",
+  "title": "From Continuous to Discrete: a No-U-Turn Sampler for Permutations",
+  "authors": [
+    "Nawaf Bou-Rabee",
+    "Zichu Wang"
+  ],
+  "author_string": "Nawaf Bou-Rabee, Zichu Wang",
+  "journal": "arXiv:2601.07045v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We introduce a discrete-space analogue of the No-U-Turn sampler on the symmetric group $S_n$, yielding a locally adaptive and reversible Markov chain Monte Carlo method for $\\mathrm{Mallows}(d,σ_0)$. Here $d:S_n\\times S_n\\to[0,\\infty)$ is any fixed distance on $S_n$, $σ_0\\in S_n$ is a fixed reference permutation, and the target distribution on $S_n$ has mass function $π(σ)\\propto e^{-βd(σ,σ_0)}$ where $β>0$ is the inverse temperature. The construction replaces Hamiltonian trajectories with measure-preserving group-orbit exploration. A randomized dyadic expansion is used to explore a one-dimensional orbit until a probabilistic \\emph{no-underrun} criterion is met, after which the next state is sampled from the explored orbit with probability proportional to the target weights. On the theory side, embedding this transition within the Gibbs self-tuning (GIST) framework provides a concise proof of reversibility. Moreover, we construct a \\emph{shift coupling} for orbit segments and prove an explicit edge-wise contraction in the Cayley distance under a mild Lipschitz condition on the energy $E(σ)=d(σ,σ_0)$. A path-coupling argument then yields an $O(n^2\\log n)$ total-variation mixing-time bound.",
+  "categories": [
+    "math.PR"
+  ],
+  "primary_category": "math.PR",
+  "comment": null,
+  "published_date": "2026-01-11T19:42:54Z",
+  "updated_date": "2026-01-11T19:42:54Z",
+  "url": "https://arxiv.org/abs/2601.07045v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.07045v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:14.919419",
+  "category": "mathematics",
+  "subcategories": [
+    "math.PR"
+  ]
+}

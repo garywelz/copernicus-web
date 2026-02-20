@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2601.09861v1",
+  "arxiv_id": "2601.09861v1",
+  "title": "Barrier-crossing and energy relaxation dynamics of non-Markovian inertial systems connected via analytical Green-Fokker-Planck approach",
+  "authors": [
+    "Roland R. Netz"
+  ],
+  "author_string": "Roland R. Netz",
+  "journal": "arXiv:2601.09861v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "From numerical simulations it is known that the barrier-crossing time of a non-Markovian one-dimensional reaction coordinate with a single exponentially decaying memory function exhibits a memory-turnover: for intermediate values of the memory decay time the barrier-crossing time is reduced compared to the Markovian limit and for long memory times increases quadratically with the memory time when keeping the total integrated friction and the mass constant. The intermediate memory acceleration regime is accurately predicted by Grote-Hynes theory, for the asymptotic long-memory slow-down behavior no systematic analytically tractable theory is available. Starting from the Green function for a general inertial (i.e. finite-mass) non-Markovian Gaussian reaction coordinate in a harmonic well, we derive by an exact mapping a generalized Fokker-Planck equation with a time-dependent effective diffusion constant. To first order in a systematic cumulant expansion we derive an analytical Arrhenius expression for the barrier-crossing time with the pre-exponential factor given by the energy relaxation time, which can be used to robustly predict barrier-crossing times from simulation or experimental trajectory data of general non-Markovian inertial systems without the need to extract memory functions. For a single exponential memory kernel we give a closed-form expression for the barrier-crossing time, which reproduces the Kramers turnover between the high-friction and high-mass limits as well as the memory turnover from the intermediate memory acceleration to the asymptotic long-memory slow-down regime. We also show that non-Markovian systems are singular in the zero-mass limit, which suggests that the long-memory barrier-crossing slow-down reflects the interplay between mass and memory effects. Thus, physically sound models for non-Markovian systems have to include a finite mass.",
+  "categories": [
+    "cond-mat.stat-mech",
+    "cond-mat.soft"
+  ],
+  "primary_category": "cond-mat.soft",
+  "comment": null,
+  "published_date": "2026-01-14T20:41:23Z",
+  "updated_date": "2026-01-14T20:41:23Z",
+  "url": "https://arxiv.org/abs/2601.09861v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.09861v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:18:54.507951",
+  "category": "physics",
+  "subcategories": [
+    "cond-mat.stat-mech",
+    "cond-mat.soft"
+  ]
+}

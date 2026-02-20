@@ -1,0 +1,28 @@
+graph TD
+    A[High Osmolarity Environment] --> B[Osmotic Stress Signal]
+    C[Low Osmolarity Environment] --> D[Low Osmotic Signal]
+    B --> E[EnvZ Sensor Kinase]
+    D --> E
+    E --> F[EnvZ Periplasmic Domain]
+    F --> G[Signal Detection]
+    G --> H{High Osmolarity}
+    H -->|Yes| I[EnvZ Kinase Activation]
+    I --> J[ATP Binding]
+    J --> K[Autophosphorylation]
+    K --> L[EnvZ-P Formation]
+    L --> M[Phosphotransfer Domain]
+    M --> N[OmpR Response Regulator]
+    N --> O[Phosphotransfer to OmpR]
+    O --> P[OmpR-P Formation]
+    P --> Q[OmpR-P Active State]
+    Q --> R{High OmpR-P}
+    R -->|Yes| ANDGATE{OmpR-P Active AND DNA Sites Available}
+    S[Promoter Accessibility] --> ANDGATE
+    ANDGATE -->|Yes| T[OmpR-P Binds ompC Promoter]
+    T --> U[OmpC Transcription Activation]
+    U --> V[ompC mRNA Synthesis]
+    V --> W[OmpC Translation]
+    W --> X[OmpC Porin Protein]
+    X --> Y[Small Pore Formation]
+    Y --> Z[Reduced Solute Entry]
+    Z --> AA[Osmotic Protection]

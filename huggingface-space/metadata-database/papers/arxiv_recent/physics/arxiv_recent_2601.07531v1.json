@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2601.07531v1",
+  "arxiv_id": "2601.07531v1",
+  "title": "Standardized Images and Evaluation Metrics for Tomography",
+  "authors": [
+    "Anna Frixou",
+    "Theodoros Leontiou",
+    "Efstathios Stiliaris",
+    "Costas N. Papanicolas"
+  ],
+  "author_string": "Anna Frixou, Theodoros Leontiou, Efstathios Stiliaris, Costas N. Papanicolas",
+  "journal": "arXiv:2601.07531v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Advances in instrumentation and computation have enabled increasingly sophisticated tomographic reconstruction methods. However, existing evaluation practices -- often based on simple phantoms and global image metrics -- are limited in their ability to differentiate among modern high-fidelity reconstructions. A standardized, quantitative framework capable of revealing subtle yet meaningful differences is therefore required.   We introduce such a framework, built upon two core components. The first is a set of four standardized reference images -- Source, Detector, Ideal, and Realistic -- each derived from physical modeling and representing a distinct stage in the imaging and reconstruction chain. The second is a suite of diagnostic and quantitative tools that remain sensitive in regimes where conventional metrics (e.g., SSIM, PSNR, NMSE, CC) tend to saturate. These include pixel-wise $χ^2$ and difference maps, their quantitative characterization, spectral decomposition of intensity distributions, and Region-of-Interest (RoI)-based metrics.   Application of this framework to MLEM and RISE-1 reconstructions using software phantoms demonstrates its ability to expose discrepancies that might elude detection by conventional global metrics. While developed in the context of SPECT, the methodology generalizes to other tomographic modalities, providing a reproducible, interpretable, and physically grounded basis for evaluating reconstruction fidelity in the high-performance regime.",
+  "categories": [
+    "physics.med-ph"
+  ],
+  "primary_category": "physics.med-ph",
+  "comment": "36 pages, 24 figures, submitted to MDPI Tomography",
+  "published_date": "2026-01-12T13:32:42Z",
+  "updated_date": "2026-01-12T13:32:42Z",
+  "url": "https://arxiv.org/abs/2601.07531v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.07531v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:23.645135",
+  "category": "physics",
+  "subcategories": [
+    "physics.med-ph"
+  ]
+}

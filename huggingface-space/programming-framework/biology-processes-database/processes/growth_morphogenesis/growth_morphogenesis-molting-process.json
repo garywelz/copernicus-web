@@ -1,0 +1,93 @@
+{
+  "id": "growth_morphogenesis-molting-process",
+  "name": "Molting Process",
+  "category": "biology",
+  "subcategory": "growth_morphogenesis",
+  "subcategory_name": "Growth & Morphogenesis",
+  "organism": "Arthropods",
+  "description": "Molting Process in Arthropods. This process represents a higher-level biological mechanism distinct from molecular/biochemical processes covered in GLMP.",
+  "complexity": {
+    "nodes": 10,
+    "edges": 9,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "low",
+    "detailLevel": "low"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\n    A10[Growth Signal] --> B10[Ecdysone Production]\n    B10 --> C10[Apolysis Initiation]\n    C10 --> D10[New Cuticle Secretion]\n    D10 --> E10[Enzyme Production]\n    E10 --> F10[Old Cuticle Digestion]\n    F10 --> G10[Water Absorption]\n    G10 --> H10[Cuticle Shedding]\n    H10 --> I10[Sclerotization]\n    I10 --> J10[New Exoskeleton]\n    \n    style A10 fill:#ff6b6b,color:#fff\n    style B10 fill:#ffd43b,color:#000\n    style C10 fill:#51cf66,color:#fff\n    style D10 fill:#51cf66,color:#fff\n    style E10 fill:#51cf66,color:#fff\n    style F10 fill:#51cf66,color:#fff\n    style G10 fill:#74c0fc,color:#fff\n    style H10 fill:#51cf66,color:#fff\n    style I10 fill:#74c0fc,color:#fff\n    style J10 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "notes": "Higher-level biological process visualization: Molting Process. Created using the Programming Framework methodology for organismal and ecological process analysis."
+    },
+    {
+      "title": "Molecular Mechanisms of Ecdysone Action: A Gateway to Understanding Arthropod Development",
+      "authors": "Rewitz, K.F., O'Connor, M.B., Gilbert, L.I.",
+      "journal": "Annu Rev Entomol",
+      "year": "2011",
+      "pubmed": "20822441",
+      "doi": "10.1146/annurev-ento-120709-144747",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/20822441"
+    },
+    {
+      "title": "Hormonal control of insect metamorphosis",
+      "authors": "Riddiford, L.M.",
+      "journal": "Science",
+      "year": "1980",
+      "pubmed": "6995963",
+      "doi": "10.1126/science.6995963",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/6995963"
+    },
+    {
+      "title": "Evolution of Molting and Metamorphosis in Insects",
+      "authors": "Truman, J.W.",
+      "journal": "Annu Rev Entomol",
+      "year": "2019",
+      "pubmed": "30125026",
+      "doi": "10.1146/annurev-ento-011118-111812",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/30125026"
+    }
+  ],
+  "keywords": [
+    "growth",
+    "process",
+    "molting",
+    "morphogenesis",
+    "arthropods"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-08",
+  "verified": false,
+  "notes": "Higher-level biological process. GLMP covers biochemical/molecular processes; this database covers organismal/ecological processes."
+}

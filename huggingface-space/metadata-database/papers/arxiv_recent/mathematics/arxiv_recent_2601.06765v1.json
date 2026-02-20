@@ -1,0 +1,29 @@
+{
+  "id": "arxiv_2601.06765v1",
+  "arxiv_id": "2601.06765v1",
+  "title": "Massively Parallel Reductions in Multivariate Polynomial Systems: Bridging the Symbolic Preprocessing Gap on GPGPU Architectures",
+  "authors": [
+    "Chandrasekhar Gokavarapu"
+  ],
+  "author_string": "Chandrasekhar Gokavarapu",
+  "journal": "arXiv:2601.06765v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Gröbner basis computation over multivariate polynomial rings remains one of the most powerful yet computationally hostile primitives in symbolic computation. While modern algorithms (Faugère-type F4 and signature-based F5) reduce many instances to large sparse linear algebra over finite fields, their dominant cost is not merely elimination but the symbolic preprocessing that constructs Macaulay-style matrices whose rows encode shifted reducers. This phase is characterized by dynamic combinatorics (monomial discovery, sparse row assembly, and deduplication) and is typically memory-latency bound, resisting naive parallelization.   This article develops a rigorous synthesis that reframes S-polynomial reduction as syzygy discovery: row construction is a structured map from module relations to the kernel of a massive, sparse, highly non-random Macaulay matrix A over Fp. Building on this viewpoint, we propose a GPU-targeted architecture that (i) converts dynamic symbolic data structures into static, two-pass allocations via prefix-sum planning; (ii) enforces coalesced memory access through structure-of-arrays polynomial layouts and sorted monomial dictionaries; and (iii) integrates finite-field arithmetic kernels (Montgomery/Barrett-style reduction) at register granularity. On the linear-algebra side, we explore the transition from classical Gaussian elimination to parallel structured Gaussian elimination (PSGE) and to Krylov-type kernel solvers (Block Wiedemann/Lanczos) that better match GPU throughput while controlling fill-in.   The result is a principled bridge between algebraic syzygy theory and SIMT hardware constraints, isolating the true bottleneck and providing a pathway to massively parallel reductions for multivariate polynomial systems.",
+  "categories": [
+    "math.RA"
+  ],
+  "primary_category": "math.RA",
+  "comment": null,
+  "published_date": "2026-01-11T03:46:34Z",
+  "updated_date": "2026-01-11T03:46:34Z",
+  "url": "https://arxiv.org/abs/2601.06765v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.06765v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:14.922477",
+  "category": "mathematics",
+  "subcategories": [
+    "math.RA"
+  ]
+}

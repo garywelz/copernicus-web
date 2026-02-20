@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2601.04839v1",
+  "arxiv_id": "2601.04839v1",
+  "title": "A finite element method preserving the eigenvalue range of symmetric tensor fields",
+  "authors": [
+    "Abdolreza Amiri",
+    "Gabriel R. Barrenechea",
+    "Tristan Pryer"
+  ],
+  "author_string": "Abdolreza Amiri, Gabriel R. Barrenechea, Tristan Pryer",
+  "journal": "arXiv:2601.04839v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "This paper presents a finite element method that preserves (at the degrees of freedom) the eigenvalue range of the solution of tensor-valued time-dependent convection--diffusion equations. Starting from a high-order spatial baseline discretisation (in this case, the CIP stabilised finite element method), our approach formulates the fully discrete problem as a variational inequality posed on a closed convex set of tensor-valued functions that respect the same eigenvalue bounds at their degrees of freedom. The numerical realisation of the scheme relies on the definition of a projection that, at each node, performs the diagonalisation of the tensor and then truncates the eigenvalues to lie within the prescribed bounds. The temporal discretisation is carried out using the implicit Euler method, and unconditional stability and optimal-order error estimates are proven for this choice. Numerical experiments confirm the theoretical findings and illustrate the method's ability to maintain eigenvalue constraints while accurately approximating solutions in the convection-dominated regime.",
+  "categories": [
+    "math.NA"
+  ],
+  "primary_category": "math.NA",
+  "comment": "29 pages, 8 figures",
+  "published_date": "2026-01-08T11:21:37Z",
+  "updated_date": "2026-01-08T11:21:37Z",
+  "url": "https://arxiv.org/abs/2601.04839v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.04839v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:26.900512",
+  "category": "mathematics",
+  "subcategories": [
+    "math.NA"
+  ]
+}

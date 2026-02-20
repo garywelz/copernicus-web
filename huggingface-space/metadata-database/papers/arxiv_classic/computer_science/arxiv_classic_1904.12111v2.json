@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_1904.12111v2",
+  "arxiv_id": "1904.12111v2",
+  "title": "A Novel Fuzzy Search Approach over Encrypted Data with Improved Accuracy and Efficiency",
+  "authors": [
+    "Jinkun Cao",
+    "Jinhao Zhu",
+    "Liwei Lin",
+    "Zhengui Xue",
+    "Ruhui Ma",
+    "Haibing Guan"
+  ],
+  "author_string": "Jinkun Cao, Jinhao Zhu, Liwei Lin, Zhengui Xue, Ruhui Ma et al.",
+  "journal": "arXiv:1904.12111v2",
+  "journal_ref": null,
+  "year": "2019",
+  "doi": null,
+  "abstract": "As cloud computing becomes prevalent in recent years, more and more enterprises and individuals outsource their data to cloud servers. To avoid privacy leaks, outsourced data usually is encrypted before being sent to cloud servers, which disables traditional search schemes for plain text. To meet both end of security and searchability, search-supported encryption is proposed. However, many previous schemes suffer severe vulnerability when typos and semantic diversity exist in query requests. To overcome such flaw, higher error-tolerance is always expected for search-supported encryption design, sometimes defined as 'fuzzy search'. In this paper, we propose a new scheme of multi-keyword fuzzy search over encrypted and outsourced data. Our approach introduces a new mechanism to map a natural language expression into a word-vector space. Compared with previous approaches, our design shows higher robustness when multiple kinds of typos are involved. Besides, our approach is enhanced with novel data structures to improve search efficiency. These two innovations can work well for both accuracy and efficiency. Moreover, these designs will not hurt the fundamental security. Experiments on a real-world dataset demonstrate the effectiveness of our proposed approach, which outperforms currently popular approaches focusing on similar tasks.",
+  "categories": [
+    "cs.CR",
+    "cs.IR"
+  ],
+  "primary_category": "cs.IR",
+  "comment": "14 pages, 14 figures",
+  "published_date": "2019-04-27T04:50:31Z",
+  "updated_date": "2019-06-21T13:16:00Z",
+  "url": "https://arxiv.org/abs/1904.12111v2",
+  "pdf_url": "https://arxiv.org/pdf/1904.12111v2.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:19.479995",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CR",
+    "cs.IR"
+  ]
+}

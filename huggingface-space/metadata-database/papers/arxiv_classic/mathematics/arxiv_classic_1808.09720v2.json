@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_1808.09720v2",
+  "arxiv_id": "1808.09720v2",
+  "title": "Stochastic Collocation with Non-Gaussian Correlated Process Variations: Theory, Algorithms and Applications",
+  "authors": [
+    "Chunfeng Cui",
+    "Zheng Zhang"
+  ],
+  "author_string": "Chunfeng Cui, Zheng Zhang",
+  "journal": "arXiv:1808.09720v2",
+  "journal_ref": null,
+  "year": "2018",
+  "doi": null,
+  "abstract": "Stochastic spectral methods have achieved great success in the uncertainty quantification of many engineering problems, including electronic and photonic integrated circuits influenced by fabrication process variations. Existing techniques employ a generalized polynomial-chaos expansion, and they almost always assume that all random parameters are mutually independent or Gaussian correlated. However, this assumption is rarely true in real applications. How to handle non-Gaussian correlated random parameters is a long-standing and fundamental challenge. A main bottleneck is the lack of theory and computational methods to perform a projection step in a correlated uncertain parameter space. This paper presents an optimization-based approach to automatically determinate the quadrature nodes and weights required in a projection step, and develops an efficient stochastic collocation algorithm for systems with non-Gaussian correlated parameters. We also provide some theoretical proofs for the complexity and error bound of our proposed method. Numerical experiments on synthetic, electronic and photonic integrated circuit examples show the nearly exponential convergence rate and excellent efficiency of our proposed approach. Many other challenging uncertainty-related problems can be further solved based on this work.",
+  "categories": [
+    "math.NA",
+    "math.OC"
+  ],
+  "primary_category": "math.OC",
+  "comment": "14 pages,11 figure. 4 tables",
+  "published_date": "2018-08-29T10:37:42Z",
+  "updated_date": "2018-12-05T05:24:10Z",
+  "url": "https://arxiv.org/abs/1808.09720v2",
+  "pdf_url": "https://arxiv.org/pdf/1808.09720v2.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:00.035294",
+  "category": "mathematics",
+  "subcategories": [
+    "math.NA",
+    "math.OC"
+  ]
+}

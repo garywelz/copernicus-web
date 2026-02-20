@@ -1,0 +1,91 @@
+{
+  "id": "behavior_communication-hibernation-process",
+  "name": "Hibernation Process",
+  "category": "biology",
+  "subcategory": "behavior_communication",
+  "subcategory_name": "Behavior & Communication",
+  "description": "Hibernation Process process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 10,
+    "edges": 8,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\n    A16[Environmental Change] --> B16[Metabolic Preparation]\n    B16 --> C16[Fat Accumulation]\n    C16 --> D16[Body Temperature Drop]\n    D16 --> E16[Heart Rate Reduction]\n    E16 --> F16[Breathing Slowed]\n    F16 --> G16[Metabolic Suppression]\n    G16 --> H16[Hibernation State]\n    H16 --> I16[Periodic Arousal]\n    I16 --> J16[Spring Emergence]\n    \n    style A16 fill:#ff6b6b,color:#fff\n    style B16 fill:#ffd43b,color:#000\n    style C16 fill:#ffd43b,color:#000\n    style D16 fill:#51cf66,color:#fff\n    style E16 fill:#51cf66,color:#fff\n    style F16 fill:#51cf66,color:#fff\n    style G16 fill:#74c0fc,color:#fff\n    style H16 fill:#74c0fc,color:#fff\n    style I16 fill:#74c0fc,color:#fff\n    style J16 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Hibernation Process. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "The ‘hibernation’ process and post ‘hibernation’ care of tortoises",
+      "authors": "Deane, Kelly",
+      "journal": "Veterinary Nursing Journal",
+      "year": "2018",
+      "pubmed": null,
+      "doi": "10.1080/17415349.2018.1466670",
+      "url": "https://doi.org/10.1080/17415349.2018.1466670"
+    },
+    {
+      "title": "Hibernation of the Thirteen-Lined Ground Squirrel, Citellus tridecemlineatus (Mitchell). II. The General Process of Waking from Hibernation",
+      "authors": "Johnson, George Edwin",
+      "journal": "The American Naturalist",
+      "year": "1929",
+      "pubmed": null,
+      "doi": "10.1086/280248",
+      "url": "https://doi.org/10.1086/280248"
+    },
+    {
+      "title": "Torpor and hibernation",
+      "authors": "Clarke, Andrew",
+      "journal": "Oxford Scholarship Online",
+      "year": "2017",
+      "pubmed": null,
+      "doi": "10.1093/oso/9780199551668.003.0011",
+      "url": "https://doi.org/10.1093/oso/9780199551668.003.0011"
+    }
+  ],
+  "keywords": [
+    "hibernation",
+    "process"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+}

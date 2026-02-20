@@ -1,0 +1,80 @@
+{
+  "category": "chemistry",
+  "colorScheme": {
+    "blue": {
+      "category": "Intermediates & States",
+      "hex": "#74c0fc"
+    },
+    "green": {
+      "category": "Processing & Operations",
+      "hex": "#51cf66"
+    },
+    "red": {
+      "category": "Triggers & Inputs",
+      "hex": "#ff6b6b"
+    },
+    "violet": {
+      "category": "Products & Outputs",
+      "hex": "#b197fc"
+    },
+    "yellow": {
+      "category": "Structures & Objects",
+      "hex": "#ffd43b"
+    }
+  },
+  "complexity": {
+    "conditionals": 0,
+    "detailLevel": "medium",
+    "edges": 25,
+    "level": "medium",
+    "logicGates": {
+      "andGates": 0,
+      "orGates": 31,
+      "total": 31
+    },
+    "nodes": 26
+  },
+  "created": "2026-01-08",
+  "description": "Composite materials process showing reinforcement integration, interface bonding, and composite optimization.",
+  "id": "materials_science-composite-materials",
+  "keywords": [
+    "composite",
+    "materials"
+  ],
+  "lastUpdated": "2026-01-08",
+  "mermaid": "graph TD\nA5[Matrix Material] --> B5[Composite Materials Method]\nC5[Reinforcement Material] --> D5[Interface Analysis]\nE5[Processing Conditions] --> F5[Composite Formation]\nB5 --> G5[Matrix Preparation]\nD5 --> H5[Interface Characterization]\nF5 --> I5[Processing Optimization]\nG5 --> J5[Matrix Properties]\nH5 --> K5[Interface Properties]\nI5 --> L5[Processing Parameters]\nJ5 --> M5[Matrix Formation]\nK5 --> L5\nL5 --> N5[Reinforcement Integration]\nM5 --> O5[Composite Assembly]\nN5 --> P5[Interface Bonding]\nO5 --> Q5[Composite Analysis]\nP5 --> R5[Reinforcement Effects]\nQ5 --> S5[Property Analysis]\nR5 --> T5[Composite Properties]\nS5 --> U5[Interface Parameters]\nT5 --> V5[Property Enhancement]\nU5 --> W5[Composite Efficiency]\nV5 --> X5[Composite Characterization]\nW5 --> Y5[Process Optimization]\nX5 --> Z5[Final Composite Material]\nY5 --> Z5\n\n    style A5 fill:#ff6b6b,color:#fff\n    style C5 fill:#ff6b6b,color:#fff\n    style E5 fill:#ff6b6b,color:#fff\n    style B5 fill:#ffd43b,color:#000\n    style D5 fill:#ffd43b,color:#000\n    style F5 fill:#ffd43b,color:#000\n    style G5 fill:#ffd43b,color:#000\n    style H5 fill:#ffd43b,color:#000\n    style I5 fill:#ffd43b,color:#000\n    style J5 fill:#ffd43b,color:#000\n    style K5 fill:#ffd43b,color:#000\n    style L5 fill:#ffd43b,color:#000\n    style M5 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style O5 fill:#51cf66,color:#fff\n    style P5 fill:#51cf66,color:#fff\n    style Q5 fill:#51cf66,color:#fff\n    style R5 fill:#51cf66,color:#fff\n    style S5 fill:#51cf66,color:#fff\n    style T5 fill:#51cf66,color:#fff\n    style U5 fill:#51cf66,color:#fff\n    style V5 fill:#51cf66,color:#fff\n    style W5 fill:#51cf66,color:#fff\n    style X5 fill:#51cf66,color:#fff\n    style Y5 fill:#51cf66,color:#fff\n    style Z5 fill:#b197fc,color:#fff",
+  "name": "Composite Materials",
+  "notes": "Converted from chemistry batch HTML. Process number: 5.",
+  "relatedProcesses": [],
+  "sources": [
+    {
+      "authors": "Welz, G.",
+      "doi": null,
+      "journal": "CopernicusAI Knowledge Engine",
+      "notes": "Chemistry process visualization: Composite Materials. Created using the Programming Framework methodology for process analysis and visualization.",
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "year": "2025"
+    },
+    {
+      "authors": "Qian, H.; Qiu, J.; Zhang, X.",
+      "doi": "10.1021/cr200385g",
+      "journal": "Chem. Rev.",
+      "pubmed": null,
+      "title": "Interfacial engineering of polymer composites: from molecular to macroscopic scales",
+      "url": "https://doi.org/10.1021/cr200385g",
+      "year": "2012"
+    },
+    {
+      "authors": "Prado, L. A. S.; Garcia, E. G. O.; de Lima, A. F.; de Faria, M. B. E. G.; de Lima, S. S. A. G.",
+      "doi": "10.1021/acs.chemrev.9b00171",
+      "journal": "Chem. Rev.",
+      "pubmed": null,
+      "title": "Polymer-Matrix Composites: From Synthesis to Applications",
+      "url": "https://doi.org/10.1021/acs.chemrev.9b00171",
+      "year": "2019"
+    }
+  ],
+  "subcategory": "materials_science",
+  "verified": false
+}

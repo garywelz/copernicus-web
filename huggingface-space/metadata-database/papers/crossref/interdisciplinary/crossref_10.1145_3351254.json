@@ -1,0 +1,33 @@
+{
+  "id": "crossref_10.1145_3351254",
+  "doi": "10.1145/3351254",
+  "title": "Beyond Respiration",
+  "authors": [
+    "Liu, Chen",
+    "Xiong, Jie",
+    "Cai, Lin",
+    "Feng, Lin",
+    "Chen, Xiaojiang",
+    "Fang, Dingyi"
+  ],
+  "author_string": "Liu, Chen, Xiong, Jie, Cai, Lin, Feng, Lin, Chen, Xiaojiang et al.",
+  "journal": "Proceedings of the ACM on Interactive, Mobile, Wearable and Ubiquitous Technologies",
+  "issn": "2474-9567",
+  "issn_type": "electronic",
+  "volume": "3",
+  "issue": "3",
+  "page": "1-22",
+  "year": "2019",
+  "publisher": "Association for Computing Machinery (ACM)",
+  "language": "en",
+  "abstract": "Sleep sound-activities including snore, cough and somniloquy are closely related to sleep quality, sleep disorder and even illnesses. To obtain the information of these activities, current solutions either require the user to wear various sensors/devices, or use the camera/microphone to record the image/sound data. However, many people are reluctant to wear sensors/devices during sleep. The video-based and audio-based approaches raise privacy concerns. In this work, we propose a novel system TagSleep to address the issues mentioned above. For the first time, we propose the concept of two-layer sensing. We employ the respiration sensing information as the basic first-layer information, which is applied to further obtain rich second-layer sensing information including snore, cough and somniloquy. Specifically, without attaching any device to the human body, by just deploying low-cost and flexible RFID tags near to the user, we can accurately obtain the respiration information. What's more interesting, the user's cough, snore and somniloquy all affect his/her respiration, so the fine-grained respiration changes can be used to infer these sleep sound-activities without recording the sound data. We design and implement our system with just three RFID tags and one RFID reader. We evaluate the performance of TagSleep with 30 users (13 males and 17 females) for a period of 2 months. TagSleep is able to achieve higher than 96.58% sensing accuracy in recognizing snore, cough and somniloquy under various sleep postures. TagSleep also boosts the sleep posture recognition accuracy to 98.94%.",
+  "subjects": [],
+  "keywords": [],
+  "article_type": "journal-article",
+  "citation_count": 42,
+  "url": "https://doi.org/10.1145/3351254",
+  "source": "crossref",
+  "acquired_date": "2026-02-03T13:36:34.172710",
+  "category": "interdisciplinary",
+  "subcategories": []
+}

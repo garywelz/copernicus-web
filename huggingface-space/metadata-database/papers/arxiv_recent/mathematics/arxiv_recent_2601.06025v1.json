@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2601.06025v1",
+  "arxiv_id": "2601.06025v1",
+  "title": "Manifold limit for the training of shallow graph convolutional neural networks",
+  "authors": [
+    "Johanna Tengler",
+    "Christoph Brune",
+    "José A. Iglesias"
+  ],
+  "author_string": "Johanna Tengler, Christoph Brune, José A. Iglesias",
+  "journal": "arXiv:2601.06025v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We study the discrete-to-continuum consistency of the training of shallow graph convolutional neural networks (GCNNs) on proximity graphs of sampled point clouds under a manifold assumption. Graph convolution is defined spectrally via the graph Laplacian, whose low-frequency spectrum approximates that of the Laplace-Beltrami operator of the underlying smooth manifold, and shallow GCNNs of possibly infinite width are linear functionals on the space of measures on the parameter space. From this functional-analytic perspective, graph signals are seen as spatial discretizations of functions on the manifold, which leads to a natural notion of training data consistent across graph resolutions. To enable convergence results, the continuum parameter space is chosen as a weakly compact product of unit balls, with Sobolev regularity imposed on the output weight and bias, but not on the convolutional parameter. The corresponding discrete parameter spaces inherit the corresponding spectral decay, and are additionally restricted by a frequency cutoff adapted to the informative spectral window of the graph Laplacians. Under these assumptions, we prove $Γ$-convergence of regularized empirical risk minimization functionals and corresponding convergence of their global minimizers, in the sense of weak convergence of the parameter measures and uniform convergence of the functions over compact sets. This provides a formalization of mesh and sample independence for the training of such networks.",
+  "categories": [
+    "stat.ML",
+    "cs.LG",
+    "math.FA",
+    "math.OC"
+  ],
+  "primary_category": "math.OC",
+  "comment": "44 pages, 0 figures, 1 table",
+  "published_date": "2026-01-09T18:59:20Z",
+  "updated_date": "2026-01-09T18:59:20Z",
+  "url": "https://arxiv.org/abs/2601.06025v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.06025v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:18.742658",
+  "category": "mathematics",
+  "subcategories": [
+    "stat.ML",
+    "cs.LG",
+    "math.FA"
+  ]
+}

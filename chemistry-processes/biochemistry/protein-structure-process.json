@@ -1,0 +1,43 @@
+{
+  "id": "protein-structure-process",
+  "title": "Protein Structure Process",
+  "description": "Chemistry process: Protein Structure Process",
+  "category": "chemistry",
+  "subcategory": "biochemistry",
+  "mermaid": "graph TD\n    A3[Amino Acid Sequence] --> B3[Protein Structure Method]\n    C3[Primary Structure] --> D3[Secondary Structure]\n    E3[Tertiary Structure] --> F3[Protein Structure Analysis]\n    \n    B3 --> G3[X Ray Crystallography]\n    D3 --> H3[NMR Spectroscopy]\n    F3 --> I3[Cryo EM]\n    \n    G3 --> J3[Alpha Helix]\n    H3 --> K3[Beta Sheet]\n    I3 --> L3[Protein Folding]\n    \n    J3 --> M3[Disulfide Bonds]\n    K3 --> L3\n    L3 --> N3[Hydrophobic Core]\n    \n    M3 --> O3[Quaternary Structure]\n    N3 --> P3[Protein Function]\n    O3 --> Q3[Protein Structure Process]\n    \n    P3 --> R3[Protein Structure Validation]\n    Q3 --> S3[Protein Structure Verification]\n    R3 --> T3[Protein Structure Result]\n    \n    S3 --> U3[Protein Structure Analysis]\n    T3 --> V3[Protein Structure Parameters]\n    U3 --> W3[Protein Structure Output]\n    \n    V3 --> X3[Protein Structure Analysis]\n    W3 --> Y3[Protein Structure Final Result]\n    X3 --> Z3[Protein Structure Complete]\n    \n    style A3 fill:#ff6b6b,color:#fff\n    style C3 fill:#ff6b6b,color:#fff\n    style E3 fill:#ff6b6b,color:#fff\n    \n    style B3 fill:#ffd43b,color:#000\n    style D3 fill:#ffd43b,color:#000\n    style F3 fill:#ffd43b,color:#000\n    style G3 fill:#ffd43b,color:#000\n    style H3 fill:#ffd43b,color:#000\n    style I3 fill:#ffd43b,color:#000\n    style J3 fill:#ffd43b,color:#000\n    style K3 fill:#ffd43b,color:#000\n    style L3 fill:#ffd43b,color:#000\n    style M3 fill:#ffd43b,color:#000\n    style N3 fill:#ffd43b,color:#000\n    style O3 fill:#ffd43b,color:#000\n    style P3 fill:#ffd43b,color:#000\n    style Q3 fill:#ffd43b,color:#000\n    style R3 fill:#ffd43b,color:#000\n    style S3 fill:#ffd43b,color:#000\n    style T3 fill:#ffd43b,color:#000\n    style U3 fill:#ffd43b,color:#000\n    style V3 fill:#ffd43b,color:#000\n    style W3 fill:#ffd43b,color:#000\n    style X3 fill:#ffd43b,color:#000\n    style Y3 fill:#ffd43b,color:#000\n    style Z3 fill:#ffd43b,color:#000\n    \n    style M3 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style O3 fill:#51cf66,color:#fff\n    style P3 fill:#51cf66,color:#fff\n    style Q3 fill:#51cf66,color:#fff\n    style R3 fill:#51cf66,color:#fff\n    style S3 fill:#51cf66,color:#fff\n    style T3 fill:#51cf66,color:#fff\n    style U3 fill:#51cf66,color:#fff\n    style V3 fill:#51cf66,color:#fff\n    style W3 fill:#51cf66,color:#fff\n    style X3 fill:#51cf66,color:#fff\n    style Y3 fill:#51cf66,color:#fff\n    style Z3 fill:#51cf66,color:#fff\n    \n    style Z3 fill:#b197fc,color:#fff",
+  "entities": [
+    "Amino Acid Sequence",
+    "Protein Structure Method",
+    "Primary Structure",
+    "Secondary Structure",
+    "Tertiary Structure",
+    "Protein Structure Analysis",
+    "X Ray Crystallography",
+    "NMR Spectroscopy",
+    "Cryo EM",
+    "Alpha Helix",
+    "Beta Sheet",
+    "Protein Folding",
+    "Disulfide Bonds",
+    "Hydrophobic Core",
+    "Quaternary Structure",
+    "Protein Function",
+    "Protein Structure Process",
+    "Protein Structure Validation",
+    "Protein Structure Verification",
+    "Protein Structure Result",
+    "Protein Structure Parameters",
+    "Protein Structure Output",
+    "Protein Structure Final Result",
+    "Protein Structure Complete"
+  ],
+  "metadata": {
+    "source": "programming_framework",
+    "batch": "batch_05",
+    "batch_number": 5,
+    "batch_title": "Chemistry Batch 05 - Biochemistry - Programming Framework Analysis",
+    "color_scheme": "discipline_based",
+    "node_count": 24,
+    "complexity": "medium"
+  }
+}

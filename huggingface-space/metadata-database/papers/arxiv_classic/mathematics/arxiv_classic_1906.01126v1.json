@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_1906.01126v1",
+  "arxiv_id": "1906.01126v1",
+  "title": "Sequential Triggers for Watermarking of Deep Reinforcement Learning Policies",
+  "authors": [
+    "Vahid Behzadan",
+    "William Hsu"
+  ],
+  "author_string": "Vahid Behzadan, William Hsu",
+  "journal": "arXiv:1906.01126v1",
+  "journal_ref": null,
+  "year": "2019",
+  "doi": null,
+  "abstract": "This paper proposes a novel scheme for the watermarking of Deep Reinforcement Learning (DRL) policies. This scheme provides a mechanism for the integration of a unique identifier within the policy in the form of its response to a designated sequence of state transitions, while incurring minimal impact on the nominal performance of the policy. The applications of this watermarking scheme include detection of unauthorized replications of proprietary policies, as well as enabling the graceful interruption or termination of DRL activities by authorized entities. We demonstrate the feasibility of our proposal via experimental evaluation of watermarking a DQN policy trained in the Cartpole environment.",
+  "categories": [
+    "cs.LG",
+    "cs.AI",
+    "cs.CR",
+    "stat.ML"
+  ],
+  "primary_category": "stat.ML",
+  "comment": null,
+  "published_date": "2019-06-03T23:42:44Z",
+  "updated_date": "2019-06-03T23:42:44Z",
+  "url": "https://arxiv.org/abs/1906.01126v1",
+  "pdf_url": "https://arxiv.org/pdf/1906.01126v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:23.479032",
+  "category": "mathematics",
+  "subcategories": [
+    "cs.LG",
+    "cs.AI",
+    "cs.CR"
+  ]
+}

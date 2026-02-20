@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2601.06622v1",
+  "arxiv_id": "2601.06622v1",
+  "title": "Inexact DC Algorithms in Hilbert Spaces with Applications to PDE-Constrained Optimization",
+  "authors": [
+    "P. D. Khanh",
+    "V. V. H. Khoa",
+    "B. S. Mordukhovich",
+    "D. B. Tran",
+    "N. V. Vo"
+  ],
+  "author_string": "P. D. Khanh, V. V. H. Khoa, B. S. Mordukhovich, D. B. Tran, N. V. Vo",
+  "journal": "arXiv:2601.06622v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "In this paper, we design and apply novel inexact adaptive algorithms to deal with minimizing difference-of-convex (DC) functions in Hilbert spaces. We first introduce I-ADCA, an inexact adaptive counterpart of the well-recognized DCA (difference-of-convex algorithm), that allows inexact subgradient evaluations and inexact solutions to convex subproblems while still guarantees global convergence to stationary points. Under a Polyak-Lojasiewicz type property for DC objectives, we obtain explicit convergence rates for the proposed algorithm. Our main application addresses elliptic optimal control problems with control constraints and nonconvex $L^{1-2}$ sparsity-enhanced regularizers admitting a DC decomposition. Employing I-ADCA and appropriate versions of finite element discretization leads us to an efficient procedure for solving such problems with establishing its well-posedness and error bound estimates confirmed by numerical experiments.",
+  "categories": [
+    "math.OC"
+  ],
+  "primary_category": "math.OC",
+  "comment": null,
+  "published_date": "2026-01-10T17:06:24Z",
+  "updated_date": "2026-01-10T17:06:24Z",
+  "url": "https://arxiv.org/abs/2601.06622v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.06622v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:18.736983",
+  "category": "mathematics",
+  "subcategories": [
+    "math.OC"
+  ]
+}

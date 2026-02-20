@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_1904.07687v4",
+  "arxiv_id": "1904.07687v4",
+  "title": "Advanced Customer Activity Prediction based on Deep Hierarchic Encoder-Decoders",
+  "authors": [
+    "Andrei Damian",
+    "Laurentiu Piciu",
+    "Sergiu Turlea",
+    "Nicolae Tapus"
+  ],
+  "author_string": "Andrei Damian, Laurentiu Piciu, Sergiu Turlea, Nicolae Tapus",
+  "journal": "arXiv:1904.07687v4",
+  "journal_ref": null,
+  "year": "2019",
+  "doi": null,
+  "abstract": "Product recommender systems and customer profiling techniques have always been a priority in online retail. Recent machine learning research advances and also wide availability of massive parallel numerical computing has enabled various approaches and directions of recommender systems advancement. Worth to mention is the fact that in past years multiple traditional \"offline\" retail business are gearing more and more towards employing inferential and even predictive analytics both to stock-related problems such as predictive replenishment but also to enrich customer interaction experience. One of the most important areas of recommender systems research and development is that of Deep Learning based models which employ representational learning to model consumer behavioral patterns. Current state of the art in Deep Learning based recommender systems uses multiple approaches ranging from already classical methods such as the ones based on learning product representation vector, to recurrent analysis of customer transactional time-series and up to generative models based on adversarial training. Each of these methods has multiple advantages and inherent weaknesses such as inability of understanding the actual user-journey, ability to propose only single product recommendation or top-k product recommendations without prediction of actual next-best-offer. In our work we will present a new and innovative architectural approach of applying state-of-the-art hierarchical multi-module encoder-decoder architecture in order to solve several of current state-of-the-art recommender systems issues. Our approach will also produce by-products such as product need-based segmentation and customer behavioral segmentation - all in an end-to-end trainable approach. Finally, we will present a couple methods that solve known retail & distribution pain-points based on the proposed architecture.",
+  "categories": [
+    "cs.IR",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": "2019 22nd International Conference on Control Systems and Computer Science (CSCS)",
+  "published_date": "2019-04-11T18:15:33Z",
+  "updated_date": "2019-06-21T17:03:21Z",
+  "url": "https://arxiv.org/abs/1904.07687v4",
+  "pdf_url": "https://arxiv.org/pdf/1904.07687v4.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:19.480340",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.IR",
+    "cs.LG"
+  ]
+}

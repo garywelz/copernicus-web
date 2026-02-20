@@ -35,7 +35,7 @@ The Science Video Database serves as a **multi-modal content component** of the 
 - **Video Content Integration:** Enables video-based learning and research content discovery
 - **Transcript Search:** Searchable transcripts support research discovery and content linking
 - **Multi-Modal Learning:** Complements text-based (podcasts) and visual (GLMP) content
-- **Knowledge Engine Dashboard Integration** (✅ Implemented December 2025) - Video content accessible through unified dashboard with knowledge graph visualization, vector search, and RAG queries. Live at: https://copernicus-frontend-phzp4ie2sq-uc.a.run.app/knowledge-engine
+- **Research Tools Dashboard Integration** (✅ Implemented December 2025) - Video content accessible through unified dashboard with knowledge graph visualization, vector search, and RAG queries. Live at: https://copernicus-frontend-phzp4ie2sq-uc.a.run.app/knowledge-engine
 - **Research Paper Linking:** Integration with Research Paper Metadata Database (12,000+ papers indexed)
 - **AI Podcast Enhancement:** Can provide video sources for podcast generation
 
@@ -99,7 +99,7 @@ A curated search experience for technical science enthusiasts, featuring:
 
 ## 🔗 Related Projects
 
-- [Copernicus AI](https://huggingface.co/spaces/garywelz/copernicusai) - Main knowledge engine that can integrate video content
+- [CopernicusAI](https://huggingface.co/spaces/garywelz/copernicusai) - Main knowledge engine that can integrate video content
 - [Research Paper Metadata Database](https://huggingface.co/spaces/garywelz/metadata_database) - Potential integration for linking videos to papers
 - [GLMP](https://huggingface.co/spaces/garywelz/glmp) - Biological process visualization that could link to related videos
 - [Programming Framework](https://huggingface.co/spaces/garywelz/programming_framework) - Process analysis tool that could utilize video content
@@ -129,7 +129,7 @@ The Science Video Database is designed as infrastructure for AI-assisted science
 
 ---
 
-**Part of the Copernicus AI Knowledge Engine**
+**Part of the CopernicusAI Knowledge Engine**
 
 © 2025 Gary Welz. All rights reserved.
 

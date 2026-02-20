@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2005.13095v1",
+  "arxiv_id": "2005.13095v1",
+  "title": "Identifying Vulnerabilities of Industrial Control Systems using Evolutionary Multiobjective Optimisation",
+  "authors": [
+    "Nilufer Tuptuk",
+    "Stephen Hailes"
+  ],
+  "author_string": "Nilufer Tuptuk, Stephen Hailes",
+  "journal": "arXiv:2005.13095v1",
+  "journal_ref": null,
+  "year": "2020",
+  "doi": null,
+  "abstract": "In this paper we propose a novel methodology to assist in identifying vulnerabilities in a real-world complex heterogeneous industrial control systems (ICS) using two evolutionary multiobjective optimisation (EMO) algorithms, NSGA-II and SPEA2. Our approach is evaluated on a well known benchmark chemical plant simulator, the Tennessee Eastman (TE) process model. We identified vulnerabilities in individual components of the TE model and then made use of these to generate combinatorial attacks to damage the safety of the system, and to cause economic loss. Results were compared against random attacks, and the performance of the EMO algorithms were evaluated using hypervolume, spread and inverted generational distance (IGD) metrics. A defence against these attacks in the form of a novel intrusion detection system was developed, using a number of machine learning algorithms. Designed approach was further tested against the developed detection methods. Results demonstrate that EMO algorithms are a promising tool in the identification of the most vulnerable components of ICS, and weaknesses of any existing detection systems in place to protect the system. The proposed approach can be used by control and security engineers to design security aware control, and test the effectiveness of security mechanisms, both during design, and later during system operation.",
+  "categories": [
+    "cs.CR",
+    "cs.NE"
+  ],
+  "primary_category": "cs.NE",
+  "comment": "25 pages",
+  "published_date": "2020-05-27T00:22:48Z",
+  "updated_date": "2020-05-27T00:22:48Z",
+  "url": "https://arxiv.org/abs/2005.13095v1",
+  "pdf_url": "https://arxiv.org/pdf/2005.13095v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:27.413747",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CR",
+    "cs.NE"
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2012.09148v1",
+  "arxiv_id": "2012.09148v1",
+  "title": "A ROM-accelerated parallel-in-time preconditioner for solving all-at-once systems from evolutionary PDEs",
+  "authors": [
+    "Jun Liu",
+    "Zhu Wang"
+  ],
+  "author_string": "Jun Liu, Zhu Wang",
+  "journal": "arXiv:2012.09148v1",
+  "journal_ref": null,
+  "year": "2020",
+  "doi": null,
+  "abstract": "In this paper we propose to use model reduction techniques for speeding up the diagonalization-based parallel-in-time (ParaDIAG) preconditioner, for iteratively solving all-at-once systems from evolutionary PDEs. In particular, we use the reduced basis method to seek a low-dimensional approximation to the sequence of complex-shifted systems arising from Step-(b) of the ParaDIAG preconditioning procedure. Different from the standard reduced order modeling that uses the separation of offline and online stages, we have to build the reduced order model (ROM) online for the considered systems at each iteration. Therefore, several heuristic acceleration techniques are introduced in the greedy basis generation algorithm, that is built upon a residual-based error indicator, to further boost up its computational efficiency. Several numerical experiments are conducted, which illustrate the favorable computational efficiency of our proposed ROM-accelerated ParaDIAG preconditioner, in comparison with the state of the art multigrid-based ParaDIAG preconditioner.",
+  "categories": [
+    "math.NA",
+    "math.DS"
+  ],
+  "primary_category": "math.DS",
+  "comment": null,
+  "published_date": "2020-12-16T18:37:13Z",
+  "updated_date": "2020-12-16T18:37:13Z",
+  "url": "https://arxiv.org/abs/2012.09148v1",
+  "pdf_url": "https://arxiv.org/pdf/2012.09148v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:30:48.648623",
+  "category": "mathematics",
+  "subcategories": [
+    "math.NA",
+    "math.DS"
+  ]
+}

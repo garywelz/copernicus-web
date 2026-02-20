@@ -1,0 +1,30 @@
+{
+  "id": "crossref_10.3390_e27090959",
+  "doi": "10.3390/e27090959",
+  "title": "Reconstructing Hyperspectral Images from RGB Images by Multi-Scale Spectral–Spatial Sequence Learning",
+  "authors": [
+    "Chen, Wenjing",
+    "Liu, Lang",
+    "Gao, Rong"
+  ],
+  "author_string": "Chen, Wenjing, Liu, Lang, Gao, Rong",
+  "journal": "Entropy",
+  "issn": "1099-4300",
+  "issn_type": "electronic",
+  "volume": "27",
+  "issue": "9",
+  "page": "959",
+  "year": "2025",
+  "publisher": "MDPI AG",
+  "language": "en",
+  "abstract": "With rapid advancements in transformers, the reconstruction of hyperspectral images from RGB images, also known as spectral super-resolution (SSR), has made significant breakthroughs. However, existing transformer-based methods often struggle to balance computational efficiency with long-range receptive fields. Recently, Mamba has demonstrated linear complexity in modeling long-range dependencies and shown broad applicability in vision tasks. This paper proposes a multi-scale spectral–spatial sequence learning method, named MSS-Mamba, for reconstructing hyperspectral images from RGB images. First, we introduce a continuous spectral–spatial scan (CS3) mechanism to improve cross-dimensional feature extraction of the foundational Mamba model. Second, we propose a sequence tokenization strategy that generates multi-scale-aware sequences to overcome Mamba’s limitations in hierarchically learning multi-scale information. Specifically, we design the multi-scale information fusion (MIF) module, which tokenizes input sequences before feeding them into Mamba. The MIF employs a dual-branch architecture to process global and local information separately, dynamically fusing features through an adaptive router that generates weighting coefficients. This produces feature maps that contain both global contextual information and local details, ultimately reconstructing a high-fidelity hyperspectral image. Experimental results on the ARAD_1k, CAVE and grss_dfc_2018 dataset demonstrate the performance of MSS-Mamba.",
+  "subjects": [],
+  "keywords": [],
+  "article_type": "journal-article",
+  "citation_count": 2,
+  "url": "https://doi.org/10.3390/e27090959",
+  "source": "crossref",
+  "acquired_date": "2026-02-03T13:07:03.620626",
+  "category": "interdisciplinary",
+  "subcategories": []
+}

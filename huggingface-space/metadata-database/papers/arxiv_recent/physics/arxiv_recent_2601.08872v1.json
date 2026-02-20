@@ -1,0 +1,38 @@
+{
+  "id": "arxiv_2601.08872v1",
+  "arxiv_id": "2601.08872v1",
+  "title": "Explainable Galaxy Interaction Prediction with Hybrid Attention Mechanisms",
+  "authors": [
+    "Sathwik Narkedimilli",
+    "Satvik Raghav",
+    "Om Mishra",
+    "Mohan Kumar",
+    "Aswath Babu H",
+    "Tereza Jerabkova",
+    "Manish M",
+    "Sai Prashanth Mallellu"
+  ],
+  "author_string": "Sathwik Narkedimilli, Satvik Raghav, Om Mishra, Mohan Kumar, Aswath Babu H et al.",
+  "journal": "arXiv:2601.08872v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Galaxy interaction classification remains challenging due to complex morphological patterns and the limited interpretability of deep learning models. We propose an attentive neural ensemble that combines AG-XCaps, H-SNN, and ResNet-GRU architectures, trained on the Galaxy Zoo DESI dataset and enhanced with LIME to enable explainable predictions. The model achieves Precision = 0.95, Recall = 1.00, F1 = 0.97, and Accuracy = 96%, outperforming a Random Forest baseline by significantly reducing false positives (23 vs. 70). This lightweight (0.45 MB) and scalable framework provides an interpretable and efficient solution for large-scale surveys such as Euclid and LSST, advancing data-driven studies of galaxy evolution.",
+  "categories": [
+    "astro-ph.IM",
+    "astro-ph.GA"
+  ],
+  "primary_category": "astro-ph.GA",
+  "comment": "7 pages, 16 figures",
+  "published_date": "2026-01-12T02:54:44Z",
+  "updated_date": "2026-01-12T02:54:44Z",
+  "url": "https://arxiv.org/abs/2601.08872v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.08872v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:35.457895",
+  "category": "physics",
+  "subcategories": [
+    "astro-ph.IM",
+    "astro-ph.GA"
+  ]
+}

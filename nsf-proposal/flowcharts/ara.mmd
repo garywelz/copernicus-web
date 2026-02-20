@@ -1,0 +1,22 @@
+graph TD
+    A[L-Arabinose in Medium] --> B[Arabinose Transport]
+    C[Glucose Status] --> D[cAMP Levels]
+    B --> E[AraE Transporter]
+    E --> F[Arabinose Inside Cell]
+    F --> G{Arabinose Present}
+    G -->|No| H[AraC Apo-form]
+    H --> I[AraC Dimer]
+    I --> J[AraC Binds araO2 and araI1]
+    J --> K[DNA Loop Formation]
+    K --> L[Promoter Occluded]
+    L --> M[Transcription Repressed]
+    M --> N[No ara Gene Expression]
+    N --> O[Basal State]
+    G -->|Yes| P[Arabinose Binds AraC]
+    P --> Q[AraC Conformational Change]
+    Q --> R[DNA Loop Breaks]
+    R --> S[AraC Releases araO2]
+    S --> T[AraC Binds araI1 and araI2]
+    T --> U[AraC as Activator]
+    D --> V{High cAMP}
+    U --> ANDGATE1{AraC-Ara Active AND CRP-cAMP Present}

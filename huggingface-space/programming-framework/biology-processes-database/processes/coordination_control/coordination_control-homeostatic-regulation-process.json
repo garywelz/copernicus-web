@@ -1,0 +1,94 @@
+{
+  "id": "coordination_control-homeostatic-regulation-process",
+  "name": "Homeostatic Regulation Process",
+  "category": "biology",
+  "subcategory": "coordination_control",
+  "subcategory_name": "Coordination & Control",
+  "organism": "Animals",
+  "description": "Homeostatic Regulation Process in Animals. This process represents a higher-level biological mechanism distinct from molecular/biochemical processes covered in GLMP.",
+  "complexity": {
+    "nodes": 7,
+    "edges": 8,
+    "conditionals": 1,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "low",
+    "detailLevel": "low"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\n    A52[Parameter Measurement] --> B52[Set Point Comparison]\n    B52 --> C52{Deviation?}\n    C52 -->|Yes| D52[Control System Activation]\n    C52 -->|No| E52[Maintenance]\n    D52 --> F52[Effector Response]\n    F52 --> G52[Parameter Correction]\n    G52 --> A52\n    E52 --> A52\n    \n    style A52 fill:#ff6b6b,color:#fff\n    style B52 fill:#ffd43b,color:#000\n    style C52 fill:#74c0fc,color:#fff\n    style D52 fill:#51cf66,color:#fff\n    style E52 fill:#b197fc,color:#fff\n    style F52 fill:#51cf66,color:#fff\n    style G52 fill:#74c0fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "notes": "Higher-level biological process visualization: Homeostatic Regulation Process. Created using the Programming Framework methodology for organismal and ecological process analysis."
+    },
+    {
+      "title": "Organization for physiological homeostasis",
+      "authors": "Cannon, WB.",
+      "journal": "Physiol Rev.",
+      "year": "1929",
+      "pubmed": null,
+      "doi": "10.1152/physrev.1929.9.3.399",
+      "url": "https://doi.org/10.1152/physrev.1929.9.3.399"
+    },
+    {
+      "title": "Central nervous system control of food intake",
+      "authors": "Schwartz, MW.; Woods, SC.; Porte, D Jr.; Seeley, RJ.; Baskin, DG.",
+      "journal": "Nature",
+      "year": "2000",
+      "pubmed": "10766245",
+      "doi": "10.1038/35007563",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/10766245"
+    },
+    {
+      "title": "Physiological Homeostasis: The Origin and Modern Interpretation of the Word 'Homeostasis'",
+      "authors": "Tansey, EA.",
+      "journal": "Annu Rev Physiol.",
+      "year": "2016",
+      "pubmed": "26867010",
+      "doi": "10.1146/annurev-physiol-021016-034139",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/26867010"
+    }
+  ],
+  "keywords": [
+    "control",
+    "animals",
+    "homeostatic",
+    "regulation",
+    "process",
+    "coordination"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-08",
+  "verified": false,
+  "notes": "Higher-level biological process. GLMP covers biochemical/molecular processes; this database covers organismal/ecological processes."
+}

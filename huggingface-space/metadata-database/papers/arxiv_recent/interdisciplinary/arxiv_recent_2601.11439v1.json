@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2601.11439v1",
+  "arxiv_id": "2601.11439v1",
+  "title": "Projection-based discrete-time consensus on the unit sphere",
+  "authors": [
+    "Johan Thunberg",
+    "Galina Sidorenko"
+  ],
+  "author_string": "Johan Thunberg, Galina Sidorenko",
+  "journal": "arXiv:2601.11439v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We address discrete-time consensus on the Euclidean unit sphere. For this purpose we consider a distributed algorithm comprising the iterative projection of a conical combination of neighboring states. Neighborhoods are represented by a strongly connected directed graph, and the conical combinations are represented by a (non-negative) weight matrix with a zero structure corresponding to the graph. A first result mirrors earlier results for gradient flows. Under the assumptions that each diagonal element of the weight matrix is more than $\\sqrt{2}$ larger than the sum of the other elements in the corresponding row, the sphere dimension is greater or equal to 2, and the graph, as well as the weight matrix, is symmetric, we show that the algorithm comprises gradient ascent, stable fixed points are consensus points, and the set of initial points for which the algorithm converges to a non-consensus fixed point has measure zero. The second result is that for the unit circle and a strongly connected graph or for any unit sphere with dimension greater than or equal to $1$ and the complete graph, only for a measure zero set of weight matrices there are fixed points for the algorithm which do not have consensus or antipodal configurations.",
+  "categories": [
+    "math.OC",
+    "eess.SY"
+  ],
+  "primary_category": "eess.SY",
+  "comment": "14 pages including appendix, 0 figures",
+  "published_date": "2026-01-16T17:01:27Z",
+  "updated_date": "2026-01-16T17:01:27Z",
+  "url": "https://arxiv.org/abs/2601.11439v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11439v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:38.714530",
+  "category": "interdisciplinary",
+  "subcategories": [
+    "math.OC",
+    "eess.SY"
+  ]
+}

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recursive Function Definition - Mathematics Process</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .mermaid-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="gradient-bg text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="text-center">
+                <div class="text-4xl mb-4">🔢</div>
+                <h1 class="text-4xl font-bold mb-4">Recursive Function Definition</h1>
+                <p class="text-lg opacity-90">Mathematics Process Visualization</p>
+                <div class="mt-4">
+                    <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/math-processes-database/mathematics-database-table.html" 
+                       class="text-white hover:text-gray-200 underline">
+                        ← Back to Mathematics Processes Database
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Process Information -->
+        <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">Process Information</h2>
+            
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                <div>
+                    <h3 class="font-semibold text-gray-800 mb-2">Category</h3>
+                    <p class="text-gray-600">mathematics</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-800 mb-2">Subcategory</h3>
+                    <p class="text-gray-600">Computability Theory</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-800 mb-2">Complexity</h3>
+                    <p class="text-gray-600">low</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-800 mb-2">Nodes</h3>
+                    <p class="text-gray-600">17</p>
+                </div>
+            </div>
+            
+            <div class="mb-6"><h3 class="font-semibold text-gray-800 mb-2">Description</h3><p class="text-gray-600">Define functions using recursion</p></div>
+            
+            <div class="mb-6">
+                <h3 class="font-semibold text-gray-800 mb-2">Source Information</h3>
+                <p class="text-gray-600">Source information to be added - please specify the book, paper, or reference material used by the LLM to generate this flowchart.</p>
+                
+            </div>
+        </div>
+
+        <!-- Flowchart Visualization -->
+        <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">Process Flowchart</h2>
+            <div class="mermaid-container">
+                <div class="mermaid">
+graph TD
+A1[Start: Initial Problem Definition]
+B1[B1: Identify Recursive Structure]
+C1[C1: Define Base Case(s)]
+D1[D1: Formulate Recursive Step(s)]
+E1[E1: Check for Termination Condition] F1{F1: Base Case Reached?} G1[G1: Return Base Case Value]
+H1[H1: Apply Recursive Step]
+I1[I1: Update Input for Recursive Call]
+J1[J1: Call Function Recursively]
+K1[K1: Combine Results from Recursive Calls]
+L1[L1: Return Combined Result]
+M1[M1: Test Function with Examples] N1{N1: All Tests Pass?} O1[O1: Function Definition Complete]
+P1[P1: Refine Base Case(s) or Recursive Step(s)]
+Q1[Q1: Analyze Time/Space Complexity] R1{R1: Complexity Acceptable?} S1[S1: Optimize Algorithm]
+Z1[End]
+
+A1 --&gt; B1
+B1 --&gt; C1
+C1 --&gt; D1
+D1 --&gt; E1
+E1 --&gt; F1
+F1 -- Yes --&gt; G1
+F1 -- No --&gt; H1
+H1 --&gt; I1
+I1 --&gt; J1
+J1 --&gt; E1
+G1 --&gt; K1
+K1 --&gt; L1
+L1 --&gt; M1
+M1 --&gt; N1
+N1 -- Yes --&gt; Q1
+N1 -- No --&gt; P1
+P1 --&gt; C1
+Q1 --&gt; R1
+R1 -- Yes --&gt; O1
+R1 -- No --&gt; S1
+S1 --&gt; B1
+O1 --&gt; Z1
+
+style A1 fill:#ff6b6b,color:#FFFFFF
+style B1 fill:#ffd43b,color:#000000
+style C1 fill:#51cf66,color:#FFFFFF
+style D1 fill:#51cf66,color:#FFFFFF
+style E1 fill:#ffd43b,color:#000000
+style F1 fill:#ffd43b,color:#000000
+style G1 fill:#b197fc,color:#FFFFFF
+style H1 fill:#51cf66,color:#FFFFFF
+style I1 fill:#74c0fc,color:#FFFFFF
+style J1 fill:#74c0fc,color:#FFFFFF
+style K1 fill:#51cf66,color:#FFFFFF
+style L1 fill:#b197fc,color:#FFFFFF
+style M1 fill:#51cf66,color:#FFFFFF
+style N1 fill:#ffd43b,color:#000000
+style O1 fill:#b197fc,color:#FFFFFF
+style P1 fill:#51cf66,color:#FFFFFF
+style Q1 fill:#51cf66,color:#FFFFFF
+style R1 fill:#ffd43b,color:#000000
+style S1 fill:#51cf66,color:#FFFFFF
+style Z1 fill:#b197fc,color:#FFFFFF
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Entities/Concepts -->
+        <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">Key Concepts</h2>
+            <div class="flex flex-wrap gap-2">
+                <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Start: Initial Problem Definition</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">B1: Identify Recursive Structure</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">C1: Define Base Case(s</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">D1: Formulate Recursive Step(s</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">E1: Check for Termination Condition</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">F1: Base Case Reached?} G1[G1: Return Base Case Value</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">H1: Apply Recursive Step</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">I1: Update Input for Recursive Call</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">J1: Call Function Recursively</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">K1: Combine Results from Recursive Calls</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">L1: Return Combined Result</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">M1: Test Function with Examples</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">N1: All Tests Pass?} O1[O1: Function Definition Complete</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">P1: Refine Base Case(s) or Recursive Step(s</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Q1: Analyze Time/Space Complexity</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">R1: Complexity Acceptable?} S1[S1: Optimize Algorithm</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">End</span>
+            </div>
+        </div>
+
+        <!-- Suggestion Box -->
+        <div class="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl shadow-lg p-8 mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">💡 Suggest Improvements</h2>
+            <p class="text-gray-700 mb-4">
+                Have suggestions for improving this process visualization? Found an error or want to add more detail? 
+                We'd love to hear from you!
+            </p>
+            <a href="https://forms.gle/YOUR_FORM_ID" 
+               target="_blank"
+               class="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition text-lg font-medium">
+                Suggest Improvements →
+            </a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-sm opacity-75">Part of the Copernicus AI Knowledge Engine</p>
+            <p class="text-xs opacity-50 mt-2">&copy; 2025 Gary Welz. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        mermaid.initialize({ startOnLoad: true, theme: 'default' });
+    </script>
+</body>
+</html>

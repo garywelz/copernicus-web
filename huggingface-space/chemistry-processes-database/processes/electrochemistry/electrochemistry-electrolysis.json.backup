@@ -1,0 +1,88 @@
+{
+  "category": "chemistry",
+  "colorScheme": {
+    "blue": {
+      "category": "Intermediates & States",
+      "hex": "#74c0fc"
+    },
+    "green": {
+      "category": "Processing & Operations",
+      "hex": "#51cf66"
+    },
+    "red": {
+      "category": "Triggers & Inputs",
+      "hex": "#ff6b6b"
+    },
+    "violet": {
+      "category": "Products & Outputs",
+      "hex": "#b197fc"
+    },
+    "yellow": {
+      "category": "Structures & Objects",
+      "hex": "#ffd43b"
+    }
+  },
+  "complexity": {
+    "conditionals": 0,
+    "detailLevel": "medium",
+    "edges": 25,
+    "level": "medium",
+    "logicGates": {
+      "andGates": 0,
+      "orGates": 27,
+      "total": 27
+    },
+    "nodes": 26
+  },
+  "created": "2026-01-08",
+  "description": "Electrolysis process showing water splitting, gas evolution, and product separation.",
+  "id": "electrochemistry-electrolysis",
+  "keywords": [
+    "electrolysis"
+  ],
+  "lastUpdated": "2026-01-08",
+  "mermaid": "graph TD\nA5[Electrolyte Solution] --> B5[Electrolysis Method]\nC5[Electrodes] --> D5[Power Source]\nE5[Reaction Vessel] --> F5[Temperature Control]\nB5 --> G5[Solution Preparation]\nD5 --> H5[Voltage Application]\nF5 --> I5[Heat Management]\nG5 --> J5[Concentration Setup]\nH5 --> K5[Current Flow]\nI5 --> L5[Thermal Regulation]\nJ5 --> M5[Ion Separation]\nK5 --> L5\nL5 --> N5[Electrochemical Reaction]\nM5 --> O5[Oxidation Process]\nN5 --> P5[Reduction Process]\nO5 --> Q5[Gas Evolution]\nP5 --> R5[Product Formation]\nQ5 --> S5[Collection System]\nR5 --> T5[Separation Process]\nS5 --> U5[Gas Purification]\nT5 --> V5[Product Recovery]\nU5 --> W5[Quality Control]\nV5 --> X5[Yield Calculation]\nW5 --> Y5[Process Optimization]\nX5 --> Z5[Final Products]\nY5 --> Z5\n\n    style A5 fill:#ff6b6b,color:#fff\n    style C5 fill:#ff6b6b,color:#fff\n    style E5 fill:#ff6b6b,color:#fff\n    style B5 fill:#ffd43b,color:#000\n    style D5 fill:#ffd43b,color:#000\n    style F5 fill:#ffd43b,color:#000\n    style G5 fill:#ffd43b,color:#000\n    style H5 fill:#ffd43b,color:#000\n    style I5 fill:#ffd43b,color:#000\n    style J5 fill:#ffd43b,color:#000\n    style K5 fill:#ffd43b,color:#000\n    style L5 fill:#ffd43b,color:#000\n    style M5 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style O5 fill:#51cf66,color:#fff\n    style P5 fill:#51cf66,color:#fff\n    style Q5 fill:#51cf66,color:#fff\n    style R5 fill:#51cf66,color:#fff\n    style S5 fill:#51cf66,color:#fff\n    style T5 fill:#51cf66,color:#fff\n    style U5 fill:#51cf66,color:#fff\n    style V5 fill:#51cf66,color:#fff\n    style W5 fill:#51cf66,color:#fff\n    style X5 fill:#51cf66,color:#fff\n    style Y5 fill:#51cf66,color:#fff\n    style Z5 fill:#b197fc,color:#fff",
+  "name": "Electrolysis",
+  "notes": "Converted from chemistry batch HTML. Process number: 5.",
+  "relatedProcesses": [],
+  "sources": [
+    {
+      "authors": "Welz, G.",
+      "doi": null,
+      "journal": "CopernicusAI Knowledge Engine",
+      "notes": "Chemistry process visualization: Electrolysis. Created using the Programming Framework methodology for process analysis and visualization.",
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "year": "2025"
+    },
+    {
+      "authors": "Deng J, Li H, Li S, Ma L, Wu T, Qu H, Yan J, Yang G",
+      "doi": "10.1021/acs.chemrev.0c00713",
+      "journal": "Chem. Rev.",
+      "pubmed": null,
+      "title": "Electrocatalysis for Water Splitting",
+      "url": "https://doi.org/10.1021/acs.chemrev.0c00713",
+      "year": "2021"
+    },
+    {
+      "authors": "Kanan MW, Nocera DG",
+      "doi": "10.1126/science.1162018",
+      "journal": "Science",
+      "pubmed": "18635778",
+      "title": "A Self-Assembling Cobalt-Phosphate Oxygen-Evolving Catalyst for Visible-Light-Driven Water Oxidation",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/18635778",
+      "year": "2008"
+    },
+    {
+      "authors": "Zhang J, Wang C, Su D, Da H, Su J, Li S, Sun Y, Sun X",
+      "doi": "10.1021/acs.chemrev.9b00693",
+      "journal": "Chem. Rev.",
+      "pubmed": null,
+      "title": "Electrocatalysts for Hydrogen Production via Water Splitting: Recent Progress and Future Challenges",
+      "url": "https://doi.org/10.1021/acs.chemrev.9b00693",
+      "year": "2020"
+    }
+  ],
+  "subcategory": "electrochemistry",
+  "verified": false
+}

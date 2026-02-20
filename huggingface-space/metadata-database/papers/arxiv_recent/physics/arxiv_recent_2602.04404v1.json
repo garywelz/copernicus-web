@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2602.04404v1",
+  "arxiv_id": "2602.04404v1",
+  "title": "Theory of Speciation Transitions in Diffusion Models with General Class Structure",
+  "authors": [
+    "Beatrice Achilli",
+    "Marco Benedetti",
+    "Giulio Biroli",
+    "Marc Mézard"
+  ],
+  "author_string": "Beatrice Achilli, Marco Benedetti, Giulio Biroli, Marc Mézard",
+  "journal": "arXiv:2602.04404v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Diffusion Models generate data by reversing a stochastic diffusion process, progressively transforming noise into structured samples drawn from a target distribution. Recent theoretical work has shown that this backward dynamics can undergo sharp qualitative transitions, known as speciation transitions, during which trajectories become dynamically committed to data classes. Existing theoretical analyses, however, are limited to settings where classes are identifiable through first moments, such as mixtures of Gaussians with well-separated means. In this work, we develop a general theory of speciation in diffusion models that applies to arbitrary target distributions admitting well-defined classes. We formalize the notion of class structure through Bayes classification and characterize speciation times in terms of free-entropy difference between classes. This criterion recovers known results in previously studied Gaussian-mixture models, while extending to situations in which classes are not distinguishable by first moments and may instead differ through higher-order or collective features. Our framework also accommodates multiple classes and predicts the existence of successive speciation times associated with increasingly fine-grained class commitment. We illustrate the theory on two analytically tractable examples: mixtures of one-dimensional Ising models at different temperatures and mixtures of zero-mean Gaussians with distinct covariance structures. In the Ising case, we obtain explicit expressions for speciation times by mapping the problem onto a random-field Ising model and solving it via the replica method. Our results provide a unified and broadly applicable description of speciation transitions in diffusion-based generative models.",
+  "categories": [
+    "cs.LG",
+    "cond-mat.dis-nn"
+  ],
+  "primary_category": "cond-mat.dis-nn",
+  "comment": "17 pages, 6 figures",
+  "published_date": "2026-02-04T10:35:47Z",
+  "updated_date": "2026-02-04T10:35:47Z",
+  "url": "https://arxiv.org/abs/2602.04404v1",
+  "pdf_url": "https://arxiv.org/pdf/2602.04404v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-02-05T07:00:33.003313",
+  "category": "physics",
+  "subcategories": [
+    "cs.LG",
+    "cond-mat.dis-nn"
+  ]
+}

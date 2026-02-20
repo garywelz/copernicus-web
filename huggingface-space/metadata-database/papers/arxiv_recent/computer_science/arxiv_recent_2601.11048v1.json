@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2601.11048v1",
+  "arxiv_id": "2601.11048v1",
+  "title": "M3DDM+: An improved video outpainting by a modified masking strategy",
+  "authors": [
+    "Takuya Murakawa",
+    "Takumi Fukuzawa",
+    "Ning Ding",
+    "Toru Tamaki"
+  ],
+  "author_string": "Takuya Murakawa, Takumi Fukuzawa, Ning Ding, Toru Tamaki",
+  "journal": "arXiv:2601.11048v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "M3DDM provides a computationally efficient framework for video outpainting via latent diffusion modeling. However, it exhibits significant quality degradation -- manifested as spatial blur and temporal inconsistency -- under challenging scenarios characterized by limited camera motion or large outpainting regions, where inter-frame information is limited. We identify the cause as a training-inference mismatch in the masking strategy: M3DDM's training applies random mask directions and widths across frames, whereas inference requires consistent directional outpainting throughout the video. To address this, we propose M3DDM+, which applies uniform mask direction and width across all frames during training, followed by fine-tuning of the pretrained M3DDM model. Experiments demonstrate that M3DDM+ substantially improves visual fidelity and temporal coherence in information-limited scenarios while maintaining computational efficiency. The code is available at https://github.com/tamaki-lab/M3DDM-Plus.",
+  "categories": [
+    "cs.CV"
+  ],
+  "primary_category": "cs.CV",
+  "comment": "proc. of IWAIT2026",
+  "published_date": "2026-01-16T07:29:10Z",
+  "updated_date": "2026-01-16T07:29:10Z",
+  "url": "https://arxiv.org/abs/2601.11048v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11048v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:37.503924",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV"
+  ]
+}

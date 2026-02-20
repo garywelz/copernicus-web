@@ -1,0 +1,29 @@
+{
+  "id": "arxiv_2601.05837v1",
+  "arxiv_id": "2601.05837v1",
+  "title": "An unfitted finite element method for elliptic interface problem with low regularity estimates",
+  "authors": [
+    "Fanyi Yang"
+  ],
+  "author_string": "Fanyi Yang",
+  "journal": "arXiv:2601.05837v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "In this paper, we present and analyze an unfitted finite element method for the elliptic interface problem. We consider the case that the interface is $C^2$-smooth or polygonal, and the exact solution $u \\in H^{1+s}(Ω_0 \\cup Ω_1)$ for any $s > 0$. The stability near the interface is guaranteed by a local polynomial extension technique combined with ghost penalty bilinear forms, from which the robust condition number estimates and the error estimates are derived. Furthermore, the jump penalty term for weakly enforcing the jump condition in our method is also defined based on the local polynomial extension, which enables us to establish the error estimation particularly for solutions with low regularity. We perform a series of numerical tests in two and three dimensions to illustrate the accuracy of the proposed method.",
+  "categories": [
+    "math.NA"
+  ],
+  "primary_category": "math.NA",
+  "comment": null,
+  "published_date": "2026-01-09T15:11:10Z",
+  "updated_date": "2026-01-09T15:11:10Z",
+  "url": "https://arxiv.org/abs/2601.05837v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.05837v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:22.684317",
+  "category": "mathematics",
+  "subcategories": [
+    "math.NA"
+  ]
+}

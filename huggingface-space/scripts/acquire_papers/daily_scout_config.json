@@ -1,0 +1,109 @@
+{
+  "name": "Daily Paper Scout - Top Journals & Recent Popular Papers",
+  "description": "Daily automated collection of recent, popular papers from top journals across all disciplines",
+  "schedule": {
+    "frequency": "daily",
+    "time": "02:00",
+    "timezone": "UTC"
+  },
+  "sources": {
+    "pubmed": {
+      "enabled": true,
+      "priority": 1,
+      "queries": [
+        {
+          "name": "Recent Nature Papers",
+          "query": "(Nature[JOUR] OR Nature Medicine[JOUR] OR Nature Biotechnology[JOUR] OR Nature Genetics[JOUR]) AND (\"2025\"[PDAT] OR \"2024\"[PDAT])",
+          "sort": "pub_date",
+          "max_results": 50,
+          "mindate": "2024/12/01",
+          "maxdate": "2025/12/31"
+        },
+        {
+          "name": "Recent Science Papers",
+          "query": "Science[JOUR] AND (\"2025\"[PDAT] OR \"2024\"[PDAT])",
+          "sort": "pub_date",
+          "max_results": 50,
+          "mindate": "2024/12/01",
+          "maxdate": "2025/12/31"
+        },
+        {
+          "name": "Recent Cell Papers",
+          "query": "(Cell[JOUR] OR Cell Reports[JOUR] OR Cell Systems[JOUR]) AND (\"2025\"[PDAT] OR \"2024\"[PDAT])",
+          "sort": "pub_date",
+          "max_results": 50,
+          "mindate": "2024/12/01",
+          "maxdate": "2025/12/31"
+        },
+        {
+          "name": "High-Impact Recent Biology",
+          "query": "(biomedical OR molecular biology OR genomics OR proteomics) AND (\"2025\"[PDAT] OR \"2024\"[PDAT])",
+          "sort": "relevance",
+          "max_results": 30,
+          "mindate": "2024/12/01",
+          "maxdate": "2025/12/31"
+        }
+      ]
+    },
+    "arxiv": {
+      "enabled": true,
+      "priority": 2,
+      "queries": [
+        {
+          "name": "Recent Physics",
+          "categories": ["physics:astro-ph", "physics:cond-mat", "physics:quant-ph"],
+          "max_results": 50,
+          "sortBy": "submittedDate",
+          "sortOrder": "descending",
+          "days_back": 7
+        },
+        {
+          "name": "Recent Computer Science",
+          "categories": ["cs.AI", "cs.LG", "cs.CV", "cs.CL"],
+          "max_results": 50,
+          "sortBy": "submittedDate",
+          "sortOrder": "descending",
+          "days_back": 7
+        },
+        {
+          "name": "Recent Math",
+          "categories": ["math.AP", "math.DS", "math.OC", "math.ST"],
+          "max_results": 30,
+          "sortBy": "submittedDate",
+          "sortOrder": "descending",
+          "days_back": 7
+        },
+        {
+          "name": "Quantitative Biology",
+          "categories": ["q-bio.BM", "q-bio.CB", "q-bio.GN", "q-bio.NC"],
+          "max_results": 30,
+          "sortBy": "submittedDate",
+          "sortOrder": "descending",
+          "days_back": 7
+        }
+      ]
+    },
+    "nasa_ads": {
+      "enabled": true,
+      "priority": 3,
+      "queries": [
+        {
+          "name": "Recent Astronomy & Astrophysics",
+          "query": "year:2025 OR year:2024",
+          "max_results": 30,
+          "sort": "date desc"
+        }
+      ]
+    }
+  },
+  "limits": {
+    "papers_per_source_per_day": 200,
+    "total_papers_per_day": 500,
+    "rate_limit_buffer": 0.5
+  },
+  "output": {
+    "directory": "metadata-database/papers/daily_scout",
+    "organize_by": "date",
+    "deduplicate": true
+  }
+}

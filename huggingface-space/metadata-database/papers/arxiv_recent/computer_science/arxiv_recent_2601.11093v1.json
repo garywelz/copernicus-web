@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2601.11093v1",
+  "arxiv_id": "2601.11093v1",
+  "title": "Integrity Shield A System for Ethical AI Use & Authorship Transparency in Assessments",
+  "authors": [
+    "Ashish Raj Shekhar",
+    "Shiven Agarwal",
+    "Priyanuj Bordoloi",
+    "Yash Shah",
+    "Tejas Anvekar",
+    "Vivek Gupta"
+  ],
+  "author_string": "Ashish Raj Shekhar, Shiven Agarwal, Priyanuj Bordoloi, Yash Shah, Tejas Anvekar et al.",
+  "journal": "arXiv:2601.11093v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Large Language Models (LLMs) can now solve entire exams directly from uploaded PDF assessments, raising urgent concerns about academic integrity and the reliability of grades and credentials. Existing watermarking techniques either operate at the token level or assume control over the model's decoding process, making them ineffective when students query proprietary black-box systems with instructor-provided documents. We present Integrity Shield, a document-layer watermarking system that embeds schema-aware, item-level watermarks into assessment PDFs while keeping their human-visible appearance unchanged. These watermarks consistently prevent MLLMs from answering shielded exam PDFs and encode stable, item-level signatures that can be reliably recovered from model or student responses. Across 30 exams spanning STEM, humanities, and medical reasoning, Integrity Shield achieves exceptionally high prevention (91-94% exam-level blocking) and strong detection reliability (89-93% signature retrieval) across four commercial MLLMs. Our demo showcases an interactive interface where instructors upload an exam, preview watermark behavior, and inspect pre/post AI performance & authorship evidence.",
+  "categories": [
+    "cs.CL"
+  ],
+  "primary_category": "cs.CL",
+  "comment": null,
+  "published_date": "2026-01-16T08:44:58Z",
+  "updated_date": "2026-01-16T08:44:58Z",
+  "url": "https://arxiv.org/abs/2601.11093v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11093v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:33.863610",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CL"
+  ]
+}

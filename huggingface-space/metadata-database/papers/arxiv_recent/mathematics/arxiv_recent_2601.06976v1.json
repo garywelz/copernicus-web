@@ -1,0 +1,30 @@
+{
+  "id": "arxiv_2601.06976v1",
+  "arxiv_id": "2601.06976v1",
+  "title": "A belief-state restless bandit model for treatment adherence: Whittle indexability via partial conservation laws",
+  "authors": [
+    "José Niño-Mora",
+    "Ángel Pellitero García"
+  ],
+  "author_string": "José Niño-Mora, Ángel Pellitero García",
+  "journal": "arXiv:2601.06976v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We study capacity-constrained treatment-adherence outreach via a belief-state restless multi-armed bandit model where patients are a partially observed two-state (adherent/nonadherent) Markov processes and interventions induce reset-type belief dynamics. Using partial conservation laws (PCLs), we establish Whittle indexability of the single-patient problem and derive a closed-form Whittle (marginal productivity) index, together with closed-form reward/work performance metrics under threshold policies and an explicit optimal threshold map. This yields an analytic Lagrangian relaxation: the single-patient Lagrangian value is a piecewise-affine convex function of the intervention price, enabling efficient computation of multi-patient dual bounds and certified relative optimality gaps. We also analyze how the Whittle index depends on the lapse and spontaneous-recovery parameters, providing qualitative insights on intervention priorities. In a large-scale numerical study over heterogeneous two-type populations, we compare Whittle's index policy with a myopic index rule and simple baselines; while myopic is highly competitive on most instances, Whittle's policy yields substantial gains in tight-capacity regimes with a fragile minority, reaching up to about $26\\%$ higher reward and markedly smaller relative optimality gaps.",
+  "categories": [
+    "math.OC"
+  ],
+  "primary_category": "math.OC",
+  "comment": "38 pages, 6 figures. Submitted: December 30, 2025",
+  "published_date": "2026-01-11T16:18:07Z",
+  "updated_date": "2026-01-11T16:18:07Z",
+  "url": "https://arxiv.org/abs/2601.06976v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.06976v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:14.920608",
+  "category": "mathematics",
+  "subcategories": [
+    "math.OC"
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "id": "arxiv_1811.03944v1",
+  "arxiv_id": "1811.03944v1",
+  "title": "Unwrapping phase fluctuations in one dimension",
+  "authors": [
+    "William Detmold",
+    "Gurtej Kanwar",
+    "Michael L. Wagman"
+  ],
+  "author_string": "William Detmold, Gurtej Kanwar, Michael L. Wagman",
+  "journal": "PoS(LATTICE2018)176",
+  "journal_ref": "PoS(LATTICE2018)176",
+  "year": "2018",
+  "doi": null,
+  "abstract": "Correlation functions in one-dimensional complex scalar field theory provide a toy model for phase fluctuations, sign problems, and signal-to-noise problems in lattice field theory. Phase unwrapping techniques from signal processing are applied to lattice field theory in order to map compact random phases to noncompact random variables that can be numerically sampled without sign or signal-to-noise problems. A cumulant expansion can be used to reconstruct average correlation functions from moments of unwrapped phases, but points where the field magnitude fluctuates close to zero lead to ambiguities in the definition of the unwrapped phase and significant noise at higher orders in the cumulant expansion. Phase unwrapping algorithms that average fluctuations over physical length scales improve, but do not completely resolve, these issues in one dimension. Similar issues are seen in other applications of phase unwrapping, where they are found to be more tractable in higher dimensions.",
+  "categories": [
+    "hep-lat",
+    "cond-mat.stat-mech",
+    "hep-th",
+    "nucl-th",
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": "14 pages, 7 figures. arXiv admin note: text overlap with arXiv:1806.01832",
+  "published_date": "2018-11-07T23:34:52Z",
+  "updated_date": "2018-11-07T23:34:52Z",
+  "url": "https://arxiv.org/abs/1811.03944v1",
+  "pdf_url": "https://arxiv.org/pdf/1811.03944v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:30:29.568029",
+  "category": "physics",
+  "subcategories": [
+    "hep-lat",
+    "cond-mat.stat-mech",
+    "hep-th"
+  ]
+}

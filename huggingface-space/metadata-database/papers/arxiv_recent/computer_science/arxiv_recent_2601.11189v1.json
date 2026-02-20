@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2601.11189v1",
+  "arxiv_id": "2601.11189v1",
+  "title": "Policy-Based Deep Reinforcement Learning Hyperheuristics for Job-Shop Scheduling Problems",
+  "authors": [
+    "Sofiene Lassoued",
+    "Asrat Gobachew",
+    "Stefan Lier",
+    "Andreas Schwung"
+  ],
+  "author_string": "Sofiene Lassoued, Asrat Gobachew, Stefan Lier, Andreas Schwung",
+  "journal": "arXiv:2601.11189v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "This paper proposes a policy-based deep reinforcement learning hyper-heuristic framework for solving the Job Shop Scheduling Problem. The hyper-heuristic agent learns to switch scheduling rules based on the system state dynamically. We extend the hyper-heuristic framework with two key mechanisms. First, action prefiltering restricts decision-making to feasible low-level actions, enabling low-level heuristics to be evaluated independently of environmental constraints and providing an unbiased assessment. Second, a commitment mechanism regulates the frequency of heuristic switching. We investigate the impact of different commitment strategies, from step-wise switching to full-episode commitment, on both training behavior and makespan. Additionally, we compare two action selection strategies at the policy level: deterministic greedy selection and stochastic sampling. Computational experiments on standard JSSP benchmarks demonstrate that the proposed approach outperforms traditional heuristics, metaheuristics, and recent neural network-based scheduling methods",
+  "categories": [
+    "cs.AI"
+  ],
+  "primary_category": "cs.AI",
+  "comment": null,
+  "published_date": "2026-01-16T11:03:47Z",
+  "updated_date": "2026-01-16T11:03:47Z",
+  "url": "https://arxiv.org/abs/2601.11189v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11189v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:33.861302",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.AI"
+  ]
+}

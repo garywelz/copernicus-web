@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2601.07739v1",
+  "arxiv_id": "2601.07739v1",
+  "title": "Systematic Biases in Gravitational-Wave Parameter Estimation from Neglecting Orbital Eccentricity in Space-Based Detectors",
+  "authors": [
+    "Jin-Zhao Yang",
+    "Jia-Hao Zhong",
+    "Tao Yang"
+  ],
+  "author_string": "Jin-Zhao Yang, Jia-Hao Zhong, Tao Yang",
+  "journal": "arXiv:2601.07739v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Accurate modeling of gravitational-wave signals is essential for reliable inference of compact-binary source parameters, particularly for future space-based detectors operating in the milli- and deci-Hertz bands. In this work, we systematically investigate the parameter-estimation biases induced by neglecting orbital eccentricity when analyzing eccentric compact-binary coalescences with quasi-circular waveform templates. Focusing on the deci-Hertz detector B-DECIGO and the milli-Hertz detector LISA, we model eccentric inspiral signals using a frequency-domain waveform that incorporates eccentricity-induced higher harmonics and the time-dependent response of spaceborne detectors. We quantify systematic biases in the chirp mass, symmetric mass ratio, and luminosity distance using both Bayesian inference and the Fisher-Cutler-Vallisneri (FCV) formalism, and assess their significance relative to statistical uncertainties. By constructing mock gravitational-wave catalogs spanning stellar-mass and massive black-hole binaries, we identify critical initial eccentricities at which systematic errors become comparable to statistical errors. We find that for B-DECIGO, even very small eccentricities, $e_0\\sim 10^{-4}-10^{-3}$ at 0.1 Hz, can lead to significant biases, whereas for LISA such effects typically arise at larger eccentricities, $e_0\\sim 10^{-2}-10^{-1}$ at $10^{-4}$ Hz, due to the smaller number of in-band cycles. Comparisons between FCV predictions and full Bayesian analyses demonstrate good agreement within the regime where waveform mismatches remain small, especially when extrinsic parameters are pre-aligned to minimize mismatches. Our results highlight the necessity of incorporating eccentricity in waveform models for future space-based gravitational-wave observations.",
+  "categories": [
+    "gr-qc",
+    "astro-ph.CO",
+    "astro-ph.IM"
+  ],
+  "primary_category": "astro-ph.IM",
+  "comment": "17 pages, 9 figures",
+  "published_date": "2026-01-12T17:18:16Z",
+  "updated_date": "2026-01-12T17:18:16Z",
+  "url": "https://arxiv.org/abs/2601.07739v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.07739v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:23.630272",
+  "category": "physics",
+  "subcategories": [
+    "gr-qc",
+    "astro-ph.CO",
+    "astro-ph.IM"
+  ]
+}

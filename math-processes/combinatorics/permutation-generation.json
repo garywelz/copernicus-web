@@ -1,0 +1,30 @@
+{
+  "id": "permutation-generation",
+  "title": "Permutation Generation",
+  "description": "Generate all permutations of a set",
+  "category": "mathematics",
+  "subcategory": "combinatorics",
+  "mermaid": "graph TD A1[Set S, n elements]-- Initial Set --> B1(Initialize Array P = [S[1], S[2], ..., S[n]]) style A1 fill:#ff6b6b,color:#fff style B1 fill:#ffd43b,color:#000 B1 --> C1{Is n <= 1?} style C1 fill:#ffd43b,color:#000 C1 -- Yes --> D1[Output: [P]] style D1 fill:#b197fc,color:#fff C1 -- No --> E1[\"Initialize Counter Array C = [0, 0, ..., 0] (n zeros)\"] style E1 fill:#ffd43b,color:#000 E1 --> F1[i = 0] style F1 fill:#74c0fc,color:#fff F1 --> G1{Is i < n?} style G1 fill:#ffd43b,color:#000 G1 -- No --> H1[End] style H1 fill:#b197fc,color:#fff G1 -- Yes --> I1{Is C[i] < i?} style I1 fill:#ffd43b,color:#000 I1 -- Yes --> J1{Is i even?} style J1 fill:#ffd43b,color:#000 J1 -- Yes --> K1[Swap P[0] and P[i]] style K1 fill:#51cf66,color:#fff J1 -- No --> L1[Swap P[C[i]] and P[i]] style L1 fill:#51cf66,color:#fff K1 --> M1[Output: P] style M1 fill:#b197fc,color:#fff L1 --> M1 style M1 fill:#b197fc,color:#fff M1 --> N1[C[i] = C[i] + 1] style N1 fill:#51cf66,color:#fff N1 --> O1[i = 0] style O1 fill:#74c0fc,color:#fff O1 --> G1 I1 -- No --> P1[C[i] = 0] style P1 fill:#51cf66,color:#fff P1 --> Q1[i = i + 1] style Q1 fill:#51cf66,color:#fff Q1 --> G1",
+  "entities": [
+    "Set S, n elements",
+    "Initialize Array P = [S[1",
+    "Is n <= 1?}style C1 fill:#ffd43b,color:#000 C1 -- Yes --> D1[Output: [P",
+    "Initialize Counter Array C = [0, 0, ..., 0",
+    "i = 0",
+    "Is i < n?}style G1 fill:#ffd43b,color:#000 G1 -- No --> H1[End",
+    "Is C[i",
+    "Is i even?}style J1 fill:#ffd43b,color:#000 J1 -- Yes --> K1[Swap P[0",
+    "Swap P[C[i",
+    "Output: P",
+    "C[i",
+    "i = i + 1"
+  ],
+  "metadata": {
+    "source": "programming_framework",
+    "color_scheme": "discipline_based",
+    "node_count": 11,
+    "complexity": "low"
+  },
+  "sources": [],
+  "source_text": "Source information to be added - please specify the book, paper, or reference material used by the LLM to generate this flowchart."
+}

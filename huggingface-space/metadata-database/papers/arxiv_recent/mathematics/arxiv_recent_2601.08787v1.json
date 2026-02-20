@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2601.08787v1",
+  "arxiv_id": "2601.08787v1",
+  "title": "A survey on sampling recovery",
+  "authors": [
+    "F. Dai",
+    "V. Temlyakov"
+  ],
+  "author_string": "F. Dai, V. Temlyakov",
+  "journal": "arXiv:2601.08787v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "The reconstruction of unknown functions from a finite number of samples is a fundamental challenge in pure and applied mathematics. This survey provides a comprehensive overview of recent developments in sampling recovery, focusing on the accuracy of various algorithms and the relationship between optimal recovery errors, nonlinear approximation, and the Kolmogorov widths of function classes. A central theme is the synergy between the theory of universal sampling discretization and Lebesgue-type inequalities for greedy algorithms. We discuss three primary algorithmic frameworks: weighted least squares and $\\ell_p$ minimization, sparse approximation methods, and greedy algorithms such as the Weak Orthogonal Matching Pursuit (WOMP) in Hilbert spaces and the Weak Tchebychev Greedy Algorithm (WCGA) in Banach spaces. These methods are applied to function classes defined by structural conditions, like the $A_β^r$ and Wiener-type classes, as well as classical Sobolev-type classes with dominated mixed derivatives. Notably, we highlight recent findings showing that nonlinear sampling recovery can provide superior error guarantees compared to linear methods for certain multivariate function classes.",
+  "categories": [
+    "math.NA",
+    "math.CA",
+    "math.FA"
+  ],
+  "primary_category": "math.FA",
+  "comment": "68 pages",
+  "published_date": "2026-01-13T18:19:05Z",
+  "updated_date": "2026-01-13T18:19:05Z",
+  "url": "https://arxiv.org/abs/2601.08787v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.08787v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:52.508597",
+  "category": "mathematics",
+  "subcategories": [
+    "math.NA",
+    "math.CA",
+    "math.FA"
+  ]
+}

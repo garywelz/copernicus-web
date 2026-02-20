@@ -1,0 +1,37 @@
+{
+  "id": "arxiv_2601.09042v1",
+  "arxiv_id": "2601.09042v1",
+  "title": "SCaLE: Switching Cost aware Learning and Exploration",
+  "authors": [
+    "Neelkamal Bhuyan",
+    "Debankur Mukherjee",
+    "Adam Wierman"
+  ],
+  "author_string": "Neelkamal Bhuyan, Debankur Mukherjee, Adam Wierman",
+  "journal": "arXiv:2601.09042v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "This work addresses the fundamental problem of unbounded metric movement costs in bandit online convex optimization, by considering high-dimensional dynamic quadratic hitting costs and $\\ell_2$-norm switching costs in a noisy bandit feedback model. For a general class of stochastic environments, we provide the first algorithm SCaLE that provably achieves a distribution-agnostic sub-linear dynamic regret, without the knowledge of hitting cost structure. En-route, we present a novel spectral regret analysis that separately quantifies eigenvalue-error driven regret and eigenbasis-perturbation driven regret. Extensive numerical experiments, against online-learning baselines, corroborate our claims, and highlight statistical consistency of our algorithm.",
+  "categories": [
+    "cs.LG",
+    "cs.DS",
+    "math.OC",
+    "math.PR",
+    "stat.ML"
+  ],
+  "primary_category": "stat.ML",
+  "comment": "42 pages",
+  "published_date": "2026-01-14T00:14:58Z",
+  "updated_date": "2026-01-14T00:14:58Z",
+  "url": "https://arxiv.org/abs/2601.09042v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.09042v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:52.506382",
+  "category": "mathematics",
+  "subcategories": [
+    "cs.LG",
+    "cs.DS",
+    "math.OC"
+  ]
+}

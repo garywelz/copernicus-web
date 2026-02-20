@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2601.09479v1",
+  "arxiv_id": "2601.09479v1",
+  "title": "Qualitative and Numerical Simulation of a Time-Fractional SEIR Mpox Model Arising in Population Epidemiology",
+  "authors": [
+    "Gaurav Saini",
+    "Bappa Ghosh",
+    "Sunita Chand",
+    "Jugal Mohapatra"
+  ],
+  "author_string": "Gaurav Saini, Bappa Ghosh, Sunita Chand, Jugal Mohapatra",
+  "journal": "arXiv:2601.09479v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Epidemiological modeling is vital in understanding disease dynamics and guiding public health interventions. This study presents a time-fractional SEIR model to describe the transmission dynamics of Mpox, incorporating memory effects via the fractional derivative. We perform an extensive qualitative investigation, proving that there is a unique solution and that the solutions are Hyers-Ulam stable. To approximate the model numerically, we implement the L1 finite difference scheme for the Caputo derivative and solve the resulting nonlinear system using the Newton-Raphson technique. A detailed error analysis is provided, demonstrating that the scheme achieves algebraic convergence. Comparative results with the Fractional Modified Euler method (FMEM) confirm the superior accuracy and stability of the proposed approach. Numerical simulations under biologically relevant parameters illustrate the impact of the non-integer order and vaccination rate on disease progression. The study underscores the effectiveness of fractional order models in capturing epidemic memory effects and positions the L1 scheme as a robust numerical tool for simulating such dynamics.",
+  "categories": [
+    "math.NA"
+  ],
+  "primary_category": "math.NA",
+  "comment": null,
+  "published_date": "2026-01-14T13:38:54Z",
+  "updated_date": "2026-01-14T13:38:54Z",
+  "url": "https://arxiv.org/abs/2601.09479v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.09479v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:49.124879",
+  "category": "mathematics",
+  "subcategories": [
+    "math.NA"
+  ]
+}

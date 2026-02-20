@@ -1,0 +1,30 @@
+{
+  "id": "arxiv_2601.10474v1",
+  "arxiv_id": "2601.10474v1",
+  "title": "Optimal error estimates for a discontinuous Galerkin method on curved boundaries with polygonal meshes",
+  "authors": [
+    "Adérito Araújo",
+    "Milene Santos"
+  ],
+  "author_string": "Adérito Araújo, Milene Santos",
+  "journal": "arXiv:2601.10474v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We consider a discontinuous Galerkin method for the numerical solution of boundary value problems in two-dimensional domains with curved boundaries. A key challenge in this setting is the potential loss of convergence order due to approximating the physical domain by a polygonal mesh. Unless boundary conditions can be accurately transferred from the true boundary to the computational one, such geometric approximation errors generally lead to suboptimal convergence. To overcome this limitation, a higher-order strategy based on polynomial reconstruction of boundary data was introduced for classical finite element methods in [28, 29] and in the finite volume context in [7, 11]. More recently, this approach was extended to discontinuous Galerkin methods in [32], leading to the DG-ROD method, which restores optimal convergence rates on polygonal approximations of domains with curved boundaries. In this work, we provide a rigorous theoretical analysis of the DG-ROD method, establishing existence and uniqueness of the discrete solution and deriving error estimates for a two-dimensional linear advection-diffusion-reaction problem with homogeneous Dirichlet boundary conditions on both convex and non-convex domains. Following and extending techniques from classical finite element methods [29], we prove that, under suitable regularity assumptions on the exact solution, the DG-ROD method achieves optimal convergence despite polygonal approximations. Finally, we illustrate and confirm the theoretical results with a numerical benchmark.",
+  "categories": [
+    "math.NA"
+  ],
+  "primary_category": "math.NA",
+  "comment": "42 pages, 6 figures",
+  "published_date": "2026-01-15T14:58:26Z",
+  "updated_date": "2026-01-15T14:58:26Z",
+  "url": "https://arxiv.org/abs/2601.10474v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.10474v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:41.983500",
+  "category": "mathematics",
+  "subcategories": [
+    "math.NA"
+  ]
+}

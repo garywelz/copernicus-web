@@ -1,0 +1,43 @@
+{
+  "id": "arxiv_2601.07308v1",
+  "arxiv_id": "2601.07308v1",
+  "title": "Bringing Computation to the data: Interoperable serverless function execution for astrophysical data analysis in the SRCNet",
+  "authors": [
+    "Manuel Parra-Royón",
+    "Julián Garrido-Sánchez",
+    "Susana Sánchez-Expósito",
+    "María Ángeles Mendoza",
+    "Rob Barnsley",
+    "Anthony Moraghan",
+    "Jesús Sánchez",
+    "Laura Darriba",
+    "Carlos Ruíz-Monje",
+    "Edgar Joao",
+    "Javier Moldón",
+    "Jesús Salgado",
+    "Lourdes Verdes-Montenegro"
+  ],
+  "author_string": "Manuel Parra-Royón, Julián Garrido-Sánchez, Susana Sánchez-Expósito, María Ángeles Mendoza, Rob Barnsley et al.",
+  "journal": "arXiv:2601.07308v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Serverless computing is a paradigm in which the underlying infrastructure is fully managed by the provider, enabling applications and services to be executed with elastic resource provisioning and minimal operational overhead. A core model within this paradigm is Function-as-a-Service (FaaS), where lightweight functions are deployed and triggered on demand, scaling seamlessly with workload. FaaS offers flexibility, cost-effectiveness, and fine-grained scalability, qualities particularly relevant for large-scale scientific infrastructures where data volumes are too large to centralise and computation must increasingly occur close to the data. The Square Kilometre Array Observatory (SKAO) exemplifies this challenge. Once operational, it will generate about 700~PB of data products annually, distributed across the SKA Regional Centre Network (SRCNet), a federation of international centres providing storage, computing, and analysis services. In such a context, FaaS offers a mechanism to bring computation to the data. We studied the principles of serverless and FaaS computing and explored their application to radio astronomy workflows. Representative functions for astrophysical data analysis were developed and deployed, including micro-functions derived from existing libraries and wrappers around domain-specific applications. In particular, a Gaussian convolution function was implemented and integrated within the SRCNet ecosystem. The use case demonstrates that FaaS can be embedded into the existing SRCNet ecosystem of services, allowing functions to run directly at sites where data replicas are stored. This reduces latency, minimises transfers, and improves efficiency, aligning with federated, data-proximate computation. The results show that serverless models provide a scalable and efficient pathway to address the data volumes of the SKA era.",
+  "categories": [
+    "cs.DC",
+    "astro-ph.IM"
+  ],
+  "primary_category": "astro-ph.IM",
+  "comment": null,
+  "published_date": "2026-01-12T08:31:14Z",
+  "updated_date": "2026-01-12T08:31:14Z",
+  "url": "https://arxiv.org/abs/2601.07308v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.07308v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:28.435680",
+  "category": "physics",
+  "subcategories": [
+    "cs.DC",
+    "astro-ph.IM"
+  ]
+}

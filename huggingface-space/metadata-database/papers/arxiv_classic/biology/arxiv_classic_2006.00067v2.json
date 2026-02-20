@@ -1,0 +1,46 @@
+{
+  "id": "arxiv_2006.00067v2",
+  "arxiv_id": "2006.00067v2",
+  "title": "Automated Measurements of Key Morphological Features of Human Embryos for IVF",
+  "authors": [
+    "Brian D. Leahy",
+    "Won-Dong Jang",
+    "Helen Y. Yang",
+    "Robbert Struyven",
+    "Donglai Wei",
+    "Zhe Sun",
+    "Kylie R. Lee",
+    "Charlotte Royston",
+    "Liz Cam",
+    "Yael Kalma",
+    "Foad Azem",
+    "Dalit Ben-Yosef",
+    "Hanspeter Pfister",
+    "Daniel Needleman"
+  ],
+  "author_string": "Brian D. Leahy, Won-Dong Jang, Helen Y. Yang, Robbert Struyven, Donglai Wei et al.",
+  "journal": "arXiv:2006.00067v2",
+  "journal_ref": null,
+  "year": "2020",
+  "doi": null,
+  "abstract": "A major challenge in clinical In-Vitro Fertilization (IVF) is selecting the highest quality embryo to transfer to the patient in the hopes of achieving a pregnancy. Time-lapse microscopy provides clinicians with a wealth of information for selecting embryos. However, the resulting movies of embryos are currently analyzed manually, which is time consuming and subjective. Here, we automate feature extraction of time-lapse microscopy of human embryos with a machine-learning pipeline of five convolutional neural networks (CNNs). Our pipeline consists of (1) semantic segmentation of the regions of the embryo, (2) regression predictions of fragment severity, (3) classification of the developmental stage, and object instance segmentation of (4) cells and (5) pronuclei. Our approach greatly speeds up the measurement of quantitative, biologically relevant features that may aid in embryo selection.",
+  "categories": [
+    "cs.CV",
+    "cs.LG",
+    "q-bio.OT"
+  ],
+  "primary_category": "q-bio.OT",
+  "comment": "to be presented at MICCAI 2020",
+  "published_date": "2020-05-29T20:27:17Z",
+  "updated_date": "2020-07-20T21:34:27Z",
+  "url": "https://arxiv.org/abs/2006.00067v2",
+  "pdf_url": "https://arxiv.org/pdf/2006.00067v2.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:23.480826",
+  "category": "biology",
+  "subcategories": [
+    "cs.CV",
+    "cs.LG",
+    "q-bio.OT"
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "id": "arxiv_2107.08073v2",
+  "arxiv_id": "2107.08073v2",
+  "title": "Simulating Quantum Mechanics with a $θ$-term and an 't Hooft Anomaly on a Synthetic Dimension",
+  "authors": [
+    "Jiayu Shen",
+    "Di Luo",
+    "Chenxi Huang",
+    "Bryan K. Clark",
+    "Aida X. El-Khadra",
+    "Bryce Gadway",
+    "Patrick Draper"
+  ],
+  "author_string": "Jiayu Shen, Di Luo, Chenxi Huang, Bryan K. Clark, Aida X. El-Khadra et al.",
+  "journal": "Phys. Rev. D 105, 074505 (2022)",
+  "journal_ref": "Phys. Rev. D 105, 074505 (2022)",
+  "year": "2021",
+  "doi": "10.1103/PhysRevD.105.074505",
+  "abstract": "A topological $θ$-term in gauge theories, including quantum chromodynamics in 3+1 dimensions, gives rise to a sign problem that makes classical Monte Carlo simulations impractical. Quantum simulations are not subject to such sign problems and are a promising approach to studying these theories in the future. In the near term, it is interesting to study simpler models that retain some of the physical phenomena of interest and their implementation on quantum hardware. For example, dimensionally-reducing gauge theories on small spatial tori produces quantum mechanical models which, despite being relatively simple to solve, retain interesting vacuum and symmetry structures from the parent gauge theories. Here we consider quantum mechanical particle-on-a-circle models, related by dimensional reduction to the 1+1d Schwinger model, that possess a $θ$-term and realize an 't Hooft anomaly or global inconsistency at $θ= π$. These models also exhibit the related phenomena of spontaneous symmetry breaking and instanton-anti-instanton interference in real time. We propose an experimental scheme for the real-time simulation of a particle on a circle with a $θ$-term and a $\\mathbb{Z}_n$ potential using a synthetic dimension encoded in a Rydberg atom. Simulating the Rydberg atom with realistic experimental parameters, we demonstrate that the essential physics can be well-captured by the experiment, with expected behavior in the tunneling rate as a function of $θ$. Similar phenomena and observables can also arise in more complex quantum mechanical models connected to higher-dimensional nonabelian gauge theories by dimensional reduction.",
+  "categories": [
+    "quant-ph",
+    "hep-lat",
+    "hep-ph",
+    "hep-th",
+    "physics.atom-ph"
+  ],
+  "primary_category": "physics.atom-ph",
+  "comment": "25 pages, 11 figures; minor changes and refs added, version accepted for publication in PRD",
+  "published_date": "2021-07-16T18:34:46Z",
+  "updated_date": "2022-05-06T06:41:38Z",
+  "url": "https://arxiv.org/abs/2107.08073v2",
+  "pdf_url": "https://arxiv.org/pdf/2107.08073v2.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-02-03T13:20:50.570007",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph",
+    "hep-lat",
+    "hep-ph"
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2006.01681v4",
+  "arxiv_id": "2006.01681v4",
+  "title": "Neural Power Units",
+  "authors": [
+    "Niklas Heim",
+    "Tomáš Pevný",
+    "Václav Šmídl"
+  ],
+  "author_string": "Niklas Heim, Tomáš Pevný, Václav Šmídl",
+  "journal": "arXiv:2006.01681v4",
+  "journal_ref": null,
+  "year": "2020",
+  "doi": null,
+  "abstract": "Conventional Neural Networks can approximate simple arithmetic operations, but fail to generalize beyond the range of numbers that were seen during training. Neural Arithmetic Units aim to overcome this difficulty, but current arithmetic units are either limited to operate on positive numbers or can only represent a subset of arithmetic operations. We introduce the Neural Power Unit (NPU) that operates on the full domain of real numbers and is capable of learning arbitrary power functions in a single layer. The NPU thus fixes the shortcomings of existing arithmetic units and extends their expressivity. We achieve this by using complex arithmetic without requiring a conversion of the network to complex numbers. A simplification of the unit to the RealNPU yields a highly transparent model. We show that the NPUs outperform their competitors in terms of accuracy and sparsity on artificial arithmetic datasets, and that the RealNPU can discover the governing equations of a dynamical system only from data.",
+  "categories": [
+    "cs.LG",
+    "cs.NE",
+    "stat.ML"
+  ],
+  "primary_category": "stat.ML",
+  "comment": null,
+  "published_date": "2020-06-02T14:58:07Z",
+  "updated_date": "2020-12-17T14:40:50Z",
+  "url": "https://arxiv.org/abs/2006.01681v4",
+  "pdf_url": "https://arxiv.org/pdf/2006.01681v4.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:27.420514",
+  "category": "mathematics",
+  "subcategories": [
+    "cs.LG",
+    "cs.NE",
+    "stat.ML"
+  ]
+}

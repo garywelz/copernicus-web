@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2601.11171v1",
+  "arxiv_id": "2601.11171v1",
+  "title": "Noisy Graph Patterns via Ordered Matrices",
+  "authors": [
+    "Jules Wulms",
+    "Wouter Meulemans",
+    "Bettina Speckmann"
+  ],
+  "author_string": "Jules Wulms, Wouter Meulemans, Bettina Speckmann",
+  "journal": "arXiv:2601.11171v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "The high-level structure of a graph is a crucial ingredient for the analysis and visualization of relational data. However, discovering the salient graph patterns that form this structure is notoriously difficult for two reasons. (1) Finding important patterns, such as cliques and bicliques, is computationally hard. (2) Real-world graphs contain noise, and therefore do not always exhibit patterns in their pure form. Defining meaningful noisy patterns and detecting them efficiently is a currently unsolved challenge. In this paper, we propose to use well-ordered matrices as a tool to both define and effectively detect noisy patterns. Specifically, we represent a graph as its adjacency matrix and optimally order it using Moran's $I$. Standard graph patterns (cliques, bicliques, and stars) now translate to rectangular submatrices. Using Moran's $I$, we define a permitted level of noise for such patterns. A combination of exact algorithms and heuristics allows us to efficiently decompose the matrix into noisy patterns. We also introduce a novel motif simplification that visualizes noisy patterns while explicitly encoding the level of noise. We showcase our techniques on several real-world data sets.",
+  "categories": [
+    "cs.HC"
+  ],
+  "primary_category": "cs.HC",
+  "comment": null,
+  "published_date": "2026-01-16T10:41:32Z",
+  "updated_date": "2026-01-16T10:41:32Z",
+  "url": "https://arxiv.org/abs/2601.11171v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11171v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:33.861654",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.HC"
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "id": "arxiv_2601.08392v1",
+  "arxiv_id": "2601.08392v1",
+  "title": "On-chip semi-device-independent quantum random number generator exploiting contextuality",
+  "authors": [
+    "Maddalena Genzini",
+    "Caterina Vigliar",
+    "Mujtaba Zahidy",
+    "Hamid Tebyanian",
+    "Andrzej Gajda",
+    "Klaus Petermann",
+    "Lars Zimmermann",
+    "Davide Bacco",
+    "Francesco Da Ros"
+  ],
+  "author_string": "Maddalena Genzini, Caterina Vigliar, Mujtaba Zahidy, Hamid Tebyanian, Andrzej Gajda et al.",
+  "journal": "arXiv:2601.08392v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We present a semi-device-independent quantum random number generator (QRNG) based on the violation of a contextuality inequality, implemented by the integration of two silicon photonic chips. Our system combines a heralded single-photon source with a reconfigurable interferometric mesh to implement qutrit state preparation, transformations, and measurements suitable for testing a KCBS contextuality inequality. This architecture enables the generation of random numbers from the intrinsic randomness of single-photon interference in a complex optical network, while simultaneously allowing a quantitative certification of their security without requiring entanglement. We observe a contextuality violation exceeding the classical bound by more than 10σ, unambiguously confirming non-classical behavior. From this violation, we certify a conditional min-entropy per experimental round of Hmin = 0.077 +- 0.002, derived via a tailored semidefinite-programming-based security analysis. Each measurement outcome therefore contains at least 0.077 +- 0.002 bits of extractable genuine randomness, corresponding to an asymptotic generation rate of 21.7 +- 0.5 bits/s. These results establish a viable route towards general-purpose, untrusted quantum random number generators compatible with practical integrated photonic quantum networks.",
+  "categories": [
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": null,
+  "published_date": "2026-01-13T09:59:37Z",
+  "updated_date": "2026-01-13T09:59:37Z",
+  "url": "https://arxiv.org/abs/2601.08392v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.08392v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:14.417482",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph"
+  ]
+}

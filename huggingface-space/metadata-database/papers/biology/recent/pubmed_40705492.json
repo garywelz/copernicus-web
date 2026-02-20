@@ -1,0 +1,27 @@
+{
+  "id": "pubmed_40705492",
+  "pmid": "40705492",
+  "title": "Inference on age-specific fertility in ecology and evolution. Learning from other disciplines and improving the state of the art.",
+  "authors": [
+    "Colchero, Fernando"
+  ],
+  "author_string": "Colchero, Fernando",
+  "journal": "Biometrics",
+  "journal_full": "Biometrics",
+  "year": "",
+  "doi": "10.1093/biomtc/ujaf081",
+  "abstract": "Despite the importance of age-specific fertility for ecology and evolution, the methods for modeling and inference have proven considerably limited. However, other disciplines have long focused on exploring and developing a vast number of models. Here, I provide an overview of the different models proposed since the 1940s by formal demographers, statisticians, and social scientists, most of which are unknown to the ecological and evolutionary communities. I describe how these fall into 2 main categories, namely polynomials and those based on probability density functions. I discuss their merits in terms of their overall behavior and how well they represent the different stages of fertility. Despite many alternative models, inference on age-specific fertility has usually been limited to simple least squares. Although this might be sufficient for human data, I hope to demonstrate that inference requires more sophisticated approaches for ecological and evolutionary datasets. To illustrate how inference and model choice can be achieved on different types of typical ecological and evolutionary data, I present the new R package Bayesian Fertility Trajectory Analysis, which I apply to published aggregated data for lions and baboons. I then conduct a simulation study to test its performance on individual-level data. I show that appropriate inference and model selection can be achieved even when a small number of parents are followed.",
+  "keywords": [
+    "Bayesian inference",
+    "age-specific fertility",
+    "compound Poisson process",
+    "demography",
+    "nonhomogeneous Poisson process"
+  ],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/40705492",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T17:01:53.494126",
+  "category": "biology",
+  "subcategories": []
+}

@@ -1,0 +1,94 @@
+{
+  "category": "biology",
+  "colorScheme": {
+    "blue": {
+      "category": "Intermediates & States",
+      "hex": "#74c0fc"
+    },
+    "green": {
+      "category": "Processing & Operations",
+      "hex": "#51cf66"
+    },
+    "red": {
+      "category": "Triggers & Inputs",
+      "hex": "#ff6b6b"
+    },
+    "violet": {
+      "category": "Products & Outputs",
+      "hex": "#b197fc"
+    },
+    "yellow": {
+      "category": "Structures & Objects",
+      "hex": "#ffd43b"
+    }
+  },
+  "complexity": {
+    "conditionals": 0,
+    "detailLevel": "low",
+    "edges": 7,
+    "level": "low",
+    "logicGates": {
+      "andGates": 0,
+      "orGates": 0,
+      "total": 0
+    },
+    "nodes": 8
+  },
+  "created": "2026-01-08",
+  "description": "Nitrogen Fixation Process in Plants/Bacteria. This process represents a higher-level biological mechanism distinct from molecular/biochemical processes covered in GLMP.",
+  "id": "nutrition_metabolism-nitrogen-fixation-process",
+  "keywords": [
+    "process",
+    "nutrition",
+    "nitrogen",
+    "plants/bacteria",
+    "fixation",
+    "metabolism"
+  ],
+  "lastUpdated": "2026-01-08",
+  "mermaid": "graph TD\n    A31[Atmospheric N2] --> B31[Nitrogenase Enzyme]\n    B31 --> C31[Reduction Reaction]\n    C31 --> D31[NH3 Production]\n    D31 --> E31[Assimilation]\n    E31 --> F31[Amino Acid Synthesis]\n    F31 --> G31[Protein Formation]\n    G31 --> H31[Plant Growth]\n    \n    style A31 fill:#ff6b6b,color:#fff\n    style B31 fill:#ffd43b,color:#000\n    style C31 fill:#51cf66,color:#fff\n    style D31 fill:#74c0fc,color:#fff\n    style E31 fill:#51cf66,color:#fff\n    style F31 fill:#51cf66,color:#fff\n    style G31 fill:#74c0fc,color:#fff\n    style H31 fill:#b197fc,color:#fff",
+  "name": "Nitrogen Fixation Process",
+  "notes": "Higher-level biological process. GLMP covers biochemical/molecular processes; this database covers organismal/ecological processes.",
+  "organism": "Plants/Bacteria",
+  "relatedProcesses": [],
+  "sources": [
+    {
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "notes": "Higher-level biological process visualization: Nitrogen Fixation Process. Created using the Programming Framework methodology for organismal and ecological process analysis.",
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "year": "2025"
+    },
+    {
+      "authors": "Newton WE, Burris RH.",
+      "doi": "10.1146/annurev.pp.38.060187.001007",
+      "journal": "Annu Rev Plant Physiol.",
+      "pubmed": "11539659",
+      "title": "Biological Nitrogen Fixation",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/11539659",
+      "year": "1987"
+    },
+    {
+      "authors": "Gresshoff PM, Graham GC, Gualtieri G, et al.",
+      "doi": "10.1126/science.1232821",
+      "journal": "Science.",
+      "pubmed": "23519208",
+      "title": "Symbiotic nitrogen fixation: Moving beyond the legume family",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/23519208",
+      "year": "2013"
+    },
+    {
+      "authors": "Postgate JR.",
+      "doi": "10.1146/annurev.mi.28.100174.000453",
+      "journal": "Annu Rev Microbiol.",
+      "pubmed": "4608331",
+      "title": "Nitrogen fixation in free-living microorganisms",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/4608331",
+      "year": "1974"
+    }
+  ],
+  "subcategory": "nutrition_metabolism",
+  "subcategory_name": "Nutrition & Metabolism",
+  "verified": false
+}

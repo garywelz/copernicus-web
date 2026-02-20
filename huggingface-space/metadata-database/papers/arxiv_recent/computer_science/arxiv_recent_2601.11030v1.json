@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2601.11030v1",
+  "arxiv_id": "2601.11030v1",
+  "title": "IDDR-NGP: Incorporating Detectors for Distractor Removal with Instant Neural Radiance Field",
+  "authors": [
+    "Xianliang Huang",
+    "Jiajie Gou",
+    "Shuhang Chen",
+    "Zhizhou Zhong",
+    "Jihong Guan",
+    "Shuigeng Zhou"
+  ],
+  "author_string": "Xianliang Huang, Jiajie Gou, Shuhang Chen, Zhizhou Zhong, Jihong Guan et al.",
+  "journal": "Proceedings of the 31st ACM International Conference on Multimedia. 2023: 1343-1351",
+  "journal_ref": "Proceedings of the 31st ACM International Conference on Multimedia. 2023: 1343-1351",
+  "year": "2026",
+  "doi": "10.1145/3581783.3612045",
+  "abstract": "This paper presents the first unified distractor removal method, named IDDR-NGP, which directly operates on Instant-NPG. The method is able to remove a wide range of distractors in 3D scenes, such as snowflakes, confetti, defoliation and petals, whereas existing methods usually focus on a specific type of distractors. By incorporating implicit 3D representations with 2D detectors, we demonstrate that it is possible to efficiently restore 3D scenes from multiple corrupted images. We design the learned perceptual image patch similarity~( LPIPS) loss and the multi-view compensation loss (MVCL) to jointly optimize the rendering results of IDDR-NGP, which could aggregate information from multi-view corrupted images. All of them can be trained in an end-to-end manner to synthesize high-quality 3D scenes. To support the research on distractors removal in implicit 3D representations, we build a new benchmark dataset that consists of both synthetic and real-world distractors. To validate the effectiveness and robustness of IDDR-NGP, we provide a wide range of distractors with corresponding annotated labels added to both realistic and synthetic scenes. Extensive experimental results demonstrate the effectiveness and robustness of IDDR-NGP in removing multiple types of distractors. In addition, our approach achieves results comparable with the existing SOTA desnow methods and is capable of accurately removing both realistic and synthetic distractors.",
+  "categories": [
+    "cs.CV",
+    "cs.AI"
+  ],
+  "primary_category": "cs.AI",
+  "comment": "8 pages, 7 figures, accepted by ACM-MM23",
+  "published_date": "2026-01-16T06:51:09Z",
+  "updated_date": "2026-01-16T06:51:09Z",
+  "url": "https://arxiv.org/abs/2601.11030v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11030v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:37.509888",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV",
+    "cs.AI"
+  ]
+}

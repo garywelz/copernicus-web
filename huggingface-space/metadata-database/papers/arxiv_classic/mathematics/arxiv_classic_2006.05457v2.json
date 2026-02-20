@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2006.05457v2",
+  "arxiv_id": "2006.05457v2",
+  "title": "Minimum wave speeds in monostable reaction-diffusion equations: sharp bounds by polynomial optimization",
+  "authors": [
+    "Jason J. Bramburger",
+    "David Goluskin"
+  ],
+  "author_string": "Jason J. Bramburger, David Goluskin",
+  "journal": "Proceedings of the Royal Society A 476, (2020) 20200450",
+  "journal_ref": "Proceedings of the Royal Society A 476, (2020) 20200450",
+  "year": "2020",
+  "doi": "10.1098/rspa.2020.0450",
+  "abstract": "Many monostable reaction-diffusion equations admit one-dimensional travelling waves if and only if the wave speed is sufficiently high. The values of these minimum wave speeds are not known exactly, except in a few simple cases. We present methods for finding upper and lower bounds on minimum wave speed. They rely on constructing trapping boundaries for dynamical systems whose heteroclinic connections correspond to the travelling waves. Simple versions of this approach can be carried out analytically but often give overly conservative bounds on minimum wave speed. When the reaction-diffusion equations being studied have polynomial nonlinearities, our approach can be implemented computationally using polynomial optimization. For scalar reaction-diffusion equations, we present a general method and then apply it to examples from the literature where minimum wave speeds were unknown. The extension of our approach to multi-component reaction-diffusion systems is then illustrated using a cubic autocatalysis model from the literature. In all three examples and with many different parameter values, polynomial optimization computations give upper and lower bounds that are within 0.1% of each other and thus nearly sharp. Upper bounds are derived analytically as well for the scalar RD equations.",
+  "categories": [
+    "math.DS",
+    "math.OC"
+  ],
+  "primary_category": "math.OC",
+  "comment": null,
+  "published_date": "2020-06-09T18:54:00Z",
+  "updated_date": "2020-09-03T21:19:59Z",
+  "url": "https://arxiv.org/abs/2006.05457v2",
+  "pdf_url": "https://arxiv.org/pdf/2006.05457v2.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:30:33.423416",
+  "category": "mathematics",
+  "subcategories": [
+    "math.DS",
+    "math.OC"
+  ]
+}

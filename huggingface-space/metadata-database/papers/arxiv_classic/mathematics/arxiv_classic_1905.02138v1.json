@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_1905.02138v1",
+  "arxiv_id": "1905.02138v1",
+  "title": "Is a Single Embedding Enough? Learning Node Representations that Capture Multiple Social Contexts",
+  "authors": [
+    "Alessandro Epasto",
+    "Bryan Perozzi"
+  ],
+  "author_string": "Alessandro Epasto, Bryan Perozzi",
+  "journal": "In Proceedings of \"The Web Conference\" 2019, WWW, 2019",
+  "journal_ref": "In Proceedings of \"The Web Conference\" 2019, WWW, 2019",
+  "year": "2019",
+  "doi": "10.1145/3308558.3313660",
+  "abstract": "Recent interest in graph embedding methods has focused on learning a single representation for each node in the graph. But can nodes really be best described by a single vector representation? In this work, we propose a method for learning multiple representations of the nodes in a graph (e.g., the users of a social network). Based on a principled decomposition of the ego-network, each representation encodes the role of the node in a different local community in which the nodes participate. These representations allow for improved reconstruction of the nuanced relationships that occur in the graph -- a phenomenon that we illustrate through state-of-the-art results on link prediction tasks on a variety of graphs, reducing the error by up to $90\\%$. In addition, we show that these embeddings allow for effective visual analysis of the learned community structure.",
+  "categories": [
+    "cs.SI",
+    "cs.LG",
+    "stat.ML"
+  ],
+  "primary_category": "stat.ML",
+  "comment": null,
+  "published_date": "2019-05-06T16:46:38Z",
+  "updated_date": "2019-05-06T16:46:38Z",
+  "url": "https://arxiv.org/abs/1905.02138v1",
+  "pdf_url": "https://arxiv.org/pdf/1905.02138v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:19.479693",
+  "category": "mathematics",
+  "subcategories": [
+    "cs.SI",
+    "cs.LG",
+    "stat.ML"
+  ]
+}

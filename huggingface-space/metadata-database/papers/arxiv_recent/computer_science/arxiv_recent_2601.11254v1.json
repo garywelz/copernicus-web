@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2601.11254v1",
+  "arxiv_id": "2601.11254v1",
+  "title": "FTDMamba: Frequency-Assisted Temporal Dilation Mamba for Unmanned Aerial Vehicle Video Anomaly Detection",
+  "authors": [
+    "Cheng-Zhuang Liu",
+    "Si-Bao Chen",
+    "Qing-Ling Shu",
+    "Chris Ding",
+    "Jin Tang",
+    "Bin Luo"
+  ],
+  "author_string": "Cheng-Zhuang Liu, Si-Bao Chen, Qing-Ling Shu, Chris Ding, Jin Tang et al.",
+  "journal": "arXiv:2601.11254v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Recent advances in video anomaly detection (VAD) mainly focus on ground-based surveillance or unmanned aerial vehicle (UAV) videos with static backgrounds, whereas research on UAV videos with dynamic backgrounds remains limited. Unlike static scenarios, dynamically captured UAV videos exhibit multi-source motion coupling, where the motion of objects and UAV-induced global motion are intricately intertwined. Consequently, existing methods may misclassify normal UAV movements as anomalies or fail to capture true anomalies concealed within dynamic backgrounds. Moreover, many approaches do not adequately address the joint modeling of inter-frame continuity and local spatial correlations across diverse temporal scales. To overcome these limitations, we propose the Frequency-Assisted Temporal Dilation Mamba (FTDMamba) network for UAV VAD, including two core components: (1) a Frequency Decoupled Spatiotemporal Correlation Module, which disentangles coupled motion patterns and models global spatiotemporal dependencies through frequency analysis; and (2) a Temporal Dilation Mamba Module, which leverages Mamba's sequence modeling capability to jointly learn fine-grained temporal dynamics and local spatial structures across multiple temporal receptive fields. Additionally, unlike existing UAV VAD datasets which focus on static backgrounds, we construct a large-scale Moving UAV VAD dataset (MUVAD), comprising 222,736 frames with 240 anomaly events across 12 anomaly types. Extensive experiments demonstrate that FTDMamba achieves state-of-the-art (SOTA) performance on two public static benchmarks and the new MUVAD dataset. The code and MUVAD dataset will be available at: https://github.com/uavano/FTDMamba.",
+  "categories": [
+    "cs.CV"
+  ],
+  "primary_category": "cs.CV",
+  "comment": null,
+  "published_date": "2026-01-16T13:01:53Z",
+  "updated_date": "2026-01-16T13:01:53Z",
+  "url": "https://arxiv.org/abs/2601.11254v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11254v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:33.859941",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV"
+  ]
+}

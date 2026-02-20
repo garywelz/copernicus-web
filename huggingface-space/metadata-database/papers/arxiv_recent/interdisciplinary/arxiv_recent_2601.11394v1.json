@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2601.11394v1",
+  "arxiv_id": "2601.11394v1",
+  "title": "The Mini Wheelbot Dataset: High-Fidelity Data for Robot Learning",
+  "authors": [
+    "Henrik Hose",
+    "Paul Brunzema",
+    "Devdutt Subhasish",
+    "Sebastian Trimpe"
+  ],
+  "author_string": "Henrik Hose, Paul Brunzema, Devdutt Subhasish, Sebastian Trimpe",
+  "journal": "arXiv:2601.11394v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "The development of robust learning-based control algorithms for unstable systems requires high-quality, real-world data, yet access to specialized robotic hardware remains a significant barrier for many researchers. This paper introduces a comprehensive dynamics dataset for the Mini Wheelbot, an open-source, quasi-symmetric balancing reaction wheel unicycle. The dataset provides 1 kHz synchronized data encompassing all onboard sensor readings, state estimates, ground-truth poses from a motion capture system, and third-person video logs. To ensure data diversity, we include experiments across multiple hardware instances and surfaces using various control paradigms, including pseudo-random binary excitation, nonlinear model predictive control, and reinforcement learning agents. We include several example applications in dynamics model learning, state estimation, and time-series classification to illustrate common robotics algorithms that can be benchmarked on our dataset.",
+  "categories": [
+    "cs.RO",
+    "eess.SY"
+  ],
+  "primary_category": "eess.SY",
+  "comment": null,
+  "published_date": "2026-01-16T16:06:32Z",
+  "updated_date": "2026-01-16T16:06:32Z",
+  "url": "https://arxiv.org/abs/2601.11394v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11394v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:30.213508",
+  "category": "interdisciplinary",
+  "subcategories": [
+    "cs.RO",
+    "eess.SY"
+  ]
+}

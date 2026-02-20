@@ -1,0 +1,91 @@
+{
+  "id": "sensory_perception-hearing-process",
+  "name": "Hearing Process",
+  "category": "biology",
+  "subcategory": "sensory_perception",
+  "subcategory_name": "Sensory & Perception",
+  "description": "Hearing Process process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 9,
+    "edges": 7,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\n    A37[Sound Waves] --> B37[Outer Ear Collection]\n    B37 --> C37[Eardrum Vibration]\n    C37 --> D37[Middle Ear Bones]\n    D37 --> E37[Cochlear Fluid]\n    E37 --> F37[Hair Cell Activation]\n    F37 --> G37[Frequency Analysis]\n    G37 --> H37[Auditory Nerve]\n    H37 --> I37[Brain Interpretation]\n    \n    style A37 fill:#ff6b6b,color:#fff\n    style B37 fill:#ffd43b,color:#000\n    style C37 fill:#ffd43b,color:#000\n    style D37 fill:#ffd43b,color:#000\n    style E37 fill:#ffd43b,color:#000\n    style F37 fill:#51cf66,color:#fff\n    style G37 fill:#51cf66,color:#fff\n    style H37 fill:#74c0fc,color:#fff\n    style I37 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Hearing Process. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "Process of Hearing Gravitational Waves",
+      "authors": "Battsooj, Tem",
+      "journal": "",
+      "year": "2024",
+      "pubmed": null,
+      "doi": "10.58445/rars.939",
+      "url": "https://doi.org/10.58445/rars.939"
+    },
+    {
+      "title": "NNR 2012: Responses from hearing process",
+      "authors": "NMR Publicering",
+      "journal": "",
+      "year": "2014",
+      "pubmed": null,
+      "doi": "10.6027/na2014-913",
+      "url": "https://doi.org/10.6027/na2014-913"
+    },
+    {
+      "title": "An active process in cochlear mechanics",
+      "authors": "Davis, Hallowell",
+      "journal": "Hearing Research",
+      "year": "1983",
+      "pubmed": null,
+      "doi": "10.1016/0378-5955(83)90136-3",
+      "url": "https://doi.org/10.1016/0378-5955(83)90136-3"
+    }
+  ],
+  "keywords": [
+    "hearing",
+    "process"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+}

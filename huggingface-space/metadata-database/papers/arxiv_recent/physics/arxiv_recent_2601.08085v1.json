@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2601.08085v1",
+  "arxiv_id": "2601.08085v1",
+  "title": "Learning parameter curves in feedback-based quantum optimization algorithms",
+  "authors": [
+    "Vicente Peña Pérez",
+    "Matthew D. Grace",
+    "Christian Arenz",
+    "Alicia B. Magann"
+  ],
+  "author_string": "Vicente Peña Pérez, Matthew D. Grace, Christian Arenz, Alicia B. Magann",
+  "journal": "arXiv:2601.08085v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Feedback-based quantum algorithms (FQAs) operate by iteratively growing a quantum circuit to optimize a given task. At each step, feedback from qubit measurements is used to inform the next quantum circuit update. In practice, the sampling cost associated with these measurements can be significant. Here, we ask whether FQA parameter sequences can be predicted using classical machine learning, obviating the need for qubit measurements altogether. To this end, we train a teacher-student model to map a MaxCut problem instance to an associated FQA parameter curve in a single classical inference step. Numerical experiments show that this model can accurately predict FQA parameter curves across a range of problem sizes, including problem sizes not seen during model training. To evaluate performance, we compare the predicted parameter curves in simulation against FQA reference curves and linear quantum annealing schedules. We observe similar results to the former and performance improvements over the latter. These results suggest that machine learning can offer a heuristic, practical path to reducing sampling costs and resource overheads in quantum algorithms.",
+  "categories": [
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": "13 pages, 6 figures. To be submitted to Physical Review Research Journal",
+  "published_date": "2026-01-13T00:03:44Z",
+  "updated_date": "2026-01-13T00:03:44Z",
+  "url": "https://arxiv.org/abs/2601.08085v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.08085v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:19.621389",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph"
+  ]
+}

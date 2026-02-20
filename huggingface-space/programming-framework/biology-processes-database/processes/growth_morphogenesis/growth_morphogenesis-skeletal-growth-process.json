@@ -1,0 +1,93 @@
+{
+  "id": "growth_morphogenesis-skeletal-growth-process",
+  "name": "Skeletal Growth Process",
+  "category": "biology",
+  "subcategory": "growth_morphogenesis",
+  "subcategory_name": "Growth & Morphogenesis",
+  "organism": "Vertebrates",
+  "description": "Skeletal Growth Process in Vertebrates. This process represents a higher-level biological mechanism distinct from molecular/biochemical processes covered in GLMP.",
+  "complexity": {
+    "nodes": 9,
+    "edges": 8,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "low",
+    "detailLevel": "low"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\n    A11[Cartilage Template] --> B11[Chondrocyte Proliferation]\n    B11 --> C11[Ossification Center]\n    C11 --> D11[Osteoblast Differentiation]\n    D11 --> E11[Bone Matrix Deposition]\n    E11 --> F11[Mineralization]\n    F11 --> G11[Bone Remodeling]\n    G11 --> H11[Growth Plate Activity]\n    H11 --> I11[Longitudinal Growth]\n    \n    style A11 fill:#ff6b6b,color:#fff\n    style B11 fill:#ffd43b,color:#000\n    style C11 fill:#ffd43b,color:#000\n    style D11 fill:#51cf66,color:#fff\n    style E11 fill:#51cf66,color:#fff\n    style F11 fill:#74c0fc,color:#fff\n    style G11 fill:#51cf66,color:#fff\n    style H11 fill:#74c0fc,color:#fff\n    style I11 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "notes": "Higher-level biological process visualization: Skeletal Growth Process. Created using the Programming Framework methodology for organismal and ecological process analysis."
+    },
+    {
+      "title": "Developmental regulation of the growth plate.",
+      "authors": "Kronenberg HM.",
+      "journal": "Nature",
+      "year": "2003",
+      "pubmed": "12815418",
+      "doi": "10.1038/nature01703",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/12815418"
+    },
+    {
+      "title": "Bone development.",
+      "authors": "Olsen BR, Reginato AM, Wang W.",
+      "journal": "Annu Rev Cell Dev Biol",
+      "year": "2000",
+      "pubmed": "11031238",
+      "doi": "10.1146/annurev.cellbio.16.1.191",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/11031238"
+    },
+    {
+      "title": "Development of the skeletal system.",
+      "authors": "Long F, Ornitz DM.",
+      "journal": "Cold Spring Harb Perspect Biol",
+      "year": "2013",
+      "pubmed": "24296939",
+      "doi": "10.1101/cshperspect.a008322",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/24296939"
+    }
+  ],
+  "keywords": [
+    "growth",
+    "vertebrates",
+    "process",
+    "morphogenesis",
+    "skeletal"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-08",
+  "verified": false,
+  "notes": "Higher-level biological process. GLMP covers biochemical/molecular processes; this database covers organismal/ecological processes."
+}

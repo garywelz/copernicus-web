@@ -1,0 +1,94 @@
+{
+  "id": "transport_circulation-gas-exchange-process",
+  "name": "Gas Exchange Process",
+  "category": "biology",
+  "subcategory": "transport_circulation",
+  "subcategory_name": "Transport & Circulation",
+  "organism": "Animals/Plants",
+  "description": "Gas Exchange Process in Animals/Plants. This process represents a higher-level biological mechanism distinct from molecular/biochemical processes covered in GLMP.",
+  "complexity": {
+    "nodes": 8,
+    "edges": 7,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "low",
+    "detailLevel": "low"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\n    A45[Respiratory Surface] --> B45[Partial Pressure Gradient]\n    B45 --> C45[O2 Diffusion In]\n    B45 --> D45[CO2 Diffusion Out]\n    C45 --> E45[Transport Medium]\n    D45 --> F45[Atmosphere]\n    E45 --> G45[Tissue Delivery]\n    G45 --> H45[Cellular Respiration]\n    \n    style A45 fill:#ff6b6b,color:#fff\n    style B45 fill:#ffd43b,color:#000\n    style C45 fill:#51cf66,color:#fff\n    style D45 fill:#51cf66,color:#fff\n    style E45 fill:#74c0fc,color:#fff\n    style F45 fill:#b197fc,color:#fff\n    style G45 fill:#74c0fc,color:#fff\n    style H45 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "notes": "Higher-level biological process visualization: Gas Exchange Process. Created using the Programming Framework methodology for organismal and ecological process analysis."
+    },
+    {
+      "title": "Stomatal control of gas exchange: evolution and implications for a changing climate",
+      "authors": "Hetherington, A.M., Woodward, F.I.",
+      "journal": "Nature",
+      "year": "2003",
+      "pubmed": "12511956",
+      "doi": "10.1038/nature01375",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/12511956"
+    },
+    {
+      "title": "Evolution of the Vertebrate Respiratory System",
+      "authors": "West, J.B.",
+      "journal": "Annu Rev Physiol",
+      "year": "1990",
+      "pubmed": "2184139",
+      "doi": "10.1146/annurev.ph.52.030190.000305",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/2184139"
+    },
+    {
+      "title": "Water use efficiency and carbon gain: the dilemma of plants revisited",
+      "authors": "Cowan, I.R.",
+      "journal": "Annu Rev Plant Physiol Plant Mol Biol",
+      "year": "2002",
+      "pubmed": "12045094",
+      "doi": "10.1146/annurev.arplant.53.100301.100902",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/12045094"
+    }
+  ],
+  "keywords": [
+    "exchange",
+    "process",
+    "animals/plants",
+    "gas",
+    "circulation",
+    "transport"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-08",
+  "verified": false,
+  "notes": "Higher-level biological process. GLMP covers biochemical/molecular processes; this database covers organismal/ecological processes."
+}

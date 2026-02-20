@@ -1,0 +1,1621 @@
+{
+  "acquired_date": "2026-01-10T19:09:57.493773Z",
+  "categories": [
+    {
+      "name": "Stress Response",
+      "processCount": 16
+    },
+    {
+      "name": "Biological Process",
+      "processCount": 12
+    },
+    {
+      "name": "Signal Transduction",
+      "processCount": 11
+    },
+    {
+      "name": "Metabolic Pathway",
+      "processCount": 10
+    },
+    {
+      "name": "Gene Regulation",
+      "processCount": 9
+    },
+    {
+      "name": "Metabolic Regulation",
+      "processCount": 7
+    },
+    {
+      "name": "DNA Repair",
+      "processCount": 7
+    },
+    {
+      "name": "Gene Expression",
+      "processCount": 5
+    },
+    {
+      "name": "Protein Transport",
+      "processCount": 4
+    },
+    {
+      "name": "Developmental Decision",
+      "processCount": 4
+    },
+    {
+      "name": "DNA Replication",
+      "processCount": 3
+    },
+    {
+      "name": "Protein Synthesis",
+      "processCount": 3
+    },
+    {
+      "name": "Protein Quality Control",
+      "processCount": 2
+    },
+    {
+      "name": "Cell Division",
+      "processCount": 1
+    },
+    {
+      "name": "Developmental Program",
+      "processCount": 1
+    },
+    {
+      "name": "Innate Immunity",
+      "processCount": 1
+    },
+    {
+      "name": "Nutrient Transport",
+      "processCount": 1
+    },
+    {
+      "name": "Translation Machinery",
+      "processCount": 1
+    },
+    {
+      "name": "Cell Cycle",
+      "processCount": 1
+    },
+    {
+      "name": "Organelle Biology",
+      "processCount": 1
+    }
+  ],
+  "description": "GLMP v2: Genome Logic Modeling Project with 100 publication-quality biological processes",
+  "generated": "2025-10-15",
+  "id": "process_unknown_unknown",
+  "lastUpdated": "2025-10-15",
+  "organisms": [
+    {
+      "name": "E. coli",
+      "processCount": 64
+    },
+    {
+      "name": "S. cerevisiae",
+      "processCount": 33
+    },
+    {
+      "name": "B. subtilis",
+      "processCount": 3
+    }
+  ],
+  "processes": [
+    {
+      "category": "Developmental Decision",
+      "complexity": "high",
+      "created": "2025-10-15",
+      "id": "bacillus_biofilm_formation",
+      "logicGates": {
+        "and": 5,
+        "or": 10,
+        "total": 15
+      },
+      "name": "Biofilm Formation and Matrix Production",
+      "nodes": 71,
+      "organism": "Bacillus subtilis",
+      "verified": true
+    },
+    {
+      "category": "Developmental Decision",
+      "complexity": "medium",
+      "created": "2025-10-13",
+      "id": "bacillus_competence_development",
+      "logicGates": {
+        "and": 2,
+        "or": 3,
+        "total": 5
+      },
+      "name": "Competence Development and DNA Uptake",
+      "nodes": 53,
+      "organism": "Bacillus subtilis",
+      "verified": true
+    },
+    {
+      "category": "Developmental Decision",
+      "complexity": "medium",
+      "created": "2025-10-13",
+      "id": "bacillus_sporulation_initiation",
+      "logicGates": {
+        "and": 2,
+        "or": 4,
+        "total": 6
+      },
+      "name": "Sporulation Initiation and Spo0A Phosphorelay",
+      "nodes": 64,
+      "organism": "Bacillus subtilis",
+      "verified": true
+    },
+    {
+      "category": "Metabolic Pathway",
+      "complexity": "high",
+      "created": "2025-10-15",
+      "id": "ecoli_amino_acid_biosynthesis",
+      "logicGates": {
+        "and": 2,
+        "or": 11,
+        "total": 13
+      },
+      "name": "Amino Acid Biosynthesis Pathways",
+      "nodes": 75,
+      "organism": "E. coli",
+      "verified": true
+    },
+    {
+      "category": "Metabolic Regulation",
+      "complexity": "high",
+      "created": "2025-10-15",
+      "id": "ecoli_anaerobic_respiration",
+      "logicGates": {
+        "and": 5,
+        "or": 9,
+        "total": 14
+      },
+      "name": "Anaerobic Respiration Regulation (ArcAB and FNR)",
+      "nodes": 76,
+      "organism": "E. coli",
+      "verified": true
+    },
+    {
+      "category": "Biological Process",
+      "complexity": "high",
+      "created": "2025-10-14",
+      "id": "ecoli_antibiotic_efflux_pumps",
+      "logicGates": {
+        "and": 1,
+        "or": 5,
+        "total": 6
+      },
+      "name": "Antibiotic Efflux Pumps",
+      "nodes": 79,
+      "organism": "E. coli",
+      "verified": true
+    },
+    {
+      "category": "Gene Regulation",
+      "complexity": "low",
+      "created": "2025-10-08",
+      "id": "ecoli_ara_operon",
+      "logicGates": {
+        "and": 2,
+        "or": 2,
+        "total": 4
+      },
+      "name": "Arabinose Operon and AraC Dual Regulation",
+      "nodes": 38,
+      "organism": "E. coli",
+      "verified": true
+    },
+    {
+      "category": "Metabolic Regulation",
+      "complexity": "medium",
+      "created": "2025-10-13",
+      "id": "ecoli_arginine_biosynthesis",
+      "logicGates": {
+        "and": 1,
+        "or": 2,
+        "total": 3
+      },
+      "name": "Arginine Biosynthesis and Regulation",
+      "nodes": 52,
+      "organism": "E. coli",
+      "verified": true
+    },
+    {
+      "category": "DNA Repair",
+      "complexity": "medium",
+      "created": "2025-10-15",
+      "id": "ecoli_base_excision_repair",
+      "logicGates": {
+        "and": 3,
+        "or": 6,
+        "total": 9
+      },
+      "name": "Base Excision Repair (BER)",
+      "nodes": 71,
+      "organism": "E. coli",
+      "verified": true
+    },
+    {
+      "category": "Signal Transduction",
+      "complexity": "medium",
+      "created": "2025-10-14",
+      "id": "ecoli_biofilm_formation",
+      "logicGates": {
+        "and": 4,
+        "or": 6,
+        "total": 10
+      },
+      "name": "E. coli Biofilm Formation",
+      "nodes": 62,
+      "organism": "E. coli",
+      "verified": true
+    },
+    {
+      "category": "Metabolic Regulation",
+      "complexity": "low",
+      "created": "2025-10-08",
+      "id": "ecoli_catabolite_repression",
+      "logicGates": {
+        "and": 2,
+        "or": 2,
+        "total": 4
+      },
+      "name": "Catabolite Repression and Global Carbon Control",
+      "nodes": 33,
+      "organism": "E. coli",
+      "verified": true
+    },
+    {
+      "category": "Cell Division",
+      "complexity": "high",
+      "created": "2025-10-15",
+      "id": "ecoli_cell_division",
+      "logicGates": {
+        "and": 8,
+        "or": 7,
+        "total": 15
+      },
+      "name": "Cell Division and FtsZ Ring Assembly",
+      "nodes": 79,
+      "organism": "E. coli",
+      "verified": true
+    },
+    {
+      "category": "Signal Transduction",
+      "complexity": "medium",
+      "created": "2025-10-14",
+      "id": "ecoli_chemotaxis",
+      "logicGates": {
+        "and": 4,
+        "or": 7,
+        "total": 11
+      },
+      "name": "E. coli Chemotaxis",
+      "nodes": 65,
+      "organism": "E. coli",
+      "verified": true
+    },
+    {
+      "category": "Stress Response",
+      "complexity": "high",
+      "created": "2025-10-14",
+      "id": "ecoli_cold_shock_response",
+      "logicGates": {
+        "and": 1,
+        "or": 4,
+        "total": 5
+      },
+      "name": "Cold Shock Response",
+      "nodes": 84,
+      "organism": "E. coli",
+      "verified": true
+    },
+    {
+      "category": "DNA Repair",
+      "complexity": "high",
+      "created": "2025-10-15",
+      "id": "ecoli_dna_damage_checkpoint",
+      "logicGates": {
+        "and": 7,
+        "or": 9,
+        "total": 16
+      },
+      "name": "DNA Damage Checkpoint and Cell Cycle Arrest",
+      "nodes": 77,
+      "organism": "E. coli",
+      "verified": true
+    },
+    {
+      "category": "DNA Replication",
+      "complexity": "medium",
+      "created": "2025-10-15",
+      "id": "ecoli_dna_replication_elongation",
+      "logicGates": {
+        "and": 3,
+        "or": 4,
+        "total": 7
+      },
+      "name": "DNA Replication Elongation",
+      "nodes": 68,
+      "organism": "E. coli",
+      "verified": true
+    },
+    {
+      "category": "DNA Replication",
+      "complexity": "low",
+      "created": "2025-10-08",
+      "id": "ecoli_dna_replication_initiation",
+      "logicGates": {
+        "and": 0,
+        "or": 1,
+        "total": 1
+      },
+      "name": "DNA Replication Initiation at oriC",
+      "nodes": 24,
+      "organism": "E. coli",
+      "verified": true
+    },
+    {
+      "category": "DNA Replication",
+      "complexity": "medium",
+      "created": "2025-10-15",
+      "id": "ecoli_dna_replication_termination",
+      "logicGates": {
+        "and": 2,
+        "or": 5,
+        "total": 7
+      },
+      "name": "DNA Replication Termination",
+      "nodes": 62,
+      "organism": "E. coli",
+      "verified": true
+    },
+    {
+      "category": "Biological Process",
+      "complexity": "high",
+      "created": "2025-10-14",
+      "id": "ecoli_e._coli_acid_resistance",
+      "logicGates": {
+        "and": 1,
+        "or": 13,
+        "total": 14
+      },
+      "name": "E. coli Acid Resistance",
+      "nodes": 60,
+      "organism": "E. coli",
+      "verified": true
+    },
+    {
+      "category": "Stress Response",
+      "complexity": "high",
+      "created": "2025-10-14",
+      "id": "ecoli_e._coli_envelope_stress_response",
+      "logicGates": {
+        "and": 2,
+        "or": 8,
+        "total": 10
+      },
+      "name": "E. coli Envelope Stress Response",
+      "nodes": 81,
+      "organism": "E. coli",
+      "verified": true
+    },
+    {
+      "category": "Biological Process",
+      "complexity": "high",
+      "created": "2025-10-14",
+      "id": "ecoli_e._coli_flagellar_assembly",
+      "logicGates": {
+        "and": 4,
+        "or": 12,
+        "total": 16
+      },
+      "name": "E. coli Flagellar Assembly",
+      "nodes": 88,
+      "organism": "E. coli",
+      "verified": true
+    },
+    {
+      "category": "Stress Response",
+      "complexity": "low",
+      "created": "2025-10-14",
+      "id": "ecoli_e._coli_heat_shock_response",
+      "logicGates": {
+        "and": 1,
+        "or": 1,
+        "total": 2
+      },
+      "name": "E. coli Heat Shock Response",
+      "nodes": 10,
+      "organism": "E. coli",
+      "verified": true
+    },
+    {
+      "category": "Stress Response",
+      "complexity": "high",
+      "created": "2025-10-14",
+      "id": "ecoli_e._coli_osmotic_stress_response",
+      "logicGates": {
+        "and": 2,
+        "or": 12,
+        "total": 14
+      },
+      "name": "E. coli Osmotic Stress Response",
+      "nodes": 87,
+      "organism": "E. coli",
+      "verified": true
+    },
+    {
+      "category": "Biological Process",
+      "complexity": "high",
+      "created": "2025-10-14",
+      "id": "ecoli_e._coli_stringent_response",
+      "logicGates": {
+        "and": 0,
+        "or": 14,
+        "total": 14
+      },
+      "name": "E. coli Stringent Response",
+      "nodes": 64,
+      "organism": "E. coli",
+      "verified": true
+    },
+    {
+      "category": "Signal Transduction",
+      "complexity": "medium",
+      "created": "2025-10-14",
+      "id": "ecoli_e._coli_two_component_signaling",
+      "logicGates": {
+        "and": 0,
+        "or": 8,
+        "total": 8
+      },
+      "name": "E. coli Two-Component Signaling",
+      "nodes": 20,
+      "organism": "E. coli",
+      "verified": true
+    },
+    {
+      "category": "Metabolic Pathway",
+      "complexity": "medium",
+      "created": "2025-10-15",
+      "id": "ecoli_fatty_acid_degradation",
+      "logicGates": {
+        "and": 3,
+        "or": 7,
+        "total": 10
+      },
+      "name": "Fatty Acid \u03b2-Oxidation",
+      "nodes": 68,
+      "organism": "E. coli",
+      "verified": true
+    },
+    {
+      "category": "Metabolic Pathway",
+      "complexity": "medium",
+      "created": "2025-10-13",
+      "id": "ecoli_fatty_acid_synthesis",
+      "logicGates": {
+        "and": 2,
+        "or": 2,
+        "total": 4
+      },
+      "name": "Fatty Acid Synthesis (Type II FAS)",
+      "nodes": 58,
+      "organism": "E. coli",
+      "verified": true
+    },
+    {
+      "category": "Developmental Program",
+      "complexity": "medium",
+      "created": "2025-10-13",
+      "id": "ecoli_flagellar_assembly",
+      "logicGates": {
+        "and": 3,
+        "or": 3,
+        "total": 6
+      },
+      "name": "Flagellar Assembly and FlhDC Regulation",
+      "nodes": 62,
+      "organism": "E. coli",
+      "verified": true
+    },
+    {
+      "category": "Metabolic Pathway",
+      "complexity": "medium",
+      "created": "2025-10-15",
+      "id": "ecoli_glycolysis",
+      "logicGates": {
+        "and": 3,
+        "or": 8,
+        "total": 11
+      },
+      "name": "Glycolysis (Embden-Meyerhof-Parnas Pathway)",
+      "nodes": 74,
+      "organism": "E. coli",
+      "verified": true
+    },
+    {
+      "category": "Stress Response",
+      "complexity": "low",
+      "created": "2025-10-08",
+      "id": "ecoli_heat_shock_response",
+      "logicGates": {
+        "and": 2,
+        "or": 2,
+        "total": 4
+      },
+      "name": "Heat Shock Response and Protein Quality Control",
+      "nodes": 38,
+      "organism": "E. coli",
+      "verified": true
+    },
+    {
+      "category": "Stress Response",
+      "complexity": "high",
+      "created": "2025-10-15",
+      "id": "ecoli_heavy_metal_resistance",
+      "logicGates": {
+        "and": 6,
+        "or": 8,
+        "total": 14
+      },
+      "name": "Heavy Metal Resistance (Copper and Zinc Homeostasis)",
+      "nodes": 74,
+      "organism": "E. coli",
+      "verified": true
+    },
+    {
+      "category": "DNA Repair",
+      "complexity": "high",
+      "created": "2025-10-15",
+      "id": "ecoli_homologous_recombination",
+      "logicGates": {
+        "and": 6,
+        "or": 9,
+        "total": 15
+      },
+      "name": "Homologous Recombination",
+      "nodes": 82,
+      "organism": "E. coli",
+      "verified": true
+    },
+    {
+      "category": "Biological Process",
+      "complexity": "medium",
+      "created": "2025-10-14",
+      "id": "ecoli_iron_homeostasis",
+      "logicGates": {
+        "and": 1,
+        "or": 6,
+        "total": 7
+      },
+      "name": "Iron Homeostasis",
+      "nodes": 72,
+      "organism": "E. coli",
+      "verified": true
+    },
+    {
+      "category": "Gene Regulation",
+      "complexity": "medium",
+      "created": "2025-10-08",
+      "id": "ecoli_lac_operon",
+      "logicGates": {
+        "and": 2,
+        "or": 5,
+        "total": 7
+      },
+      "name": "Lac Operon Regulation",
+      "nodes": 63,
+      "organism": "E. coli",
+      "verified": true
+    },
+    {
+      "category": "Metabolic Regulation",
+      "complexity": "low",
+      "created": "2025-10-08",
+      "id": "ecoli_mal_regulon",
+      "logicGates": {
+        "and": 3,
+        "or": 2,
+        "total": 5
+      },
+      "name": "Maltose Regulon and Multi-Operon Coordination",
+      "nodes": 40,
+      "organism": "E. coli",
+      "verified": true
+    },
+    {
+      "category": "DNA Repair",
+      "complexity": "high",
+      "created": "2025-10-15",
+      "id": "ecoli_mismatch_repair",
+      "logicGates": {
+        "and": 5,
+        "or": 6,
+        "total": 11
+      },
+      "name": "DNA Mismatch Repair (MMR)",
+      "nodes": 76,
+      "organism": "E. coli",
+      "verified": true
+    },
+    {
+      "category": "Metabolic Regulation",
+      "complexity": "low",
+      "created": "2025-10-08",
+      "id": "ecoli_nitrogen_assimilation",
+      "logicGates": {
+        "and": 3,
+        "or": 2,
+        "total": 5
+      },
+      "name": "Nitrogen Assimilation and Ntr Regulation",
+      "nodes": 43,
+      "organism": "E. coli",
+      "verified": true
+    },
+    {
+      "category": "Metabolic Pathway",
+      "complexity": "high",
+      "created": "2025-10-15",
+      "id": "ecoli_nucleotide_biosynthesis",
+      "logicGates": {
+        "and": 3,
+        "or": 9,
+        "total": 12
+      },
+      "name": "Nucleotide Biosynthesis (Purine and Pyrimidine)",
+      "nodes": 72,
+      "organism": "E. coli",
+      "verified": true
+    },
+    {
+      "category": "DNA Repair",
+      "complexity": "medium",
+      "created": "2025-10-15",
+      "id": "ecoli_nucleotide_excision_repair",
+      "logicGates": {
+        "and": 4,
+        "or": 5,
+        "total": 9
+      },
+      "name": "Nucleotide Excision Repair (NER)",
+      "nodes": 74,
+      "organism": "E. coli",
+      "verified": true
+    },
+    {
+      "category": "Protein Transport",
+      "complexity": "high",
+      "created": "2025-10-15",
+      "id": "ecoli_outer_membrane_assembly",
+      "logicGates": {
+        "and": 9,
+        "or": 5,
+        "total": 14
+      },
+      "name": "Outer Membrane Protein Assembly (BAM Complex)",
+      "nodes": 72,
+      "organism": "E. coli",
+      "verified": true
+    },
+    {
+      "category": "Stress Response",
+      "complexity": "high",
+      "created": "2025-10-15",
+      "id": "ecoli_oxidative_stress_response",
+      "logicGates": {
+        "and": 4,
+        "or": 11,
+        "total": 15
+      },
+      "name": "Oxidative Stress Response (OxyR and SoxRS)",
+      "nodes": 83,
+      "organism": "E. coli",
+      "verified": true
+    },
+    {
+      "category": "Metabolic Pathway",
+      "complexity": "medium",
+      "created": "2025-10-15",
+      "id": "ecoli_pentose_phosphate_pathway",
+      "logicGates": {
+        "and": 2,
+        "or": 9,
+        "total": 11
+      },
+      "name": "Pentose Phosphate Pathway",
+      "nodes": 66,
+      "organism": "E. coli",
+      "verified": true
+    },
+    {
+      "category": "Stress Response",
+      "complexity": "high",
+      "created": "2025-10-15",
+      "id": "ecoli_periplasmic_stress",
+      "logicGates": {
+        "and": 4,
+        "or": 10,
+        "total": 14
+      },
+      "name": "Periplasmic and Membrane Stress (Cpx Response)",
+      "nodes": 71,
+      "organism": "E. coli",
+      "verified": true
+    },
+    {
+      "category": "Innate Immunity",
+      "complexity": "high",
+      "created": "2025-10-15",
+      "id": "ecoli_phage_defense",
+      "logicGates": {
+        "and": 6,
+        "or": 10,
+        "total": 16
+      },
+      "name": "Bacteriophage Defense Systems (R-M and CRISPR)",
+      "nodes": 73,
+      "organism": "E. coli",
+      "verified": true
+    },
+    {
+      "category": "Metabolic Regulation",
+      "complexity": "low",
+      "created": "2025-10-08",
+      "id": "ecoli_pho_regulon",
+      "logicGates": {
+        "and": 2,
+        "or": 2,
+        "total": 4
+      },
+      "name": "Phosphate Starvation Response (Pho Regulon)",
+      "nodes": 42,
+      "organism": "E. coli",
+      "verified": true
+    },
+    {
+      "category": "Gene Regulation",
+      "complexity": "high",
+      "created": "2025-10-14",
+      "id": "ecoli_phosphate_regulation",
+      "logicGates": {
+        "and": 0,
+        "or": 6,
+        "total": 6
+      },
+      "name": "Phosphate Regulation",
+      "nodes": 79,
+      "organism": "E. coli",
+      "verified": true
+    },
+    {
+      "category": "Nutrient Transport",
+      "complexity": "medium",
+      "created": "2025-10-15",
+      "id": "ecoli_phosphate_transport",
+      "logicGates": {
+        "and": 6,
+        "or": 4,
+        "total": 10
+      },
+      "name": "Phosphate Transport (Pst System)",
+      "nodes": 58,
+      "organism": "E. coli",
+      "verified": true
+    },
+    {
+      "category": "Biological Process",
+      "complexity": "high",
+      "created": "2025-10-14",
+      "id": "ecoli_protein_folding_chaperones",
+      "logicGates": {
+        "and": 1,
+        "or": 22,
+        "total": 23
+      },
+      "name": "Protein Folding Chaperones",
+      "nodes": 78,
+      "organism": "E. coli",
+      "verified": true
+    },
+    {
+      "category": "Signal Transduction",
+      "complexity": "medium",
+      "created": "2025-10-14",
+      "id": "ecoli_quorum_sensing",
+      "logicGates": {
+        "and": 3,
+        "or": 5,
+        "total": 8
+      },
+      "name": "E. coli Quorum Sensing",
+      "nodes": 58,
+      "organism": "E. coli",
+      "verified": true
+    },
+    {
+      "category": "Translation Machinery",
+      "complexity": "medium",
+      "created": "2025-10-13",
+      "id": "ecoli_ribosome_assembly",
+      "logicGates": {
+        "and": 2,
+        "or": 3,
+        "total": 5
+      },
+      "name": "Ribosome Assembly and Maturation",
+      "nodes": 52,
+      "organism": "E. coli",
+      "verified": true
+    },
+    {
+      "category": "Gene Expression",
+      "complexity": "low",
+      "created": "2025-10-13",
+      "id": "ecoli_rna_polymerase_recycling",
+      "logicGates": {
+        "and": 2,
+        "or": 4,
+        "total": 6
+      },
+      "name": "RNA Polymerase Recycling and Reinitiation",
+      "nodes": 48,
+      "organism": "E. coli",
+      "verified": true
+    },
+    {
+      "category": "Gene Regulation",
+      "complexity": "medium",
+      "created": "2025-10-13",
+      "id": "ecoli_sigma_factor_competition",
+      "logicGates": {
+        "and": 2,
+        "or": 6,
+        "total": 8
+      },
+      "name": "Sigma Factor Competition and Global Transcriptional Control",
+      "nodes": 62,
+      "organism": "E. coli",
+      "verified": true
+    },
+    {
+      "category": "DNA Repair",
+      "complexity": "high",
+      "created": "2025-10-14",
+      "id": "ecoli_sos_response",
+      "logicGates": {
+        "and": 4,
+        "or": 8,
+        "total": 12
+      },
+      "name": "E. coli SOS Response",
+      "nodes": 68,
+      "organism": "E. coli",
+      "verified": true
+    },
+    {
+      "category": "Stress Response",
+      "complexity": "high",
+      "created": "2025-10-15",
+      "id": "ecoli_starvation_response",
+      "logicGates": {
+        "and": 3,
+        "or": 13,
+        "total": 16
+      },
+      "name": "General Starvation Response (RpoS/\u03c3S)",
+      "nodes": 81,
+      "organism": "E. coli",
+      "verified": true
+    },
+    {
+      "category": "Stress Response",
+      "complexity": "low",
+      "created": "2025-10-08",
+      "id": "ecoli_stringent_response",
+      "logicGates": {
+        "and": 2,
+        "or": 2,
+        "total": 4
+      },
+      "name": "Stringent Response and ppGpp-Mediated Growth Control",
+      "nodes": 40,
+      "organism": "E. coli",
+      "verified": true
+    },
+    {
+      "category": "Metabolic Pathway",
+      "complexity": "medium",
+      "created": "2025-10-15",
+      "id": "ecoli_sulfur_metabolism",
+      "logicGates": {
+        "and": 3,
+        "or": 8,
+        "total": 11
+      },
+      "name": "Sulfur Assimilation and Cysteine Biosynthesis",
+      "nodes": 70,
+      "organism": "E. coli",
+      "verified": true
+    },
+    {
+      "category": "Metabolic Pathway",
+      "complexity": "high",
+      "created": "2025-10-15",
+      "id": "ecoli_tca_cycle",
+      "logicGates": {
+        "and": 4,
+        "or": 7,
+        "total": 11
+      },
+      "name": "Tricarboxylic Acid Cycle (TCA/Krebs Cycle)",
+      "nodes": 79,
+      "organism": "E. coli",
+      "verified": true
+    },
+    {
+      "category": "Gene Expression",
+      "complexity": "high",
+      "created": "2025-10-15",
+      "id": "ecoli_transcription_elongation",
+      "logicGates": {
+        "and": 4,
+        "or": 8,
+        "total": 12
+      },
+      "name": "Transcription Elongation",
+      "nodes": 75,
+      "organism": "E. coli",
+      "verified": true
+    },
+    {
+      "category": "Gene Expression",
+      "complexity": "low",
+      "created": "2025-10-08",
+      "id": "ecoli_transcription_regulation",
+      "logicGates": {
+        "and": 0,
+        "or": 2,
+        "total": 2
+      },
+      "name": "Transcription Initiation and Regulation",
+      "nodes": 25,
+      "organism": "E. coli",
+      "verified": true
+    },
+    {
+      "category": "Gene Expression",
+      "complexity": "high",
+      "created": "2025-10-15",
+      "id": "ecoli_transcription_termination",
+      "logicGates": {
+        "and": 5,
+        "or": 7,
+        "total": 12
+      },
+      "name": "Transcription Termination",
+      "nodes": 68,
+      "organism": "E. coli",
+      "verified": true
+    },
+    {
+      "category": "Protein Synthesis",
+      "complexity": "high",
+      "created": "2025-10-15",
+      "id": "ecoli_translation_elongation",
+      "logicGates": {
+        "and": 5,
+        "or": 6,
+        "total": 11
+      },
+      "name": "Translation Elongation",
+      "nodes": 78,
+      "organism": "E. coli",
+      "verified": true
+    },
+    {
+      "category": "Protein Synthesis",
+      "complexity": "medium",
+      "created": "2025-10-15",
+      "id": "ecoli_translation_initiation",
+      "logicGates": {
+        "and": 4,
+        "or": 5,
+        "total": 9
+      },
+      "name": "Translation Initiation",
+      "nodes": 69,
+      "organism": "E. coli",
+      "verified": true
+    },
+    {
+      "category": "Protein Synthesis",
+      "complexity": "medium",
+      "created": "2025-10-15",
+      "id": "ecoli_translation_termination",
+      "logicGates": {
+        "and": 4,
+        "or": 7,
+        "total": 11
+      },
+      "name": "Translation Termination and Ribosome Recycling",
+      "nodes": 72,
+      "organism": "E. coli",
+      "verified": true
+    },
+    {
+      "category": "Gene Regulation",
+      "complexity": "low",
+      "created": "2025-10-08",
+      "id": "ecoli_trp_operon",
+      "logicGates": {
+        "and": 2,
+        "or": 3,
+        "total": 5
+      },
+      "name": "Tryptophan Operon with Attenuation",
+      "nodes": 45,
+      "organism": "E. coli",
+      "verified": true
+    },
+    {
+      "category": "Metabolic Pathway",
+      "complexity": "medium",
+      "created": "2025-10-15",
+      "id": "ecoli_tryptophan_biosynthesis",
+      "logicGates": {
+        "and": 5,
+        "or": 4,
+        "total": 9
+      },
+      "name": "Tryptophan Biosynthesis Pathway",
+      "nodes": 64,
+      "organism": "E. coli",
+      "verified": true
+    },
+    {
+      "category": "Signal Transduction",
+      "complexity": "low",
+      "created": "2025-10-08",
+      "id": "ecoli_two_component_signaling",
+      "logicGates": {
+        "and": 1,
+        "or": 2,
+        "total": 3
+      },
+      "name": "Two-Component Signal Transduction (EnvZ-OmpR)",
+      "nodes": 35,
+      "organism": "E. coli",
+      "verified": true
+    },
+    {
+      "category": "Protein Transport",
+      "complexity": "medium",
+      "created": "2025-10-14",
+      "id": "ecoli_type_iii_secretion",
+      "logicGates": {
+        "and": 3,
+        "or": 6,
+        "total": 9
+      },
+      "name": "E. coli Type III Secretion System",
+      "nodes": 60,
+      "organism": "E. coli",
+      "verified": true
+    },
+    {
+      "category": "Protein Quality Control",
+      "complexity": "high",
+      "created": "2025-10-14",
+      "id": "yeast_autophagy",
+      "logicGates": {
+        "and": 5,
+        "or": 7,
+        "total": 12
+      },
+      "name": "Yeast Autophagy",
+      "nodes": 70,
+      "organism": "S. cerevisiae",
+      "verified": true
+    },
+    {
+      "category": "Cell Cycle",
+      "complexity": "low",
+      "created": "2025-10-08",
+      "id": "yeast_cell_cycle_control",
+      "logicGates": {
+        "and": 0,
+        "or": 3,
+        "total": 3
+      },
+      "name": "Cell Cycle Control and CDK Regulation",
+      "nodes": 30,
+      "organism": "S. cerevisiae",
+      "verified": true
+    },
+    {
+      "category": "Biological Process",
+      "complexity": "high",
+      "created": "2025-10-14",
+      "id": "yeast_cell_wall_integrity",
+      "logicGates": {
+        "and": 0,
+        "or": 8,
+        "total": 8
+      },
+      "name": "Cell Wall Integrity",
+      "nodes": 87,
+      "organism": "S. cerevisiae",
+      "verified": true
+    },
+    {
+      "category": "Gene Regulation",
+      "complexity": "high",
+      "created": "2025-10-15",
+      "id": "yeast_chromatin_silencing",
+      "logicGates": {
+        "and": 10,
+        "or": 4,
+        "total": 14
+      },
+      "name": "Chromatin Silencing and Gene Regulation",
+      "nodes": 68,
+      "organism": "S. cerevisiae",
+      "verified": true
+    },
+    {
+      "category": "Stress Response",
+      "complexity": "high",
+      "created": "2025-10-15",
+      "id": "yeast_er_stress_response",
+      "logicGates": {
+        "and": 8,
+        "or": 6,
+        "total": 14
+      },
+      "name": "ER Stress Response and UPR (Expanded)",
+      "nodes": 74,
+      "organism": "S. cerevisiae",
+      "verified": true
+    },
+    {
+      "category": "Gene Regulation",
+      "complexity": "medium",
+      "created": "2025-10-13",
+      "id": "yeast_gal_regulation",
+      "logicGates": {
+        "and": 2,
+        "or": 3,
+        "total": 5
+      },
+      "name": "GAL Gene Regulation",
+      "nodes": 58,
+      "organism": "S. cerevisiae",
+      "verified": true
+    },
+    {
+      "category": "Stress Response",
+      "complexity": "medium",
+      "created": "2025-10-15",
+      "id": "yeast_gcn4_starvation",
+      "logicGates": {
+        "and": 4,
+        "or": 7,
+        "total": 11
+      },
+      "name": "Gcn4 Amino Acid Starvation Response",
+      "nodes": 71,
+      "organism": "S. cerevisiae",
+      "verified": true
+    },
+    {
+      "category": "Metabolic Pathway",
+      "complexity": "medium",
+      "created": "2025-10-13",
+      "id": "yeast_glycolysis",
+      "logicGates": {
+        "and": 2,
+        "or": 3,
+        "total": 5
+      },
+      "name": "Glycolysis and Glucose Metabolism",
+      "nodes": 56,
+      "organism": "S. cerevisiae",
+      "verified": true
+    },
+    {
+      "category": "Stress Response",
+      "complexity": "high",
+      "created": "2025-10-14",
+      "id": "yeast_heat_shock_response",
+      "logicGates": {
+        "and": 0,
+        "or": 12,
+        "total": 12
+      },
+      "name": "Heat Shock Response",
+      "nodes": 73,
+      "organism": "S. cerevisiae",
+      "verified": true
+    },
+    {
+      "category": "Signal Transduction",
+      "complexity": "high",
+      "created": "2025-10-15",
+      "id": "yeast_hog_pathway",
+      "logicGates": {
+        "and": 11,
+        "or": 5,
+        "total": 16
+      },
+      "name": "HOG Pathway (High Osmolarity Glycerol Response)",
+      "nodes": 91,
+      "organism": "S. cerevisiae",
+      "verified": true
+    },
+    {
+      "category": "Signal Transduction",
+      "complexity": "high",
+      "created": "2025-10-15",
+      "id": "yeast_mapk_mating",
+      "logicGates": {
+        "and": 10,
+        "or": 4,
+        "total": 14
+      },
+      "name": "MAPK Pheromone Response Pathway (Detailed)",
+      "nodes": 84,
+      "organism": "S. cerevisiae",
+      "verified": true
+    },
+    {
+      "category": "Signal Transduction",
+      "complexity": "high",
+      "created": "2025-10-14",
+      "id": "yeast_mating_response",
+      "logicGates": {
+        "and": 6,
+        "or": 8,
+        "total": 14
+      },
+      "name": "Yeast Mating Response",
+      "nodes": 75,
+      "organism": "S. cerevisiae",
+      "verified": true
+    },
+    {
+      "category": "Gene Regulation",
+      "complexity": "medium",
+      "created": "2025-10-13",
+      "id": "yeast_mating_type_switching",
+      "logicGates": {
+        "and": 3,
+        "or": 2,
+        "total": 5
+      },
+      "name": "Mating Type Switching and HO Endonuclease Control",
+      "nodes": 55,
+      "organism": "S. cerevisiae",
+      "verified": true
+    },
+    {
+      "category": "Developmental Decision",
+      "complexity": "medium",
+      "created": "2025-10-13",
+      "id": "yeast_meiosis_regulation",
+      "logicGates": {
+        "and": 3,
+        "or": 4,
+        "total": 7
+      },
+      "name": "Meiosis Initiation and IME1 Regulation",
+      "nodes": 57,
+      "organism": "S. cerevisiae",
+      "verified": true
+    },
+    {
+      "category": "Organelle Biology",
+      "complexity": "high",
+      "created": "2025-10-15",
+      "id": "yeast_mitochondrial_biogenesis",
+      "logicGates": {
+        "and": 8,
+        "or": 5,
+        "total": 13
+      },
+      "name": "Mitochondrial Biogenesis and Retrograde Signaling",
+      "nodes": 73,
+      "organism": "S. cerevisiae",
+      "verified": true
+    },
+    {
+      "category": "Protein Transport",
+      "complexity": "high",
+      "created": "2025-10-14",
+      "id": "yeast_mitochondrial_import",
+      "logicGates": {
+        "and": 5,
+        "or": 8,
+        "total": 13
+      },
+      "name": "Yeast Mitochondrial Protein Import",
+      "nodes": 72,
+      "organism": "S. cerevisiae",
+      "verified": true
+    },
+    {
+      "category": "Metabolic Regulation",
+      "complexity": "high",
+      "created": "2025-10-15",
+      "id": "yeast_nitrogen_metabolism",
+      "logicGates": {
+        "and": 4,
+        "or": 9,
+        "total": 13
+      },
+      "name": "Nitrogen Catabolite Repression (NCR)",
+      "nodes": 67,
+      "organism": "S. cerevisiae",
+      "verified": true
+    },
+    {
+      "category": "DNA Repair",
+      "complexity": "medium",
+      "created": "2025-10-15",
+      "id": "yeast_nucleotide_excision_repair",
+      "logicGates": {
+        "and": 3,
+        "or": 4,
+        "total": 7
+      },
+      "name": "Nucleotide Excision Repair (NER) Pathway",
+      "nodes": 55,
+      "organism": "S. cerevisiae",
+      "verified": false
+    },
+    {
+      "category": "Stress Response",
+      "complexity": "high",
+      "created": "2025-10-14",
+      "id": "yeast_osmotic_stress_response",
+      "logicGates": {
+        "and": 0,
+        "or": 3,
+        "total": 3
+      },
+      "name": "Osmotic Stress Response",
+      "nodes": 77,
+      "organism": "S. cerevisiae",
+      "verified": true
+    },
+    {
+      "category": "Stress Response",
+      "complexity": "high",
+      "created": "2025-10-14",
+      "id": "yeast_oxidative_stress_response",
+      "logicGates": {
+        "and": 1,
+        "or": 12,
+        "total": 13
+      },
+      "name": "Oxidative Stress Response",
+      "nodes": 67,
+      "organism": "S. cerevisiae",
+      "verified": true
+    },
+    {
+      "category": "Signal Transduction",
+      "complexity": "high",
+      "created": "2025-10-15",
+      "id": "yeast_pka_pathway",
+      "logicGates": {
+        "and": 8,
+        "or": 6,
+        "total": 14
+      },
+      "name": "cAMP-PKA Pathway (Glucose Sensing)",
+      "nodes": 77,
+      "organism": "S. cerevisiae",
+      "verified": true
+    },
+    {
+      "category": "Biological Process",
+      "complexity": "high",
+      "created": "2025-10-14",
+      "id": "yeast_protein_folding",
+      "logicGates": {
+        "and": 0,
+        "or": 22,
+        "total": 22
+      },
+      "name": "Protein Folding",
+      "nodes": 72,
+      "organism": "S. cerevisiae",
+      "verified": true
+    },
+    {
+      "category": "Gene Expression",
+      "complexity": "high",
+      "created": "2025-10-15",
+      "id": "yeast_rna_splicing",
+      "logicGates": {
+        "and": 12,
+        "or": 3,
+        "total": 15
+      },
+      "name": "Pre-mRNA Splicing (Spliceosome Assembly)",
+      "nodes": 82,
+      "organism": "S. cerevisiae",
+      "verified": true
+    },
+    {
+      "category": "Signal Transduction",
+      "complexity": "high",
+      "created": "2025-10-15",
+      "id": "yeast_snf1_pathway",
+      "logicGates": {
+        "and": 7,
+        "or": 5,
+        "total": 12
+      },
+      "name": "Snf1/AMPK Energy Sensing Pathway",
+      "nodes": 69,
+      "organism": "S. cerevisiae",
+      "verified": true
+    },
+    {
+      "category": "Signal Transduction",
+      "complexity": "high",
+      "created": "2025-10-15",
+      "id": "yeast_tor_signaling",
+      "logicGates": {
+        "and": 9,
+        "or": 6,
+        "total": 15
+      },
+      "name": "TOR Signaling Pathway (Nutrient Sensing)",
+      "nodes": 86,
+      "organism": "S. cerevisiae",
+      "verified": true
+    },
+    {
+      "category": "Protein Quality Control",
+      "complexity": "medium",
+      "created": "2025-10-13",
+      "id": "yeast_ubiquitin_proteasome",
+      "logicGates": {
+        "and": 3,
+        "or": 5,
+        "total": 8
+      },
+      "name": "Ubiquitin-Proteasome System and Protein Degradation",
+      "nodes": 58,
+      "organism": "S. cerevisiae",
+      "verified": true
+    },
+    {
+      "category": "Stress Response",
+      "complexity": "high",
+      "created": "2025-10-14",
+      "id": "yeast_unfolded_protein_response",
+      "logicGates": {
+        "and": 5,
+        "or": 7,
+        "total": 12
+      },
+      "name": "Yeast Unfolded Protein Response (UPR)",
+      "nodes": 68,
+      "organism": "S. cerevisiae",
+      "verified": true
+    },
+    {
+      "category": "Protein Transport",
+      "complexity": "high",
+      "created": "2025-10-15",
+      "id": "yeast_vesicle_trafficking",
+      "logicGates": {
+        "and": 13,
+        "or": 4,
+        "total": 17
+      },
+      "name": "Vesicle Trafficking and Secretory Pathway",
+      "nodes": 79,
+      "organism": "S. cerevisiae",
+      "verified": true
+    },
+    {
+      "category": "Biological Process",
+      "complexity": "high",
+      "created": "2025-10-14",
+      "id": "yeast_yeast_cell_polarity",
+      "logicGates": {
+        "and": 0,
+        "or": 14,
+        "total": 14
+      },
+      "name": "Yeast Cell Polarity",
+      "nodes": 65,
+      "organism": "S. cerevisiae",
+      "verified": true
+    },
+    {
+      "category": "Biological Process",
+      "complexity": "medium",
+      "created": "2025-10-14",
+      "id": "yeast_yeast_er_associated_degradation",
+      "logicGates": {
+        "and": 5,
+        "or": 3,
+        "total": 8
+      },
+      "name": "Yeast ER-Associated Degradation",
+      "nodes": 54,
+      "organism": "S. cerevisiae",
+      "verified": true
+    },
+    {
+      "category": "Gene Regulation",
+      "complexity": "medium",
+      "created": "2025-10-14",
+      "id": "yeast_yeast_glycolysis_regulation",
+      "logicGates": {
+        "and": 1,
+        "or": 2,
+        "total": 3
+      },
+      "name": "Yeast Glycolysis Regulation",
+      "nodes": 67,
+      "organism": "S. cerevisiae",
+      "verified": true
+    },
+    {
+      "category": "Biological Process",
+      "complexity": "high",
+      "created": "2025-10-14",
+      "id": "yeast_yeast_peroxisome_biogenesis",
+      "logicGates": {
+        "and": 0,
+        "or": 12,
+        "total": 12
+      },
+      "name": "Yeast Peroxisome Biogenesis",
+      "nodes": 79,
+      "organism": "S. cerevisiae",
+      "verified": true
+    },
+    {
+      "category": "Biological Process",
+      "complexity": "medium",
+      "created": "2025-10-14",
+      "id": "yeast_yeast_vacuolar_protein_sorting",
+      "logicGates": {
+        "and": 1,
+        "or": 6,
+        "total": 7
+      },
+      "name": "Yeast Vacuolar Protein Sorting",
+      "nodes": 70,
+      "organism": "S. cerevisiae",
+      "verified": true
+    }
+  ],
+  "related_papers": [],
+  "related_podcasts": [],
+  "related_processes": [],
+  "related_videos": [],
+  "source": "programming_framework",
+  "statistics": {
+    "andGates": 351,
+    "orAndRatio": 1.81,
+    "orGates": 636,
+    "totalCitations": 348,
+    "totalLogicGates": 987,
+    "totalNodes": 6496,
+    "verifiedProcesses": 99
+  },
+  "totalProcesses": 100,
+  "version": "2.0"
+}

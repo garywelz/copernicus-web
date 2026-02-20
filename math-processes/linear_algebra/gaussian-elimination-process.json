@@ -1,0 +1,36 @@
+{
+  "id": "gaussian-elimination-process",
+  "title": "Gaussian Elimination Process",
+  "description": "Systematic method for solving systems of linear equations",
+  "category": "mathematics",
+  "subcategory": "linear_algebra",
+  "mermaid": "graph TD A1[Input: System of Linear Equations (Augmented Matrix)] --> B1[Initialize: n = number of equations/variables] style A1 fill:#ff6b6b,color:#fff style B1 fill:#ffd43b,color:#000 B1 --> C1[Loop: for i = 1 to n-1] style C1 fill:#ffd43b,color:#000 C1 --\"Yes\"--> D1[Find Pivot: Find row j >= i with largest absolute value in column i] style D1 fill:#51cf66,color:#fff D1 --> E1{Is pivot value (matrix[j][i]) close to zero?} style E1 fill:#ffd43b,color:#000 E1 --\"Yes\"--> F1[Error: System may be singular or ill-conditioned] style F1 fill:#b197fc,color:#fff E1 --\"No\"--> G1{Is j == i?} style G1 fill:#ffd43b,color:#000 G1 --\"Yes\"--> H1[No row swap needed] style H1 fill:#74c0fc,color:#fff G1 --\"No\"--> I1[Swap rows i and j] style I1 fill:#51cf66,color:#fff H1 --> J1[Loop: for k = i+1 to n] I1 --> J1 style J1 fill:#ffd43b,color:#000 J1 --\"Yes\"--> K1[Calculate multiplier: factor = matrix[k][i] / matrix[i][i]] style K1 fill:#51cf66,color:#fff K1 --> L1[Loop: for l = i to n+1 (all columns)] style L1 fill:#ffd43b,color:#000 L1 --\"Yes\"--> M1[Subtract (factor * row i) from row k: matrix[k][l] = matrix[k][l] - (factor * matrix[i][l])] style M1 fill:#51cf66,color:#fff M1 --> L1 L1 --\"No\"--> N1[End inner loop (l)] style N1 fill:#74c0fc,color:#fff N1 --> J1 J1 --\"No\"--> O1[End inner loop (k)] style O1 fill:#74c0fc,color:#fff O1 --> C1 C1 --\"No\"--> P1[Back Substitution: Loop for i = n to 1] style P1 fill:#ffd43b,color:#000 P1 --\"Yes\"--> Q1[Calculate solution: x[i] = (matrix[i][n+1] - Sum(matrix[i][j] * x[j] for j = i+1 to n)) / matrix[i][i]] style Q1 fill:#51cf66,color:#fff Q1 --> P1 P1 --\"No\"--> R1[Output: Solution vector x] style R1 fill:#b197fc,color:#fff F1 --> R1",
+  "entities": [
+    "Input: System of Linear Equations (Augmented Matrix)",
+    "/\"Initialize: n = number of equations/variables\"\\",
+    "/\"Loop: for i = 1 to n-1\"\\",
+    "/\"Find Pivot: Find row j >= i with largest absolute value in column i\"\\",
+    "/\"Is pivot value (matrix[j",
+    "/\"Error: System may be singular or ill-conditioned\"\\",
+    "/\"Is j == i?\"/}style G1 fill:#ffd43b,color:#000 G1 --\"Yes\"--> H1[/\"No row swap needed\"\\",
+    "/\"Swap rows i and j\"\\",
+    "/\"Loop: for k = i+1 to n\"\\",
+    "/\"Calculate multiplier: factor = matrix[k",
+    "/\"Loop: for l = i to n+1 (all columns)\"\\",
+    "/\"Subtract (factor * row i) from row k: matrix[k",
+    "/\"End inner loop (l)\"\\",
+    "/\"End inner loop (k)\"\\",
+    "/\"Back Substitution: Loop for i = n to 1\"\\",
+    "/\"Calculate solution: x[i",
+    "matrix[i",
+    "/\"Output: Solution vector x\"\\"
+  ],
+  "metadata": {
+    "source": "programming_framework",
+    "color_scheme": "discipline_based",
+    "node_count": 16,
+    "complexity": "low"
+  },
+  "sources": [],
+  "source_text": "Source information to be added - please specify the book, paper, or reference material used by the LLM to generate this flowchart."
+}

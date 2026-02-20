@@ -1,0 +1,92 @@
+{
+  "id": "software_engineering-natural-language-processing",
+  "name": "Natural Language Processing",
+  "category": "computer_science",
+  "subcategory": "software_engineering",
+  "subcategory_name": "Software Engineering",
+  "description": "Natural Language Processing process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 26,
+    "edges": 21,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 1,
+      "total": 1
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nA3[Text Input] --> B3[NLP Method]\nC3[Tokenization] --> D3[Language Model]\nE3[Semantic Analysis] --> F3[NLP Analysis]\nB3 --> G3[Transformer Model]\nD3 --> H3[Word Embeddings]\nF3 --> I3[Sequence Model]\nG3 --> J3[Attention Mechanism]\nH3 --> K3[Context Understanding]\nI3 --> L3[Text Generation]\nJ3 --> M3[Language Understanding]\nK3 --> L3\nL3 --> N3[Sentiment Analysis]\nM3 --> O3[Text Classification]\nN3 --> P3[Entity Recognition]\nO3 --> Q3[NLP Process]\nP3 --> R3[NLP Validation]\nQ3 --> S3[NLP Verification]\nR3 --> T3[NLP Result]\nS3 --> U3[NLP Analysis]\nT3 --> V3[NLP Parameters]\nU3 --> W3[NLP Output]\nV3 --> X3[NLP Analysis]\nW3 --> Y3[NLP Final Result]\nX3 --> Z3[NLP Complete]\n\n    style A3 fill:#ff6b6b,color:#fff\n    style C3 fill:#ff6b6b,color:#fff\n    style E3 fill:#ff6b6b,color:#fff\n    style B3 fill:#ffd43b,color:#000\n    style D3 fill:#ffd43b,color:#000\n    style F3 fill:#ffd43b,color:#000\n    style G3 fill:#ffd43b,color:#000\n    style H3 fill:#ffd43b,color:#000\n    style I3 fill:#ffd43b,color:#000\n    style J3 fill:#ffd43b,color:#000\n    style K3 fill:#ffd43b,color:#000\n    style L3 fill:#ffd43b,color:#000\n    style M3 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style O3 fill:#51cf66,color:#fff\n    style P3 fill:#51cf66,color:#fff\n    style Q3 fill:#51cf66,color:#fff\n    style R3 fill:#51cf66,color:#fff\n    style S3 fill:#51cf66,color:#fff\n    style T3 fill:#51cf66,color:#fff\n    style U3 fill:#51cf66,color:#fff\n    style V3 fill:#51cf66,color:#fff\n    style W3 fill:#51cf66,color:#fff\n    style X3 fill:#51cf66,color:#fff\n    style Y3 fill:#51cf66,color:#fff\n    style Z3 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Natural Language Processing. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "1. Introduction to natural language processing",
+      "authors": "",
+      "journal": "Natural Language Processing",
+      "year": "2014",
+      "pubmed": null,
+      "doi": "10.1075/nlp.11.01ch1",
+      "url": "https://doi.org/10.1075/nlp.11.01ch1"
+    },
+    {
+      "title": "Robotics, Grounding and Natural Language Processing",
+      "authors": "Mochihashi, Daichi",
+      "journal": "Journal of Natural Language Processing",
+      "year": "2020",
+      "pubmed": null,
+      "doi": "10.5715/jnlp.27.963",
+      "url": "https://doi.org/10.5715/jnlp.27.963"
+    },
+    {
+      "title": "Vision, status, and research topics of Natural Language Processing",
+      "authors": "Chen, Xieling; Xie, Haoran; Tao, Xiaohui",
+      "journal": "Natural Language Processing Journal",
+      "year": "2022",
+      "pubmed": null,
+      "doi": "10.1016/j.nlp.2022.100001",
+      "url": "https://doi.org/10.1016/j.nlp.2022.100001"
+    }
+  ],
+  "keywords": [
+    "natural",
+    "language",
+    "processing"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+}

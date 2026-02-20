@@ -1,0 +1,92 @@
+{
+  "id": "sensory_perception-tactile-sensation-process",
+  "name": "Tactile Sensation Process",
+  "category": "biology",
+  "subcategory": "sensory_perception",
+  "subcategory_name": "Sensory & Perception",
+  "description": "Tactile Sensation Process process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 9,
+    "edges": 9,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 1,
+      "total": 1
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\n    A40[Mechanical Stimulus] --> B40[Touch Receptor]\n    B40 --> C40[Pressure Detection]\n    B40 --> D40[Vibration Detection]\n    B40 --> E40[Temperature Detection]\n    C40 --> F40[Signal Generation]\n    D40 --> F40\n    E40 --> F40\n    F40 --> G40[Sensory Neuron]\n    G40 --> H40[Spinal Cord]\n    H40 --> I40[Brain Processing]\n    \n    style A40 fill:#ff6b6b,color:#fff\n    style B40 fill:#ffd43b,color:#000\n    style C40 fill:#51cf66,color:#fff\n    style D40 fill:#51cf66,color:#fff\n    style E40 fill:#51cf66,color:#fff\n    style F40 fill:#51cf66,color:#fff\n    style G40 fill:#74c0fc,color:#fff\n    style H40 fill:#74c0fc,color:#fff\n    style I40 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Tactile Sensation Process. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "Tactile Sensation in Oral Region",
+      "authors": "",
+      "journal": "SpringerReference",
+      "year": "None",
+      "pubmed": null,
+      "doi": "10.1007/springerreference_119420",
+      "url": "https://doi.org/10.1007/springerreference_119420"
+    },
+    {
+      "title": "Spatial Perception via Tactile Sensation",
+      "authors": "",
+      "journal": "Consciousness, Function, and Representation",
+      "year": "2007",
+      "pubmed": null,
+      "doi": "10.7551/mitpress/2111.003.0020",
+      "url": "https://doi.org/10.7551/mitpress/2111.003.0020"
+    },
+    {
+      "title": "Neural Aspects in Tactile Sensation",
+      "authors": "",
+      "journal": "Advances in Psychology",
+      "year": "1998",
+      "pubmed": null,
+      "doi": "10.1016/s0166-4115(98)x8029-5",
+      "url": "https://doi.org/10.1016/s0166-4115(98)x8029-5"
+    }
+  ],
+  "keywords": [
+    "tactile",
+    "sensation",
+    "process"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+}

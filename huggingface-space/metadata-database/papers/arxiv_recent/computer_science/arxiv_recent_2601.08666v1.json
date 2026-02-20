@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2601.08666v1",
+  "arxiv_id": "2601.08666v1",
+  "title": "Blind Deconvolution in Astronomy: How Does a Standalone U-Net Perform?",
+  "authors": [
+    "Jean-Eric Campagne"
+  ],
+  "author_string": "Jean-Eric Campagne",
+  "journal": "arXiv:2601.08666v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Aims: This study investigates whether a U-Net architecture can perform standalone end-to-end blind deconvolution of astronomical images without any prior knowledge of the Point Spread Function (PSF) or noise characteristics. Our goal is to evaluate its performance against the number of training images, classical Tikhonov deconvolution and to assess its generalization capability under varying seeing conditions and noise levels.   Methods: Realistic astronomical observations are simulated using the GalSim toolkit, incorporating random transformations, PSF convolution (accounting for both optical and atmospheric effects), and Gaussian white noise. A U-Net model is trained using a Mean Square Error (MSE) loss function on datasets of varying sizes, up to 40,000 images of size 48x48 from the COSMOS Real Galaxy Dataset. Performance is evaluated using PSNR, SSIM, and cosine similarity metrics, with the latter employed in a two-model framework to assess solution stability.   Results: The U-Net model demonstrates effectiveness in blind deconvolution, with performance improving consistently as the training dataset size increases, saturating beyond 5,000 images. Cosine similarity analysis reveals convergence between independently trained models, indicating stable solutions. Remarkably, the U-Net outperforms the oracle-like Tikhonov method in challenging conditions (low PSNR/medium SSIM). The model also generalizes well to unseen seeing and noise conditions, although optimal performance is achieved when training parameters include validation conditions. Experiments on synthetic $C^α$ images further support the hypothesis that the U-Net learns a geometry-adaptive harmonic basis, akin to sparse representations observed in denoising tasks. These results align with recent mathematical insights into its adaptive learning capabilities.",
+  "categories": [
+    "astro-ph.IM",
+    "cs.CV"
+  ],
+  "primary_category": "cs.CV",
+  "comment": "15 pages, 13 figures",
+  "published_date": "2026-01-13T15:43:57Z",
+  "updated_date": "2026-01-13T15:43:57Z",
+  "url": "https://arxiv.org/abs/2601.08666v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.08666v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:10.457276",
+  "category": "computer_science",
+  "subcategories": [
+    "astro-ph.IM",
+    "cs.CV"
+  ]
+}

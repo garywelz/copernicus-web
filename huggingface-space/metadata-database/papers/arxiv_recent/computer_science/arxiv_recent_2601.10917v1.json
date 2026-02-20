@@ -1,0 +1,39 @@
+{
+  "id": "arxiv_2601.10917v1",
+  "arxiv_id": "2601.10917v1",
+  "title": "Self-learned representation-guided latent diffusion model for breast cancer classification in deep ultraviolet whole surface images",
+  "authors": [
+    "Pouya Afshin",
+    "David Helminiak",
+    "Tianling Niu",
+    "Julie M. Jorns",
+    "Tina Yen",
+    "Bing Yu",
+    "Dong Hye Ye"
+  ],
+  "author_string": "Pouya Afshin, David Helminiak, Tianling Niu, Julie M. Jorns, Tina Yen et al.",
+  "journal": "arXiv:2601.10917v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Breast-Conserving Surgery (BCS) requires precise intraoperative margin assessment to preserve healthy tissue. Deep Ultraviolet Fluorescence Scanning Microscopy (DUV-FSM) offers rapid, high-resolution surface imaging for this purpose; however, the scarcity of annotated DUV data hinders the training of robust deep learning models. To address this, we propose an Self-Supervised Learning (SSL)-guided Latent Diffusion Model (LDM) to generate high-quality synthetic training patches. By guiding the LDM with embeddings from a fine-tuned DINO teacher, we inject rich semantic details of cellular structures into the synthetic data. We combine real and synthetic patches to fine-tune a Vision Transformer (ViT), utilizing patch prediction aggregation for WSI-level classification. Experiments using 5-fold cross-validation demonstrate that our method achieves 96.47 % accuracy and reduces the FID score to 45.72, significantly outperforming class-conditioned baselines.",
+  "categories": [
+    "cs.CV",
+    "cs.AI",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": "This paper has been accepted for the IEEE International Symposium on Biomedical Imaging (ISBI) 2026, London, UK, and will be presented in the corresponding session",
+  "published_date": "2026-01-16T00:22:22Z",
+  "updated_date": "2026-01-16T00:22:22Z",
+  "url": "https://arxiv.org/abs/2601.10917v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.10917v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:37.518598",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV",
+    "cs.AI",
+    "cs.LG"
+  ]
+}

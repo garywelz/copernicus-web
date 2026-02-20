@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_1805.11840v1",
+  "arxiv_id": "1805.11840v1",
+  "title": "Simulations of Multiscale Schroedinger Equations with Multiscale Splitting Approaches: Theory and Application",
+  "authors": [
+    "Juergen Geiser",
+    "Amirbahador Nasari"
+  ],
+  "author_string": "Juergen Geiser, Amirbahador Nasari",
+  "journal": "arXiv:1805.11840v1",
+  "journal_ref": null,
+  "year": "2018",
+  "doi": null,
+  "abstract": "In this paper we present a novel multiscale splitting approach to solve multiscale Schroedinger equation, which have large different time-scales. The energy potential is based on highly oscillating functions, which are magnitudes faster than the transport term. We obtain a multiscale problem and a highly stiff problem, while standard solvers need to small time-steps. We propose multiscale solvers, which are based on operator splitting methods and we decouple the diffusion and reaction part of the Schroedinger equation. Such a decomposition allows to apply a large time step for the implicit time-discretization of the diffusion part and small time steps for the explicit and highly oscillating reaction part. With extrapolation steps, we could reduce the computational time in the highly-oscillating time-scale, while we relax into the slow time-scale. We present the numerical analysis of the extrapolated operator splitting method. First numerical experiments verified the benefit of the extrapolated splitting approaches.",
+  "categories": [
+    "math.NA",
+    "math.DS"
+  ],
+  "primary_category": "math.DS",
+  "comment": "18 pages and 6 figures",
+  "published_date": "2018-05-30T07:46:12Z",
+  "updated_date": "2018-05-30T07:46:12Z",
+  "url": "https://arxiv.org/abs/1805.11840v1",
+  "pdf_url": "https://arxiv.org/pdf/1805.11840v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:04.097196",
+  "category": "mathematics",
+  "subcategories": [
+    "math.NA",
+    "math.DS"
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2009.11373v2",
+  "arxiv_id": "2009.11373v2",
+  "title": "Impossibility of almost extension",
+  "authors": [
+    "Assaf Naor"
+  ],
+  "author_string": "Assaf Naor",
+  "journal": "arXiv:2009.11373v2",
+  "journal_ref": null,
+  "year": "2020",
+  "doi": null,
+  "abstract": "Let $({\\mathbf X},\\|\\cdot\\|_{\\mathbf X}), ({\\mathbf Y},\\|\\cdot\\|_{\\mathbf Y})$ be normed spaces with ${\\mathrm{dim}}({\\mathbf X})=n$. Bourgain's almost extension theorem asserts that for any ${\\varepsilon}>0$, if ${\\mathcal{N}}$ is an ${\\varepsilon}$-net of the unit sphere of ${\\mathbf X}$ and $f:{\\mathcal{N}}\\to {\\mathbf Y}$ is $1$-Lipschitz, then there exists an $O(1)$-Lipschitz $F:{\\mathbf X}\\to {\\mathbf Y}$ such that $\\|F(a)-f(a)\\|_{\\mathbf Y}\\lesssim n{\\varepsilon}$ for all $a\\in \\mathcal{N}$. We prove that this is optimal up to lower order factors, i.e., sometimes $\\max_{a\\in {\\mathcal{N}}} \\|F(a)-f(a)\\|_{\\mathbf Y}\\gtrsim n^{1-o(1)}{\\varepsilon}$ for every $O(1)$-Lipschitz $F:{\\mathbf X}\\to {\\mathbf Y}$. This improves Bourgain's lower bound of $\\max_{a\\in {\\mathcal{N}}} \\|F(a)-f(a)\\|_{\\mathbf Y}\\gtrsim n^{c}{\\varepsilon}$ for some $0<c<\\frac12$. If ${\\mathbf X}=\\ell_2^n$, then the approximation in the almost extension theorem can be improved to $\\max_{a\\in {\\mathcal{N}}} \\|F(a)-f(a)\\|_{\\mathbf Y}\\lesssim \\sqrt{n}{\\varepsilon}$. We prove that this is sharp, i.e., sometimes $\\max_{a\\in {\\mathcal{N}}} \\|F(a)-f(a)\\|_{\\mathbf Y}\\gtrsim \\sqrt{n}{\\varepsilon}$ for every $O(1)$-Lipschitz $F:\\ell_2^n\\to {\\mathbf Y}$.",
+  "categories": [
+    "math.FA",
+    "math.MG"
+  ],
+  "primary_category": "math.MG",
+  "comment": "only minor changes (typos, side remarks, formatting, references) from (v1)",
+  "published_date": "2020-09-23T20:44:15Z",
+  "updated_date": "2020-09-27T21:27:50Z",
+  "url": "https://arxiv.org/abs/2009.11373v2",
+  "pdf_url": "https://arxiv.org/pdf/2009.11373v2.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:30:44.921682",
+  "category": "mathematics",
+  "subcategories": [
+    "math.FA",
+    "math.MG"
+  ]
+}

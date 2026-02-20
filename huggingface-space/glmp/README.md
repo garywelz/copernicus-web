@@ -18,10 +18,11 @@ A microscope for biological processes. GLMP applies the Programming Framework to
 The Genome Logic Modeling Project (GLMP) represents **prior work** that demonstrates the first successful application of the Programming Framework to biological process visualization. This research establishes a novel methodology for transforming complex biochemical processes into structured, interactive visual flowcharts using LLM-powered analysis and Mermaid visualization technology.
 
 ### 🔬 Research Contributions
-- **Biological Process Visualization:** 50+ processes mapped across 6 major categories
+- **Biological Process Visualization:** 108+ processes mapped across 6 major categories
 - **LLM-Powered Analysis:** Automated extraction using Google Gemini 2.0 Flash
 - **Interactive Visualization:** Mermaid.js-based dynamic flowchart system
-- **Knowledge Engine Integration:** Links to Copernicus AI and Programming Framework
+- **Knowledge Engine Integration:** Links to CopernicusAI and Programming Framework
+- **Topological Data Analysis:** Application of TDA to genetic regulatory circuits (see Publications below)
 
 ### ⚙️ Technical Achievements
 - **Structured Database:** JSON format in Google Cloud Storage
@@ -33,8 +34,8 @@ The Genome Logic Modeling Project (GLMP) represents **prior work** that demonstr
 GLMP serves as a **specialized application component** of the CopernicusAI Knowledge Engine, demonstrating how the Programming Framework can be applied to domain-specific scientific visualization. It integrates with:
 
 - Programming Framework (meta-tool)
-- Copernicus AI (main knowledge engine)
-- **Knowledge Engine Dashboard** (✅ Implemented December 2025) - Fully operational web interface with knowledge graph visualization, vector search, RAG queries, and content browsing. Live at: https://copernicus-frontend-phzp4ie2sq-uc.a.run.app/knowledge-engine
+- CopernicusAI (main knowledge engine)
+- **Research Tools Dashboard** (✅ Implemented December 2025) - Fully operational web interface with knowledge graph visualization, vector search, RAG queries, and content browsing. Live at: https://copernicus-frontend-phzp4ie2sq-uc.a.run.app/knowledge-engine
 - Research Papers Metadata Database
 - Science Video Database
 - Multi-modal learning integration
@@ -47,11 +48,11 @@ The Genome Logic Modeling Project is the first specialized application of the [P
 
 ### Key Features
 
-- **50+ Biological Processes** mapped as interactive flowcharts
+- **108 Biological Processes** mapped as interactive flowcharts
 - **JSON-based storage** in Google Cloud Storage
 - **LLM-powered analysis** using Google Gemini 2.0
 - **Mermaid visualization** for clear, interactive diagrams
-- **Integration with Copernicus AI** for enhanced learning
+- **Integration with CopernicusAI** for enhanced learning
 
 ## 📚 Process Categories
 
@@ -117,12 +118,28 @@ Each file contains:
 2. **Select a biological process** from the dropdown
 3. **Explore the flowchart** showing each step and decision point
 4. **Link to source papers** for deeper understanding
-5. **Integrate with Copernicus AI podcasts** for audio learning
+5. **Integrate with CopernicusAI podcasts** for audio learning
 
 ## 🔗 Related Projects
 
 - [Programming Framework](https://huggingface.co/spaces/garywelz/programming_framework) - The meta-tool powering GLMP
-- [Copernicus AI](https://huggingface.co/spaces/garywelz/copernicusai) - Knowledge engine integrating GLMP with AI podcasts
+- [CopernicusAI](https://huggingface.co/spaces/garywelz/copernicusai) - Knowledge engine integrating GLMP with AI podcasts
+
+## 📄 Publications & Presentations
+
+### Topological Data Analysis of Genetic Regulatory Circuits
+
+**Preprint:** Welz, G., & Vejdemo-Johansson, M. (2026). *Topological Data Analysis of Genetic Regulatory Circuits: Feedback Loops as Persistent Homology Features*.  
+[Download PDF](https://huggingface.co/spaces/garywelz/glmp/resolve/main/TDA_PREPRINT_DRAFT.pdf) | [View HTML](https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/TDA_PREPRINT_DRAFT.html) | [View HTML Slides](https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/TDA_Seminar_Slides_2026.html)
+
+**Abstract:** We apply topological data analysis (TDA) to 108 genetic regulatory circuits from GLMP. Each circuit is represented as a Mermaid Markdown flowchart derived from textual process descriptions. The most persistent H₁ loops align with known feedback circuits (lac operon, two-component signaling, SOS, stringent response, and related systems), suggesting that TDA on structural features captures genuine regulatory architecture.
+
+**Key Findings:**
+- Feedback circuits appear as persistent H₁ loops in topological space
+- Topology groups processes by regulatory logic (e.g. negative feedback, stress response) rather than by pathway alone
+- Cross-organism patterns emerge (E. coli, S. cerevisiae, Bacillus subtilis)
+
+**Presentation:** TDA Seminar, CUNY Graduate Center, March 13, 2026
 
 ### How to Cite This Work
 
@@ -143,7 +160,7 @@ GLMP is designed as infrastructure for AI-assisted science, not as a static visu
 
 ---
 
-**Part of the Copernicus AI Knowledge Engine**
+**Part of the CopernicusAI Knowledge Engine**
 
 © 2025 Gary Welz. All rights reserved.
 

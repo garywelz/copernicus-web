@@ -1,0 +1,89 @@
+{
+  "category": "chemistry",
+  "colorScheme": {
+    "blue": {
+      "category": "Intermediates & States",
+      "hex": "#74c0fc"
+    },
+    "green": {
+      "category": "Processing & Operations",
+      "hex": "#51cf66"
+    },
+    "red": {
+      "category": "Triggers & Inputs",
+      "hex": "#ff6b6b"
+    },
+    "violet": {
+      "category": "Products & Outputs",
+      "hex": "#b197fc"
+    },
+    "yellow": {
+      "category": "Structures & Objects",
+      "hex": "#ffd43b"
+    }
+  },
+  "complexity": {
+    "conditionals": 0,
+    "detailLevel": "medium",
+    "edges": 24,
+    "level": "medium",
+    "logicGates": {
+      "andGates": 0,
+      "orGates": 27,
+      "total": 27
+    },
+    "nodes": 26
+  },
+  "created": "2026-01-08",
+  "description": "Chromatography Process. This analytical chemistry process visualization demonstrates chromatographic separation techniques. The flowchart shows sample inputs and mobile phase selection, chromatographic methods and stationary phase optimization, separation operations and retention analysis, intermediate results, and final chromatographic analysis outputs.",
+  "id": "analytical_chemistry-chromatography",
+  "keywords": [
+    "chromatography",
+    "analytical"
+  ],
+  "lastUpdated": "2026-01-08",
+  "mermaid": "graph TD\nA2[Sample Injection] --> B2[Chromatographic Method]\nC2[Mobile Phase] --> D2[Stationary Phase]\nE2[Separation Process] --> F2[Retention Analysis]\nB2 --> G2[Gas Chromatography]\nD2 --> H2[Liquid Chromatography]\nF2 --> I2[Thin Layer Chromatography]\nG2 --> J2[Column Selection]\nH2 --> K2[Eluent Optimization]\nI2 --> L2[Plate Development]\nJ2 --> M2[Temperature Programming]\nK2 --> L2\nL2 --> N2[Solvent System]\nM2 --> O2[Detector Response]\nN2 --> P2[Retention Time]\nO2 --> Q2[Chromatography Process]\nP2 --> R2[Peak Integration]\nQ2 --> S2[Chromatography Validation]\nR2 --> T2[Chromatography Result]\nS2 --> U2[Chromatography Analysis]\nT2 --> V2[Chromatography Parameters]\nU2 --> W2[Chromatography Output]\nV2 --> X2[Chromatography Analysis]\nW2 --> Y2[Chromatography Final Result]\nX2 --> Z2[Chromatography Analysis Complete]\n\n    style A2 fill:#ff6b6b,color:#fff\n    style C2 fill:#ff6b6b,color:#fff\n    style E2 fill:#ff6b6b,color:#fff\n    style B2 fill:#ffd43b,color:#000\n    style D2 fill:#ffd43b,color:#000\n    style F2 fill:#ffd43b,color:#000\n    style G2 fill:#ffd43b,color:#000\n    style H2 fill:#ffd43b,color:#000\n    style I2 fill:#ffd43b,color:#000\n    style J2 fill:#ffd43b,color:#000\n    style K2 fill:#ffd43b,color:#000\n    style L2 fill:#ffd43b,color:#000\n    style M2 fill:#51cf66,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style O2 fill:#51cf66,color:#fff\n    style P2 fill:#51cf66,color:#fff\n    style Q2 fill:#51cf66,color:#fff\n    style R2 fill:#51cf66,color:#fff\n    style S2 fill:#51cf66,color:#fff\n    style T2 fill:#51cf66,color:#fff\n    style U2 fill:#51cf66,color:#fff\n    style V2 fill:#51cf66,color:#fff\n    style W2 fill:#51cf66,color:#fff\n    style X2 fill:#51cf66,color:#fff\n    style Y2 fill:#51cf66,color:#fff\n    style Z2 fill:#b197fc,color:#fff",
+  "name": "Chromatography",
+  "notes": "Converted from chemistry batch HTML. Process number: 2.",
+  "relatedProcesses": [],
+  "sources": [
+    {
+      "authors": "Welz, G.",
+      "doi": null,
+      "journal": "CopernicusAI Knowledge Engine",
+      "notes": "Chemistry process visualization: Chromatography. Created using the Programming Framework methodology for process analysis and visualization.",
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "year": "2025"
+    },
+    {
+      "authors": "Arge, M.D.E.; Schoenmakers, P.J.",
+      "doi": "10.1021/acs.chemrev.8b00085",
+      "journal": "Chem. Rev.",
+      "pubmed": null,
+      "title": "Comprehensive Two-Dimensional Liquid Chromatography: A Review",
+      "url": "https://doi.org/10.1021/acs.chemrev.8b00085",
+      "year": "2018"
+    },
+    {
+      "authors": "Jia, L.; Li, Y.; Chen, L.; Xie, J.",
+      "doi": "10.1021/acs.analchem.9b01514",
+      "journal": "Anal. Chem.",
+      "pubmed": "31271630",
+      "title": "Hydrophilic Interaction Chromatography: An Overview of the Mechanism and Its Applications",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/31271630",
+      "year": "2019"
+    },
+    {
+      "authors": "Guiochon, G.; Garrison, A. W.; Juch, P. J.; Zlatkis, A.",
+      "doi": "10.1021/ac00081a002",
+      "journal": "Anal. Chem.",
+      "pubmed": null,
+      "title": "Analytical and Preparative Gas Chromatography",
+      "url": "https://doi.org/10.1021/ac00081a002",
+      "year": "1994"
+    }
+  ],
+  "subcategory": "analytical_chemistry",
+  "verified": false
+}

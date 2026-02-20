@@ -1,0 +1,93 @@
+{
+  "id": "reproduction_development-metamorphosis-process",
+  "name": "Metamorphosis Process",
+  "category": "biology",
+  "subcategory": "reproduction_development",
+  "subcategory_name": "Reproduction & Development",
+  "organism": "Amphibians/Insects",
+  "description": "Metamorphosis Process in Amphibians/Insects. This process represents a higher-level biological mechanism distinct from molecular/biochemical processes covered in GLMP.",
+  "complexity": {
+    "nodes": 11,
+    "edges": 11,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "low",
+    "detailLevel": "low"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\n    A5[Larval Stage] --> B5[Environmental Trigger]\n    B5 --> C5[Hormonal Cascade]\n    C5 --> D5[Cell Death Initiation]\n    C5 --> E5[Cell Proliferation]\n    D5 --> F5[Tissue Remodeling]\n    E5 --> F5\n    F5 --> G5[Organ Transformation]\n    G5 --> H5[Limbs Development]\n    H5 --> I5[Adult Features]\n    I5 --> J5[Metamorphosis Complete]\n    J5 --> K5[Adult Stage]\n    \n    style A5 fill:#ff6b6b,color:#fff\n    style B5 fill:#ff6b6b,color:#fff\n    style C5 fill:#ffd43b,color:#000\n    style D5 fill:#51cf66,color:#fff\n    style E5 fill:#51cf66,color:#fff\n    style F5 fill:#51cf66,color:#fff\n    style G5 fill:#74c0fc,color:#fff\n    style H5 fill:#74c0fc,color:#fff\n    style I5 fill:#74c0fc,color:#fff\n    style J5 fill:#b197fc,color:#fff\n    style K5 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "notes": "Higher-level biological process visualization: Metamorphosis Process. Created using the Programming Framework methodology for organismal and ecological process analysis."
+    },
+    {
+      "title": "Hormonal control of insect metamorphosis",
+      "authors": "Riddiford, L. M.",
+      "journal": "Annu Rev Entomol",
+      "year": "1996",
+      "pubmed": "8597371",
+      "doi": "10.1146/annurev.en.41.010196.001553",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/8597371"
+    },
+    {
+      "title": "Molecular mechanisms of amphibian metamorphosis: current understandings and future directions",
+      "authors": "Denver, R. J.; Shi, Y. B.",
+      "journal": "PNAS",
+      "year": "2005",
+      "pubmed": "16186536",
+      "doi": "10.1073/pnas.0506828102",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/16186536"
+    },
+    {
+      "title": "The evolutionary and developmental origins of insect metamorphosis",
+      "authors": "Snyder, P. W.; Truman, J. W.",
+      "journal": "Annu Rev Entomol",
+      "year": "2022",
+      "pubmed": "34525049",
+      "doi": "10.1146/annurev-ento-012521-020529",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/34525049"
+    }
+  ],
+  "keywords": [
+    "reproduction",
+    "amphibians/insects",
+    "metamorphosis",
+    "process",
+    "development"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-08",
+  "verified": false,
+  "notes": "Higher-level biological process. GLMP covers biochemical/molecular processes; this database covers organismal/ecological processes."
+}

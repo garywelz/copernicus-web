@@ -1,0 +1,65 @@
+{
+  "id": "security-process-management",
+  "name": "Process Management",
+  "category": "computer_science",
+  "subcategory": "security",
+  "subcategory_name": "Security & Cryptography",
+  "description": "Process Management Process. This operating systems process visualization demonstrates process scheduling and synchronization mechanisms. The flowchart shows process inputs and scheduling, process management methods and context switching, process management operations and synchronization, intermediate results, and final process management outputs.",
+  "complexity": {
+    "nodes": 26,
+    "edges": 24,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nA1[Process Creation] --> B1[Process Management Method]\nC1[Process Scheduling] --> D1[Context Switching]\nE1[Process Synchronization] --> F1[Process Management Analysis]\nB1 --> G1[Round Robin Scheduling]\nD1 --> H1[Priority Scheduling]\nF1 --> I1[Multilevel Queue]\nG1 --> J1[Time Quantum]\nH1 --> K1[Process Priority]\nI1 --> L1[Queue Management]\nJ1 --> M1[CPU Allocation]\nK1 --> L1\nL1 --> N1[Process State]\nM1 --> O1[Inter Process Communication]\nN1 --> P1[Deadlock Prevention]\nO1 --> Q1[Process Management Process]\nP1 --> R1[Process Management Validation]\nQ1 --> S1[Process Management Verification]\nR1 --> T1[Process Management Result]\nS1 --> U1[Process Management Analysis]\nT1 --> V1[Process Management Parameters]\nU1 --> W1[Process Management Output]\nV1 --> X1[Process Management Analysis]\nW1 --> Y1[Process Management Final Result]\nX1 --> Z1[Process Management Complete]\n\n    style A1 fill:#ff6b6b,color:#fff\n    style C1 fill:#ff6b6b,color:#fff\n    style E1 fill:#ff6b6b,color:#fff\n    style B1 fill:#ffd43b,color:#000\n    style D1 fill:#ffd43b,color:#000\n    style F1 fill:#ffd43b,color:#000\n    style G1 fill:#ffd43b,color:#000\n    style H1 fill:#ffd43b,color:#000\n    style I1 fill:#ffd43b,color:#000\n    style J1 fill:#ffd43b,color:#000\n    style K1 fill:#ffd43b,color:#000\n    style L1 fill:#ffd43b,color:#000\n    style M1 fill:#51cf66,color:#fff\n    style N1 fill:#51cf66,color:#fff\n    style O1 fill:#51cf66,color:#fff\n    style P1 fill:#51cf66,color:#fff\n    style Q1 fill:#51cf66,color:#fff\n    style R1 fill:#51cf66,color:#fff\n    style S1 fill:#51cf66,color:#fff\n    style T1 fill:#51cf66,color:#fff\n    style U1 fill:#51cf66,color:#fff\n    style V1 fill:#51cf66,color:#fff\n    style W1 fill:#51cf66,color:#fff\n    style X1 fill:#51cf66,color:#fff\n    style Y1 fill:#51cf66,color:#fff\n    style Z1 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "notes": "Chemistry process visualization: Process Management. Created using the Programming Framework methodology for process analysis and visualization."
+    }
+  ],
+  "keywords": [
+    "management",
+    "security",
+    "cryptography",
+    "process"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-08",
+  "verified": false,
+  "notes": "Converted from computer science batch HTML. Process number: 1."
+}

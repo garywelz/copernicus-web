@@ -1,0 +1,29 @@
+{
+  "id": "arxiv_2601.08700v2",
+  "arxiv_id": "2601.08700v2",
+  "title": "Novel Dynamical Systems with Finite-Time and Predefined-Time Stability for Generalized Inverse Mixed Variational Inequality Problems",
+  "authors": [
+    "Nam Van Tran"
+  ],
+  "author_string": "Nam Van Tran",
+  "journal": "arXiv:2601.08700v2",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "This paper investigates a class of generalized inverse mixed variational inequality problems (GIMVIPs), which consist in finding a vector $\\overline{w}\\in \\R^d$ such that \\[ F(\\bar w)\\in Ω\\quad \\text{and} \\quad \\langle h(\\bar w), v-F(\\bar w) \\rangle + g(v)-g(F(\\bar w)) \\ge 0, \\quad \\forall v\\in Ω, \\] where \\(h,F:\\R^d\\to\\R^d\\) are single-valued operators, \\(g:Ω\\to\\R\\cup\\{+\\infty\\}\\) is a proper function, and \\(Ω\\) is a closed convex set.   Two novel continuous-time dynamical systems are proposed to study the finite-time and predefined-time stability of solutions to GIMVIPs in finite-dimensional Hilbert spaces. Under suitable assumptions on the involved operators and model parameters, Lyapunov-based techniques are employed to establish finite-time and predefined-time convergence of the generated trajectories.   Although both dynamical systems exhibit accelerated convergence, the settling time of the finite-time stable system depends on the initial condition, whereas the predefined-time stable system admits a uniform upper bound on the convergence time that is independent of the initial state and can be explicitly prescribed through user-selected parameters. Moreover, by applying a forward Euler discretization to the continuous-time dynamics, a proximal point-type iterative algorithm is derived, and its fixed-time convergence property is rigorously analyzed. Numerical experiments are provided to illustrate the effectiveness and advantages of the proposed methods.",
+  "categories": [
+    "math.OC"
+  ],
+  "primary_category": "math.OC",
+  "comment": null,
+  "published_date": "2026-01-13T16:25:11Z",
+  "updated_date": "2026-01-14T10:59:03Z",
+  "url": "https://arxiv.org/abs/2601.08700v2",
+  "pdf_url": "https://arxiv.org/pdf/2601.08700v2.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:03.411570",
+  "category": "mathematics",
+  "subcategories": [
+    "math.OC"
+  ]
+}

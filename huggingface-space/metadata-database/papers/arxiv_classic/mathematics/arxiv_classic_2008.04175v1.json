@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2008.04175v1",
+  "arxiv_id": "2008.04175v1",
+  "title": "EagerPy: Writing Code That Works Natively with PyTorch, TensorFlow, JAX, and NumPy",
+  "authors": [
+    "Jonas Rauber",
+    "Matthias Bethge",
+    "Wieland Brendel"
+  ],
+  "author_string": "Jonas Rauber, Matthias Bethge, Wieland Brendel",
+  "journal": "arXiv:2008.04175v1",
+  "journal_ref": null,
+  "year": "2020",
+  "doi": null,
+  "abstract": "EagerPy is a Python framework that lets you write code that automatically works natively with PyTorch, TensorFlow, JAX, and NumPy. Library developers no longer need to choose between supporting just one of these frameworks or reimplementing the library for each framework and dealing with code duplication. Users of such libraries can more easily switch frameworks without being locked in by a specific 3rd party library. Beyond multi-framework support, EagerPy also brings comprehensive type annotations and consistent support for method chaining to any framework. The latest documentation is available online at https://eagerpy.jonasrauber.de and the code can be found on GitHub at https://github.com/jonasrauber/eagerpy.",
+  "categories": [
+    "cs.LG",
+    "cs.MS",
+    "stat.ML"
+  ],
+  "primary_category": "stat.ML",
+  "comment": null,
+  "published_date": "2020-08-10T14:57:41Z",
+  "updated_date": "2020-08-10T14:57:41Z",
+  "url": "https://arxiv.org/abs/2008.04175v1",
+  "pdf_url": "https://arxiv.org/pdf/2008.04175v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:27.424625",
+  "category": "mathematics",
+  "subcategories": [
+    "cs.LG",
+    "cs.MS",
+    "stat.ML"
+  ]
+}

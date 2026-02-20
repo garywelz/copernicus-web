@@ -1,0 +1,80 @@
+{
+  "category": "chemistry",
+  "colorScheme": {
+    "blue": {
+      "category": "Intermediates & States",
+      "hex": "#74c0fc"
+    },
+    "green": {
+      "category": "Processing & Operations",
+      "hex": "#51cf66"
+    },
+    "red": {
+      "category": "Triggers & Inputs",
+      "hex": "#ff6b6b"
+    },
+    "violet": {
+      "category": "Products & Outputs",
+      "hex": "#b197fc"
+    },
+    "yellow": {
+      "category": "Structures & Objects",
+      "hex": "#ffd43b"
+    }
+  },
+  "complexity": {
+    "conditionals": 0,
+    "detailLevel": "medium",
+    "edges": 25,
+    "level": "medium",
+    "logicGates": {
+      "andGates": 0,
+      "orGates": 28,
+      "total": 28
+    },
+    "nodes": 26
+  },
+  "created": "2026-01-08",
+  "description": "Electroplating process showing metal ion deposition, surface preparation, and coating quality control.",
+  "id": "nuclear_chemistry-electroplating",
+  "keywords": [
+    "electroplating",
+    "surface"
+  ],
+  "lastUpdated": "2026-01-08",
+  "mermaid": "graph TD\nA4[Metal Ions] --> B4[Electroplating Method]\nC4[Substrate Surface] --> D4[Electrolyte Bath]\nE4[Power Supply] --> F4[Current Control]\nB4 --> G4[Surface Preparation]\nD4 --> H4[Solution Composition]\nF4 --> I4[Voltage Regulation]\nG4 --> J4[Cleaning Process]\nH4 --> K4[Concentration Control]\nI4 --> L4[Current Density]\nJ4 --> M4[Surface Activation]\nK4 --> L4\nL4 --> N4[Ion Migration]\nM4 --> O4[Nucleation Sites]\nN4 --> P4[Electrodeposition]\nO4 --> Q4[Film Growth]\nP4 --> R4[Metal Deposition]\nQ4 --> S4[Thickness Control]\nR4 --> T4[Coating Formation]\nS4 --> U4[Quality Assessment]\nT4 --> V4[Adhesion Testing]\nU4 --> W4[Surface Analysis]\nV4 --> X4[Performance Evaluation]\nW4 --> Y4[Process Optimization]\nX4 --> Z4[Final Coating]\nY4 --> Z4\n\n    style A4 fill:#ff6b6b,color:#fff\n    style C4 fill:#ff6b6b,color:#fff\n    style E4 fill:#ff6b6b,color:#fff\n    style B4 fill:#ffd43b,color:#000\n    style D4 fill:#ffd43b,color:#000\n    style F4 fill:#ffd43b,color:#000\n    style G4 fill:#ffd43b,color:#000\n    style H4 fill:#ffd43b,color:#000\n    style I4 fill:#ffd43b,color:#000\n    style J4 fill:#ffd43b,color:#000\n    style K4 fill:#ffd43b,color:#000\n    style L4 fill:#ffd43b,color:#000\n    style M4 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style O4 fill:#51cf66,color:#fff\n    style P4 fill:#51cf66,color:#fff\n    style Q4 fill:#51cf66,color:#fff\n    style R4 fill:#51cf66,color:#fff\n    style S4 fill:#51cf66,color:#fff\n    style T4 fill:#51cf66,color:#fff\n    style U4 fill:#51cf66,color:#fff\n    style V4 fill:#51cf66,color:#fff\n    style W4 fill:#51cf66,color:#fff\n    style X4 fill:#51cf66,color:#fff\n    style Y4 fill:#51cf66,color:#fff\n    style Z4 fill:#b197fc,color:#fff",
+  "name": "Electroplating",
+  "notes": "Converted from chemistry batch HTML. Process number: 4.",
+  "relatedProcesses": [],
+  "sources": [
+    {
+      "authors": "Welz, G.",
+      "doi": null,
+      "journal": "CopernicusAI Knowledge Engine",
+      "notes": "Chemistry process visualization: Electroplating. Created using the Programming Framework methodology for process analysis and visualization.",
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "year": "2025"
+    },
+    {
+      "authors": "Lacroix, L. M.; Bonou, A.; Rou\u00e9, L.; Chassaing, E.; Tixier, L.",
+      "doi": "10.1039/C3CS60100H",
+      "journal": "Chem. Soc. Rev.",
+      "pubmed": null,
+      "title": "Electrodeposition of metals and alloys: recent trends and future directions",
+      "url": "https://doi.org/10.1039/C3CS60100H",
+      "year": "2013"
+    },
+    {
+      "authors": "Ko, K. M.; Park, Y.; Nam, J.; Kim, M.; Lee, S. H.; Lee, G. W.; Won, K. Y.; Hwang, D.; Jung, H.; Kang, Y.; Lee, B.; Cho, K. H.; Kim, M. C.; Lee, H. J.; Han, J. Y.; Lee, J.; Ryu, S.; Cho, K. Y.; Park, M. K.; Han, M. S.; Park, M. S.; Lee, D. H.; Lee, J. Y.",
+      "doi": "10.1021/acs.chemrev.7b00342",
+      "journal": "Chem. Rev.",
+      "pubmed": null,
+      "title": "Electrodeposition of Advanced Functional Materials",
+      "url": "https://doi.org/10.1021/acs.chemrev.7b00342",
+      "year": "2017"
+    }
+  ],
+  "subcategory": "nuclear_chemistry",
+  "verified": false
+}

@@ -1,0 +1,30 @@
+{
+  "id": "trapezoidal-rule-integration",
+  "title": "Trapezoidal Rule Integration",
+  "description": "Approximate definite integral using trapezoidal rule",
+  "category": "mathematics",
+  "subcategory": "numerical_integration",
+  "mermaid": "graph TD A1[Input: Function f(x), Interval [a, b], Number of Trapezoids n] style A1 fill:#ff6b6b,color:#ffffff B1[Initialize: h = (b - a) / n] style B1 fill:#ffd43b,color:#000000 C1[Initialize: x[0] = a, x[n] = b] style C1 fill:#ffd43b,color:#000000 D1[Initialize: sum = (f(x[0]) + f(x[n])) / 2] style D1 fill:#ffd43b,color:#000000 E1[Initialize: i = 1] style E1 fill:#ffd43b,color:#000000 F1[Is i < n?] style F1 fill:#ffd43b,color:#000000 G1[Calculate: x[i] = a + i * h] style G1 fill:#51cf66,color:#ffffff H1[Update: sum = sum + f(x[i])] style H1 fill:#51cf66,color:#ffffff I1[Increment: i = i + 1] style I1 fill:#51cf66,color:#ffffff J1[Calculate: integral_approx = h * sum] style J1 fill:#51cf66,color:#ffffff K1[Output: Approximated Integral Value: integral_approx] style K1 fill:#b197fc,color:#ffffff A1 --> B1 B1 --> C1 C1 --> D1 D1 --> E1 E1 --> F1 F1 -- Yes --> G1 G1 --> H1 H1 --> I1 I1 --> F1 F1 -- No --> J1 J1 --> K1",
+  "entities": [
+    "Input: Function f(x), Interval [a, b",
+    "Initialize: h = (b - a) / n",
+    "Initialize: x[0",
+    "Initialize: sum = (f(x[0",
+    "x[n",
+    "Initialize: i = 1",
+    "Is i < n?",
+    "Calculate: x[i",
+    "Update: sum = sum + f(x[i",
+    "Increment: i = i + 1",
+    "Calculate: integral_approx = h * sum",
+    "Output: Approximated Integral Value: integral_approx"
+  ],
+  "metadata": {
+    "source": "programming_framework",
+    "color_scheme": "discipline_based",
+    "node_count": 11,
+    "complexity": "low"
+  },
+  "sources": [],
+  "source_text": "Source information to be added - please specify the book, paper, or reference material used by the LLM to generate this flowchart."
+}

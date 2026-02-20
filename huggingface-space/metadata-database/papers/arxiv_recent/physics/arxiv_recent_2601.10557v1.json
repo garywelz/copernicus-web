@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2601.10557v1",
+  "arxiv_id": "2601.10557v1",
+  "title": "Chebyshev Accelerated Subspsace Eigensolver for Pseudo-hermitian Hamiltonians",
+  "authors": [
+    "Edoardo Di Napoli",
+    "Clément Richefort",
+    "Xinzhe Wu"
+  ],
+  "author_string": "Edoardo Di Napoli, Clément Richefort, Xinzhe Wu",
+  "journal": "arXiv:2601.10557v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Studying the optoelectronic structure of materials can require the computation of up to several thousands of the smallest eigenpairs of a pseudo-hermitian Hamiltonian. Iterative eigensolvers may be preferred over direct methods for this task since their complexity is a function of the desired fraction of the spectrum. In addition, they generally rely on highly optimized and scalable kernels such as matrix-vector multiplications that leverage the massive parallelism and the computational power of modern exascale systems. \\textit{Chebyshev Accelerated Subspace iteration Eigensolver} (ChASE) is able to compute several thousands of the most extreme eigenpairs of dense hermitian matrices with proven scalability over massive parallel accelerated clusters. This work presents an extension of ChASE to solve for a portion of the spectrum of pseudo-hermitian Hamiltonians as they appear in the treatment of excitonic materials. The new pseudo-hermitian solver achieves similar convergence and performance as the hermitian one. By exploiting the numerical structure and spectral properties of the Hamiltonian matrix, we propose an oblique variant of Rayleigh-Ritz projection featuring quadratic convergence of the Ritz-values with no explicit construction of the dual basis set. Additionally, we introduce a parallel implementation of the recursive matrix-product operation appearing in the Chebyshev filter with limited amount of global communications. Our development is supported by a full numerical analysis and experimental tests.",
+  "categories": [
+    "math.NA",
+    "cs.CE",
+    "cs.DC",
+    "physics.comp-ph"
+  ],
+  "primary_category": "physics.comp-ph",
+  "comment": "To be submitted to SISC",
+  "published_date": "2026-01-15T16:22:34Z",
+  "updated_date": "2026-01-15T16:22:34Z",
+  "url": "https://arxiv.org/abs/2601.10557v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.10557v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:41.982409",
+  "category": "physics",
+  "subcategories": [
+    "math.NA",
+    "cs.CE",
+    "cs.DC"
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "id": "crossref_10.1063_5.0291793",
+  "doi": "10.1063/5.0291793",
+  "title": "Variational quantum simulation of time-local quantum master equations via quantum jump",
+  "authors": [
+    "Lan, Zhihao",
+    "Liu, Jie",
+    "Li, Zhenyu",
+    "Liang, WanZhen"
+  ],
+  "author_string": "Lan, Zhihao, Liu, Jie, Li, Zhenyu, Liang, WanZhen",
+  "journal": "The Journal of Chemical Physics",
+  "issn": "0021-9606",
+  "issn_type": "print",
+  "volume": "163",
+  "issue": "14",
+  "page": "",
+  "year": "2025",
+  "publisher": "AIP Publishing",
+  "language": "en",
+  "abstract": "Strong coupling and environmental memory render many open quantum systems intractable to classical computation. To overcome this barrier, we present a variational quantum algorithm capable of solving generalized form time-local quantum master equations directly on noisy intermediate-scale quantum (NISQ) processors. Our approach combines four key innovations: (1) a pair-vector stochastic Schrödinger equation to unravel time-local quantum master equations, (2) deterministic evolution projected onto parameterized circuits via McLachlan’s principle and stochastic jump implementation via singular-value decomposition, (3) using Hadamard tests circuits to measure the jump rates and the element of reduced density matrices, and (4) using no-evolution sampling to sample trajectories. The resulting protocol remains resilient under realistic hardware noise. We validate it on both classical simulators and a 66-qubit superconducting processor for solving the Redfield master equation and fourth-order time-local non-Markovian master equation and find that it can successfully capture key features of complex open quantum dynamics—including non-Markovian oscillations and strong-coupling effects. Our approach establishes a practical pathway toward scalable simulations of open quantum systems in the NISQ era.",
+  "subjects": [],
+  "keywords": [],
+  "article_type": "journal-article",
+  "citation_count": 1,
+  "url": "https://doi.org/10.1063/5.0291793",
+  "source": "crossref",
+  "acquired_date": "2026-01-19T10:54:25.409340",
+  "category": "chemistry",
+  "subcategories": []
+}

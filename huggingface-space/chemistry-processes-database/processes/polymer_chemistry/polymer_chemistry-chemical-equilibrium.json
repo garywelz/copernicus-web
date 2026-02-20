@@ -1,0 +1,91 @@
+{
+  "id": "polymer_chemistry-chemical-equilibrium",
+  "name": "Chemical Equilibrium",
+  "category": "chemistry",
+  "subcategory": "polymer_chemistry",
+  "subcategory_name": "Polymer Chemistry",
+  "description": "Chemical Equilibrium process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 26,
+    "edges": 22,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 1,
+      "total": 1
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nA3[Reactant Species] --> B3[Chemical Equilibrium Method]\nC3[Product Species] --> D3[Concentration Control]\nE3[Reaction Conditions] --> F3[Temperature Control]\nB3 --> G3[Equilibrium Setup]\nD3 --> H3[Concentration Monitoring]\nF3 --> I3[Temperature Regulation]\nG3 --> J3[Initial Conditions]\nH3 --> K3[Concentration Analysis]\nI3 --> L3[Thermal Equilibrium]\nJ3 --> M3[Forward Reaction]\nK3 --> L3\nL3 --> N3[Reverse Reaction]\nM3 --> O3[Reaction Progress]\nN3 --> P3[Equilibrium Process]\nO3 --> Q3[Rate Balance]\nP3 --> R3[Equilibrium State]\nQ3 --> S3[Rate Measurement]\nR3 --> T3[Concentration Balance]\nS3 --> U3[Equilibrium Analysis]\nT3 --> V3[Balance Assessment]\nU3 --> W3[Equilibrium Efficiency]\nV3 --> X3[State Characterization]\nW3 --> Y3[Process Optimization]\nX3 --> Z3[Final Equilibrium State]\nY3 --> Z3\n\n    style A3 fill:#ff6b6b,color:#fff\n    style C3 fill:#ff6b6b,color:#fff\n    style E3 fill:#ff6b6b,color:#fff\n    style B3 fill:#ffd43b,color:#000\n    style D3 fill:#ffd43b,color:#000\n    style F3 fill:#ffd43b,color:#000\n    style G3 fill:#ffd43b,color:#000\n    style H3 fill:#ffd43b,color:#000\n    style I3 fill:#ffd43b,color:#000\n    style J3 fill:#ffd43b,color:#000\n    style K3 fill:#ffd43b,color:#000\n    style L3 fill:#ffd43b,color:#000\n    style M3 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style O3 fill:#51cf66,color:#fff\n    style P3 fill:#51cf66,color:#fff\n    style Q3 fill:#51cf66,color:#fff\n    style R3 fill:#51cf66,color:#fff\n    style S3 fill:#51cf66,color:#fff\n    style T3 fill:#51cf66,color:#fff\n    style U3 fill:#51cf66,color:#fff\n    style V3 fill:#51cf66,color:#fff\n    style W3 fill:#51cf66,color:#fff\n    style X3 fill:#51cf66,color:#fff\n    style Y3 fill:#51cf66,color:#fff\n    style Z3 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Chemical Equilibrium. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "Chemical Equilibrium",
+      "authors": "",
+      "journal": "Physical and Chemical Equilibrium for Chemical Engineers",
+      "year": "2012",
+      "pubmed": null,
+      "doi": "10.1002/9781118135341.ch12",
+      "url": "https://doi.org/10.1002/9781118135341.ch12"
+    },
+    {
+      "title": "Equilibrium with Gravity or Centrifugal Force, Osmotic Equilibrium, Equilibrium with Surface Tension",
+      "authors": "",
+      "journal": "Physical and Chemical Equilibrium for Chemical Engineers",
+      "year": "2012",
+      "pubmed": null,
+      "doi": "10.1002/9781118135341.ch14",
+      "url": "https://doi.org/10.1002/9781118135341.ch14"
+    },
+    {
+      "title": "Equilibrium in chemical reactions",
+      "authors": "Price, Gareth",
+      "journal": "Thermodynamics of Chemical Processes",
+      "year": "2019",
+      "pubmed": null,
+      "doi": "10.1093/hesc/9780198814450.003.0004",
+      "url": "https://doi.org/10.1093/hesc/9780198814450.003.0004"
+    }
+  ],
+  "keywords": [
+    "chemical",
+    "equilibrium"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+}

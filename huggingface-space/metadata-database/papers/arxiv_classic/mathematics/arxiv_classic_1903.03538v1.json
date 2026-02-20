@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_1903.03538v1",
+  "arxiv_id": "1903.03538v1",
+  "title": "Two generalizations of Markov blankets",
+  "authors": [
+    "Victor Cohen",
+    "Axel Parmentier"
+  ],
+  "author_string": "Victor Cohen, Axel Parmentier",
+  "journal": "arXiv:1903.03538v1",
+  "journal_ref": null,
+  "year": "2019",
+  "doi": null,
+  "abstract": "In a probabilistic graphical model on a set of variables $V$, the Markov blanket of a random vector $B$ is the minimal set of variables conditioned to which $B$ is independent from the remaining of the variables $V \\backslash B$. We generalize Markov blankets to study how a set $C$ of variables of interest depends on~$B$. Doing that, we must choose if we authorize vertices of $C$ or vertices of $V \\backslash C$ in the blanket. We therefore introduce two generalizations. The Markov blanket of $B$ in $C$ is the minimal subset of $C$ conditionally to which $B$ and $C$ are independent. It is naturally interpreted as the inner boundary through which $C$ depends on $B$, and finds applications in feature selection. The Markov blanket of $B$ in the direction of $C$ is the nearest set to $B$ among the minimal sets conditionally to which ones $B$ and $C$ are independent, and finds applications in causality. It is the outer boundary of $B$ in the direction of $C$. We provide algorithms to compute them that are not slower than the usual algorithms for finding a d-separator in a directed graphical model. All our definitions and algorithms are provided for directed and undirected graphical models.",
+  "categories": [
+    "math.PR",
+    "cs.DM",
+    "math.CO"
+  ],
+  "primary_category": "math.CO",
+  "comment": "13 pages",
+  "published_date": "2019-03-08T16:29:39Z",
+  "updated_date": "2019-03-08T16:29:39Z",
+  "url": "https://arxiv.org/abs/1903.03538v1",
+  "pdf_url": "https://arxiv.org/pdf/1903.03538v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:11.658554",
+  "category": "mathematics",
+  "subcategories": [
+    "math.PR",
+    "cs.DM",
+    "math.CO"
+  ]
+}

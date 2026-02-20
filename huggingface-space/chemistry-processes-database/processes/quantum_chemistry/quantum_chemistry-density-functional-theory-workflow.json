@@ -1,0 +1,93 @@
+{
+  "id": "quantum_chemistry-density-functional-theory-workflow",
+  "name": "Density Functional Theory Workflow",
+  "category": "chemistry",
+  "subcategory": "quantum_chemistry",
+  "subcategory_name": "Quantum Chemistry",
+  "description": "Density Functional Theory Workflow process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 6,
+    "edges": 5,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nN1[\"Molecular Hamiltonian Setup\"]\nN2[\"Basis Set/Representation\"]\nN3[\"Electronic Structure Method\"]\nN4[\"Solve Schrödinger Equation (approx.)\"]\nN5[\"Wavefunction/Density\"]\nN6[\"Energies/Orbitals/Properties\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\nN5 --> N6\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ffd43b,color:#000\n    style N3 fill:#ffd43b,color:#000\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#74c0fc,color:#fff\n    style N6 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Density Functional Theory Workflow. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "Physical Interpretation of Kohn–Sham Density Functional Theory via Quantal Density Functional Theory",
+      "authors": "Sahni, Viraht",
+      "journal": "Quantal Density Functional Theory",
+      "year": "2016",
+      "pubmed": null,
+      "doi": "10.1007/978-3-662-49842-2_5",
+      "url": "https://doi.org/10.1007/978-3-662-49842-2_5"
+    },
+    {
+      "title": "MC25: An Accurate Meta Pair-Density Functional for Multiconfiguration Pair-Density Functional Theory and Linearized Pair-Density Functional Theory",
+      "authors": "",
+      "journal": "",
+      "year": "None",
+      "pubmed": null,
+      "doi": "10.1021/acs.jctc.5c01321.s001",
+      "url": "https://doi.org/10.1021/acs.jctc.5c01321.s001"
+    },
+    {
+      "title": "Role of Density Functional Theory in “Ribocomputing Devices”",
+      "authors": "Srivastava, Ruby",
+      "journal": "Density Functional Theory",
+      "year": "2019",
+      "pubmed": null,
+      "doi": "10.5772/intechopen.80491",
+      "url": "https://doi.org/10.5772/intechopen.80491"
+    }
+  ],
+  "keywords": [
+    "density",
+    "functional",
+    "theory",
+    "workflow"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-15",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+}

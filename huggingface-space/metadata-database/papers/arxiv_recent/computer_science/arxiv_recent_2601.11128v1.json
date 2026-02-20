@@ -1,0 +1,37 @@
+{
+  "id": "arxiv_2601.11128v1",
+  "arxiv_id": "2601.11128v1",
+  "title": "The Big Ban Theory: A Pre- and Post-Intervention Dataset of Online Content Moderation Actions",
+  "authors": [
+    "Aldo Cerulli",
+    "Lorenzo Cima",
+    "Benedetta Tessa",
+    "Serena Tardelli",
+    "Stefano Cresci"
+  ],
+  "author_string": "Aldo Cerulli, Lorenzo Cima, Benedetta Tessa, Serena Tardelli, Stefano Cresci",
+  "journal": "arXiv:2601.11128v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Online platforms rely on moderation interventions to curb harmful behavior such hate speech, toxicity, and the spread of mis- and disinformation. Yet research on the effects and possible biases of such interventions faces multiple limitations. For example, existing works frequently focus on single or a few interventions, due to the absence of comprehensive datasets. As a result, researchers must typically collect the necessary data for each new study, which limits opportunities for systematic comparisons. To overcome these challenges, we introduce The Big Ban Theory (TBBT), a large dataset of moderation interventions. TBBT covers 25 interventions of varying type, severity, and scope, comprising in total over 339K users and nearly 39M posted messages. For each intervention, we provide standardized metadata and pseudonymized user activity collected three months before and after its enforcement, enabling consistent and comparable analyses of intervention effects. In addition, we provide a descriptive exploratory analysis of the dataset, along with several use cases of how it can support research on content moderation. With this dataset, we aim to support researchers studying the effects of moderation interventions and to promote more systematic, reproducible, and comparable research. TBBT is publicly available at: https://doi.org/10.5281/zenodo.18245670.",
+  "categories": [
+    "cs.SI",
+    "cs.HC",
+    "cs.IR"
+  ],
+  "primary_category": "cs.IR",
+  "comment": null,
+  "published_date": "2026-01-16T09:38:31Z",
+  "updated_date": "2026-01-16T09:38:31Z",
+  "url": "https://arxiv.org/abs/2601.11128v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11128v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:33.862795",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.SI",
+    "cs.HC",
+    "cs.IR"
+  ]
+}

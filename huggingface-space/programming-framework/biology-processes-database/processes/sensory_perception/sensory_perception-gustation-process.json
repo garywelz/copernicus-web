@@ -1,0 +1,93 @@
+{
+  "id": "sensory_perception-gustation-process",
+  "name": "Gustation Process",
+  "category": "biology",
+  "subcategory": "sensory_perception",
+  "subcategory_name": "Sensory & Perception",
+  "organism": "Animals",
+  "description": "Gustation Process in Animals. This process represents a higher-level biological mechanism distinct from molecular/biochemical processes covered in GLMP.",
+  "complexity": {
+    "nodes": 10,
+    "edges": 13,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "low",
+    "detailLevel": "low"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\n    A39[Taste Molecules] --> B39[Saliva Dissolution]\n    B39 --> C39[Taste Receptor Binding]\n    C39 --> D39[Sweet Receptors]\n    C39 --> E39[Salty Receptors]\n    C39 --> F39[Sour Receptors]\n    C39 --> G39[Bitter Receptors]\n    C39 --> H39[Umami Receptors]\n    D39 --> I39[Signal Integration]\n    E39 --> I39\n    F39 --> I39\n    G39 --> I39\n    H39 --> I39\n    I39 --> J39[Flavor Perception]\n    \n    style A39 fill:#ff6b6b,color:#fff\n    style B39 fill:#ffd43b,color:#000\n    style C39 fill:#51cf66,color:#fff\n    style D39 fill:#74c0fc,color:#fff\n    style E39 fill:#74c0fc,color:#fff\n    style F39 fill:#74c0fc,color:#fff\n    style G39 fill:#74c0fc,color:#fff\n    style H39 fill:#74c0fc,color:#fff\n    style I39 fill:#51cf66,color:#fff\n    style J39 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "notes": "Higher-level biological process visualization: Gustation Process. Created using the Programming Framework methodology for organismal and ecological process analysis."
+    },
+    {
+      "title": "The mammalian taste system.",
+      "authors": "Yarmolinsky, D. A.; Zuker, C. S.; Ryba, N. J. P.",
+      "journal": "Nature",
+      "year": "2009",
+      "pubmed": "19907489",
+      "doi": "10.1038/nature08526",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/19907489"
+    },
+    {
+      "title": "The neuroscience of taste.",
+      "authors": "Roper, S. D.",
+      "journal": "Annu Rev Neurosci",
+      "year": "2013",
+      "pubmed": "23317424",
+      "doi": "10.1146/annurev-neuro-062012-170308",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/23317424"
+    },
+    {
+      "title": "Central taste processing in mammals.",
+      "authors": "Fletcher, M. L.; Chen, X.",
+      "journal": "Annu Rev Neurosci",
+      "year": "2022",
+      "pubmed": "35148651",
+      "doi": "10.1146/annurev-neuro-110920-033140",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/35148651"
+    }
+  ],
+  "keywords": [
+    "sensory",
+    "animals",
+    "perception",
+    "process",
+    "gustation"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-08",
+  "verified": false,
+  "notes": "Higher-level biological process. GLMP covers biochemical/molecular processes; this database covers organismal/ecological processes."
+}

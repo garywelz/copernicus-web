@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_1806.04343v3",
+  "arxiv_id": "1806.04343v3",
+  "title": "Phase transitions in spiked matrix estimation: information-theoretic analysis",
+  "authors": [
+    "Léo Miolane"
+  ],
+  "author_string": "Léo Miolane",
+  "journal": "arXiv:1806.04343v3",
+  "journal_ref": null,
+  "year": "2018",
+  "doi": null,
+  "abstract": "We study here the so-called spiked Wigner and Wishart models, where one observes a low-rank matrix perturbed by some Gaussian noise. These models encompass many classical statistical tasks such as sparse PCA, submatrix localization, community detection or Gaussian mixture clustering. The goal of these notes is to present in a unified manner recent results (as well as new developments) on the information-theoretic limits of these spiked matrix models. We compute the minimal mean squared error for the estimation of the low-rank signal and compare it to the performance of spectral estimators and message passing algorithms. Phase transition phenomena are observed: depending on the noise level it is either impossible, easy (i.e. using polynomial-time estimators) or hard (information-theoretically possible, but no efficient algorithm is known to succeed) to recover the signal.",
+  "categories": [
+    "math.PR",
+    "cs.IT",
+    "math.ST"
+  ],
+  "primary_category": "math.ST",
+  "comment": "These notes present in a unified manner recent results (as well as new developments) on the information-theoretic limits in spiked matrix estimation",
+  "published_date": "2018-06-12T05:56:46Z",
+  "updated_date": "2019-06-24T09:44:37Z",
+  "url": "https://arxiv.org/abs/1806.04343v3",
+  "pdf_url": "https://arxiv.org/pdf/1806.04343v3.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:04.094237",
+  "category": "mathematics",
+  "subcategories": [
+    "math.PR",
+    "cs.IT",
+    "math.ST"
+  ]
+}

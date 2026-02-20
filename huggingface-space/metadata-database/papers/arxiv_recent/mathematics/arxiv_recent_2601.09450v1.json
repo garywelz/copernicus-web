@@ -1,0 +1,30 @@
+{
+  "id": "arxiv_2601.09450v1",
+  "arxiv_id": "2601.09450v1",
+  "title": "A new class of entropy stable fluctuations for the discontinuous Galerkin method with application to the Saint-Venant-Exner model",
+  "authors": [
+    "Patrick Ersing",
+    "Andrew R. Winters"
+  ],
+  "author_string": "Patrick Ersing, Andrew R. Winters",
+  "journal": "arXiv:2601.09450v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "In this work we consider entropy stable discontinuous Galerkin methods applied to nonconservative hyperbolic systems. We introduce a new class of entropy conservative fluctuations that allow us to construct entropy conservative schemes without any system-specific derivations. We demonstrate that a loss of entropy symmetrization for nonconservative systems restricts the design of entropy stable fluctuations and propose a novel blending procedure to construct entropy stable dissipation terms from general numerical viscosity matrices. The resulting methodology is applied to develop a high-order, entropy stable, and well-balanced approximation for the Saint-Venant-Exner system. Numerical tests are presented to verify the theoretical findings and demonstrate the performance and robustness of the proposed scheme.",
+  "categories": [
+    "math.NA"
+  ],
+  "primary_category": "math.NA",
+  "comment": null,
+  "published_date": "2026-01-14T12:52:08Z",
+  "updated_date": "2026-01-14T12:52:08Z",
+  "url": "https://arxiv.org/abs/2601.09450v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.09450v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:49.125972",
+  "category": "mathematics",
+  "subcategories": [
+    "math.NA"
+  ]
+}

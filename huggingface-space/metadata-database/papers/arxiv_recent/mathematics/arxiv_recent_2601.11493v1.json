@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2601.11493v1",
+  "arxiv_id": "2601.11493v1",
+  "title": "Efficient error estimators for Generalized Nyström",
+  "authors": [
+    "Lorenzo Lazzarino",
+    "Katherine J. Pearce",
+    "Nathaniel Pritchard"
+  ],
+  "author_string": "Lorenzo Lazzarino, Katherine J. Pearce, Nathaniel Pritchard",
+  "journal": "arXiv:2601.11493v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Randomized algorithms in numerical linear algebra have proven to be effective in ameliorating issues of scalability when working with large matrices, efficiently producing accurate low-rank approximations. A key remaining challenge, however, is to efficiently assess the approximation accuracy of randomized methods without additional expensive matrix accesses. Recent work has addressed this issue by deriving fast leave-one-out error estimators for the randomized SVD and Nyström decomposition, enabling accurate error estimation with no additional matrix accesses. In this work, we extend the leave-one-out framework to the generalized Nyström decomposition, an approach that can be applied to general rectangular matrices. We do this by deriving three new leave-one-out error estimators and validating their effectiveness through numerical experiments.",
+  "categories": [
+    "math.NA"
+  ],
+  "primary_category": "math.NA",
+  "comment": null,
+  "published_date": "2026-01-16T18:16:40Z",
+  "updated_date": "2026-01-16T18:16:40Z",
+  "url": "https://arxiv.org/abs/2601.11493v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11493v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:38.713565",
+  "category": "mathematics",
+  "subcategories": [
+    "math.NA"
+  ]
+}

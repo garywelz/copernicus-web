@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2601.09187v1",
+  "arxiv_id": "2601.09187v1",
+  "title": "A theory of state-to-state transitions based on the framework of classical reaction dynamics",
+  "authors": [
+    "Kento Kasahara",
+    "Ryo Okabe",
+    "Chia-en A. Chang",
+    "Toshifumi mori",
+    "Nobuyuki Matubayasi"
+  ],
+  "author_string": "Kento Kasahara, Ryo Okabe, Chia-en A. Chang, Toshifumi mori, Nobuyuki Matubayasi",
+  "journal": "arXiv:2601.09187v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We propose a new method to describe the population dynamics of distinct configurational states based on a continuous-time description of state-to-state transitions. According to classical reaction dynamics theory, the probability density associated with a given state obeys the Liouville equation, the probability density associate d with a given state obeys the Li ouville equation, including influx from and efflux to neighboring states. By introducing a Markov approximation for the crossing of boundaries separating the states, tractable integral equations governing the state populations are derived. Once the time-dependent quantities appearing in these equations are evaluated, the population dynamics on long timescales can be obtained. Because these quantities depend only on a few states in the local neighborhood of a given state, they can be computed using a set of short-timescale molecular dynamics (MD) simulations. We apply the present method to the binding and unbinding kinetics of CH$_4$/CH$_4$, Na$^+$/Cl$^-$, and 18-crown-6-ether (crown ether)/K$^+$ in water. For both kinetics, the time constants estimated from the present method are almost comparable to those obtained from brute-force MD simulations. The required timescale of each MD trajectory in the present method is approximately two orders of magnitude shorter than that in the brute-force MD approach in the crown ether/K$^+$ system. This reduction in the trajectory timescale enables applications to   complex binding and unbinding sy stems whose characteristic timescales a re far beyond those directly acce ssible by brute-force MD simulati ons.",
+  "categories": [
+    "physics.chem-ph",
+    "cond-mat.stat-mech"
+  ],
+  "primary_category": "cond-mat.stat-mech",
+  "comment": "16 pages, 8 figures",
+  "published_date": "2026-01-14T05:37:41Z",
+  "updated_date": "2026-01-14T05:37:41Z",
+  "url": "https://arxiv.org/abs/2601.09187v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.09187v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:02.858097",
+  "category": "physics",
+  "subcategories": [
+    "physics.chem-ph",
+    "cond-mat.stat-mech"
+  ]
+}

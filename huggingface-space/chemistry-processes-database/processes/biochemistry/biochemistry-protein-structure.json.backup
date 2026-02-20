@@ -1,0 +1,90 @@
+{
+  "category": "chemistry",
+  "colorScheme": {
+    "blue": {
+      "category": "Intermediates & States",
+      "hex": "#74c0fc"
+    },
+    "green": {
+      "category": "Processing & Operations",
+      "hex": "#51cf66"
+    },
+    "red": {
+      "category": "Triggers & Inputs",
+      "hex": "#ff6b6b"
+    },
+    "violet": {
+      "category": "Products & Outputs",
+      "hex": "#b197fc"
+    },
+    "yellow": {
+      "category": "Structures & Objects",
+      "hex": "#ffd43b"
+    }
+  },
+  "complexity": {
+    "conditionals": 0,
+    "detailLevel": "medium",
+    "edges": 24,
+    "level": "medium",
+    "logicGates": {
+      "andGates": 0,
+      "orGates": 27,
+      "total": 27
+    },
+    "nodes": 26
+  },
+  "created": "2026-01-08",
+  "description": "Protein Structure Process. This biochemistry process visualization demonstrates protein structure determination and analysis. The flowchart shows amino acid inputs and primary structure, protein structure methods and secondary structure, protein structure operations and tertiary structure, intermediate results, and final protein structure outputs.",
+  "id": "biochemistry-protein-structure",
+  "keywords": [
+    "structure",
+    "protein",
+    "biochemistry"
+  ],
+  "lastUpdated": "2026-01-08",
+  "mermaid": "graph TD\nA3[Amino Acid Sequence] --> B3[Protein Structure Method]\nC3[Primary Structure] --> D3[Secondary Structure]\nE3[Tertiary Structure] --> F3[Protein Structure Analysis]\nB3 --> G3[X Ray Crystallography]\nD3 --> H3[NMR Spectroscopy]\nF3 --> I3[Cryo EM]\nG3 --> J3[Alpha Helix]\nH3 --> K3[Beta Sheet]\nI3 --> L3[Protein Folding]\nJ3 --> M3[Disulfide Bonds]\nK3 --> L3\nL3 --> N3[Hydrophobic Core]\nM3 --> O3[Quaternary Structure]\nN3 --> P3[Protein Function]\nO3 --> Q3[Protein Structure Process]\nP3 --> R3[Protein Structure Validation]\nQ3 --> S3[Protein Structure Verification]\nR3 --> T3[Protein Structure Result]\nS3 --> U3[Protein Structure Analysis]\nT3 --> V3[Protein Structure Parameters]\nU3 --> W3[Protein Structure Output]\nV3 --> X3[Protein Structure Analysis]\nW3 --> Y3[Protein Structure Final Result]\nX3 --> Z3[Protein Structure Complete]\n\n    style A3 fill:#ff6b6b,color:#fff\n    style C3 fill:#ff6b6b,color:#fff\n    style E3 fill:#ff6b6b,color:#fff\n    style B3 fill:#ffd43b,color:#000\n    style D3 fill:#ffd43b,color:#000\n    style F3 fill:#ffd43b,color:#000\n    style G3 fill:#ffd43b,color:#000\n    style H3 fill:#ffd43b,color:#000\n    style I3 fill:#ffd43b,color:#000\n    style J3 fill:#ffd43b,color:#000\n    style K3 fill:#ffd43b,color:#000\n    style L3 fill:#ffd43b,color:#000\n    style M3 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style O3 fill:#51cf66,color:#fff\n    style P3 fill:#51cf66,color:#fff\n    style Q3 fill:#51cf66,color:#fff\n    style R3 fill:#51cf66,color:#fff\n    style S3 fill:#51cf66,color:#fff\n    style T3 fill:#51cf66,color:#fff\n    style U3 fill:#51cf66,color:#fff\n    style V3 fill:#51cf66,color:#fff\n    style W3 fill:#51cf66,color:#fff\n    style X3 fill:#51cf66,color:#fff\n    style Y3 fill:#51cf66,color:#fff\n    style Z3 fill:#b197fc,color:#fff",
+  "name": "Protein Structure",
+  "notes": "Converted from chemistry batch HTML. Process number: 3.",
+  "relatedProcesses": [],
+  "sources": [
+    {
+      "authors": "Welz, G.",
+      "doi": null,
+      "journal": "CopernicusAI Knowledge Engine",
+      "notes": "Chemistry process visualization: Protein Structure. Created using the Programming Framework methodology for process analysis and visualization.",
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "year": "2025"
+    },
+    {
+      "authors": "Kendrew JC, Dickerson RE, Strandberg BE, Hart RG, Davies DR, Phillips DC, Shore VC.",
+      "doi": "10.1038/185422a0",
+      "journal": "Nature",
+      "pubmed": "13753554",
+      "title": "A Three-Dimensional Model of the Myoglobin Molecule",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/13753554",
+      "year": "1960"
+    },
+    {
+      "authors": "W\u00fcthrich K.",
+      "doi": "10.1002/anie.198905091",
+      "journal": "Angew Chem Int Ed Engl",
+      "pubmed": "2686705",
+      "title": "NMR studies of protein structure and function",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/2686705",
+      "year": "1989"
+    },
+    {
+      "authors": "Baker D, Sali A.",
+      "doi": "10.1126/science.1102922",
+      "journal": "Science",
+      "pubmed": "15637278",
+      "title": "Protein structure determination: beyond the wet lab",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/15637278",
+      "year": "2005"
+    }
+  ],
+  "subcategory": "biochemistry",
+  "verified": false
+}

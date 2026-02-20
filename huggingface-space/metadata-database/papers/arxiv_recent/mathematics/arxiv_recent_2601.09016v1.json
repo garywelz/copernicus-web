@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2601.09016v1",
+  "arxiv_id": "2601.09016v1",
+  "title": "Stochastic representation of Sarmanov copulas",
+  "authors": [
+    "Christopher Blier-Wong"
+  ],
+  "author_string": "Christopher Blier-Wong",
+  "journal": "arXiv:2601.09016v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Sarmanov copulas offer a simple and tractable way to build multivariate distributions by perturbing the independence copula. They admit closed-form expressions for densities and many functionals of interest, making them attractive for practical applications. However, the complex conditions on the dependence parameters to ensure that Sarmanov copulas are valid limit their application in high dimensions. Verifying the $d$-increasing property typically requires satisfying a combinatorial set of inequalities that makes direct construction difficult. To circumvent this issue, we develop a stochastic representation for bivariate Sarmanov copulas. We prove that every admissible Sarmanov can be realized as a mixture of independent univariate distributions indexed by a latent Bernoulli pair. The stochastic representation replaces the problem of verifying copula validity with the problem of ensuring nonnegativity of a Bernoulli probability mass function. The representation also recovers classical copula families, including Farlie--Gumbel--Morgenstern, Huang--Kotz, and Bairamov--Kotz--Bekçi as special cases. We further derive sharp global bounds for Spearman's rho and Kendall's tau. We then introduce a Bernoulli-mixing construction in higher dimensions, leading to a new class of multivariate Sarmanov copulas with easily verifiable parameter constraints and scalable simulation algorithms. Finally, we show that powered versions of bivariate Sarmanov copulas admit a similar stochastic representation through block-maximal order statistics.",
+  "categories": [
+    "math.ST",
+    "math.PR"
+  ],
+  "primary_category": "math.PR",
+  "comment": null,
+  "published_date": "2026-01-13T22:34:22Z",
+  "updated_date": "2026-01-13T22:34:22Z",
+  "url": "https://arxiv.org/abs/2601.09016v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.09016v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:52.506767",
+  "category": "mathematics",
+  "subcategories": [
+    "math.ST",
+    "math.PR"
+  ]
+}

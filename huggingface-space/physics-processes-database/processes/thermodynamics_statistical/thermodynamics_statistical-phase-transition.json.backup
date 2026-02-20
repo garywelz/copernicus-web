@@ -1,0 +1,93 @@
+{
+  "category": "physics",
+  "colorScheme": {
+    "blue": {
+      "category": "Intermediates & States",
+      "hex": "#74c0fc"
+    },
+    "green": {
+      "category": "Processing & Operations",
+      "hex": "#51cf66"
+    },
+    "red": {
+      "category": "Triggers & Inputs",
+      "hex": "#ff6b6b"
+    },
+    "violet": {
+      "category": "Products & Outputs",
+      "hex": "#b197fc"
+    },
+    "yellow": {
+      "category": "Structures & Objects",
+      "hex": "#ffd43b"
+    }
+  },
+  "complexity": {
+    "conditionals": 0,
+    "detailLevel": "medium",
+    "edges": 24,
+    "level": "medium",
+    "logicGates": {
+      "andGates": 0,
+      "orGates": 0,
+      "total": 0
+    },
+    "nodes": 26
+  },
+  "created": "2026-01-08",
+  "description": "Phase Transition Process. This thermodynamics process visualization demonstrates phase transitions and critical phenomena. The flowchart shows phase inputs and temperature changes, phase transition methods and critical points, phase transition operations and order parameters, intermediate results, and final phase transition outputs.",
+  "id": "thermodynamics_statistical-phase-transition",
+  "keywords": [
+    "statistical",
+    "thermodynamics",
+    "phase",
+    "physics",
+    "transition"
+  ],
+  "lastUpdated": "2026-01-08",
+  "mermaid": "graph TD\nA3[Phase State] --> B3[Phase Transition Method]\nC3[Temperature Change] --> D3[Critical Point]\nE3[Order Parameter] --> F3[Phase Transition Analysis]\nB3 --> G3[First Order Transition]\nD3 --> H3[Second Order Transition]\nF3 --> I3[Critical Phenomena]\nG3 --> J3[Latent Heat]\nH3 --> K3[Order Parameter]\nI3 --> L3[Scaling Behavior]\nJ3 --> M3[Phase Coexistence]\nK3 --> L3\nL3 --> N3[Critical Exponents]\nM3 --> O3[Phase Diagram]\nN3 --> P3[Universality Class]\nO3 --> Q3[Phase Transition Process]\nP3 --> R3[Phase Transition Validation]\nQ3 --> S3[Phase Transition Verification]\nR3 --> T3[Phase Transition Result]\nS3 --> U3[Phase Transition Analysis]\nT3 --> V3[Phase Transition Parameters]\nU3 --> W3[Phase Transition Output]\nV3 --> X3[Phase Transition Analysis]\nW3 --> Y3[Phase Transition Final Result]\nX3 --> Z3[Phase Transition Complete]\n\n    style A3 fill:#ff6b6b,color:#fff\n    style C3 fill:#ff6b6b,color:#fff\n    style E3 fill:#ff6b6b,color:#fff\n    style B3 fill:#ffd43b,color:#000\n    style D3 fill:#ffd43b,color:#000\n    style F3 fill:#ffd43b,color:#000\n    style G3 fill:#ffd43b,color:#000\n    style H3 fill:#ffd43b,color:#000\n    style I3 fill:#ffd43b,color:#000\n    style J3 fill:#ffd43b,color:#000\n    style K3 fill:#ffd43b,color:#000\n    style L3 fill:#ffd43b,color:#000\n    style M3 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style O3 fill:#51cf66,color:#fff\n    style P3 fill:#51cf66,color:#fff\n    style Q3 fill:#51cf66,color:#fff\n    style R3 fill:#51cf66,color:#fff\n    style S3 fill:#51cf66,color:#fff\n    style T3 fill:#51cf66,color:#fff\n    style U3 fill:#51cf66,color:#fff\n    style V3 fill:#51cf66,color:#fff\n    style W3 fill:#51cf66,color:#fff\n    style X3 fill:#51cf66,color:#fff\n    style Y3 fill:#51cf66,color:#fff\n    style Z3 fill:#b197fc,color:#fff",
+  "name": "Phase Transition",
+  "notes": "Converted from physics batch HTML. Process number: 3.",
+  "relatedProcesses": [],
+  "sources": [
+    {
+      "authors": "Welz, G.",
+      "doi": null,
+      "journal": "CopernicusAI Knowledge Engine",
+      "notes": "Chemistry process visualization: Phase Transition. Created using the Programming Framework methodology for process analysis and visualization.",
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "year": "2025"
+    },
+    {
+      "authors": "Wilson, K. G.",
+      "doi": "10.1103/RevModPhys.47.773",
+      "journal": "Rev. Mod. Phys.",
+      "pubmed": null,
+      "title": "The Renormalization Group: Critical Phenomena and the Kondo Problem",
+      "url": "https://doi.org/10.1103/RevModPhys.47.773",
+      "year": "1975"
+    },
+    {
+      "authors": "Fisher, M. E.",
+      "doi": "10.1103/RevModPhys.55.805",
+      "journal": "Rev. Mod. Phys.",
+      "pubmed": null,
+      "title": "Renormalization Group Theory of Critical Phenomena",
+      "url": "https://doi.org/10.1103/RevModPhys.55.805",
+      "year": "1983"
+    },
+    {
+      "authors": "Binder, K.",
+      "doi": "10.1103/RevModPhys.87.867",
+      "journal": "Rev. Mod. Phys.",
+      "pubmed": null,
+      "title": "Computational studies of phase transitions and critical phenomena: From classical to quantum systems",
+      "url": "https://doi.org/10.1103/RevModPhys.87.867",
+      "year": "2015"
+    }
+  ],
+  "subcategory": "thermodynamics_statistical",
+  "subcategory_name": "Thermodynamics & Statistical Physics",
+  "verified": false
+}

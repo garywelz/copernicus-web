@@ -1,0 +1,94 @@
+{
+  "id": "defense_immune-plant-defense-response-process",
+  "name": "Plant Defense Response Process",
+  "category": "biology",
+  "subcategory": "defense_immune",
+  "subcategory_name": "Defense & Immune Response",
+  "organism": "Plants",
+  "description": "Plant Defense Response Process in Plants. This process represents a higher-level biological mechanism distinct from molecular/biochemical processes covered in GLMP.",
+  "complexity": {
+    "nodes": 9,
+    "edges": 8,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "low",
+    "detailLevel": "low"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\n    A25[Pathogen Recognition] --> B25[Receptor Activation]\n    B25 --> C25[Signal Transduction]\n    C25 --> D25[Oxidative Burst]\n    D25 --> E25[Cell Death]\n    C25 --> F25[Gene Expression]\n    F25 --> G25[Defense Compound Synthesis]\n    G25 --> H25[Systemic Acquired Resistance]\n    H25 --> I25[Enhanced Protection]\n    \n    style A25 fill:#ff6b6b,color:#fff\n    style B25 fill:#ffd43b,color:#000\n    style C25 fill:#51cf66,color:#fff\n    style D25 fill:#51cf66,color:#fff\n    style E25 fill:#74c0fc,color:#fff\n    style F25 fill:#51cf66,color:#fff\n    style G25 fill:#51cf66,color:#fff\n    style H25 fill:#74c0fc,color:#fff\n    style I25 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "notes": "Higher-level biological process visualization: Plant Defense Response Process. Created using the Programming Framework methodology for organismal and ecological process analysis."
+    },
+    {
+      "title": "Plant innate immunity",
+      "authors": "Jones, JD., Vance, RE., Dangl, JL.",
+      "journal": "Nature",
+      "year": "2016",
+      "pubmed": "27121833",
+      "doi": "10.1038/nature17655",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/27121833"
+    },
+    {
+      "title": "Plant Plasma Membrane Receptors: From Perception to Signal Transduction",
+      "authors": "Schwessinger, B., Zipfel, C.",
+      "journal": "Annu Rev Plant Biol",
+      "year": "2020",
+      "pubmed": "32243763",
+      "doi": "10.1146/annurev-arplant-050718-100222",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/32243763"
+    },
+    {
+      "title": "A Renaissance of Elicitors: Perception of Microbe-Associated Molecular Patterns and Danger Signals by Plants",
+      "authors": "Boller, T., Felix, G.",
+      "journal": "Annu Rev Plant Biol",
+      "year": "2009",
+      "pubmed": "19400727",
+      "doi": "10.1146/annurev.arplant.59.032607.092957",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/19400727"
+    }
+  ],
+  "keywords": [
+    "defense",
+    "response",
+    "plant",
+    "immune",
+    "process",
+    "plants"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-08",
+  "verified": false,
+  "notes": "Higher-level biological process. GLMP covers biochemical/molecular processes; this database covers organismal/ecological processes."
+}

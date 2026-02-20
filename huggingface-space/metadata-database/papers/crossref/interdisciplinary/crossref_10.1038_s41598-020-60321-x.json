@@ -1,0 +1,30 @@
+{
+  "id": "crossref_10.1038_s41598-020-60321-x",
+  "doi": "10.1038/s41598-020-60321-x",
+  "title": "A quantum algorithm for evolving open quantum dynamics on quantum computing devices",
+  "authors": [
+    "Hu, Zixuan",
+    "Xia, Rongxin",
+    "Kais, Sabre"
+  ],
+  "author_string": "Hu, Zixuan, Xia, Rongxin, Kais, Sabre",
+  "journal": "Scientific Reports",
+  "issn": "2045-2322",
+  "issn_type": "electronic",
+  "volume": "10",
+  "issue": "1",
+  "page": "",
+  "year": "2020",
+  "publisher": "Springer Science and Business Media LLC",
+  "language": "en",
+  "abstract": "AbstractDesigning quantum algorithms for simulating quantum systems has seen enormous progress, yet few studies have been done to develop quantum algorithms for open quantum dynamics despite its importance in modeling the system-environment interaction found in most realistic physical models. In this work we propose and demonstrate a general quantum algorithm to evolve open quantum dynamics on quantum computing devices. The Kraus operators governing the time evolution can be converted into unitary matrices with minimal dilation guaranteed by the Sz.-Nagy theorem. This allows the evolution of the initial state through unitary quantum gates, while using significantly less resource than required by the conventional Stinespring dilation. We demonstrate the algorithm on an amplitude damping channel using the IBM Qiskit quantum simulator and the IBM Q 5 Tenerife quantum device. The proposed algorithm does not require particular models of dynamics or decomposition of the quantum channel, and thus can be easily generalized to other open quantum dynamical models.",
+  "subjects": [],
+  "keywords": [],
+  "article_type": "journal-article",
+  "citation_count": 133,
+  "url": "https://doi.org/10.1038/s41598-020-60321-x",
+  "source": "crossref",
+  "acquired_date": "2026-01-19T10:54:25.409388",
+  "category": "interdisciplinary",
+  "subcategories": []
+}

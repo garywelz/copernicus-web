@@ -1,0 +1,40 @@
+{
+  "id": "arxiv_2601.10880v1",
+  "arxiv_id": "2601.10880v1",
+  "title": "Medical SAM3: A Foundation Model for Universal Prompt-Driven Medical Image Segmentation",
+  "authors": [
+    "Chongcong Jiang",
+    "Tianxingjian Ding",
+    "Chuhan Song",
+    "Jiachen Tu",
+    "Ziyang Yan",
+    "Yihua Shao",
+    "Zhenyi Wang",
+    "Yuzhang Shang",
+    "Tianyu Han",
+    "Yu Tian"
+  ],
+  "author_string": "Chongcong Jiang, Tianxingjian Ding, Chuhan Song, Jiachen Tu, Ziyang Yan et al.",
+  "journal": "arXiv:2601.10880v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Promptable segmentation foundation models such as SAM3 have demonstrated strong generalization capabilities through interactive and concept-based prompting. However, their direct applicability to medical image segmentation remains limited by severe domain shifts, the absence of privileged spatial prompts, and the need to reason over complex anatomical and volumetric structures. Here we present Medical SAM3, a foundation model for universal prompt-driven medical image segmentation, obtained by fully fine-tuning SAM3 on large-scale, heterogeneous 2D and 3D medical imaging datasets with paired segmentation masks and text prompts. Through a systematic analysis of vanilla SAM3, we observe that its performance degrades substantially on medical data, with its apparent competitiveness largely relying on strong geometric priors such as ground-truth-derived bounding boxes. These findings motivate full model adaptation beyond prompt engineering alone. By fine-tuning SAM3's model parameters on 33 datasets spanning 10 medical imaging modalities, Medical SAM3 acquires robust domain-specific representations while preserving prompt-driven flexibility. Extensive experiments across organs, imaging modalities, and dimensionalities demonstrate consistent and significant performance gains, particularly in challenging scenarios characterized by semantic ambiguity, complex morphology, and long-range 3D context. Our results establish Medical SAM3 as a universal, text-guided segmentation foundation model for medical imaging and highlight the importance of holistic model adaptation for achieving robust prompt-driven segmentation under severe domain shift. Code and model will be made available at https://github.com/AIM-Research-Lab/Medical-SAM3.",
+  "categories": [
+    "cs.CV",
+    "cs.AI"
+  ],
+  "primary_category": "cs.AI",
+  "comment": null,
+  "published_date": "2026-01-15T22:18:14Z",
+  "updated_date": "2026-01-15T22:18:14Z",
+  "url": "https://arxiv.org/abs/2601.10880v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.10880v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:37.520224",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV",
+    "cs.AI"
+  ]
+}

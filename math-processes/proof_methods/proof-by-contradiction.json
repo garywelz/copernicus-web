@@ -1,0 +1,29 @@
+{
+  "id": "proof-by-contradiction",
+  "title": "Proof by Contradiction",
+  "description": "Prove statement by assuming its negation leads to contradiction",
+  "category": "mathematics",
+  "subcategory": "proof_methods",
+  "mermaid": "graph TD A1[Initial Statement P to Prove] --> B1[\"Assume ~P (Negation of P) is True\"] style A1 fill:#ff6b6b,color:#fff style B1 fill:#ff6b6b,color:#fff B1 --> C1[\"Establish Initial Assumptions based on ~P\"] style C1 fill:#51cf66,color:#fff C1 --> D1[Apply Logical Deductions and Known Theorems] style D1 fill:#51cf66,color:#fff D1 --> E1[\"Derive Intermediate Statements\"] style E1 fill:#74c0fc,color:#fff E1 --> F1{Does the derivation lead to a contradiction? (Q & ~Q)} style F1 fill:#ffd43b,color:#000 F1 -- Yes --> G1[\"Identify the Contradiction (Q & ~Q)\"] style G1 fill:#74c0fc,color:#fff G1 --> H1[\"Conclude that ~P is False\"] style H1 fill:#51cf66,color:#fff H1 --> I1[\"Since ~P is False, P must be True\"] style I1 fill:#51cf66,color:#fff I1 --> J1[Therefore, Statement P is Proven] style J1 fill:#b197fc,color:#fff F1 -- No --> K1[\"Are there other deductions possible?\"] style K1 fill:#ffd43b,color:#000 K1 -- Yes --> D1 K1 -- No --> L1[Re-examine assumptions and derivations for errors] style L1 fill:#51cf66,color:#fff L1 --> M1{Are errors found?} style M1 fill:#ffd43b,color:#000 M1 -- Yes --> C1 M1 -- No --> N1[Contradiction not found; consider alternative proof methods or the original statement might be false] style N1 fill:#b197fc,color:#fff",
+  "entities": [
+    "Initial Statement P to Prove",
+    "/\"Assume ~P (Negation of P) is True\"/)style A1 fill:#ff6b6b,color:#fff style B1 fill:#ff6b6b,color:#fff B1 --> C1[\"Establish Initial Assumptions based on ~P\"",
+    "Apply Logical Deductions and Known Theorems",
+    "\"Derive Intermediate Statements\"",
+    "/\"Does the derivation lead to a contradiction? (Q & ~Q)\"/}style F1 fill:#ffd43b,color:#000 F1 -- Yes --> G1[\"Identify the Contradiction (Q & ~Q)\"",
+    "\"Conclude that ~P is False\"",
+    "\"Since ~P is False, P must be True\"",
+    "Therefore, Statement P is Proven",
+    "\"Are there other deductions possible?\"",
+    "Re-examine assumptions and derivations for errors",
+    "/\"Are errors found?\"/}style M1 fill:#ffd43b,color:#000 M1 -- Yes --> C1 M1 -- No --> N1[Contradiction not found; consider alternative proof methods or the original statement might be false"
+  ],
+  "metadata": {
+    "source": "programming_framework",
+    "color_scheme": "discipline_based",
+    "node_count": 11,
+    "complexity": "low"
+  },
+  "sources": [],
+  "source_text": "Source information to be added - please specify the book, paper, or reference material used by the LLM to generate this flowchart."
+}

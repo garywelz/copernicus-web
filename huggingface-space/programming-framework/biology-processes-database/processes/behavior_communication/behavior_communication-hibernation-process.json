@@ -1,0 +1,84 @@
+{
+  "id": "behavior_communication-hibernation-process",
+  "name": "Hibernation Process",
+  "category": "biology",
+  "subcategory": "behavior_communication",
+  "subcategory_name": "Behavior & Communication",
+  "organism": "Animals",
+  "description": "Hibernation Process in Animals. This process represents a higher-level biological mechanism distinct from molecular/biochemical processes covered in GLMP.",
+  "complexity": {
+    "nodes": 10,
+    "edges": 9,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "low",
+    "detailLevel": "low"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\n    A16[Environmental Change] --> B16[Metabolic Preparation]\n    B16 --> C16[Fat Accumulation]\n    C16 --> D16[Body Temperature Drop]\n    D16 --> E16[Heart Rate Reduction]\n    E16 --> F16[Breathing Slowed]\n    F16 --> G16[Metabolic Suppression]\n    G16 --> H16[Hibernation State]\n    H16 --> I16[Periodic Arousal]\n    I16 --> J16[Spring Emergence]\n    \n    style A16 fill:#ff6b6b,color:#fff\n    style B16 fill:#ffd43b,color:#000\n    style C16 fill:#ffd43b,color:#000\n    style D16 fill:#51cf66,color:#fff\n    style E16 fill:#51cf66,color:#fff\n    style F16 fill:#51cf66,color:#fff\n    style G16 fill:#74c0fc,color:#fff\n    style H16 fill:#74c0fc,color:#fff\n    style I16 fill:#74c0fc,color:#fff\n    style J16 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "notes": "Higher-level biological process visualization: Hibernation Process. Created using the Programming Framework methodology for organismal and ecological process analysis."
+    },
+    {
+      "title": "The physiology of mammalian hibernation: current challenges and future directions",
+      "authors": "Carey HV, Frank CL, Seifert JP",
+      "journal": "Annu Rev Physiol",
+      "year": "2013",
+      "pubmed": "23374421",
+      "doi": "10.1146/annurev-physiol-030212-163737",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/23374421"
+    },
+    {
+      "title": "Hibernation: The study of the natural cryoprotective state",
+      "authors": "Carey HV",
+      "journal": "Annu Rev Physiol",
+      "year": "2005",
+      "pubmed": "15705036",
+      "doi": "10.1146/annurev.physiol.67.040403.111833",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/15705036"
+    }
+  ],
+  "keywords": [
+    "hibernation",
+    "animals",
+    "behavior",
+    "process",
+    "communication"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-08",
+  "verified": false,
+  "notes": "Higher-level biological process. GLMP covers biochemical/molecular processes; this database covers organismal/ecological processes."
+}

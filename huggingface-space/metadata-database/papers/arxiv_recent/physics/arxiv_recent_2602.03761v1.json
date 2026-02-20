@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2602.03761v1",
+  "arxiv_id": "2602.03761v1",
+  "title": "Machine Learning Modeling of Charge-Density-Wave Recovery After Laser Melting",
+  "authors": [
+    "Sankha Subhra Bakshi",
+    "Yunhao Fan",
+    "Gia-Wei Chern"
+  ],
+  "author_string": "Sankha Subhra Bakshi, Yunhao Fan, Gia-Wei Chern",
+  "journal": "arXiv:2602.03761v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We investigate the nonequilibrium dynamics of a laser-pumped two-dimensional spinless Holstein model within a semiclassical framework, focusing on the melting and recovery of long-range charge-density-wave order. Accurately describing this process requires fully nonadiabatic electron-lattice dynamics, which is computationally demanding due to the need to resolve fast electronic motion over long time scales. By analyzing the structure of the lattice force during nonequilibrium evolution, we show that the force naturally separates into a smooth quasi-adiabatic component and a residual bath-like contribution associated with fast electronic fluctuations. The quasi-adiabatic component depends only on the instantaneous local lattice configuration and can be efficiently learned using machine-learning techniques, while a minimal Langevin description of the bath term captures the essential features of the recovery dynamics. Combining these elements enables efficient and scalable simulations of long-time nonequilibrium dynamics on large lattices, providing a practical route to access driven correlated systems beyond the reach of direct nonadiabatic approaches.",
+  "categories": [
+    "cond-mat.str-el"
+  ],
+  "primary_category": "cond-mat.str-el",
+  "comment": "12 pages, 6 figures",
+  "published_date": "2026-02-03T17:24:32Z",
+  "updated_date": "2026-02-03T17:24:32Z",
+  "url": "https://arxiv.org/abs/2602.03761v1",
+  "pdf_url": "https://arxiv.org/pdf/2602.03761v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-02-04T07:47:26.280676",
+  "category": "physics",
+  "subcategories": [
+    "cond-mat.str-el"
+  ]
+}

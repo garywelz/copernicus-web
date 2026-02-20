@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2601.07343v1",
+  "arxiv_id": "2601.07343v1",
+  "title": "Mud-Standoff Effect Correction Based on Open-Short Calibration and Resistivity Consistency-Constrained Iterative Inversion for Oil-Based Mud Imagers",
+  "authors": [
+    "Li Fengfeng",
+    "Feng Zhou",
+    "Wu Hongliang",
+    "Zhang Hao",
+    "Tian Han",
+    "Liu Peng",
+    "Yuan Lixin"
+  ],
+  "author_string": "Li Fengfeng, Feng Zhou, Wu Hongliang, Zhang Hao, Tian Han et al.",
+  "journal": "arXiv:2601.07343v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We propose a mud-standoff effect correction method and a set of approximate apparent resistivity inversion methods suitable for oil-based mud micro-resistivity imaging logging. To calibrate the influence of the mud layer on electrode measurement signals, this study integrates the Open-Short calibration(OSC) method with the three-layer impedance model of the oil-based mud resistivity imager. By treating the electrode and the mud layer as an integrated whole and simulating the open/short-circuit states via the finite element method, the independent extraction of the mud layer impedance signal is achieved, and the formation impedance signal is separated from the total impedance. For fast inversion of formation resistivity, standoff thickness (mud layer thickness), and relative permittivity of formation, a resistivity consistency-constrained iterative inversion method is further proposed. In this method, the formation impedance is first converted into resistivity, and then the consistency residual of the resistivity at different frequencies is used as the objective function to invert the approximate apparent resistivity of the formation through an iterative optimization algorithm. The effectiveness of the finite element-simulated OSC method, the objective function construction scheme, and the consistency inversion method is verified through both numerical models and an example of field data.",
+  "categories": [
+    "physics.geo-ph"
+  ],
+  "primary_category": "physics.geo-ph",
+  "comment": null,
+  "published_date": "2026-01-12T09:16:08Z",
+  "updated_date": "2026-01-12T09:16:08Z",
+  "url": "https://arxiv.org/abs/2601.07343v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.07343v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:28.434931",
+  "category": "physics",
+  "subcategories": [
+    "physics.geo-ph"
+  ]
+}

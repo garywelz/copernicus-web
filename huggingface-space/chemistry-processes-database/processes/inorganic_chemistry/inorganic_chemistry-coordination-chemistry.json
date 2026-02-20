@@ -1,0 +1,91 @@
+{
+  "id": "inorganic_chemistry-coordination-chemistry",
+  "name": "Coordination Chemistry",
+  "category": "chemistry",
+  "subcategory": "inorganic_chemistry",
+  "subcategory_name": "Inorganic Chemistry",
+  "description": "Coordination Chemistry process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 26,
+    "edges": 21,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 1,
+      "total": 1
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nA1[Ligand Selection] --> B1[Coordination Method]\nC1[Metal Ion] --> D1[Ligand Binding]\nE1[Complex Formation] --> F1[Coordination Analysis]\nB1 --> G1[Lewis Acid Base]\nD1 --> H1[Ligand Field Theory]\nF1 --> I1[Crystal Field Theory]\nG1 --> J1[Coordination Number]\nH1 --> K1[Ligand Strength]\nI1 --> L1[Electronic Configuration]\nJ1 --> M1[Geometry Prediction]\nK1 --> L1\nL1 --> N1[Spin State]\nM1 --> O1[Stability Constant]\nN1 --> P1[Magnetic Properties]\nO1 --> Q1[Coordination Chemistry Process]\nP1 --> R1[Coordination Validation]\nQ1 --> S1[Coordination Verification]\nR1 --> T1[Coordination Result]\nS1 --> U1[Coordination Analysis]\nT1 --> V1[Coordination Parameters]\nU1 --> W1[Coordination Output]\nV1 --> X1[Coordination Analysis]\nW1 --> Y1[Coordination Final Result]\nX1 --> Z1[Coordination Chemistry Complete]\n\n    style A1 fill:#ff6b6b,color:#fff\n    style C1 fill:#ff6b6b,color:#fff\n    style E1 fill:#ff6b6b,color:#fff\n    style B1 fill:#ffd43b,color:#000\n    style D1 fill:#ffd43b,color:#000\n    style F1 fill:#ffd43b,color:#000\n    style G1 fill:#ffd43b,color:#000\n    style H1 fill:#ffd43b,color:#000\n    style I1 fill:#ffd43b,color:#000\n    style J1 fill:#ffd43b,color:#000\n    style K1 fill:#ffd43b,color:#000\n    style L1 fill:#ffd43b,color:#000\n    style M1 fill:#51cf66,color:#fff\n    style N1 fill:#51cf66,color:#fff\n    style O1 fill:#51cf66,color:#fff\n    style P1 fill:#51cf66,color:#fff\n    style Q1 fill:#51cf66,color:#fff\n    style R1 fill:#51cf66,color:#fff\n    style S1 fill:#51cf66,color:#fff\n    style T1 fill:#51cf66,color:#fff\n    style U1 fill:#51cf66,color:#fff\n    style V1 fill:#51cf66,color:#fff\n    style W1 fill:#51cf66,color:#fff\n    style X1 fill:#51cf66,color:#fff\n    style Y1 fill:#51cf66,color:#fff\n    style Z1 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Coordination Chemistry. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "Coordination Chemistry reviews",
+      "authors": "Seddon, K.R.",
+      "journal": "Coordination Chemistry Reviews",
+      "year": "1988",
+      "pubmed": null,
+      "doi": "10.1016/0010-8545(88)80035-3",
+      "url": "https://doi.org/10.1016/0010-8545(88)80035-3"
+    },
+    {
+      "title": "Coordination chemistry—20",
+      "authors": "",
+      "journal": "Coordination Chemistry Reviews",
+      "year": "1982",
+      "pubmed": null,
+      "doi": "10.1016/0010-8545(82)85016-9",
+      "url": "https://doi.org/10.1016/0010-8545(82)85016-9"
+    },
+    {
+      "title": "Coordination chemistry—21",
+      "authors": "",
+      "journal": "Coordination Chemistry Reviews",
+      "year": "1982",
+      "pubmed": null,
+      "doi": "10.1016/0010-8545(82)85017-0",
+      "url": "https://doi.org/10.1016/0010-8545(82)85017-0"
+    }
+  ],
+  "keywords": [
+    "coordination",
+    "chemistry"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+}

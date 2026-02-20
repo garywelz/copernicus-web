@@ -1,0 +1,91 @@
+{
+  "id": "inorganic_chemistry-ligand-substitution",
+  "name": "Ligand Substitution",
+  "category": "chemistry",
+  "subcategory": "inorganic_chemistry",
+  "subcategory_name": "Inorganic Chemistry",
+  "description": "Ligand Substitution process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 6,
+    "edges": 5,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nN1[\"Metal Complex\"]\nN2[\"Incoming Ligand\"]\nN3[\"Coordination Sphere\"]\nN4[\"Mechanism Choice (A/D/I)\"]\nN5[\"Substitution Step\"]\nN6[\"New Complex\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\nN5 --> N6\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ff6b6b,color:#fff\n    style N3 fill:#ffd43b,color:#000\n    style N4 fill:#ffd43b,color:#000\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Ligand Substitution. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "Ligand substitution reactions",
+      "authors": "Mingos, D.M.P.",
+      "journal": "Essentials of Inorganic Chemistry 2",
+      "year": "1998",
+      "pubmed": null,
+      "doi": "10.1093/hesc/9780198559184.003.0007",
+      "url": "https://doi.org/10.1093/hesc/9780198559184.003.0007"
+    },
+    {
+      "title": "Ligand Substitution Reactions",
+      "authors": "Jordan, Robert B.",
+      "journal": "Reaction Mechanisms of Inorganic and Organometallic Systems",
+      "year": "2007",
+      "pubmed": null,
+      "doi": "10.1093/oso/9780195301007.003.0005",
+      "url": "https://doi.org/10.1093/oso/9780195301007.003.0005"
+    },
+    {
+      "title": "Ligand Substitution Reactions",
+      "authors": "",
+      "journal": "Organometallic Chemistry and Catalysis",
+      "year": "None",
+      "pubmed": null,
+      "doi": "10.1007/978-3-540-46129-6_7",
+      "url": "https://doi.org/10.1007/978-3-540-46129-6_7"
+    }
+  ],
+  "keywords": [
+    "ligand",
+    "substitution"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-15",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+}

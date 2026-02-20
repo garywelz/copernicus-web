@@ -1,0 +1,31 @@
+{
+  "id": "crossref_10.26434_chemrxiv-2025-fkmr7",
+  "doi": "10.26434/chemrxiv-2025-fkmr7",
+  "title": "Variational Quantum Simulation of Time-Local Quantum Master Equations via Quantum Jump",
+  "authors": [
+    "Lan, Zhihao",
+    "liu, Jie",
+    "Li, Zhenyu",
+    "Liang, Wanzhen"
+  ],
+  "author_string": "Lan, Zhihao, liu, Jie, Li, Zhenyu, Liang, Wanzhen",
+  "journal": "",
+  "issn": null,
+  "issn_type": "",
+  "volume": "",
+  "issue": "",
+  "page": "",
+  "year": "2025",
+  "publisher": "American Chemical Society (ACS)",
+  "language": "",
+  "abstract": "Strong coupling and environmental memory render many open quantum systems intractable to classical computation. To overcome this barrier, we present a variational quantum algorithm capable of solving generalized form time-local quantum master equations directly on Noisy Intermediate-Scale Quantum (NISQ) processors. Our approach combines four key innovations: (1) a pair-vector stochastic Schr¨odinger equation tounravel time-local quantum master equations, (2) deterministic evolution projected onto parameterized circuitsvia McLachlan’s principle and stochasitc jump implementation via singular-value decomposition, (3) usingHadamard tests circuits to measure the jump rates and the element of reduced density matrices and (4) usingno-evolution sampling to sample trajectories. The resulting protocol remains resilient under realistic hardwarenoise. We validate it on both classical simulators and a 66-qubit superconducting processor for solving Redfield master equation and fourth-order time-local non-Markovian master equation and find that it can successfully capture key features of complex open quantum dynamics - including non-Markovian oscillations and strong-coupling effects. Our approach establishes a practical pathway toward scalable simulations of open quantum systems in the NISQ era.",
+  "subjects": [],
+  "keywords": [],
+  "article_type": "posted-content",
+  "citation_count": 0,
+  "url": "https://doi.org/10.26434/chemrxiv-2025-fkmr7",
+  "source": "crossref",
+  "acquired_date": "2026-01-19T10:54:25.409434",
+  "category": "interdisciplinary",
+  "subcategories": []
+}

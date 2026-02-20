@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2601.10998v1",
+  "arxiv_id": "2601.10998v1",
+  "title": "AFLL: Real-time Load Stabilization for MMO Game Servers Based on Circular Causality Learning",
+  "authors": [
+    "Shinsuk Kang",
+    "Youngjae Kim"
+  ],
+  "author_string": "Shinsuk Kang, Youngjae Kim",
+  "journal": "arXiv:2601.10998v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Massively Multiplayer Online (MMO) game servers must handle thousands of simultaneous players while maintaining sub-100ms response times. When server load exceeds capacity, traditional approaches either uniformly throttle all message types regardless of importance (damaging gameplay) or apply fixed heuristic rules that fail to adapt to dynamic workloads. This paper presents AFLL (Adaptive Feedback Loop Learning), a real-time load stabilization system that learns the causal relationship between outgoing server messages and subsequent incoming client requests. AFLL employs backpropagation to continuously adjust message type weights, enabling predictive throttling that blocks low-priority messages before overload occurs while guaranteeing critical message delivery. Through controlled experiments with 1,000 concurrent players, AFLL reduced average CPU time by 48.3% (13.2ms to 6.8ms), peak CPU time by 51.7% (54.0ms to 26.1ms), and thread contention by 64.4% (19.6% to 7.0%), while maintaining zero learning overhead through background computation and caching optimizations. The system achieved remarkable reproducibility (CV < 2% across all metrics) and identified a three-stage causal chain linking message blocking to load reduction. AFLL demonstrates that circular causality learning enables practical real-time adaptation for latency-critical systems.",
+  "categories": [
+    "cs.DC",
+    "cs.MM",
+    "cs.NI",
+    "cs.PF"
+  ],
+  "primary_category": "cs.PF",
+  "comment": "16 pages, 7 figures, 5 tables. Submitted for publication",
+  "published_date": "2026-01-16T05:14:58Z",
+  "updated_date": "2026-01-16T05:14:58Z",
+  "url": "https://arxiv.org/abs/2601.10998v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.10998v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:37.513244",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.DC",
+    "cs.MM",
+    "cs.NI"
+  ]
+}

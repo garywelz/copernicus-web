@@ -1,0 +1,89 @@
+{
+  "category": "chemistry",
+  "colorScheme": {
+    "blue": {
+      "category": "Intermediates & States",
+      "hex": "#74c0fc"
+    },
+    "green": {
+      "category": "Processing & Operations",
+      "hex": "#51cf66"
+    },
+    "red": {
+      "category": "Triggers & Inputs",
+      "hex": "#ff6b6b"
+    },
+    "violet": {
+      "category": "Products & Outputs",
+      "hex": "#b197fc"
+    },
+    "yellow": {
+      "category": "Structures & Objects",
+      "hex": "#ffd43b"
+    }
+  },
+  "complexity": {
+    "conditionals": 0,
+    "detailLevel": "medium",
+    "edges": 25,
+    "level": "medium",
+    "logicGates": {
+      "andGates": 0,
+      "orGates": 29,
+      "total": 29
+    },
+    "nodes": 26
+  },
+  "created": "2026-01-08",
+  "description": "Reaction pathways process showing transition states, energy barriers, and pathway optimization.",
+  "id": "quantum_chemistry-reaction-pathways",
+  "keywords": [
+    "pathways",
+    "reaction"
+  ],
+  "lastUpdated": "2026-01-08",
+  "mermaid": "graph TD\nA4[Reactant State] --> B4[Reaction Pathway Method]\nC4[Transition States] --> D4[Energy Surface Analysis]\nE4[Product State] --> F4[Pathway Calculation]\nB4 --> G4[Pathway Identification]\nD4 --> H4[Energy Surface Mapping]\nF4 --> I4[Reaction Coordinate]\nG4 --> J4[Initial State]\nH4 --> K4[Energy Barriers]\nI4 --> L4[Coordinate Analysis]\nJ4 --> M4[Reaction Initiation]\nK4 --> L4\nL4 --> N4[Transition State]\nM4 --> O4[Pathway Evolution]\nN4 --> P4[Reaction Progress]\nO4 --> Q4[Quantum Analysis]\nP4 --> R4[Product Formation]\nQ4 --> S4[Pathway Analysis]\nR4 --> T4[Reaction Properties]\nS4 --> U4[Barrier Analysis]\nT4 --> V4[Property Calculation]\nU4 --> W4[Pathway Efficiency]\nV4 --> X4[Reaction Characterization]\nW4 --> Y4[Process Optimization]\nX4 --> Z4[Final Reaction Pathway]\nY4 --> Z4\n\n    style A4 fill:#ff6b6b,color:#fff\n    style C4 fill:#ff6b6b,color:#fff\n    style E4 fill:#ff6b6b,color:#fff\n    style B4 fill:#ffd43b,color:#000\n    style D4 fill:#ffd43b,color:#000\n    style F4 fill:#ffd43b,color:#000\n    style G4 fill:#ffd43b,color:#000\n    style H4 fill:#ffd43b,color:#000\n    style I4 fill:#ffd43b,color:#000\n    style J4 fill:#ffd43b,color:#000\n    style K4 fill:#ffd43b,color:#000\n    style L4 fill:#ffd43b,color:#000\n    style M4 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style O4 fill:#51cf66,color:#fff\n    style P4 fill:#51cf66,color:#fff\n    style Q4 fill:#51cf66,color:#fff\n    style R4 fill:#51cf66,color:#fff\n    style S4 fill:#51cf66,color:#fff\n    style T4 fill:#51cf66,color:#fff\n    style U4 fill:#51cf66,color:#fff\n    style V4 fill:#51cf66,color:#fff\n    style W4 fill:#51cf66,color:#fff\n    style X4 fill:#51cf66,color:#fff\n    style Y4 fill:#51cf66,color:#fff\n    style Z4 fill:#b197fc,color:#fff",
+  "name": "Reaction Pathways",
+  "notes": "Converted from chemistry batch HTML. Process number: 4.",
+  "relatedProcesses": [],
+  "sources": [
+    {
+      "authors": "Welz, G.",
+      "doi": null,
+      "journal": "CopernicusAI Knowledge Engine",
+      "notes": "Chemistry process visualization: Reaction Pathways. Created using the Programming Framework methodology for process analysis and visualization.",
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "year": "2025"
+    },
+    {
+      "authors": "Eyring H.",
+      "doi": "10.1063/1.1749604",
+      "journal": "J Chem Phys",
+      "pubmed": null,
+      "title": "The activated complex in chemical reactions",
+      "url": "https://doi.org/10.1063/1.1749604",
+      "year": "1935"
+    },
+    {
+      "authors": "Alabugin LV, Gold B, Lewis DF.",
+      "doi": "10.1021/acs.chemrev.5b00241",
+      "journal": "Chem Rev",
+      "pubmed": null,
+      "title": "Computational Prediction of Reaction Outcomes: A Survey of Recent Advances",
+      "url": "https://doi.org/10.1021/acs.chemrev.5b00241",
+      "year": "2015"
+    },
+    {
+      "authors": "Houk KN, Liu P.",
+      "doi": "10.1002/anie.201605391",
+      "journal": "Angew Chem Int Ed Engl",
+      "pubmed": null,
+      "title": "Computational Reaction Mechanisms",
+      "url": "https://doi.org/10.1002/anie.201605391",
+      "year": "2016"
+    }
+  ],
+  "subcategory": "quantum_chemistry",
+  "verified": false
+}

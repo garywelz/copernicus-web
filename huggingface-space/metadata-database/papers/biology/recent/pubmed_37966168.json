@@ -1,0 +1,31 @@
+{
+  "id": "pubmed_37966168",
+  "pmid": "37966168",
+  "title": "Introduction and benchmarking of pyMLST: open-source software for assessing bacterial clonality using core genome MLST.",
+  "authors": [
+    "Biguenet, Adrien",
+    "Bordy, Augustin",
+    "Atchon, Alban",
+    "Hocquet, Didier",
+    "Valot, Benoit"
+  ],
+  "author_string": "Biguenet, Adrien, Bordy, Augustin, Atchon, Alban, Hocquet, Didier, Valot, Benoit",
+  "journal": "Microb Genom",
+  "journal_full": "Microbial genomics",
+  "year": "",
+  "doi": "10.1099/mgen.0.001126",
+  "abstract": "Core genome multilocus sequence typing (cgMLST) has gained in popularity for bacterial typing since whole-genome sequencing (WGS) has become affordable. We introduce here pyMLST, a new complete, stand-alone, free and open source pipeline for cgMLST analysis. pyMLST can create or import a core genome database. For each gene, the first allele is aligned against the bacterial genome of interest using BLAT. Incomplete genes are aligned using MAFT. All data are stored in a SQLite database. pyMLST accepts assembly genomes or raw data (with the option pyMLST-KMA) as input. To evaluate our new tool, we selected three genome collections of major bacterial pathogens (<i>Escherichia coli</i>, <i>Pseudomonas aeruginosa</i> and <i>Staphylococcus aureus</i>) and compared them with pyMLST, pyMLST-KMA, ChewBBACA, SeqSphere and the variant calling approach. We compared the sensitivity, precision and false-positive rate for each method with those of the variant calling approach. Minimal spanning trees were generated with each type of software to evaluate their interest in the context of a bacterial outbreak. We found that pyMLST-KMA is a convenient screening method to avoid assembling large bacterial collections. Our data showed that pyMLST (free, open source, available in Galaxy and pipeline ready) performed similarly to the commercial SeqSphere and performed better than ChewBBACA and pyMLST-KMA.",
+  "keywords": [
+    "bacteria",
+    "cgMLST",
+    "pyMLST",
+    "software",
+    "typing"
+  ],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/37966168",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T16:57:25.608488",
+  "category": "biology",
+  "subcategories": []
+}

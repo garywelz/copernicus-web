@@ -1,0 +1,172 @@
+{
+  "subject": "computer_science",
+  "total_processes": 21,
+  "total_batches": 7,
+  "batch_stats": {
+    "batch_01": 3,
+    "batch_02": 3,
+    "batch_03": 3,
+    "batch_04": 3,
+    "batch_05": 3,
+    "batch_06": 3,
+    "batch_07": 3
+  },
+  "subcategories": {
+    "algorithms_data_structures": 3,
+    "software_engineering": 3,
+    "database_systems": 3,
+    "computer_networks": 3,
+    "general_computer_science": 3,
+    "artificial_intelligence": 3,
+    "computer_graphics": 3
+  },
+  "processes": [
+    {
+      "id": "sorting-algorithms-process",
+      "title": "Sorting Algorithms Process",
+      "category": "computer_science",
+      "subcategory": "algorithms_data_structures",
+      "batch": "batch_01"
+    },
+    {
+      "id": "graph-algorithms-process",
+      "title": "Graph Algorithms Process",
+      "category": "computer_science",
+      "subcategory": "algorithms_data_structures",
+      "batch": "batch_01"
+    },
+    {
+      "id": "dynamic-programming-process",
+      "title": "Dynamic Programming Process",
+      "category": "computer_science",
+      "subcategory": "algorithms_data_structures",
+      "batch": "batch_01"
+    },
+    {
+      "id": "software-development-lifecycle-process",
+      "title": "Software Development Lifecycle Process",
+      "category": "computer_science",
+      "subcategory": "software_engineering",
+      "batch": "batch_02"
+    },
+    {
+      "id": "quality-assurance-process",
+      "title": "Quality Assurance Process",
+      "category": "computer_science",
+      "subcategory": "software_engineering",
+      "batch": "batch_02"
+    },
+    {
+      "id": "project-management-process",
+      "title": "Project Management Process",
+      "category": "computer_science",
+      "subcategory": "software_engineering",
+      "batch": "batch_02"
+    },
+    {
+      "id": "database-design-process",
+      "title": "Database Design Process",
+      "category": "computer_science",
+      "subcategory": "database_systems",
+      "batch": "batch_03"
+    },
+    {
+      "id": "query-processing-process",
+      "title": "Query Processing Process",
+      "category": "computer_science",
+      "subcategory": "database_systems",
+      "batch": "batch_03"
+    },
+    {
+      "id": "transaction-management-process",
+      "title": "Transaction Management Process",
+      "category": "computer_science",
+      "subcategory": "database_systems",
+      "batch": "batch_03"
+    },
+    {
+      "id": "network-protocol-process",
+      "title": "Network Protocol Process",
+      "category": "computer_science",
+      "subcategory": "computer_networks",
+      "batch": "batch_04"
+    },
+    {
+      "id": "network-security-process",
+      "title": "Network Security Process",
+      "category": "computer_science",
+      "subcategory": "computer_networks",
+      "batch": "batch_04"
+    },
+    {
+      "id": "network-performance-process",
+      "title": "Network Performance Process",
+      "category": "computer_science",
+      "subcategory": "computer_networks",
+      "batch": "batch_04"
+    },
+    {
+      "id": "process-management-process",
+      "title": "Process Management Process",
+      "category": "computer_science",
+      "subcategory": "general_computer_science",
+      "batch": "batch_05"
+    },
+    {
+      "id": "memory-management-process",
+      "title": "Memory Management Process",
+      "category": "computer_science",
+      "subcategory": "general_computer_science",
+      "batch": "batch_05"
+    },
+    {
+      "id": "file-system-process",
+      "title": "File System Process",
+      "category": "computer_science",
+      "subcategory": "general_computer_science",
+      "batch": "batch_05"
+    },
+    {
+      "id": "machine-learning-process",
+      "title": "Machine Learning Process",
+      "category": "computer_science",
+      "subcategory": "artificial_intelligence",
+      "batch": "batch_06"
+    },
+    {
+      "id": "neural-network-process",
+      "title": "Neural Network Process",
+      "category": "computer_science",
+      "subcategory": "artificial_intelligence",
+      "batch": "batch_06"
+    },
+    {
+      "id": "natural-language-processing-process",
+      "title": "Natural Language Processing Process",
+      "category": "computer_science",
+      "subcategory": "artificial_intelligence",
+      "batch": "batch_06"
+    },
+    {
+      "id": "rendering-process",
+      "title": "Rendering Process",
+      "category": "computer_science",
+      "subcategory": "computer_graphics",
+      "batch": "batch_07"
+    },
+    {
+      "id": "animation-process",
+      "title": "Animation Process",
+      "category": "computer_science",
+      "subcategory": "computer_graphics",
+      "batch": "batch_07"
+    },
+    {
+      "id": "geometric-modeling-process",
+      "title": "Geometric Modeling Process",
+      "category": "computer_science",
+      "subcategory": "computer_graphics",
+      "batch": "batch_07"
+    }
+  ]
+}

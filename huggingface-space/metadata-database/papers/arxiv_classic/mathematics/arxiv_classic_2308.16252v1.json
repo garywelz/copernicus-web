@@ -1,0 +1,37 @@
+{
+  "id": "arxiv_2308.16252v1",
+  "arxiv_id": "2308.16252v1",
+  "title": "Bayesian questions with frequentist answers",
+  "authors": [
+    "Alan H. Guth",
+    "Mohammad Hossein Namjoo"
+  ],
+  "author_string": "Alan H. Guth, Mohammad Hossein Namjoo",
+  "journal": "arXiv:2308.16252v1",
+  "journal_ref": null,
+  "year": "2023",
+  "doi": null,
+  "abstract": "The two statistical methods, namely the frequentist and the Bayesian methods, are both commonly used for probabilistic inference in many scientific situations. However, it is not straightforward to interpret the result of one approach in terms of the concepts of the other. In this paper we explore the possibility of finding a Bayesian significance for the frequentist's main object of interest, the $p$-value, which is the probability assigned to the proposition -- which we call the {\\it extremity proposition} -- that a measurement will result in a value that is at least as extreme as the value that was actually obtained. To make contact with the frequentist language, the Bayesian can choose to update probabilities based on the {\\it extremity proposition}, which is weaker than the standard Bayesian update proposition, which uses the actual observed value. We then show that the posterior probability (or probability density) of a theory is equal to the prior probability (or probability density) multiplied by the ratio of the $p$-value for the data obtained, given that theory, to the mean $p$-value -- averaged over all theories weighted by their prior probabilities. Thus, we provide frequentist answers to Bayesian questions. Our result is generic -- it does not rely on restrictive assumptions about the situation under consideration or specific properties of the likelihoods or the priors.",
+  "categories": [
+    "physics.data-an",
+    "astro-ph.CO",
+    "gr-qc",
+    "hep-ph",
+    "hep-th",
+    "stat.OT"
+  ],
+  "primary_category": "stat.OT",
+  "comment": "11 pages, 1 figure",
+  "published_date": "2023-08-30T18:15:24Z",
+  "updated_date": "2023-08-30T18:15:24Z",
+  "url": "https://arxiv.org/abs/2308.16252v1",
+  "pdf_url": "https://arxiv.org/pdf/2308.16252v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:30:25.496450",
+  "category": "mathematics",
+  "subcategories": [
+    "physics.data-an",
+    "astro-ph.CO",
+    "gr-qc"
+  ]
+}

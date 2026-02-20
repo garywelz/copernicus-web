@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2601.07913v1",
+  "arxiv_id": "2601.07913v1",
+  "title": "Quantifying Symmetry: Transformation Information for Planetary Nebulae and Supernova Remnants",
+  "authors": [
+    "Dmitry Shishkin",
+    "Amir Michaelis"
+  ],
+  "author_string": "Dmitry Shishkin, Amir Michaelis",
+  "journal": "arXiv:2601.07913v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We present a quantitative symmetry-identification pipeline for astrophysical images based on Transformation Information (TI), an information measure of self-similarity under geometric transformations. TI is expressed as a Kullback-Leibler (cross-entropy) divergence between an image and its rotated or reflected counterpart on the overlapping domain. By scanning rotation angles and reflection axes, we obtain TI curves whose local minima identify symmetry operations. We validate the method on a wind-rose pattern and then apply it to planetary nebulae, where the recovered axes trace bipolar and multipolar lobes consistent with morphology-based classifications. Applying TI to supernova remnants yields estimate axes associated with protrusions, rims, and substructure. To emphasize global morphology, we introduce a thresholded two-level variant that compares binary silhouettes and can reveal outline-driven symmetries. Finally, we quantify symmetry using a minima prominence-to-width score and show that this compact descriptor separates Type Ia and core-collapse remnants into distinct populations for an X-ray sample. TI provides a non-parametric, reproducible framework for symmetry identification, classification and population studies.",
+  "categories": [
+    "astro-ph.IM",
+    "astro-ph.GA",
+    "astro-ph.HE"
+  ],
+  "primary_category": "astro-ph.HE",
+  "comment": "Will be submitted in a few days to allow for comments",
+  "published_date": "2026-01-12T19:00:01Z",
+  "updated_date": "2026-01-12T19:00:01Z",
+  "url": "https://arxiv.org/abs/2601.07913v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.07913v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:19.625596",
+  "category": "physics",
+  "subcategories": [
+    "astro-ph.IM",
+    "astro-ph.GA",
+    "astro-ph.HE"
+  ]
+}

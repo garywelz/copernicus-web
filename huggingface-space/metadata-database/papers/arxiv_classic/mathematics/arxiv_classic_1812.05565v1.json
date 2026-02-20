@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_1812.05565v1",
+  "arxiv_id": "1812.05565v1",
+  "title": "A new Algorithm for Overcomplete Tensor Decomposition based on Sums-of-Squares Optimisation",
+  "authors": [
+    "Alexander Taveira Blomenhofer"
+  ],
+  "author_string": "Alexander Taveira Blomenhofer",
+  "journal": "arXiv:1812.05565v1",
+  "journal_ref": null,
+  "year": "2018",
+  "doi": null,
+  "abstract": "In this thesis, a new class of algorithms based on Sums of Squares Programming is developed. These allow to reduce a degree-$d$ homogeneous polynomial $T = \\sum_{i = 1}^m \\langle a_i, X \\rangle^d $ to a quadratic form being close to a rank-$1$ form via a low-degree reduction polynomial $W\\in\\sum \\mathbb{R}[X]^2$. $W$ can be thought of as a `weight function' attaining high values on merely one of the components $a_i$. The component can then be extracted by running an eigenvalue decomposition on the quadratic form $\\sum_{i=1}^m W(a_i) \\langle a_i, X \\rangle^2$.",
+  "categories": [
+    "math.NA",
+    "math.AG",
+    "math.OC"
+  ],
+  "primary_category": "math.OC",
+  "comment": "~70 pages. Master's Thesis being uploaded for reference",
+  "published_date": "2018-12-13T18:33:50Z",
+  "updated_date": "2018-12-13T18:33:50Z",
+  "url": "https://arxiv.org/abs/1812.05565v1",
+  "pdf_url": "https://arxiv.org/pdf/1812.05565v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:11.654685",
+  "category": "mathematics",
+  "subcategories": [
+    "math.NA",
+    "math.AG",
+    "math.OC"
+  ]
+}

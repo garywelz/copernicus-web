@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2601.11050v1",
+  "arxiv_id": "2601.11050v1",
+  "title": "ATSim3D: Towards Accurate Thermal Simulator for Heterogeneous 3D-IC Systems Considering Nonlinear Leakage and Conductivity",
+  "authors": [
+    "Qipan Wang",
+    "Tianxiang Zhu",
+    "Yibo Lin",
+    "Runsheng Wang",
+    "Ru Huang"
+  ],
+  "author_string": "Qipan Wang, Tianxiang Zhu, Yibo Lin, Runsheng Wang, Ru Huang",
+  "journal": "arXiv:2601.11050v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": "10.1109/ISEDA62518.2024.10617604",
+  "abstract": "Thermal simulation plays a fundamental role in the thermal design of integrated circuits, especially 3D ICs. Current simulators require significant runtime for high-resolution simulation, and dismiss the complex nonlinear thermal effects, such as nonlinear thermal conductivity and leakage power. To address these issues, we propose ATSim3D, a thermal simulator for simulating the steady-state temperature profile of nonlinear and heterogeneous 3D IC systems. We utilize the global-local approach, combining a compact thermal model at the global level, and a finite volume method at the local level. We tackle the nonlinear effects with Kirchhoff transformation and iteration. ATSim3D enables local-level parallelization that helps achieve an average speedup of 40x compared to COMSOL, with a relative error <3% and a state-of-the-art resolution of 4096 x 4096, holding promise for enhancing thermal-aware design in 3D ICs.",
+  "categories": [
+    "physics.app-ph"
+  ],
+  "primary_category": "physics.app-ph",
+  "comment": "Published at ISEDA-2024",
+  "published_date": "2026-01-16T07:31:16Z",
+  "updated_date": "2026-01-16T07:31:16Z",
+  "url": "https://arxiv.org/abs/2601.11050v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11050v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:18:36.097982",
+  "category": "physics",
+  "subcategories": [
+    "physics.app-ph"
+  ]
+}

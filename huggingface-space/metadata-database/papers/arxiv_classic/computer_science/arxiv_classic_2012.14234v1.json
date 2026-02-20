@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2012.14234v1",
+  "arxiv_id": "2012.14234v1",
+  "title": "Recommending Courses in MOOCs for Jobs: An Auto Weak Supervision Approach",
+  "authors": [
+    "Bowen Hao",
+    "Jing Zhang",
+    "Cuiping Li",
+    "Hong Chen",
+    "Hongzhi Yin"
+  ],
+  "author_string": "Bowen Hao, Jing Zhang, Cuiping Li, Hong Chen, Hongzhi Yin",
+  "journal": "arXiv:2012.14234v1",
+  "journal_ref": null,
+  "year": "2020",
+  "doi": null,
+  "abstract": "The proliferation of massive open online courses (MOOCs) demands an effective way of course recommendation for jobs posted in recruitment websites, especially for the people who take MOOCs to find new jobs. Despite the advances of supervised ranking models, the lack of enough supervised signals prevents us from directly learning a supervised ranking model. This paper proposes a general automated weak supervision framework AutoWeakS via reinforcement learning to solve the problem. On the one hand, the framework enables training multiple supervised ranking models upon the pseudo labels produced by multiple unsupervised ranking models. On the other hand, the framework enables automatically searching the optimal combination of these supervised and unsupervised models. Systematically, we evaluate the proposed model on several datasets of jobs from different recruitment websites and courses from a MOOCs platform. Experiments show that our model significantly outperforms the classical unsupervised, supervised and weak supervision baselines.",
+  "categories": [
+    "cs.DB",
+    "cs.IR"
+  ],
+  "primary_category": "cs.IR",
+  "comment": null,
+  "published_date": "2020-12-28T14:03:18Z",
+  "updated_date": "2020-12-28T14:03:18Z",
+  "url": "https://arxiv.org/abs/2012.14234v1",
+  "pdf_url": "https://arxiv.org/pdf/2012.14234v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:19.477069",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.DB",
+    "cs.IR"
+  ]
+}

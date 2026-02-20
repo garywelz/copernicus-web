@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2601.09223v1",
+  "arxiv_id": "2601.09223v1",
+  "title": "Boundary adaptive observer design for semilinear hyperbolic rolling contact ODE-PDE systems with uncertain friction",
+  "authors": [
+    "Luigi Romano",
+    "Ole Morten Aamo",
+    "Miroslav Krstić",
+    "Jan Åslund",
+    "Erik Frisk"
+  ],
+  "author_string": "Luigi Romano, Ole Morten Aamo, Miroslav Krstić, Jan Åslund, Erik Frisk",
+  "journal": "arXiv:2601.09223v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "This paper presents an adaptive observer design for semilinear hyperbolic rolling contact ODE-PDE systems with uncertain friction characteristics parameterized by a matrix of unknown coefficients appearing in the nonlinear (and possibly non-smooth) PDE source terms. Under appropriate assumptions of forward completeness and boundary sensing, an adaptive observer is synthesized to simultaneously estimate the lumped and distributed states, as well as the uncertain friction parameters, using only boundary measurements. The observer combines a finite-dimensional parameter estimator with an infinite-dimensional description of the state error dynamics, and achieves exponential convergence under persistent excitation. The effectiveness of the proposed design is demonstrated in simulation by considering a relevant example borrowed from road vehicle dynamics.",
+  "categories": [
+    "eess.SY",
+    "math.OC"
+  ],
+  "primary_category": "math.OC",
+  "comment": "12 pages, 5 figures. Under review at Automatica",
+  "published_date": "2026-01-14T06:50:32Z",
+  "updated_date": "2026-01-14T06:50:32Z",
+  "url": "https://arxiv.org/abs/2601.09223v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.09223v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:52.503174",
+  "category": "mathematics",
+  "subcategories": [
+    "eess.SY",
+    "math.OC"
+  ]
+}

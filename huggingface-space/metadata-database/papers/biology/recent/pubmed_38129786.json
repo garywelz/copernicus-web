@@ -1,0 +1,34 @@
+{
+  "id": "pubmed_38129786",
+  "pmid": "38129786",
+  "title": "ICON-GEMs: integration of co-expression network in genome-scale metabolic models, shedding light through systems biology.",
+  "authors": [
+    "Paklao, Thummarat",
+    "Suratanee, Apichat",
+    "Plaimas, Kitiporn"
+  ],
+  "author_string": "Paklao, Thummarat, Suratanee, Apichat, Plaimas, Kitiporn",
+  "journal": "BMC Bioinformatics",
+  "journal_full": "BMC bioinformatics",
+  "year": "",
+  "doi": "10.1186/s12859-023-05599-0",
+  "abstract": "Flux Balance Analysis (FBA) is a key metabolic modeling method used to simulate cellular metabolism under steady-state conditions. Its simplicity and versatility have led to various strategies incorporating transcriptomic and proteomic data into FBA, successfully predicting flux distribution and phenotypic results. However, despite these advances, the untapped potential lies in leveraging gene-related connections like co-expression patterns for valuable insights. To fill this gap, we introduce ICON-GEMs, an innovative constraint-based model to incorporate gene co-expression network into the FBA model, facilitating more precise determination of flux distributions and functional pathways. In this study, transcriptomic data from both Escherichia coli and Saccharomyces cerevisiae were integrated into their respective genome-scale metabolic models. A comprehensive gene co-expression network was constructed as a global view of metabolic mechanism of the cell. By leveraging quadratic programming, we maximized the alignment between pairs of reaction fluxes and the correlation of their corresponding genes in the co-expression network. The outcomes notably demonstrated that ICON-GEMs outperformed existing methodologies in predictive accuracy. Flux variabilities over subsystems and functional modules also demonstrate promising results. Furthermore, a comparison involving different types of biological networks, including protein-protein interactions and random networks, reveals insights into the utilization of the co-expression network in genome-scale metabolic engineering. ICON-GEMs introduce an innovative constrained model capable of simultaneous integration of gene co-expression networks, ready for board application across diverse transcriptomic data sets and multiple organisms. It is freely available as open-source at https://github.com/ThummaratPaklao/ICOM-GEMs.git .",
+  "keywords": [
+    "Constraint-based approach",
+    "Escherichia coli",
+    "Flux balance analysis (FBA)",
+    "Gene co-expression network",
+    "Genome-scale metabolic model",
+    "Metabolic engineering",
+    "Metabolic flux analysis",
+    "Quadratic programming",
+    "Saccharomyces cerevisiae",
+    "Transcriptomic data"
+  ],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/38129786",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T16:59:14.418540",
+  "category": "biology",
+  "subcategories": []
+}

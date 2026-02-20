@@ -1,0 +1,38 @@
+{
+  "id": "arxiv_1904.12068v3",
+  "arxiv_id": "1904.12068v3",
+  "title": "Authenticated Key-Value Stores with Hardware Enclaves",
+  "authors": [
+    "Yuzhe Tang",
+    "Ju Chen",
+    "Kai Li",
+    "Jianliang Xu",
+    "Qi Zhang"
+  ],
+  "author_string": "Yuzhe Tang, Ju Chen, Kai Li, Jianliang Xu, Qi Zhang",
+  "journal": "arXiv:1904.12068v3",
+  "journal_ref": null,
+  "year": "2019",
+  "doi": null,
+  "abstract": "Authenticated data storage on an untrusted platform is an important computing paradigm for cloud applications ranging from big-data outsourcing, to cryptocurrency and certificate transparency log. These modern applications increasingly feature update-intensive workloads, whereas existing authenticated data structures (ADSs) designed with in-place updates are inefficient to handle such workloads. In this paper, we address this issue and propose a novel authenticated log-structured merge tree (eLSM) based key-value store by leveraging Intel SGX enclaves.   We present a system design that runs the code of eLSM store inside enclave. To circumvent the limited enclave memory (128 MB with the latest Intel CPUs), we propose to place the memory buffer of the eLSM store outside the enclave and protect the buffer using a new authenticated data structure by digesting individual LSM-tree levels. We design protocols to support query authentication in data integrity, completeness (under range queries), and freshness. The proof in our protocol is made small by including only the Merkle proofs at selective levels.   We implement eLSM on top of Google LevelDB and Facebook RocksDB with minimal code change and performance interference. We evaluate the performance of eLSM under the YCSB workload benchmark and show a performance advantage of up to 4.5X speedup.",
+  "categories": [
+    "cs.CR",
+    "cs.DB",
+    "cs.DC",
+    "cs.DS"
+  ],
+  "primary_category": "cs.DS",
+  "comment": "eLSM, Enclave, key-value store, ADS, 18 pages",
+  "published_date": "2019-04-26T22:45:04Z",
+  "updated_date": "2019-11-06T23:38:02Z",
+  "url": "https://arxiv.org/abs/1904.12068v3",
+  "pdf_url": "https://arxiv.org/pdf/1904.12068v3.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:19.479935",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CR",
+    "cs.DB",
+    "cs.DC"
+  ]
+}

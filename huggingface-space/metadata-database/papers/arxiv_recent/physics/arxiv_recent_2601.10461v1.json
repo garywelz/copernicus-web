@@ -1,0 +1,30 @@
+{
+  "id": "arxiv_2601.10461v1",
+  "arxiv_id": "2601.10461v1",
+  "title": "Erasure conversion for singlet-triplet spin qubits enables high-performance shuttling-based quantum error correction",
+  "authors": [
+    "Adam Siegel",
+    "Simon Benjamin"
+  ],
+  "author_string": "Adam Siegel, Simon Benjamin",
+  "journal": "arXiv:2601.10461v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Fast and high fidelity shuttling of spin qubits has been demonstrated in semiconductor quantum dot devices. Several architectures based on shuttling have been proposed; it has been suggested that singlet-triplet (dual-spin) qubits could be optimal for the highest shuttling fidelities. Here we present a fault-tolerant framework for quantum error correction based on such dual-spin qubits, establishing them as a natural realisation of erasure qubits within semiconductor architectures. We introduce a hardware-efficient leakage-detection protocol that automatically projects leaked qubits back onto the computational subspace, without the need for measurement feedback or increased classical control overheads. When combined with the XZZX surface code and leakage-aware decoding, we demonstrate a twofold increase in the error correction threshold and achieve orders-of-magnitude reductions in logical error rates. This establishes the singlet-triplet encoding as a practical route toward high-fidelity shuttling and erasure-based, fault-tolerant quantum computation in semiconductor devices.",
+  "categories": [
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": null,
+  "published_date": "2026-01-15T14:51:01Z",
+  "updated_date": "2026-01-15T14:51:01Z",
+  "url": "https://arxiv.org/abs/2601.10461v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.10461v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:18:46.728185",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph"
+  ]
+}

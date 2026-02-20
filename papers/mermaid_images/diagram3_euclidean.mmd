@@ -1,0 +1,18 @@
+flowchart TD
+    A[Input: a, b] --> B{Is b = 0?}
+    B -->|Yes| C[GCD = a]
+    B -->|No| D[Calculate r = a mod b]
+    D --> E[Set a = b]
+    E --> F[Set b = r]
+    F --> B
+    C --> G[Return GCD]
+    
+    style A fill:#ff6b6b,color:#fff
+    style B fill:#74c0fc,color:#fff
+    style C fill:#74c0fc,color:#fff
+    style D fill:#51cf66,color:#fff
+    style E fill:#51cf66,color:#fff
+    style F fill:#51cf66,color:#fff
+    style G fill:#b197fc,color:#fff
+
+

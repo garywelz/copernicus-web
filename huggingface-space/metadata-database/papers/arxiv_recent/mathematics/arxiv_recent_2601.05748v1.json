@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2601.05748v1",
+  "arxiv_id": "2601.05748v1",
+  "title": "Semicircle law for multi-parameter random simplicial complexes",
+  "authors": [
+    "Kartick Adhikari",
+    "Kiran Kumar",
+    "Koushik Saha"
+  ],
+  "author_string": "Kartick Adhikari, Kiran Kumar, Koushik Saha",
+  "journal": "arXiv:2601.05748v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "In this paper, we consider the multi-parameter random simplicial complex model, which generalizes the Linial-Meshulam model and random clique complexes by allowing simplices of different dimensions to be included with distinct probabilities. For $n,d \\in \\mathbb{N}$ and $\\mathbf{p}=(p_1,p_2,\\ldots, p_d)$ such that $p_i \\in (0,1]$ for all $1 \\leq i \\leq d$, the multi-parameter random simplicial complex $Y_d(n,\\mathbf{p})$ is constructed inductively. Starting with $n$ vertices, edges (1-cells) are included independently with probability $p_1$, yielding the Erdős-Rényi graph $\\mathcal{G}(n,p_1)$, which forms the $1$-skeleton. Conditional on the $(k-1)$-skeleton, each possible $k$-cell is included independently with probability $p_k$, for $2 \\leq k \\leq d$.   We study the signed and unsigned adjacency matrices of $d$-dimensional multi-parameter random simplicial complexes $Y_d(n,\\mathbf{p}),$ under the assumptions $\\min_{i=1,\\ldots d-1}\\liminf p_i >0$ and $np_d \\rightarrow \\infty$ with $p_d=o(1)$. In general, these matrices have random dimensions and exhibit dependency among its entries. We prove that the empirical spectral distributions of both matrices converge weakly to the semicircle law in probability.",
+  "categories": [
+    "math.PR"
+  ],
+  "primary_category": "math.PR",
+  "comment": "22 pages, 2 Figures",
+  "published_date": "2026-01-09T12:03:07Z",
+  "updated_date": "2026-01-09T12:03:07Z",
+  "url": "https://arxiv.org/abs/2601.05748v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.05748v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:22.684915",
+  "category": "mathematics",
+  "subcategories": [
+    "math.PR"
+  ]
+}

@@ -1,0 +1,91 @@
+{
+  "id": "quantum_chemistry-electronic-transitions",
+  "name": "Electronic Transitions",
+  "category": "chemistry",
+  "subcategory": "quantum_chemistry",
+  "subcategory_name": "Quantum Chemistry",
+  "description": "Electronic Transitions process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 26,
+    "edges": 22,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 1,
+      "total": 1
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nA2[Ground State] --> B2[Electronic Transition Method]\nC2[Excited States] --> D2[Energy Level Analysis]\nE2[Photon Energy] --> F2[Transition Calculation]\nB2 --> G2[State Preparation]\nD2 --> H2[Energy Level Calculation]\nF2 --> I2[Transition Probability]\nG2 --> J2[Initial State]\nH2 --> K2[Energy Differences]\nI2 --> L2[Selection Rules]\nJ2 --> M2[State Characterization]\nK2 --> L2\nL2 --> N2[Transition Analysis]\nM2 --> O2[State Transitions]\nN2 --> P2[Electronic Excitation]\nO2 --> Q2[Quantum Analysis]\nP2 --> R2[Excited State Formation]\nQ2 --> S2[Transition Analysis]\nR2 --> T2[State Properties]\nS2 --> U2[Transition Probability]\nT2 --> V2[Property Calculation]\nU2 --> W2[Quantum Efficiency]\nV2 --> X2[State Characterization]\nW2 --> Y2[Process Optimization]\nX2 --> Z2[Final Electronic States]\nY2 --> Z2\n\n    style A2 fill:#ff6b6b,color:#fff\n    style C2 fill:#ff6b6b,color:#fff\n    style E2 fill:#ff6b6b,color:#fff\n    style B2 fill:#ffd43b,color:#000\n    style D2 fill:#ffd43b,color:#000\n    style F2 fill:#ffd43b,color:#000\n    style G2 fill:#ffd43b,color:#000\n    style H2 fill:#ffd43b,color:#000\n    style I2 fill:#ffd43b,color:#000\n    style J2 fill:#ffd43b,color:#000\n    style K2 fill:#ffd43b,color:#000\n    style L2 fill:#ffd43b,color:#000\n    style M2 fill:#51cf66,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style O2 fill:#51cf66,color:#fff\n    style P2 fill:#51cf66,color:#fff\n    style Q2 fill:#51cf66,color:#fff\n    style R2 fill:#51cf66,color:#fff\n    style S2 fill:#51cf66,color:#fff\n    style T2 fill:#51cf66,color:#fff\n    style U2 fill:#51cf66,color:#fff\n    style V2 fill:#51cf66,color:#fff\n    style W2 fill:#51cf66,color:#fff\n    style X2 fill:#51cf66,color:#fff\n    style Y2 fill:#51cf66,color:#fff\n    style Z2 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Electronic Transitions. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "Molecular electronic transitions",
+      "authors": "Atkins, Peter; Friedman, Ronald",
+      "journal": "Molecular Quantum Mechanics",
+      "year": "2010",
+      "pubmed": null,
+      "doi": "10.1093/hesc/9780199541423.003.0011",
+      "url": "https://doi.org/10.1093/hesc/9780199541423.003.0011"
+    },
+    {
+      "title": "Magnetic and electronic phase transitions",
+      "authors": "",
+      "journal": "Phase Transitions in Materials",
+      "year": "2014",
+      "pubmed": null,
+      "doi": "10.1017/cbo9781107589865.021",
+      "url": "https://doi.org/10.1017/cbo9781107589865.021"
+    },
+    {
+      "title": "Electronic Transitions in Metals and Insulator-Metal Transitions",
+      "authors": "Drickamer, H. G.; Frank, C. W.",
+      "journal": "Electronic Transitions and the High Pressure Chemistry and Physics of Solids",
+      "year": "1973",
+      "pubmed": null,
+      "doi": "10.1007/978-94-011-6896-0_7",
+      "url": "https://doi.org/10.1007/978-94-011-6896-0_7"
+    }
+  ],
+  "keywords": [
+    "electronic",
+    "transitions"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+}

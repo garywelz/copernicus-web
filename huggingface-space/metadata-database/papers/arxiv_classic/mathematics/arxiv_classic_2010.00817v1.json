@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2010.00817v1",
+  "arxiv_id": "2010.00817v1",
+  "title": "A variable metric mini-batch proximal stochastic recursive gradient algorithm with diagonal Barzilai-Borwein stepsize",
+  "authors": [
+    "Tengteng Yu",
+    "Xin-Wei Liu",
+    "Yu-Hong Dai",
+    "Jie Sun"
+  ],
+  "author_string": "Tengteng Yu, Xin-Wei Liu, Yu-Hong Dai, Jie Sun",
+  "journal": "arXiv:2010.00817v1",
+  "journal_ref": null,
+  "year": "2020",
+  "doi": null,
+  "abstract": "Variable metric proximal gradient methods with different metric selections have been widely used in composite optimization. Combining the Barzilai-Borwein (BB) method with a diagonal selection strategy for the metric, the diagonal BB stepsize can keep low per-step computation cost as the scalar BB stepsize and better capture the local geometry of the problem. In this paper, we propose a variable metric mini-batch proximal stochastic recursive gradient algorithm VM-mSRGBB, which updates the metric using a new diagonal BB stepsize. The linear convergence of VM-mSRGBB is established for strongly convex, non-strongly convex and convex functions. Numerical experiments on standard data sets show that VM-mSRGBB is better than or comparable to some variance reduced stochastic gradient methods with best-tuned scalar stepsizes or BB stepsizes. Furthermore, the performance of VM-mSRGBB is superior to some advanced mini-batch proximal stochastic gradient methods.",
+  "categories": [
+    "math.OC",
+    "cs.LG",
+    "math.NA"
+  ],
+  "primary_category": "math.NA",
+  "comment": "13 pages, 3 figures",
+  "published_date": "2020-10-02T07:18:42Z",
+  "updated_date": "2020-10-02T07:18:42Z",
+  "url": "https://arxiv.org/abs/2010.00817v1",
+  "pdf_url": "https://arxiv.org/pdf/2010.00817v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:30:44.921166",
+  "category": "mathematics",
+  "subcategories": [
+    "math.OC",
+    "cs.LG",
+    "math.NA"
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "id": "arxiv_2203.01246v2",
+  "arxiv_id": "2203.01246v2",
+  "title": "Estimating Elliptic Flow Coefficient in Heavy Ion Collisions using Deep Learning",
+  "authors": [
+    "Neelkamal Mallick",
+    "Suraj Prasad",
+    "Aditya Nath Mishra",
+    "Raghunath Sahoo",
+    "Gergely Gábor Barnaföldi"
+  ],
+  "author_string": "Neelkamal Mallick, Suraj Prasad, Aditya Nath Mishra, Raghunath Sahoo, Gergely Gábor Barnaföldi",
+  "journal": "Physical Review D 105, 114022 (2022)",
+  "journal_ref": "Physical Review D 105, 114022 (2022)",
+  "year": "2022",
+  "doi": "10.1103/PhysRevD.105.114022",
+  "abstract": "Machine Learning (ML) techniques have been employed for the high energy physics (HEP) community since the early 80s to deal with a broad spectrum of problems. This work explores the prospects of using Deep Learning techniques to estimate elliptic flow ($v_2$) in heavy-ion collisions at the RHIC and LHC energies. A novel method is developed to process the input observables from particle kinematic information. The proposed DNN model is trained with Pb-Pb collisions at $\\sqrt{s_{\\rm NN}} = 5.02$ TeV minimum bias events simulated with AMPT model. The predictions from the ML technique are compared to both simulation and experiment. The Deep Learning model seems to preserve the centrality and energy dependence of $v_2$ for the LHC and RHIC energies. The DNN model is also quite successful in predicting the $p_{\\rm T}$ dependence of $v_2$. When subjected to event simulation with additional noise, the proposed DNN model still keeps the robustness and prediction accuracy intact up to a reasonable extent.",
+  "categories": [
+    "hep-ph",
+    "hep-ex",
+    "hep-th",
+    "nucl-ex",
+    "nucl-th"
+  ],
+  "primary_category": "nucl-th",
+  "comment": "Same as the published version in Phys. Rev. D",
+  "published_date": "2022-03-02T17:09:57Z",
+  "updated_date": "2022-06-18T08:43:13Z",
+  "url": "https://arxiv.org/abs/2203.01246v2",
+  "pdf_url": "https://arxiv.org/pdf/2203.01246v2.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-02-03T13:21:02.455870",
+  "category": "physics",
+  "subcategories": [
+    "hep-ph",
+    "hep-ex",
+    "hep-th"
+  ]
+}

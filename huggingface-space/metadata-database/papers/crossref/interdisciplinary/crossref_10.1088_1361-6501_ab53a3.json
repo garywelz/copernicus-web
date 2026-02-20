@@ -1,0 +1,29 @@
+{
+  "id": "crossref_10.1088_1361-6501_ab53a3",
+  "doi": "10.1088/1361-6501/ab53a3",
+  "title": "A real-time spectral analysis method and its FPGA implementation for long-sequence signals",
+  "authors": [
+    "Xu, Pingkun",
+    "Xu, Feiyun"
+  ],
+  "author_string": "Xu, Pingkun, Xu, Feiyun",
+  "journal": "Measurement Science and Technology",
+  "issn": "0957-0233",
+  "issn_type": "print",
+  "volume": "31",
+  "issue": "3",
+  "page": "035006",
+  "year": "2020",
+  "publisher": "IOP Publishing",
+  "language": "",
+  "abstract": "Abstract\n                  Failure of important mechanical equipment poses a significant threat to the production line and personal safety. Real-time spectrum information is a critical indicator of the operating state of equipment. Spectrum measurement equipment requires fast and accurate acquisition of the spectral values of facilities to obtain a real-time spectrum. A blocking fast Fourier transform (FFT) algorithm is proposed in this paper to improve real-time performance when calculating the frequency spectrum of long-sequence signals in embedded spectrum measurement devices. The signal points are divided into consecutive time blocks. Each block is calculated separately in the blocking FFT algorithm, and the spectrum value is obtained by superimposing the results of each block. The algorithm is tested with Xilinx ZYNQ embedded devices to verify the actual performance. The blocking FFT algorithm is compared with traditional FFT in terms of numerical accuracy, speed and resource consumption. Experimental results demonstrate that the real-time performance of the algorithm is better than that of a traditional FFT algorithm. The blocking FFT algorithm allows long-sequence signal data spectral calculations to be performed on devices with fewer resources within a certain sampling frequency. The blocking FFT algorithm also provides a stable and efficient solution for super-long-sequence signal data spectral analysis.",
+  "subjects": [],
+  "keywords": [],
+  "article_type": "journal-article",
+  "citation_count": 6,
+  "url": "https://doi.org/10.1088/1361-6501/ab53a3",
+  "source": "crossref",
+  "acquired_date": "2026-02-03T13:07:05.325629",
+  "category": "interdisciplinary",
+  "subcategories": []
+}

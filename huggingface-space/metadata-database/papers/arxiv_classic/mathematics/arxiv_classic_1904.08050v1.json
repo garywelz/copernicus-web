@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_1904.08050v1",
+  "arxiv_id": "1904.08050v1",
+  "title": "Sparseout: Controlling Sparsity in Deep Networks",
+  "authors": [
+    "Najeeb Khan",
+    "Ian Stavness"
+  ],
+  "author_string": "Najeeb Khan, Ian Stavness",
+  "journal": "arXiv:1904.08050v1",
+  "journal_ref": null,
+  "year": "2019",
+  "doi": "10.1007/978-3-030-18305-9_24",
+  "abstract": "Dropout is commonly used to help reduce overfitting in deep neural networks. Sparsity is a potentially important property of neural networks, but is not explicitly controlled by Dropout-based regularization. In this work, we propose Sparseout a simple and efficient variant of Dropout that can be used to control the sparsity of the activations in a neural network. We theoretically prove that Sparseout is equivalent to an $L_q$ penalty on the features of a generalized linear model and that Dropout is a special case of Sparseout for neural networks. We empirically demonstrate that Sparseout is computationally inexpensive and is able to control the desired level of sparsity in the activations. We evaluated Sparseout on image classification and language modelling tasks to see the effect of sparsity on these tasks. We found that sparsity of the activations is favorable for language modelling performance while image classification benefits from denser activations. Sparseout provides a way to investigate sparsity in state-of-the-art deep learning models. Source code for Sparseout could be found at \\url{https://github.com/najeebkhan/sparseout}.",
+  "categories": [
+    "cs.LG",
+    "cs.NE",
+    "stat.ML"
+  ],
+  "primary_category": "stat.ML",
+  "comment": "Code: https://github.com/najeebkhan/sparseout",
+  "published_date": "2019-04-17T02:10:25Z",
+  "updated_date": "2019-04-17T02:10:25Z",
+  "url": "https://arxiv.org/abs/1904.08050v1",
+  "pdf_url": "https://arxiv.org/pdf/1904.08050v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:19.478164",
+  "category": "mathematics",
+  "subcategories": [
+    "cs.LG",
+    "cs.NE",
+    "stat.ML"
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_1905.01991v1",
+  "arxiv_id": "1905.01991v1",
+  "title": "A Content-Based Approach to Email Triage Action Prediction: Exploration and Evaluation",
+  "authors": [
+    "Sudipto Mukherjee",
+    "Ke Jiang"
+  ],
+  "author_string": "Sudipto Mukherjee, Ke Jiang",
+  "journal": "arXiv:1905.01991v1",
+  "journal_ref": null,
+  "year": "2019",
+  "doi": null,
+  "abstract": "Email has remained a principal form of communication among people, both in enterprise and social settings. With a deluge of emails crowding our mailboxes daily, there is a dire need of smart email systems that can recover important emails and make personalized recommendations. In this work, we study the problem of predicting user triage actions to incoming emails where we take the reply prediction as a working example. Different from existing methods, we formulate the triage action prediction as a recommendation problem and focus on the content-based approach, where the users are represented using the content of current and past emails. We also introduce additional similarity features to further explore the affinities between users and emails. Experiments on the publicly available Avocado email collection demonstrate the advantages of our proposed recommendation framework and our method is able to achieve better performance compared to the state-of-the-art deep recommendation methods. More importantly, we provide valuable insight into the effectiveness of different textual and user representations and show that traditional bag-of-words approaches, with the help from the similarity features, compete favorably with the more advanced neural embedding methods.",
+  "categories": [
+    "cs.IR",
+    "cs.LG",
+    "stat.ML"
+  ],
+  "primary_category": "stat.ML",
+  "comment": "User representations, Personalization, Email response prediction, Similarity features",
+  "published_date": "2019-04-30T01:52:57Z",
+  "updated_date": "2019-04-30T01:52:57Z",
+  "url": "https://arxiv.org/abs/1905.01991v1",
+  "pdf_url": "https://arxiv.org/pdf/1905.01991v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:19.478911",
+  "category": "mathematics",
+  "subcategories": [
+    "cs.IR",
+    "cs.LG",
+    "stat.ML"
+  ]
+}

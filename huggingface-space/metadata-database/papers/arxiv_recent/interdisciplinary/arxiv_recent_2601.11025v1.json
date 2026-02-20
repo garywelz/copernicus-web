@@ -1,0 +1,37 @@
+{
+  "id": "arxiv_2601.11025v1",
+  "arxiv_id": "2601.11025v1",
+  "title": "PEMNet: Towards Autonomous and Enhanced Environment-Aware Mobile Networks",
+  "authors": [
+    "Lei Li",
+    "Yanqing Xu",
+    "Ye Xue",
+    "Feng Yin",
+    "Chao Shen",
+    "Rui Zhang",
+    "Tsung-Hui Chang"
+  ],
+  "author_string": "Lei Li, Yanqing Xu, Ye Xue, Feng Yin, Chao Shen et al.",
+  "journal": "arXiv:2601.11025v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "With 5G deployment and the evolution toward 6G, mobile networks must make decisions in highly dynamic environments under strict latency, energy, and spectrum constraints. Achieving this goal, however, depends on prior knowledge of spatial-temporal variations in wireless channels and traffic demands. This motivates a joint, site-specific representation of radio propagation and user demand that is queryable at low online overhead. In this work, we propose the perception embedding map (PEM), a localized framework that embeds fine-grained channel statistics together with grid-level spatial-temporal traffic patterns over a base station's coverage. PEM is built from standard-compliant measurements -- such as measurement report and scheduling/quality-of-service logs -- so it can be deployed and maintained at scale with low cost. Integrated into PEM, this joint knowledge supports enhanced environment-aware optimization across PHY, MAC, and network layers while substantially reducing training overhead and signaling. Compared with existing site-specific channel maps and digital-twin replicas, PEM distinctively emphasizes (i) joint channel-traffic embedding, which is essential for network optimization, and (ii) practical construction using standard measurements, enabling network autonomy while striking a favorable fidelity-cost balance.",
+  "categories": [
+    "cs.IT",
+    "eess.SP"
+  ],
+  "primary_category": "eess.SP",
+  "comment": null,
+  "published_date": "2026-01-16T06:40:06Z",
+  "updated_date": "2026-01-16T06:40:06Z",
+  "url": "https://arxiv.org/abs/2601.11025v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11025v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:37.510808",
+  "category": "interdisciplinary",
+  "subcategories": [
+    "cs.IT",
+    "eess.SP"
+  ]
+}

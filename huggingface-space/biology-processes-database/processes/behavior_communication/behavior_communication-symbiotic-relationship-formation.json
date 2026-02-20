@@ -1,0 +1,92 @@
+{
+  "id": "behavior_communication-symbiotic-relationship-formation",
+  "name": "Symbiotic Relationship Formation",
+  "category": "biology",
+  "subcategory": "behavior_communication",
+  "subcategory_name": "Behavior & Communication",
+  "description": "Symbiotic Relationship Formation process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 9,
+    "edges": 7,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 1,
+      "andGates": 0,
+      "total": 1
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\n    A22[Host Organism] --> B22[Symbiont Encounter]\n    C22[Symbiont Organism] --> B22\n    B22 --> D22[Recognition]\n    D22 --> E22{Compatible?}\n    E22 -->|Yes| F22[Association Establishment]\n    E22 -->|No| G22[Rejection]\n    F22 --> H22[Benefits Exchange]\n    H22 --> I22[Relationship Maintenance]\n    G22 --> J22[Separate Existence]\n    \n    style A22 fill:#ff6b6b,color:#fff\n    style C22 fill:#ff6b6b,color:#fff\n    style B22 fill:#ffd43b,color:#000\n    style D22 fill:#51cf66,color:#fff\n    style E22 fill:#74c0fc,color:#fff\n    style F22 fill:#51cf66,color:#fff\n    style G22 fill:#51cf66,color:#fff\n    style H22 fill:#74c0fc,color:#fff\n    style I22 fill:#b197fc,color:#fff\n    style J22 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Symbiotic Relationship Formation. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "On the Formation of Mother-Daughter Symbiotic Relationship Patterns in Schizophrenia",
+      "authors": "Lyketsos, George C.",
+      "journal": "Psychiatry",
+      "year": "1959",
+      "pubmed": null,
+      "doi": "10.1080/00332747.1959.11023169",
+      "url": "https://doi.org/10.1080/00332747.1959.11023169"
+    },
+    {
+      "title": "The Formation and Evolution of Symbiotic Stars",
+      "authors": "",
+      "journal": "The Symbiotic Stars",
+      "year": "1986",
+      "pubmed": null,
+      "doi": "10.1017/cbo9780511586071.007",
+      "url": "https://doi.org/10.1017/cbo9780511586071.007"
+    },
+    {
+      "title": "Sustainable Tourism and Culture: A Symbiotic Relationship",
+      "authors": "",
+      "journal": "",
+      "year": "None",
+      "pubmed": null,
+      "doi": "10.21625/essd.v5i1.717.s359",
+      "url": "https://doi.org/10.21625/essd.v5i1.717.s359"
+    }
+  ],
+  "keywords": [
+    "symbiotic",
+    "relationship",
+    "formation"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+}

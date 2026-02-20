@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2601.07397v1",
+  "arxiv_id": "2601.07397v1",
+  "title": "Layerwise goal-oriented adaptivity for neural ODEs: an optimal control perspective",
+  "authors": [
+    "Michael Hintermüller",
+    "Michael Hinze",
+    "Denis Korolev"
+  ],
+  "author_string": "Michael Hintermüller, Michael Hinze, Denis Korolev",
+  "journal": "arXiv:2601.07397v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "In this work, we propose a novel layerwise adaptive construction method for neural network architectures. Our approach is based on a goal--oriented dual-weighted residual technique for the optimal control of neural differential equations. This leads to an ordinary differential equation constrained optimization problem with controls acting as coefficients and a specific loss function. We implement our approach on the basis of a DG(0) Galerkin discretization of the neural ODE, leading to an explicit Euler time marching scheme. For the optimization we use steepest descent. Finally, we apply our method to the construction of neural networks for the classification of data sets, where we present results for a selection of well known examples from the literature.",
+  "categories": [
+    "math.OC",
+    "cs.AI"
+  ],
+  "primary_category": "cs.AI",
+  "comment": null,
+  "published_date": "2026-01-12T10:32:37Z",
+  "updated_date": "2026-01-12T10:32:37Z",
+  "url": "https://arxiv.org/abs/2601.07397v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.07397v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:11.151895",
+  "category": "computer_science",
+  "subcategories": [
+    "math.OC",
+    "cs.AI"
+  ]
+}

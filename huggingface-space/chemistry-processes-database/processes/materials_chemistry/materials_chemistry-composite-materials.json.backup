@@ -1,0 +1,89 @@
+{
+  "category": "chemistry",
+  "colorScheme": {
+    "blue": {
+      "category": "Intermediates & States",
+      "hex": "#74c0fc"
+    },
+    "green": {
+      "category": "Processing & Operations",
+      "hex": "#51cf66"
+    },
+    "red": {
+      "category": "Triggers & Inputs",
+      "hex": "#ff6b6b"
+    },
+    "violet": {
+      "category": "Products & Outputs",
+      "hex": "#b197fc"
+    },
+    "yellow": {
+      "category": "Structures & Objects",
+      "hex": "#ffd43b"
+    }
+  },
+  "complexity": {
+    "conditionals": 0,
+    "detailLevel": "medium",
+    "edges": 24,
+    "level": "medium",
+    "logicGates": {
+      "andGates": 0,
+      "orGates": 28,
+      "total": 28
+    },
+    "nodes": 26
+  },
+  "created": "2026-01-08",
+  "description": "Composite Materials Process. This materials chemistry process visualization demonstrates composite material design and processing. The flowchart shows matrix inputs and fiber reinforcement, composite methods and interface design, composite operations and processing analysis, intermediate results, and final composite materials outputs.",
+  "id": "materials_chemistry-composite-materials",
+  "keywords": [
+    "composite",
+    "materials"
+  ],
+  "lastUpdated": "2026-01-08",
+  "mermaid": "graph TD\nA3[Matrix Selection] --> B3[Composite Method]\nC3[Fiber Reinforcement] --> D3[Interface Design]\nE3[Processing Technique] --> F3[Composite Analysis]\nB3 --> G3[Polymer Matrix Composites]\nD3 --> H3[Ceramic Matrix Composites]\nF3 --> I3[Metal Matrix Composites]\nG3 --> J3[Fiber Orientation]\nH3 --> K3[Fiber Matrix Bonding]\nI3 --> L3[Processing Parameters]\nJ3 --> M3[Mechanical Properties]\nK3 --> L3\nL3 --> N3[Thermal Properties]\nM3 --> O3[Strength Analysis]\nN3 --> P3[Stiffness Analysis]\nO3 --> Q3[Composite Materials Process]\nP3 --> R3[Composite Materials Validation]\nQ3 --> S3[Composite Materials Verification]\nR3 --> T3[Composite Materials Result]\nS3 --> U3[Composite Materials Analysis]\nT3 --> V3[Composite Materials Parameters]\nU3 --> W3[Composite Materials Output]\nV3 --> X3[Composite Materials Analysis]\nW3 --> Y3[Composite Materials Final Result]\nX3 --> Z3[Composite Materials Complete]\n\n    style A3 fill:#ff6b6b,color:#fff\n    style C3 fill:#ff6b6b,color:#fff\n    style E3 fill:#ff6b6b,color:#fff\n    style B3 fill:#ffd43b,color:#000\n    style D3 fill:#ffd43b,color:#000\n    style F3 fill:#ffd43b,color:#000\n    style G3 fill:#ffd43b,color:#000\n    style H3 fill:#ffd43b,color:#000\n    style I3 fill:#ffd43b,color:#000\n    style J3 fill:#ffd43b,color:#000\n    style K3 fill:#ffd43b,color:#000\n    style L3 fill:#ffd43b,color:#000\n    style M3 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style O3 fill:#51cf66,color:#fff\n    style P3 fill:#51cf66,color:#fff\n    style Q3 fill:#51cf66,color:#fff\n    style R3 fill:#51cf66,color:#fff\n    style S3 fill:#51cf66,color:#fff\n    style T3 fill:#51cf66,color:#fff\n    style U3 fill:#51cf66,color:#fff\n    style V3 fill:#51cf66,color:#fff\n    style W3 fill:#51cf66,color:#fff\n    style X3 fill:#51cf66,color:#fff\n    style Y3 fill:#51cf66,color:#fff\n    style Z3 fill:#b197fc,color:#fff",
+  "name": "Composite Materials",
+  "notes": "Converted from chemistry batch HTML. Process number: 3.",
+  "relatedProcesses": [],
+  "sources": [
+    {
+      "authors": "Welz, G.",
+      "doi": null,
+      "journal": "CopernicusAI Knowledge Engine",
+      "notes": "Chemistry process visualization: Composite Materials. Created using the Programming Framework methodology for process analysis and visualization.",
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "year": "2025"
+    },
+    {
+      "authors": "Wu, G. Q.; Zhang, H.; Ma, B.; Meng, Q.; Liang, Y. M.",
+      "doi": "10.1021/acs.chemrev.6b00676",
+      "journal": "Chem. Rev.",
+      "pubmed": "28240562",
+      "title": "Covalent Chemistry to Interfacial Engineering of Polymer Nanocomposites",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/28240562",
+      "year": "2017"
+    },
+    {
+      "authors": "Li, P.; Yuan, H.; Yu, Y.; Sun, C.",
+      "doi": "10.1021/acsapm.0c00827",
+      "journal": "ACS Appl. Polym. Mater.",
+      "pubmed": null,
+      "title": "Recent Advances in Design and Manufacturing of Continuous Fiber Reinforced Thermoplastic (CFRTP) Composites",
+      "url": "https://doi.org/10.1021/acsapm.0c00827",
+      "year": "2020"
+    },
+    {
+      "authors": "Song, S. H.; Zhang, Y.; Li, Y.; Li, Y.; Dong, P.; Gu, J.",
+      "doi": "10.1021/acsami.2c06987",
+      "journal": "ACS Appl. Mater. Interfaces",
+      "pubmed": "35731776",
+      "title": "Additive Manufacturing of Continuous Carbon Fiber Reinforced Polymer Composites: A Review",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/35731776",
+      "year": "2022"
+    }
+  ],
+  "subcategory": "materials_chemistry",
+  "verified": false
+}

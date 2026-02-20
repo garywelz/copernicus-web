@@ -1,0 +1,90 @@
+{
+  "category": "chemistry",
+  "colorScheme": {
+    "blue": {
+      "category": "Intermediates & States",
+      "hex": "#74c0fc"
+    },
+    "green": {
+      "category": "Processing & Operations",
+      "hex": "#51cf66"
+    },
+    "red": {
+      "category": "Triggers & Inputs",
+      "hex": "#ff6b6b"
+    },
+    "violet": {
+      "category": "Products & Outputs",
+      "hex": "#b197fc"
+    },
+    "yellow": {
+      "category": "Structures & Objects",
+      "hex": "#ffd43b"
+    }
+  },
+  "complexity": {
+    "conditionals": 0,
+    "detailLevel": "medium",
+    "edges": 25,
+    "level": "medium",
+    "logicGates": {
+      "andGates": 0,
+      "orGates": 32,
+      "total": 32
+    },
+    "nodes": 26
+  },
+  "created": "2026-01-08",
+  "description": "Zeolite catalysis process showing molecular sieving, shape-selective reactions, and catalytic efficiency.",
+  "id": "surface_chemistry-zeolite-catalysis",
+  "keywords": [
+    "zeolite",
+    "reaction",
+    "catalysis"
+  ],
+  "lastUpdated": "2026-01-08",
+  "mermaid": "graph TD\nA4[Reactant Molecules] --> B4[Zeolite Catalysis Method]\nC4[Zeolite Framework] --> D4[Pore Structure Analysis]\nE4[Reaction Conditions] --> F4[Temperature Control]\nB4 --> G4[Zeolite Synthesis]\nD4 --> H4[Pore Size Distribution]\nF4 --> I4[Pressure Regulation]\nG4 --> J4[Framework Assembly]\nH4 --> K4[Channel Geometry]\nI4 --> L4[Reaction Pressure]\nJ4 --> M4[Active Site Creation]\nK4 --> L4\nL4 --> N4[Molecular Sieving]\nM4 --> O4[Reactant Diffusion]\nN4 --> P4[Shape-Selective Reaction]\nO4 --> Q4[Catalytic Activity]\nP4 --> R4[Product Formation]\nQ4 --> S4[Reaction Selectivity]\nR4 --> T4[Product Diffusion]\nS4 --> U4[Selectivity Analysis]\nT4 --> V4[Product Collection]\nU4 --> W4[Catalyst Performance]\nV4 --> X4[Conversion Yield]\nW4 --> Y4[Process Optimization]\nX4 --> Z4[Shape-Selective Efficiency]\nY4 --> Z4\n\n    style A4 fill:#ff6b6b,color:#fff\n    style C4 fill:#ff6b6b,color:#fff\n    style E4 fill:#ff6b6b,color:#fff\n    style B4 fill:#ffd43b,color:#000\n    style D4 fill:#ffd43b,color:#000\n    style F4 fill:#ffd43b,color:#000\n    style G4 fill:#ffd43b,color:#000\n    style H4 fill:#ffd43b,color:#000\n    style I4 fill:#ffd43b,color:#000\n    style J4 fill:#ffd43b,color:#000\n    style K4 fill:#ffd43b,color:#000\n    style L4 fill:#ffd43b,color:#000\n    style M4 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style O4 fill:#51cf66,color:#fff\n    style P4 fill:#51cf66,color:#fff\n    style Q4 fill:#51cf66,color:#fff\n    style R4 fill:#51cf66,color:#fff\n    style S4 fill:#51cf66,color:#fff\n    style T4 fill:#51cf66,color:#fff\n    style U4 fill:#51cf66,color:#fff\n    style V4 fill:#51cf66,color:#fff\n    style W4 fill:#51cf66,color:#fff\n    style X4 fill:#51cf66,color:#fff\n    style Y4 fill:#51cf66,color:#fff\n    style Z4 fill:#b197fc,color:#fff",
+  "name": "Zeolite Catalysis",
+  "notes": "Converted from chemistry batch HTML. Process number: 4.",
+  "relatedProcesses": [],
+  "sources": [
+    {
+      "authors": "Welz, G.",
+      "doi": null,
+      "journal": "CopernicusAI Knowledge Engine",
+      "notes": "Chemistry process visualization: Zeolite Catalysis. Created using the Programming Framework methodology for process analysis and visualization.",
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "year": "2025"
+    },
+    {
+      "authors": "Corma, A.",
+      "doi": "10.1021/cr030070z",
+      "journal": "Chem. Rev.",
+      "pubmed": null,
+      "title": "From petrochemicals to biofuels: Molecular sieves as catalysts",
+      "url": "https://doi.org/10.1021/cr030070z",
+      "year": "2003"
+    },
+    {
+      "authors": "Haw, J. F.; Xu, T.; Roberts, G. G.; Lunsford, J. H.",
+      "doi": "10.1021/ja00091a052",
+      "journal": "J. Am. Chem. Soc.",
+      "pubmed": null,
+      "title": "Nature of the Active Sites in Zeolite Catalysis: Identification of the Br\u00f8nsted Acid Sites and Their Role in Methanol Conversion to Hydrocarbons",
+      "url": "https://doi.org/10.1021/ja00091a052",
+      "year": "1994"
+    },
+    {
+      "authors": "Cejka, J.; Zukal, A.; Wichterlova, B.",
+      "doi": "10.1002/anie.200462744",
+      "journal": "Angew. Chem. Int. Ed.",
+      "pubmed": null,
+      "title": "Synthesis and Catalytic Properties of Mesoporous Zeolites",
+      "url": "https://doi.org/10.1002/anie.200462744",
+      "year": "2005"
+    }
+  ],
+  "subcategory": "surface_chemistry",
+  "verified": false
+}

@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2602.04239v1",
+  "arxiv_id": "2602.04239v1",
+  "title": "Benchmarking Quantum and Classical Algorithms for the 1D Burgers Equation: QTN, HSE, and PINN",
+  "authors": [
+    "Vanshaj Kerni",
+    "Abdelrahman E. Ahmed",
+    "Syed Ali Asghar"
+  ],
+  "author_string": "Vanshaj Kerni, Abdelrahman E. Ahmed, Syed Ali Asghar",
+  "journal": "arXiv:2602.04239v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We present a comparative benchmark of Quantum Tensor Networks (QTN), the Hydrodynamic Schrödinger Equation (HSE), and Physics-Informed Neural Networks (PINN) for simulating the 1D Burgers' equation. Evaluating these emerging paradigms against classical GMRES and Spectral baselines, we analyse solution accuracy, runtime scaling, and resource overhead across grid resolutions ranging from $N=4$ to $N=128$. Our results reveal a distinct performance hierarchy. The QTN solver achieves superior precision ($L_2 \\sim 10^{-7}$) with remarkable near-constant runtime scaling, effectively leveraging entanglement compression to capture shock fronts. In contrast, while the Finite-Difference HSE implementation remains robust, the Spectral HSE method suffers catastrophic numerical instability at high resolutions, diverging significantly at $N=128$. PINNs demonstrate flexibility as mesh-free solvers but stall at lower accuracy tiers ($L_2 \\sim 10^{-1}$), limited by spectral bias compared to grid-based methods. Ultimately, while quantum methods offer novel representational advantages for low-resolution fluid dynamics, this study confirms they currently yield no computational advantage over classical solvers without fault tolerance or significant algorithmic breakthroughs in handling non-linear feedback.",
+  "categories": [
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": "8 pages, 11 figures, submitted to IEEE CMISI 2026 Conference",
+  "published_date": "2026-02-04T05:57:27Z",
+  "updated_date": "2026-02-04T05:57:27Z",
+  "url": "https://arxiv.org/abs/2602.04239v1",
+  "pdf_url": "https://arxiv.org/pdf/2602.04239v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-02-05T07:00:33.006056",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph"
+  ]
+}

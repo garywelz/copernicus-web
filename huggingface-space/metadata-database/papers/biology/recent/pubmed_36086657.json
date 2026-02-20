@@ -1,0 +1,24 @@
+{
+  "id": "pubmed_36086657",
+  "pmid": "36086657",
+  "title": "Multimodal Neurophysiological Transformer for Emotion Recognition.",
+  "authors": [
+    "Koorathota, Sharath",
+    "Khan, Zain",
+    "Lapborisuth, Pawan",
+    "Sajda, Paul"
+  ],
+  "author_string": "Koorathota, Sharath, Khan, Zain, Lapborisuth, Pawan, Sajda, Paul",
+  "journal": "Annu Int Conf IEEE Eng Med Biol Soc",
+  "journal_full": "Annual International Conference of the IEEE Engineering in Medicine and Biology Society. IEEE Engineering in Medicine and Biology Society. Annual International Conference",
+  "year": "",
+  "doi": "10.1109/EMBC48229.2022.9871421",
+  "abstract": "Understanding neural function often requires multiple modalities of data, including electrophysiogical data, imaging techniques, and demographic surveys. In this paper, we introduce a novel neurophysiological model to tackle major challenges in modeling multimodal data. First, we avoid non-alignment issues between raw signals and extracted, frequency-domain features by addressing the issue of variable sampling rates. Second, we encode modalities through \"cross-attention\" with other modalities. Lastly, we utilize properties of our parent transformer architecture to model long-range dependencies between segments across modalities and assess intermediary weights to better understand how source signals affect prediction. We apply our Multimodal Neurophysiological Transformer (MNT) to predict valence and arousal in an existing open-source dataset. Experiments on non-aligned multimodal time-series show that our model performs similarly and, in some cases, outperforms existing methods in classification tasks. In addition, qualitative analysis suggests that MNT is able to model neural influences on autonomic activity in predicting arousal. Our architecture has the potential to be fine-tuned to a variety of downstream tasks, including for BCI systems.",
+  "keywords": [],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/36086657",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T17:01:23.444029",
+  "category": "biology",
+  "subcategories": []
+}

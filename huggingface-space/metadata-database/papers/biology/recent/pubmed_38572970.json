@@ -1,0 +1,35 @@
+{
+  "id": "pubmed_38572970",
+  "pmid": "38572970",
+  "title": "Development and evaluation of an artificial intelligence for bacterial growth monitoring in clinical bacteriology.",
+  "authors": [
+    "Jacot, Damien",
+    "Gizha, Shklqim",
+    "Orny, Cedrick",
+    "Fernandes, Mathieu",
+    "Tricoli, Carmelo",
+    "Marcelpoil, Raphael",
+    "Prod'hom, Guy",
+    "Volle, Jean-Marc",
+    "Greub, Gilbert",
+    "Croxatto, Antony"
+  ],
+  "author_string": "Jacot, Damien, Gizha, Shklqim, Orny, Cedrick, Fernandes, Mathieu, Tricoli, Carmelo et al.",
+  "journal": "J Clin Microbiol",
+  "journal_full": "Journal of clinical microbiology",
+  "year": "",
+  "doi": "10.1128/jcm.01651-23",
+  "abstract": "In clinical bacteriology laboratories, reading and processing of sterile plates remain a significant part of the routine workload (30%-40% of the plates). Here, an algorithm was developed for bacterial growth detection starting with any type of specimens and using the most common media in bacteriology. The growth prediction performance of the algorithm for automatic processing of sterile plates was evaluated not only at 18-24 h and 48 h but also at earlier timepoints toward the development of an early growth monitoring system. A total of 3,844 plates inoculated with representative clinical specimens were used. The plates were imaged 15 times, and two different microbiologists read the images randomly and independently, creating 99,944 human ground truths. The algorithm was able, at 48 h, to discriminate growth from no growth with a sensitivity of 99.80% (five false-negative [FN] plates out of 3,844) and a specificity of 91.97%. At 24 h, sensitivity and specificity reached 99.08% and 93.37%, respectively. Interestingly, during human truth reading, growth was reported as early as 4 h, while at 6 h, half of the positive plates were already showing some growth. In this context, automated early growth monitoring in case of normally sterile samples is envisioned to provide added value to the microbiologists, enabling them to prioritize reading and to communicate early detection of bacterial growth to the clinicians.",
+  "keywords": [
+    "artificial intelligence",
+    "bacteriology",
+    "growth monitoring",
+    "sterile plates"
+  ],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/38572970",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T17:02:40.192891",
+  "category": "biology",
+  "subcategories": []
+}

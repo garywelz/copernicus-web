@@ -1,0 +1,81 @@
+{
+  "category": "chemistry",
+  "colorScheme": {
+    "blue": {
+      "category": "Intermediates & States",
+      "hex": "#74c0fc"
+    },
+    "green": {
+      "category": "Processing & Operations",
+      "hex": "#51cf66"
+    },
+    "red": {
+      "category": "Triggers & Inputs",
+      "hex": "#ff6b6b"
+    },
+    "violet": {
+      "category": "Products & Outputs",
+      "hex": "#b197fc"
+    },
+    "yellow": {
+      "category": "Structures & Objects",
+      "hex": "#ffd43b"
+    }
+  },
+  "complexity": {
+    "conditionals": 0,
+    "detailLevel": "medium",
+    "edges": 24,
+    "level": "medium",
+    "logicGates": {
+      "andGates": 0,
+      "orGates": 26,
+      "total": 26
+    },
+    "nodes": 26
+  },
+  "created": "2026-01-08",
+  "description": "Electrochemical Analysis Process. This analytical chemistry process visualization demonstrates electrochemical techniques and electrode responses. The flowchart shows electrode inputs and potential control, electrochemical methods and current measurement, electrochemical operations and response analysis, intermediate results, and final electrochemical analysis outputs.",
+  "id": "analytical_chemistry-electrochemical-analysis",
+  "keywords": [
+    "electrochemical",
+    "analysis",
+    "analytical"
+  ],
+  "lastUpdated": "2026-01-08",
+  "mermaid": "graph TD\nA3[Electrode Setup] --> B3[Electrochemical Method]\nC3[Potential Control] --> D3[Current Measurement]\nE3[Solution Analysis] --> F3[Electrochemical Response]\nB3 --> G3[Voltammetry]\nD3 --> H3[Potentiometry]\nF3 --> I3[Conductometry]\nG3 --> J3[Cyclic Voltammetry]\nH3 --> K3[Ion Selective Electrodes]\nI3 --> L3[Conductivity Measurement]\nJ3 --> M3[Potential Sweep]\nK3 --> L3\nL3 --> N3[Ion Concentration]\nM3 --> O3[Current Response]\nN3 --> P3[Calibration Curve]\nO3 --> Q3[Electrochemical Analysis Process]\nP3 --> R3[Electrochemical Validation]\nQ3 --> S3[Electrochemical Verification]\nR3 --> T3[Electrochemical Result]\nS3 --> U3[Electrochemical Analysis]\nT3 --> V3[Electrochemical Parameters]\nU3 --> W3[Electrochemical Output]\nV3 --> X3[Electrochemical Analysis]\nW3 --> Y3[Electrochemical Final Result]\nX3 --> Z3[Electrochemical Analysis Complete]\n\n    style A3 fill:#ff6b6b,color:#fff\n    style C3 fill:#ff6b6b,color:#fff\n    style E3 fill:#ff6b6b,color:#fff\n    style B3 fill:#ffd43b,color:#000\n    style D3 fill:#ffd43b,color:#000\n    style F3 fill:#ffd43b,color:#000\n    style G3 fill:#ffd43b,color:#000\n    style H3 fill:#ffd43b,color:#000\n    style I3 fill:#ffd43b,color:#000\n    style J3 fill:#ffd43b,color:#000\n    style K3 fill:#ffd43b,color:#000\n    style L3 fill:#ffd43b,color:#000\n    style M3 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style O3 fill:#51cf66,color:#fff\n    style P3 fill:#51cf66,color:#fff\n    style Q3 fill:#51cf66,color:#fff\n    style R3 fill:#51cf66,color:#fff\n    style S3 fill:#51cf66,color:#fff\n    style T3 fill:#51cf66,color:#fff\n    style U3 fill:#51cf66,color:#fff\n    style V3 fill:#51cf66,color:#fff\n    style W3 fill:#51cf66,color:#fff\n    style X3 fill:#51cf66,color:#fff\n    style Y3 fill:#51cf66,color:#fff\n    style Z3 fill:#b197fc,color:#fff",
+  "name": "Electrochemical Analysis",
+  "notes": "Converted from chemistry batch HTML. Process number: 3.",
+  "relatedProcesses": [],
+  "sources": [
+    {
+      "authors": "Welz, G.",
+      "doi": null,
+      "journal": "CopernicusAI Knowledge Engine",
+      "notes": "Chemistry process visualization: Electrochemical Analysis. Created using the Programming Framework methodology for process analysis and visualization.",
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "year": "2025"
+    },
+    {
+      "authors": "Bard, A. J.",
+      "doi": "10.1021/cr0008624",
+      "journal": "Chem. Rev.",
+      "pubmed": null,
+      "title": "Electrochemical Mechanisms",
+      "url": "https://doi.org/10.1021/cr0008624",
+      "year": "2002"
+    },
+    {
+      "authors": "Nicholson, R. S.; Shain, I.",
+      "doi": "10.1021/ac60210a007",
+      "journal": "Anal. Chem.",
+      "pubmed": null,
+      "title": "Theory of Stationary Electrode Polarography. Single Scan and Cyclic Methods Applied to Reversible, Quasireversible, and Irreversible Electrode Processes",
+      "url": "https://doi.org/10.1021/ac60210a007",
+      "year": "1964"
+    }
+  ],
+  "subcategory": "analytical_chemistry",
+  "verified": false
+}

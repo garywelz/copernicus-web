@@ -1,0 +1,96 @@
+{
+  "acquired_date": "2026-01-08T00:00:00Z",
+  "category": "mathematics",
+  "colorScheme": {
+    "blue": {
+      "category": "Intermediates & States",
+      "hex": "#74c0fc"
+    },
+    "green": {
+      "category": "Processing & Operations",
+      "hex": "#51cf66"
+    },
+    "red": {
+      "category": "Triggers & Inputs",
+      "hex": "#ff6b6b"
+    },
+    "violet": {
+      "category": "Products & Outputs",
+      "hex": "#b197fc"
+    },
+    "yellow": {
+      "category": "Structures & Objects",
+      "hex": "#ffd43b"
+    }
+  },
+  "complexity": {
+    "conditionals": 0,
+    "detailLevel": "medium",
+    "edges": 27,
+    "level": "medium",
+    "logicGates": {
+      "andGates": 1,
+      "orGates": 0,
+      "total": 1
+    },
+    "nodes": 29
+  },
+  "created": "2026-01-08",
+  "description": "Combinatorics Process. This discrete mathematics process visualization demonstrates permutations, combinations, and counting principles. The flowchart shows combinatorial problem inputs and principles, combinatorial methods and formulas, counting operations and calculations, intermediate results, and final combinatorial analysis outputs.",
+  "id": "process_mathematics_combinatorics",
+  "keywords": [
+    "geometry",
+    "topology",
+    "combinatorics"
+  ],
+  "lastUpdated": "2026-01-08",
+  "mermaid": "graph TD\nA2[Combinatorial Problem] --> B2[Counting Method Selection]\nC2[Permutation Analysis] --> D2[Combination Analysis]\nE2[Counting Principles] --> F2[Principle Application]\nB2 --> G2[Multiplication Principle]\nD2 --> H2[Combination Formula]\nF2 --> I2[Addition Principle]\nG2 --> J2[Permutation Formula]\nH2 --> K2[Binomial Coefficient]\nI2 --> L2[Inclusion Exclusion]\nJ2 --> M2[Factorial Calculation]\nK2 --> N2[Pascal Triangle]\nL2 --> O2[Set Cardinality]\nM2 --> P2[Arrangement Counting]\nN2 --> O2\nO2 --> Q2[Partition Counting]\nP2 --> R2[Selection Counting]\nQ2 --> S2[Generating Functions]\nR2 --> T2[Combinatorial Identity]\nS2 --> U2[Recurrence Relations]\nT2 --> V2[Combinatorial Proof]\nU2 --> W2[Combinatorial Result]\nV2 --> X2[Combinatorial Analysis]\nW2 --> Y2[Combinatorial Output]\nX2 --> Z2[Combinatorial Analysis Output]\nY2 --> AA2[Combinatorial Analysis Final Result]\nZ2 --> BB2[Combinatorial Analysis Complete]\nAA2 --> CC2[Combinatorial Analysis Output]\n\n    style A2 fill:#ff6b6b,color:#fff\n    style C2 fill:#ff6b6b,color:#fff\n    style E2 fill:#ff6b6b,color:#fff\n    style B2 fill:#ffd43b,color:#000\n    style D2 fill:#ffd43b,color:#000\n    style F2 fill:#ffd43b,color:#000\n    style G2 fill:#ffd43b,color:#000\n    style H2 fill:#ffd43b,color:#000\n    style I2 fill:#ffd43b,color:#000\n    style J2 fill:#ffd43b,color:#000\n    style K2 fill:#ffd43b,color:#000\n    style L2 fill:#ffd43b,color:#000\n    style M2 fill:#51cf66,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style O2 fill:#51cf66,color:#fff\n    style P2 fill:#51cf66,color:#fff\n    style Q2 fill:#51cf66,color:#fff\n    style R2 fill:#51cf66,color:#fff\n    style S2 fill:#51cf66,color:#fff\n    style T2 fill:#51cf66,color:#fff\n    style U2 fill:#51cf66,color:#fff\n    style V2 fill:#51cf66,color:#fff\n    style W2 fill:#51cf66,color:#fff\n    style X2 fill:#51cf66,color:#fff\n    style Y2 fill:#51cf66,color:#fff\n    style Z2 fill:#51cf66,color:#fff\n    style AA2 fill:#51cf66,color:#fff\n    style BB2 fill:#51cf66,color:#fff\n    style CC2 fill:#b197fc,color:#fff",
+  "name": "Combinatorics",
+  "notes": "Converted from mathematics batch HTML. Process number: 2.",
+  "relatedProcesses": [],
+  "related_papers": [
+    "pubmed_17728406",
+    "pubmed_9689041"
+  ],
+  "related_podcasts": [],
+  "related_processes": [],
+  "related_videos": [],
+  "source": "programming_framework",
+  "sources": [
+    {
+      "authors": "Welz, G.",
+      "doi": null,
+      "journal": "CopernicusAI Knowledge Engine",
+      "notes": "Chemistry process visualization: Combinatorics. Created using the Programming Framework methodology for process analysis and visualization.",
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "year": "2025"
+    },
+    {
+      "authors": "Stanley, RP.",
+      "doi": "10.1073/pnas.0706312104",
+      "journal": "Proc Natl Acad Sci U S A.",
+      "paper_id": "pubmed_17728406",
+      "pubmed": "17728406",
+      "title": "Combinatorial interpretations of statistics on permutations",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/17728406",
+      "year": "2007"
+    },
+    {
+      "authors": "Wilf, HS.",
+      "doi": "10.1073/pnas.95.16.9037",
+      "journal": "Proc Natl Acad Sci U S A.",
+      "paper_id": "pubmed_9689041",
+      "pubmed": "9689041",
+      "title": "Combinatorial algorithms, enumerations, and random structures",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/9689041",
+      "year": "1998"
+    }
+  ],
+  "subcategories": [
+    "geometry_topology"
+  ],
+  "subcategory": "geometry_topology",
+  "subcategory_name": "Geometry & Topology",
+  "verified": false
+}

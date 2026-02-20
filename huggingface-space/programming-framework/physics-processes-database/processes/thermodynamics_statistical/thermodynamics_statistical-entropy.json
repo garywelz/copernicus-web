@@ -1,0 +1,65 @@
+{
+  "id": "thermodynamics_statistical-entropy",
+  "name": "Entropy",
+  "category": "physics",
+  "subcategory": "thermodynamics_statistical",
+  "subcategory_name": "Thermodynamics & Statistical Physics",
+  "description": "Entropy Process. This thermodynamics process visualization demonstrates entropy and statistical mechanics. The flowchart shows system inputs and energy distributions, entropy methods and statistical mechanics, entropy operations and irreversible processes, intermediate results, and final entropy outputs.",
+  "complexity": {
+    "nodes": 26,
+    "edges": 24,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nA2[System State] --> B2[Entropy Method]\nC2[Energy Distribution] --> D2[Statistical Mechanics]\nE2[Irreversible Process] --> F2[Entropy Analysis]\nB2 --> G2[Boltzmann Entropy]\nD2 --> H2[Gibbs Entropy]\nF2 --> I2[Information Entropy]\nG2 --> J2[Microstate Counting]\nH2 --> K2[Phase Space]\nI2 --> L2[Probability Distribution]\nJ2 --> M2[Entropy Increase]\nK2 --> L2\nL2 --> N2[Disorder Measure]\nM2 --> O2[Second Law]\nN2 --> P2[Thermal Equilibrium]\nO2 --> Q2[Entropy Process]\nP2 --> R2[Entropy Validation]\nQ2 --> S2[Entropy Verification]\nR2 --> T2[Entropy Result]\nS2 --> U2[Entropy Analysis]\nT2 --> V2[Entropy Parameters]\nU2 --> W2[Entropy Output]\nV2 --> X2[Entropy Analysis]\nW2 --> Y2[Entropy Final Result]\nX2 --> Z2[Entropy Complete]\n\n    style A2 fill:#ff6b6b,color:#fff\n    style C2 fill:#ff6b6b,color:#fff\n    style E2 fill:#ff6b6b,color:#fff\n    style B2 fill:#ffd43b,color:#000\n    style D2 fill:#ffd43b,color:#000\n    style F2 fill:#ffd43b,color:#000\n    style G2 fill:#ffd43b,color:#000\n    style H2 fill:#ffd43b,color:#000\n    style I2 fill:#ffd43b,color:#000\n    style J2 fill:#ffd43b,color:#000\n    style K2 fill:#ffd43b,color:#000\n    style L2 fill:#ffd43b,color:#000\n    style M2 fill:#51cf66,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style O2 fill:#51cf66,color:#fff\n    style P2 fill:#51cf66,color:#fff\n    style Q2 fill:#51cf66,color:#fff\n    style R2 fill:#51cf66,color:#fff\n    style S2 fill:#51cf66,color:#fff\n    style T2 fill:#51cf66,color:#fff\n    style U2 fill:#51cf66,color:#fff\n    style V2 fill:#51cf66,color:#fff\n    style W2 fill:#51cf66,color:#fff\n    style X2 fill:#51cf66,color:#fff\n    style Y2 fill:#51cf66,color:#fff\n    style Z2 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "notes": "Chemistry process visualization: Entropy. Created using the Programming Framework methodology for process analysis and visualization."
+    }
+  ],
+  "keywords": [
+    "statistical",
+    "thermodynamics",
+    "entropy",
+    "physics"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-08",
+  "verified": false,
+  "notes": "Converted from physics batch HTML. Process number: 2."
+}

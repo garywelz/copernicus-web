@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2601.11157v1",
+  "arxiv_id": "2601.11157v1",
+  "title": "Adaptive Randomized Extended Bregman-Kaczmarz Method for Combined Optimization Problems",
+  "authors": [
+    "Zeyu Dong",
+    "Aqin Xiao",
+    "Guojian Yin",
+    "Junfeng Yin"
+  ],
+  "author_string": "Zeyu Dong, Aqin Xiao, Guojian Yin, Junfeng Yin",
+  "journal": "arXiv:2601.11157v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Combined optimization problems that couple data-fidelity and regularization terms arise naturally in a wide range of inverse problems. In this paper, we study an adaptive randomized averaging block extended Bregman-Kaczmarz (aRABEBK) method for solving such problems. The proposed method incorporates iteration-wise relaxation parameters that are automatically adjusted using residual information, allowing for more aggressive step sizes without additional manual tuning. We establish a convergence theory for the proposed framework and derive expected linear convergence rate guarantees. Numerical experiments on both synthetic and real data sets for sparse and minimum-norm least-squares problems demonstrate that our aRABEBK method achieves faster convergence and improved robustness compared with state-of-the-art extended Kaczmarz and Bregman-Kaczmarz-type algorithms, including its nonadaptive counterpart.",
+  "categories": [
+    "math.NA"
+  ],
+  "primary_category": "math.NA",
+  "comment": null,
+  "published_date": "2026-01-16T10:18:19Z",
+  "updated_date": "2026-01-16T10:18:19Z",
+  "url": "https://arxiv.org/abs/2601.11157v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11157v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:38.716798",
+  "category": "mathematics",
+  "subcategories": [
+    "math.NA"
+  ]
+}

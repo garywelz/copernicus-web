@@ -1,0 +1,37 @@
+{
+  "id": "arxiv_2108.01670v1",
+  "arxiv_id": "2108.01670v1",
+  "title": "A First Detection of the Connected 4-Point Correlation Function of Galaxies Using the BOSS CMASS Sample",
+  "authors": [
+    "Oliver H. E. Philcox",
+    "Jiamin Hou",
+    "Zachary Slepian"
+  ],
+  "author_string": "Oliver H. E. Philcox, Jiamin Hou, Zachary Slepian",
+  "journal": "arXiv:2108.01670v1",
+  "journal_ref": null,
+  "year": "2021",
+  "doi": null,
+  "abstract": "We present an $8.1σ$ detection of the non-Gaussian 4-Point Correlation Function (4PCF) using a sample of $N_{\\rm g} \\approx 8\\times 10^5$ galaxies from the BOSS CMASS dataset. Our measurement uses the $\\mathcal{O}(N_{\\rm g}^2)$ NPCF estimator of Philcox et al. (2021), including a new modification to subtract the disconnected 4PCF contribution (arising from the product of two 2PCFs) at the estimator level. This approach is unlike previous work and ensures that our signal is a robust detection of gravitationally-induced non-Gaussianity. The estimator is validated with a suite of lognormal simulations, and the analytic form of the disconnected contribution is discussed. Due to the high dimensionality of the 4PCF, data compression is required; we use a signal-to-noise-based scheme calibrated from theoretical covariance matrices to restrict to $\\sim$ $100$ basis vectors. The compression has minimal impact on the detection significance and facilitates traditional $χ^2$-like analyses using a suite of mock catalogs. The significance is stable with respect to different treatments of noise in the sample covariance (arising from the limited number of mocks), but decreases to $4.7σ$ when a minimum galaxy separation of $14 h^{-1}\\mathrm{Mpc}$ is enforced on the 4PCF tetrahedra (such that the statistic can be modelled more easily). The detectability of the 4PCF in the quasi-linear regime implies that it will become a useful tool in constraining cosmological and galaxy formation parameters from upcoming spectroscopic surveys.",
+  "categories": [
+    "astro-ph.CO",
+    "astro-ph.GA",
+    "gr-qc",
+    "hep-ex",
+    "hep-ph"
+  ],
+  "primary_category": "hep-ph",
+  "comment": "26 pages, 9 figures, submitted to Phys. Rev. D. Code available at https://github.com/oliverphilcox/Parity-Even-4PCF",
+  "published_date": "2021-08-03T18:00:00Z",
+  "updated_date": "2021-08-03T18:00:00Z",
+  "url": "https://arxiv.org/abs/2108.01670v1",
+  "pdf_url": "https://arxiv.org/pdf/2108.01670v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-02-03T13:20:38.507927",
+  "category": "physics",
+  "subcategories": [
+    "astro-ph.CO",
+    "astro-ph.GA",
+    "gr-qc"
+  ]
+}

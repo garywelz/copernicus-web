@@ -1,0 +1,37 @@
+{
+  "id": "arxiv_2601.11143v1",
+  "arxiv_id": "2601.11143v1",
+  "title": "Learning Quadrupedal Locomotion for a Heavy Hydraulic Robot Using an Actuator Model",
+  "authors": [
+    "Minho Lee",
+    "Hyeonseok Kim",
+    "Jin Tak Kim",
+    "Sangshin Park",
+    "Jeong Hyun Lee",
+    "Jungsan Cho",
+    "Jemin Hwangbo"
+  ],
+  "author_string": "Minho Lee, Hyeonseok Kim, Jin Tak Kim, Sangshin Park, Jeong Hyun Lee et al.",
+  "journal": "IEEE Robotics and Automation Letters (Volume: 10, Issue: 12, December 2025)",
+  "journal_ref": "IEEE Robotics and Automation Letters (Volume: 10, Issue: 12, December 2025)",
+  "year": "2026",
+  "doi": "10.1109/LRA.2025.3623024",
+  "abstract": "The simulation-to-reality (sim-to-real) transfer of large-scale hydraulic robots presents a significant challenge in robotics because of the inherent slow control response and complex fluid dynamics. The complex dynamics result from the multiple interconnected cylinder structure and the difference in fluid rates of the cylinders. These characteristics complicate detailed simulation for all joints, making it unsuitable for reinforcement learning (RL) applications. In this work, we propose an analytical actuator model driven by hydraulic dynamics to represent the complicated actuators. The model predicts joint torques for all 12 actuators in under 1 microsecond, allowing rapid processing in RL environments. We compare our model with neural network-based actuator models and demonstrate the advantages of our model in data-limited scenarios. The locomotion policy trained in RL with our model is deployed on a hydraulic quadruped robot, which is over 300 kg. This work is the first demonstration of a successful transfer of stable and robust command-tracking locomotion with RL on a heavy hydraulic quadruped robot, demonstrating advanced sim-to-real transferability.",
+  "categories": [
+    "cs.RO",
+    "cs.AI"
+  ],
+  "primary_category": "cs.AI",
+  "comment": "9 pages, Accepted to IEEE Robotics and Automation Letters (RA-L) 2025",
+  "published_date": "2026-01-16T10:01:09Z",
+  "updated_date": "2026-01-16T10:01:09Z",
+  "url": "https://arxiv.org/abs/2601.11143v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11143v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:33.862430",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.RO",
+    "cs.AI"
+  ]
+}

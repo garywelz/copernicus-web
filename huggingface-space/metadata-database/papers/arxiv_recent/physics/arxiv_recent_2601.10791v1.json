@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2601.10791v1",
+  "arxiv_id": "2601.10791v1",
+  "title": "OmniMol: Transferring Particle Physics Knowledge to Molecular Dynamics with Point-Edge Transformers",
+  "authors": [
+    "Ibrahim Elsharkawy",
+    "Vinicius Mikuni",
+    "Wahid Bhimji",
+    "Benjamin Nachman"
+  ],
+  "author_string": "Ibrahim Elsharkawy, Vinicius Mikuni, Wahid Bhimji, Benjamin Nachman",
+  "journal": "arXiv:2601.10791v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We present OmniMol, a state-of-the-art transformer-based small molecule machine-learned interatomic potential (MLIP). OmniMol is built by adapting Omnilearned, a foundation model for particle jets found in high-energy physics (HEP) experiments such as at the Large Hadron Collider (LHC). Omnilearned is built with a Point-Edge-Transformer (PET) and pre-trained using a diverse set of one billion particle jets. It includes an interaction-matrix attention bias that injects pairwise sub-nuclear (HEP) or atomic (molecular-dynamics) physics directly into the transformer's attention logits, steering the network toward physically meaningful neighborhoods without sacrificing expressivity. We demonstrate OmniMol using the oMol dataset and find excellent performance even with relatively few examples for fine-tuning. This study lays the foundation for building interdisciplinary connections, given datasets represented as collections of point clouds.",
+  "categories": [
+    "physics.chem-ph",
+    "hep-ex",
+    "physics.data-an"
+  ],
+  "primary_category": "physics.data-an",
+  "comment": "8 pages, 10 figures",
+  "published_date": "2026-01-15T19:00:04Z",
+  "updated_date": "2026-01-15T19:00:04Z",
+  "url": "https://arxiv.org/abs/2601.10791v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.10791v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:18:40.156501",
+  "category": "physics",
+  "subcategories": [
+    "physics.chem-ph",
+    "hep-ex",
+    "physics.data-an"
+  ]
+}

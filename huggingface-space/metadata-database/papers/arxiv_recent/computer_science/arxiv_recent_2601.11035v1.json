@@ -1,0 +1,39 @@
+{
+  "id": "arxiv_2601.11035v1",
+  "arxiv_id": "2601.11035v1",
+  "title": "Your One-Stop Solution for AI-Generated Video Detection",
+  "authors": [
+    "Long Ma",
+    "Zihao Xue",
+    "Yan Wang",
+    "Zhiyuan Yan",
+    "Jin Xu",
+    "Xiaorui Jiang",
+    "Haiyang Yu",
+    "Yong Liao",
+    "Zhen Bi"
+  ],
+  "author_string": "Long Ma, Zihao Xue, Yan Wang, Zhiyuan Yan, Jin Xu et al.",
+  "journal": "arXiv:2601.11035v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Recent advances in generative modeling can create remarkably realistic synthetic videos, making it increasingly difficult for humans to distinguish them from real ones and necessitating reliable detection methods.   However, two key limitations hinder the development of this field.   \\textbf{From the dataset perspective}, existing datasets are often limited in scale and constructed using outdated or narrowly scoped generative models, making it difficult to capture the diversity and rapid evolution of modern generative techniques. Moreover, the dataset construction process frequently prioritizes quantity over quality, neglecting essential aspects such as semantic diversity, scenario coverage, and technological representativeness.   \\textbf{From the benchmark perspective}, current benchmarks largely remain at the stage of dataset creation, leaving many fundamental issues and in-depth analysis yet to be systematically explored.   Addressing this gap, we propose AIGVDBench, a benchmark designed to be comprehensive and representative, covering \\textbf{31} state-of-the-art generation models and over \\textbf{440,000} videos. By executing more than \\textbf{1,500} evaluations on \\textbf{33} existing detectors belonging to four distinct categories. This work presents \\textbf{8 in-depth analyses} from multiple perspectives and identifies \\textbf{4 novel findings} that offer valuable insights for future research. We hope this work provides a solid foundation for advancing the field of AI-generated video detection.   Our benchmark is open-sourced at https://github.com/LongMa-2025/AIGVDBench.",
+  "categories": [
+    "cs.CV",
+    "cs.AI"
+  ],
+  "primary_category": "cs.AI",
+  "comment": null,
+  "published_date": "2026-01-16T07:02:06Z",
+  "updated_date": "2026-01-16T07:02:06Z",
+  "url": "https://arxiv.org/abs/2601.11035v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11035v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:37.509668",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV",
+    "cs.AI"
+  ]
+}

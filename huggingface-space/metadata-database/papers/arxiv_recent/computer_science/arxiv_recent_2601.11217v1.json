@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2601.11217v1",
+  "arxiv_id": "2601.11217v1",
+  "title": "Model-free policy gradient for discrete-time mean-field control",
+  "authors": [
+    "Matthieu Meunier",
+    "Huyên Pham",
+    "Christoph Reisinger"
+  ],
+  "author_string": "Matthieu Meunier, Huyên Pham, Christoph Reisinger",
+  "journal": "arXiv:2601.11217v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We study model-free policy learning for discrete-time mean-field control (MFC) problems with finite state space and compact action space. In contrast to the extensive literature on value-based methods for MFC, policy-based approaches remain largely unexplored due to the intrinsic dependence of transition kernels and rewards on the evolving population state distribution, which prevents the direct use of likelihood-ratio estimators of policy gradients from classical single-agent reinforcement learning. We introduce a novel perturbation scheme on the state-distribution flow and prove that the gradient of the resulting perturbed value function converges to the true policy gradient as the perturbation magnitude vanishes. This construction yields a fully model-free estimator based solely on simulated trajectories and an auxiliary estimate of the sensitivity of the state distribution. Building on this framework, we develop MF-REINFORCE, a model-free policy gradient algorithm for MFC, and establish explicit quantitative bounds on its bias and mean-squared error. Numerical experiments on representative mean-field control tasks demonstrate the effectiveness of the proposed approach.",
+  "categories": [
+    "math.OC",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": "42 pages, 5 figures",
+  "published_date": "2026-01-16T11:49:25Z",
+  "updated_date": "2026-01-16T11:49:25Z",
+  "url": "https://arxiv.org/abs/2601.11217v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11217v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:33.860834",
+  "category": "computer_science",
+  "subcategories": [
+    "math.OC",
+    "cs.LG"
+  ]
+}

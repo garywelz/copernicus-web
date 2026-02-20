@@ -1,0 +1,92 @@
+{
+  "id": "analytical_chemistry-calibration-curve-construction",
+  "name": "Calibration Curve Construction",
+  "category": "chemistry",
+  "subcategory": "analytical_chemistry",
+  "subcategory_name": "Analytical Chemistry",
+  "description": "Calibration Curve Construction process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 6,
+    "edges": 5,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nN1[\"Calibration Standards\"]\nN2[\"Instrument Response\"]\nN3[\"Regression Model\"]\nN4[\"Fit + Residual Check\"]\nN5[\"LOD/LOQ Estimate\"]\nN6[\"Calibration Function\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\nN5 --> N6\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ff6b6b,color:#fff\n    style N3 fill:#ffd43b,color:#000\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#74c0fc,color:#fff\n    style N6 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Calibration Curve Construction. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "Construction of Calibration Curve for Premature Chromosome Condensation Assay for Dose Assessment",
+      "authors": "Neronova, Elizaveta G.",
+      "journal": "Genome Integrity",
+      "year": "2016",
+      "pubmed": null,
+      "doi": "10.4103/2041-9414.197166",
+      "url": "https://doi.org/10.4103/2041-9414.197166"
+    },
+    {
+      "title": "Figure 3: The calibration curves of the 1-, 2-, and 3-year PFS prediction nomogram. (A) The calibration curve for 1-year-PFS. (B) The calibration curve for 2-year-PFS. (C) The calibration curve for 3-year-PFS.",
+      "authors": "",
+      "journal": "",
+      "year": "None",
+      "pubmed": null,
+      "doi": "10.7717/peerj.14566/fig-3",
+      "url": "https://doi.org/10.7717/peerj.14566/fig-3"
+    },
+    {
+      "title": "Figure 7: Performance of prognostic model: (A) Calibration curve for 1-year in the validation group; (B) calibration curve for 3-year in the validation group; (C) calibration curve for 5-year in the validation group.",
+      "authors": "",
+      "journal": "",
+      "year": "None",
+      "pubmed": null,
+      "doi": "10.7717/peerj.14457/fig-7",
+      "url": "https://doi.org/10.7717/peerj.14457/fig-7"
+    }
+  ],
+  "keywords": [
+    "calibration",
+    "curve",
+    "construction"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-15",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+}

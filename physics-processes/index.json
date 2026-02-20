@@ -1,0 +1,56 @@
+{
+  "subject": "physics",
+  "total_processes": 6,
+  "total_batches": 2,
+  "batch_stats": {
+    "batch_01": 3,
+    "batch_02": 3
+  },
+  "subcategories": {
+    "classical_mechanics": 6
+  },
+  "processes": [
+    {
+      "id": "newtonian-dynamics-process",
+      "title": "Newtonian Dynamics Process",
+      "category": "physics",
+      "subcategory": "classical_mechanics",
+      "batch": "batch_01"
+    },
+    {
+      "id": "lagrangian-mechanics-process",
+      "title": "Lagrangian Mechanics Process",
+      "category": "physics",
+      "subcategory": "classical_mechanics",
+      "batch": "batch_01"
+    },
+    {
+      "id": "hamiltonian-mechanics-process",
+      "title": "Hamiltonian Mechanics Process",
+      "category": "physics",
+      "subcategory": "classical_mechanics",
+      "batch": "batch_01"
+    },
+    {
+      "id": "wave-function-process",
+      "title": "Wave Function Process",
+      "category": "physics",
+      "subcategory": "classical_mechanics",
+      "batch": "batch_02"
+    },
+    {
+      "id": "quantum-entanglement-process",
+      "title": "Quantum Entanglement Process",
+      "category": "physics",
+      "subcategory": "classical_mechanics",
+      "batch": "batch_02"
+    },
+    {
+      "id": "quantum-computing-process",
+      "title": "Quantum Computing Process",
+      "category": "physics",
+      "subcategory": "classical_mechanics",
+      "batch": "batch_02"
+    }
+  ]
+}

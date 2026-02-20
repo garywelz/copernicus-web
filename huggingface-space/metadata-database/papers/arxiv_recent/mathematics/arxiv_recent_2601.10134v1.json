@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2601.10134v1",
+  "arxiv_id": "2601.10134v1",
+  "title": "A volume penalization method for solving conjugate scalar transport with interfacial jump conditions",
+  "authors": [
+    "Ming Liu",
+    "Yosuke Hasegawa"
+  ],
+  "author_string": "Ming Liu, Yosuke Hasegawa",
+  "journal": "arXiv:2601.10134v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Conjugate scalar transport with interfacial jump conditions on complex interfacial geometries is common in thermal and chemical processes, while its accurate and efficient simulations are still quite challenging. In the present study, a novel treatment of a two-phase interface in the volume penalization method, a kind of immersed boundary method, for solving conjugate scalar transport with general interfacial boundary conditions is developed. We first propose an interfacial treatment for solving an advection-diffusion equation with a Neumann boundary condition, and then extend it to general conjugate scalar transport with both interfacial flux and scalar jumps. A one-dimensional diffusion problem is solved to verify the present scheme and demonstrate the advantage of the present scheme in improving accuracy and unifying the governing equations in the two phases with an additional source term representing the local jump condition of the interfacial scalar flux. Then, the present scheme is further applied to fluid-solid coupled scalar diffusion and advection-diffusion problems with the scalar and its flux jumps across the interface. The simulation results of the present scheme generally show good agreement with reference results obtained by body-fitted mesh simulations with average relative deviations less than 3.0%.",
+  "categories": [
+    "physics.comp-ph",
+    "math.NA"
+  ],
+  "primary_category": "math.NA",
+  "comment": null,
+  "published_date": "2026-01-15T07:19:35Z",
+  "updated_date": "2026-01-15T07:19:35Z",
+  "url": "https://arxiv.org/abs/2601.10134v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.10134v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:45.577711",
+  "category": "mathematics",
+  "subcategories": [
+    "physics.comp-ph",
+    "math.NA"
+  ]
+}

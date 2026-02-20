@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_1808.09933v1",
+  "arxiv_id": "1808.09933v1",
+  "title": "Certified Mapper: Repeated testing for acyclicity and obstructions to the nerve lemma",
+  "authors": [
+    "Mikael Vejdemo-Johansson",
+    "Alisa Leshchenko"
+  ],
+  "author_string": "Mikael Vejdemo-Johansson, Alisa Leshchenko",
+  "journal": "arXiv:1808.09933v1",
+  "journal_ref": null,
+  "year": "2018",
+  "doi": null,
+  "abstract": "The Mapper algorithm does not include a check for whether the cover produced conforms to the requirements of the nerve lemma. To perform a check for obstructions to the nerve lemma, statistical considerations of multiple testing quickly arise.   In this paper, we propose several statistical approaches to finding obstructions: through a persistent nerve lemma, through simulation testing, and using a parametric refinement of simulation tests.   We suggest Certified Mapper -- a method built from these approaches to generate certificates of non-obstruction, or identify specific obstructions to the nerve lemma -- and we give recommendations for which statistical approaches are most appropriate for the task.",
+  "categories": [
+    "math.AT",
+    "cs.LG",
+    "math.ST"
+  ],
+  "primary_category": "math.ST",
+  "comment": "16 pages, submitted to the proceedings of the Abel symposium",
+  "published_date": "2018-08-29T17:21:17Z",
+  "updated_date": "2018-08-29T17:21:17Z",
+  "url": "https://arxiv.org/abs/1808.09933v1",
+  "pdf_url": "https://arxiv.org/pdf/1808.09933v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:00.034909",
+  "category": "mathematics",
+  "subcategories": [
+    "math.AT",
+    "cs.LG",
+    "math.ST"
+  ]
+}

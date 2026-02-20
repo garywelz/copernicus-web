@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2601.09819v1",
+  "arxiv_id": "2601.09819v1",
+  "title": "Multibanded Reduced Order Quadrature Techniques for Gravitational Wave Inference",
+  "authors": [
+    "Murdoc Newell",
+    "Alexis Boudon",
+    "Hong Qi"
+  ],
+  "author_string": "Murdoc Newell, Alexis Boudon, Hong Qi",
+  "journal": "arXiv:2601.09819v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Reduced-order quadrature (ROQ) is commonly used to speed up parameter estimation in gravitational wave astronomy; however, the construction of ROQ bases can be computationally costly, particularly for longer duration signals. We propose a modified construction strategy based on PyROQ that accelerates this process by performing the basis search using multiband waveforms, without compromising the desired likelihood speed and accuracy. We use this altered method to construct a set of ROQs in the sub-solar mass range using the \\texttt{IMRPhenomXAS\\_NRTidalV3} waveform. We find a 20\\% to 30\\% decrease in basis size and a $\\sim 10$ times decrease in basis construction time. We verify the altered method preserves the likelihood accuracy and mantains consitent parameter estimation results.",
+  "categories": [
+    "gr-qc",
+    "astro-ph.HE"
+  ],
+  "primary_category": "astro-ph.HE",
+  "comment": "6 pages, 3 figures, 3 tables",
+  "published_date": "2026-01-14T19:27:37Z",
+  "updated_date": "2026-01-14T19:27:37Z",
+  "url": "https://arxiv.org/abs/2601.09819v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.09819v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:18:54.508642",
+  "category": "physics",
+  "subcategories": [
+    "gr-qc",
+    "astro-ph.HE"
+  ]
+}

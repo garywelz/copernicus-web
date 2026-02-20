@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2601.11107v1",
+  "arxiv_id": "2601.11107v1",
+  "title": "Modular and Mobile Capacity Planning for Hyperconnected Supply Chain Networks",
+  "authors": [
+    "Xiaoyue Liu",
+    "Walid Klibi",
+    "Benoit Montreuil"
+  ],
+  "author_string": "Xiaoyue Liu, Walid Klibi, Benoit Montreuil",
+  "journal": "arXiv:2601.11107v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "The increased volatility of markets and the pressing need for resource sustainability are driving supply chains towards more agile, distributed, and dynamic designs. Motivated by the Physical Internet initiative, we introduce the Dynamic Stochastic Modular and Mobile Capacity Planning (DSMMCP) problem, which fosters hyperconnectivity through a network-of-networks architecture with modular and mobile capacities. The problem addresses both demand and supply uncertainties by incorporating short-term leasing of modular facilities and dynamic relocation of resources. We formulate DSMMCP as a partially adaptive multi-stage stochastic program that minimizes the expected multi-period costs under uncertainty. To tackle the inherent NP-hardness, we develop an enhanced stochastic dual dynamic integer programming (SDDiP) algorithm, which integrates strengthened cut generation, a tailored alternating cut strategy, and an efficient parallelization framework, and we establish structural dominance and monotonicity properties that formalize the value of the strengthened cuts and partial adaptivity. Numerical experiments inspired by a real case study of a large U.S. construction company demonstrate that the DSMMCP framework achieves approximately 15% cost savings over static planning while improving resilience, reducing outsourcing costs, and supporting sustainability. Complementary experiments on synthetic instances confirm the effectiveness of the proposed SDDiP algorithm in terms of solution quality and runtime, as well as the scalability and robustness of the partially adaptive stochastic modeling framework across different network sizes and uncertainty levels.",
+  "categories": [
+    "math.OC"
+  ],
+  "primary_category": "math.OC",
+  "comment": null,
+  "published_date": "2026-01-16T09:08:47Z",
+  "updated_date": "2026-01-16T09:08:47Z",
+  "url": "https://arxiv.org/abs/2601.11107v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11107v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:38.717469",
+  "category": "mathematics",
+  "subcategories": [
+    "math.OC"
+  ]
+}

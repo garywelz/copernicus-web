@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research Paper Metadata Database</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 300;
+        }
+        
+        .header p {
+            margin: 10px 0 0 0;
+            opacity: 0.9;
+            font-size: 1.1em;
+        }
+        
+        .controls {
+            padding: 20px 30px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #ecf0f1;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            align-items: center;
+        }
+        
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+            padding: 10px 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+        }
+        
+        .search-box:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .filter-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-select {
+            padding: 10px 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 0.9em;
+            background: white;
+            cursor: pointer;
+        }
+        
+        .filter-select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 30px;
+            background: #f8f9fa;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            border-left: 4px solid #667eea;
+        }
+        
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin: 0;
+        }
+        
+        .stat-label {
+            color: #7f8c8d;
+            font-size: 0.9em;
+            margin: 5px 0 0 0;
+        }
+        
+        .table-container {
+            padding: 30px;
+            overflow-x: auto;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        th, td {
+            padding: 12px 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background: #ecf0f1;
+            font-weight: 600;
+            color: #2c3e50;
+            position: sticky;
+            top: 0;
+            cursor: pointer;
+            user-select: none;
+        }
+        
+        th:hover {
+            background: #d5dbdb;
+        }
+        
+        tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .paper-title {
+            font-weight: 600;
+            color: #2c3e50;
+            max-width: 400px;
+        }
+        
+        .paper-title a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        .paper-title a:hover {
+            text-decoration: underline;
+        }
+        
+        .authors {
+            max-width: 300px;
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+        
+        .journal {
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+        
+        .year {
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .source-badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75em;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .source-pubmed {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+        
+        .source-arxiv {
+            background: #fff3e0;
+            color: #f57c00;
+        }
+        
+        .source-nasa {
+            background: #f3e5f5;
+            color: #7b1fa2;
+        }
+        
+        .source-crossref {
+            background: #e8f5e9;
+            color: #388e3c;
+        }
+        
+        .pagination {
+            padding: 20px 30px;
+            background: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .pagination button {
+            padding: 8px 15px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+        }
+        
+        .pagination button:hover:not(:disabled) {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+        
+        .pagination button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .pagination-info {
+            margin: 0 20px;
+            color: #7f8c8d;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 50px;
+            color: #7f8c8d;
+        }
+        
+        .error {
+            text-align: center;
+            padding: 50px;
+            color: #e74c3c;
+        }
+        
+        .abstract-preview {
+            max-width: 400px;
+            color: #7f8c8d;
+            font-size: 0.85em;
+            line-height: 1.4;
+            max-height: 60px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 Research Paper Metadata Database</h1>
+            <p>CopernicusAI Knowledge Engine - Browse and Search Research Papers</p>
+        </div>
+        
+        <div class="controls">
+            <input type="text" id="searchBox" class="search-box" placeholder="Search papers by title, author, abstract, keywords...">
+            <select id="sourceFilter" class="filter-select">
+                <option value="">All Sources</option>
+                <option value="pubmed">PubMed</option>
+                <option value="arxiv">arXiv</option>
+                <option value="nasa_ads">NASA ADS</option>
+                <option value="crossref">Crossref</option>
+            </select>
+            <select id="categoryFilter" class="filter-select">
+                <option value="">All Categories</option>
+                <option value="biology">Biology</option>
+                <option value="chemistry">Chemistry</option>
+                <option value="physics">Physics</option>
+                <option value="mathematics">Mathematics</option>
+                <option value="computer_science">Computer Science</option>
+                <option value="interdisciplinary">Interdisciplinary</option>
+            </select>
+            <select id="yearFilter" class="filter-select">
+                <option value="">All Years</option>
+                <!-- Years will be populated dynamically -->
+            </select>
+            <select id="sortBy" class="filter-select">
+                <option value="year_desc">Year (Newest)</option>
+                <option value="year_asc">Year (Oldest)</option>
+                <option value="title_asc">Title (A-Z)</option>
+                <option value="title_desc">Title (Z-A)</option>
+            </select>
+        </div>
+        
+        <div class="stats-grid" id="statsGrid">
+            <div class="stat-card">
+                <p class="stat-number" id="totalPapers">0</p>
+                <p class="stat-label">Total Papers (in Firestore)</p>
+            </div>
+            <div class="stat-card">
+                <p class="stat-number" id="filteredPapers">0</p>
+                <p class="stat-label" id="filteredLabel">Results (this page)</p>
+            </div>
+            <div class="stat-card">
+                <p class="stat-number" id="pubmedCount">0</p>
+                <p class="stat-label" id="pubmedLabel">PubMed (this page)</p>
+            </div>
+            <div class="stat-card">
+                <p class="stat-number" id="arxivCount">0</p>
+                <p class="stat-label" id="arxivLabel">arXiv (this page)</p>
+            </div>
+        </div>
+        
+        <div id="loading" class="loading">
+            <h3>Loading research papers...</h3>
+            <p>Fetching paper metadata from the CopernicusAI API</p>
+        </div>
+        
+        <div id="error" class="error" style="display: none;">
+            <h3>❌ Error Loading Data</h3>
+            <p id="errorMessage">Could not fetch paper metadata. Please check your connection and try again.</p>
+        </div>
+        
+        <div id="content" style="display: none;">
+            <div class="table-container">
+                <table id="papersTable">
+                    <thead>
+                        <tr>
+                            <th onclick="sortTable('title')">Title ↕</th>
+                            <th onclick="sortTable('authors')">Authors ↕</th>
+                            <th onclick="sortTable('journal')">Journal ↕</th>
+                            <th onclick="sortTable('year')">Year ↕</th>
+                            <th onclick="sortTable('source')">Source ↕</th>
+                            <th>Abstract Preview</th>
+                            <th>Links</th>
+                        </tr>
+                    </thead>
+                    <tbody id="papersTableBody">
+                        <!-- Papers will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="pagination" id="pagination">
+                <button id="prevBtn" onclick="changePage(-1)">← Previous</button>
+                <span class="pagination-info" id="pageInfo">Page 1 of 1</span>
+                <button id="nextBtn" onclick="changePage(1)">Next →</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE_URL = 'https://copernicus-podcast-api-phzp4ie2sq-uc.a.run.app';
+
+        let allPapers = [];          // current in-memory dataset (either a single page, or search results)
+        let filteredPapers = [];
+        let currentPage = 1;
+        const itemsPerPage = 50;     // UI page size
+        let totalPapersServer = 0;   // server-reported total (browse mode)
+        let totalPagesServer = 1;
+        let isSearchMode = false;    // when true, we show semantic results and disable server paging
+        let currentSort = { column: 'year', direction: 'desc' };
+
+        async function _fetchJson(url) {
+            const res = await fetch(url, { cache: 'no-store' });
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            return await res.json();
+        }
+
+        function _paperFromBrowseItem(item) {
+            const md = item.metadata || {};
+            return {
+                id: item.id,
+                title: item.title,
+                authors: md.authors || [],
+                abstract: item.abstract || item.description || '',
+                journal: item.journal || '',
+                year: item.year || '',
+                source: item.source || (item.sources ? item.sources[0] : '') || '',
+                doi: item.doi || null,
+                pmid: item.pmid || null,
+                url: item.url || null,
+                category: item.discipline || '',
+                keywords: item.keywords || [],
+            };
+        }
+
+        async function loadBrowsePage(page) {
+            isSearchMode = false;
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('error').style.display = 'none';
+            document.getElementById('content').style.display = 'none';
+
+            const limit = itemsPerPage;
+            const data = await _fetchJson(`${API_BASE_URL}/api/content/browse?content_type=papers&page=${page}&limit=${limit}`);
+            totalPapersServer = data?.pagination?.total || 0;
+            totalPagesServer = data?.pagination?.pages || 1;
+            currentPage = data?.pagination?.page || page;
+
+            allPapers = (data.items || []).map(_paperFromBrowseItem);
+            filteredPapers = [...allPapers];
+        }
+
+        async function loadSearchResults(query) {
+            isSearchMode = true;
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('error').style.display = 'none';
+            document.getElementById('content').style.display = 'none';
+
+            const url = `${API_BASE_URL}/api/vector-search/semantic?query=${encodeURIComponent(query)}&content_types=papers&limit=100`;
+            const data = await _fetchJson(url);
+            allPapers = (data.papers || []).map(p => ({
+                id: p.paper_id || p.id,
+                title: p.title || 'Untitled',
+                authors: p.authors || [],
+                abstract: p.abstract || '',
+                journal: p.journal || p.journal_full || '',
+                year: (p.published_at || p.published_date || '').toString().slice(0, 4),
+                source: (Array.isArray(p.sources) && p.sources.length ? p.sources[0] : p.source) || '',
+                doi: p.doi || null,
+                pmid: p.pmid || null,
+                url: p.url || null,
+                category: p.discipline || '',
+                keywords: p.keywords || [],
+            }));
+            filteredPapers = [...allPapers];
+            currentPage = 1;
+            totalPapersServer = allPapers.length;
+            totalPagesServer = Math.ceil(allPapers.length / itemsPerPage) || 1;
+        }
+
+        // Load initial data (live, paged)
+        async function loadPapers() {
+            try {
+                await loadBrowsePage(1);
+                updateStats();
+                // In browse mode we don't have a global year list without scanning everything; leave year filter empty.
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('content').style.display = 'block';
+                applyFilters();
+            } catch (error) {
+                console.error('Error loading papers:', error);
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('error').style.display = 'block';
+                document.getElementById('errorMessage').textContent =
+                    `Could not load papers from the API (Error: ${error.message}).`;
+            }
+        }
+
+        function populateYearFilter() {
+            // Kept for backwards-compat; we don't populate years in paged mode.
+        }
+
+        function updateStats() {
+            document.getElementById('totalPapers').textContent = (totalPapersServer || allPapers.length).toLocaleString();
+            document.getElementById('filteredPapers').textContent = filteredPapers.length.toLocaleString();
+
+            const pubmed = filteredPapers.filter(p => (p.source || '').toLowerCase() === 'pubmed').length;
+            const arxiv = filteredPapers.filter(p => (p.source || '').toLowerCase() === 'arxiv').length;
+            document.getElementById('pubmedCount').textContent = pubmed.toLocaleString();
+            document.getElementById('arxivCount').textContent = arxiv.toLocaleString();
+
+            // Make the stats honest about scope:
+            // - Browse mode loads one server page at a time (limit=50), so counts are "this page".
+            // - Search mode loads up to 100 results client-side, so counts are "search results".
+            const filteredLabel = document.getElementById('filteredLabel');
+            const pubmedLabel = document.getElementById('pubmedLabel');
+            const arxivLabel = document.getElementById('arxivLabel');
+            if (filteredLabel && pubmedLabel && arxivLabel) {
+                if (isSearchMode) {
+                    filteredLabel.textContent = 'Results (search results)';
+                    pubmedLabel.textContent = 'PubMed (search results)';
+                    arxivLabel.textContent = 'arXiv (search results)';
+                } else {
+                    filteredLabel.textContent = 'Results (this page)';
+                    pubmedLabel.textContent = 'PubMed (this page)';
+                    arxivLabel.textContent = 'arXiv (this page)';
+                }
+            }
+        }
+
+        async function applyFilters() {
+            const searchTerm = document.getElementById('searchBox').value.toLowerCase();
+            const sourceFilter = document.getElementById('sourceFilter').value;
+            const categoryFilter = document.getElementById('categoryFilter').value;
+            const yearFilter = document.getElementById('yearFilter').value;
+            const sortBy = document.getElementById('sortBy').value;
+
+            // If user is searching, fetch semantic results (more useful than scanning only the current page).
+            if (searchTerm && searchTerm.length >= 3) {
+                try {
+                    await loadSearchResults(searchTerm);
+                } catch (e) {
+                    // If search fails, fall back to filtering whatever we have loaded.
+                    isSearchMode = false;
+                }
+            } else if (isSearchMode) {
+                // Leaving search mode: return to browsing page 1
+                await loadBrowsePage(1);
+            }
+
+            filteredPapers = allPapers.filter(paper => {
+                // Search filter
+                if (searchTerm && !isSearchMode) {
+                    const searchable = [
+                        paper.title || '',
+                        (paper.authors || []).join(' '),
+                        paper.abstract || '',
+                        (paper.keywords || []).join(' ')
+                    ].join(' ').toLowerCase();
+                    if (!searchable.includes(searchTerm)) return false;
+                }
+                
+                // Source filter
+                if (sourceFilter && paper.source !== sourceFilter) return false;
+                
+                // Category filter
+                if (categoryFilter && paper.category !== categoryFilter) return false;
+                
+                // Year filter
+                if (yearFilter && paper.year !== yearFilter) return false;
+                
+                return true;
+            });
+
+            // Sort
+            sortPapers(sortBy);
+            
+            currentPage = 1;
+            updateStats();
+            renderTable();
+        }
+
+        function sortPapers(sortBy) {
+            filteredPapers.sort((a, b) => {
+                let aVal, bVal;
+                
+                switch(sortBy) {
+                    case 'year_desc':
+                        aVal = parseInt(a.year) || 0;
+                        bVal = parseInt(b.year) || 0;
+                        return bVal - aVal;
+                    case 'year_asc':
+                        aVal = parseInt(a.year) || 0;
+                        bVal = parseInt(b.year) || 0;
+                        return aVal - bVal;
+                    case 'title_asc':
+                        return (a.title || '').localeCompare(b.title || '');
+                    case 'title_desc':
+                        return (b.title || '').localeCompare(a.title || '');
+                    default:
+                        return 0;
+                }
+            });
+        }
+
+        function sortTable(column) {
+            // Toggle sort direction
+            if (currentSort.column === column) {
+                currentSort.direction = currentSort.direction === 'asc' ? 'desc' : 'asc';
+            } else {
+                currentSort.column = column;
+                currentSort.direction = 'asc';
+            }
+            
+            filteredPapers.sort((a, b) => {
+                let aVal = a[column] || '';
+                let bVal = b[column] || '';
+                
+                if (Array.isArray(aVal)) aVal = aVal.join(', ');
+                if (Array.isArray(bVal)) bVal = bVal.join(', ');
+                
+                const comparison = String(aVal).localeCompare(String(bVal));
+                return currentSort.direction === 'asc' ? comparison : -comparison;
+            });
+            
+            currentPage = 1;
+            renderTable();
+        }
+
+        function renderTable() {
+            const tbody = document.getElementById('papersTableBody');
+            tbody.innerHTML = '';
+            
+            const start = (currentPage - 1) * itemsPerPage;
+            const end = start + itemsPerPage;
+            const pagePapers = filteredPapers.slice(start, end);
+            
+            pagePapers.forEach(paper => {
+                const row = document.createElement('tr');
+                
+                const title = paper.title || 'Untitled';
+                const authors = Array.isArray(paper.authors) ? paper.authors.join(', ') : (paper.author_string || 'Unknown');
+                const journal = paper.journal || paper.journal_full || 'Unknown';
+                const year = paper.year || 'N/A';
+                const source = paper.source || 'unknown';
+                const abstract = paper.abstract || '';
+                const abstractPreview = abstract.length > 200 ? abstract.substring(0, 200) + '...' : abstract;
+                
+                // Build URL
+                let url = '#';
+                if (paper.doi) {
+                    url = `https://doi.org/${paper.doi}`;
+                } else if (paper.url) {
+                    url = paper.url;
+                } else if (paper.pmid) {
+                    url = `https://pubmed.ncbi.nlm.nih.gov/${paper.pmid}`;
+                }
+                
+                row.innerHTML = `
+                    <td class="paper-title">
+                        <a href="${url}" target="_blank">${title}</a>
+                    </td>
+                    <td class="authors">${authors}</td>
+                    <td class="journal">${journal}</td>
+                    <td class="year">${year}</td>
+                    <td><span class="source-badge source-${source}">${source}</span></td>
+                    <td class="abstract-preview">${abstractPreview}</td>
+                    <td>
+                        ${paper.doi ? `<a href="https://doi.org/${paper.doi}" target="_blank" title="DOI">DOI</a>` : ''}
+                        ${paper.pmid ? `<a href="https://pubmed.ncbi.nlm.nih.gov/${paper.pmid}" target="_blank" title="PubMed">PubMed</a>` : ''}
+                        ${paper.url && !paper.doi && !paper.pmid ? `<a href="${paper.url}" target="_blank">Link</a>` : ''}
+                    </td>
+                `;
+                
+                tbody.appendChild(row);
+            });
+            
+            // Update pagination
+            const totalPages = Math.ceil(filteredPapers.length / itemsPerPage) || 1;
+            const modeLabel = isSearchMode ? 'Search results' : 'Browse';
+            document.getElementById('pageInfo').textContent =
+                `${modeLabel}: Page ${currentPage} of ${totalPages} (${filteredPapers.length.toLocaleString()} papers shown)` +
+                (isSearchMode ? '' : ` • Total in DB: ${(totalPapersServer || 0).toLocaleString()}`);
+            document.getElementById('prevBtn').disabled = currentPage === 1;
+            document.getElementById('nextBtn').disabled = currentPage >= totalPages;
+        }
+
+        async function changePage(delta) {
+            // In browse mode, change pages via the API; in search mode, we paginate locally.
+            if (!isSearchMode) {
+                const newPage = currentPage + delta;
+                if (newPage >= 1 && newPage <= totalPagesServer) {
+                    try {
+                        await loadBrowsePage(newPage);
+                        filteredPapers = [...allPapers];
+                        updateStats();
+                        renderTable();
+                        document.getElementById('loading').style.display = 'none';
+                        document.getElementById('content').style.display = 'block';
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                        return;
+                    } catch (e) {
+                        console.error('Failed to page:', e);
+                    }
+                }
+            }
+            const totalPages = Math.ceil(filteredPapers.length / itemsPerPage) || 1;
+            const newPage = currentPage + delta;
+            if (newPage >= 1 && newPage <= totalPages) {
+                currentPage = newPage;
+                renderTable();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        // Event listeners
+        let _searchDebounce = null;
+        document.getElementById('searchBox').addEventListener('input', () => {
+            clearTimeout(_searchDebounce);
+            _searchDebounce = setTimeout(() => applyFilters(), 300);
+        });
+        document.getElementById('sourceFilter').addEventListener('change', applyFilters);
+        document.getElementById('categoryFilter').addEventListener('change', applyFilters);
+        document.getElementById('yearFilter').addEventListener('change', applyFilters);
+        document.getElementById('sortBy').addEventListener('change', () => {
+            applyFilters();
+        });
+
+        // Initial load
+        loadPapers();
+    </script>
+</body>
+</html>

@@ -1,7 +1,11 @@
 import NextAuth from 'next-auth'
 import GoogleProvider from 'next-auth/providers/google'
+import { NextResponse } from 'next/server'
 
-const handler = NextAuth({
+// Check if NextAuth is properly configured
+const isConfigured = process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET
+
+const handler = isConfigured ? NextAuth({
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
@@ -34,6 +38,19 @@ const handler = NextAuth({
   session: {
     strategy: 'jwt',
   },
-})
+}) : null
 
-export { handler as GET, handler as POST }
+// If not configured, return empty responses
+export async function GET(request: Request) {
+  if (!handler) {
+    return NextResponse.json({ error: 'NextAuth not configured' }, { status: 503 })
+  }
+  return handler(request as any)
+}
+
+export async function POST(request: Request) {
+  if (!handler) {
+    return NextResponse.json({ error: 'NextAuth not configured' }, { status: 503 })
+  }
+  return handler(request as any)
+}

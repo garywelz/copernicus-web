@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2601.09014v1",
+  "arxiv_id": "2601.09014v1",
+  "title": "Impact of control signal phase noise on qubit fidelity",
+  "authors": [
+    "Agata Barsotti",
+    "Paolo Marconcini",
+    "Gregorio Procissi",
+    "Massimo Macucci"
+  ],
+  "author_string": "Agata Barsotti, Paolo Marconcini, Gregorio Procissi, Massimo Macucci",
+  "journal": "arXiv:2601.09014v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "As qubit decoherence times are increased and readout technologies are improved, nonidealities in the drive signals, such as phase noise, are going to represent a growing limitation to the fidelity achievable at the end of complex control pulse sequencies. Here we study the impact on fidelity of phase noise affecting reference oscillators with the help of numerical simulations, which allow us to directly take into account the interaction between the phase fluctuations in the control signals and the evolution of the qubit state. Our method is based on the generation of phase noise realizations consistent with a given power spectral density, that are then applied to the pulse carrier in simulations, with Qiskit-Dynamics, of the qubit temporal evolution. By comparing the final state obtained at the end of a noisy pulse sequence with that in the ideal case and averaging over multiple noise realizations, we estimate the resulting degradation in fidelity, and exploiting an approximate analytical representation of a carrier affected by phase fluctuations, we discuss the contributions of the different spectral components of phase noise.",
+  "categories": [
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": null,
+  "published_date": "2026-01-13T22:32:48Z",
+  "updated_date": "2026-01-13T22:32:48Z",
+  "url": "https://arxiv.org/abs/2601.09014v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.09014v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:06.566905",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph"
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "id": "crossref_10.3390_s26020525",
+  "doi": "10.3390/s26020525",
+  "title": "Bioinformatics-Inspired IMU Stride Sequence Modeling for Fatigue Detection Using Spectral–Entropy Features and Hybrid AI in Performance Sports",
+  "authors": [
+    "Biró, Attila",
+    "Kovács, Levente",
+    "Szilágyi, László"
+  ],
+  "author_string": "Biró, Attila, Kovács, Levente, Szilágyi, László",
+  "journal": "Sensors",
+  "issn": "1424-8220",
+  "issn_type": "electronic",
+  "volume": "26",
+  "issue": "2",
+  "page": "525",
+  "year": "2026",
+  "publisher": "MDPI AG",
+  "language": "en",
+  "abstract": "Wearable inertial measurement units (IMUs) provide an accessible means of monitoring fatigue-related changes in running biomechanics, yet most existing methods rely on limited feature sets, lack personalization, or fail to generalize across individuals. This study introduces a bioinformatics-inspired stride sequence modeling framework that integrates spectral–entropy features, sample entropy, frequency-domain descriptors, and mixed-effects statistical modeling to detect fatigue using a single lumbar-mounted IMU. Nineteen recreational runners completed non-fatigued and fatigued 400 m runs, from which we extracted stride-level features and evaluated (1) population-level fatigue classification via global leave-one-participant-out (LOPO) models and (2) individualized fatigue detection through supervised participant-specific models and non-fatigued-only anomaly detection. Mixed-effects models revealed robust and multidimensional fatigue effects across key biomechanical features, with large standardized effect sizes (Cohen’s d up to 1.35) and substantial variance uniquely explained by fatigue (partial R2 up to 0.31). Global LOPO machine learning models achieved modest accuracy (55%), highlighting strong inter-individual variability. In contrast, personalized supervised Random Forest classifiers achieved near-perfect performance (mean accuracy 97.7%; mean AUC 0.997), and NF-only One-Class SVMs detected fatigue as a deviation from individual baseline patterns (mean AUC 0.967). Entropy and stride-to-stride variability metrics further demonstrated consistent fatigue-linked increases in movement irregularity and reduced neuromuscular control. These findings show that IMU stride sequences contain highly informative, fatigue-sensitive biomechanical signatures, and that combining bioinformatics-inspired sequence analysis with hybrid statistical and personalized AI models enables both robust population-level insights and highly reliable individualized fatigue monitoring. The proposed framework supports future integration into sports analytics platforms, digital coaching systems, and real-time wearable fatigue detection technologies. This highlights the necessity of personalized fatigue-monitoring strategies in wearable systems.",
+  "subjects": [],
+  "keywords": [],
+  "article_type": "journal-article",
+  "citation_count": 0,
+  "url": "https://doi.org/10.3390/s26020525",
+  "source": "crossref",
+  "acquired_date": "2026-02-03T13:07:09.223916",
+  "category": "interdisciplinary",
+  "subcategories": []
+}

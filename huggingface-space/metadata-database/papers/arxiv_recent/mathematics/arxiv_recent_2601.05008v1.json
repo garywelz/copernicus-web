@@ -1,0 +1,30 @@
+{
+  "id": "arxiv_2601.05008v1",
+  "arxiv_id": "2601.05008v1",
+  "title": "Critical blow-up curve in a two-species chemotaxis system with two chemicals involving flux-limitation",
+  "authors": [
+    "Ziyue Zeng",
+    "Yuxiang Li"
+  ],
+  "author_string": "Ziyue Zeng, Yuxiang Li",
+  "journal": "arXiv:2601.05008v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We investigate the following two-species chemotaxis system with two chemicals involving flux-limitation \\begin{align}\\tag{$\\star$} \\begin{cases} u_t = Δu - \\nabla \\cdot \\left(u(1+|\\nabla v|^2)^{-\\frac{p}{2}}\\nabla v\\right), & x \\in Ω, \\ t > 0, \\\\ 0 = Δv - μ_w + w, \\quad μ_{w}=f_Ω w, & x \\in Ω, \\ t > 0, \\\\ w_t = Δw - \\nabla \\cdot \\left(w (1+|\\nabla z|^2)^{-\\frac{q}{2}} \\nabla z\\right), & x \\in Ω, \\ t > 0, \\\\ 0 = Δz - μ_u + u, \\quad μ_{u}=f_Ω u, & x \\in Ω, \\ t > 0, \\\\ \\frac{\\partial u}{\\partial ν} = \\frac{\\partial v}{\\partial ν} = \\frac{\\partial w}{\\partial ν} = \\frac{\\partial z}{\\partial ν} = 0, & x \\in \\partial Ω, \\ t > 0, \\\\ u(x, 0) = u_0(x), \\quad w(x, 0) = w_0(x), & x \\in Ω, \\end{cases} \\end{align} where $p,q \\in \\mathbb{R}$ and $Ω\\subset \\mathbb{R}^n$ is a smooth bounded domain. In this paper, we identify a critical blow-up curve ( i.e $p=\\frac{n-2}{n-1}$ and $q=\\frac{n-2}{n-1}$ in the square $(0,\\frac{n-2}{n-1}] \\times (0,\\frac{n-2}{n-1}]$) for system ($\\star$) with $n\\geq 3$ and $p,q>0$. Specifically, \\begin{itemize}   \\item when $Ω=B_R(0) \\subset \\mathbb{R}^n$ with $n\\geq 3$, if $0<p<\\frac{n-2}{n-1}$ and $0<q<\\frac{n-2}{n-1}$, there exist radially symmetric initial data such that the corresponding solution blows up in finite time;   \\item for any general smooth bounded domain, if either $n=1$ ( with $p,q \\in \\mathbb{R}$ arbitrary) or $n\\geq 2$ with $p>\\frac{n-2}{n-1}$ or $q>\\frac{n-2}{n-1}$, then solutions exist globally and remain bounded. \\end{itemize}",
+  "categories": [
+    "math.AP"
+  ],
+  "primary_category": "math.AP",
+  "comment": null,
+  "published_date": "2026-01-08T15:08:16Z",
+  "updated_date": "2026-01-08T15:08:16Z",
+  "url": "https://arxiv.org/abs/2601.05008v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.05008v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:26.898637",
+  "category": "mathematics",
+  "subcategories": [
+    "math.AP"
+  ]
+}

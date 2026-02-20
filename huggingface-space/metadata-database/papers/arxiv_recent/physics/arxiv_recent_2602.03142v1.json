@@ -1,0 +1,41 @@
+{
+  "id": "arxiv_2602.03142v1",
+  "arxiv_id": "2602.03142v1",
+  "title": "Intrinsically DRC-Compliant Nanophotonic Design via Learned Generative Manifolds",
+  "authors": [
+    "Bahrem Serhat Danis",
+    "Demet Baldan Desdemir",
+    "Enes Akcakoca",
+    "Zeynep Ipek Yanmaz",
+    "Gulzade Polat",
+    "Ahmet Onur Dasdemir",
+    "Aytug Aydogan",
+    "Abdullah Magden",
+    "Emir Salih Magden"
+  ],
+  "author_string": "Bahrem Serhat Danis, Demet Baldan Desdemir, Enes Akcakoca, Zeynep Ipek Yanmaz, Gulzade Polat et al.",
+  "journal": "arXiv:2602.03142v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Inverse design has enabled the systematic design of ultra-compact and high-performance nanophotonic components. Yet enforcing foundry design rules during inverse design remains a major challenge, as optimized devices frequently violate constraints on minimum feature size and spacing. Existing fabrication-constrained approaches typically rely on penalty terms, projection filters, or heuristic binarization schedules, which restrict the accessible design space, require extensive hyperparameter tuning, and often fail to guarantee compliance throughout the optimization trajectory. Here, we introduce a framework for nanophotonic inverse design with intrinsic enforcement of design rules through a generative reparameterization of the design space, restricting optimization to a learned manifold of DRC-compliant geometries. We validate this paradigm by designing representative silicon photonic components including broadband power splitters, spectral duplexers, and mode converters operating across the 1,500-1,600 nm band for both electron-beam lithography and photolithography platforms. Across all devices, the manifold-based formulation reaches state-of-the-art performance metrics with over a 5-fold reduction in computational cost compared to pixel-based representations, while ensuring fabrication-compatible geometries throughout the entire design process. By treating fabrication constraints as a fundamental property of the design representation rather than an external penalty, this work establishes a direct pathway toward broadly applicable, platform-agnostic, and intrinsically DRC-compliant nanophotonics.",
+  "categories": [
+    "physics.optics",
+    "physics.app-ph",
+    "physics.comp-ph"
+  ],
+  "primary_category": "physics.comp-ph",
+  "comment": null,
+  "published_date": "2026-02-03T05:54:51Z",
+  "updated_date": "2026-02-03T05:54:51Z",
+  "url": "https://arxiv.org/abs/2602.03142v1",
+  "pdf_url": "https://arxiv.org/pdf/2602.03142v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-02-04T07:47:31.296483",
+  "category": "physics",
+  "subcategories": [
+    "physics.optics",
+    "physics.app-ph",
+    "physics.comp-ph"
+  ]
+}

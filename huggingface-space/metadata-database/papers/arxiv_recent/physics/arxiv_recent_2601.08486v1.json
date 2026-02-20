@@ -1,0 +1,38 @@
+{
+  "id": "arxiv_2601.08486v1",
+  "arxiv_id": "2601.08486v1",
+  "title": "Multi-Task Fine-Tuning Enables Robust Out-of-Distribution Generalization in Atomistic Models",
+  "authors": [
+    "Chengqian Zhang",
+    "Duo Zhang",
+    "Anyang Peng",
+    "Mingyu Guo",
+    "Yuzhi Zhang",
+    "Lei Wang",
+    "Guolin Ke",
+    "Linfeng Zhang",
+    "Tiejun Li",
+    "Han Wang"
+  ],
+  "author_string": "Chengqian Zhang, Duo Zhang, Anyang Peng, Mingyu Guo, Yuzhi Zhang et al.",
+  "journal": "arXiv:2601.08486v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Accurate de novo molecular and materials design requires structure-property models that generalize beyond known regimes. Although pretrained atomistic models achieve strong in-distribution accuracy after fine-tuning, their reliability under out-of-distribution (OOD) conditions remains unclear. We identify a critical failure mode in downstream adaptation: standard fine-tuning induces representation collapse, erasing pretrained chemical and structural priors and severely degrading OOD performance. To address this limitation, we propose multi-task fine-tuning (MFT), which jointly optimizes downstream property prediction with a physically grounded force-field objective inherited from pretraining. This approach preserves essential chemical priors while enabling task-specific adaptation. Across molecular and materials benchmarks, MFT consistently improves OOD generalization, approaching the theoretical limit set by in-distribution accuracy, while outperforming standard fine-tuning, training from scratch, and state-of-the-art task-specific models. These results establish safe adaptation as a central requirement for large atomistic models and position MFT as a practical and data-efficient pathway toward robust molecular and materials discovery.",
+  "categories": [
+    "physics.comp-ph"
+  ],
+  "primary_category": "physics.comp-ph",
+  "comment": null,
+  "published_date": "2026-01-13T12:19:55Z",
+  "updated_date": "2026-01-13T12:19:55Z",
+  "url": "https://arxiv.org/abs/2601.08486v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.08486v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:10.462878",
+  "category": "physics",
+  "subcategories": [
+    "physics.comp-ph"
+  ]
+}

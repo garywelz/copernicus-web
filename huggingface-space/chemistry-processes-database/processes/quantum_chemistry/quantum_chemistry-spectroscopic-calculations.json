@@ -1,0 +1,91 @@
+{
+  "id": "quantum_chemistry-spectroscopic-calculations",
+  "name": "Spectroscopic Calculations",
+  "category": "chemistry",
+  "subcategory": "quantum_chemistry",
+  "subcategory_name": "Quantum Chemistry",
+  "description": "Spectroscopic Calculations process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 26,
+    "edges": 22,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 1,
+      "total": 1
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nA5[Molecular System] --> B5[Spectroscopic Calculation Method]\nC5[Quantum States] --> D5[Transition Analysis]\nE5[Spectroscopic Properties] --> F5[Calculation Setup]\nB5 --> G5[State Preparation]\nD5 --> H5[Transition Selection]\nF5 --> I5[Computational Parameters]\nG5 --> J5[Initial State]\nH5 --> K5[Transition Rules]\nI5 --> L5[Calculation Setup]\nJ5 --> M5[State Characterization]\nK5 --> L5\nL5 --> N5[Spectroscopic Calculation]\nM5 --> O5[Property Calculation]\nN5 --> P5[Transition Analysis]\nO5 --> Q5[Quantum Analysis]\nP5 --> R5[Spectroscopic Properties]\nQ5 --> S5[Property Analysis]\nR5 --> T5[Spectroscopic Features]\nS5 --> U5[Intensity Calculation]\nT5 --> V5[Feature Analysis]\nU5 --> W5[Spectroscopic Efficiency]\nV5 --> X5[Spectroscopic Characterization]\nW5 --> Y5[Process Optimization]\nX5 --> Z5[Final Spectroscopic Properties]\nY5 --> Z5\n\n    style A5 fill:#ff6b6b,color:#fff\n    style C5 fill:#ff6b6b,color:#fff\n    style E5 fill:#ff6b6b,color:#fff\n    style B5 fill:#ffd43b,color:#000\n    style D5 fill:#ffd43b,color:#000\n    style F5 fill:#ffd43b,color:#000\n    style G5 fill:#ffd43b,color:#000\n    style H5 fill:#ffd43b,color:#000\n    style I5 fill:#ffd43b,color:#000\n    style J5 fill:#ffd43b,color:#000\n    style K5 fill:#ffd43b,color:#000\n    style L5 fill:#ffd43b,color:#000\n    style M5 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style O5 fill:#51cf66,color:#fff\n    style P5 fill:#51cf66,color:#fff\n    style Q5 fill:#51cf66,color:#fff\n    style R5 fill:#51cf66,color:#fff\n    style S5 fill:#51cf66,color:#fff\n    style T5 fill:#51cf66,color:#fff\n    style U5 fill:#51cf66,color:#fff\n    style V5 fill:#51cf66,color:#fff\n    style W5 fill:#51cf66,color:#fff\n    style X5 fill:#51cf66,color:#fff\n    style Y5 fill:#51cf66,color:#fff\n    style Z5 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Spectroscopic Calculations. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "Spectroscopic Calculations Using Computer Software: Winmostar",
+      "authors": "Ali, Rajjab; Rafique, Sahid; Farooq Khan, Zia; Aadil, Muhammad; Ibrahim, Sobhy M.; Mahmoud, Khaled H.",
+      "journal": "Afinidad. Journal of Chemical Engineering Theoretical and Applied Chemistry",
+      "year": "2025",
+      "pubmed": null,
+      "doi": "10.55815/9800292",
+      "url": "https://doi.org/10.55815/9800292"
+    },
+    {
+      "title": "Analysis of NMR Spectroscopic Parameters",
+      "authors": "Autschbach, Jochen",
+      "journal": "NMR Spectroscopic Parameters",
+      "year": "2025",
+      "pubmed": null,
+      "doi": "10.1039/9781837678020-00303",
+      "url": "https://doi.org/10.1039/9781837678020-00303"
+    },
+    {
+      "title": "Highly Accurate Spectroscopic Parameters from Ab Initio Calculations",
+      "authors": "Stein, Christopher J.",
+      "journal": "",
+      "year": "2016",
+      "pubmed": null,
+      "doi": "10.1007/978-3-658-14830-0",
+      "url": "https://doi.org/10.1007/978-3-658-14830-0"
+    }
+  ],
+  "keywords": [
+    "spectroscopic",
+    "calculations"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+}

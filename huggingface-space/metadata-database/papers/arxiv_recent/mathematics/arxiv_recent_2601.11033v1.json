@@ -1,0 +1,30 @@
+{
+  "id": "arxiv_2601.11033v1",
+  "arxiv_id": "2601.11033v1",
+  "title": "Noise-resilient penalty operators based on statistical differentiation schemes",
+  "authors": [
+    "Marc Vidal",
+    "Yves Rosseel"
+  ],
+  "author_string": "Marc Vidal, Yves Rosseel",
+  "journal": "arXiv:2601.11033v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Penalized smoothing is a standard tool in regression analysis. Classical approaches often rely on basis or kernel expansions, which constrain the estimator to a fixed span and impose smoothness assumptions that may be restrictive for discretely observed data. We introduce a class of penalized estimators that operate directly on the data grid, denoising sampled trajectories under minimal smoothness assumptions by penalizing local roughness through statistically calibrated difference operators. Some distributional and asymptotic properties of sample-based contrast statistics associated with the resulting linear smoothers are established under Hellinger differentiability of the model, without requiring Fréchet differentiability in function space. Simulation results confirm that the proposed estimators perform competitively across both smooth and locally irregular settings.",
+  "categories": [
+    "math.ST"
+  ],
+  "primary_category": "math.ST",
+  "comment": "10 pages, 2 figures",
+  "published_date": "2026-01-16T06:56:56Z",
+  "updated_date": "2026-01-16T06:56:56Z",
+  "url": "https://arxiv.org/abs/2601.11033v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11033v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:41.978795",
+  "category": "mathematics",
+  "subcategories": [
+    "math.ST"
+  ]
+}

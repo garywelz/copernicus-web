@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2601.10083v1",
+  "arxiv_id": "2601.10083v1",
+  "title": "Starfield: Demand-Aware Satellite Topology Design for Low-Earth Orbit Mega Constellations",
+  "authors": [
+    "Shayan Hamidi Dehshali",
+    "Tzu-Hsuan Liao",
+    "Shaileshh Bojja Venkatakrishnan"
+  ],
+  "author_string": "Shayan Hamidi Dehshali, Tzu-Hsuan Liao, Shaileshh Bojja Venkatakrishnan",
+  "journal": "arXiv:2601.10083v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Low-Earth orbit (LEO) mega-constellations are emerging as high-capacity backbones for next-generation Internet. Deployment of laser terminals enables high-bandwidth, low-latency inter-satellite links (ISLs); however, their limited number, slow acquisition, and instability make forming a stable satellite topology difficult. Existing patterns like +Grid and Motif ignore regional traffic, ground station placement, and constellation geometry. Given sparse population distribution on Earth and the isolation of rural areas, traffic patterns are inherently non-uniform, providing an opportunity to orient inter-satellite links (ISLs) according to these traffic patterns. In this paper, we propose Starfield, a novel demand-aware satellite topology design heuristic algorithm supported by mathematical analysis. We first formulate a vector field on the constellation's shell according to traffic flows and define a corresponding Riemannian metric on the spherical manifold of the shell. The metric, combined with the spatial geometry, is used to assign a distance to each potential ISL, which we then aggregate over all demand flows to generate a heuristic for each satellite's link selection. Inspired by +Grid, each satellite selects the link with the minimum Riemannian heuristic along with its corresponding angular links. To evaluate Starfield, we developed a custom, link-aware, and link-configurable packet-level simulator, comparing it against +Grid and Random topologies. For the Phase 1 Starlink, simulation results show up to a 30% reduction in hop count and a 15% improvement in stretch factor across multiple traffic distributions. Moreover, static Starfield, an inter-orbital link matching modification of Starfield, achieves a 20% improvement in stretch factor under realistic traffic patterns compared to +Grid. Experiments further demonstrate Starfield's robustness under traffic demand perturbations.",
+  "categories": [
+    "cs.NI",
+    "cs.ET",
+    "math.DG"
+  ],
+  "primary_category": "math.DG",
+  "comment": "31 pages, 13 figures, 2 Tables, 1 Algorithm",
+  "published_date": "2026-01-15T05:15:44Z",
+  "updated_date": "2026-01-15T05:15:44Z",
+  "url": "https://arxiv.org/abs/2601.10083v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.10083v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:45.578069",
+  "category": "mathematics",
+  "subcategories": [
+    "cs.NI",
+    "cs.ET",
+    "math.DG"
+  ]
+}

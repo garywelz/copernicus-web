@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_1905.02828v1",
+  "arxiv_id": "1905.02828v1",
+  "title": "A SAT-based System for Consistent Query Answering",
+  "authors": [
+    "Akhil A. Dixit",
+    "Phokion G. Kolaitis"
+  ],
+  "author_string": "Akhil A. Dixit, Phokion G. Kolaitis",
+  "journal": "arXiv:1905.02828v1",
+  "journal_ref": null,
+  "year": "2019",
+  "doi": null,
+  "abstract": "An inconsistent database is a database that violates one or more integrity constraints, such as functional dependencies. Consistent Query Answering is a rigorous and principled approach to the semantics of queries posed against inconsistent databases. The consistent answers to a query on an inconsistent database is the intersection of the answers to the query on every repair, i.e., on every consistent database that differs from the given inconsistent one in a minimal way. Computing the consistent answers of a fixed conjunctive query on a given inconsistent database can be a coNP-hard problem, even though every fixed conjunctive query is efficiently computable on a given consistent database.   We designed, implemented, and evaluated CAvSAT, a SAT-based system for consistent query answering. CAvSAT leverages a set of natural reductions from the complement of consistent query answering to SAT and to Weighted MaxSAT. The system is capable of handling unions of conjunctive queries and arbitrary denial constraints, which include functional dependencies as a special case. We report results from experiments evaluating CAvSAT on both synthetic and real-world databases. These results provide evidence that a SAT-based approach can give rise to a comprehensive and scalable system for consistent query answering.",
+  "categories": [
+    "cs.DB",
+    "cs.LO"
+  ],
+  "primary_category": "cs.LO",
+  "comment": "25 pages including appendix, to appear in the 22nd International Conference on Theory and Applications of Satisfiability Testing",
+  "published_date": "2019-05-07T22:31:49Z",
+  "updated_date": "2019-05-07T22:31:49Z",
+  "url": "https://arxiv.org/abs/1905.02828v1",
+  "pdf_url": "https://arxiv.org/pdf/1905.02828v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:19.478509",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.DB",
+    "cs.LO"
+  ]
+}

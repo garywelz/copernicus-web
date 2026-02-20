@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_1809.10476v2",
+  "arxiv_id": "1809.10476v2",
+  "title": "Singular vector and singular subspace distribution for the matrix denoising model",
+  "authors": [
+    "Zhigang Bao",
+    "Xiucai Ding",
+    "Ke Wang"
+  ],
+  "author_string": "Zhigang Bao, Xiucai Ding, Ke Wang",
+  "journal": "arXiv:1809.10476v2",
+  "journal_ref": null,
+  "year": "2018",
+  "doi": null,
+  "abstract": "In this paper, we study the matrix denosing model $Y=S+X$, where $S$ is a low-rank deterministic signal matrix and $X$ is a random noise matrix, and both are $M\\times n$. In the scenario that $M$ and $n$ are comparably large and the signals are supercritical, we study the fluctuation of the outlier singular vectors of $Y$. More specifically, we derive the limiting distribution of angles between the principal singular vectors of $Y$ and their deterministic counterparts, the singular vectors of $S$. Further, we also derive the distribution of the distance between the subspace spanned by the principal singular vectors of $Y$ and that spanned by the singular vectors of $S$. It turns out that the limiting distributions depend on the structure of the singular vectors of $S$ and the distribution of $X$, and thus they are non-universal.",
+  "categories": [
+    "math.ST",
+    "math.PR"
+  ],
+  "primary_category": "math.PR",
+  "comment": "Final version. Accepted by the Annals of Statistics",
+  "published_date": "2018-09-27T12:09:00Z",
+  "updated_date": "2020-07-07T05:45:50Z",
+  "url": "https://arxiv.org/abs/1809.10476v2",
+  "pdf_url": "https://arxiv.org/pdf/1809.10476v2.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:00.035797",
+  "category": "mathematics",
+  "subcategories": [
+    "math.ST",
+    "math.PR"
+  ]
+}

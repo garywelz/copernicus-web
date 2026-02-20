@@ -1,0 +1,29 @@
+{
+  "id": "crossref_10.1038_s41598-018-20403-3",
+  "doi": "10.1038/s41598-018-20403-3",
+  "title": "Quantum ensembles of quantum classifiers",
+  "authors": [
+    "Schuld, Maria",
+    "Petruccione, Francesco"
+  ],
+  "author_string": "Schuld, Maria, Petruccione, Francesco",
+  "journal": "Scientific Reports",
+  "issn": "2045-2322",
+  "issn_type": "electronic",
+  "volume": "8",
+  "issue": "1",
+  "page": "",
+  "year": "2018",
+  "publisher": "Springer Science and Business Media LLC",
+  "language": "en",
+  "abstract": "AbstractQuantum machine learning witnesses an increasing amount of quantum algorithms for data-driven decision making, a problem with potential applications ranging from automated image recognition to medical diagnosis. Many of those algorithms are implementations of quantum classifiers, or models for the classification of data inputs with a quantum computer. Following the success of collective decision making with ensembles in classical machine learning, this paper introduces the concept of quantum ensembles of quantum classifiers. Creating the ensemble corresponds to a state preparation routine, after which the quantum classifiers are evaluated in parallel and their combined decision is accessed by a single-qubit measurement. This framework naturally allows for exponentially large ensembles in which – similar to Bayesian learning – the individual classifiers do not have to be trained. As an example, we analyse an exponentially large quantum ensemble in which each classifier is weighed according to its performance in classifying the training data, leading to new results for quantum as well as classical machine learning.",
+  "subjects": [],
+  "keywords": [],
+  "article_type": "journal-article",
+  "citation_count": 64,
+  "url": "https://doi.org/10.1038/s41598-018-20403-3",
+  "source": "crossref",
+  "acquired_date": "2026-01-19T10:54:08.398360",
+  "category": "interdisciplinary",
+  "subcategories": []
+}

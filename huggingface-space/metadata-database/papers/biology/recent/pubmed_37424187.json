@@ -1,0 +1,28 @@
+{
+  "id": "pubmed_37424187",
+  "pmid": "37424187",
+  "title": "Joint species distribution models with imperfect detection for high-dimensional spatial data.",
+  "authors": [
+    "Doser, Jeffrey W",
+    "Finley, Andrew O",
+    "Banerjee, Sudipto"
+  ],
+  "author_string": "Doser, Jeffrey W, Finley, Andrew O, Banerjee, Sudipto",
+  "journal": "Ecology",
+  "journal_full": "Ecology",
+  "year": "",
+  "doi": "10.1002/ecy.4137",
+  "abstract": "Determining the spatial distributions of species and communities is a key task in ecology and conservation efforts. Joint species distribution models are a fundamental tool in community ecology that use multi-species detection-nondetection data to estimate species distributions and biodiversity metrics. The analysis of such data is complicated by residual correlations between species, imperfect detection, and spatial autocorrelation. While many methods exist to accommodate each of these complexities, there are few examples in the literature that address and explore all three complexities simultaneously. Here we developed a spatial factor multi-species occupancy model to explicitly account for species correlations, imperfect detection, and spatial autocorrelation. The proposed model uses a spatial factor dimension reduction approach and Nearest Neighbor Gaussian Processes to ensure computational efficiency for data sets with both a large number of species (e.g., >100) and spatial locations (e.g., 100,000). We compared the proposed model performance to five alternative models, each addressing a subset of the three complexities. We implemented the proposed and alternative models in the spOccupancy software, designed to facilitate application via an accessible, well documented, and open-source R package. Using simulations, we found that ignoring the three complexities when present leads to inferior model predictive performance, and the impacts of failing to account for one or more complexities will depend on the objectives of a given study. Using a case study on 98 bird species across the continental US, the spatial factor multi-species occupancy model had the highest predictive performance among the alternative models. Our proposed framework, together with its implementation in spOccupancy, serves as a user-friendly tool to understand spatial variation in species distributions and biodiversity while addressing common complexities in multi-species detection-nondetection data.",
+  "keywords": [
+    "Bayesian",
+    "Nearest Neighbor Gaussian Process",
+    "latent factor",
+    "occupancy model"
+  ],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/37424187",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T17:02:21.226041",
+  "category": "biology",
+  "subcategories": []
+}

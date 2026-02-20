@@ -1,0 +1,34 @@
+{
+  "id": "pubmed_40292694",
+  "pmid": "40292694",
+  "title": "Classification of Mycena and <i>Marasmius</i> Species Using Deep Learning Models: An Ecological and Taxonomic Approach.",
+  "authors": [
+    "Ekinci, Fatih",
+    "Ugurlu, Guney",
+    "Ozcan, Giray Sercan",
+    "Acici, Koray",
+    "Asuroglu, Tunc",
+    "Kumru, Eda",
+    "Guzel, Mehmet Serdar",
+    "Akata, Ilgaz"
+  ],
+  "author_string": "Ekinci, Fatih, Ugurlu, Guney, Ozcan, Giray Sercan, Acici, Koray, Asuroglu, Tunc et al.",
+  "journal": "Sensors (Basel)",
+  "journal_full": "Sensors (Basel, Switzerland)",
+  "year": "",
+  "doi": "10.3390/s25061642",
+  "abstract": "Fungi play a critical role in ecosystems, contributing to biodiversity and providing economic and biotechnological value. In this study, we developed a novel deep learning-based framework for the classification of seven macrofungi species from the genera <i>Mycena</i> and <i>Marasmius</i>, leveraging their unique ecological and morphological characteristics. The proposed approach integrates a custom convolutional neural network (CNN) with a self-organizing map (SOM) adapted for supervised learning and a Kolmogorov-Arnold Network (KAN) layer to enhance classification performance. The experimental results demonstrate significant improvements in classification metrics when using the CNN-SOM and CNN-KAN architectures. Additionally, advanced pretrained models such as MaxViT-S and ResNetV2-50 achieved high accuracy rates, with MaxViT-S achieving 98.9% accuracy. Statistical analyses using the chi-square test confirmed the reliability of the results, emphasizing the importance of validating evaluation metrics statistically. This research represents the first application of SOM in fungal classification and highlights the potential of deep learning in advancing fungal taxonomy. Future work will focus on optimizing the KAN architecture and expanding the dataset to include more fungal classes, further enhancing classification accuracy and ecological understanding.",
+  "keywords": [
+    "MaxViT-Small",
+    "deep learning",
+    "machine learning",
+    "macrofungi classification",
+    "self-organizing maps"
+  ],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/40292694",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T17:02:10.552410",
+  "category": "biology",
+  "subcategories": []
+}

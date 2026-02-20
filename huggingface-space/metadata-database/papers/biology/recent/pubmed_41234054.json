@@ -1,0 +1,27 @@
+{
+  "id": "pubmed_41234054",
+  "pmid": "41234054",
+  "title": "Integrative Metabolic-Flux Platform for Analysis, Contextualization, and Targeting (IMPACT): bridging untargeted and targeted flux analysis.",
+  "authors": [
+    "Starke, Collin",
+    "Hendriks, Janneke",
+    "Wahrheit, Judith",
+    "Fluitman, Frank",
+    "Beekwilder, Jules",
+    "Schempp, Florence Miramella",
+    "Hiller, Karsten"
+  ],
+  "author_string": "Starke, Collin, Hendriks, Janneke, Wahrheit, Judith, Fluitman, Frank, Beekwilder, Jules et al.",
+  "journal": "Bioinformatics",
+  "journal_full": "Bioinformatics (Oxford, England)",
+  "year": "",
+  "doi": "10.1093/bioinformatics/btaf591",
+  "abstract": "The \"Integrative Metabolic-Flux Platform for Analysis, Contextualization, and Targeting\" (IMPACT) is a comprehensive, fully modular platform designed for both targeted and untargeted metabolomics analysis in stable-isotope labeling experiments. It facilitates the accurate calculation of mass isotopomer distributions (MIDs) and the annotation of unknown metabolites with a contextualization algorithm, addressing the challenges in metabolomics research. IMPACT integrates an entire preprocessing pipeline for LC-MS data, including peak picking, feature grouping, and peak filling, along with advanced features for isotope detection, MID calculation, and its core feature contextualization, enabling metabolite integration into biological pathway networks. The platform supports various file formats and offers user-friendly online access, making it accessible for researchers seeking to elucidate metabolic pathways and networks with precision and reliability. IMPACT is implemented in Python 3.9 and R 4.3.2, with a front-end in Javascript utilizing the Cytoscape.js library for data visualization. It is available as a docker container and can be accessed online at https://impact.bioinfo.nat.tu-bs.de, providing a user-friendly interface for metabolomics data analysis.",
+  "keywords": [],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/41234054",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T16:58:23.241053",
+  "category": "biology",
+  "subcategories": []
+}

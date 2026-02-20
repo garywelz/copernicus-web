@@ -1,0 +1,94 @@
+{
+  "id": "defense_immune-mimicry-process",
+  "name": "Mimicry Process",
+  "category": "biology",
+  "subcategory": "defense_immune",
+  "subcategory_name": "Defense & Immune Response",
+  "organism": "Animals",
+  "description": "Mimicry Process in Animals. This process represents a higher-level biological mechanism distinct from molecular/biochemical processes covered in GLMP.",
+  "complexity": {
+    "nodes": 11,
+    "edges": 11,
+    "conditionals": 1,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "low",
+    "detailLevel": "low"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\n    A27[Model Species] --> B27[Appearance Observation]\n    C27[Mimic Species] --> B27\n    B27 --> D27[Evolutionary Pressure]\n    D27 --> E27[Phenotypic Variation]\n    E27 --> F27{Successful Mimicry?}\n    F27 -->|Yes| G27[Selection Advantage]\n    F27 -->|No| H27[Predation Risk]\n    G27 --> I27[Mimicry Refinement]\n    H27 --> J27[Continued Selection]\n    I27 --> K27[Final Mimicry Pattern]\n    J27 --> E27\n    \n    style A27 fill:#ff6b6b,color:#fff\n    style C27 fill:#ff6b6b,color:#fff\n    style B27 fill:#ffd43b,color:#000\n    style D27 fill:#ff6b6b,color:#fff\n    style E27 fill:#ffd43b,color:#000\n    style F27 fill:#74c0fc,color:#fff\n    style G27 fill:#51cf66,color:#fff\n    style H27 fill:#51cf66,color:#fff\n    style I27 fill:#51cf66,color:#fff\n    style J27 fill:#74c0fc,color:#fff\n    style K27 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "notes": "Higher-level biological process visualization: Mimicry Process. Created using the Programming Framework methodology for organismal and ecological process analysis."
+    },
+    {
+      "title": "Mimicry: The Evolutionary Biology of a Phenotype",
+      "authors": "Mappes, J.; Van Grouw, L.A.; Van Someren, J.A.M.",
+      "journal": "Annu Rev Ecol Evol Syst",
+      "year": "2018",
+      "pubmed": "29928124",
+      "doi": "10.1146/annurev-ecolsys-121417-013143",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/29928124"
+    },
+    {
+      "title": "The adaptive radiation of Batesian mimicry",
+      "authors": "Joron, M.",
+      "journal": "Nature",
+      "year": "2008",
+      "pubmed": "18273003",
+      "doi": "10.1038/nature06684",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/18273003"
+    },
+    {
+      "title": "Mimicry: The evolutionary dynamics of an ecological interaction",
+      "authors": "Kikuchi, D.W.; Losos, J.B.",
+      "journal": "Proc Natl Acad Sci U S A",
+      "year": "2017",
+      "pubmed": "29013083",
+      "doi": "10.1073/pnas.1708160114",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/29013083"
+    }
+  ],
+  "keywords": [
+    "defense",
+    "response",
+    "animals",
+    "mimicry",
+    "immune",
+    "process"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-08",
+  "verified": false,
+  "notes": "Higher-level biological process. GLMP covers biochemical/molecular processes; this database covers organismal/ecological processes."
+}

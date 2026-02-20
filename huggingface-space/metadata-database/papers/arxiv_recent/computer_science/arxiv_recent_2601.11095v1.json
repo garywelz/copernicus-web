@@ -1,0 +1,30 @@
+{
+  "id": "arxiv_2601.11095v1",
+  "arxiv_id": "2601.11095v1",
+  "title": "Towards Quantum-Resistant Trusted Computing: Architectures for Post-Quantum Integrity Verification Techniques",
+  "authors": [
+    "Grazia D'Onghia",
+    "Antonio Lioy"
+  ],
+  "author_string": "Grazia D'Onghia, Antonio Lioy",
+  "journal": "IEEE Symposium on Computers and Communications (ISCC), 2025",
+  "journal_ref": "IEEE Symposium on Computers and Communications (ISCC), 2025",
+  "year": "2026",
+  "doi": "10.1109/ISCC65549.2025.11326490",
+  "abstract": "Trust is the core building block of secure systems, and it is enforced through methods to ensure that a specific system is properly configured and works as expected. In this context, a Root of Trust (RoT) establishes a trusted environment, where both data and code are authenticated via a digital signature based on asymmetric cryptography, which is vulnerable to the threat posed by Quantum Computers (QCs). Firmware, being the first layer of trusted software, faces unique risks due to its longevity and difficult update. The transition of firmware protection to Post-Quantum Cryptography (PQC) is urgent, since it reduces the risk derived from exposing all computing and network devices to quantum-based attacks. This paper offers an analysis of the most common trust techniques and their roadmap towards a Post-Quantum (PQ) world, by investigating the current status of PQC and the challenges posed by such algorithms in existing Trusted Computing (TC) solutions from an integration perspective. Furthermore, this paper proposes an architecture for TC techniques enhanced with PEC, addressing the imperative for immediate adoption of quantum-resistant algorithms.",
+  "categories": [
+    "cs.CR"
+  ],
+  "primary_category": "cs.CR",
+  "comment": "Author-accepted manuscript of a paper published in the IEEE Symposium on Computers and Communications (ISCC), 2025. DOI: 10.1109/ISCC65549.2025.11326490",
+  "published_date": "2026-01-16T08:52:09Z",
+  "updated_date": "2026-01-16T08:52:09Z",
+  "url": "https://arxiv.org/abs/2601.11095v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11095v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:33.863558",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CR"
+  ]
+}

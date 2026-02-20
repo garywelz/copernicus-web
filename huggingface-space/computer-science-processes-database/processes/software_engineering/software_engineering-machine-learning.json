@@ -1,0 +1,91 @@
+{
+  "id": "software_engineering-machine-learning",
+  "name": "Machine Learning",
+  "category": "computer_science",
+  "subcategory": "software_engineering",
+  "subcategory_name": "Software Engineering",
+  "description": "Machine Learning process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 26,
+    "edges": 21,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 1,
+      "total": 1
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nA1[Data Input] --> B1[Machine Learning Method]\nC1[Feature Engineering] --> D1[Model Training]\nE1[Model Evaluation] --> F1[Machine Learning Analysis]\nB1 --> G1[Supervised Learning]\nD1 --> H1[Unsupervised Learning]\nF1 --> I1[Reinforcement Learning]\nG1 --> J1[Classification Algorithm]\nH1 --> K1[Clustering Algorithm]\nI1 --> L1[Q Learning]\nJ1 --> M1[Model Optimization]\nK1 --> L1\nL1 --> N1[Policy Learning]\nM1 --> O1[Hyperparameter Tuning]\nN1 --> P1[Model Validation]\nO1 --> Q1[Machine Learning Process]\nP1 --> R1[Machine Learning Validation]\nQ1 --> S1[Machine Learning Verification]\nR1 --> T1[Machine Learning Result]\nS1 --> U1[Machine Learning Analysis]\nT1 --> V1[Machine Learning Parameters]\nU1 --> W1[Machine Learning Output]\nV1 --> X1[Machine Learning Analysis]\nW1 --> Y1[Machine Learning Final Result]\nX1 --> Z1[Machine Learning Complete]\n\n    style A1 fill:#ff6b6b,color:#fff\n    style C1 fill:#ff6b6b,color:#fff\n    style E1 fill:#ff6b6b,color:#fff\n    style B1 fill:#ffd43b,color:#000\n    style D1 fill:#ffd43b,color:#000\n    style F1 fill:#ffd43b,color:#000\n    style G1 fill:#ffd43b,color:#000\n    style H1 fill:#ffd43b,color:#000\n    style I1 fill:#ffd43b,color:#000\n    style J1 fill:#ffd43b,color:#000\n    style K1 fill:#ffd43b,color:#000\n    style L1 fill:#ffd43b,color:#000\n    style M1 fill:#51cf66,color:#fff\n    style N1 fill:#51cf66,color:#fff\n    style O1 fill:#51cf66,color:#fff\n    style P1 fill:#51cf66,color:#fff\n    style Q1 fill:#51cf66,color:#fff\n    style R1 fill:#51cf66,color:#fff\n    style S1 fill:#51cf66,color:#fff\n    style T1 fill:#51cf66,color:#fff\n    style U1 fill:#51cf66,color:#fff\n    style V1 fill:#51cf66,color:#fff\n    style W1 fill:#51cf66,color:#fff\n    style X1 fill:#51cf66,color:#fff\n    style Y1 fill:#51cf66,color:#fff\n    style Z1 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Machine Learning. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "Machine learning with sklearn",
+      "authors": "Trappenberg, Thomas P.",
+      "journal": "Fundamentals of Machine Learning",
+      "year": "2019",
+      "pubmed": null,
+      "doi": "10.1093/oso/9780198828044.003.0003",
+      "url": "https://doi.org/10.1093/oso/9780198828044.003.0003"
+    },
+    {
+      "title": "Optimization and Machine Learning",
+      "authors": "",
+      "journal": "",
+      "year": "2022",
+      "pubmed": null,
+      "doi": "10.1002/9781119902881",
+      "url": "https://doi.org/10.1002/9781119902881"
+    },
+    {
+      "title": "Machine learning",
+      "authors": "",
+      "journal": "Bayesian Reasoning and Machine Learning",
+      "year": "2012",
+      "pubmed": null,
+      "doi": "10.1017/cbo9780511804779.017",
+      "url": "https://doi.org/10.1017/cbo9780511804779.017"
+    }
+  ],
+  "keywords": [
+    "machine",
+    "learning"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+}

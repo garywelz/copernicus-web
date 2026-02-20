@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_1808.07794v2",
+  "arxiv_id": "1808.07794v2",
+  "title": "The Hermite-Hadamard inequality in higher dimensions",
+  "authors": [
+    "Stefan Steinerberger"
+  ],
+  "author_string": "Stefan Steinerberger",
+  "journal": "arXiv:1808.07794v2",
+  "journal_ref": null,
+  "year": "2018",
+  "doi": null,
+  "abstract": "The Hermite-Hadamard inequality states that the average value of a convex function on an interval is bounded from above by the average value of the function at the endpoints of the interval. We provide a generalization to higher dimensions: let $Ω\\subset \\mathbb{R}^n$ be a convex domain and let $f:Ω\\rightarrow \\mathbb{R}$ be a convex function satisfying $f \\big|_{\\partial Ω} \\geq 0$, then $$ \\frac{1}{|Ω|} \\int_Ω{f ~d \\mathcal{H}^n} \\leq \\frac{2 π^{-1/2} n^{n+1}}{|\\partial Ω|} \\int_{\\partial Ω}{f~d \\mathcal{H}^{n-1}}.$$ The constant $2 π^{-1/2} n^{n+1}$ is presumably far from optimal, however, it cannot be replaced by 1 in general. We prove slightly stronger estimates for the constant in two dimensions where we show that $9/8 \\leq c_2 \\leq 8$. We also show, for some universal constant $c>0$, if $Ω\\subset \\mathbb{R}^2$ is simply connected with smooth boundary, $f:Ω\\rightarrow \\mathbb{R}_{}$ is subharmonic, i.e. $Δf \\geq 0$, and $f \\big|_{\\partial Ω} \\geq 0$, then $$ \\int_Ω{f~ d \\mathcal{H}^2} \\leq c \\cdot \\mbox{inradius}(Ω) \\int_{\\partial Ω}{ f ~d\\mathcal{H}^{1}}.$$ We also prove that every domain $Ω\\subset \\mathbb{R}^n$ whose boundary is 'flat' at a certain scale $δ$ admits a Hermite-Hadamard inequality for all subharmonic functions with a constant depending only on the dimension, the measure $|Ω|$ and the scale $δ$.",
+  "categories": [
+    "math.CA",
+    "math.FA"
+  ],
+  "primary_category": "math.FA",
+  "comment": null,
+  "published_date": "2018-08-23T15:10:52Z",
+  "updated_date": "2018-11-13T22:15:55Z",
+  "url": "https://arxiv.org/abs/1808.07794v2",
+  "pdf_url": "https://arxiv.org/pdf/1808.07794v2.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:30:52.379856",
+  "category": "mathematics",
+  "subcategories": [
+    "math.CA",
+    "math.FA"
+  ]
+}

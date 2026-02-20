@@ -1,0 +1,36 @@
+{
+  "id": "pubmed_35337878",
+  "pmid": "35337878",
+  "title": "Bridging the gap between GRACE and GRACE-FO missions with deep learning aided water storage simulations.",
+  "authors": [
+    "Uz, Metehan",
+    "Atman, Kazım Gökhan",
+    "Akyilmaz, Orhan",
+    "Shum, C K",
+    "Keleş, Merve",
+    "Ay, Tuğçe",
+    "Tandoğdu, Bihter",
+    "Zhang, Yu",
+    "Mercan, Hüseyin"
+  ],
+  "author_string": "Uz, Metehan, Atman, Kazım Gökhan, Akyilmaz, Orhan, Shum, C K, Keleş, Merve et al.",
+  "journal": "Sci Total Environ",
+  "journal_full": "The Science of the total environment",
+  "year": "",
+  "doi": "10.1016/j.scitotenv.2022.154701",
+  "abstract": "The monthly high-resolution terrestrial water storage anomalies (TWSA) during the 11-months of gap between GRACE (Gravity Recovery And Climate Experiment) and its successor GRACE-FO (-Follow On) missions are missing. The continuity of the GRACE-like TWSA series with commensurate accuracy is of great importance for the improvement of hydrologic models both at global and regional scales. While previous efforts to bridge this gap, though without achieving GRACE-like spatial resolutions and/or accuracy have been performed, high-quality TWSA simulations at global scale are still lacking. Here, we use a suite of deep learning (DL) architectures, convolutional neural networks (CNN), deep convolutional autoencoders (DCAE), and Bayesian convolutional neural networks (BCNN), with training datasets including GRACE/-FO mascon and Swarm gravimetry, ECMWF Reanalysis-5 data, normalized time tag information to reconstruct global land TWSA maps, at a much higher resolution (100 km full wavelength) than that of GRACE/-FO, and effectively bridge the 11-month data gap globally. Contrary to previous studies, we applied no prior de-trending or de-seasoning to avoid biasing/aliasing the simulations induced by interannual or longer climate signals and extreme weather episodes. We show the contribution of Swarm and time inputs which significantly improved the TWSA simulations in particular for correct prediction of the trend component. Our results also show that external validation with independent data when filling large data gaps within spatio-temporal time series of geophysical signals is mandatory to maintain the robustness of the simulation results. The results and comparisons with previous studies and the adopted DL methods demonstrate the superior performance of DCAE. Validations of our DCAE-based TWSA simulations with independent datasets, including in situ groundwater level, Interferometric Synthetic Aperture Radar measured land subsidence rate (e.g. Central Valley), occurrence/timing of severe flash flood (e.g. South Asian Floods) and drought (e.g. Northern Great Plain, North America) events occurred within the gap, reveal excellent agreements.",
+  "keywords": [
+    "Deep learning neural networks",
+    "GRACE",
+    "GRACE-FO",
+    "Groundwater storage",
+    "Swarm",
+    "Terrestrial water storage anomaly"
+  ],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/35337878",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T17:02:31.436407",
+  "category": "biology",
+  "subcategories": []
+}

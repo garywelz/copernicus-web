@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2601.06294v1",
+  "arxiv_id": "2601.06294v1",
+  "title": "A Structure-Preserving Numerical Scheme for Optimal Control and Design of Mixing in Incompressible Flows",
+  "authors": [
+    "Weiwei Hu",
+    "Ziqian Li",
+    "Yubiao Zhang",
+    "Enrique Zuazua"
+  ],
+  "author_string": "Weiwei Hu, Ziqian Li, Yubiao Zhang, Enrique Zuazua",
+  "journal": "arXiv:2601.06294v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We develop a structure-preserving computational framework for optimal mixing control in incompressible flows. Our approach exactly conserves the continuous system's key invariants (mass and $L^2$-energy), while also maintaining discrete state-adjoint duality at every time step. These properties are achieved by integrating a centered finite-volume discretization in space with a time-symmetric Crank-Nicolson integrator for both the forward advection and its adjoint, all inside a gradient-based optimization loop. The result is a numerical solver that is faithful to the continuous optimality conditions and efficiently computes mixing-enhancing controls. In our numerical tests, the optimized time-dependent stirring produces a nearly exponential decay of a chosen mix-norm, achieving orders-of-magnitude faster mixing than any single steady flow. To our knowledge, this work provides the first evidence that enforcing physical structure at the discrete level can lead to both exact conservation and highly effective mixing outcomes in optimal flow design.",
+  "categories": [
+    "math.NA"
+  ],
+  "primary_category": "math.NA",
+  "comment": null,
+  "published_date": "2026-01-09T20:15:48Z",
+  "updated_date": "2026-01-09T20:15:48Z",
+  "url": "https://arxiv.org/abs/2601.06294v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.06294v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:18.742246",
+  "category": "mathematics",
+  "subcategories": [
+    "math.NA"
+  ]
+}

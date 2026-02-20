@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2602.04588v1",
+  "arxiv_id": "2602.04588v1",
+  "title": "Entanglement improves coordination in distributed systems",
+  "authors": [
+    "Francisco Ferreira da Silva",
+    "Stephanie Wehner"
+  ],
+  "author_string": "Francisco Ferreira da Silva, Stephanie Wehner",
+  "journal": "arXiv:2602.04588v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Coordination in distributed systems is often hampered by communication latency, which degrades performance. Quantum entanglement offers fundamentally stronger correlations than classically achievable without communication. Crucially, these correlations manifest instantaneously upon measurement, irrespective of the physical distance separating the systems. We investigate the application of shared entanglement to a dual-work optimization problem in a distributed system comprising two servers. The system must process both a continuously available, preemptible baseline task and incoming customer requests arriving in pairs. System performance is characterized by the trade-off between baseline task throughput and customer waiting time. We present a rigorous analytical model demonstrating that when the baseline task throughput function is strictly convex, rewarding longer uninterrupted processing periods, entanglement-assisted routing strategies achieve Pareto-superior performance compared to optimal communication-free classical strategies. We prove this advantage through queueing-theoretic analysis, non-local game formulation, and computational certification of classical bounds. Our results identify distributed scheduling and coordination as a novel application domain for near-term entanglement-based quantum networks.",
+  "categories": [
+    "quant-ph",
+    "cs.DC"
+  ],
+  "primary_category": "cs.DC",
+  "comment": "8 pages, 3 figures + 18 pages, 1 table appendix",
+  "published_date": "2026-02-04T14:14:41Z",
+  "updated_date": "2026-02-04T14:14:41Z",
+  "url": "https://arxiv.org/abs/2602.04588v1",
+  "pdf_url": "https://arxiv.org/pdf/2602.04588v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-02-05T07:00:23.046252",
+  "category": "computer_science",
+  "subcategories": [
+    "quant-ph",
+    "cs.DC"
+  ]
+}

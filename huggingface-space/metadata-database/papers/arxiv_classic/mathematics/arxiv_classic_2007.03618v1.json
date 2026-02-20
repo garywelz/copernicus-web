@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2007.03618v1",
+  "arxiv_id": "2007.03618v1",
+  "title": "Asymptotic behaviour of learning rates in Armijo's condition",
+  "authors": [
+    "Tuyen Trung Truong",
+    "Tuan Hang Nguyen"
+  ],
+  "author_string": "Tuyen Trung Truong, Tuan Hang Nguyen",
+  "journal": "arXiv:2007.03618v1",
+  "journal_ref": null,
+  "year": "2020",
+  "doi": null,
+  "abstract": "Fix a constant $0<α<1$. For a $C^1$ function $f:\\mathbb{R}^k\\rightarrow \\mathbb{R}$, a point $x$ and a positive number $δ>0$, we say that Armijo's condition is satisfied if $f(x-δ\\nabla f(x))-f(x)\\leq -αδ||\\nabla f(x)||^2$. It is a basis for the well known Backtracking Gradient Descent (Backtracking GD) algorithm.   Consider a sequence $\\{x_n\\}$ defined by $x_{n+1}=x_n-δ_n\\nabla f(x_n)$, for positive numbers $δ_n$ for which Armijo's condition is satisfied. We show that if $\\{x_n\\}$ converges to a non-degenerate critical point, then $\\{δ_n\\}$ must be bounded. Moreover this boundedness can be quantified in terms of the norms of the Hessian $\\nabla ^2f$ and its inverse at the limit point. This complements the first author's results on Unbounded Backtracking GD, and shows that in case of convergence to a non-degenerate critical point the behaviour of Unbounded Backtracking GD is not too different from that of usual Backtracking GD. On the other hand, in case of convergence to a degenerate critical point the behaviours can be very much different. We run some experiments to illustrate that both scenrios can really happen.   In another part of the paper, we argue that Backtracking GD has the correct unit (according to a definition by Zeiler in his Adadelta's paper). The main point is that since learning rate in Backtracking GD is bound by Armijo's condition, it is not unitless.",
+  "categories": [
+    "math.OC",
+    "cs.LG",
+    "math.DS",
+    "math.NA"
+  ],
+  "primary_category": "math.NA",
+  "comment": "5 pages",
+  "published_date": "2020-07-07T16:49:25Z",
+  "updated_date": "2020-07-07T16:49:25Z",
+  "url": "https://arxiv.org/abs/2007.03618v1",
+  "pdf_url": "https://arxiv.org/pdf/2007.03618v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:30:41.234924",
+  "category": "mathematics",
+  "subcategories": [
+    "math.OC",
+    "cs.LG",
+    "math.DS"
+  ]
+}

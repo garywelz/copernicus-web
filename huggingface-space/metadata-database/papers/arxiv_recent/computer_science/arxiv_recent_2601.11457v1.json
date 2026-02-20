@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2601.11457v1",
+  "arxiv_id": "2601.11457v1",
+  "title": "Indoor Neutral-Host Networks Over Shared Spectrum and Shared Infrastructure: A Comparison Study of Real-World Deployments",
+  "authors": [
+    "Joshua Roy Palathinkal",
+    "Muhammad Iqbal Rochman",
+    "Vanlin Sathya",
+    "Mehmet Yavuz",
+    "Monisha Ghosh"
+  ],
+  "author_string": "Joshua Roy Palathinkal, Muhammad Iqbal Rochman, Vanlin Sathya, Mehmet Yavuz, Monisha Ghosh",
+  "journal": "arXiv:2601.11457v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Indoor high-capacity connectivity is frequently constrained by significant building penetration loss and the inherent uplink power limitations of a typical outdoor macro-cell deployment. While Mobile Network Operators (MNOs) must optimize spectrum across low-band (<1 GHz) and mid-band (1-7 GHz) frequencies, uplink performance remains disproportionately degraded due to link budget asymmetry. Neutral-host (NH) networking provides a scalable alternative by transparently offloading MNO subscribers via spectrum sharing and shared infrastructure. We present a multi-site measurement study comparing Citizens Broadband Radio Service (CBRS)-enabled NH networks against public MNO 4G/5G macro deployments and Wi-Fi. Our results show: (i) significant building penetration loss with up to 15.5 dB in low-bands and 17.9 dB in mid-bands, resulting in a ~10 dB RSRP deficit for MNO mid-bands compared to low-bands; (ii) NH networks provide a 30 dB higher median indoor RSRP with indoor NH normalized downlink throughput matches MNO outdoor performance, while its uplink performance exceeds MNO levels in both indoor and outdoor settings; (iii) NH proximity enables superior uplink efficiency, utilizing 64-QAM for 56% of transmissions (versus <6% for MNOs) and reducing median UE transmit power by 5 dB; (iv) MNOs rely on low-band spectrum for indoor uplink transmissions, while the NH deployment maintains high-performance mid-band connectivity; and (v) NH outperforms MNOs in end-to-end throughput but trails Wi-Fi in uplink throughput and latency due to packet routing overhead to the MNO core.",
+  "categories": [
+    "cs.NI"
+  ],
+  "primary_category": "cs.NI",
+  "comment": "Submitted to npj Wireless Technology. 21 pages, 12 figures, 7 tables",
+  "published_date": "2026-01-16T17:29:10Z",
+  "updated_date": "2026-01-16T17:29:10Z",
+  "url": "https://arxiv.org/abs/2601.11457v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11457v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:30.211082",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.NI"
+  ]
+}

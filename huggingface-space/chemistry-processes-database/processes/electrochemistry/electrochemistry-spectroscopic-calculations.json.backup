@@ -1,0 +1,89 @@
+{
+  "category": "chemistry",
+  "colorScheme": {
+    "blue": {
+      "category": "Intermediates & States",
+      "hex": "#74c0fc"
+    },
+    "green": {
+      "category": "Processing & Operations",
+      "hex": "#51cf66"
+    },
+    "red": {
+      "category": "Triggers & Inputs",
+      "hex": "#ff6b6b"
+    },
+    "violet": {
+      "category": "Products & Outputs",
+      "hex": "#b197fc"
+    },
+    "yellow": {
+      "category": "Structures & Objects",
+      "hex": "#ffd43b"
+    }
+  },
+  "complexity": {
+    "conditionals": 0,
+    "detailLevel": "medium",
+    "edges": 25,
+    "level": "medium",
+    "logicGates": {
+      "andGates": 0,
+      "orGates": 26,
+      "total": 26
+    },
+    "nodes": 26
+  },
+  "created": "2026-01-08",
+  "description": "Spectroscopic calculations process showing transition analysis, property calculation, and spectroscopic efficiency.",
+  "id": "electrochemistry-spectroscopic-calculations",
+  "keywords": [
+    "spectroscopic",
+    "calculations"
+  ],
+  "lastUpdated": "2026-01-08",
+  "mermaid": "graph TD\nA5[Molecular System] --> B5[Spectroscopic Calculation Method]\nC5[Quantum States] --> D5[Transition Analysis]\nE5[Spectroscopic Properties] --> F5[Calculation Setup]\nB5 --> G5[State Preparation]\nD5 --> H5[Transition Selection]\nF5 --> I5[Computational Parameters]\nG5 --> J5[Initial State]\nH5 --> K5[Transition Rules]\nI5 --> L5[Calculation Setup]\nJ5 --> M5[State Characterization]\nK5 --> L5\nL5 --> N5[Spectroscopic Calculation]\nM5 --> O5[Property Calculation]\nN5 --> P5[Transition Analysis]\nO5 --> Q5[Quantum Analysis]\nP5 --> R5[Spectroscopic Properties]\nQ5 --> S5[Property Analysis]\nR5 --> T5[Spectroscopic Features]\nS5 --> U5[Intensity Calculation]\nT5 --> V5[Feature Analysis]\nU5 --> W5[Spectroscopic Efficiency]\nV5 --> X5[Spectroscopic Characterization]\nW5 --> Y5[Process Optimization]\nX5 --> Z5[Final Spectroscopic Properties]\nY5 --> Z5\n\n    style A5 fill:#ff6b6b,color:#fff\n    style C5 fill:#ff6b6b,color:#fff\n    style E5 fill:#ff6b6b,color:#fff\n    style B5 fill:#ffd43b,color:#000\n    style D5 fill:#ffd43b,color:#000\n    style F5 fill:#ffd43b,color:#000\n    style G5 fill:#ffd43b,color:#000\n    style H5 fill:#ffd43b,color:#000\n    style I5 fill:#ffd43b,color:#000\n    style J5 fill:#ffd43b,color:#000\n    style K5 fill:#ffd43b,color:#000\n    style L5 fill:#ffd43b,color:#000\n    style M5 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style O5 fill:#51cf66,color:#fff\n    style P5 fill:#51cf66,color:#fff\n    style Q5 fill:#51cf66,color:#fff\n    style R5 fill:#51cf66,color:#fff\n    style S5 fill:#51cf66,color:#fff\n    style T5 fill:#51cf66,color:#fff\n    style U5 fill:#51cf66,color:#fff\n    style V5 fill:#51cf66,color:#fff\n    style W5 fill:#51cf66,color:#fff\n    style X5 fill:#51cf66,color:#fff\n    style Y5 fill:#51cf66,color:#fff\n    style Z5 fill:#b197fc,color:#fff",
+  "name": "Spectroscopic Calculations",
+  "notes": "Converted from chemistry batch HTML. Process number: 5.",
+  "relatedProcesses": [],
+  "sources": [
+    {
+      "authors": "Welz, G.",
+      "doi": null,
+      "journal": "CopernicusAI Knowledge Engine",
+      "notes": "Chemistry process visualization: Spectroscopic Calculations. Created using the Programming Framework methodology for process analysis and visualization.",
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "year": "2025"
+    },
+    {
+      "authors": "Wiberg, K. B.; Frisch, M. J.",
+      "doi": "10.1021/ar0001009",
+      "journal": "Acc. Chem. Res.",
+      "pubmed": "11604085",
+      "title": "Computational Chemistry for Spectroscopic Properties",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/11604085",
+      "year": "2001"
+    },
+    {
+      "authors": "Casida, M. E.; Huix-Rotllant, M.",
+      "doi": "10.1146/annurev-physchem-032511-143803",
+      "journal": "Annu. Rev. Phys. Chem.",
+      "pubmed": "22404071",
+      "title": "Time-Dependent Density-Functional Theory for Molecules: A Primer",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/22404071",
+      "year": "2012"
+    },
+    {
+      "authors": "Barbatti, M.; Granucci, G.; Persico, F.",
+      "doi": "10.1021/cr300438m",
+      "journal": "Chem. Rev.",
+      "pubmed": "23642398",
+      "title": "Computational Photochemistry: From Excited State Reactivity to Organic Light-Emitting Diodes",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/23642398",
+      "year": "2013"
+    }
+  ],
+  "subcategory": "electrochemistry",
+  "verified": false
+}

@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2601.07403v1",
+  "arxiv_id": "2601.07403v1",
+  "title": "Modeling and analysis of a novel two-strain dengue epidemics model considering secondary infections with increased mortality",
+  "authors": [
+    "Burcu Gürbüz",
+    "Aytül Gökçe",
+    "Joseph Páez Chávez",
+    "Thomas Götz"
+  ],
+  "author_string": "Burcu Gürbüz, Aytül Gökçe, Joseph Páez Chávez, Thomas Götz",
+  "journal": "arXiv:2601.07403v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "In this study, we develop and analyze a deterministic two-strain host-vector model for dengue transmission that incorporates key immuno-epidemiological mechanisms, including temporary cross-immunity, antibody-dependent enhancement (ADE), disease-induced mortality during secondary infections, and explicit vector co-infection. The human population is divided into compartments for primary and secondary infections, while the mosquito population includes single- and co-infected classes. ADE is modeled through distinct primary ($α$) and secondary ($σ$) transmission rates. Using the next-generation matrix method, we derive the basic reproduction number $R_0$ and establish the local stability of the disease-free equilibrium for $R_0 < 1$. Analytical results show that one-strain endemic equilibria lose stability under ADE conditions ($σ> α$), allowing invasion by a heterologous strain. Employing center-manifold theory and numerical continuation (COCO), we demonstrate the occurrence of backward bifurcation, bistability between disease-free and endemic states, and Hopf-induced oscillations. Numerical simulations confirm transitions among disease-free, endemic, and periodic regimes as key parameters vary. The model highlights how ADE, waning cross-immunity, and vector co-infection interact to generate complex dengue dynamics and provides insights useful for designing effective control and vaccination strategies in dengue-endemic regions.",
+  "categories": [
+    "math.DS",
+    "q-bio.PE"
+  ],
+  "primary_category": "q-bio.PE",
+  "comment": null,
+  "published_date": "2026-01-12T10:39:19Z",
+  "updated_date": "2026-01-12T10:39:19Z",
+  "url": "https://arxiv.org/abs/2601.07403v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.07403v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:11.151810",
+  "category": "biology",
+  "subcategories": [
+    "math.DS",
+    "q-bio.PE"
+  ]
+}

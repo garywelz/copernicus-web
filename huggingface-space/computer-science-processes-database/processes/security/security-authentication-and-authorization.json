@@ -1,0 +1,92 @@
+{
+  "id": "security-authentication-and-authorization",
+  "name": "Authentication and Authorization",
+  "category": "computer_science",
+  "subcategory": "security",
+  "subcategory_name": "Security & Cryptography",
+  "description": "Authentication and Authorization process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 9,
+    "edges": 10,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 1,
+      "andGates": 2,
+      "total": 3
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nN1[\"User Request\"]\nN2[\"Credentials/Token\"]\nN3[\"Identity Provider\"]\nN4[\"Choose Approach\"]\nN5[\"Policy/Role Store\"]\nN6[\"Authenticate Identity\"]\nN7[\"Authorize Action\"]\nN8[\"Decision\"]\nN9[\"Integrate Results\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\nN4 --> N7\nN5 --> N6\nN7 --> N8\nN6 --> N9\nN8 --> N9\nN9 --> N6\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ff6b6b,color:#fff\n    style N3 fill:#ffd43b,color:#000\n    style N4 fill:#ffd43b,color:#000\n    style N5 fill:#ffd43b,color:#000\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#b197fc,color:#fff\n    style N9 fill:#74c0fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Authentication and Authorization. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "Figure 17: Authentication and authorization process.",
+      "authors": "",
+      "journal": "",
+      "year": "None",
+      "pubmed": null,
+      "doi": "10.7717/peerj-cs.950/fig-17",
+      "url": "https://doi.org/10.7717/peerj-cs.950/fig-17"
+    },
+    {
+      "title": "Guide for User Authentication and Authorization",
+      "authors": "",
+      "journal": "",
+      "year": "None",
+      "pubmed": null,
+      "doi": "10.1520/e1985",
+      "url": "https://doi.org/10.1520/e1985"
+    },
+    {
+      "title": "An Authorization Information Format (AIF) for Authentication and Authorization for Constrained Environments (ACE)",
+      "authors": "Bormann, C.",
+      "journal": "",
+      "year": "2022",
+      "pubmed": null,
+      "doi": "10.17487/rfc9237",
+      "url": "https://doi.org/10.17487/rfc9237"
+    }
+  ],
+  "keywords": [
+    "authentication",
+    "and",
+    "authorization"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-15",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+}

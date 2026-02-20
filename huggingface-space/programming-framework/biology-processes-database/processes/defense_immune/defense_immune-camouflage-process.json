@@ -1,0 +1,85 @@
+{
+  "id": "defense_immune-camouflage-process",
+  "name": "Camouflage Process",
+  "category": "biology",
+  "subcategory": "defense_immune",
+  "subcategory_name": "Defense & Immune Response",
+  "organism": "Animals",
+  "description": "Camouflage Process in Animals. This process represents a higher-level biological mechanism distinct from molecular/biochemical processes covered in GLMP.",
+  "complexity": {
+    "nodes": 8,
+    "edges": 7,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "low",
+    "detailLevel": "low"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\n    A26[Environmental Assessment] --> B26[Background Analysis]\n    B26 --> C26[Coloration Matching]\n    C26 --> D26[Pigment Adjustment]\n    D26 --> E26[Pattern Formation]\n    E26 --> F26[Texture Adaptation]\n    F26 --> G26[Camouflage Achievement]\n    G26 --> H26[Predator Avoidance]\n    \n    style A26 fill:#ff6b6b,color:#fff\n    style B26 fill:#ffd43b,color:#000\n    style C26 fill:#51cf66,color:#fff\n    style D26 fill:#51cf66,color:#fff\n    style E26 fill:#74c0fc,color:#fff\n    style F26 fill:#74c0fc,color:#fff\n    style G26 fill:#b197fc,color:#fff\n    style H26 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "notes": "Higher-level biological process visualization: Camouflage Process. Created using the Programming Framework methodology for organismal and ecological process analysis."
+    },
+    {
+      "title": "Animal camouflage: current issues and future directions",
+      "authors": "Stevens M, Merilaita S.",
+      "journal": "Annu Rev Ecol Evol Syst.",
+      "year": "2009",
+      "pubmed": "20023777",
+      "doi": "10.1146/annurev.ecolsys.39.110707.103425",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/20023777"
+    },
+    {
+      "title": "The adaptive significance of coloration in mammals",
+      "authors": "Caro T.",
+      "journal": "Proc Natl Acad Sci U S A.",
+      "year": "2005",
+      "pubmed": "15851679",
+      "doi": "10.1073/pnas.0500732102",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/15851679"
+    }
+  ],
+  "keywords": [
+    "defense",
+    "response",
+    "animals",
+    "immune",
+    "process",
+    "camouflage"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-08",
+  "verified": false,
+  "notes": "Higher-level biological process. GLMP covers biochemical/molecular processes; this database covers organismal/ecological processes."
+}

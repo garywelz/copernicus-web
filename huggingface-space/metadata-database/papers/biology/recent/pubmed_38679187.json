@@ -1,0 +1,28 @@
+{
+  "id": "pubmed_38679187",
+  "pmid": "38679187",
+  "title": "KbhbXG: A Machine learning architecture based on XGBoost for prediction of lysine β-Hydroxybutyrylation (Kbhb) modification sites.",
+  "authors": [
+    "Chen, Leqi",
+    "Liu, Liwen",
+    "Su, Haiyan",
+    "Xu, Yan"
+  ],
+  "author_string": "Chen, Leqi, Liu, Liwen, Su, Haiyan, Xu, Yan",
+  "journal": "Methods",
+  "journal_full": "Methods (San Diego, Calif.)",
+  "year": "",
+  "doi": "10.1016/j.ymeth.2024.04.016",
+  "abstract": "Lysine β-hydroxybutyrylation is an important post-translational modification (PTM) involved in various physiological and biological processes. In this research, we introduce a novel predictor KbhbXG, which utilizes XGBoost to identify β-hydroxybutyrylation modification sites based on protein sequence information. The traditional experimental methods employed for the identification of β-hydroxybutyrylated sites using proteomic techniques are both costly and time-consuming. Thus, the development of computational methods and predictors can play a crucial role in facilitating the rapid identification of β-hydroxybutyrylation sites. Our proposed KbhbXG model first utilizes machine learning algorithm XGBoost to predict β-hydroxybutyrylation modification sites. On the independent test set, KbhbXG achieves an accuracy of 0.7457, specificity of 0.7771, and an impressive area under the curve (AUC) score of 0.8172. The high AUC score achieved by our method demonstrates its potential for effectively identifying novel β-hydroxybutyrylation sites, thereby facilitating further research and exploration of the β-hydroxybutyrylation process. Also, functional analyses have revealed that different organisms preferentially engage in distinct biological processes and pathways, which can provide valuable insights for understanding the mechanism of β-hydroxybutyrylation and guide experimental verification. To promote transparency and reproducibility, we have made both the codes and dataset of KbhbXG publicly available. Researchers interested in utilizing our proposed model can access these resources at https://github.com/Lab-Xu/KbhbXG.",
+  "keywords": [
+    "Post-translational modification",
+    "XGBoost",
+    "β-hydroxybutyrylation"
+  ],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/38679187",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T16:59:11.865748",
+  "category": "biology",
+  "subcategories": []
+}

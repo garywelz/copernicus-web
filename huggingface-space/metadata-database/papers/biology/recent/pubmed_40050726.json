@@ -1,0 +1,30 @@
+{
+  "id": "pubmed_40050726",
+  "pmid": "40050726",
+  "title": "TRain: T-cell receptor automated immunoinformatics.",
+  "authors": [
+    "Seamann, Austin",
+    "Bennett-Boehm, Maia",
+    "Ehrlich, Ryan",
+    "Gil, Anna",
+    "Selin, Liisa",
+    "Ghersi, Dario"
+  ],
+  "author_string": "Seamann, Austin, Bennett-Boehm, Maia, Ehrlich, Ryan, Gil, Anna, Selin, Liisa et al.",
+  "journal": "BMC Bioinformatics",
+  "journal_full": "BMC bioinformatics",
+  "year": "",
+  "doi": "10.1186/s12859-025-06074-8",
+  "abstract": "The scarcity of available structural data makes characterizing the binding of T-cell receptors (TCRs) to peptide-Major Histocompatibility Complexes (pMHCs) very challenging. The recent surge in sequencing data makes TCRs an ideal target for protein structure modeling. Through these 3D models, researchers can potentially identify key motifs on the TCR's binding regions. Furthermore, computational methods can be employed to pair a TCR structure with a pMHC, leading to predictions of docked TCRpMHC structures. However, going from sequence to predicted 3D TCRpMHC complexes requires a non-trivial amount of steps and specialized immunoinformatics expertise. We developed a Python tool named TRain (T-cell Receptor Automated ImmunoiNformatics) to streamline this process by: (1) converting single-cell sequencing data into full TCR amino acid sequences; (2) efficiently submitting TCR amino acid sequences to existing TCR-specific modeling pipelines; (3) pairing modeled TCR structures with existing crystal structures of pMHC complexes in a non-biased manner before docking; (3) automating the preparation and submission process of TCRs and pMHCs for docking using the RosettaDock tool; and (4) providing scripts to analyze the predicted TCRpMHC interface. We illustrate the basic functionality of TRain with a case study, while further information can be found in a dedicated manual. We introduced an open-source tool that streamlines going from full TCR sequence information to predicted 3D TCRpMHC complexes, using well-established tools. Analyzing these predicted complexes can provide deeper insights into the binding properties of TCRs, and can help shed light on one of the key steps in adaptive immune responses.",
+  "keywords": [
+    "Immunoinformatics",
+    "TCR modeling",
+    "protein docking"
+  ],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/40050726",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T17:00:11.752874",
+  "category": "biology",
+  "subcategories": []
+}

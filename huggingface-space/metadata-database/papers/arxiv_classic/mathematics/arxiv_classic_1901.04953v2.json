@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_1901.04953v2",
+  "arxiv_id": "1901.04953v2",
+  "title": "A forgotten Theorem of Schoenberg on one-sided integral averages",
+  "authors": [
+    "Stefan Steinerberger"
+  ],
+  "author_string": "Stefan Steinerberger",
+  "journal": "arXiv:1901.04953v2",
+  "journal_ref": null,
+  "year": "2019",
+  "doi": null,
+  "abstract": "Let $f:\\mathbb{R} \\rightarrow \\mathbb{R}$ be a function for which we want to take local averages. Assuming we cannot look into the future, the 'average' at time $t$ can only use $f(s)$ for $s \\leq t$. A natural way to do so is via a weight $φ$ and $$ g(t) = \\int_{0}^{\\infty}{f(t-s) φ(s) ds}.$$ We would like that (1) constant functions, $f(t) \\equiv \\mbox{const}$, are mapped to themselves and (2) $φ$ to be monotonically decreasing (the more recent past should weigh more heavily than the distant past). Moreover, we want that (3) if $f(t)$ crosses a certain threshold $n$ times, then $g(t)$ should not cross the same threshold more than $n$ times (if $f(t)$ is the outside wind speed and crosses the Tornado threshold at two points in time, we would like the averaged wind speed to cross the Tornado threshold at most twice). A Theorem implicit in the work of Schonberg is that these three conditions characterize a unique weight that is given by the exponential distribution $$ φ(s) = λ^{} e^{-λs} \\qquad \\mbox{for some} \\quad λ> 0.$$",
+  "categories": [
+    "math.CA",
+    "math.ST"
+  ],
+  "primary_category": "math.ST",
+  "comment": null,
+  "published_date": "2019-01-15T17:53:38Z",
+  "updated_date": "2019-02-03T22:36:48Z",
+  "url": "https://arxiv.org/abs/1901.04953v2",
+  "pdf_url": "https://arxiv.org/pdf/1901.04953v2.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:07.949966",
+  "category": "mathematics",
+  "subcategories": [
+    "math.CA",
+    "math.ST"
+  ]
+}

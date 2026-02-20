@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2008.04693v1",
+  "arxiv_id": "2008.04693v1",
+  "title": "PROFIT: A Novel Training Method for sub-4-bit MobileNet Models",
+  "authors": [
+    "Eunhyeok Park",
+    "Sungjoo Yoo"
+  ],
+  "author_string": "Eunhyeok Park, Sungjoo Yoo",
+  "journal": "arXiv:2008.04693v1",
+  "journal_ref": null,
+  "year": "2020",
+  "doi": null,
+  "abstract": "4-bit and lower precision mobile models are required due to the ever-increasing demand for better energy efficiency in mobile devices. In this work, we report that the activation instability induced by weight quantization (AIWQ) is the key obstacle to sub-4-bit quantization of mobile networks. To alleviate the AIWQ problem, we propose a novel training method called PROgressive-Freezing Iterative Training (PROFIT), which attempts to freeze layers whose weights are affected by the instability problem stronger than the other layers. We also propose a differentiable and unified quantization method (DuQ) and a negative padding idea to support asymmetric activation functions such as h-swish. We evaluate the proposed methods by quantizing MobileNet-v1, v2, and v3 on ImageNet and report that 4-bit quantization offers comparable (within 1.48 % top-1 accuracy) accuracy to full precision baseline. In the ablation study of the 3-bit quantization of MobileNet-v3, our proposed method outperforms the state-of-the-art method by a large margin, 12.86 % of top-1 accuracy.",
+  "categories": [
+    "cs.CV",
+    "cs.PF"
+  ],
+  "primary_category": "cs.PF",
+  "comment": "Published at ECCV2020, spotlight paper",
+  "published_date": "2020-08-11T13:29:50Z",
+  "updated_date": "2020-08-11T13:29:50Z",
+  "url": "https://arxiv.org/abs/2008.04693v1",
+  "pdf_url": "https://arxiv.org/pdf/2008.04693v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:27.423245",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV",
+    "cs.PF"
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "id": "pubmed_32126077",
+  "pmid": "32126077",
+  "title": "Fly-QMA: Automated analysis of mosaic imaginal discs in Drosophila.",
+  "authors": [
+    "Bernasek, Sebastian M",
+    "Peláez, Nicolás",
+    "Carthew, Richard W",
+    "Bagheri, Neda",
+    "Amaral, Luís A N"
+  ],
+  "author_string": "Bernasek, Sebastian M, Peláez, Nicolás, Carthew, Richard W, Bagheri, Neda, Amaral, Luís A N",
+  "journal": "PLoS Comput Biol",
+  "journal_full": "PLoS computational biology",
+  "year": "",
+  "doi": "10.1371/journal.pcbi.1007406",
+  "abstract": "Mosaic analysis provides a means to probe developmental processes in situ by generating loss-of-function mutants within otherwise wildtype tissues. Combining these techniques with quantitative microscopy enables researchers to rigorously compare RNA or protein expression across the resultant clones. However, visual inspection of mosaic tissues remains common in the literature because quantification demands considerable labor and computational expertise. Practitioners must segment cell membranes or cell nuclei from a tissue and annotate the clones before their data are suitable for analysis. Here, we introduce Fly-QMA, a computational framework that automates each of these tasks for confocal microscopy images of Drosophila imaginal discs. The framework includes an unsupervised annotation algorithm that incorporates spatial context to inform the genetic identity of each cell. We use a combination of real and synthetic validation data to survey the performance of the annotation algorithm across a broad range of conditions. By contributing our framework to the open-source software ecosystem, we aim to contribute to the current move toward automated quantitative analysis among developmental biologists.",
+  "keywords": [],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/32126077",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T16:59:43.448174",
+  "category": "biology",
+  "subcategories": []
+}

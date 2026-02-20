@@ -1,0 +1,28 @@
+{
+  "id": "crossref_10.1007_978-981-97-8943-6_8",
+  "doi": "10.1007/978-981-97-8943-6_8",
+  "title": "Quantum Programming Without the Quantum Physics",
+  "authors": [
+    "Inoue, Jun"
+  ],
+  "author_string": "Inoue, Jun",
+  "journal": "Lecture Notes in Computer Science",
+  "issn": "0302-9743",
+  "issn_type": "print",
+  "volume": "",
+  "issue": "",
+  "page": "155-175",
+  "year": "2025",
+  "publisher": "Springer Nature Singapore",
+  "language": "en",
+  "abstract": "Abstract\n          We propose a quantum programming paradigm where all data are familiar classical data, and the only non-classical element is a random number generator that can return results with negative probability. Currently, the vast majority of quantum programming languages instead work with quantum data types made up of qubits. The description of their behavior relies on heavy linear algebra and many interdependent concepts and intuitions from quantum physics, which takes dedicated study to understand. We demonstrate that the proposed view of quantum programming explains its central concepts and constraints in more accessible, computationally relevant terms. This is achieved by systematically reducing everything to the existence of that negative-probability random generator, avoiding mention of advanced physics. This makes quantum programming more accessible to programmers without a deep background in physics or linear algebra. The bulk of this paper is written with such an audience in mind. As a working vehicle, we lay out a simple quantum programming language under this paradigm, showing that not only can it express all quantum algorithms, it also naturally captures the semantics of measurement without ever mentioning qubits or collapse.",
+  "subjects": [],
+  "keywords": [],
+  "article_type": "book-chapter",
+  "citation_count": 0,
+  "url": "https://doi.org/10.1007/978-981-97-8943-6_8",
+  "source": "crossref",
+  "acquired_date": "2026-01-19T10:54:16.507156",
+  "category": "computer_science",
+  "subcategories": []
+}

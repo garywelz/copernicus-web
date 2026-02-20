@@ -1,0 +1,93 @@
+{
+  "category": "biology",
+  "colorScheme": {
+    "blue": {
+      "category": "Intermediates & States",
+      "hex": "#74c0fc"
+    },
+    "green": {
+      "category": "Processing & Operations",
+      "hex": "#51cf66"
+    },
+    "red": {
+      "category": "Triggers & Inputs",
+      "hex": "#ff6b6b"
+    },
+    "violet": {
+      "category": "Products & Outputs",
+      "hex": "#b197fc"
+    },
+    "yellow": {
+      "category": "Structures & Objects",
+      "hex": "#ffd43b"
+    }
+  },
+  "complexity": {
+    "conditionals": 0,
+    "detailLevel": "low",
+    "edges": 11,
+    "level": "low",
+    "logicGates": {
+      "andGates": 0,
+      "orGates": 0,
+      "total": 0
+    },
+    "nodes": 12
+  },
+  "created": "2026-01-08",
+  "description": "Pollination Process in Plants. This process represents a higher-level biological mechanism distinct from molecular/biochemical processes covered in GLMP.",
+  "id": "reproduction_development-pollination-process",
+  "keywords": [
+    "reproduction",
+    "pollination",
+    "process",
+    "plants",
+    "development"
+  ],
+  "lastUpdated": "2026-01-08",
+  "mermaid": "graph TD\n    A3[Pollen Development] --> B3[Anther Dehiscence]\n    C3[Pollinator Activity] --> D3[Pollen Transfer]\n    B3 --> D3\n    D3 --> E3[Stigma Reception]\n    E3 --> F3[Pollen Adhesion]\n    F3 --> G3[Hydration]\n    G3 --> H3[Germination]\n    H3 --> I3[Pollen Tube Growth]\n    I3 --> J3[Style Navigation]\n    J3 --> K3[Ovary Entry]\n    K3 --> L3[Double Fertilization]\n    \n    style A3 fill:#ff6b6b,color:#fff\n    style C3 fill:#ff6b6b,color:#fff\n    style B3 fill:#ffd43b,color:#000\n    style D3 fill:#ffd43b,color:#000\n    style E3 fill:#51cf66,color:#fff\n    style F3 fill:#51cf66,color:#fff\n    style G3 fill:#74c0fc,color:#fff\n    style H3 fill:#74c0fc,color:#fff\n    style I3 fill:#51cf66,color:#fff\n    style J3 fill:#51cf66,color:#fff\n    style K3 fill:#74c0fc,color:#fff\n    style L3 fill:#b197fc,color:#fff",
+  "name": "Pollination Process",
+  "notes": "Higher-level biological process. GLMP covers biochemical/molecular processes; this database covers organismal/ecological processes.",
+  "organism": "Plants",
+  "relatedProcesses": [],
+  "sources": [
+    {
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "notes": "Higher-level biological process visualization: Pollination Process. Created using the Programming Framework methodology for organismal and ecological process analysis.",
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "year": "2025"
+    },
+    {
+      "authors": "Ollerton, J., Winfree, R., Tarrant, S.",
+      "doi": "10.1126/science.1196377",
+      "journal": "Science",
+      "pubmed": "21252355",
+      "title": "Pollination biology: the past, present and future",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/21252355",
+      "year": "2011"
+    },
+    {
+      "authors": "Thompson, J.N.",
+      "doi": "10.1146/annurev.ecolsys.30.1.335",
+      "journal": "Annu Rev Ecol Syst",
+      "pubmed": "19409268",
+      "title": "The evolutionary ecology of plant-pollinator interactions",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/19409268",
+      "year": "1999"
+    },
+    {
+      "authors": "Raguso, R.A.",
+      "doi": "10.1146/annurev.ecolsys.39.110707.173516",
+      "journal": "Annu Rev Ecol Evol Syst",
+      "pubmed": "22830843",
+      "title": "Floral signals: their origin, evolution, and perception",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/22830843",
+      "year": "2008"
+    }
+  ],
+  "subcategory": "reproduction_development",
+  "subcategory_name": "Reproduction & Development",
+  "verified": false
+}

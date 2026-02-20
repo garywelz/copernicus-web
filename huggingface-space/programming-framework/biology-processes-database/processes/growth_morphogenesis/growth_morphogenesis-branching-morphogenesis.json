@@ -1,0 +1,92 @@
+{
+  "id": "growth_morphogenesis-branching-morphogenesis",
+  "name": "Branching Morphogenesis",
+  "category": "biology",
+  "subcategory": "growth_morphogenesis",
+  "subcategory_name": "Growth & Morphogenesis",
+  "organism": "Plants/Animals",
+  "description": "Branching Morphogenesis in Plants/Animals. This process represents a higher-level biological mechanism distinct from molecular/biochemical processes covered in GLMP.",
+  "complexity": {
+    "nodes": 10,
+    "edges": 10,
+    "conditionals": 1,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "low",
+    "detailLevel": "low"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\n    A12[Primary Structure] --> B12[Branching Signal]\n    B12 --> C12[Pattern Formation]\n    C12 --> D12[Tip Growth]\n    D12 --> E12{Lateral Inhibition?}\n    E12 -->|Yes| F12[Branch Suppression]\n    E12 -->|No| G12[Branch Initiation]\n    F12 --> H12[Pattern Maintenance]\n    G12 --> I12[Secondary Branching]\n    H12 --> J12[Final Architecture]\n    I12 --> J12\n    \n    style A12 fill:#ff6b6b,color:#fff\n    style B12 fill:#ff6b6b,color:#fff\n    style C12 fill:#ffd43b,color:#000\n    style D12 fill:#51cf66,color:#fff\n    style E12 fill:#74c0fc,color:#fff\n    style F12 fill:#51cf66,color:#fff\n    style G12 fill:#51cf66,color:#fff\n    style H12 fill:#74c0fc,color:#fff\n    style I12 fill:#74c0fc,color:#fff\n    style J12 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "notes": "Higher-level biological process visualization: Branching Morphogenesis. Created using the Programming Framework methodology for organismal and ecological process analysis."
+    },
+    {
+      "title": "Mechanisms of Branching Morphogenesis",
+      "authors": "Hogan BL, Kolodkin AL.",
+      "journal": "Science",
+      "year": "2002",
+      "pubmed": "11884762",
+      "doi": "10.1126/science.1070529",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/11884762"
+    },
+    {
+      "title": "FGF10, a mesenchymally derived factor, is essential for kidney development",
+      "authors": "Li C, Li Q, Lu RS, Li G, Hogan BL.",
+      "journal": "Cell",
+      "year": "1999",
+      "pubmed": "10619472",
+      "doi": "10.1016/s0092-8674(00)81630-9",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/10619472"
+    },
+    {
+      "title": "Hormonal control of plant branching",
+      "authors": "Brewer SD.",
+      "journal": "Annu Rev Plant Biol",
+      "year": "2005",
+      "pubmed": "15862095",
+      "doi": "10.1146/annurev.arplant.56.032604.144136",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/15862095"
+    }
+  ],
+  "keywords": [
+    "morphogenesis",
+    "branching",
+    "growth",
+    "plants/animals"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-08",
+  "verified": false,
+  "notes": "Higher-level biological process. GLMP covers biochemical/molecular processes; this database covers organismal/ecological processes."
+}

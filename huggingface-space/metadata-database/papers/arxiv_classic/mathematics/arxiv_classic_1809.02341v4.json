@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_1809.02341v4",
+  "arxiv_id": "1809.02341v4",
+  "title": "A Fast Anderson-Chebyshev Acceleration for Nonlinear Optimization",
+  "authors": [
+    "Zhize Li",
+    "Jian Li"
+  ],
+  "author_string": "Zhize Li, Jian Li",
+  "journal": "arXiv:1809.02341v4",
+  "journal_ref": null,
+  "year": "2018",
+  "doi": null,
+  "abstract": "Anderson acceleration (or Anderson mixing) is an efficient acceleration method for fixed point iterations $x_{t+1}=G(x_t)$, e.g., gradient descent can be viewed as iteratively applying the operation $G(x) \\triangleq x-α\\nabla f(x)$. It is known that Anderson acceleration is quite efficient in practice and can be viewed as an extension of Krylov subspace methods for nonlinear problems. In this paper, we show that Anderson acceleration with Chebyshev polynomial can achieve the optimal convergence rate $O(\\sqrtκ\\ln\\frac{1}ε)$, which improves the previous result $O(κ\\ln\\frac{1}ε)$ provided by (Toth and Kelley, 2015) for quadratic functions. Moreover, we provide a convergence analysis for minimizing general nonlinear problems. Besides, if the hyperparameters (e.g., the Lipschitz smooth parameter $L$) are not available, we propose a guessing algorithm for guessing them dynamically and also prove a similar convergence rate. Finally, the experimental results demonstrate that the proposed Anderson-Chebyshev acceleration method converges significantly faster than other algorithms, e.g., vanilla gradient descent (GD), Nesterov's Accelerated GD. Also, these algorithms combined with the proposed guessing algorithm (guessing the hyperparameters dynamically) achieve much better performance.",
+  "categories": [
+    "math.OC",
+    "cs.LG",
+    "math.NA",
+    "stat.ML"
+  ],
+  "primary_category": "stat.ML",
+  "comment": "To appear in AISTATS 2020",
+  "published_date": "2018-09-07T08:12:56Z",
+  "updated_date": "2020-03-01T13:47:58Z",
+  "url": "https://arxiv.org/abs/1809.02341v4",
+  "pdf_url": "https://arxiv.org/pdf/1809.02341v4.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:00.039097",
+  "category": "mathematics",
+  "subcategories": [
+    "math.OC",
+    "cs.LG",
+    "math.NA"
+  ]
+}

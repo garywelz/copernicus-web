@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2601.09462v1",
+  "arxiv_id": "2601.09462v1",
+  "title": "Structural Comparison of Error Mitigation Methods for Ising Machines: Penalty-Spin Model versus Stacked Model",
+  "authors": [
+    "Tetsuro Abe",
+    "Kanta Hino",
+    "Shu Tanaka"
+  ],
+  "author_string": "Tetsuro Abe, Kanta Hino, Shu Tanaka",
+  "journal": "arXiv:2601.09462v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Error-mitigation methods for Ising machines are reexamined not merely as noise-suppression techniques but as a structural design problem of replica-coupled Ising models. Using simulated annealing as a hardware-noise-free testbed, we systematically compare the penalty-spin (PS) model, which couples replicas through a centralized auxiliary layer, with the stacked model, which couples adjacent replicas directly. Numerical experiments on the quadratic assignment problem reveal that the ferromagnetically coupled stacked model stably maintains constraint satisfaction and improves solution quality over a broad parameter range, exhibiting favorable scalability with both the number of replicas and problem size. In contrast, the PS model suffers from cooperation collapse at large parallelism: many-replica averaging in the PS layer washes out sparse solution information, preventing effective inter-replica coordination. These findings demonstrate that the topology of inter-replica couplings decisively influences search robustness, and provide practical guidelines for model selection and parameter tuning in constrained optimization.",
+  "categories": [
+    "cond-mat.stat-mech"
+  ],
+  "primary_category": "cond-mat.stat-mech",
+  "comment": "14 pages, 11 figures",
+  "published_date": "2026-01-14T13:15:39Z",
+  "updated_date": "2026-01-14T13:15:39Z",
+  "url": "https://arxiv.org/abs/2601.09462v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.09462v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:18:58.574207",
+  "category": "physics",
+  "subcategories": [
+    "cond-mat.stat-mech"
+  ]
+}

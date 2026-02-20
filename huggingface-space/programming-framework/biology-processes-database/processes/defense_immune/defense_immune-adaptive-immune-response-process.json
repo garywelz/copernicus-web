@@ -1,0 +1,94 @@
+{
+  "id": "defense_immune-adaptive-immune-response-process",
+  "name": "Adaptive Immune Response Process",
+  "category": "biology",
+  "subcategory": "defense_immune",
+  "subcategory_name": "Defense & Immune Response",
+  "organism": "Animals",
+  "description": "Adaptive Immune Response Process in Animals. This process represents a higher-level biological mechanism distinct from molecular/biochemical processes covered in GLMP.",
+  "complexity": {
+    "nodes": 10,
+    "edges": 11,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "low",
+    "detailLevel": "low"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\n    A24[Antigen Presentation] --> B24[T-Cell Activation]\n    B24 --> C24[Clonal Selection]\n    C24 --> D24[Proliferation]\n    D24 --> E24[Differentiation]\n    E24 --> F24[Cytotoxic T-Cells]\n    E24 --> G24[Helper T-Cells]\n    E24 --> H24[B-Cell Activation]\n    F24 --> I24[Target Elimination]\n    G24 --> I24\n    H24 --> J24[Antibody Production]\n    J24 --> I24\n    \n    style A24 fill:#ff6b6b,color:#fff\n    style B24 fill:#ffd43b,color:#000\n    style C24 fill:#51cf66,color:#fff\n    style D24 fill:#51cf66,color:#fff\n    style E24 fill:#51cf66,color:#fff\n    style F24 fill:#74c0fc,color:#fff\n    style G24 fill:#74c0fc,color:#fff\n    style H24 fill:#74c0fc,color:#fff\n    style I24 fill:#b197fc,color:#fff\n    style J24 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "notes": "Higher-level biological process visualization: Adaptive Immune Response Process. Created using the Programming Framework methodology for organismal and ecological process analysis."
+    },
+    {
+      "title": "Restriction of in vitro T cell-mediated cytotoxicity in lymphocytic choriomeningitis within a syngeneic or semiallogeneic system",
+      "authors": "Zinkernagel RM, Doherty PC.",
+      "journal": "Nature.",
+      "year": "1974",
+      "pubmed": "4138139",
+      "doi": "10.1038/251547a0",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/4138139"
+    },
+    {
+      "title": "Evidence for somatic rearrangement of immunoglobulin genes coding for variable and constant regions",
+      "authors": "Hozumi N, Tonegawa S.",
+      "journal": "Proc Natl Acad Sci U S A.",
+      "year": "1976",
+      "pubmed": "1068487",
+      "doi": "10.1073/pnas.73.10.3628",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/1068487"
+    },
+    {
+      "title": "Immunological memory: an expanding paradigm",
+      "authors": "Kaech SM, Wherry EJ.",
+      "journal": "Cell.",
+      "year": "2007",
+      "pubmed": "17448981",
+      "doi": "10.1016/j.cell.2007.03.006",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/17448981"
+    }
+  ],
+  "keywords": [
+    "defense",
+    "response",
+    "animals",
+    "immune",
+    "process",
+    "adaptive"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-08",
+  "verified": false,
+  "notes": "Higher-level biological process. GLMP covers biochemical/molecular processes; this database covers organismal/ecological processes."
+}

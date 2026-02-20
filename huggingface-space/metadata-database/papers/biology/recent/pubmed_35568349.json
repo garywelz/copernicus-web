@@ -1,0 +1,34 @@
+{
+  "id": "pubmed_35568349",
+  "pmid": "35568349",
+  "title": "An open-source toolbox for Multi-patient Intracranial EEG Analysis (MIA).",
+  "authors": [
+    "Dubarry, A-Sophie",
+    "Liégeois-Chauvel, Catherine",
+    "Trébuchon, Agnès",
+    "Bénar, Christian",
+    "Alario, F-Xavier"
+  ],
+  "author_string": "Dubarry, A-Sophie, Liégeois-Chauvel, Catherine, Trébuchon, Agnès, Bénar, Christian, Alario, F-Xavier",
+  "journal": "Neuroimage",
+  "journal_full": "NeuroImage",
+  "year": "",
+  "doi": "10.1016/j.neuroimage.2022.119251",
+  "abstract": "Intracranial EEG (iEEG) performed during the pre-surgical evaluation of refractory epilepsy provides a great opportunity to investigate the neurophysiology of human cognitive functions with exceptional spatial and temporal precisions. A difficulty of the iEEG approach for cognitive neuroscience, however, is the potential variability across patients in the anatomical location of implantations and in the functional responses therein recorded. In this context, we designed, implemented, and tested a user-friendly and efficient open-source toolbox for Multi-Patient Intracranial data Analysis (MIA), which can be used as standalone program or as a Brainstorm plugin. MIA helps analyzing event related iEEG signals while following good scientific practice recommendations, such as building reproducible analysis pipelines and applying robust statistics. The signals can be analyzed in the temporal and time-frequency domains, and the similarity of time courses across patients or contacts can be assessed within anatomical regions. MIA allows visualizing all these results in a variety of formats at every step of the analysis. Here, we present the toolbox architecture and illustrate the different steps and features of the analysis pipeline using a group dataset collected during a language task.",
+  "keywords": [
+    "Brainstorm",
+    "HGA",
+    "Software package",
+    "group-level analysis",
+    "intracranial recordings",
+    "non-parametric statistics",
+    "pipeline",
+    "time-frequency decomposition"
+  ],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/35568349",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T17:01:44.541094",
+  "category": "biology",
+  "subcategories": []
+}

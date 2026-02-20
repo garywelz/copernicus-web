@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_1808.00819v3",
+  "arxiv_id": "1808.00819v3",
+  "title": "Filtered Stochastic Galerkin Methods For Hyperbolic Equations",
+  "authors": [
+    "Jonas Kusch",
+    "Ryan G. McClarren",
+    "Martin Frank"
+  ],
+  "author_string": "Jonas Kusch, Ryan G. McClarren, Martin Frank",
+  "journal": "arXiv:1808.00819v3",
+  "journal_ref": null,
+  "year": "2018",
+  "doi": null,
+  "abstract": "Uncertainty Quantification for nonlinear hyperbolic problems becomes a challenging task in the vicinity of shocks. Standard intrusive methods lead to oscillatory solutions and can result in non-hyperbolic moment systems. The intrusive polynomial moment (IPM) method guarantees hyperbolicity but comes at higher numerical costs. In this paper, we filter the gPC coefficients of the Stochastic Galerkin (SG) approximation, which allows a numerically cheap reduction of oscillations. The derived filter is based on Lasso regression which sets small gPC coefficients of high order to zero. We adaptively choose the filter strength to obtain a zero-valued highest order moment, which allows optimality of the corresponding optimization problem. The filtered SG method is tested for Burgers' and the Euler equations. Results show a reduction of oscillations at shocks, which leads to an improved approximation of expectation values and the variance compared to SG and IPM.",
+  "categories": [
+    "math.NA",
+    "math.PR"
+  ],
+  "primary_category": "math.PR",
+  "comment": null,
+  "published_date": "2018-08-02T14:05:53Z",
+  "updated_date": "2018-10-02T09:13:43Z",
+  "url": "https://arxiv.org/abs/1808.00819v3",
+  "pdf_url": "https://arxiv.org/pdf/1808.00819v3.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:30:56.125551",
+  "category": "mathematics",
+  "subcategories": [
+    "math.NA",
+    "math.PR"
+  ]
+}

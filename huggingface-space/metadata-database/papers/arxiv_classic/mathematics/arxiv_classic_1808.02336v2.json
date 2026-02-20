@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_1808.02336v2",
+  "arxiv_id": "1808.02336v2",
+  "title": "Lower bounds for trace reconstruction",
+  "authors": [
+    "Nina Holden",
+    "Russell Lyons"
+  ],
+  "author_string": "Nina Holden, Russell Lyons",
+  "journal": "arXiv:1808.02336v2",
+  "journal_ref": null,
+  "year": "2018",
+  "doi": null,
+  "abstract": "In the trace reconstruction problem, an unknown bit string ${\\bf x}\\in\\{0,1 \\}^n$ is sent through a deletion channel where each bit is deleted independently with some probability $q\\in(0,1)$, yielding a contracted string $\\widetilde{\\bf x}$. How many i.i.d.\\ samples of $\\widetilde{\\bf x}$ are needed to reconstruct $\\bf x$ with high probability? We prove that there exist ${\\bf x},{\\bf y} \\in\\{0,1 \\}^n$ such that at least $c\\, n^{5/4}/\\sqrt{\\log n}$ traces are required to distinguish between ${\\bf x}$ and ${\\bf y}$ for some absolute constant $c$, improving the previous lower bound of $c\\,n$. Furthermore, our result improves the previously known lower bound for reconstruction of random strings from $c \\log^2 n$ to $c \\log^{9/4}n/\\sqrt{\\log \\log n} $.",
+  "categories": [
+    "math.PR",
+    "cs.CC",
+    "cs.IT",
+    "math.ST"
+  ],
+  "primary_category": "math.ST",
+  "comment": "Minor changes. 23 pages, 3 figures",
+  "published_date": "2018-08-04T05:45:19Z",
+  "updated_date": "2019-06-07T14:35:48Z",
+  "url": "https://arxiv.org/abs/1808.02336v2",
+  "pdf_url": "https://arxiv.org/pdf/1808.02336v2.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:30:52.384646",
+  "category": "mathematics",
+  "subcategories": [
+    "math.PR",
+    "cs.CC",
+    "cs.IT"
+  ]
+}

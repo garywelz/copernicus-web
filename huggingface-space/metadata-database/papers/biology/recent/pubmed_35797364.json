@@ -1,0 +1,25 @@
+{
+  "id": "pubmed_35797364",
+  "pmid": "35797364",
+  "title": "Identifying neuroanatomical and behavioral features for autism spectrum disorder diagnosis in children using machine learning.",
+  "authors": [
+    "Han, Yu",
+    "Rizzo, Donna M",
+    "Hanley, John P",
+    "Coderre, Emily L",
+    "Prelock, Patricia A"
+  ],
+  "author_string": "Han, Yu, Rizzo, Donna M, Hanley, John P, Coderre, Emily L, Prelock, Patricia A",
+  "journal": "PLoS One",
+  "journal_full": "PloS one",
+  "year": "",
+  "doi": "10.1371/journal.pone.0269773",
+  "abstract": "Autism spectrum disorder (ASD) is a neurodevelopmental disorder that can cause significant social, communication, and behavioral challenges. Diagnosis of ASD is complicated and there is an urgent need to identify ASD-associated biomarkers and features to help automate diagnostics and develop predictive ASD models. The present study adopts a novel evolutionary algorithm, the conjunctive clause evolutionary algorithm (CCEA), to select features most significant for distinguishing individuals with and without ASD, and is able to accommodate datasets having a small number of samples with a large number of feature measurements. The dataset is unique and comprises both behavioral and neuroimaging measurements from a total of 28 children from 7 to 14 years old. Potential biomarker candidates identified include brain volume, area, cortical thickness, and mean curvature in specific regions around the cingulate cortex, frontal cortex, and temporal-parietal junction, as well as behavioral features associated with theory of mind. A separate machine learning classifier (i.e., k-nearest neighbors algorithm) was used to validate the CCEA feature selection and for ASD prediction. Study findings demonstrate how machine learning tools might help move the needle on improving diagnostic and predictive models of ASD.",
+  "keywords": [],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/35797364",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T17:01:23.444499",
+  "category": "biology",
+  "subcategories": []
+}

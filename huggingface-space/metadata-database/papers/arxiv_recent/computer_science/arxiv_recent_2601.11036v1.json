@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2601.11036v1",
+  "arxiv_id": "2601.11036v1",
+  "title": "Self-Augmented Mixture-of-Experts for QoS Prediction",
+  "authors": [
+    "Kecheng Cai",
+    "Chao Peng",
+    "Chenyang Xu",
+    "Xia Chen"
+  ],
+  "author_string": "Kecheng Cai, Chao Peng, Chenyang Xu, Xia Chen",
+  "journal": "arXiv:2601.11036v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Quality of Service (QoS) prediction is one of the most fundamental problems in service computing and personalized recommendation. In the problem, there is a set of users and services, each associated with a set of descriptive features. Interactions between users and services produce feedback values, typically represented as numerical QoS metrics such as response time or availability. Given the observed feedback for a subset of user-service pairs, the goal is to predict the QoS values for the remaining pairs.   A key challenge in QoS prediction is the inherent sparsity of user-service interactions, as only a small subset of feedback values is typically observed. To address this, we propose a self-augmented strategy that leverages a model's own predictions for iterative refinement. In particular, we partially mask the predicted values and feed them back into the model to predict again. Building on this idea, we design a self-augmented mixture-of-experts model, where multiple expert networks iteratively and collaboratively estimate QoS values. We find that the iterative augmentation process naturally aligns with the MoE architecture by enabling inter-expert communication: in the second round, each expert receives the first-round predictions and refines its output accordingly. Experiments on benchmark datasets show that our method outperforms existing baselines and achieves competitive results.",
+  "categories": [
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": null,
+  "published_date": "2026-01-16T07:02:52Z",
+  "updated_date": "2026-01-16T07:02:52Z",
+  "url": "https://arxiv.org/abs/2601.11036v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11036v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:37.507993",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.LG"
+  ]
+}

@@ -324,7 +324,7 @@ Your podcast has TWO speakers only:
 
 **CONTENT LENGTH REQUIREMENTS - ABSOLUTELY CRITICAL:**
 - **MINIMUM REQUIRED: {calculate_minimum_words_for_duration(duration)} words** (based on 150 words per minute)
-- **TARGET: {int(calculate_minimum_words_for_duration(duration) / 0.9)} words** for full duration coverage
+- **TARGET: {int(calculate_minimum_words_for_duration(duration) / 0.8)} words** for full duration coverage
 - **MANDATORY: Your script MUST be at least {calculate_minimum_words_for_duration(duration)} words long**
 - **FAILURE WARNING: Scripts under {calculate_minimum_words_for_duration(duration)} words will be REJECTED and generation will fail - ensure you meet or exceed this minimum**
 - **WORD COUNT CHECK: Before submitting, count the words in your script. If it's under {calculate_minimum_words_for_duration(duration)} words, you MUST expand it with more dialogue, examples, and detailed explanations.**
@@ -381,15 +381,15 @@ groundbreaking research. [Final thought on future implications]
 {{
     "title": "Engaging title closely matching '{research_context.topic}' - should directly reference the topic with compelling wording",
     "script": "Full dialogue script with {host_name.upper()}: and {expert_name.upper()}: labels. **CRITICAL: This script MUST be at least {calculate_minimum_words_for_duration(duration)} words long. Count the words before submitting. If under {calculate_minimum_words_for_duration(duration)} words, expand it with more dialogue, examples, and detailed explanations until it reaches the minimum.**",
-    "description": "Comprehensive but CONCISE episode description (MUST be under 3000 characters) with:
-        - Episode overview (1-2 paragraphs, concise)
-        - Key concepts explored (3-4 bullet points, brief)
-        - Research insights (1 paragraph citing actual papers)
-        - Practical applications (1 paragraph, concise)
-        - Future directions (1 paragraph, brief)
+    "description": "Comprehensive episode description (aim for 2500-3500 characters) with:
+        - Opening overview: 3-4 engaging paragraphs introducing the topic, its significance, and why this research matters. Explain broader context, historical background, and implications. NO section header - just start with the content directly.
+        - Key concepts explored: 4-5 detailed bullet points with explanations, implications, and connections
+        - Research insights: 2-3 paragraphs about current research developments, recent breakthroughs, methodological advances, and what makes this area exciting
+        - Practical applications: 2-3 paragraphs about real-world applications, industry impact, and potential uses
+        - Future directions: 2-3 paragraphs about emerging research directions, potential breakthroughs, and long-term implications
         - ## References section (list ALL citations with authors, titles, publications, DOIs/URLs)
         
-        CRITICAL: Keep main content BRIEF to ensure References section is COMPLETE and under 3000 chars total
+        CRITICAL: Write a thorough, engaging description that maximizes discoverability. Be detailed and informative while remaining accessible. Ensure the References section is complete.
     ",
     "keywords": ["comma", "separated", "keywords", "from", "research"],
     "paradigm_shifts_discussed": ["list", "of", "paradigm", "shifts"],

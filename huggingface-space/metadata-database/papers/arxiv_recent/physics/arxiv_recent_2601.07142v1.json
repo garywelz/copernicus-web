@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2601.07142v1",
+  "arxiv_id": "2601.07142v1",
+  "title": "Dynamics of Multi-Agent Actor-Critic Learning in Stochastic Games: from Multistability and Chaos to Stable Cooperation",
+  "authors": [
+    "Yuxin Geng",
+    "Wolfram Barfuss",
+    "Feng Fu",
+    "Xingru Chen"
+  ],
+  "author_string": "Yuxin Geng, Wolfram Barfuss, Feng Fu, Xingru Chen",
+  "journal": "arXiv:2601.07142v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Achieving robust coordination and cooperation is a central challenge in multi-agent reinforcement learning (MARL). Uncovering the mechanisms underlying such emergent behaviors calls for a dynamical understanding of learn processes. In this work, we investigate the dynamics of actor-critic agents in stochastic games, focusing on the impact of entropy regularization. By leveraging time-scale separation, we derive the system's evolution equations, which are then formally analyzed using dynamical systems theory. We find that in the constant-sum game of Matching Pennies, the system exhibits chaotic behavior. Entropy regularization mitigates this chaos and drives the dynamics toward convergence to fair cooperation. In contrast, in the general-sum game of the Prisoner's Dilemma, the system displays multistability. Interestingly, the three stable equilibria of the system correspond to the well-known ALLC (Always Cooperate), ALLD (Always Defect), and GRIM (Grim Trigger) strategies from evolutionary game theory (EGT). Entropy regularization strengthens system resilience by enlarging the basin of attraction of the cooperative equilibrium. Our findings reveal a close link between the mechanism of direct reciprocity in EGT and how cooperation emerges in MARL, offering insights for designing more robust and collaborative multi-agent systems.",
+  "categories": [
+    "physics.soc-ph"
+  ],
+  "primary_category": "physics.soc-ph",
+  "comment": null,
+  "published_date": "2026-01-12T02:19:18Z",
+  "updated_date": "2026-01-12T02:19:18Z",
+  "url": "https://arxiv.org/abs/2601.07142v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.07142v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:35.458127",
+  "category": "physics",
+  "subcategories": [
+    "physics.soc-ph"
+  ]
+}

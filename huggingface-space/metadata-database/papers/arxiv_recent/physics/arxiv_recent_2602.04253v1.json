@@ -1,0 +1,38 @@
+{
+  "id": "arxiv_2602.04253v1",
+  "arxiv_id": "2602.04253v1",
+  "title": "Constructing Compact ADAPT Unitary Coupled-Cluster Ansatz with Parameter-Based Criterion",
+  "authors": [
+    "Runhong He",
+    "Xin Hong",
+    "Qiaozhen Chai",
+    "Ji Guan",
+    "Junyuan Zhou",
+    "Arapat Ablimit",
+    "Guolong Cui",
+    "Shenggang Ying"
+  ],
+  "author_string": "Runhong He, Xin Hong, Qiaozhen Chai, Ji Guan, Junyuan Zhou et al.",
+  "journal": "arXiv:2602.04253v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "The adaptive derivative-assembled pseudo-trotter variational quantum eigensolver (ADAPT-VQE) is a promising hybrid quantum-classical algorithm for molecular ground state energy calculation, yet its practical scalability is hampered by redundant excitation operators and excessive measurement costs. To address these challenges, we propose Param-ADAPT-VQE, a novel improved algorithm that selects excitation operators based on a parameter-based criterion instead of the traditional gradient-based metric. This strategy effectively eludes redundant operators. We further develop a sub-Hamiltonian technique and integrate a hot-start VQE optimization strategy, achieving a significant reduction in measurement costs. Numerical experiments on typical molecular systems demonstrate that Param-ADAPT-VQE outperforms the original ADAPT-VQE in computational accuracy, ansatz size, and measurement costs. Furthermore, our scheme retains the fundamental framework of ADAPT-VQE and is thus fully compatible with its various modified versions, enabling further performance improvements in specific aspects. This work presents an efficient and scalable enhancement to ADAPT-VQE, mitigating the core obstacles that impede its practical implementation in the field of molecular quantum chemistry.",
+  "categories": [
+    "quant-ph",
+    "physics.chem-ph"
+  ],
+  "primary_category": "physics.chem-ph",
+  "comment": "12 pages, 8 figures",
+  "published_date": "2026-02-04T06:26:58Z",
+  "updated_date": "2026-02-04T06:26:58Z",
+  "url": "https://arxiv.org/abs/2602.04253v1",
+  "pdf_url": "https://arxiv.org/pdf/2602.04253v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-02-05T07:00:33.005988",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph",
+    "physics.chem-ph"
+  ]
+}

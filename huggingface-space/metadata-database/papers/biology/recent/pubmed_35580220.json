@@ -1,0 +1,31 @@
+{
+  "id": "pubmed_35580220",
+  "pmid": "35580220",
+  "title": "Quantitative Prediction of Interactions in Bipartite Networks Based on Traits, Abundances, and Phylogeny.",
+  "authors": [
+    "Benadi, Gita",
+    "Dormann, Carsten F",
+    "Fründ, Jochen",
+    "Stephan, Ruth",
+    "Vázquez, Diego P"
+  ],
+  "author_string": "Benadi, Gita, Dormann, Carsten F, Fründ, Jochen, Stephan, Ruth, Vázquez, Diego P",
+  "journal": "Am Nat",
+  "journal_full": "The American naturalist",
+  "year": "",
+  "doi": "10.1086/714420",
+  "abstract": "AbstractEcological interactions link species in networks. Loss of species from or introduction of new species into an existing network may have substantial effects for interaction patterns. Predicting changes in interaction frequency while allowing for rewiring of existing interactions-and hence estimating the consequences of community compositional changes-is thus a central challenge for network ecology. Interactions between species groups, such as pollinators and flowers or parasitoids and hosts, are moderated by matching morphological traits or sensory clues, most of which are unknown to us. If these traits are phylogenetically conserved, however, we can use phylogenetic distances to construct latent, surrogate traits and try to match those across groups, in addition to observed traits. Understanding how important traits and trait matching are, relative to abundances and chance, is crucial to estimating the fundamental predictability of network interactions. Here, we present a statistically sound approach (\"tapnet\") to fitting abundances, traits, and phylogeny to observed network data to predict interaction frequencies. We thereby expand existing approaches to quantitative bipartite networks, which so far have failed to correctly represent the nonindependence of network interactions. Furthermore, we use simulations and cross validation on independent data to evaluate the predictive power of the fit. Our results show that tapnet is on a par with abundance-only, matching centrality, and machine learning approaches. This approach also allows us to evaluate how well current concepts of trait matching work. On the basis of our results, we expect that interactions in well-sampled networks can be well predicted if traits and abundances are the main driver of interaction frequency.",
+  "keywords": [
+    "community",
+    "morphological trait",
+    "mutualist network",
+    "phylogeny",
+    "pollination"
+  ],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/35580220",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T17:02:04.870058",
+  "category": "biology",
+  "subcategories": []
+}

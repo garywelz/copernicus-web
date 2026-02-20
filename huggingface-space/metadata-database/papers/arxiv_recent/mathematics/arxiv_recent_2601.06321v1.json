@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2601.06321v1",
+  "arxiv_id": "2601.06321v1",
+  "title": "Multi-fidelity constraints in blackbox optimization",
+  "authors": [
+    "Xavier Lebeuf",
+    "Stéphane Alarie",
+    "Charles Audet",
+    "Miguel Diago",
+    "Sébastien Le Digabel"
+  ],
+  "author_string": "Xavier Lebeuf, Stéphane Alarie, Charles Audet, Miguel Diago, Sébastien Le Digabel",
+  "journal": "arXiv:2601.06321v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "This work studies constrained blackbox optimization problems that cannot be solved in reasonable time due to prohibitive computational costs. This challenge is especially prevalent in industrial applications, where blackbox evaluations are costly. However, constraints can be evaluated at various fidelities at a lower computational cost. More specifically, this work targets situations in which the infeasibility of each individual constraint can be detected at lower fidelities, and where a large discrete number of fidelities are available. Moreover, highly discontinuous problems which may fail to evaluate are considered, such that direct search methods are preferred to model-based ones. To this effect, the Interruptible Direct Search (IDS) and the Dynamic Interruptible Direct Search (DIDS) algorithms are proposed to leverage feasibility assessments from various fidelity levels to avoid high cost evaluations. The results show highly increased performances from NOMAD when it is paired with IDS or DIDS.",
+  "categories": [
+    "math.OC"
+  ],
+  "primary_category": "math.OC",
+  "comment": "27 pages, 9 figures, paper submitted to the EURO Journal on Computational Optimization",
+  "published_date": "2026-01-09T21:45:21Z",
+  "updated_date": "2026-01-09T21:45:21Z",
+  "url": "https://arxiv.org/abs/2601.06321v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.06321v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:18.741955",
+  "category": "mathematics",
+  "subcategories": [
+    "math.OC"
+  ]
+}

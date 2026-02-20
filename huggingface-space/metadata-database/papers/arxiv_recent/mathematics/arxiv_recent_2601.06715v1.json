@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2601.06715v1",
+  "arxiv_id": "2601.06715v1",
+  "title": "Diffusion Models with Heavy-Tailed Targets: Score Estimation and Sampling Guarantees",
+  "authors": [
+    "Yifeng Yu",
+    "Lu Yu"
+  ],
+  "author_string": "Yifeng Yu, Lu Yu",
+  "journal": "arXiv:2601.06715v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Score-based diffusion models have become a powerful framework for generative modeling, with score estimation as a central statistical bottleneck. Existing guarantees for score estimation largely focus on light-tailed targets or rely on restrictive assumptions such as compact support, which are often violated by heavy-tailed data in practice. In this work, we study conventional (Gaussian) score-based diffusion models when the target distribution is heavy-tailed and belongs to a Sobolev class with smoothness parameter $β>0$. We consider both exponential and polynomial tail decay, indexed by a tail parameter $γ$. Using kernel density estimation, we derive sharp minimax rates for score estimation, revealing a qualitative dichotomy: under exponential tails, the rate matches the light-tailed case up to polylogarithmic factors, whereas under polynomial tails the rate depends explicitly on $γ$. We further provide sampling guarantees for the associated continuous reverse dynamics. In total variation, the generated distribution converges at the minimax optimal rate $n^{-β/(2β+d)}$ under exponential tails (up to logarithmic factors), and at a $γ$-dependent rate under polynomial tails. Whether the latter sampling rate is minimax optimal remains an open question. These results characterize the statistical limits of score estimation and the resulting sampling accuracy for heavy-tailed targets, extending diffusion theory beyond the light-tailed setting.",
+  "categories": [
+    "math.ST",
+    "cs.LG",
+    "math.PR",
+    "stat.ML"
+  ],
+  "primary_category": "stat.ML",
+  "comment": null,
+  "published_date": "2026-01-10T23:05:25Z",
+  "updated_date": "2026-01-10T23:05:25Z",
+  "url": "https://arxiv.org/abs/2601.06715v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.06715v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:18.736232",
+  "category": "mathematics",
+  "subcategories": [
+    "math.ST",
+    "cs.LG",
+    "math.PR"
+  ]
+}

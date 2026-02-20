@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2601.05029v1",
+  "arxiv_id": "2601.05029v1",
+  "title": "Stochastic convergence of a class of greedy-type algorithms for Configuration Optimization Problems",
+  "authors": [
+    "Evie Nielen",
+    "Oliver Tse"
+  ],
+  "author_string": "Evie Nielen, Oliver Tse",
+  "journal": "arXiv:2601.05029v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Greedy Sampling Methods (GSMs) are widely used to construct approximate solutions of Configuration Optimization Problems (COPs), where a loss functional is minimized over finite configurations of points in a compact domain. While effective in practice, deterministic convergence analyses of greedy-type algorithms are often restrictive and difficult to verify. We propose a stochastic framework in which greedy-type methods are formulated as continuous-time Markov processes on the space of configurations. This viewpoint enables convergence analysis in expectation and in probability under mild structural assumptions on the error functional and the transition kernel. For global error functionals, we derive explicit convergence rates, including logarithmic, polynomial, and exponential decay, depending on an abstract improvement condition. As a pedagogical example, we study stochastic greedy sampling for one-dimensional piecewise linear interpolation and prove exponential convergence of the $L^1$-interpolation error for $C^2$-functions. Motivated by this analysis, we introduce the Randomized Polytope Division Method (R-PDM), a randomized variant of the classical Polytope Division Method, and demonstrate its effectiveness and variance reduction in numerical experiments",
+  "categories": [
+    "math.OC",
+    "math.FA",
+    "math.NA",
+    "math.PR"
+  ],
+  "primary_category": "math.PR",
+  "comment": "32 pages, 9 figures",
+  "published_date": "2026-01-08T15:38:33Z",
+  "updated_date": "2026-01-08T15:38:33Z",
+  "url": "https://arxiv.org/abs/2601.05029v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.05029v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:26.898246",
+  "category": "mathematics",
+  "subcategories": [
+    "math.OC",
+    "math.FA",
+    "math.NA"
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_1810.01212v3",
+  "arxiv_id": "1810.01212v3",
+  "title": "Approximation and sampling of multivariate probability distributions in the tensor train decomposition",
+  "authors": [
+    "Sergey Dolgov",
+    "Karim Anaya-Izquierdo",
+    "Colin Fox",
+    "Robert Scheichl"
+  ],
+  "author_string": "Sergey Dolgov, Karim Anaya-Izquierdo, Colin Fox, Robert Scheichl",
+  "journal": "arXiv:1810.01212v3",
+  "journal_ref": null,
+  "year": "2018",
+  "doi": null,
+  "abstract": "General multivariate distributions are notoriously expensive to sample from, particularly the high-dimensional posterior distributions in PDE-constrained inverse problems. This paper develops a sampler for arbitrary continuous multivariate distributions that is based on low-rank surrogates in the tensor-train format. We construct a tensor-train approximation to the target probability density function using the cross interpolation, which requires a small number of function evaluations. For sufficiently smooth distributions the storage required for the TT approximation is moderate, scaling linearly with dimension. The structure of the tensor-train surrogate allows efficient sampling by the conditional distribution method. Unbiased estimates may be calculated by correcting the transformed random seeds using a Metropolis--Hastings accept/reject step. Moreover, one can use a more efficient quasi-Monte Carlo quadrature that may be corrected either by a control-variate strategy, or by importance weighting. We show that the error in the tensor-train approximation propagates linearly into the Metropolis--Hastings rejection rate and the integrated autocorrelation time of the resulting Markov chain. These methods are demonstrated in three computed examples: fitting failure time of shock absorbers; a PDE-constrained inverse diffusion problem; and sampling from the Rosenbrock distribution. The delayed rejection adaptive Metropolis (DRAM) algorithm is used as a benchmark. We find that the importance-weight corrected quasi-Monte Carlo quadrature performs best in all computed examples, and is orders-of-magnitude more efficient than DRAM across a wide range of approximation accuracies and sample sizes. Indeed, all the methods developed here significantly outperform DRAM in all computed examples.",
+  "categories": [
+    "math.NA",
+    "math.PR",
+    "math.ST"
+  ],
+  "primary_category": "math.ST",
+  "comment": "32 pages",
+  "published_date": "2018-10-02T12:56:16Z",
+  "updated_date": "2019-07-03T23:58:40Z",
+  "url": "https://arxiv.org/abs/1810.01212v3",
+  "pdf_url": "https://arxiv.org/pdf/1810.01212v3.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:30:56.109382",
+  "category": "mathematics",
+  "subcategories": [
+    "math.NA",
+    "math.PR",
+    "math.ST"
+  ]
+}

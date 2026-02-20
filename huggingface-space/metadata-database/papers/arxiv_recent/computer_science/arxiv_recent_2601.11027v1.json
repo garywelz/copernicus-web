@@ -1,0 +1,42 @@
+{
+  "id": "arxiv_2601.11027v1",
+  "arxiv_id": "2601.11027v1",
+  "title": "WenetSpeech-Wu: Datasets, Benchmarks, and Models for a Unified Chinese Wu Dialect Speech Processing Ecosystem",
+  "authors": [
+    "Chengyou Wang",
+    "Mingchen Shao",
+    "Jingbin Hu",
+    "Zeyu Zhu",
+    "Hongfei Xue",
+    "Bingshen Mu",
+    "Xin Xu",
+    "Xingyi Duan",
+    "Binbin Zhang",
+    "Pengcheng Zhu",
+    "Chuang Ding",
+    "Xiaojun Zhang",
+    "Hui Bu",
+    "Lei Xie"
+  ],
+  "author_string": "Chengyou Wang, Mingchen Shao, Jingbin Hu, Zeyu Zhu, Hongfei Xue et al.",
+  "journal": "arXiv:2601.11027v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Speech processing for low-resource dialects remains a fundamental challenge in developing inclusive and robust speech technologies. Despite its linguistic significance and large speaker population, the Wu dialect of Chinese has long been hindered by the lack of large-scale speech data, standardized evaluation benchmarks, and publicly available models. In this work, we present WenetSpeech-Wu, the first large-scale, multi-dimensionally annotated open-source speech corpus for the Wu dialect, comprising approximately 8,000 hours of diverse speech data. Building upon this dataset, we introduce WenetSpeech-Wu-Bench, the first standardized and publicly accessible benchmark for systematic evaluation of Wu dialect speech processing, covering automatic speech recognition (ASR), Wu-to-Mandarin translation, speaker attribute prediction, speech emotion recognition, text-to-speech (TTS) synthesis, and instruction-following TTS (instruct TTS). Furthermore, we release a suite of strong open-source models trained on WenetSpeech-Wu, establishing competitive performance across multiple tasks and empirically validating the effectiveness of the proposed dataset. Together, these contributions lay the foundation for a comprehensive Wu dialect speech processing ecosystem, and we open-source proposed datasets, benchmarks, and models to support future research on dialectal speech intelligence.",
+  "categories": [
+    "cs.SD"
+  ],
+  "primary_category": "cs.SD",
+  "comment": null,
+  "published_date": "2026-01-16T06:48:10Z",
+  "updated_date": "2026-01-16T06:48:10Z",
+  "url": "https://arxiv.org/abs/2601.11027v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11027v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:37.510325",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.SD"
+  ]
+}

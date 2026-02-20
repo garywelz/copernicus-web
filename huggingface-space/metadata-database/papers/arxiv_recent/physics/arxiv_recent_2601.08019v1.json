@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2601.08019v1",
+  "arxiv_id": "2601.08019v1",
+  "title": "Democratic heliocentric coordinates underestimate the rate of instabilities in long-term integrations of the Solar System",
+  "authors": [
+    "Hanno Rein",
+    "Kavi Dey",
+    "Daniel Tamayo"
+  ],
+  "author_string": "Hanno Rein, Kavi Dey, Daniel Tamayo",
+  "journal": "arXiv:2601.08019v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Wisdom-Holman (WH) integrators are symplectic operator-splitting methods widely used for long-term N-body simulations of planetary systems. Most implementations use either Jacobi coordinates or democratic heliocentric coordinates (DHC) for the Hamiltonian splitting, resulting in slightly different algorithms. In this paper we report results from numerical experiments, which show that integrations of the Solar System using DHC coordinates with typical timesteps of a few days suppress instabilities of the planet Mercury. We further show that this is due to an eccentricity dependent artificial numerical precession introduced by the DHC splitting. While the DHC splitting converges to the correct results at shorter timesteps of ~0.6 days, we argue that Jacobi coordinates remain reliable to significantly longer timesteps when orbits become moderately eccentric, and are thus a better choice when the innermost planet can reach high eccentricities.",
+  "categories": [
+    "astro-ph.EP",
+    "astro-ph.IM"
+  ],
+  "primary_category": "astro-ph.IM",
+  "comment": "7 pages, 3 figures, submitted to ApJ",
+  "published_date": "2026-01-12T21:51:55Z",
+  "updated_date": "2026-01-12T21:51:55Z",
+  "url": "https://arxiv.org/abs/2601.08019v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.08019v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:19.623188",
+  "category": "physics",
+  "subcategories": [
+    "astro-ph.EP",
+    "astro-ph.IM"
+  ]
+}

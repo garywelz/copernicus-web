@@ -1,0 +1,30 @@
+{
+  "id": "arxiv_2601.07893v1",
+  "arxiv_id": "2601.07893v1",
+  "title": "Laplacian eigenvalue conditions for edge-disjoint spanning trees and a forest with constraints",
+  "authors": [
+    "Yongbin Gao",
+    "Ligong Wang"
+  ],
+  "author_string": "Yongbin Gao, Ligong Wang",
+  "journal": "arXiv:2601.07893v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Let $k$ be a positive integer and let $G$ be a simple graph of order $n$ with minimum degree $δ$. A graph $G$ is said to have property $P(k, d)$ if it contains $k$ edge-disjoint spanning trees and an additional forest $F$ with edge number $|E(F)| > \\frac{d-1}{d}(|V(G)| - 1)$, such that if $F$ is not a spanning tree, then $F$ has a component with at least $d$ edges. Let $D(G)$ be the degree diagonal matrix of $G$. We denote $λ_i$ and $μ_i$ as the $i$th largest eigenvalue of the adjacency matrix $A(G)$ of $G$ and the Laplacian matrix $L(G) = D(G) - A(G)$ of $G$ for $i = 1, 2, \\ldots, n$, respectively. In this paper, we investigate the relationship between Laplacian eigenvalues and property $P(k, δ)$. Let $t$ be a positive integer, and define $\\mathcal{G}_t$ as the set of simple graphs such that each $G \\in \\mathcal{G}_t$ contains at least $t+1$ non-empty disjoint proper subsets $V_1, V_2, \\ldots, V_{t+1}$ satisfying $V(G) \\setminus \\bigcup_{i=1}^{t+1} V_i \\neq \\emptyset$ and edge connectivity $κ'(G) = e(V_i, V(G) \\setminus V_i)$ for any $i = 1, 2, \\ldots, t+1$. For the class of graphs $\\mathcal{G}_1$ with minimum degree $δ$, we provide a sufficient condition involving the third smallest Laplacian eigenvalue $μ_{n-2}(G)$ for a graph $G\\in \\mathcal{G}_1$ to have property $P(k, δ)$. Similarly, for the class of graphs $\\mathcal{G}_2$ with minimum degree $δ$, we establish a corresponding sufficient condition involving the fourth smallest Laplacian eigenvalue $μ_{n-3}(G)$ for a graph $G\\in \\mathcal{G}_2$ to have property $P(k, δ)$. Furthermore, we extend the spectral conditions for all the results about $μ_{n-2}(G)$, $μ_{n-3}(G)$ and $λ_2(G)$ to the general graph matrices $aD(G) + A(G)$ and $aD(G) + bA(G)$.",
+  "categories": [
+    "math.CO"
+  ],
+  "primary_category": "math.CO",
+  "comment": null,
+  "published_date": "2026-01-12T09:05:54Z",
+  "updated_date": "2026-01-12T09:05:54Z",
+  "url": "https://arxiv.org/abs/2601.07893v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.07893v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:11.152393",
+  "category": "mathematics",
+  "subcategories": [
+    "math.CO"
+  ]
+}

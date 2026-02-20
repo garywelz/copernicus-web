@@ -1,0 +1,27 @@
+{
+  "id": "pubmed_26671840",
+  "pmid": "26671840",
+  "title": "Controlling false discoveries in genome scans for selection.",
+  "authors": [
+    "François, Olivier",
+    "Martins, Helena",
+    "Caye, Kevin",
+    "Schoville, Sean D"
+  ],
+  "author_string": "François, Olivier, Martins, Helena, Caye, Kevin, Schoville, Sean D",
+  "journal": "Mol Ecol",
+  "journal_full": "Molecular ecology",
+  "year": "",
+  "doi": "10.1111/mec.13513",
+  "abstract": "Population differentiation (PD) and ecological association (EA) tests have recently emerged as prominent statistical methods to investigate signatures of local adaptation using population genomic data. Based on statistical models, these genomewide testing procedures have attracted considerable attention as tools to identify loci potentially targeted by natural selection. An important issue with PD and EA tests is that incorrect model specification can generate large numbers of false-positive associations. Spurious association may indeed arise when shared demographic history, patterns of isolation by distance, cryptic relatedness or genetic background are ignored. Recent works on PD and EA tests have widely focused on improvements of test corrections for those confounding effects. Despite significant algorithmic improvements, there is still a number of open questions on how to check that false discoveries are under control and implement test corrections, or how to combine statistical tests from multiple genome scan methods. This tutorial study provides a detailed answer to these questions. It clarifies the relationships between traditional methods based on allele frequency differentiation and EA methods and provides a unified framework for their underlying statistical tests. We demonstrate how techniques developed in the area of genomewide association studies, such as inflation factors and linear mixed models, benefit genome scan methods and provide guidelines for good practice while conducting statistical tests in landscape and population genomic applications. Finally, we highlight how the combination of several well-calibrated statistical tests can increase the power to reject neutrality, improving our ability to infer patterns of local adaptation in large population genomic data sets.",
+  "keywords": [
+    "control of false discovery rates",
+    "genome scans for selection"
+  ],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/26671840",
+  "source": "pubmed",
+  "acquired_date": "2026-01-13T20:31:50.605606",
+  "category": "biology",
+  "subcategories": []
+}

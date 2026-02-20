@@ -1,0 +1,41 @@
+{
+  "id": "arxiv_2108.00321v2",
+  "arxiv_id": "2108.00321v2",
+  "title": "Accurate full configuration interaction correlation energy estimates for five- and six-membered rings",
+  "authors": [
+    "Yann Damour",
+    "Mickaël Véril",
+    "Fábris Kossoski",
+    "Michel Caffarel",
+    "Denis Jacquemin",
+    "Anthony Scemama",
+    "Pierre-François Loos"
+  ],
+  "author_string": "Yann Damour, Mickaël Véril, Fábris Kossoski, Michel Caffarel, Denis Jacquemin et al.",
+  "journal": "J. Chem. Phys. 155, 134104 (2021)",
+  "journal_ref": "J. Chem. Phys. 155, 134104 (2021)",
+  "year": "2021",
+  "doi": "10.1063/5.0065314",
+  "abstract": "Following our recent work on the benzene molecule [\\href{https://doi.org/10.1063/5.0027617}{J.~Chem.~Phys.~\\textbf{153}, 176101 (2020)}], itself motivated by the blind challenge of Eriksen \\textit{et al.} [\\href{https://doi.org/10.1021/acs.jpclett.0c02621}{J.~Phys.~Chem.~Lett.~\\textbf{11}, 8922 (2020)}] on the same system, we report accurate full configuration interaction (FCI) frozen-core correlation energy estimates for twelve five- and six-membered ring molecules in the standard correlation-consistent double-$ζ$ Dunning basis set (cc-pVDZ). Our FCI correlation energy estimates, with estimated error smaller than 1 millihartree, are based on energetically optimized-orbital selected configuration interaction (SCI) calculations performed with the \\textit{Configuration Interaction using a Perturbative Selection made Iteratively} (CIPSI) algorithm. Having at our disposal these accurate reference energies, the respective performance and convergence properties of several popular and widely-used families of single-reference quantum chemistry methods are investigated. In particular, we study the convergence properties of i) the Møller-Plesset perturbation series up to fifth-order (MP2, MP3, MP4, and MP5), ii) the iterative approximate coupled-cluster series CC2, CC3, and CC4, and iii) the coupled-cluster series CCSD, CCSDT, and CCSDTQ. The performance of the ground-state gold standard CCSD(T) as well as the completely renormalized CC model, CR-CC(2,3), are also investigated.",
+  "categories": [
+    "physics.chem-ph",
+    "cond-mat.str-el",
+    "nucl-th",
+    "physics.comp-ph",
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": "13 pages, 5 figures",
+  "published_date": "2021-07-31T20:49:06Z",
+  "updated_date": "2021-08-26T21:48:32Z",
+  "url": "https://arxiv.org/abs/2108.00321v2",
+  "pdf_url": "https://arxiv.org/pdf/2108.00321v2.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-02-03T13:20:50.568477",
+  "category": "physics",
+  "subcategories": [
+    "physics.chem-ph",
+    "cond-mat.str-el",
+    "nucl-th"
+  ]
+}

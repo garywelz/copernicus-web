@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2601.07733v1",
+  "arxiv_id": "2601.07733v1",
+  "title": "Backward Reconstruction of the Chafee--Infante Equation via Physics-Informed WGAN-GP",
+  "authors": [
+    "Joseph L. Shomberg"
+  ],
+  "author_string": "Joseph L. Shomberg",
+  "journal": "arXiv:2601.07733v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We present a physics-informed Wasserstein GAN with gradient penalty (WGAN-GP) for solving the inverse Chafee--Infante problem on two-dimensional domains with Dirichlet boundary conditions. The objective is to reconstruct an unknown initial condition from a near-equilibrium state obtained after 100 explicit forward Euler iterations of the reaction-diffusion equation \\[ u_t - γΔu + κ\\left(u^3 - u\\right)=0. \\] Because this mapping strongly damps high-frequency content, the inverse problem is severely ill-posed and sensitive to noise.   Our approach integrates a U-Net generator, a PatchGAN critic with spectral normalization, Wasserstein loss with gradient penalty, and several physics-informed auxiliary terms, including Lyapunov energy matching, distributional statistics, and a crucial forward-simulation penalty. This penalty enforces consistency between the predicted initial condition and its forward evolution under the \\emph{same} forward Euler discretization used for dataset generation. Earlier experiments employing an Eyre-type semi-implicit solver were not compatible with this residual mechanism due to the cost and instability of Newton iterations within batched GPU training.   On a dataset of 50k training and 10k testing pairs on $128\\times128$ grids (with natural $[-1,1]$ amplitude scaling), the best trained model attains a mean absolute error (MAE) of approximately \\textbf{0.23988159} on the full test set, with a sample-wise standard deviation of about \\textbf{0.00266345}. The results demonstrate stable inversion, accurate recovery of interfacial structure, and robustness to high-frequency noise in the initial data.",
+  "categories": [
+    "math.AP",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": "5 pages, 9 figures",
+  "published_date": "2026-01-12T17:11:00Z",
+  "updated_date": "2026-01-12T17:11:00Z",
+  "url": "https://arxiv.org/abs/2601.07733v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.07733v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:11.147372",
+  "category": "computer_science",
+  "subcategories": [
+    "math.AP",
+    "cs.LG"
+  ]
+}

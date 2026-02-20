@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2008.02427v1",
+  "arxiv_id": "2008.02427v1",
+  "title": "Salvage Reusable Samples from Noisy Data for Robust Learning",
+  "authors": [
+    "Zeren Sun",
+    "Xian-Sheng Hua",
+    "Yazhou Yao",
+    "Xiu-Shen Wei",
+    "Guosheng Hu",
+    "Jian Zhang"
+  ],
+  "author_string": "Zeren Sun, Xian-Sheng Hua, Yazhou Yao, Xiu-Shen Wei, Guosheng Hu et al.",
+  "journal": "arXiv:2008.02427v1",
+  "journal_ref": null,
+  "year": "2020",
+  "doi": null,
+  "abstract": "Due to the existence of label noise in web images and the high memorization capacity of deep neural networks, training deep fine-grained (FG) models directly through web images tends to have an inferior recognition ability. In the literature, to alleviate this issue, loss correction methods try to estimate the noise transition matrix, but the inevitable false correction would cause severe accumulated errors. Sample selection methods identify clean (\"easy\") samples based on the fact that small losses can alleviate the accumulated errors. However, \"hard\" and mislabeled examples that can both boost the robustness of FG models are also dropped. To this end, we propose a certainty-based reusable sample selection and correction approach, termed as CRSSC, for coping with label noise in training deep FG models with web images. Our key idea is to additionally identify and correct reusable samples, and then leverage them together with clean examples to update the networks. We demonstrate the superiority of the proposed approach from both theoretical and experimental perspectives.",
+  "categories": [
+    "cs.CV",
+    "cs.MM"
+  ],
+  "primary_category": "cs.MM",
+  "comment": "accepted by ACM MM 2020",
+  "published_date": "2020-08-06T02:07:21Z",
+  "updated_date": "2020-08-06T02:07:21Z",
+  "url": "https://arxiv.org/abs/2008.02427v1",
+  "pdf_url": "https://arxiv.org/pdf/2008.02427v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:27.422490",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV",
+    "cs.MM"
+  ]
+}

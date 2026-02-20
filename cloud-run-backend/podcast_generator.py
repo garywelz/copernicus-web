@@ -388,18 +388,20 @@ class EnhancedPodcastGenerator:
         
         Write a description that:
         1. Hooks readers with the revolutionary nature of the discoveries
-        2. Explains what listeners will learn (3-4 key takeaways)
+        2. Explains what listeners will learn (5-6 key takeaways)
         3. Emphasizes the paradigm-shifting implications
         4. Mentions the rigorous research foundation
         5. Includes a call-to-action for engagement
         
         Format as markdown with:
-        - Compelling opening paragraph
-        - "What You'll Discover:" section with bullet points
-        - "Research Foundation:" section mentioning source count
+        - Compelling opening (3-4 paragraphs introducing the topic and its significance)
+        - "What You'll Discover:" section with detailed bullet points (5-6 items with explanations)
+        - "Research Foundation:" section mentioning source count and key findings
+        - "Practical Applications:" section detailing real-world uses
+        - "Future Directions:" section about emerging possibilities
         - "Join the Revolution:" call-to-action
         
-        Keep it engaging, informative, and under 500 words.
+        Aim for 2500-3500 characters to maximize discoverability. Be thorough, engaging, and informative while remaining accessible.
         """
         
         description = await self._call_llm(model, prompt)

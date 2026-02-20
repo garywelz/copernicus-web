@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mathematics Knowledge Map</title>
+    <script src="https://unpkg.com/cytoscape@3.27.0/dist/cytoscape.min.js"></script>
+    <script src="https://unpkg.com/cytoscape-dagre@2.5.0/cytoscape-dagre.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+        h1 {
+            color: #2c3e50;
+            margin-top: 0;
+        }
+        .controls {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #ecf0f1;
+            border-radius: 5px;
+        }
+        .controls label {
+            margin-right: 15px;
+        }
+        .controls input, .controls select, .controls button {
+            margin-right: 10px;
+            padding: 8px;
+            border: 1px solid #bdc3c7;
+            border-radius: 4px;
+        }
+        .controls button {
+            background: #3498db;
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 8px 16px;
+        }
+        .controls button:hover {
+            background: #2980b9;
+        }
+        #cy {
+            width: 100%;
+            height: 700px;
+            border: 1px solid #bdc3c7;
+            border-radius: 5px;
+        }
+        .stats {
+            margin-top: 20px;
+            padding: 15px;
+            background: #ecf0f1;
+            border-radius: 5px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+        }
+        .stat-item {
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #3498db;
+        }
+        .stat-label {
+            font-size: 12px;
+            color: #7f8c8d;
+            text-transform: uppercase;
+        }
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #7f8c8d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📊 Mathematics Knowledge Map</h1>
+        
+        <div class="controls">
+            <label>
+                Max Papers:
+                <input type="number" id="maxPapers" value="500" min="10" max="5000" step="10">
+            </label>
+            <label>
+                <input type="checkbox" id="includeConcepts" checked> Include Concepts
+            </label>
+            <label>
+                <input type="checkbox" id="includeSimilarity" checked> Include Similarity
+            </label>
+            <label>
+                <input type="checkbox" id="includeCategories" checked> Include Categories
+            </label>
+            <button onclick="loadGraph()">Load Graph</button>
+            <button onclick="resetView()">Reset View</button>
+        </div>
+        
+        <div id="cy"></div>
+        
+        <div class="stats" id="stats" style="display: none;">
+            <div class="stat-item">
+                <div class="stat-value" id="statNodes">0</div>
+                <div class="stat-label">Nodes</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="statEdges">0</div>
+                <div class="stat-label">Edges</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="statPapers">0</div>
+                <div class="stat-label">Papers</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="statConcepts">0</div>
+                <div class="stat-label">Concepts</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let cy;
+        
+        // Initialize Cytoscape
+        cy = cytoscape({
+            container: document.getElementById('cy'),
+            elements: [],
+            style: [
+                {
+                    selector: 'node[type="paper"]',
+                    style: {
+                        'background-color': '#3498db',
+                        'label': 'data(label)',
+                        'width': 20,
+                        'height': 20,
+                        'font-size': '10px',
+                        'text-wrap': 'wrap',
+                        'text-max-width': '100px',
+                        'text-valign': 'center',
+                        'text-halign': 'center',
+                        'color': '#2c3e50'
+                    }
+                },
+                {
+                    selector: 'node[type="concept"]',
+                    style: {
+                        'background-color': '#e74c3c',
+                        'label': 'data(label)',
+                        'width': 30,
+                        'height': 30,
+                        'shape': 'diamond',
+                        'font-size': '12px',
+                        'font-weight': 'bold',
+                        'text-valign': 'center',
+                        'text-halign': 'center',
+                        'color': '#2c3e50'
+                    }
+                },
+                {
+                    selector: 'edge',
+                    style: {
+                        'width': 2,
+                        'line-color': '#95a5a6',
+                        'target-arrow-color': '#95a5a6',
+                        'target-arrow-shape': 'triangle',
+                        'curve-style': 'bezier',
+                        'opacity': 0.6
+                    }
+                },
+                {
+                    selector: 'edge[type="cites"]',
+                    style: {
+                        'line-color': '#e74c3c',
+                        'target-arrow-color': '#e74c3c'
+                    }
+                },
+                {
+                    selector: 'edge[type="similar_to"]',
+                    style: {
+                        'line-color': '#3498db',
+                        'target-arrow-color': '#3498db'
+                    }
+                },
+                {
+                    selector: 'edge[type="same_category"]',
+                    style: {
+                        'line-color': '#95a5a6',
+                        'target-arrow-color': '#95a5a6',
+                        'opacity': 0.3
+                    }
+                }
+            ],
+            layout: {
+                name: 'cose',
+                idealEdgeLength: 100,
+                nodeOverlap: 20,
+                refresh: 20,
+                fit: true,
+                padding: 30,
+                randomize: false,
+                componentSpacing: 100,
+                nodeRepulsion: 4000000,
+                edgeElasticity: 100,
+                nestingFactor: 5,
+                gravity: 80,
+                numIter: 1000,
+                initialTemp: 200,
+                coolingFactor: 0.95,
+                minTemp: 1.0
+            }
+        });
+        
+        async function loadGraph() {
+            const maxPapers = document.getElementById('maxPapers').value;
+            const includeConcepts = document.getElementById('includeConcepts').checked;
+            const includeSimilarity = document.getElementById('includeSimilarity').checked;
+            const includeCategories = document.getElementById('includeCategories').checked;
+            
+            document.getElementById('cy').innerHTML = '<div class="loading">Loading graph...</div>';
+            
+            try {
+                const params = new URLSearchParams({
+                    max_papers: maxPapers,
+                    include_concepts: includeConcepts,
+                    include_similarity: includeSimilarity,
+                    include_categories: includeCategories,
+                    format: 'cytoscape'
+                });
+                
+                const response = await fetch(`/api/knowledge-map/graph?${params}`);
+                const data = await response.json();
+                
+                // Update graph
+                cy.elements().remove();
+                cy.add(data);
+                
+                // Update stats
+                if (data.metadata) {
+                    document.getElementById('statNodes').textContent = data.metadata.papers + data.metadata.concepts;
+                    document.getElementById('statEdges').textContent = data.metadata.relationships;
+                    document.getElementById('statPapers').textContent = data.metadata.papers;
+                    document.getElementById('statConcepts').textContent = data.metadata.concepts;
+                    document.getElementById('stats').style.display = 'grid';
+                }
+                
+                // Fit view
+                cy.fit();
+                
+            } catch (error) {
+                console.error('Error loading graph:', error);
+                alert('Error loading graph: ' + error.message);
+            }
+        }
+        
+        function resetView() {
+            cy.fit();
+        }
+        
+        // Load initial graph
+        loadGraph();
+    </script>
+</body>
+</html>
+

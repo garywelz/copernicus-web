@@ -1,0 +1,93 @@
+{
+  "id": "nutrition_metabolism-symbiotic-nutrition-process",
+  "name": "Symbiotic Nutrition Process",
+  "category": "biology",
+  "subcategory": "nutrition_metabolism",
+  "subcategory_name": "Nutrition & Metabolism",
+  "organism": "Multiple",
+  "description": "Symbiotic Nutrition Process in Multiple. This process represents a higher-level biological mechanism distinct from molecular/biochemical processes covered in GLMP.",
+  "complexity": {
+    "nodes": 9,
+    "edges": 9,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "low",
+    "detailLevel": "low"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\n    A35[Host Organism] --> B35[Symbiont Association]\n    C35[Symbiont] --> B35\n    B35 --> D35[Nutrient Exchange]\n    D35 --> E35[Host Benefits]\n    D35 --> F35[Symbiont Benefits]\n    E35 --> G35[Enhanced Nutrition]\n    F35 --> H35[Protected Environment]\n    G35 --> I35[Growth Advantage]\n    H35 --> I35\n    \n    style A35 fill:#ff6b6b,color:#fff\n    style C35 fill:#ff6b6b,color:#fff\n    style B35 fill:#ffd43b,color:#000\n    style D35 fill:#51cf66,color:#fff\n    style E35 fill:#74c0fc,color:#fff\n    style F35 fill:#74c0fc,color:#fff\n    style G35 fill:#b197fc,color:#fff\n    style H35 fill:#b197fc,color:#fff\n    style I35 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "notes": "Higher-level biological process visualization: Symbiotic Nutrition Process. Created using the Programming Framework methodology for organismal and ecological process analysis."
+    },
+    {
+      "title": "Nutritional symbioses in animals",
+      "authors": "Douglas, AE.",
+      "journal": "Annu Rev Ecol Evol Syst",
+      "year": "2010",
+      "pubmed": "22448378",
+      "doi": "10.1146/annurev-ecolsys-102209-144706",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/22448378"
+    },
+    {
+      "title": "Metabolic interplay between hosts and their symbiotic microbes",
+      "authors": "Engel, P; Moran, NA.",
+      "journal": "Proc Natl Acad Sci U S A",
+      "year": "2013",
+      "pubmed": "24277800",
+      "doi": "10.1073/pnas.1309312110",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/24277800"
+    },
+    {
+      "title": "The legume-rhizobium symbiosis: plant perspective on symbiotic nitrogen fixation",
+      "authors": "Masson-Boivin, C; Sachs, T; Hartmann, A; Vivant-Corjon, B.",
+      "journal": "Proc Natl Acad Sci U S A",
+      "year": "2009",
+      "pubmed": "19996024",
+      "doi": "10.1073/pnas.0909432106",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/19996024"
+    }
+  ],
+  "keywords": [
+    "symbiotic",
+    "process",
+    "multiple",
+    "nutrition",
+    "metabolism"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-08",
+  "verified": false,
+  "notes": "Higher-level biological process. GLMP covers biochemical/molecular processes; this database covers organismal/ecological processes."
+}

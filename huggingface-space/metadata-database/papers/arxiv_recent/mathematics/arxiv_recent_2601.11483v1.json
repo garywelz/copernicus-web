@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2601.11483v1",
+  "arxiv_id": "2601.11483v1",
+  "title": "Tensor field tomography with attenuation and refraction: adjoint operators for the dynamic case and numerical experiments",
+  "authors": [
+    "Lukas Vierus",
+    "Thomas Schuster",
+    "Bernadette Hahn"
+  ],
+  "author_string": "Lukas Vierus, Thomas Schuster, Bernadette Hahn",
+  "journal": "arXiv:2601.11483v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "This article is concerned with tensor field tomography in a fairly general setting, that takes refraction, attenuation and time-dependence of tensor fields into account. The mathematical model is given by attenuated ray transforms of the fields along geodesic curves corresponding to a Riemannian metric that is defined by the index of refraction. The data are given at the boundary tangent bundle of the domain and it is well-known that they can be characterized as boundary data of a transport equation turning tensor field tomography into an inverse source problem. This way the adjoint of the forward mapping can be computed using the integral representation or, equivalently, associated to a dual transport equation. The article offers and proves two different representations for the adjoint mappings both in the dynamic and static case. The numerical implementation is demonstrated and evaluated for static fields using the damped Landweber method with Nesterov acceleration applied to both, the integral and PDE-based formulations. The transport equations are solved using a viscosity approximation. The error analysis reveals that the integral representation significantly outperforms PDE-based methods in terms of computational efficiency while achieving comparable reconstruction accuracy. The impact of noise and deviations from straight-line trajectories are investigated confirming improved accuracy if refraction is taken into account. We conclude that the inclusion of refraction to the forward model pays in spite of increased numerical cost.",
+  "categories": [
+    "math.NA"
+  ],
+  "primary_category": "math.NA",
+  "comment": "18 pages, 7 figures",
+  "published_date": "2026-01-16T18:04:29Z",
+  "updated_date": "2026-01-16T18:04:29Z",
+  "url": "https://arxiv.org/abs/2601.11483v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11483v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:38.713860",
+  "category": "mathematics",
+  "subcategories": [
+    "math.NA"
+  ]
+}

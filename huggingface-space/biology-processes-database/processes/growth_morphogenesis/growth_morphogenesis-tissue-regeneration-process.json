@@ -1,0 +1,92 @@
+{
+  "id": "growth_morphogenesis-tissue-regeneration-process",
+  "name": "Tissue Regeneration Process",
+  "category": "biology",
+  "subcategory": "growth_morphogenesis",
+  "subcategory_name": "Growth & Morphogenesis",
+  "description": "Tissue Regeneration Process process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 9,
+    "edges": 7,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\n    A8[Wound Detection] --> B8[Inflammatory Response]\n    B8 --> C8[Cell Migration]\n    C8 --> D8[Stem Cell Activation]\n    D8 --> E8[Cell Proliferation]\n    E8 --> F8[Differentiation]\n    F8 --> G8[Tissue Replacement]\n    G8 --> H8[Remodeling]\n    H8 --> I8[Function Restoration]\n    \n    style A8 fill:#ff6b6b,color:#fff\n    style B8 fill:#ffd43b,color:#000\n    style C8 fill:#51cf66,color:#fff\n    style D8 fill:#51cf66,color:#fff\n    style E8 fill:#51cf66,color:#fff\n    style F8 fill:#74c0fc,color:#fff\n    style G8 fill:#74c0fc,color:#fff\n    style H8 fill:#51cf66,color:#fff\n    style I8 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Tissue Regeneration Process. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "The Self-Assembling Process of Articular Cartilage and Self-Organization in Tissue Engineering",
+      "authors": "",
+      "journal": "Tissue and Organ Regeneration",
+      "year": "2016",
+      "pubmed": null,
+      "doi": "10.1201/b15595-14",
+      "url": "https://doi.org/10.1201/b15595-14"
+    },
+    {
+      "title": "The electrospinning process, conditions and control",
+      "authors": "Robb, B.; Lennox, B.",
+      "journal": "Electrospinning for Tissue Regeneration",
+      "year": "2011",
+      "pubmed": null,
+      "doi": "10.1533/9780857092915.1.51",
+      "url": "https://doi.org/10.1533/9780857092915.1.51"
+    },
+    {
+      "title": "Cartilage tissue regeneration",
+      "authors": "Hardingham, T.",
+      "journal": "Electrospinning for Tissue Regeneration",
+      "year": "2011",
+      "pubmed": null,
+      "doi": "10.1533/9780857092915.2.111",
+      "url": "https://doi.org/10.1533/9780857092915.2.111"
+    }
+  ],
+  "keywords": [
+    "tissue",
+    "regeneration",
+    "process"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+}

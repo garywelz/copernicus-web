@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2601.09811v1",
+  "arxiv_id": "2601.09811v1",
+  "title": "Learning Ecological and Epidemic Processes using Neural ODEs, Kolmogorov-Arnold Network ODEs and SINDy",
+  "authors": [
+    "Maria Vasilyeva",
+    "Zheng Wei",
+    "Kelum Gajamannage",
+    "Hyangim Ji",
+    "Aleksei Krasnikov",
+    "Alexey Sadovski"
+  ],
+  "author_string": "Maria Vasilyeva, Zheng Wei, Kelum Gajamannage, Hyangim Ji, Aleksei Krasnikov et al.",
+  "journal": "arXiv:2601.09811v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We consider epidemic and ecological models to investigate their coupled dynamics. Starting with the classical Susceptible-Infected-Recovered (SIR) model for basic epidemic behavior and the predator-prey (Lotka-Volterra, LV) system for ecological interactions, we then combine these frameworks into a coupled Lotka-Volterra-Susceptible-Infected-Susceptible (LVSIS) model. The resulting system consists of four differential equations describing the evolution of susceptible and infected prey and predator populations, incorporating ecological interactions, disease transmission, and spatial dispersal. To learn the underlying dynamics directly from data, we employ several data-driven modeling frameworks: Neural Ordinary Differential Equations (Neural ODEs), Kolmogorov-Arnold Network Ordinary Differential Equations (KANODEs), and Sparse Identification of Nonlinear Dynamics (SINDy). Numerical experiments based on synthetic data are conducted to investigate the learning ability of these models in capturing the epidemic and ecological behavior. We further extend our approach to spatio-temporal models, aiming to uncover hidden local couplings.",
+  "categories": [
+    "math.NA"
+  ],
+  "primary_category": "math.NA",
+  "comment": null,
+  "published_date": "2026-01-14T19:18:31Z",
+  "updated_date": "2026-01-14T19:18:31Z",
+  "url": "https://arxiv.org/abs/2601.09811v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.09811v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:49.117754",
+  "category": "mathematics",
+  "subcategories": [
+    "math.NA"
+  ]
+}

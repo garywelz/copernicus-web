@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2601.07326v1",
+  "arxiv_id": "2601.07326v1",
+  "title": "Convergence Rate Analysis of the AdamW-Style Shampoo: Unifying One-sided and Two-Sided Preconditioning",
+  "authors": [
+    "Huan Li",
+    "Yiming Dong",
+    "Zhouchen Lin"
+  ],
+  "author_string": "Huan Li, Yiming Dong, Zhouchen Lin",
+  "journal": "arXiv:2601.07326v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "This paper studies the AdamW-style Shampoo optimizer, an effective implementation of classical Shampoo that notably won the external tuning track of the AlgoPerf neural network training algorithm competition. Our analysis unifies one-sided and two-sided preconditioning and establishes the convergence rate $\\frac{1}{K}\\sum_{k=1}^K E\\left[\\|\\nabla f(X_k)\\|_*\\right]\\leq O(\\frac{\\sqrt{m+n}C}{K^{1/4}})$ measured by nuclear norm, where $K$ represents the iteration number, $(m,n)$ denotes the size of matrix parameters, and $C$ matches the constant in the optimal convergence rate of SGD. Theoretically, we have $\\|\\nabla f(X)\\|_F\\leq \\|\\nabla f(X)\\|_*\\leq \\sqrt{m+n}\\|\\nabla f(X)\\|_F$, supporting that our convergence rate can be considered to be analogous to the optimal $\\frac{1}{K}\\sum_{k=1}^KE\\left[\\|\\nabla f(X_k)\\|_F\\right]\\leq O(\\frac{C}{K^{1/4}})$ convergence rate of SGD in the ideal case of $\\|\\nabla f(X)\\|_*= Θ(\\sqrt{m+n})\\|\\nabla f(X)\\|_F$.",
+  "categories": [
+    "math.OC",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": null,
+  "published_date": "2026-01-12T08:51:03Z",
+  "updated_date": "2026-01-12T08:51:03Z",
+  "url": "https://arxiv.org/abs/2601.07326v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.07326v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:11.152465",
+  "category": "computer_science",
+  "subcategories": [
+    "math.OC",
+    "cs.LG"
+  ]
+}

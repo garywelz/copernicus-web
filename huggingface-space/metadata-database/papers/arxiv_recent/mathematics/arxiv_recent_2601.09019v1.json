@@ -1,0 +1,37 @@
+{
+  "id": "arxiv_2601.09019v1",
+  "arxiv_id": "2601.09019v1",
+  "title": "Tail-Sensitive KL and Rényi Convergence of Unadjusted Hamiltonian Monte Carlo via One-Shot Couplings",
+  "authors": [
+    "Nawaf Bou-Rabee",
+    "Siddharth Mitra",
+    "Andre Wibisono"
+  ],
+  "author_string": "Nawaf Bou-Rabee, Siddharth Mitra, Andre Wibisono",
+  "journal": "arXiv:2601.09019v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Hamiltonian Monte Carlo (HMC) algorithms are among the most widely used sampling methods in high dimensional settings, yet their convergence properties are poorly understood in divergences that quantify relative density mismatch, such as Kullback-Leibler (KL) and Rényi divergences. These divergences naturally govern acceptance probabilities and warm-start requirements for Metropolis-adjusted Markov chains. In this work, we develop a framework for upgrading Wasserstein convergence guarantees for unadjusted Hamiltonian Monte Carlo (uHMC) to guarantees in tail-sensitive KL and Rényi divergences. Our approach is based on one-shot couplings, which we use to establish a regularization property of the uHMC transition kernel. This regularization allows Wasserstein-2 mixing-time and asymptotic bias bounds to be lifted to KL divergence, and analogous Orlicz-Wasserstein bounds to be lifted to Rényi divergence, paralleling earlier work of Bou-Rabee and Eberle (2023) that upgrade Wasserstein-1 bounds to total variation distance via kernel smoothing. As a consequence, our results provide quantitative control of relative density mismatch, clarify the role of discretization bias in strong divergences, and yield principled guarantees relevant both for unadjusted sampling and for generating warm starts for Metropolis-adjusted Markov chains.",
+  "categories": [
+    "stat.ML",
+    "cs.LG",
+    "math.PR",
+    "math.ST",
+    "stat.CO"
+  ],
+  "primary_category": "stat.CO",
+  "comment": "64 pages",
+  "published_date": "2026-01-13T22:39:23Z",
+  "updated_date": "2026-01-13T22:39:23Z",
+  "url": "https://arxiv.org/abs/2601.09019v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.09019v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:52.506712",
+  "category": "mathematics",
+  "subcategories": [
+    "stat.ML",
+    "cs.LG",
+    "math.PR"
+  ]
+}

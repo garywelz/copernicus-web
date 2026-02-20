@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2601.10900v1",
+  "arxiv_id": "2601.10900v1",
+  "title": "A Stable Measure of Chaos in Dynamical Systems Using Persistent Homology",
+  "authors": [
+    "Bala Krishnamoorthy",
+    "Elizabeth Thompson"
+  ],
+  "author_string": "Bala Krishnamoorthy, Elizabeth Thompson",
+  "journal": "arXiv:2601.10900v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Many real-world dynamics exhibit chaos, a phenomenon in which neighboring trajectories in the state space of a dynamical system diverge exponentially over time. A common measure used for measuring the degree of this divergence is the Lyapunov exponent, which relies on pairwise Euclidean distances between the trajectories at each time. The main limitation of the Lyapunov exponent is its sensitivity to small perturbations in input data. Since many real-world dynamics are likely to contain some degree of inherent noise, we are motivated to construct a chaos measure that is robust to small trajectory perturbations. Persistent homology has been used for proving theoretical stability guarantees under such added noise in the data. As such, we introduce a novel, persistent homology based measure of chaos termed the persistence exponent and prove its theoretical stability. We also prove the existence of an upper bound on our measure, and show its greater experimental stability on the Lorenz and Rossler systems describing fluid convection and taffy pulling. We present an algorithm for computing the persistence exponent given a single time series with N points from a dynamical system that runs in O(N^2 log N) time. We finally show the greater experimental stability of the persistence exponent on time series data depicting a Belousov Zhabotinsky chemical reaction, which transitions from periodicity to chaos and back as the system evolves in time.",
+  "categories": [
+    "math.AT",
+    "math.DS"
+  ],
+  "primary_category": "math.DS",
+  "comment": null,
+  "published_date": "2026-01-15T22:59:02Z",
+  "updated_date": "2026-01-15T22:59:02Z",
+  "url": "https://arxiv.org/abs/2601.10900v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.10900v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:41.979796",
+  "category": "mathematics",
+  "subcategories": [
+    "math.AT",
+    "math.DS"
+  ]
+}

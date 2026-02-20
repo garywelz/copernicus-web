@@ -1,0 +1,30 @@
+{
+  "id": "arxiv_2601.07522v1",
+  "arxiv_id": "2601.07522v1",
+  "title": "Thermodynamic Recycling in Quantum Computing: Demonstration Using the Harrow-Hassidim-Lloyd Algorithm and Information Erasure",
+  "authors": [
+    "Nobumasa Ishida",
+    "Yoshihiko Hasegawa"
+  ],
+  "author_string": "Nobumasa Ishida, Yoshihiko Hasegawa",
+  "journal": "arXiv:2601.07522v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Branch selection, including postselection, is a standard method for implementing nonunitary transformations in quantum algorithms. Conventionally, states associated with unsuccessful branches are discarded and treated as useless. Here we propose a generic framework that reuses these failure branches as thermodynamic resources. The central element is an athermal bath that is naturally generated during the reset of a failure branch. By coupling this bath to a target system prior to relaxation, useful thermodynamic tasks can be performed, enabling performance beyond conventional thermodynamic limits. As an application, we analyze information erasure and derive the resulting gain analytically. We further demonstrate the framework by implementing the Harrow-Hassidim-Lloyd algorithm on IBM's superconducting quantum processor. Despite substantial noise and errors in current hardware, our method achieves erasure with heat dissipation below the Landauer limit. These results establish a practical connection between quantum computing and quantum thermodynamics and suggest a route toward reducing thermodynamic costs in future large-scale quantum computers.",
+  "categories": [
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": "10 pages, 6 figures",
+  "published_date": "2026-01-12T13:25:08Z",
+  "updated_date": "2026-01-12T13:25:08Z",
+  "url": "https://arxiv.org/abs/2601.07522v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.07522v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:23.645555",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph"
+  ]
+}

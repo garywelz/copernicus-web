@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_1902.11207v3",
+  "arxiv_id": "1902.11207v3",
+  "title": "Polynomial bound for the partition rank vs the analytic rank of tensors",
+  "authors": [
+    "Oliver Janzer"
+  ],
+  "author_string": "Oliver Janzer",
+  "journal": "Discrete Analysis, 2020:7, 18pp",
+  "journal_ref": "Discrete Analysis, 2020:7, 18pp",
+  "year": "2019",
+  "doi": "10.19086/da.12935",
+  "abstract": "A tensor defined over a finite field $\\mathbb{F}$ has low analytic rank if the distribution of its values differs significantly from the uniform distribution. An order $d$ tensor has partition rank 1 if it can be written as a product of two tensors of order less than $d$, and it has partition rank at most $k$ if it can be written as a sum of $k$ tensors of partition rank 1. In this paper, we prove that if the analytic rank of an order $d$ tensor is at most $r$, then its partition rank is at most $f(r,d,|\\mathbb{F}|)$, where, for fixed $d$ and $\\mathbb{F}$, $f$ is a polynomial in $r$. This is an improvement of a recent result of the author, where he obtained a tower-type bound. Prior to our work, the best known bound was an Ackermann-type function in $r$ and $d$, though it did not depend on $\\mathbb{F}$. It follows from our results that a biased polynomial has low rank; there too we obtain a polynomial dependence improving the previously known Ackermann-type bound. A similar polynomial bound for the partition rank was obtained independently and simultaneously by Milićević.",
+  "categories": [
+    "math.CO",
+    "math.NT"
+  ],
+  "primary_category": "math.NT",
+  "comment": "18 pages; this paper is a significantly improved version of arXiv:1809.10931",
+  "published_date": "2019-02-26T12:27:37Z",
+  "updated_date": "2020-05-18T09:14:30Z",
+  "url": "https://arxiv.org/abs/1902.11207v3",
+  "pdf_url": "https://arxiv.org/pdf/1902.11207v3.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:15.349877",
+  "category": "mathematics",
+  "subcategories": [
+    "math.CO",
+    "math.NT"
+  ]
+}

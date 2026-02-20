@@ -31,7 +31,8 @@ from content_fixes import (
     limit_description_length,
     extract_itunes_summary,
     generate_relevant_hashtags,
-    validate_academic_references
+    validate_academic_references,
+    clean_placeholder_text_from_description
 )
 from podcast_research_integrator import PodcastResearchIntegrator, PodcastResearchContext
 
@@ -667,7 +668,7 @@ IMPORTANT: Do NOT include a "## Episode Overview" header. Start directly with 1-
         
         # Calculate minimum word count for explicit requirement
         min_words = calculate_minimum_words_for_duration(request.duration)
-        target_words = int(min_words / 0.9)  # Target for full duration
+        target_words = int(min_words / 0.8)  # Target for full duration (minimum is 80% of target)
         
         # Map voice IDs to names for script generation
         VOICE_ID_TO_NAME = {
@@ -771,6 +772,8 @@ IMPORTANT: Do NOT include a "## Episode Overview" header. Start directly with 3-
 - [Concept 4]: [Detailed explanation with interdisciplinary connections and cross-field impact]
 - [Concept 5]: [Additional important concept or methodology with context]
 
+**CRITICAL**: Each key concept MUST be unique and specific to {request.topic}. DO NOT use placeholder text like "Research findings require further analysis" or generic statements. Each concept should have a distinct title and detailed explanation based on actual research in this field. Generate 4-5 different, specific concepts with unique explanations.
+
 ## Research Insights
 [2-3 paragraphs about current research developments, recent breakthroughs, methodological advances, experimental techniques, and what makes this area of research exciting. Discuss cutting-edge findings and their significance.]
 
@@ -830,6 +833,8 @@ IMPORTANT: Do NOT include a "## Episode Overview" header. Start directly with 3-
                 
                 # Limit description length and extract iTunes summary
                 if 'description' in content:
+                    # Clean placeholder text before processing
+                    content['description'] = clean_placeholder_text_from_description(content['description'])
                     content['description'] = limit_description_length(content['description'], 4000)
                     content['itunes_summary'] = extract_itunes_summary(content['description'])
                     
@@ -1186,8 +1191,21 @@ In this comprehensive exploration, we'll examine the latest research development
             
             # Key Concepts section
             key_concepts = "## Key Concepts Explored\n\n"
-            if research_context.key_findings:
-                for i, finding in enumerate(research_context.key_findings[:5], 1):
+            # Filter out placeholder/fallback text that isn't meaningful
+            placeholder_texts = [
+                "research findings require further analysis",
+                "methodology analysis pending",
+                "implications to be determined",
+                "analysis pending",
+                "further analysis required"
+            ]
+            meaningful_findings = [
+                f for f in research_context.key_findings 
+                if f and not any(placeholder.lower() in f.lower() for placeholder in placeholder_texts)
+            ]
+            
+            if meaningful_findings:
+                for i, finding in enumerate(meaningful_findings[:5], 1):
                     key_concepts += f"- **{finding}**: This finding represents a significant advancement in our understanding, with implications that extend across multiple domains and applications.\n"
             else:
                 key_concepts += f"- **Recent research developments in {topic}**: Current studies are revealing new insights into fundamental mechanisms and processes that were previously poorly understood.\n"
@@ -2461,7 +2479,8 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                     validated_refs = validate_academic_references(ref_section)
                     content['description'] = desc_parts[0] + '## References\n' + validated_refs + '\n' + '##'.join(desc_parts[1].split('##')[1:])
             
-            # Limit description length and extract iTunes summary
+            # Clean placeholder text and limit description length
+            content['description'] = clean_placeholder_text_from_description(content['description'])
             content['description'] = limit_description_length(content['description'], 4000)
             content['itunes_summary'] = extract_itunes_summary(content['description'])
             
@@ -2476,9 +2495,9 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                 error_detail = f"Invalid content received: {str(content)[:200]}..."
                 raise ValueError(f"Content generation returned empty, incomplete, or placeholder data. Details: {error_detail}")
             
-            # Validate script length matches duration requirement
+            # Validate script length matches duration requirement (with auto-extension)
             script = content.get('script', '')
-            is_valid, error_msg = validate_script_length(script, request.duration)
+            is_valid, error_msg, final_script = validate_script_length(script, request.duration, auto_extend=True)
             if not is_valid:
                 word_count = len(script.split())
                 structured_logger.error("Script length validation failed",
@@ -2488,9 +2507,20 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                                        error=error_msg)
                 raise ValueError(f"Script does not meet duration requirement. {error_msg}")
             
+            # Update content with potentially extended script
+            if final_script != script:
+                word_count_before = len(script.split())
+                word_count_after = len(final_script.split())
+                structured_logger.info("Script automatically extended to meet minimum length",
+                                      job_id=job_id,
+                                      words_before=word_count_before,
+                                      words_after=word_count_after,
+                                      words_added=word_count_after - word_count_before)
+                content['script'] = final_script
+            
             structured_logger.info("Content validation passed",
                                   job_id=job_id,
-                                  script_word_count=len(script.split()),
+                                  script_word_count=len(content['script'].split()),
                                   duration=request.duration)
             # --- End of Robust Content Validation ---       
             # Determine canonical filename based on topic category, format type, and next available episode number
@@ -2666,7 +2696,9 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
             
             # Complete job with enhanced metadata
             generated_timestamp = datetime.utcnow().isoformat()
-            job_ref.update({
+            
+            # Prepare update data
+            update_data = {
                 'status': 'completed',
                 'updated_at': datetime.utcnow().isoformat(),
                 'result': {
@@ -2692,7 +2724,22 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                 },
                 'metadata_extended': metadata_extended,
                 'engagement_metrics': engagement_metrics
-            })
+            }
+            
+            # Generate embedding for vector search
+            try:
+                from utils.auto_embedding import add_embedding_to_podcast_data
+                update_data = add_embedding_to_podcast_data(update_data)
+                structured_logger.info("Embedding generated for podcast",
+                                      job_id=job_id)
+            except Exception as e:
+                structured_logger.warning("Failed to generate embedding for podcast (non-blocking)",
+                                         job_id=job_id,
+                                         error=str(e))
+                # Continue without embedding - podcast creation should not fail
+            
+            # Update job document
+            job_ref.update(update_data)
             
             # NOTE: Option A Architecture - episodes as single source of truth for RSS
             # AUTO-PROMOTE by default (YouTube-style): All podcasts are automatically promoted to episodes

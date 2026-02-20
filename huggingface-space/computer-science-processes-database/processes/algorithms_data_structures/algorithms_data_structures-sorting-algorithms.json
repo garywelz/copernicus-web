@@ -1,0 +1,91 @@
+{
+  "id": "algorithms_data_structures-sorting-algorithms",
+  "name": "Sorting Algorithms",
+  "category": "computer_science",
+  "subcategory": "algorithms_data_structures",
+  "subcategory_name": "Algorithms & Data Structures",
+  "description": "Sorting Algorithms process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 26,
+    "edges": 21,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 1,
+      "total": 1
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nA1[Input Array] --> B1[Algorithm Selection]\nC1[Array Analysis] --> D1[Complexity Analysis]\nE1[Memory Constraints] --> F1[Optimization Strategy]\nB1 --> G1[Comparison Based Sorting]\nD1 --> H1[Time Complexity O n squared]\nF1 --> I1[Space Complexity Analysis]\nG1 --> J1[Bubble Sort Algorithm]\nH1 --> K1[Quick Sort Algorithm]\nI1 --> L1[Merge Sort Algorithm]\nJ1 --> M1[Adjacent Element Comparison]\nK1 --> L1\nL1 --> N1[Divide and Conquer]\nM1 --> O1[Element Swapping]\nN1 --> P1[Pivot Selection]\nO1 --> Q1[Sorting Process]\nP1 --> R1[Partitioning Strategy]\nQ1 --> S1[Recursive Sorting]\nR1 --> T1[Sorting Algorithm Result]\nS1 --> U1[Algorithm Validation]\nT1 --> V1[Sorted Array Output]\nU1 --> W1[Sorting Algorithm Output]\nV1 --> X1[Sorting Algorithm Analysis]\nW1 --> Y1[Sorting Algorithm Final Result]\nX1 --> Z1[Sorting Algorithm Analysis Complete]\n\n    style A1 fill:#ff6b6b,color:#fff\n    style C1 fill:#ff6b6b,color:#fff\n    style E1 fill:#ff6b6b,color:#fff\n    style B1 fill:#ffd43b,color:#000\n    style D1 fill:#ffd43b,color:#000\n    style F1 fill:#ffd43b,color:#000\n    style G1 fill:#ffd43b,color:#000\n    style H1 fill:#ffd43b,color:#000\n    style I1 fill:#ffd43b,color:#000\n    style J1 fill:#ffd43b,color:#000\n    style K1 fill:#ffd43b,color:#000\n    style L1 fill:#ffd43b,color:#000\n    style M1 fill:#51cf66,color:#fff\n    style N1 fill:#51cf66,color:#fff\n    style O1 fill:#51cf66,color:#fff\n    style P1 fill:#51cf66,color:#fff\n    style Q1 fill:#51cf66,color:#fff\n    style R1 fill:#51cf66,color:#fff\n    style S1 fill:#51cf66,color:#fff\n    style T1 fill:#51cf66,color:#fff\n    style U1 fill:#51cf66,color:#fff\n    style V1 fill:#51cf66,color:#fff\n    style W1 fill:#51cf66,color:#fff\n    style X1 fill:#51cf66,color:#fff\n    style Y1 fill:#51cf66,color:#fff\n    style Z1 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Sorting Algorithms. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "Networks for Sorting",
+      "authors": "AKL, SELIM G.",
+      "journal": "Parallel Sorting Algorithms",
+      "year": "1985",
+      "pubmed": null,
+      "doi": "10.1016/b978-0-12-047680-0.50007-6",
+      "url": "https://doi.org/10.1016/b978-0-12-047680-0.50007-6"
+    },
+    {
+      "title": "Sorting",
+      "authors": "",
+      "journal": "Algorithms",
+      "year": "2020",
+      "pubmed": null,
+      "doi": "10.7551/mitpress/11884.003.0007",
+      "url": "https://doi.org/10.7551/mitpress/11884.003.0007"
+    },
+    {
+      "title": "Parallel External Sorting",
+      "authors": "AKL, SELIM G.",
+      "journal": "Parallel Sorting Algorithms",
+      "year": "1985",
+      "pubmed": null,
+      "doi": "10.1016/b978-0-12-047680-0.50015-5",
+      "url": "https://doi.org/10.1016/b978-0-12-047680-0.50015-5"
+    }
+  ],
+  "keywords": [
+    "sorting",
+    "algorithms"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+}

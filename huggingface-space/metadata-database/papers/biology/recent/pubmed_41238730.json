@@ -1,0 +1,27 @@
+{
+  "id": "pubmed_41238730",
+  "pmid": "41238730",
+  "title": "Generating synthetic task-based brain fingerprints for population neuroscience using deep learning.",
+  "authors": [
+    "Serin, Emin",
+    "Ritter, Kerstin",
+    "Schumann, Gunter",
+    "Banaschewski, Tobias",
+    "Marquand, Andre",
+    "Walter, Henrik",
+    "environMENTAL consortium"
+  ],
+  "author_string": "Serin, Emin, Ritter, Kerstin, Schumann, Gunter, Banaschewski, Tobias, Marquand, Andre et al.",
+  "journal": "Commun Biol",
+  "journal_full": "Communications biology",
+  "year": "",
+  "doi": "10.1038/s42003-025-09158-6",
+  "abstract": "Task-based functional magnetic resonance imaging (fMRI) reveals individual differences in neural correlates of cognition but faces scalability challenges due to cognitive demands, protocol variability, and limited task coverage in large datasets. Here, we propose DeepTaskGen, a deep-learning approach that synthesizes non-acquired task-based contrast maps from resting-state (rs-) fMRI. We validate this approach using the Human Connectome Project lifespan data, then generate 47 contrast maps from 7 different cognitive tasks for over 20,000 individuals from UK Biobank. DeepTaskGen outperforms several benchmarks in generating synthetic task-contrast maps, achieving superior reconstruction performance while retaining inter-individual variation essential for biomarker development. We further show comparable or superior predictive performance of synthetic maps relative to actual maps and rs-connectomes across diverse demographic, cognitive, and clinical variables. This approach facilitates the study of individual differences and the generation of task-related biomarkers by enabling the generation of arbitrary functional cognitive tasks from readily available rs-fMRI data.",
+  "keywords": [],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/41238730",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T17:01:33.876081",
+  "category": "biology",
+  "subcategories": []
+}

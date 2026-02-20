@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2601.09804v1",
+  "arxiv_id": "2601.09804v1",
+  "title": "Simulating the photospheric to coronal plasma using magnetohydrodynamic characteristics III: validation including gravity, flux emergence, and an eruption",
+  "authors": [
+    "Lucas A. Tarr",
+    "N. Dylan Kee",
+    "James E. Leake",
+    "Mark G. Linton",
+    "Peter W. Schuck"
+  ],
+  "author_string": "Lucas A. Tarr, N. Dylan Kee, James E. Leake, Mark G. Linton, Peter W. Schuck",
+  "journal": "arXiv:2601.09804v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Solar eruptions arise from instabilities or loss of equilibria in the solar atmosphere, but routinely inferring the precise magnetic and plasma properties that lead to eruptions is not currently practical using synoptic solar observations. Data driven simulations offer an appealing alternative. We test our boundary data-driven magnetohydrodynamic (MHD) approach, based on the method of characteristics, on a simulation that includes full MHD, a stratified atmosphere, and the emergence of a model solar magnetic active region, from the photosphere upwards. The driven simulation is tested against a larger, ab initio ``Ground Truth'' simulation that extends downward into the convection zone. Our driven simulation accurately reproduces the dynamic emergence of the active region above the photosphere, the formation of key topological features throughout the corona, and the subsequent eruption of mass and magnetic field. The total emerged energy matches to better than one percent, the ratio of emerged to eruptive energy is $\\approx2\\%$, and the actual values of each energy term agree to within $10\\%$ between the two cases. Crucially, the data injection cadence, when properly scaled, matches the cadence of synoptic observations of the Sun's surface magnetic field, and is three to four orders of magnitude longer than the inherent CFL time step of the simulations. The stability of the code and fidelity of the results over an entire active region lifetime, from emergence to eruption, strongly suggests that our method will produce reliable results when driven using solar synoptic observations from existing and anticipated ground and spaced based observatories.",
+  "categories": [
+    "astro-ph.SR"
+  ],
+  "primary_category": "astro-ph.SR",
+  "comment": "17 pages, 8 figures. Accepted for publication in ApJ",
+  "published_date": "2026-01-14T19:08:54Z",
+  "updated_date": "2026-01-14T19:08:54Z",
+  "url": "https://arxiv.org/abs/2601.09804v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.09804v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:18:54.508954",
+  "category": "physics",
+  "subcategories": [
+    "astro-ph.SR"
+  ]
+}

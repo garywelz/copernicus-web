@@ -1,0 +1,32 @@
+{
+  "id": "pubmed_36342498",
+  "pmid": "36342498",
+  "title": "Beyond ANOVA and MANOVA for repeated measures: Advantages of generalized estimated equations and generalized linear mixed models and its use in neuroscience research.",
+  "authors": [
+    "de Melo, Márcio Braga",
+    "Daldegan-Bueno, Dimitri",
+    "Menezes Oliveira, Maria Gabriela",
+    "de Souza, Altay Lino"
+  ],
+  "author_string": "de Melo, Márcio Braga, Daldegan-Bueno, Dimitri, Menezes Oliveira, Maria Gabriela, de Souza, Altay Lino",
+  "journal": "Eur J Neurosci",
+  "journal_full": "The European journal of neuroscience",
+  "year": "",
+  "doi": "10.1111/ejn.15858",
+  "abstract": "In neuroscience research, longitudinal data are often analysed using analysis of variance (ANOVA) and multivariate analysis of variance (MANOVA) for repeated measures (rmANOVA/rmMANOVA). However, these analyses have special requirements: The variances of the differences between all possible pairs of within-subject conditions (i.e., levels of the independent variable) must be equal. They are also limited to fixed repeated time intervals and are sensitive to missing data. In contrast, other models, such as the generalized estimating equations (GEE) and the generalized linear mixed models (GLMM), suggest another way to think about the data and the studied phenomenon. Instead of forcing the data into the ANOVAs assumptions, it is possible to design a flexible/personalized model according to the nature of the dependent variable. We discuss some advantages of GEE and GLMM as alternatives to rmANOVA and rmMANOVA in neuroscience research, including the possibility of using different distributions for the parameters of the dependent variable, a better approach for different time length points, and better adjustment to missing data. We illustrate these advantages by showing a comparison between rmANOVA and GEE in a real example and providing the data and a tutorial code to reproduce these analyses in R. We conclude that GEE and GLMM may provide more reliable results when compared to rmANOVA and rmMANOVA in neuroscience research, especially in small sample sizes with unbalanced longitudinal designs with or without missing data.",
+  "keywords": [
+    "ANOVA",
+    "MANOVA",
+    "applied statistics",
+    "generalized estimating equations",
+    "generalized linear mixed models",
+    "neuroscience research",
+    "repeated measures"
+  ],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/36342498",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T17:01:44.538873",
+  "category": "biology",
+  "subcategories": []
+}

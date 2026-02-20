@@ -1,0 +1,30 @@
+{
+  "id": "arxiv_2601.11373v1",
+  "arxiv_id": "2601.11373v1",
+  "title": "Polar Orbit Decoding: Universal Parallel Soft Decoding via Automorphism Orbits",
+  "authors": [
+    "Pin-Jing Li",
+    "Yu-Chih Huang"
+  ],
+  "author_string": "Pin-Jing Li, Yu-Chih Huang",
+  "journal": "arXiv:2601.11373v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Binary linear block codes (BLBCs) form the foundation of modern communication systems, yet no single code family simultaneously optimizes all performance aspects. This leads to the widely used multi-code architecture in the standard, significantly increasing the hardware complexity since multiple decoders are required in each piece of equipment. A universal decoding framework based on polar transformations has recently been proposed to unify BLBC decoding under polar-style decoders, but its parallelization has not yet been discussed. In this work, we propose Polar Orbit Decoding (POD), a universal parallel decoding framework for BLBCs. We identify that the automorphisms of BLBCs generate an orbit of permutations that induce diverse decoding trajectories with identical dynamic-frozen constraints after the polar transformations. By decoding over this automorphism orbit in parallel, POD achieves substantial latency-performance tradeoffs without requiring frozen-set readaptation or extra exhaustive permutation searches. Moreover, to enable efficient orbit traversal in the implementation, we represent the automorphism group in a base and strong generating set (BSGS) form using Schreier-Sims algorithms, making offline systematic computation accessible in polynomial time. Simulation results on extended BCH and extended Golay codes demonstrate that POD can achieve maximum-likelihood performance while significantly reducing the decoding latency compared to conventional successive cancellation list decoding.",
+  "categories": [
+    "cs.IT"
+  ],
+  "primary_category": "cs.IT",
+  "comment": null,
+  "published_date": "2026-01-16T15:30:01Z",
+  "updated_date": "2026-01-16T15:30:01Z",
+  "url": "https://arxiv.org/abs/2601.11373v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11373v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:30.213924",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.IT"
+  ]
+}

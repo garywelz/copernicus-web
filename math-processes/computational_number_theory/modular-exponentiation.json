@@ -1,0 +1,27 @@
+{
+  "id": "modular-exponentiation",
+  "title": "Modular Exponentiation",
+  "description": "Efficiently compute large powers modulo n",
+  "category": "mathematics",
+  "subcategory": "computational_number_theory",
+  "mermaid": "graph TD A1[Start: Input base (b), exponent (e), modulus (n)] style A1 fill:#ff6b6b,color:#fff B1[Initialize: result = 1] style B1 fill:#ffd43b,color:#000 C1[e > 0 ?] style C1 fill:#ffd43b,color:#000 A1 --> B1 B1 --> C1 C1 -- Yes --> D1 D1[e is even?] style D1 fill:#ffd43b,color:#000 C1 -- No --> I1 D1 -- Yes --> E1 E1[b = (b * b) mod n] style E1 fill:#51cf66,color:#fff F1[e = e / 2] style F1 fill:#51cf66,color:#fff E1 --> F1 F1 --> C1 D1 -- No --> G1 G1[result = (result * b) mod n] style G1 fill:#51cf66,color:#fff H1[e = e - 1] style H1 fill:#51cf66,color:#fff G1 --> H1 H1 --> C1 I1[Output: result] style I1 fill:#b197fc,color:#fff C1 -- No --> I1",
+  "entities": [
+    "Start: Input base (b), exponent (e), modulus (n)",
+    "Initialize: result = 1",
+    "e > 0 ?",
+    "e is even?",
+    "b = (b * b) mod n",
+    "e = e / 2",
+    "result = (result * b) mod n",
+    "e = e - 1",
+    "Output: result"
+  ],
+  "metadata": {
+    "source": "programming_framework",
+    "color_scheme": "discipline_based",
+    "node_count": 9,
+    "complexity": "low"
+  },
+  "sources": [],
+  "source_text": "Source information to be added - please specify the book, paper, or reference material used by the LLM to generate this flowchart."
+}

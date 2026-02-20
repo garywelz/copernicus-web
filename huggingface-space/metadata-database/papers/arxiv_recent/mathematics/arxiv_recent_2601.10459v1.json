@@ -1,0 +1,38 @@
+{
+  "id": "arxiv_2601.10459v1",
+  "arxiv_id": "2601.10459v1",
+  "title": "The Wiener Wintner and Return Times Theorem Along the Primes",
+  "authors": [
+    "Jan Fornal",
+    "Anastasios Fragkos",
+    "Ben Krause",
+    "Michael Lacey",
+    "Hamed Mousavi",
+    "Yu-Chen Sun"
+  ],
+  "author_string": "Jan Fornal, Anastasios Fragkos, Ben Krause, Michael Lacey, Hamed Mousavi et al.",
+  "journal": "arXiv:2601.10459v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We prove the following Return Times Theorem along the sequence of prime times, the first extension of the Return Times Theorem to arithmetic sequences:   For every probability space, $(Ω,ν)$, equipped with a measure-preserving transformation, $T \\colon Ω\\to Ω$, and every $f \\in L^\\infty(Ω)$, there exists a set of full probability, $Ω_f \\subset Ω$ with $ν(Ω_f) =1$, so that for all $ω\\in Ω_f$, for any other probability space $(X,μ)$, equipped with a measure-preserving transformation $S : X \\to X$, for any $g \\in L^{\\infty}(X)$,   \\begin{align}   \\frac{1}{N} \\sum_{n \\leq N} f(T^{p_n} ω) g(S^{p_n} \\cdot)   \\end{align}   converges $μ$-almost surely; above, $\\{ 2=p_1 < p_2 < \\dots \\}$ are an enumeration of the primes. The Wiener-Wintner theorem along the primes   is an immediate corollary.   Our proof lives at the interface of classical Fourier analysis, combinatorial number theory, higher order Fourier analysis, and pointwise ergodic theory, with $U^3$ theory playing an important role; our $U^3$-estimates for \\emph{Heath-Brown} models of the von Mangoldt function may be of independent interest.",
+  "categories": [
+    "math.DS",
+    "math.CA",
+    "math.NT"
+  ],
+  "primary_category": "math.NT",
+  "comment": "38 pages",
+  "published_date": "2026-01-15T14:49:54Z",
+  "updated_date": "2026-01-15T14:49:54Z",
+  "url": "https://arxiv.org/abs/2601.10459v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.10459v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:41.983601",
+  "category": "mathematics",
+  "subcategories": [
+    "math.DS",
+    "math.CA",
+    "math.NT"
+  ]
+}

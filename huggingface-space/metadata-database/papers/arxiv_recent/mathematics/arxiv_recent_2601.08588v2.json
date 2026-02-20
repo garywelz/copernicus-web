@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2601.08588v2",
+  "arxiv_id": "2601.08588v2",
+  "title": "Sample Complexity of Composite Quantum Hypothesis Testing",
+  "authors": [
+    "Jacob Paul Simpson",
+    "Efstratios Palias",
+    "Sharu Theresa Jose"
+  ],
+  "author_string": "Jacob Paul Simpson, Efstratios Palias, Sharu Theresa Jose",
+  "journal": "arXiv:2601.08588v2",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "This paper investigates symmetric composite binary quantum hypothesis testing (QHT), where the goal is to determine which of two uncertainty sets contains an unknown quantum state. While asymptotic error exponents for this problem are well-studied, the finite-sample regime remains poorly understood. We bridge this gap by characterizing the sample complexity -- the minimum number of state copies required to achieve a target error level. Specifically, we derive lower bounds that generalize the sample complexity of simple QHT and introduce new upper bounds for various uncertainty sets, including of both finite and infinite cardinalities. Notably, our upper and lower bounds match up to universal constants, providing a tight characterization of the sample complexity. Finally, we extend our analysis to the differentially private setting, establishing the sample complexity for privacy-preserving composite QHT.",
+  "categories": [
+    "quant-ph",
+    "cs.IT",
+    "cs.LG",
+    "math.ST"
+  ],
+  "primary_category": "math.ST",
+  "comment": "Under review",
+  "published_date": "2026-01-13T14:15:12Z",
+  "updated_date": "2026-01-15T16:07:59Z",
+  "url": "https://arxiv.org/abs/2601.08588v2",
+  "pdf_url": "https://arxiv.org/pdf/2601.08588v2.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:03.414515",
+  "category": "mathematics",
+  "subcategories": [
+    "quant-ph",
+    "cs.IT",
+    "cs.LG"
+  ]
+}

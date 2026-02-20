@@ -1,0 +1,38 @@
+{
+  "id": "arxiv_2601.09143v2",
+  "arxiv_id": "2601.09143v2",
+  "title": "Discrete Solution Operator Learning for Geometry-Dependent PDEs",
+  "authors": [
+    "Jinshuai Bai",
+    "Haolin Li",
+    "Zahra Sharif Khodaei",
+    "M. H. Aliabadi",
+    "YuanTong Gu",
+    "Xi-Qiao Feng"
+  ],
+  "author_string": "Jinshuai Bai, Haolin Li, Zahra Sharif Khodaei, M. H. Aliabadi, YuanTong Gu et al.",
+  "journal": "arXiv:2601.09143v2",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Neural operator learning accelerates PDE solution by approximating operators as mappings between continuous function spaces. Yet in many engineering settings, varying geometry induces discrete structural changes, including topological changes, abrupt changes in boundary conditions or boundary types, and changes in the computational domain, which break the smooth-variation premise. Here we introduce Discrete Solution Operator Learning (DiSOL), a complementary paradigm that learns discrete solution procedures rather than continuous function-space operators. DiSOL factorizes the solver into learnable stages that mirror classical discretizations: local contribution encoding, multiscale assembly, and implicit solution reconstruction on an embedded grid, thereby preserving procedure-level consistency while adapting to geometry-dependent discrete structures. Across geometry-dependent Poisson, advection-diffusion, linear elasticity, as well as spatiotemporal heat conduction problems, DiSOL produces stable and accurate predictions under both in-distribution and strongly out-of-distribution geometries, including discontinuous boundaries and topological changes. These results highlight the need for procedural operator representations in geometry-dominated problems and position discrete solution operator learning as a distinct, complementary direction in scientific machine learning.",
+  "categories": [
+    "cs.LG",
+    "math.NA",
+    "physics.comp-ph"
+  ],
+  "primary_category": "physics.comp-ph",
+  "comment": "15 pages main text, 40 pages SI",
+  "published_date": "2026-01-14T04:34:49Z",
+  "updated_date": "2026-01-15T13:46:37Z",
+  "url": "https://arxiv.org/abs/2601.09143v2",
+  "pdf_url": "https://arxiv.org/pdf/2601.09143v2.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:52.505219",
+  "category": "physics",
+  "subcategories": [
+    "cs.LG",
+    "math.NA",
+    "physics.comp-ph"
+  ]
+}

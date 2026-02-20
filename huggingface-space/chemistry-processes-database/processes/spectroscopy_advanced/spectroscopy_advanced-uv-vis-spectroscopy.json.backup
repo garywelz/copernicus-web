@@ -1,0 +1,88 @@
+{
+  "category": "chemistry",
+  "colorScheme": {
+    "blue": {
+      "category": "Intermediates & States",
+      "hex": "#74c0fc"
+    },
+    "green": {
+      "category": "Processing & Operations",
+      "hex": "#51cf66"
+    },
+    "red": {
+      "category": "Triggers & Inputs",
+      "hex": "#ff6b6b"
+    },
+    "violet": {
+      "category": "Products & Outputs",
+      "hex": "#b197fc"
+    },
+    "yellow": {
+      "category": "Structures & Objects",
+      "hex": "#ffd43b"
+    }
+  },
+  "complexity": {
+    "conditionals": 0,
+    "detailLevel": "medium",
+    "edges": 25,
+    "level": "medium",
+    "logicGates": {
+      "andGates": 0,
+      "orGates": 32,
+      "total": 32
+    },
+    "nodes": 26
+  },
+  "created": "2026-01-08",
+  "description": "UV-Vis spectroscopy process showing electronic transitions, absorbance measurement, and concentration determination.",
+  "id": "spectroscopy_advanced-uv-vis-spectroscopy",
+  "keywords": [
+    "spectroscopy"
+  ],
+  "lastUpdated": "2026-01-08",
+  "mermaid": "graph TD\nA1[Light Source] --> B1[UV-Vis Spectroscopy Method]\nC1[Sample Solution] --> D1[Wavelength Control]\nE1[Detector System] --> F1[Data Collection]\nB1 --> G1[Monochromator Setup]\nD1 --> H1[Wavelength Selection]\nF1 --> I1[Signal Processing]\nG1 --> J1[Light Dispersion]\nH1 --> K1[Wavelength Range]\nI1 --> L1[Absorbance Measurement]\nJ1 --> M1[Light Transmission]\nK1 --> L1\nL1 --> N1[Electronic Transitions]\nM1 --> O1[Sample Irradiation]\nN1 --> P1[Absorption Process]\nO1 --> Q1[Spectroscopic Analysis]\nP1 --> R1[Absorbance Spectrum]\nQ1 --> S1[Peak Analysis]\nR1 --> T1[Concentration Determination]\nS1 --> U1[Beer's Law Analysis]\nT1 --> V1[Concentration Calculation]\nU1 --> W1[Spectroscopic Efficiency]\nV1 --> X1[Sample Characterization]\nW1 --> Y1[Process Optimization]\nX1 --> Z1[Final Absorption Spectrum]\nY1 --> Z1\n\n    style A1 fill:#ff6b6b,color:#fff\n    style C1 fill:#ff6b6b,color:#fff\n    style E1 fill:#ff6b6b,color:#fff\n    style B1 fill:#ffd43b,color:#000\n    style D1 fill:#ffd43b,color:#000\n    style F1 fill:#ffd43b,color:#000\n    style G1 fill:#ffd43b,color:#000\n    style H1 fill:#ffd43b,color:#000\n    style I1 fill:#ffd43b,color:#000\n    style J1 fill:#ffd43b,color:#000\n    style K1 fill:#ffd43b,color:#000\n    style L1 fill:#ffd43b,color:#000\n    style M1 fill:#51cf66,color:#fff\n    style N1 fill:#51cf66,color:#fff\n    style O1 fill:#51cf66,color:#fff\n    style P1 fill:#51cf66,color:#fff\n    style Q1 fill:#51cf66,color:#fff\n    style R1 fill:#51cf66,color:#fff\n    style S1 fill:#51cf66,color:#fff\n    style T1 fill:#51cf66,color:#fff\n    style U1 fill:#51cf66,color:#fff\n    style V1 fill:#51cf66,color:#fff\n    style W1 fill:#51cf66,color:#fff\n    style X1 fill:#51cf66,color:#fff\n    style Y1 fill:#51cf66,color:#fff\n    style Z1 fill:#b197fc,color:#fff",
+  "name": "UV-Vis Spectroscopy",
+  "notes": "Converted from chemistry batch HTML. Process number: 1.",
+  "relatedProcesses": [],
+  "sources": [
+    {
+      "authors": "Welz, G.",
+      "doi": null,
+      "journal": "CopernicusAI Knowledge Engine",
+      "notes": "Chemistry process visualization: UV-Vis Spectroscopy. Created using the Programming Framework methodology for process analysis and visualization.",
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "year": "2025"
+    },
+    {
+      "authors": "Smith, B. W.; Winefordner, J. D.",
+      "doi": "10.1021/acs.analchem.1c04712",
+      "journal": "Anal. Chem.",
+      "pubmed": null,
+      "title": "Molecular Absorption, Emission, and Luminescence Spectrometry",
+      "url": "https://doi.org/10.1021/acs.analchem.1c04712",
+      "year": "2022"
+    },
+    {
+      "authors": "Mulliken, R. S.",
+      "doi": "10.1021/ja01123a067",
+      "journal": "J. Am. Chem. Soc.",
+      "pubmed": null,
+      "title": "Charge-Transfer Complexes",
+      "url": "https://doi.org/10.1021/ja01123a067",
+      "year": "1952"
+    },
+    {
+      "authors": "McClain, W. M.",
+      "doi": "10.1021/ar50077a003",
+      "journal": "Acc. Chem. Res.",
+      "pubmed": null,
+      "title": "Electronic Spectra of Molecules",
+      "url": "https://doi.org/10.1021/ar50077a003",
+      "year": "1974"
+    }
+  ],
+  "subcategory": "spectroscopy_advanced",
+  "verified": false
+}

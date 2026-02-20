@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2601.10999v1",
+  "arxiv_id": "2601.10999v1",
+  "title": "Exact Constraint Enforcement in Physics-Informed Extreme Learning Machines using Null-Space Projection Framework",
+  "authors": [
+    "Rishi Mishra",
+    " Smriti",
+    "Balaji Srinivasan",
+    "Sundararajan Natarajan",
+    "Ganapathy Krishnamurthi"
+  ],
+  "author_string": "Rishi Mishra,  Smriti, Balaji Srinivasan, Sundararajan Natarajan, Ganapathy Krishnamurthi",
+  "journal": "arXiv:2601.10999v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Physics-informed extreme learning machines (PIELMs) typically impose boundary and initial conditions through penalty terms, yielding only approximate satisfaction that is sensitive to user-specified weights and can propagate errors into the interior solution. This work introduces Null-Space Projected PIELM (NP-PIELM), achieving exact constraint enforcement through algebraic projection in coefficient space. The method exploits the geometric structure of the admissible coefficient manifold, recognizing that it admits a decomposition through the null space of the boundary operator. By characterizing this manifold via a translation-invariant representation and projecting onto the kernel component, optimization is restricted to constraint-preserving directions, transforming the constrained problem into unconstrained least-squares where boundary conditions are satisfied exactly at discrete collocation points. This eliminates penalty coefficients, dual variables, and problem-specific constructions while preserving single-shot training efficiency. Numerical experiments on elliptic and parabolic problems including complex geometries and mixed boundary conditions validate the framework.",
+  "categories": [
+    "math.NA",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": "16 pages,6 Figures",
+  "published_date": "2026-01-16T05:18:56Z",
+  "updated_date": "2026-01-16T05:18:56Z",
+  "url": "https://arxiv.org/abs/2601.10999v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.10999v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:37.513033",
+  "category": "computer_science",
+  "subcategories": [
+    "math.NA",
+    "cs.LG"
+  ]
+}

@@ -1,0 +1,92 @@
+{
+  "id": "environmental_chemistry-soil-contaminant-remediation",
+  "name": "Soil Contaminant Remediation",
+  "category": "chemistry",
+  "subcategory": "environmental_chemistry",
+  "subcategory_name": "Environmental Chemistry",
+  "description": "Soil Contaminant Remediation process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 6,
+    "edges": 5,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nN1[\"Contaminated Soil\"]\nN2[\"Contaminant Profile\"]\nN3[\"Remediation Strategy\"]\nN4[\"Apply Treatment\"]\nN5[\"Monitor Outcomes\"]\nN6[\"Remediated Soil\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\nN5 --> N6\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ff6b6b,color:#fff\n    style N3 fill:#ffd43b,color:#000\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#74c0fc,color:#fff\n    style N6 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Soil Contaminant Remediation. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "Nanomaterials for soil contaminant remediation",
+      "authors": "Wu, Ting; Hou, Jie; White, Jason C.; Lin, Daohui",
+      "journal": "Nano-Enabled Sustainable and Precision Agriculture",
+      "year": "2023",
+      "pubmed": null,
+      "doi": "10.1016/b978-0-323-91233-4.00017-x",
+      "url": "https://doi.org/10.1016/b978-0-323-91233-4.00017-x"
+    },
+    {
+      "title": "Surfactant enhanced remediation of soil columns contaminated by residual tetrachloroethylene",
+      "authors": "Pennell, Kurt D; Jin, Minquan; Abriola, Linda M; Pope, Gary A",
+      "journal": "Journal of Contaminant Hydrology",
+      "year": "1994",
+      "pubmed": null,
+      "doi": "10.1016/0169-7722(94)90071-x",
+      "url": "https://doi.org/10.1016/0169-7722(94)90071-x"
+    },
+    {
+      "title": "Column study of Cr(VI) removal by cationic hydrogel for in-situ remediation of contaminated groundwater and soil",
+      "authors": "Tang, Samuel C.N.; Yin, Ke; Lo, Irene M.C.",
+      "journal": "Journal of Contaminant Hydrology",
+      "year": "2011",
+      "pubmed": null,
+      "doi": "10.1016/j.jconhyd.2011.04.005",
+      "url": "https://doi.org/10.1016/j.jconhyd.2011.04.005"
+    }
+  ],
+  "keywords": [
+    "soil",
+    "contaminant",
+    "remediation"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-15",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+}

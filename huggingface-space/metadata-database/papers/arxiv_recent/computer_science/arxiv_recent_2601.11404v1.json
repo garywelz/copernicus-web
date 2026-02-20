@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2601.11404v1",
+  "arxiv_id": "2601.11404v1",
+  "title": "ACoT-VLA: Action Chain-of-Thought for Vision-Language-Action Models",
+  "authors": [
+    "Linqing Zhong",
+    "Yi Liu",
+    "Yifei Wei",
+    "Ziyu Xiong",
+    "Maoqing Yao",
+    "Si Liu",
+    "Guanghui Ren"
+  ],
+  "author_string": "Linqing Zhong, Yi Liu, Yifei Wei, Ziyu Xiong, Maoqing Yao et al.",
+  "journal": "arXiv:2601.11404v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Vision-Language-Action (VLA) models have emerged as essential generalist robot policies for diverse manipulation tasks, conventionally relying on directly translating multimodal inputs into actions via Vision-Language Model (VLM) embeddings. Recent advancements have introduced explicit intermediary reasoning, such as sub-task prediction (language) or goal image synthesis (vision), to guide action generation. However, these intermediate reasoning are often indirect and inherently limited in their capacity to convey the full, granular information required for precise action execution. Instead, we posit that the most effective form of reasoning is one that deliberates directly in the action space. We introduce Action Chain-of-Thought (ACoT), a paradigm where the reasoning process itself is formulated as a structured sequence of coarse action intents that guide the final policy. In this paper, we propose ACoT-VLA, a novel architecture that materializes the ACoT paradigm. Specifically, we introduce two complementary components: an Explicit Action Reasoner (EAR) and Implicit Action Reasoner (IAR). The former proposes coarse reference trajectories as explicit action-level reasoning steps, while the latter extracts latent action priors from internal representations of multimodal input, co-forming an ACoT that conditions the downstream action head to enable grounded policy learning. Extensive experiments in real-world and simulation environments demonstrate the superiority of our proposed method, which achieves 98.5%, 84.1%, and 47.4% on LIBERO, LIBERO-Plus and VLABench, respectively.",
+  "categories": [
+    "cs.RO"
+  ],
+  "primary_category": "cs.RO",
+  "comment": null,
+  "published_date": "2026-01-16T16:17:06Z",
+  "updated_date": "2026-01-16T16:17:06Z",
+  "url": "https://arxiv.org/abs/2601.11404v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11404v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:30.213105",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.RO"
+  ]
+}

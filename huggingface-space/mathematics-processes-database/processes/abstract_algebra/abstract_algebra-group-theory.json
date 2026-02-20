@@ -1,0 +1,108 @@
+{
+  "acquired_date": "2026-01-08T00:00:00Z",
+  "category": "mathematics",
+  "colorScheme": {
+    "blue": {
+      "category": "Intermediates & States",
+      "hex": "#74c0fc"
+    },
+    "green": {
+      "category": "Processing & Operations",
+      "hex": "#51cf66"
+    },
+    "red": {
+      "category": "Triggers & Inputs",
+      "hex": "#ff6b6b"
+    },
+    "violet": {
+      "category": "Products & Outputs",
+      "hex": "#b197fc"
+    },
+    "yellow": {
+      "category": "Structures & Objects",
+      "hex": "#ffd43b"
+    }
+  },
+  "complexity": {
+    "conditionals": 0,
+    "detailLevel": "medium",
+    "edges": 24,
+    "level": "medium",
+    "logicGates": {
+      "andGates": 1,
+      "orGates": 0,
+      "total": 1
+    },
+    "nodes": 26
+  },
+  "created": "2026-01-08",
+  "description": "Group Theory Process. This abstract algebra process visualization demonstrates group structure analysis and verification. The flowchart shows set inputs and binary operations, group methods and axioms, group operations and properties, intermediate results, and final group theory outputs.",
+  "id": "process_mathematics_group-theory",
+  "keywords": [
+    "algebra",
+    "theory",
+    "abstract",
+    "group"
+  ],
+  "lastUpdated": "2026-01-08",
+  "mermaid": "graph TD\nA1[Set G] --> B1[Binary Operation]\nC1[Group Axioms] --> D1[Closure Property]\nE1[Associativity] --> F1[Identity Element]\nB1 --> G1[Inverse Elements]\nD1 --> H1[Group Verification]\nF1 --> I1[Group Structure]\nG1 --> J1[Subgroup Analysis]\nH1 --> K1[Order of Group]\nI1 --> L1[Group Properties]\nJ1 --> M1[Cyclic Groups]\nK1 --> L1\nL1 --> N1[Abelian Groups]\nM1 --> O1[Group Homomorphisms]\nN1 --> P1[Group Isomorphisms]\nO1 --> Q1[Group Theory Process]\nP1 --> R1[Group Theory Validation]\nQ1 --> S1[Group Theory Verification]\nR1 --> T1[Group Theory Result]\nS1 --> U1[Group Theory Analysis]\nT1 --> V1[Group Theory Parameters]\nU1 --> W1[Group Theory Output]\nV1 --> X1[Group Theory Analysis]\nW1 --> Y1[Group Theory Final Result]\nX1 --> Z1[Group Theory Analysis Complete]\n\n    style A1 fill:#ff6b6b,color:#fff\n    style C1 fill:#ff6b6b,color:#fff\n    style E1 fill:#ff6b6b,color:#fff\n    style B1 fill:#ffd43b,color:#000\n    style D1 fill:#ffd43b,color:#000\n    style F1 fill:#ffd43b,color:#000\n    style G1 fill:#ffd43b,color:#000\n    style H1 fill:#ffd43b,color:#000\n    style I1 fill:#ffd43b,color:#000\n    style J1 fill:#ffd43b,color:#000\n    style K1 fill:#ffd43b,color:#000\n    style L1 fill:#ffd43b,color:#000\n    style M1 fill:#51cf66,color:#fff\n    style N1 fill:#51cf66,color:#fff\n    style O1 fill:#51cf66,color:#fff\n    style P1 fill:#51cf66,color:#fff\n    style Q1 fill:#51cf66,color:#fff\n    style R1 fill:#51cf66,color:#fff\n    style S1 fill:#51cf66,color:#fff\n    style T1 fill:#51cf66,color:#fff\n    style U1 fill:#51cf66,color:#fff\n    style V1 fill:#51cf66,color:#fff\n    style W1 fill:#51cf66,color:#fff\n    style X1 fill:#51cf66,color:#fff\n    style Y1 fill:#51cf66,color:#fff\n    style Z1 fill:#b197fc,color:#fff",
+  "name": "Group Theory",
+  "notes": "Converted from mathematics batch HTML. Process number: 1.",
+  "relatedProcesses": [],
+  "related_papers": [
+    "pubmed_16591741",
+    "crossref_10_1090_S0273-0979-1979-14551-8",
+    "pubmed_16591784"
+  ],
+  "related_podcasts": [],
+  "related_processes": [],
+  "related_videos": [],
+  "source": "programming_framework",
+  "sources": [
+    {
+      "authors": "Welz, G.",
+      "doi": null,
+      "journal": "CopernicusAI Knowledge Engine",
+      "notes": "Chemistry process visualization: Group Theory. Created using the Programming Framework methodology for process analysis and visualization.",
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "year": "2025"
+    },
+    {
+      "authors": "Brauer, R.",
+      "doi": "10.1073/pnas.60.3.745",
+      "journal": "Proc Natl Acad Sci USA",
+      "paper_id": "pubmed_16591741",
+      "pubmed": "16591741",
+      "title": "On the structure of groups of finite order",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/16591741",
+      "year": "1968"
+    },
+    {
+      "authors": "Gorenstein, D.",
+      "doi": "10.1090/S0273-0979-1979-14551-8",
+      "journal": "Bull. Amer. Math. Soc. (N.S.)",
+      "paper_id": "crossref_10_1090_S0273-0979-1979-14551-8",
+      "pubmed": null,
+      "title": "The classification of finite simple groups",
+      "url": "https://doi.org/10.1090/S0273-0979-1979-14551-8",
+      "year": "1979"
+    },
+    {
+      "authors": "Thompson, J.G.",
+      "doi": "10.1073/pnas.62.4.1022",
+      "journal": "Proc Natl Acad Sci USA",
+      "paper_id": "pubmed_16591784",
+      "pubmed": "16591784",
+      "title": "Finite simple groups",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/16591784",
+      "year": "1969"
+    }
+  ],
+  "subcategories": [
+    "abstract_algebra"
+  ],
+  "subcategory": "abstract_algebra",
+  "subcategory_name": "Abstract Algebra",
+  "verified": false
+}

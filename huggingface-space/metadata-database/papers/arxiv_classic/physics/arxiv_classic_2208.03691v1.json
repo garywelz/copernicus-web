@@ -1,0 +1,38 @@
+{
+  "id": "arxiv_2208.03691v1",
+  "arxiv_id": "2208.03691v1",
+  "title": "An effective and efficient algorithm for the Wigner rotation matrix at high angular momenta",
+  "authors": [
+    "Bin-Lei Wang",
+    "Fan Gao",
+    "Long-Jun Wang",
+    "Yang Sun"
+  ],
+  "author_string": "Bin-Lei Wang, Fan Gao, Long-Jun Wang, Yang Sun",
+  "journal": "arXiv:2208.03691v1",
+  "journal_ref": null,
+  "year": "2022",
+  "doi": "10.1103/PhysRevC.106.054320",
+  "abstract": "The Wigner rotation matrix ($d$-function), which appears as a part of the angular-momentum-projection operator, plays a crucial role in modern nuclear-structure models. However, it is a long-standing problem that its numerical evaluation suffers from serious errors and instability, which hinders precise calculations for nuclear high-spin states. Recently, Tajima [Phys. Rev. C 91, 014320 (2015)] has made a significant step toward solving the problem by suggesting the high-precision Fourier method, which however relies on formula-manipulation softwares. In this paper we propose an effective and efficient algorithm for the Wigner $d$ function based on the Jacobi polynomials. We compare our method with the conventional Wigner method and the Tajima Fourier method through some testing calculations, and demonstrate that our algorithm can always give stable results with similar high-precision as the Fourier method, and in some cases (for special sets of $j, m, k$ and $θ$) ours are even more accurate. Moreover, our method is self-contained and less memory consuming. A related testing code and subroutines are provided as Supplemental Material in the present paper.",
+  "categories": [
+    "nucl-th",
+    "cond-mat.str-el",
+    "math-ph",
+    "physics.chem-ph",
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": null,
+  "published_date": "2022-08-07T10:23:21Z",
+  "updated_date": "2022-08-07T10:23:21Z",
+  "url": "https://arxiv.org/abs/2208.03691v1",
+  "pdf_url": "https://arxiv.org/pdf/2208.03691v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:30:29.565364",
+  "category": "physics",
+  "subcategories": [
+    "nucl-th",
+    "cond-mat.str-el",
+    "math-ph"
+  ]
+}

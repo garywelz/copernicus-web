@@ -1,0 +1,37 @@
+{
+  "id": "arxiv_2601.08775v1",
+  "arxiv_id": "2601.08775v1",
+  "title": "A Langevin sampler for quantum tomography",
+  "authors": [
+    "Tameem Adel",
+    "Abhishek Agarwal",
+    "Stéphane Chrétien",
+    "Estelle Massart",
+    "Danila Mokeev",
+    "Ivan Rungger",
+    "Andrew Thompson"
+  ],
+  "author_string": "Tameem Adel, Abhishek Agarwal, Stéphane Chrétien, Estelle Massart, Danila Mokeev et al.",
+  "journal": "arXiv:2601.08775v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Quantum tomography involves obtaining a full classical description of a prepared quantum state from experimental results. We propose a Langevin sampler for quantum tomography, that relies on a new formulation of Bayesian quantum tomography exploiting the Burer-Monteiro factorization of Hermitian positive-semidefinite matrices. If the rank of the target density matrix is known, this formulation allows us to define a posterior distribution that is only supported on matrices whose rank is upper-bounded by the rank of the target density matrix. Conversely, if the target rank is unknown, any upper bound on the rank can be used by our algorithm, and the rank of the resulting posterior mean estimator is further reduced by the use of a low-rank promoting prior density. This prior density is a complex extension of the one proposed in (Annales de l'Institut Henri Poincare Probability and Statistics, 56(2):1465-1483, 2020). We derive a PAC-Bayesian bound on our proposed estimator that matches the best bounds available in the literature, and we show numerically that it leads to strong scalability improvements compared to existing techniques when the rank of the density matrix is known to be small.",
+  "categories": [
+    "math.ST",
+    "stat.AP"
+  ],
+  "primary_category": "stat.AP",
+  "comment": null,
+  "published_date": "2026-01-13T18:04:36Z",
+  "updated_date": "2026-01-13T18:04:36Z",
+  "url": "https://arxiv.org/abs/2601.08775v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.08775v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:03.406878",
+  "category": "mathematics",
+  "subcategories": [
+    "math.ST",
+    "stat.AP"
+  ]
+}

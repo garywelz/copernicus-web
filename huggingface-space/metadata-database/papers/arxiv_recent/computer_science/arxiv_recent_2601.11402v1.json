@@ -1,0 +1,29 @@
+{
+  "id": "arxiv_2601.11402v1",
+  "arxiv_id": "2601.11402v1",
+  "title": "SME-YOLO: A Real-Time Detector for Tiny Defect Detection on PCB Surfaces",
+  "authors": [
+    "Meng Han"
+  ],
+  "author_string": "Meng Han",
+  "journal": "arXiv:2601.11402v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Surface defects on Printed Circuit Boards (PCBs) directly compromise product reliability and safety. However, achieving high-precision detection is challenging because PCB defects are typically characterized by tiny sizes, high texture similarity, and uneven scale distributions. To address these challenges, this paper proposes a novel framework based on YOLOv11n, named SME-YOLO (Small-target Multi-scale Enhanced YOLO). First, we employ the Normalized Wasserstein Distance Loss (NWDLoss). This metric effectively mitigates the sensitivity of Intersection over Union (IoU) to positional deviations in tiny objects. Second, the original upsampling module is replaced by the Efficient Upsampling Convolution Block (EUCB). By utilizing multi-scale convolutions, the EUCB gradually recovers spatial resolution and enhances the preservation of edge and texture details for tiny defects. Finally, this paper proposes the Multi-Scale Focused Attention (MSFA) module. Tailored to the specific spatial distribution of PCB defects, this module adaptively strengthens perception within key scale intervals, achieving efficient fusion of local fine-grained features and global context information. Experimental results on the PKU-PCB dataset demonstrate that SME-YOLO achieves state-of-the-art performance. Specifically, compared to the baseline YOLOv11n, SME-YOLO improves mAP by 2.2% and Precision by 4%, validating the effectiveness of the proposed method.",
+  "categories": [
+    "cs.CV"
+  ],
+  "primary_category": "cs.CV",
+  "comment": null,
+  "published_date": "2026-01-16T16:14:56Z",
+  "updated_date": "2026-01-16T16:14:56Z",
+  "url": "https://arxiv.org/abs/2601.11402v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11402v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:30.213138",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV"
+  ]
+}

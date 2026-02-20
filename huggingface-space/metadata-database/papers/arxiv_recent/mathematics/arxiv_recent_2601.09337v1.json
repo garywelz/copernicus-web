@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2601.09337v1",
+  "arxiv_id": "2601.09337v1",
+  "title": "On the unmapped tent pitching for the heterogeneous wave equation",
+  "authors": [
+    "Marcella Bonazzoli",
+    "Gabriele Ciaramella",
+    "Ilario Mazzieri"
+  ],
+  "author_string": "Marcella Bonazzoli, Gabriele Ciaramella, Ilario Mazzieri",
+  "journal": "arXiv:2601.09337v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "The Unmapped Tent Pitching (UTP) algorithm is a space--time domain decomposition method for the parallel solution of hyperbolic problems. It was originally introduced for the homogeneous one-dimensional wave equation in [Ciaramella, Gander, Mazzieri, 2024]. UTP is inspired by the Mapped Tent Pitching (MTP) algorithm [Gopalakrishnan, Sch{ö}berl, Wintersteiger, 2017], which constructs the solution by iteratively building polytopal space--time subdomains, referred to as tents. In MTP, each physical tent is mapped onto a space--time rectangle, where local problems are solved before being mapped back to the original domain. In contrast, UTP avoids the nonlinear and potentially singular mapping step by computing the solution directly on a physical space--time rectangle that contains the tent, at the expense of redundant computations in the region outside the tent. In this work, we investigate several strategies to extend UTP to heterogeneous media, where the wave propagation speed is piecewise constant over two subregions of the domain. Among the considered approaches, the most efficient in terms of computational time is the one employing space--time subdomains with identical spatial and temporal dimensions in both regions, determined by the maximum propagation speed.",
+  "categories": [
+    "math.NA"
+  ],
+  "primary_category": "math.NA",
+  "comment": null,
+  "published_date": "2026-01-14T10:12:28Z",
+  "updated_date": "2026-01-14T10:12:28Z",
+  "url": "https://arxiv.org/abs/2601.09337v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.09337v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:52.501696",
+  "category": "mathematics",
+  "subcategories": [
+    "math.NA"
+  ]
+}

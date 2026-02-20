@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_1904.08109v1",
+  "arxiv_id": "1904.08109v1",
+  "title": "Contextual Aware Joint Probability Model Towards Question Answering System",
+  "authors": [
+    "Liu Yang",
+    "Lijing Song"
+  ],
+  "author_string": "Liu Yang, Lijing Song",
+  "journal": "arXiv:1904.08109v1",
+  "journal_ref": null,
+  "year": "2019",
+  "doi": null,
+  "abstract": "In this paper, we address the question answering challenge with the SQuAD 2.0 dataset. We design a model architecture which leverages BERT's capability of context-aware word embeddings and BiDAF's context interactive exploration mechanism. By integrating these two state-of-the-art architectures, our system tries to extract the contextual word representation at word and character levels, for better comprehension of both question and context and their correlations. We also propose our original joint posterior probability predictor module and its associated loss functions. Our best model so far obtains F1 score of 75.842% and EM score of 72.24% on the test PCE leaderboad.",
+  "categories": [
+    "cs.CL",
+    "cs.AI"
+  ],
+  "primary_category": "cs.AI",
+  "comment": null,
+  "published_date": "2019-04-17T07:16:10Z",
+  "updated_date": "2019-04-17T07:16:10Z",
+  "url": "https://arxiv.org/abs/1904.08109v1",
+  "pdf_url": "https://arxiv.org/pdf/1904.08109v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:19.480424",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CL",
+    "cs.AI"
+  ]
+}

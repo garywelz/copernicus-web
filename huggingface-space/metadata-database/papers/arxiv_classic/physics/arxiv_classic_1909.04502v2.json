@@ -1,0 +1,39 @@
+{
+  "id": "arxiv_1909.04502v2",
+  "arxiv_id": "1909.04502v2",
+  "title": "Relativistic Lattice Boltzmann Methods: Theory and Applications",
+  "authors": [
+    "A. Gabbana",
+    "D. Simeoni",
+    "S. Succi",
+    "R. Tripiccione"
+  ],
+  "author_string": "A. Gabbana, D. Simeoni, S. Succi, R. Tripiccione",
+  "journal": "Physics Reports 863 (2020) 1-63",
+  "journal_ref": "Physics Reports 863 (2020) 1-63",
+  "year": "2019",
+  "doi": "10.1016/j.physrep.2020.03.004",
+  "abstract": "We present a systematic account of recent developments of the relativistic Lattice Boltzmann method (RLBM) for dissipative hydrodynamics. We describe in full detail a unified, compact and dimension-independent procedure to design relativistic LB schemes capable of bridging the gap between the ultra-relativistic regime, $k_{\\rm B} T \\gg mc^2$, and the non-relativistic one, $k_{\\rm B} T \\ll mc^2$. We further develop a systematic derivation of the transport coefficients as a function of the kinetic relaxation time in $d=1,2,3$ spatial dimensions. The latter step allows to establish a quantitative bridge between the parameters of the kinetic model and the macroscopic transport coefficients. This leads to accurate calibrations of simulation parameters and is also relevant at the theoretical level, as it provides neat numerical evidence of the correctness of the Chapman-Enskog procedure. We present an extended set of validation tests, in which simulation results based on the RLBMs are compared with existing analytic or semi-analytic results in the mildly-relativistic ($k_{\\rm B} T \\sim mc^2$) regime for the case of shock propagations in quark-gluon plasmas and laminar electronic flows in ultra-clean graphene samples. It is hoped and expected that the material collected in this paper may allow the interested readers to reproduce the present results and generate new applications of the RLBM scheme.",
+  "categories": [
+    "hep-lat",
+    "gr-qc",
+    "hep-ph",
+    "hep-th",
+    "physics.comp-ph",
+    "physics.flu-dyn"
+  ],
+  "primary_category": "physics.flu-dyn",
+  "comment": null,
+  "published_date": "2019-08-29T13:26:59Z",
+  "updated_date": "2020-05-28T16:52:44Z",
+  "url": "https://arxiv.org/abs/1909.04502v2",
+  "pdf_url": "https://arxiv.org/pdf/1909.04502v2.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:30:13.290383",
+  "category": "physics",
+  "subcategories": [
+    "hep-lat",
+    "gr-qc",
+    "hep-ph"
+  ]
+}

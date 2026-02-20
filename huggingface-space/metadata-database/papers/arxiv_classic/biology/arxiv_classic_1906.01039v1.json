@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_1906.01039v1",
+  "arxiv_id": "1906.01039v1",
+  "title": "Neural networks grown and self-organized by noise",
+  "authors": [
+    "Guruprasad Raghavan",
+    "Matt Thomson"
+  ],
+  "author_string": "Guruprasad Raghavan, Matt Thomson",
+  "journal": "arXiv:1906.01039v1",
+  "journal_ref": null,
+  "year": "2019",
+  "doi": null,
+  "abstract": "Living neural networks emerge through a process of growth and self-organization that begins with a single cell and results in a brain, an organized and functional computational device. Artificial neural networks, however, rely on human-designed, hand-programmed architectures for their remarkable performance. Can we develop artificial computational devices that can grow and self-organize without human intervention? In this paper, we propose a biologically inspired developmental algorithm that can 'grow' a functional, layered neural network from a single initial cell. The algorithm organizes inter-layer connections to construct a convolutional pooling layer, a key constituent of convolutional neural networks (CNN's). Our approach is inspired by the mechanisms employed by the early visual system to wire the retina to the lateral geniculate nucleus (LGN), days before animals open their eyes. The key ingredients for robust self-organization are an emergent spontaneous spatiotemporal activity wave in the first layer and a local learning rule in the second layer that 'learns' the underlying activity pattern in the first layer. The algorithm is adaptable to a wide-range of input-layer geometries, robust to malfunctioning units in the first layer, and so can be used to successfully grow and self-organize pooling architectures of different pool-sizes and shapes. The algorithm provides a primitive procedure for constructing layered neural networks through growth and self-organization. Broadly, our work shows that biologically inspired developmental algorithms can be applied to autonomously grow functional 'brains' in-silico.",
+  "categories": [
+    "cs.NE",
+    "cs.AI",
+    "nlin.AO",
+    "q-bio.NC"
+  ],
+  "primary_category": "q-bio.NC",
+  "comment": "21 pages (including 11 pages of appendix)",
+  "published_date": "2019-06-03T19:33:39Z",
+  "updated_date": "2019-06-03T19:33:39Z",
+  "url": "https://arxiv.org/abs/1906.01039v1",
+  "pdf_url": "https://arxiv.org/pdf/1906.01039v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:23.478836",
+  "category": "biology",
+  "subcategories": [
+    "cs.NE",
+    "cs.AI",
+    "nlin.AO"
+  ]
+}

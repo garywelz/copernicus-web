@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2601.08610v1",
+  "arxiv_id": "2601.08610v1",
+  "title": "Permutation Inference under Multi-way Clustering and Missing Data",
+  "authors": [
+    "Wenxuan Guo",
+    "Panos Toulis",
+    "Yuhao Wang"
+  ],
+  "author_string": "Wenxuan Guo, Panos Toulis, Yuhao Wang",
+  "journal": "arXiv:2601.08610v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Econometric applications with multi-way clustering often feature a small number of effective clusters or heavy-tailed data, making standard cluster-robust and bootstrap inference unreliable in finite samples. In this paper, we develop a framework for finite-sample valid permutation inference in linear regression with multi-way clustering under an assumption of conditional exchangeability of the errors. Our assumption is closely related to the notion of separate exchangeability studied in earlier work, but can be more realistic in many economic settings as it imposes minimal restrictions on the covariate distribution. We construct permutation tests of significance that are valid in finite samples and establish theoretical power guarantees, in contrast to existing methods that are justified only asymptotically. We also extend our methodology to settings with missing data and derive power results that reveal phase transitions in detectability. Through simulation studies, we demonstrate that the proposed tests maintain correct size and competitive power, while standard cluster-robust and bootstrap procedures can exhibit substantial size distortions.",
+  "categories": [
+    "stat.ME",
+    "math.ST"
+  ],
+  "primary_category": "math.ST",
+  "comment": "55 pages, 5 figures",
+  "published_date": "2026-01-13T14:56:09Z",
+  "updated_date": "2026-01-13T14:56:09Z",
+  "url": "https://arxiv.org/abs/2601.08610v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.08610v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:03.413916",
+  "category": "mathematics",
+  "subcategories": [
+    "stat.ME",
+    "math.ST"
+  ]
+}

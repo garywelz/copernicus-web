@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2601.05868v1",
+  "arxiv_id": "2601.05868v1",
+  "title": "Sequential Bayesian Optimal Experimental Design in Infinite Dimensions via Policy Gradient Reinforcement Learning",
+  "authors": [
+    "Kaichen Shen",
+    "Peng Chen"
+  ],
+  "author_string": "Kaichen Shen, Peng Chen",
+  "journal": "arXiv:2601.05868v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Sequential Bayesian optimal experimental design (SBOED) for PDE-governed inverse problems is computationally challenging, especially for infinite-dimensional random field parameters. High-fidelity approaches require repeated forward and adjoint PDE solves inside nested Bayesian inversion and design loops. We formulate SBOED as a finite-horizon Markov decision process and learn an amortized design policy via policy-gradient reinforcement learning (PGRL), enabling online design selection from the experiment history without repeatedly solving an SBOED optimization problem. To make policy training and reward evaluation scalable, we combine dual dimension reduction -- active subspace projection for the parameter and principal component analysis for the state -- with an adjusted derivative-informed latent attention neural operator (LANO) surrogate that predicts both the parameter-to-solution map and its Jacobian. We use a Laplace-based D-optimality reward while noting that, in general, other expected-information-gain utilities such as KL divergence can also be used within the same framework. We further introduce an eigenvalue-based evaluation strategy that uses prior samples as proxies for maximum a posteriori (MAP) points, avoiding repeated MAP solves while retaining accurate information-gain estimates. Numerical experiments on sequential multi-sensor placement for contaminant source tracking demonstrate approximately $100\\times$ speedup over high-fidelity finite element methods, improved performance over random sensor placements, and physically interpretable policies that discover an ``upstream'' tracking strategy.",
+  "categories": [
+    "math.OC",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": null,
+  "published_date": "2026-01-09T15:44:49Z",
+  "updated_date": "2026-01-09T15:44:49Z",
+  "url": "https://arxiv.org/abs/2601.05868v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.05868v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:22.683949",
+  "category": "computer_science",
+  "subcategories": [
+    "math.OC",
+    "cs.LG"
+  ]
+}

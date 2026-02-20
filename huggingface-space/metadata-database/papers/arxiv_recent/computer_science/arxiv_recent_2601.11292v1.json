@@ -1,0 +1,41 @@
+{
+  "id": "arxiv_2601.11292v1",
+  "arxiv_id": "2601.11292v1",
+  "title": "OpenACM: An Open-Source SRAM-Based Approximate CiM Compiler",
+  "authors": [
+    "Yiqi Zhou",
+    "JunHao Ma",
+    "Xingyang Li",
+    "Yule Sheng",
+    "Yue Yuan",
+    "Yikai Wang",
+    "Bochang Wang",
+    "Yiheng Wu",
+    "Shan Shen",
+    "Wei Xing",
+    "Daying Sun",
+    "Li Li",
+    "Zhiqiang Xiao"
+  ],
+  "author_string": "Yiqi Zhou, JunHao Ma, Xingyang Li, Yule Sheng, Yue Yuan et al.",
+  "journal": "arXiv:2601.11292v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "The rise of data-intensive AI workloads has exacerbated the ``memory wall'' bottleneck. Digital Compute-in-Memory (DCiM) using SRAM offers a scalable solution, but its vast design space makes manual design impractical, creating a need for automated compilers. A key opportunity lies in approximate computing, which leverages the error tolerance of AI applications for significant energy savings. However, existing DCiM compilers focus on exact arithmetic, failing to exploit this optimization. This paper introduces OpenACM, the first open-source, accuracy-aware compiler for SRAM-based approximate DCiM architectures. OpenACM bridges the gap between application error tolerance and hardware automation. Its key contribution is an integrated library of accuracy-configurable multipliers (exact, tunable approximate, and logarithmic), enabling designers to make fine-grained accuracy-energy trade-offs. The compiler automates the generation of the DCiM architecture, integrating a transistor-level customizable SRAM macro with variation-aware characterization into a complete, open-source physical design flow based on OpenROAD and the FreePDK45 library. This ensures full reproducibility and accessibility, removing dependencies on proprietary tools. Experimental results on representative convolutional neural networks (CNNs) demonstrate that OpenACM achieves energy savings of up to 64\\% with negligible loss in application accuracy. The framework is available on \\href{https://github.com/ShenShan123/OpenACM}{OpenACM:URL}",
+  "categories": [
+    "cs.AR"
+  ],
+  "primary_category": "cs.AR",
+  "comment": "Accepted by DATE 2026",
+  "published_date": "2026-01-16T13:42:25Z",
+  "updated_date": "2026-01-16T13:42:25Z",
+  "url": "https://arxiv.org/abs/2601.11292v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11292v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:33.858677",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.AR"
+  ]
+}

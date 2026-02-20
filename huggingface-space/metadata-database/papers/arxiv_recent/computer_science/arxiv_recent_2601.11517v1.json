@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2601.11517v1",
+  "arxiv_id": "2601.11517v1",
+  "title": "Do explanations generalize across large reasoning models?",
+  "authors": [
+    "Koyena Pal",
+    "David Bau",
+    "Chandan Singh"
+  ],
+  "author_string": "Koyena Pal, David Bau, Chandan Singh",
+  "journal": "arXiv:2601.11517v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Large reasoning models (LRMs) produce a textual chain of thought (CoT) in the process of solving a problem, which serves as a potentially powerful tool to understand the problem by surfacing a human-readable, natural-language explanation. However, it is unclear whether these explanations generalize, i.e. whether they capture general patterns about the underlying problem rather than patterns which are esoteric to the LRM. This is a crucial question in understanding or discovering new concepts, e.g. in AI for science. We study this generalization question by evaluating a specific notion of generalizability: whether explanations produced by one LRM induce the same behavior when given to other LRMs. We find that CoT explanations often exhibit this form of generalization (i.e. they increase consistency between LRMs) and that this increased generalization is correlated with human preference rankings and post-training with reinforcement learning. We further analyze the conditions under which explanations yield consistent answers and propose a straightforward, sentence-level ensembling strategy that improves consistency. Taken together, these results prescribe caution when using LRM explanations to yield new insights and outline a framework for characterizing LRM explanation generalization.",
+  "categories": [
+    "cs.CL",
+    "cs.AI"
+  ],
+  "primary_category": "cs.AI",
+  "comment": null,
+  "published_date": "2026-01-16T18:55:29Z",
+  "updated_date": "2026-01-16T18:55:29Z",
+  "url": "https://arxiv.org/abs/2601.11517v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11517v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:30.207284",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CL",
+    "cs.AI"
+  ]
+}

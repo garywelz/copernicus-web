@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2006.01125v2",
+  "arxiv_id": "2006.01125v2",
+  "title": "Neural Network-Aided BCJR Algorithm for Joint Symbol Detection and Channel Decoding",
+  "authors": [
+    "Wen-Chiao Tsai",
+    "Chieh-Fang Teng",
+    "Han-Mo Ou",
+    "An-Yeu Wu"
+  ],
+  "author_string": "Wen-Chiao Tsai, Chieh-Fang Teng, Han-Mo Ou, An-Yeu Wu",
+  "journal": "arXiv:2006.01125v2",
+  "journal_ref": null,
+  "year": "2020",
+  "doi": null,
+  "abstract": "Recently, deep learning-assisted communication systems have achieved many eye-catching results and attracted more and more researchers in this emerging field. Instead of completely replacing the functional blocks of communication systems with neural networks, a hybrid manner of BCJRNet symbol detection is proposed to combine the advantages of the BCJR algorithm and neural networks. However, its separate block design not only degrades the system performance but also results in additional hardware complexity. In this work, we propose a BCJR receiver for joint symbol detection and channel decoding. It can simultaneously utilize the trellis diagram and channel state information for a more accurate calculation of branch probability and thus achieve global optimum with 2.3 dB gain over separate block design. Furthermore, a dedicated neural network model is proposed to replace the channel-model-based computation of the BCJR receiver, which can avoid the requirements of perfect CSI and is more robust under CSI uncertainty with 1.0 dB gain.",
+  "categories": [
+    "cs.IT",
+    "cs.LG",
+    "eess.SP"
+  ],
+  "primary_category": "eess.SP",
+  "comment": "6 pages, six figures, accepted by 2020 IEEE International Workshop on Signal Processing Systems (SiPS)",
+  "published_date": "2020-05-30T10:25:58Z",
+  "updated_date": "2020-07-21T15:56:27Z",
+  "url": "https://arxiv.org/abs/2006.01125v2",
+  "pdf_url": "https://arxiv.org/pdf/2006.01125v2.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:27.420060",
+  "category": "interdisciplinary",
+  "subcategories": [
+    "cs.IT",
+    "cs.LG",
+    "eess.SP"
+  ]
+}

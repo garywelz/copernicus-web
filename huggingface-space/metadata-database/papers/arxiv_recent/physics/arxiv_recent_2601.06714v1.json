@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2601.06714v1",
+  "arxiv_id": "2601.06714v1",
+  "title": "Digitally Controlled Mechatronic Metamaterials for Actively Induced Targeted Bandgaps",
+  "authors": [
+    "Vivek Gupta",
+    "Aditya Natu",
+    "S. Hassan HosseinNia"
+  ],
+  "author_string": "Vivek Gupta, Aditya Natu, S. Hassan HosseinNia",
+  "journal": "arXiv:2601.06714v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "This paper presents an experimental framework for inducing and tuning vibration bandgaps in digitally controlled mechatronic metamaterials. A slender-beam structure instrumented with collocated piezoelectric sensor-actuator pairs distributed periodically along the length is used as the host medium, with decentralized second-order low-pass resonant filter with negative position feedback controllers implemented in real time on an FPGA platform. Unlike conventional approaches that assess bandgap formation through tip displacement, this study relies on bending strain minimization of piezoelectric sensors as the principal indicator of control-induced bandgaps. This reflects more accurately the moment-based phase cancellation dynamics similar to resonator behavior. We derive analytical expressions for transmissibility in an n x n decentralized feedback architecture and verify them experimentally using a 7 x 7 unit-cell configuration. The findings show that resonant controllers with negative feedback applied at the unit-cell level can be systematically tuned through controller gain and damping to open targeted low-frequency bandgaps and significantly improve vibration attenuation. By shifting the focus to localized dynamics, this work deepens the understanding of how control-induced bandgaps emerge and demonstrates a scalable pathway for designing programmable mechatronic metamaterials based on unconventional resonator behavior.",
+  "categories": [
+    "physics.app-ph"
+  ],
+  "primary_category": "physics.app-ph",
+  "comment": null,
+  "published_date": "2026-01-10T22:56:21Z",
+  "updated_date": "2026-01-10T22:56:21Z",
+  "url": "https://arxiv.org/abs/2601.06714v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.06714v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-14T13:33:28.428971",
+  "category": "physics",
+  "subcategories": [
+    "physics.app-ph"
+  ]
+}

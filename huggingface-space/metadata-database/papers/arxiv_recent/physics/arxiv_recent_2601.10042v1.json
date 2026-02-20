@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2601.10042v1",
+  "arxiv_id": "2601.10042v1",
+  "title": "Towards Minimal Fault-tolerant Error-Correction Sequence with Quantum Hamming Codes",
+  "authors": [
+    "Sha Shi",
+    "Xiao-Yang Xu",
+    "Min-Quan Cheng",
+    "Dong-Sheng Wang",
+    "Yun-Jiang Wang"
+  ],
+  "author_string": "Sha Shi, Xiao-Yang Xu, Min-Quan Cheng, Dong-Sheng Wang, Yun-Jiang Wang",
+  "journal": "arXiv:2601.10042v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "The high overhead of fault-tolerant measurement sequences (FTMSs) poses a major challenge for implementing quantum stabilizer codes. Here, we address this problem by constructing efficient FTMSs for the class of quantum Hamming codes $[\\![2^r-1, 2^r-1-2r, 3]\\!]$ with $r=3k+1$ ($k \\in \\mathbb{Z}^+$). Our key result demonstrates that the sequence length can be reduced to exactly $2r+1$-only one additional measurement beyond the original non-fault-tolerant sequence, establishing a tight lower bound. The proposed method leverages cyclic matrix transformations to systematically combine rows of the initial stabilizer matrix and preserving a self-dual CSS-like symmetry analogous to that of the original quantum Hamming codes. This induced symmetry enables hardware-efficient circuit reuse: the measurement circuits for the first $r$ stabilizers are transformed into circuits for the remaining $r$ stabilizers simply by toggling boundary Hadamard gates, eliminating redundant hardware. For distance-3 fault-tolerant error correction, our approach simultaneously reduces the time overhead via shorting the FTMS length and the hardware overhead through symmetry-enabled circuit multiplexing. These results provide an important advance towards the important open problem regarding the design of minimal FTMSs for quantum Hamming codes and may shed light on similar challenges in other quantum stabilizer codes.",
+  "categories": [
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": "11pages, 1 figure",
+  "published_date": "2026-01-15T03:40:13Z",
+  "updated_date": "2026-01-15T03:40:13Z",
+  "url": "https://arxiv.org/abs/2601.10042v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.10042v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:18:50.689985",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph"
+  ]
+}

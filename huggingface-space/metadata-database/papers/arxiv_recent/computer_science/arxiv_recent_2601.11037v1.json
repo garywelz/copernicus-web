@@ -1,0 +1,38 @@
+{
+  "id": "arxiv_2601.11037v1",
+  "arxiv_id": "2601.11037v1",
+  "title": "BAPO: Boundary-Aware Policy Optimization for Reliable Agentic Search",
+  "authors": [
+    "Shiyu Liu",
+    "Yongjing Yin",
+    "Jianhao Yan",
+    "Yunbo Tang",
+    "Qinggang Zhang",
+    "Bei Li",
+    "Xin Chen",
+    "Jingang Wang",
+    "Xunliang Cai",
+    "Jinsong Su"
+  ],
+  "author_string": "Shiyu Liu, Yongjing Yin, Jianhao Yan, Yunbo Tang, Qinggang Zhang et al.",
+  "journal": "arXiv:2601.11037v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "RL-based agentic search enables LLMs to solve complex questions via dynamic planning and external search. While this approach significantly enhances accuracy with agent policies optimized via large-scale reinforcement learning, we identify a critical gap in reliability: these agents fail to recognize their reasoning boundaries and rarely admit ``I DON'T KNOW'' (IDK) even when evidence is insufficient or reasoning reaches its limit. The lack of reliability often leads to plausible but unreliable answers, introducing significant risks in many real-world scenarios. To this end, we propose Boundary-Aware Policy Optimization (BAPO), a novel RL framework designed to cultivate reliable boundary awareness without compromising accuracy. BAPO introduces two key components: (i) a group-based boundary-aware reward that encourages an IDK response only when the reasoning reaches its limit, and (ii) an adaptive reward modulator that strategically suspends this reward during early exploration, preventing the model from exploiting IDK as a shortcut. Extensive experiments on four benchmarks demonstrate that BAPO substantially enhances the overall reliability of agentic search.",
+  "categories": [
+    "cs.AI"
+  ],
+  "primary_category": "cs.AI",
+  "comment": "Code is available at https://github.com/Liushiyu-0709/BAPO-Reliable-Search",
+  "published_date": "2026-01-16T07:06:58Z",
+  "updated_date": "2026-01-16T07:06:58Z",
+  "url": "https://arxiv.org/abs/2601.11037v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11037v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:37.505719",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.AI"
+  ]
+}

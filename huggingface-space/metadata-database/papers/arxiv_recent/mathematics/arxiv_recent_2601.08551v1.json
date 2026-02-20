@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2601.08551v1",
+  "arxiv_id": "2601.08551v1",
+  "title": "Truncated Multidimensional Trigonometric Moment Problem: A Choice of Bases and the Unique Solution",
+  "authors": [
+    "Guangyu Wu",
+    "Anders Lindquist"
+  ],
+  "author_string": "Guangyu Wu, Anders Lindquist",
+  "journal": "arXiv:2601.08551v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "In this prelinimary version of paper, we propose to give a complete solution to the Truncated Multidimensional Trigonometric Moment Problem (TMTMP) from a system and signal processing perspective. In mathematical TMTMPs, people care about whether a solution exists for a given sequence of multidimensional trigonometric moments. The solution can have the form of an atomic measure. However, for the TMTMPs in system and signal processing, a solution as an analytic rational function, of which the numerator and the denominator are positive polynomials, is desired for the ARMA modelling of a stochastic process, which is the so-called Multidimensional Rational Covariance Extension problem (RCEP) . In the literature, the feasible domain of the TMTMPs, where the spectral density is positive, is difficult to obtain given a specific choice of basis functions, which causes severe problems in the Multidimensional RCEP. In this paper, we propose a choice of basis functions, and a corresponding estimation scheme by convex optimization, for the TMTMPs, with which the trigonometric moments of the spectral estimate are exactly the sample moments. We propose an explicit condition for the convex optimization problem for guaranteeing the positiveness of the spectral estimation. The map from the parameters of the estimate to the trigonometric moments is proved to be a diffeomorphism, which ensures the existence and uniqueness of solution. The statistical properties of the proposed spectral density estimation scheme are comprehensively proved, including the consistency, (asymptotical) unbiasedness, convergence rate and efficiency under a mild assumption. This well-posed treatment is then applied to a system identification task, and the simulation results validate our proposed treatment for the TMTMP in system and signal processing.",
+  "categories": [
+    "math.OC",
+    "stat.ME"
+  ],
+  "primary_category": "stat.ME",
+  "comment": "16 pages, 3 figures",
+  "published_date": "2026-01-13T13:36:58Z",
+  "updated_date": "2026-01-13T13:36:58Z",
+  "url": "https://arxiv.org/abs/2601.08551v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.08551v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:03.415300",
+  "category": "mathematics",
+  "subcategories": [
+    "math.OC",
+    "stat.ME"
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "id": "pubmed_40936206",
+  "pmid": "40936206",
+  "title": "Developing custom computer vision models with Njobvu-AI: A collaborative, user-friendly platform for ecological research.",
+  "authors": [
+    "Appel, Cara L",
+    "Subramanian, Ashwin",
+    "Koning, Jonathan S",
+    "Ngosi, Marnet",
+    "Sullivan, Christopher M",
+    "Levi, Taal",
+    "Lesmeister, Damon B"
+  ],
+  "author_string": "Appel, Cara L, Subramanian, Ashwin, Koning, Jonathan S, Ngosi, Marnet, Sullivan, Christopher M et al.",
+  "journal": "Ecol Appl",
+  "journal_full": "Ecological applications : a publication of the Ecological Society of America",
+  "year": "",
+  "doi": "10.1002/eap.70096",
+  "abstract": "Computer vision models show great promise for assisting researchers with rapid processing of ecological data from many sources, including images from camera traps. Access to user-friendly workflows offering collaborative features, remote and local access, and data control will enable greater adoption of computer vision models and accelerate the time between data collection and analysis for many conservation and research programs. We present Njobvu-AI, a no-code tool for multiuser image labeling, model training, image classification, and review. Using this tool, we demonstrate training and deploying a YOLO multiclass detector model using a modest dataset of 33,664 camera trap images of 37 animal species from Nkhotakota Wildlife Reserve, Malawi. We then applied our model to an independent dataset and evaluated its performance in terms of filtering empty images, species classification, species richness, and per-image animal counts. Our model filtered over 3 million empty images and had similar sensitivity but lower specificity than the MegaDetector model at differentiating empty images from those with animals. Classification performance was high for species with >1000 training images (average precision, recall, and F1 >0.70) and moderate overall (macro-averaged precision = 0.64, recall = 0.76, F1 = 0.63). Site-level species richness using predicted detections with and without manual review were highly concordant, especially when a score threshold of 0.95 was applied ( <math xmlns=\"http://www.w3.org/1998/Math/MathML\"> <semantics> <mrow><msup><mi>R</mi> <mn>2</mn></msup> </mrow> <annotation>$$ {R}^2 $$</annotation></semantics> </math> = 0.91). Counts of animals per image were predicted accurately for many species but underestimated by up to 22% for those in large groups. This workflow represents an option for researchers to implement custom computer vision models for even modest-sized ecological datasets in an all-in-one, collaborative, no-code platform.",
+  "keywords": [
+    "Africa",
+    "Malawi",
+    "artificial intelligence",
+    "camera traps",
+    "machine learning",
+    "software",
+    "wildlife monitoring"
+  ],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/40936206",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T17:02:09.138822",
+  "category": "biology",
+  "subcategories": []
+}

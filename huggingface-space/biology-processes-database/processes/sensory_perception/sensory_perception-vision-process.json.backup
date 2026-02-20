@@ -1,0 +1,93 @@
+{
+  "category": "biology",
+  "colorScheme": {
+    "blue": {
+      "category": "Intermediates & States",
+      "hex": "#74c0fc"
+    },
+    "green": {
+      "category": "Processing & Operations",
+      "hex": "#51cf66"
+    },
+    "red": {
+      "category": "Triggers & Inputs",
+      "hex": "#ff6b6b"
+    },
+    "violet": {
+      "category": "Products & Outputs",
+      "hex": "#b197fc"
+    },
+    "yellow": {
+      "category": "Structures & Objects",
+      "hex": "#ffd43b"
+    }
+  },
+  "complexity": {
+    "conditionals": 0,
+    "detailLevel": "low",
+    "edges": 10,
+    "level": "low",
+    "logicGates": {
+      "andGates": 0,
+      "orGates": 0,
+      "total": 0
+    },
+    "nodes": 10
+  },
+  "created": "2026-01-08",
+  "description": "Vision Process in Animals. This process represents a higher-level biological mechanism distinct from molecular/biochemical processes covered in GLMP.",
+  "id": "sensory_perception-vision-process",
+  "keywords": [
+    "sensory",
+    "animals",
+    "perception",
+    "vision",
+    "process"
+  ],
+  "lastUpdated": "2026-01-08",
+  "mermaid": "graph TD\n    A36[Light Waves] --> B36[Cornea Refraction]\n    B36 --> C36[Lens Focusing]\n    C36 --> D36[Retina Reception]\n    D36 --> E36[Photoreceptor Activation]\n    E36 --> F36[Rod Cells]\n    E36 --> G36[Cone Cells]\n    F36 --> H36[Signal Transduction]\n    G36 --> H36\n    H36 --> I36[Optic Nerve]\n    I36 --> J36[Brain Processing]\n    \n    style A36 fill:#ff6b6b,color:#fff\n    style B36 fill:#ffd43b,color:#000\n    style C36 fill:#ffd43b,color:#000\n    style D36 fill:#ffd43b,color:#000\n    style E36 fill:#51cf66,color:#fff\n    style F36 fill:#74c0fc,color:#fff\n    style G36 fill:#74c0fc,color:#fff\n    style H36 fill:#51cf66,color:#fff\n    style I36 fill:#74c0fc,color:#fff\n    style J36 fill:#b197fc,color:#fff",
+  "name": "Vision Process",
+  "notes": "Higher-level biological process. GLMP covers biochemical/molecular processes; this database covers organismal/ecological processes.",
+  "organism": "Animals",
+  "relatedProcesses": [],
+  "sources": [
+    {
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "notes": "Higher-level biological process visualization: Vision Process. Created using the Programming Framework methodology for organismal and ecological process analysis.",
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "year": "2025"
+    },
+    {
+      "authors": "Patterson M, Winston JS",
+      "doi": "10.1146/annurev-neuro-070317-023533",
+      "journal": "Annu Rev Neurosci",
+      "pubmed": "29775438",
+      "title": "The Neurobiology of Visual Processing and Decision Making",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/29775438",
+      "year": "2018"
+    },
+    {
+      "authors": "Livingstone MS, Hubel DH",
+      "doi": "10.1126/science.3283936",
+      "journal": "Science",
+      "pubmed": "3283936",
+      "title": "Segregation of form, color, movement, and depth: anatomy, physiology, and perception",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/3283936",
+      "year": "1988"
+    },
+    {
+      "authors": "Priebe NJ, Ferster D",
+      "doi": "10.1016/j.neuron.2012.01.002",
+      "journal": "Neuron",
+      "pubmed": "22284177",
+      "title": "Mechanisms of visual cortical processing",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/22284177",
+      "year": "2012"
+    }
+  ],
+  "subcategory": "sensory_perception",
+  "subcategory_name": "Sensory & Perception",
+  "verified": false
+}

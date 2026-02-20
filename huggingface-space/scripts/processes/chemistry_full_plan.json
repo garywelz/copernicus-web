@@ -1,0 +1,742 @@
+{
+  "processes": [
+    {
+      "id": "analytical_chemistry-calibration-curve-construction",
+      "name": "Calibration Curve Construction",
+      "subcategory": "analytical_chemistry",
+      "subcategory_name": "Analytical Chemistry"
+    },
+    {
+      "id": "analytical_chemistry-chromatography",
+      "name": "Chromatography",
+      "subcategory": "analytical_chemistry",
+      "subcategory_name": "Analytical Chemistry"
+    },
+    {
+      "id": "analytical_chemistry-electrochemical-analysis",
+      "name": "Electrochemical Analysis",
+      "subcategory": "analytical_chemistry",
+      "subcategory_name": "Analytical Chemistry"
+    },
+    {
+      "id": "analytical_chemistry-quality-control-and-method-validation",
+      "name": "Quality Control and Method Validation",
+      "subcategory": "analytical_chemistry",
+      "subcategory_name": "Analytical Chemistry"
+    },
+    {
+      "id": "analytical_chemistry-sample-preparation-workflow",
+      "name": "Sample Preparation Workflow",
+      "subcategory": "analytical_chemistry",
+      "subcategory_name": "Analytical Chemistry"
+    },
+    {
+      "id": "analytical_chemistry-spectroscopy-analysis",
+      "name": "Spectroscopy Analysis",
+      "subcategory": "analytical_chemistry",
+      "subcategory_name": "Analytical Chemistry"
+    },
+    {
+      "id": "biochemistry-enzyme-kinetics",
+      "name": "Enzyme Kinetics",
+      "subcategory": "biochemistry",
+      "subcategory_name": "Biochemistry"
+    },
+    {
+      "id": "biochemistry-metabolism",
+      "name": "Metabolism",
+      "subcategory": "biochemistry",
+      "subcategory_name": "Biochemistry"
+    },
+    {
+      "id": "biochemistry-protein-structure",
+      "name": "Protein Structure",
+      "subcategory": "biochemistry",
+      "subcategory_name": "Biochemistry"
+    },
+    {
+      "id": "computational_chemistry-chromatography",
+      "name": "Chromatography",
+      "subcategory": "computational_chemistry",
+      "subcategory_name": "Computational Chemistry"
+    },
+    {
+      "id": "computational_chemistry-ir-spectroscopy",
+      "name": "IR Spectroscopy",
+      "subcategory": "computational_chemistry",
+      "subcategory_name": "Computational Chemistry"
+    },
+    {
+      "id": "computational_chemistry-mass-spectrometry",
+      "name": "Mass Spectrometry",
+      "subcategory": "computational_chemistry",
+      "subcategory_name": "Computational Chemistry"
+    },
+    {
+      "id": "computational_chemistry-nmr-spectroscopy",
+      "name": "NMR Spectroscopy",
+      "subcategory": "computational_chemistry",
+      "subcategory_name": "Computational Chemistry"
+    },
+    {
+      "id": "computational_chemistry-uv-vis-spectroscopy",
+      "name": "UV-Vis Spectroscopy",
+      "subcategory": "computational_chemistry",
+      "subcategory_name": "Computational Chemistry"
+    },
+    {
+      "id": "electrochemistry-battery-chemistry",
+      "name": "Battery Chemistry",
+      "subcategory": "electrochemistry",
+      "subcategory_name": "Electrochemistry"
+    },
+    {
+      "id": "electrochemistry-computational-methods",
+      "name": "Computational Methods",
+      "subcategory": "electrochemistry",
+      "subcategory_name": "Electrochemistry"
+    },
+    {
+      "id": "electrochemistry-corrosion-mechanisms",
+      "name": "Corrosion Mechanisms",
+      "subcategory": "electrochemistry",
+      "subcategory_name": "Electrochemistry"
+    },
+    {
+      "id": "electrochemistry-cyclic-voltammetry",
+      "name": "Cyclic Voltammetry",
+      "subcategory": "electrochemistry",
+      "subcategory_name": "Electrochemistry"
+    },
+    {
+      "id": "electrochemistry-electrochemical-cell-design",
+      "name": "Electrochemical Cell Design",
+      "subcategory": "electrochemistry",
+      "subcategory_name": "Electrochemistry"
+    },
+    {
+      "id": "electrochemistry-electrodeposition",
+      "name": "Electrodeposition",
+      "subcategory": "electrochemistry",
+      "subcategory_name": "Electrochemistry"
+    },
+    {
+      "id": "electrochemistry-electrolysis",
+      "name": "Electrolysis",
+      "subcategory": "electrochemistry",
+      "subcategory_name": "Electrochemistry"
+    },
+    {
+      "id": "electrochemistry-electronic-transitions",
+      "name": "Electronic Transitions",
+      "subcategory": "electrochemistry",
+      "subcategory_name": "Electrochemistry"
+    },
+    {
+      "id": "electrochemistry-electroplating",
+      "name": "Electroplating",
+      "subcategory": "electrochemistry",
+      "subcategory_name": "Electrochemistry"
+    },
+    {
+      "id": "electrochemistry-fuel-cell-operation",
+      "name": "Fuel Cell Operation",
+      "subcategory": "electrochemistry",
+      "subcategory_name": "Electrochemistry"
+    },
+    {
+      "id": "electrochemistry-molecular-orbitals",
+      "name": "Molecular Orbitals",
+      "subcategory": "electrochemistry",
+      "subcategory_name": "Electrochemistry"
+    },
+    {
+      "id": "electrochemistry-reaction-pathways",
+      "name": "Reaction Pathways",
+      "subcategory": "electrochemistry",
+      "subcategory_name": "Electrochemistry"
+    },
+    {
+      "id": "electrochemistry-spectroscopic-calculations",
+      "name": "Spectroscopic Calculations",
+      "subcategory": "electrochemistry",
+      "subcategory_name": "Electrochemistry"
+    },
+    {
+      "id": "environmental_chemistry-atmospheric-aerosol-formation",
+      "name": "Atmospheric Aerosol Formation",
+      "subcategory": "environmental_chemistry",
+      "subcategory_name": "Environmental Chemistry"
+    },
+    {
+      "id": "environmental_chemistry-atmospheric-chemistry",
+      "name": "Atmospheric Chemistry",
+      "subcategory": "environmental_chemistry",
+      "subcategory_name": "Environmental Chemistry"
+    },
+    {
+      "id": "environmental_chemistry-green-chemistry",
+      "name": "Green Chemistry",
+      "subcategory": "environmental_chemistry",
+      "subcategory_name": "Environmental Chemistry"
+    },
+    {
+      "id": "environmental_chemistry-soil-contaminant-remediation",
+      "name": "Soil Contaminant Remediation",
+      "subcategory": "environmental_chemistry",
+      "subcategory_name": "Environmental Chemistry"
+    },
+    {
+      "id": "environmental_chemistry-water-chemistry",
+      "name": "Water Chemistry",
+      "subcategory": "environmental_chemistry",
+      "subcategory_name": "Environmental Chemistry"
+    },
+    {
+      "id": "environmental_chemistry-water-treatment-coagulation-flocculation",
+      "name": "Water Treatment (Coagulation-Flocculation)",
+      "subcategory": "environmental_chemistry",
+      "subcategory_name": "Environmental Chemistry"
+    },
+    {
+      "id": "inorganic_chemistry-catalysis",
+      "name": "Catalysis",
+      "subcategory": "inorganic_chemistry",
+      "subcategory_name": "Inorganic Chemistry"
+    },
+    {
+      "id": "inorganic_chemistry-coordination-chemistry",
+      "name": "Coordination Chemistry",
+      "subcategory": "inorganic_chemistry",
+      "subcategory_name": "Inorganic Chemistry"
+    },
+    {
+      "id": "inorganic_chemistry-coordination-complex-synthesis",
+      "name": "Coordination Complex Synthesis",
+      "subcategory": "inorganic_chemistry",
+      "subcategory_name": "Inorganic Chemistry"
+    },
+    {
+      "id": "inorganic_chemistry-ligand-substitution",
+      "name": "Ligand Substitution",
+      "subcategory": "inorganic_chemistry",
+      "subcategory_name": "Inorganic Chemistry"
+    },
+    {
+      "id": "inorganic_chemistry-metal-oxide-formation",
+      "name": "Metal Oxide Formation",
+      "subcategory": "inorganic_chemistry",
+      "subcategory_name": "Inorganic Chemistry"
+    },
+    {
+      "id": "inorganic_chemistry-solid-state-chemistry",
+      "name": "Solid State Chemistry",
+      "subcategory": "inorganic_chemistry",
+      "subcategory_name": "Inorganic Chemistry"
+    },
+    {
+      "id": "kinetics-arrhenius-analysis",
+      "name": "Arrhenius Analysis",
+      "subcategory": "kinetics",
+      "subcategory_name": "Kinetic Processes"
+    },
+    {
+      "id": "kinetics-catalyst-effects",
+      "name": "Catalyst Effects",
+      "subcategory": "kinetics",
+      "subcategory_name": "Kinetics"
+    },
+    {
+      "id": "kinetics-concentration-effects",
+      "name": "Concentration Effects",
+      "subcategory": "kinetics",
+      "subcategory_name": "Kinetics"
+    },
+    {
+      "id": "kinetics-pressure-effects",
+      "name": "Pressure Effects",
+      "subcategory": "kinetics",
+      "subcategory_name": "Kinetics"
+    },
+    {
+      "id": "kinetics-reaction-mechanism-elucidation",
+      "name": "Reaction Mechanism Elucidation",
+      "subcategory": "kinetics",
+      "subcategory_name": "Kinetic Processes"
+    },
+    {
+      "id": "kinetics-reaction-mechanisms",
+      "name": "Reaction Mechanisms",
+      "subcategory": "kinetics",
+      "subcategory_name": "Kinetics"
+    },
+    {
+      "id": "kinetics-temperature-effects",
+      "name": "Temperature Effects",
+      "subcategory": "kinetics",
+      "subcategory_name": "Kinetics"
+    },
+    {
+      "id": "materials_chemistry-composite-materials",
+      "name": "Composite Materials",
+      "subcategory": "materials_chemistry",
+      "subcategory_name": "Materials Chemistry"
+    },
+    {
+      "id": "materials_chemistry-nanomaterials",
+      "name": "Nanomaterials",
+      "subcategory": "materials_chemistry",
+      "subcategory_name": "Materials Chemistry"
+    },
+    {
+      "id": "materials_chemistry-polymer-chemistry",
+      "name": "Polymer Chemistry",
+      "subcategory": "materials_chemistry",
+      "subcategory_name": "Materials Chemistry"
+    },
+    {
+      "id": "materials_chemistry-polymerization-process",
+      "name": "Polymerization Process",
+      "subcategory": "materials_chemistry",
+      "subcategory_name": "Materials Chemistry"
+    },
+    {
+      "id": "materials_chemistry-sol-gel-synthesis",
+      "name": "Sol-Gel Synthesis",
+      "subcategory": "materials_chemistry",
+      "subcategory_name": "Materials Chemistry"
+    },
+    {
+      "id": "materials_chemistry-thin-film-deposition",
+      "name": "Thin Film Deposition",
+      "subcategory": "materials_chemistry",
+      "subcategory_name": "Materials Chemistry"
+    },
+    {
+      "id": "materials_science-composite-materials",
+      "name": "Composite Materials",
+      "subcategory": "materials_science",
+      "subcategory_name": "Materials Science"
+    },
+    {
+      "id": "materials_science-crystal-structure",
+      "name": "Crystal Structure",
+      "subcategory": "materials_science",
+      "subcategory_name": "Materials Science"
+    },
+    {
+      "id": "materials_science-defects-doping",
+      "name": "Defects & Doping",
+      "subcategory": "materials_science",
+      "subcategory_name": "Materials Science"
+    },
+    {
+      "id": "materials_science-nanomaterials",
+      "name": "Nanomaterials",
+      "subcategory": "materials_science",
+      "subcategory_name": "Materials Science"
+    },
+    {
+      "id": "materials_science-polymorphism",
+      "name": "Polymorphism",
+      "subcategory": "materials_science",
+      "subcategory_name": "Materials Science"
+    },
+    {
+      "id": "medicinal_chemistry-catalyst-effects",
+      "name": "Catalyst Effects",
+      "subcategory": "medicinal_chemistry",
+      "subcategory_name": "Medicinal Chemistry"
+    },
+    {
+      "id": "medicinal_chemistry-concentration-effects",
+      "name": "Concentration Effects",
+      "subcategory": "medicinal_chemistry",
+      "subcategory_name": "Medicinal Chemistry"
+    },
+    {
+      "id": "medicinal_chemistry-pressure-effects",
+      "name": "Pressure Effects",
+      "subcategory": "medicinal_chemistry",
+      "subcategory_name": "Medicinal Chemistry"
+    },
+    {
+      "id": "medicinal_chemistry-reaction-mechanisms",
+      "name": "Reaction Mechanisms",
+      "subcategory": "medicinal_chemistry",
+      "subcategory_name": "Medicinal Chemistry"
+    },
+    {
+      "id": "medicinal_chemistry-temperature-effects",
+      "name": "Temperature Effects",
+      "subcategory": "medicinal_chemistry",
+      "subcategory_name": "Medicinal Chemistry"
+    },
+    {
+      "id": "nuclear_chemistry-battery-chemistry",
+      "name": "Battery Chemistry",
+      "subcategory": "nuclear_chemistry",
+      "subcategory_name": "Nuclear Chemistry"
+    },
+    {
+      "id": "nuclear_chemistry-corrosion-mechanisms",
+      "name": "Corrosion Mechanisms",
+      "subcategory": "nuclear_chemistry",
+      "subcategory_name": "Nuclear Chemistry"
+    },
+    {
+      "id": "nuclear_chemistry-electrochemical-cell-design",
+      "name": "Electrochemical Cell Design",
+      "subcategory": "nuclear_chemistry",
+      "subcategory_name": "Nuclear Chemistry"
+    },
+    {
+      "id": "nuclear_chemistry-electrolysis",
+      "name": "Electrolysis",
+      "subcategory": "nuclear_chemistry",
+      "subcategory_name": "Nuclear Chemistry"
+    },
+    {
+      "id": "nuclear_chemistry-electroplating",
+      "name": "Electroplating",
+      "subcategory": "nuclear_chemistry",
+      "subcategory_name": "Nuclear Chemistry"
+    },
+    {
+      "id": "organic_chemistry-aldol-condensation",
+      "name": "Aldol Condensation",
+      "subcategory": "organic_chemistry",
+      "subcategory_name": "Organic Chemistry"
+    },
+    {
+      "id": "organic_chemistry-esterification",
+      "name": "Esterification",
+      "subcategory": "organic_chemistry",
+      "subcategory_name": "Organic Chemistry"
+    },
+    {
+      "id": "organic_chemistry-grignard-reaction",
+      "name": "Grignard Reaction",
+      "subcategory": "organic_chemistry",
+      "subcategory_name": "Organic Chemistry"
+    },
+    {
+      "id": "organic_chemistry-organic-reaction-mechanisms",
+      "name": "Organic Reaction Mechanisms",
+      "subcategory": "organic_chemistry",
+      "subcategory_name": "Organic Chemistry"
+    },
+    {
+      "id": "organic_chemistry-organic-synthesis-pathways",
+      "name": "Organic Synthesis Pathways",
+      "subcategory": "organic_chemistry",
+      "subcategory_name": "Organic Chemistry"
+    },
+    {
+      "id": "organic_chemistry-stereochemistry-analysis",
+      "name": "Stereochemistry Analysis",
+      "subcategory": "organic_chemistry",
+      "subcategory_name": "Organic Chemistry"
+    },
+    {
+      "id": "organic_chemistry-suzuki-coupling",
+      "name": "Suzuki Coupling",
+      "subcategory": "organic_chemistry",
+      "subcategory_name": "Organic Chemistry"
+    },
+    {
+      "id": "physical_chemistry-chemical-kinetics",
+      "name": "Chemical Kinetics",
+      "subcategory": "physical_chemistry",
+      "subcategory_name": "Physical Chemistry"
+    },
+    {
+      "id": "physical_chemistry-phase-diagram-construction",
+      "name": "Phase Diagram Construction",
+      "subcategory": "physical_chemistry",
+      "subcategory_name": "Physical Chemistry"
+    },
+    {
+      "id": "physical_chemistry-reaction-rate-measurement",
+      "name": "Reaction Rate Measurement",
+      "subcategory": "physical_chemistry",
+      "subcategory_name": "Physical Chemistry"
+    },
+    {
+      "id": "physical_chemistry-spectroscopic-line-broadening",
+      "name": "Spectroscopic Line Broadening",
+      "subcategory": "physical_chemistry",
+      "subcategory_name": "Physical Chemistry"
+    },
+    {
+      "id": "physical_chemistry-spectroscopy-analysis",
+      "name": "Spectroscopy Analysis",
+      "subcategory": "physical_chemistry",
+      "subcategory_name": "Physical Chemistry"
+    },
+    {
+      "id": "physical_chemistry-thermodynamic-calculations",
+      "name": "Thermodynamic Calculations",
+      "subcategory": "physical_chemistry",
+      "subcategory_name": "Physical Chemistry"
+    },
+    {
+      "id": "polymer_chemistry-chemical-equilibrium",
+      "name": "Chemical Equilibrium",
+      "subcategory": "polymer_chemistry",
+      "subcategory_name": "Polymer Chemistry"
+    },
+    {
+      "id": "polymer_chemistry-entropy-changes",
+      "name": "Entropy Changes",
+      "subcategory": "polymer_chemistry",
+      "subcategory_name": "Polymer Chemistry"
+    },
+    {
+      "id": "polymer_chemistry-phase-transitions",
+      "name": "Phase Transitions",
+      "subcategory": "polymer_chemistry",
+      "subcategory_name": "Polymer Chemistry"
+    },
+    {
+      "id": "polymer_chemistry-solution-thermodynamics",
+      "name": "Solution Thermodynamics",
+      "subcategory": "polymer_chemistry",
+      "subcategory_name": "Polymer Chemistry"
+    },
+    {
+      "id": "polymer_chemistry-thermochemistry",
+      "name": "Thermochemistry",
+      "subcategory": "polymer_chemistry",
+      "subcategory_name": "Polymer Chemistry"
+    },
+    {
+      "id": "quantum_chemistry-computational-methods",
+      "name": "Computational Methods",
+      "subcategory": "quantum_chemistry",
+      "subcategory_name": "Quantum Chemistry"
+    },
+    {
+      "id": "quantum_chemistry-density-functional-theory-workflow",
+      "name": "Density Functional Theory Workflow",
+      "subcategory": "quantum_chemistry",
+      "subcategory_name": "Quantum Chemistry"
+    },
+    {
+      "id": "quantum_chemistry-electronic-transitions",
+      "name": "Electronic Transitions",
+      "subcategory": "quantum_chemistry",
+      "subcategory_name": "Quantum Chemistry"
+    },
+    {
+      "id": "quantum_chemistry-molecular-dynamics-simulation-setup",
+      "name": "Molecular Dynamics Simulation Setup",
+      "subcategory": "quantum_chemistry",
+      "subcategory_name": "Quantum Chemistry"
+    },
+    {
+      "id": "quantum_chemistry-molecular-orbitals",
+      "name": "Molecular Orbitals",
+      "subcategory": "quantum_chemistry",
+      "subcategory_name": "Quantum Chemistry"
+    },
+    {
+      "id": "quantum_chemistry-reaction-pathways",
+      "name": "Reaction Pathways",
+      "subcategory": "quantum_chemistry",
+      "subcategory_name": "Quantum Chemistry"
+    },
+    {
+      "id": "quantum_chemistry-spectroscopic-calculations",
+      "name": "Spectroscopic Calculations",
+      "subcategory": "quantum_chemistry",
+      "subcategory_name": "Quantum Chemistry"
+    },
+    {
+      "id": "spectroscopy_advanced-chromatography",
+      "name": "Chromatography",
+      "subcategory": "spectroscopy_advanced",
+      "subcategory_name": "Spectroscopy Advanced"
+    },
+    {
+      "id": "spectroscopy_advanced-ir-spectroscopy",
+      "name": "IR Spectroscopy",
+      "subcategory": "spectroscopy_advanced",
+      "subcategory_name": "Spectroscopy Advanced"
+    },
+    {
+      "id": "spectroscopy_advanced-mass-spectrometry",
+      "name": "Mass Spectrometry",
+      "subcategory": "spectroscopy_advanced",
+      "subcategory_name": "Spectroscopy Advanced"
+    },
+    {
+      "id": "spectroscopy_advanced-nmr-spectroscopy",
+      "name": "NMR Spectroscopy",
+      "subcategory": "spectroscopy_advanced",
+      "subcategory_name": "Spectroscopy Advanced"
+    },
+    {
+      "id": "spectroscopy_advanced-raman-spectroscopy-analysis",
+      "name": "Raman Spectroscopy Analysis",
+      "subcategory": "spectroscopy_advanced",
+      "subcategory_name": "Advanced Spectroscopy & Analysis"
+    },
+    {
+      "id": "spectroscopy_advanced-uv-vis-spectroscopy",
+      "name": "UV-Vis Spectroscopy",
+      "subcategory": "spectroscopy_advanced",
+      "subcategory_name": "Spectroscopy Advanced"
+    },
+    {
+      "id": "spectroscopy_advanced-x-ray-diffraction-analysis",
+      "name": "X-ray Diffraction Analysis",
+      "subcategory": "spectroscopy_advanced",
+      "subcategory_name": "Advanced Spectroscopy & Analysis"
+    },
+    {
+      "id": "surface_chemistry-adsorption-isotherm-analysis",
+      "name": "Adsorption Isotherm Analysis",
+      "subcategory": "surface_chemistry",
+      "subcategory_name": "Surface Chemistry & Catalysis"
+    },
+    {
+      "id": "surface_chemistry-composite-materials",
+      "name": "Composite Materials",
+      "subcategory": "surface_chemistry",
+      "subcategory_name": "Surface Chemistry"
+    },
+    {
+      "id": "surface_chemistry-crystal-structure",
+      "name": "Crystal Structure",
+      "subcategory": "surface_chemistry",
+      "subcategory_name": "Surface Chemistry"
+    },
+    {
+      "id": "surface_chemistry-defects-doping",
+      "name": "Defects & Doping",
+      "subcategory": "surface_chemistry",
+      "subcategory_name": "Surface Chemistry"
+    },
+    {
+      "id": "surface_chemistry-enzyme-catalysis",
+      "name": "Enzyme Catalysis",
+      "subcategory": "surface_chemistry",
+      "subcategory_name": "Surface Chemistry"
+    },
+    {
+      "id": "surface_chemistry-heterogeneous-catalysis",
+      "name": "Heterogeneous Catalysis",
+      "subcategory": "surface_chemistry",
+      "subcategory_name": "Surface Chemistry"
+    },
+    {
+      "id": "surface_chemistry-heterogeneous-catalyst-screening",
+      "name": "Heterogeneous Catalyst Screening",
+      "subcategory": "surface_chemistry",
+      "subcategory_name": "Surface Chemistry & Catalysis"
+    },
+    {
+      "id": "surface_chemistry-nanomaterials",
+      "name": "Nanomaterials",
+      "subcategory": "surface_chemistry",
+      "subcategory_name": "Surface Chemistry"
+    },
+    {
+      "id": "surface_chemistry-photocatalysis",
+      "name": "Photocatalysis",
+      "subcategory": "surface_chemistry",
+      "subcategory_name": "Surface Chemistry"
+    },
+    {
+      "id": "surface_chemistry-polymorphism",
+      "name": "Polymorphism",
+      "subcategory": "surface_chemistry",
+      "subcategory_name": "Surface Chemistry"
+    },
+    {
+      "id": "surface_chemistry-supported-catalysts",
+      "name": "Supported Catalysts",
+      "subcategory": "surface_chemistry",
+      "subcategory_name": "Surface Chemistry"
+    },
+    {
+      "id": "surface_chemistry-zeolite-catalysis",
+      "name": "Zeolite Catalysis",
+      "subcategory": "surface_chemistry",
+      "subcategory_name": "Surface Chemistry"
+    },
+    {
+      "id": "theoretical_chemistry-enzyme-catalysis",
+      "name": "Enzyme Catalysis",
+      "subcategory": "theoretical_chemistry",
+      "subcategory_name": "Theoretical Chemistry"
+    },
+    {
+      "id": "theoretical_chemistry-heterogeneous-catalysis",
+      "name": "Heterogeneous Catalysis",
+      "subcategory": "theoretical_chemistry",
+      "subcategory_name": "Theoretical Chemistry"
+    },
+    {
+      "id": "theoretical_chemistry-photocatalysis",
+      "name": "Photocatalysis",
+      "subcategory": "theoretical_chemistry",
+      "subcategory_name": "Theoretical Chemistry"
+    },
+    {
+      "id": "theoretical_chemistry-supported-catalysts",
+      "name": "Supported Catalysts",
+      "subcategory": "theoretical_chemistry",
+      "subcategory_name": "Theoretical Chemistry"
+    },
+    {
+      "id": "theoretical_chemistry-zeolite-catalysis",
+      "name": "Zeolite Catalysis",
+      "subcategory": "theoretical_chemistry",
+      "subcategory_name": "Theoretical Chemistry"
+    },
+    {
+      "id": "thermodynamics-chemical-equilibrium",
+      "name": "Chemical Equilibrium",
+      "subcategory": "thermodynamics",
+      "subcategory_name": "Thermodynamics"
+    },
+    {
+      "id": "thermodynamics-chemical-potential-determination",
+      "name": "Chemical Potential Determination",
+      "subcategory": "thermodynamics",
+      "subcategory_name": "Thermodynamic Processes"
+    },
+    {
+      "id": "thermodynamics-entropy-changes",
+      "name": "Entropy Changes",
+      "subcategory": "thermodynamics",
+      "subcategory_name": "Thermodynamics"
+    },
+    {
+      "id": "thermodynamics-gibbs-free-energy-calculation",
+      "name": "Gibbs Free Energy Calculation",
+      "subcategory": "thermodynamics",
+      "subcategory_name": "Thermodynamic Processes"
+    },
+    {
+      "id": "thermodynamics-phase-transitions",
+      "name": "Phase Transitions",
+      "subcategory": "thermodynamics",
+      "subcategory_name": "Thermodynamics"
+    },
+    {
+      "id": "thermodynamics-solution-thermodynamics",
+      "name": "Solution Thermodynamics",
+      "subcategory": "thermodynamics",
+      "subcategory_name": "Thermodynamics"
+    },
+    {
+      "id": "thermodynamics-thermochemistry",
+      "name": "Thermochemistry",
+      "subcategory": "thermodynamics",
+      "subcategory_name": "Thermodynamics"
+    }
+  ]
+}

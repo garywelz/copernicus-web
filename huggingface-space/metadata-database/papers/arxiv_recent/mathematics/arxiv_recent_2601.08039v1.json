@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2601.08039v1",
+  "arxiv_id": "2601.08039v1",
+  "title": "Riemannian Zeroth-Order Gradient Estimation with Structure-Preserving Metrics for Geodesically Incomplete Manifolds",
+  "authors": [
+    "Shaocong Ma",
+    "Heng Huang"
+  ],
+  "author_string": "Shaocong Ma, Heng Huang",
+  "journal": "arXiv:2601.08039v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "In this paper, we study Riemannian zeroth-order optimization in settings where the underlying Riemannian metric $g$ is geodesically incomplete, and the goal is to approximate stationary points with respect to this incomplete metric. To address this challenge, we construct structure-preserving metrics that are geodesically complete while ensuring that every stationary point under the new metric remains stationary under the original one. Building on this foundation, we revisit the classical symmetric two-point zeroth-order estimator and analyze its mean-squared error from a purely intrinsic perspective, depending only on the manifold's geometry rather than any ambient embedding. Leveraging this intrinsic analysis, we establish convergence guarantees for stochastic gradient descent with this intrinsic estimator. Under additional suitable conditions, an $ε$-stationary point under the constructed metric $g'$ also corresponds to an $ε$-stationary point under the original metric $g$, thereby matching the best-known complexity in the geodesically complete setting. Empirical studies on synthetic problems confirm our theoretical findings, and experiments on a practical mesh optimization task demonstrate that our framework maintains stable convergence even in the absence of geodesic completeness.",
+  "categories": [
+    "cs.LG",
+    "math.OC"
+  ],
+  "primary_category": "math.OC",
+  "comment": null,
+  "published_date": "2026-01-12T22:08:03Z",
+  "updated_date": "2026-01-12T22:08:03Z",
+  "url": "https://arxiv.org/abs/2601.08039v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.08039v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:07.228911",
+  "category": "mathematics",
+  "subcategories": [
+    "cs.LG",
+    "math.OC"
+  ]
+}

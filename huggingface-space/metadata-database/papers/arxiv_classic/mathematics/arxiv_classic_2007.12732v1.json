@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2007.12732v1",
+  "arxiv_id": "2007.12732v1",
+  "title": "A PDE Approach to the Prediction of a Binary Sequence with Advice from Two History-Dependent Experts",
+  "authors": [
+    "Nadejda Drenska",
+    "Robert V. Kohn"
+  ],
+  "author_string": "Nadejda Drenska, Robert V. Kohn",
+  "journal": "arXiv:2007.12732v1",
+  "journal_ref": null,
+  "year": "2020",
+  "doi": null,
+  "abstract": "The prediction of a binary sequence is a classic example of online machine learning. We like to call it the 'stock prediction problem,' viewing the sequence as the price history of a stock that goes up or down one unit at each time step. In this problem, an investor has access to the predictions of two or more 'experts,' and strives to minimize her final-time regret with respect to the best-performing expert. Probability plays no role; rather, the market is assumed to be adversarial. We consider the case when there are two history-dependent experts, whose predictions are determined by the d most recent stock moves. Focusing on an appropriate continuum limit and using methods from optimal control, graph theory, and partial differential equations, we discuss strategies for the investor and the adversarial market, and we determine associated upper and lower bounds for the investor's final-time regret. When d is less than 4 our upper and lower bounds coalesce, so the proposed strategies are asymptotically optimal. Compared to other recent applications of partial differential equations to prediction, ours has a new element: there are two timescales, since the recent history changes at every step whereas regret accumulates more slowly.",
+  "categories": [
+    "math.OC",
+    "cs.GT",
+    "cs.LG",
+    "math.AP"
+  ],
+  "primary_category": "math.AP",
+  "comment": null,
+  "published_date": "2020-07-24T18:46:28Z",
+  "updated_date": "2020-07-24T18:46:28Z",
+  "url": "https://arxiv.org/abs/2007.12732v1",
+  "pdf_url": "https://arxiv.org/pdf/2007.12732v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:30:41.233558",
+  "category": "mathematics",
+  "subcategories": [
+    "math.OC",
+    "cs.GT",
+    "cs.LG"
+  ]
+}

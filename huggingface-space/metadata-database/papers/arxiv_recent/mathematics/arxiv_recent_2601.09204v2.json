@@ -1,0 +1,30 @@
+{
+  "id": "arxiv_2601.09204v2",
+  "arxiv_id": "2601.09204v2",
+  "title": "Deviation probabilities and Sharp Berry-Esseen bound for rightmost eigenvalue of large non-Hermitian chiral random matrices",
+  "authors": [
+    "Yutao Ma",
+    "Xujia Meng"
+  ],
+  "author_string": "Yutao Ma, Xujia Meng",
+  "journal": "arXiv:2601.09204v2",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "This paper provides a quantitative analysis of the rightmost eigenvalue for a chiral non-Hermitian random Dirac matrix in the maximally non-Hermitian regime ($τ=0$). Let $(σ_i)_{1\\le i\\le n}$ be the eigenvalues with positive real part. We define the normalization constants \\[ s_n = \\frac{4n(n+v)}{2n+v}, \\qquad γ_n = \\frac{1}{2}\\log s_n - \\frac{5}{4}\\log(\\log s_n) - \\log\\bigl(2^{1/4}π\\bigr), \\] and the centered and scaled variable \\[ X_n = \\sqrt{2s_n\\log s_n}\\,\\bigl(\\bigl(\\tfrac{n}{n+v}\\bigr)^{1/4}\\,\\max_{1\\le i\\le n}\\Reσ_i \\;-\\; 1 \\;-\\; \\frac{γ_n}{\\sqrt{2s_n\\log s_n}}\\bigr). \\] Our main result is the following sharp Berry--Esseen bound for the convergence of $X_n$ to the Gumbel distribution: \\[ \\sup_{x \\in \\mathbb{R}} \\bigl|\\mathbb{P}(X_n \\le x) - e^{-e^{-x}}\\bigr| = \\frac{25 (\\log\\log s_n)^2}{16 e \\,\\log s_n}\\,\\bigl(1 + o(1)\\bigr), \\] which holds as $n \\to \\infty$ for an arbitrary parameter $v \\ge 0$ (which may depend on $n$). As a byproduct of our analysis, we also obtain precise large- and moderate-deviation principles for the scaled rightmost eigenvalue $\\bigl(\\frac{n}{n+v}\\bigr)^{1/4} \\max_{1\\le i\\le n}\\Reσ_i$, characterizing its rate of convergence to the value $1$.",
+  "categories": [
+    "math.PR"
+  ],
+  "primary_category": "math.PR",
+  "comment": null,
+  "published_date": "2026-01-14T06:19:34Z",
+  "updated_date": "2026-01-16T06:18:37Z",
+  "url": "https://arxiv.org/abs/2601.09204v2",
+  "pdf_url": "https://arxiv.org/pdf/2601.09204v2.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:52.503636",
+  "category": "mathematics",
+  "subcategories": [
+    "math.PR"
+  ]
+}

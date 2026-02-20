@@ -1,0 +1,38 @@
+{
+  "id": "arxiv_2601.09285v1",
+  "arxiv_id": "2601.09285v1",
+  "title": "Enhancing Spatial Reasoning in Large Language Models for Metal-Organic Frameworks Structure Prediction",
+  "authors": [
+    "Mianzhi Pan",
+    "JianFei Li",
+    "Peishuo Liu",
+    "Botian Wang",
+    "Yawen Ouyang",
+    "Yiming Rong",
+    "Hao Zhou",
+    "Jianbing Zhang"
+  ],
+  "author_string": "Mianzhi Pan, JianFei Li, Peishuo Liu, Botian Wang, Yawen Ouyang et al.",
+  "journal": "arXiv:2601.09285v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Metal-organic frameworks (MOFs) are porous crystalline materials with broad applications such as carbon capture and drug delivery, yet accurately predicting their 3D structures remains a significant challenge. While Large Language Models (LLMs) have shown promise in generating crystals, their application to MOFs is hindered by MOFs' high atomic complexity. Inspired by the success of block-wise paradigms in deep generative models, we pioneer the use of LLMs in this domain by introducing MOF-LLM, the first LLM framework specifically adapted for block-level MOF structure prediction. To effectively harness LLMs for this modular assembly task, our training paradigm integrates spatial-aware continual pre-training (CPT), structural supervised fine-tuning (SFT), and matching-driven reinforcement learning (RL). By incorporating explicit spatial priors and optimizing structural stability via Soft Adaptive Policy Optimization (SAPO), our approach substantially enhances the spatial reasoning capability of a Qwen-3 8B model for accurate MOF structure prediction. Comprehensive experiments demonstrate that MOF-LLM outperforms state-of-the-art denoising-based and LLM-based methods while exhibiting superior sampling efficiency.",
+  "categories": [
+    "cs.LG",
+    "cond-mat.mtrl-sci"
+  ],
+  "primary_category": "cond-mat.mtrl-sci",
+  "comment": null,
+  "published_date": "2026-01-14T08:45:07Z",
+  "updated_date": "2026-01-14T08:45:07Z",
+  "url": "https://arxiv.org/abs/2601.09285v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.09285v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:02.856874",
+  "category": "physics",
+  "subcategories": [
+    "cs.LG",
+    "cond-mat.mtrl-sci"
+  ]
+}

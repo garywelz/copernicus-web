@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2601.10896v1",
+  "arxiv_id": "2601.10896v1",
+  "title": "DialDefer: A Framework for Detecting and Mitigating LLM Dialogic Deference",
+  "authors": [
+    "Parisa Rabbani",
+    "Priyam Sahoo",
+    "Ruben Mathew",
+    "Aishee Mondal",
+    "Harshita Ketharaman",
+    "Nimet Beyza Bozdag",
+    "Dilek Hakkani-Tür"
+  ],
+  "author_string": "Parisa Rabbani, Priyam Sahoo, Ruben Mathew, Aishee Mondal, Harshita Ketharaman et al.",
+  "journal": "arXiv:2601.10896v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "LLMs are increasingly used as third-party judges, yet their reliability when evaluating speakers in dialogue remains poorly understood. We show that LLMs judge identical claims differently depending on framing: the same content elicits different verdicts when presented as a statement to verify (\"Is this statement correct?\") versus attributed to a speaker (\"Is this speaker correct?\"). We call this dialogic deference and introduce DialDefer, a framework for detecting and mitigating these framing-induced judgment shifts. Our Dialogic Deference Score (DDS) captures directional shifts that aggregate accuracy obscures. Across nine domains, 3k+ instances, and four models, conversational framing induces large shifts (|DDS| up to 87pp, p < .0001) while accuracy remains stable (<2pp), with effects amplifying 2-4x on naturalistic Reddit conversations. Models can shift toward agreement (deference) or disagreement (skepticism) depending on domain -- the same model ranges from DDS = -53 on graduate-level science to +58 on social judgment. Ablations reveal that human-vs-LLM attribution drives the largest shifts (17.7pp swing), suggesting models treat disagreement with humans as more costly than with AI. Mitigation attempts reduce deference but can over-correct into skepticism, framing this as a calibration problem beyond accuracy optimization.",
+  "categories": [
+    "cs.CL"
+  ],
+  "primary_category": "cs.CL",
+  "comment": "10 pages main content, 7 figures, 35 pages total with appendix",
+  "published_date": "2026-01-15T22:50:46Z",
+  "updated_date": "2026-01-15T22:50:46Z",
+  "url": "https://arxiv.org/abs/2601.10896v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.10896v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:37.519816",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CL"
+  ]
+}

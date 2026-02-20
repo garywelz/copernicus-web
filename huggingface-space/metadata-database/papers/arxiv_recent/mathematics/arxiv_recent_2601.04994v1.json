@@ -1,0 +1,30 @@
+{
+  "id": "arxiv_2601.04994v1",
+  "arxiv_id": "2601.04994v1",
+  "title": "Critical blow-up lines in a two-species quasilinear chemotaxis system with two chemicals",
+  "authors": [
+    "Ziyue Zeng",
+    "Yuxiang Li"
+  ],
+  "author_string": "Ziyue Zeng, Yuxiang Li",
+  "journal": "arXiv:2601.04994v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "In this study, we explore the quasilinear two-species chemotaxis system with two chemicals \\begin{align}\\tag{$\\star$} \\begin{cases} u_t = \\nabla \\cdot(D(u)\\nabla u) - \\nabla \\cdot \\left(S(u) \\nabla v\\right), & x \\in Ω, \\ t > 0, \\\\ 0 = Δv - μ_w + w, \\quad μ_w=\\fint_Ωw, & x \\in Ω, \\ t > 0, \\\\ w_t = Δw - \\nabla \\cdot \\left(w \\nabla z\\right), & x \\in Ω, \\ t > 0, \\\\ 0 = Δz - μ_u + u, \\quad μ_u=\\fint_Ωu, & x \\in Ω, \\ t > 0, \\\\ \\frac{\\partial u}{\\partial ν} = \\frac{\\partial v}{\\partial ν} = \\frac{\\partial w}{\\partial ν} = \\frac{\\partial z}{\\partial ν} = 0, & x \\in \\partial Ω, \\ t > 0, \\\\ u(x, 0) = u_0(x), \\quad w(x, 0) = w_0(x), & x \\in Ω, \\end{cases} \\end{align} where $Ω\\subset \\mathbb{R}^n$ ($n \\geq3$) is a smooth bounded domain. The functions $D(s)$ and $S(s)$ exhibit asymptotic behavior of the form \\begin{align*} D(s) \\simeq k_D s^p \\ \\text {and} \\ S(s) \\simeq k_S s^q, \\quad s \\gg 1 \\end{align*} with $p,q \\in \\mathbb{R}$. We prove that \\begin{itemize}   \\item when $Ω$ is a ball, if $q-p>2-\\frac{n}{2}$ and $q>1-\\frac{n}{2}$, there exist radially symmetric initial data $u_0$ and $w_0$, such that the corresponding solutions blow up in finite time;   \\item for any general smooth bounded domain $Ω\\subset \\mathbb{R}^n$, if $q-p<2-\\frac{n}{2}$, all solutions are globally bounded;   \\item for any general smooth bounded domain $Ω\\subset \\mathbb{R}^n$, if $q<1-\\frac{n}{2}$, all solutions are global. \\end{itemize} We point out that our results implies that the system ($\\star$) possess two critical lines $ q-p=2-\\frac{n}{2}$ and $q=1-\\frac{n}{2}$ to classify three dynamics among global boundedness, finite-time blow-up, and global existence of solutions to system ($\\star$).",
+  "categories": [
+    "math.AP"
+  ],
+  "primary_category": "math.AP",
+  "comment": null,
+  "published_date": "2026-01-08T14:52:00Z",
+  "updated_date": "2026-01-08T14:52:00Z",
+  "url": "https://arxiv.org/abs/2601.04994v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.04994v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:26.898954",
+  "category": "mathematics",
+  "subcategories": [
+    "math.AP"
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "id": "pubmed_38652578",
+  "pmid": "38652578",
+  "title": "Analysis of Tandem Mass Spectrometry Data with CONGA: Combining Open and Narrow Searches with Group-Wise Analysis.",
+  "authors": [
+    "Freestone, Jack",
+    "Noble, William S",
+    "Keich, Uri"
+  ],
+  "author_string": "Freestone, Jack, Noble, William S, Keich, Uri",
+  "journal": "J Proteome Res",
+  "journal_full": "Journal of proteome research",
+  "year": "",
+  "doi": "10.1021/acs.jproteome.3c00399",
+  "abstract": "Searching for tandem mass spectrometry proteomics data against a database is a well-established method for assigning peptide sequences to observed spectra but typically cannot identify peptides harboring unexpected post-translational modifications (PTMs). Open modification searching aims to address this problem by allowing a spectrum to match a peptide even if the spectrum's precursor mass differs from the peptide mass. However, expanding the search space in this way can lead to a loss of statistical power to detect peptides. We therefore developed a method, called CONGA (combining open and narrow searches with group-wise analysis), that takes into account results from both types of searches─a traditional \"narrow window\" search and an open modification search─while carrying out rigorous false discovery rate control. The result is an algorithm that provides the best of both worlds: the ability to detect unexpected PTMs without a concomitant loss of power to detect unmodified peptides.",
+  "keywords": [
+    "FDR control",
+    "group-wise analysis",
+    "open search",
+    "peptide analysis"
+  ],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/38652578",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T16:59:11.865950",
+  "category": "biology",
+  "subcategories": []
+}

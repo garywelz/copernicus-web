@@ -1,0 +1,33 @@
+{
+  "id": "polynomial-long-division",
+  "title": "Polynomial Long Division",
+  "description": "Divide one polynomial by another using long division algorithm",
+  "category": "mathematics",
+  "subcategory": "polynomial_algebra",
+  "mermaid": "graph TD A1[Input: Dividend Polynomial (P(x))] --> B1[\"Input: Divisor Polynomial (D(x))\"] B1 --> C1[\"Is D(x) = 0?\"] style A1 fill:#ff6b6b,color:#fff style B1 fill:#ff6b6b,color:#fff style C1 fill:#ffd43b,color:#000 C1 -- Yes --> D1[\"Error: Division by zero\"] style D1 fill:#b197fc,color:#fff C1 -- No --> E1[\"Ensure Dividend Degree >= Divisor Degree\"] style E1 fill:#ffd43b,color:#000 E1 --> F1[\"Current Quotient = 0\"] style F1 fill:#74c0fc,color:#fff F1 --> G1[\"Current Remainder = P(x)\"] style G1 fill:#74c0fc,color:#fff G1 --> H1[\"Find term to multiply D(x) by to match the leading term of Current Remainder\"] style H1 fill:#51cf66,color:#fff H1 --> I1[\"New Quotient Term = (Leading Term of Remainder) / (Leading Term of Divisor)\"] style I1 fill:#51cf66,color:#fff I1 --> J1[\"Current Quotient = Current Quotient + New Quotient Term\"] style J1 fill:#74c0fc,color:#fff J1 --> K1[\"New Remainder = Current Remainder - (New Quotient Term * D(x))\"] style K1 fill:#51cf66,color:#fff K1 --> L1[\"Current Remainder = New Remainder\"] style L1 fill:#74c0fc,color:#fff L1 --> M1[\"Is Degree(Current Remainder) < Degree(D(x))?\"] style M1 fill:#ffd43b,color:#000 M1 -- No --> H1 M1 -- Yes --> N1[\"Quotient = Current Quotient\"] style N1 fill:#b197fc,color:#fff N1 --> O1[\"Remainder = Current Remainder\"] style O1 fill:#b197fc,color:#fff O1 --> P1(Output: Quotient Polynomial) style P1 fill:#b197fc,color:#fff P1 --> Q1(Output: Remainder Polynomial) style Q1 fill:#b197fc,color:#fff",
+  "entities": [
+    "Input: Dividend Polynomial (P(x))",
+    "/\"Input: Divisor Polynomial (D(x))\"/)B1 --> C1[\"Is D(x) = 0?\"",
+    "\"Error: Division by zero\"",
+    "\"Ensure Dividend Degree >= Divisor Degree\"",
+    "\"Current Quotient = 0\"",
+    "\"Current Remainder = P(x)\"",
+    "\"Find term to multiply D(x) by to match the leading term of Current Remainder\"",
+    "\"New Quotient Term = (Leading Term of Remainder) / (Leading Term of Divisor)\"",
+    "\"Current Quotient = Current Quotient + New Quotient Term\"",
+    "\"New Remainder = Current Remainder - (New Quotient Term * D(x))\"",
+    "\"Current Remainder = New Remainder\"",
+    "\"Is Degree(Current Remainder) < Degree(D(x))?\"",
+    "\"Quotient = Current Quotient\"",
+    "\"Remainder = Current Remainder\"",
+    "/\"Output: Quotient Polynomial\"/)style P1 fill:#b197fc,color:#fff P1 --> Q1(/\"Output: Remainder Polynomial\"/"
+  ],
+  "metadata": {
+    "source": "programming_framework",
+    "color_scheme": "discipline_based",
+    "node_count": 14,
+    "complexity": "low"
+  },
+  "sources": [],
+  "source_text": "Source information to be added - please specify the book, paper, or reference material used by the LLM to generate this flowchart."
+}

@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2601.08268v1",
+  "arxiv_id": "2601.08268v1",
+  "title": "Optimization of maximal quantum f-divergences between unitary orbits",
+  "authors": [
+    "Hoang Minh Nguyen",
+    "Hoang An Nguyen",
+    "Cong Trinh Le"
+  ],
+  "author_string": "Hoang Minh Nguyen, Hoang An Nguyen, Cong Trinh Le",
+  "journal": "arXiv:2601.08268v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Maximal quantum $f$-divergences - defined via the commutant Radon-Nikodym derivative provide a fundamental measure of distinguishability between quantum states in the operator convex setting. In this work, we determine the exact extremal values of these divergences over the unitary orbits of two quantum states. Using the integral representation of operator convex functions, majorization theory, Lidskii-type inequalities, and structural properties of Kubo-Ando means, we derive fully explicit spectral formulas for \\[ \\min_{U\\in \\mathbb U_n} \\tilde S_f(ρ\\|U^{*}σU) \\quad\\text{and}\\quad \\max_{U\\in \\mathbb U_n} \\tilde S_f(ρ\\|U^{*}σU), \\] and identify the unitaries achieving these extrema. We show that the optimization reduces to spectral rearrangement: the minimum occurs when the decreasing eigenvalues of $ρ$ and $σ$ are paired, while the maximum corresponds to pairing the decreasing eigenvalues of $ρ$ with the increasing spectrum of $σ$. Consequently, the full range of the divergence along the unitary orbit is exactly the closed interval between these two endpoints. We further compare our results with the recent unitary optimization framework for hockey-stick-based quantum $f$-divergences of Li and Yan (2025), highlighting fundamental structural differences between the two families. Our findings extend prior extremal analyses for Umegaki, Rényi, and Hellinger-type divergences, and illuminate the distinct noncommutative nature of maximal quantum $f$-divergences.",
+  "categories": [
+    "math.QA",
+    "math.FA",
+    "math.OC",
+    "math.SP"
+  ],
+  "primary_category": "math.SP",
+  "comment": "20 pages",
+  "published_date": "2026-01-13T06:54:03Z",
+  "updated_date": "2026-01-13T06:54:03Z",
+  "url": "https://arxiv.org/abs/2601.08268v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.08268v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:07.225170",
+  "category": "mathematics",
+  "subcategories": [
+    "math.QA",
+    "math.FA",
+    "math.OC"
+  ]
+}

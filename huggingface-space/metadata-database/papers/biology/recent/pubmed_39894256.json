@@ -1,0 +1,29 @@
+{
+  "id": "pubmed_39894256",
+  "pmid": "39894256",
+  "title": "Integrating neuroscience and artificial intelligence: EEG analysis using ensemble learning for diagnosis Alzheimer's disease and frontotemporal dementia.",
+  "authors": [
+    "Hachamnia, Amir Hossein",
+    "Mehri, Ali",
+    "Jamaati, Maryam"
+  ],
+  "author_string": "Hachamnia, Amir Hossein, Mehri, Ali, Jamaati, Maryam",
+  "journal": "J Neurosci Methods",
+  "journal_full": "Journal of neuroscience methods",
+  "year": "",
+  "doi": "10.1016/j.jneumeth.2025.110377",
+  "abstract": "Alzheimer's disease (AD) and frontotemporal dementia (FTD) are both progressive neurological disorders that affect the elderly. Distinguishing between individuals suffering from these two diseases in the early stages can be quite challenging, and due to their different treatments, it has become an important problem. Machine learning (ML) algorithms can be helpful in this matter due to their high ability to manage large data and deliver high-quality diagnostic results. In this research, we integrate multiple ML algorithms into 10 ensemble learning techniques, utilizing 7 distinct features: 3 from the time domain and 4 from the frequency domain. They are used to achieve a higher diagnostic accuracy level in binary and multiclass classification of samples from electroencephalography (EEG) signals of elderly patients with AD, FTD, and healthy age-matching controls (CN), during the eye resting state. The best results in carrying out binary AD/CN, FTD/CN, and AD/FTD classifications with significant accuracy>95% have been obtained with the help of the light gradient boosting machine (LGBM) method applying the wavelet transform feature. This combination (LGBM&wavelet) also displays the best performance in the AD/FTD/CN multiclass classification process with accuracy>93%.",
+  "keywords": [
+    "Alzheimer’s disease",
+    "Artificial intelligence",
+    "Ensemble learning",
+    "Frontotemporal dementia",
+    "Machine learning"
+  ],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/39894256",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T17:01:16.294241",
+  "category": "biology",
+  "subcategories": []
+}

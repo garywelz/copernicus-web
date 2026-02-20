@@ -1,0 +1,92 @@
+{
+  "id": "reproduction_development-embryonic-development-process",
+  "name": "Embryonic Development Process",
+  "category": "biology",
+  "subcategory": "reproduction_development",
+  "subcategory_name": "Reproduction & Development",
+  "description": "Embryonic Development Process process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 14,
+    "edges": 14,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 1,
+      "andGates": 1,
+      "total": 2
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\n    A4[Fertilized Egg] --> B4[Cleavage Divisions]\n    B4 --> C4[Morula Formation]\n    C4 --> D4[Blastula Formation]\n    D4 --> E4[Gastrulation]\n    E4 --> F4[Germ Layer Formation]\n    F4 --> G4[Ectoderm]\n    F4 --> H4[Mesoderm]\n    F4 --> I4[Endoderm]\n    G4 --> J4[Organogenesis]\n    H4 --> J4\n    I4 --> J4\n    J4 --> K4[Neurulation]\n    K4 --> L4[Limb Bud Formation]\n    L4 --> M4[Organ Maturation]\n    M4 --> N4[Fetal Development]\n    \n    style A4 fill:#ff6b6b,color:#fff\n    style B4 fill:#ffd43b,color:#000\n    style C4 fill:#ffd43b,color:#000\n    style D4 fill:#ffd43b,color:#000\n    style E4 fill:#51cf66,color:#fff\n    style F4 fill:#51cf66,color:#fff\n    style G4 fill:#74c0fc,color:#fff\n    style H4 fill:#74c0fc,color:#fff\n    style I4 fill:#74c0fc,color:#fff\n    style J4 fill:#51cf66,color:#fff\n    style K4 fill:#51cf66,color:#fff\n    style L4 fill:#74c0fc,color:#fff\n    style M4 fill:#74c0fc,color:#fff\n    style N4 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Embryonic Development Process. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "Genomic Strategies for Embryonic Development",
+      "authors": "Davidson, Eric H.; Peter, Isabelle S.",
+      "journal": "Genomic Control Process",
+      "year": "2015",
+      "pubmed": null,
+      "doi": "10.1016/b978-0-12-404729-7.00003-4",
+      "url": "https://doi.org/10.1016/b978-0-12-404729-7.00003-4"
+    },
+    {
+      "title": "Crossref work (10.7287/peerj.preprints.27367v1/supp-1)",
+      "authors": "",
+      "journal": "Supplemental Information 1: Additive Figure The process of embryonic development of S\n                    <i>capholeberis mucronata</i>\n                    O. F. Müler",
+      "year": "None",
+      "pubmed": null,
+      "doi": "10.7287/peerj.preprints.27367v1/supp-1",
+      "url": "https://doi.org/10.7287/peerj.preprints.27367v1/supp-1"
+    },
+    {
+      "title": "Crossref work (10.7287/peerj.preprints.27367/supp-1)",
+      "authors": "",
+      "journal": "Supplemental Information 1: Additive Figure The process of embryonic development of S<i>capholeberis mucronata</i> O. F. Müler",
+      "year": "None",
+      "pubmed": null,
+      "doi": "10.7287/peerj.preprints.27367/supp-1",
+      "url": "https://doi.org/10.7287/peerj.preprints.27367/supp-1"
+    }
+  ],
+  "keywords": [
+    "embryonic",
+    "development",
+    "process"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+}

@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2502.17551v2",
+  "arxiv_id": "2502.17551v2",
+  "title": "Emergent Hydrodynamic Mode on SU(2) Plaquette Chains and Quantum Simulation",
+  "authors": [
+    "Francesco Turro",
+    "Xiaojun Yao"
+  ],
+  "author_string": "Francesco Turro, Xiaojun Yao",
+  "journal": "Phys. Rev. D 111, 094502 (2025)",
+  "journal_ref": "Phys. Rev. D 111, 094502 (2025)",
+  "year": "2025",
+  "doi": "10.1103/PhysRevD.111.094502",
+  "abstract": "We search for emergent hydrodynamic modes in real-time Hamiltonian dynamics of $2+1$-dimensional SU(2) lattice gauge theory on a quasi one dimensional plaquette chain, by numerically computing symmetric correlation functions of energy densities on lattice sizes of about $20$ with the local Hilbert space truncated at $j_{\\rm max}=\\frac{1}{2}$. Because of the Umklapp processes, we only find a mode for energy diffusion. The symmetric correlator exhibits transport peak near zero frequency with a width approximately proportional to momentum squared at small momentum, when the system is fully quantum ergodic, as indicated by the eigenenergy level statistics. This transport peak leads to a power-law $t^{-\\frac{1}{2}}$ decay of the symmetric correlator at late time, also known as the long-time tail, as well as diffusion-like spreading in position space. We also introduce a quantum algorithm for computing the symmetric correlator on a quantum computer and find it gives results consistent with exact diagonalization when tested on the IBM emulator. Finally we discuss the future prospect of searching for the sound modes.",
+  "categories": [
+    "hep-ph",
+    "cond-mat.stat-mech",
+    "hep-lat",
+    "nucl-th",
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": "15 pages, 7 figures; v2: corrected some typos",
+  "published_date": "2025-02-24T19:00:00Z",
+  "updated_date": "2025-05-05T17:04:56Z",
+  "url": "https://arxiv.org/abs/2502.17551v2",
+  "pdf_url": "https://arxiv.org/pdf/2502.17551v2.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-02-03T13:20:46.170283",
+  "category": "physics",
+  "subcategories": [
+    "hep-ph",
+    "cond-mat.stat-mech",
+    "hep-lat"
+  ]
+}

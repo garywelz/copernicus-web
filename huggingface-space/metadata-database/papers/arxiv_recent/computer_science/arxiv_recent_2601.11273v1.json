@@ -1,0 +1,39 @@
+{
+  "id": "arxiv_2601.11273v1",
+  "arxiv_id": "2601.11273v1",
+  "title": "Rank4Gen: RAG-Preference-Aligned Document Set Selection and Ranking",
+  "authors": [
+    "Yongqi Fan",
+    "Yuxiang Chu",
+    "Zhentao Xia",
+    "Xiaoyang Chen",
+    "Jie Liu",
+    "Haijin Liang",
+    "Jin Ma",
+    "Ben He",
+    "Yingfei Sun",
+    "Dezhi Ye",
+    "Tong Ruan"
+  ],
+  "author_string": "Yongqi Fan, Yuxiang Chu, Zhentao Xia, Xiaoyang Chen, Jie Liu et al.",
+  "journal": "arXiv:2601.11273v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "In the RAG paradigm, the information retrieval module provides context for generators by retrieving and ranking multiple documents to support the aggregation of evidence. However, existing ranking models are primarily optimized for query--document relevance, which often misaligns with generators' preferences for evidence selection and citation, limiting their impact on response quality. Moreover, most approaches do not account for preference differences across generators, resulting in unstable cross-generator performance. We propose \\textbf{Rank4Gen}, a generator-aware ranker for RAG that targets the goal of \\emph{Ranking for Generators}. Rank4Gen introduces two key preference modeling strategies: (1) \\textbf{From Ranking Relevance to Response Quality}, which optimizes ranking with respect to downstream response quality rather than query--document relevance; and (2) \\textbf{Generator-Specific Preference Modeling}, which conditions a single ranker on different generators to capture their distinct ranking preferences. To enable such modeling, we construct \\textbf{PRISM}, a dataset built from multiple open-source corpora and diverse downstream generators. Experiments on five challenging and recent RAG benchmarks demonstrate that RRank4Gen achieves strong and competitive performance for complex evidence composition in RAG.",
+  "categories": [
+    "cs.IR"
+  ],
+  "primary_category": "cs.IR",
+  "comment": null,
+  "published_date": "2026-01-16T13:19:17Z",
+  "updated_date": "2026-01-16T13:19:17Z",
+  "url": "https://arxiv.org/abs/2601.11273v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11273v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:33.859343",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.IR"
+  ]
+}

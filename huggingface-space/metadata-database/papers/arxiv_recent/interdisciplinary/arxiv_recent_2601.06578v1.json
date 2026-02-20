@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2601.06578v1",
+  "arxiv_id": "2601.06578v1",
+  "title": "Non-volatile Programmable Photonic Integrated Circuits using Mechanically Latched MEMS: A System-Level Scheme Enabling Power-Connection-Free Operation Without Performance Compromise",
+  "authors": [
+    "Ran Tao",
+    "Jifang Qiu",
+    "Zhimeng Liu",
+    "Hongxiang Guo",
+    "Yan Li",
+    "Jian Wu"
+  ],
+  "author_string": "Ran Tao, Jifang Qiu, Zhimeng Liu, Hongxiang Guo, Yan Li et al.",
+  "journal": "arXiv:2601.06578v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Programmable photonic integrated circuits (PPICs) offer a versatile platform for implementing diverse optical functions on a generic hardware mesh. However, the scalability of PPICs faces critical power consumption barriers. Therefore, we propose a novel non-volatile PPIC architecture utilizing MEMS with mechanical latching, enabling stable passive operation without any power connection once configured. To ensure practical applicability, we present a system-level solution including both this hardware innovation and an accompanying automatic error-resilient configuration algorithm. The algorithm compensates for the lack of continuous tunability inherent in the non-volatile hardware design, thereby enabling such new operational paradigm without compromising performance, and also ensuring robustness against fabrication errors. Functional simulations were performed to validate the proposed scheme by configuring five distinct functionalities of varying complexity, including a Mach-Zehnder interferometer (MZI), a MZI lattice filter, a ring resonator (ORR), a double ORR ring-loaded MZI, and a triple ORR coupled resonator waveguide filter. The results demonstrate that our non-volatile scheme achieves performance equivalent to conventional PPICs. Robustness analysis was also conducted, and the results demonstrated that our scheme exhibits strong robustness against various fabrication errors. Furthermore, we explored the trade-off between the hardware design complexity of such non-volatile scheme and its performance. This study establishes a viable pathway to a new generation of power-connection-free PPICs, providing a practical and scalable solution for future photonic systems.",
+  "categories": [
+    "physics.optics",
+    "eess.SP"
+  ],
+  "primary_category": "eess.SP",
+  "comment": null,
+  "published_date": "2026-01-10T14:27:06Z",
+  "updated_date": "2026-01-10T14:27:06Z",
+  "url": "https://arxiv.org/abs/2601.06578v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.06578v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-14T13:33:28.431205",
+  "category": "interdisciplinary",
+  "subcategories": [
+    "physics.optics",
+    "eess.SP"
+  ]
+}

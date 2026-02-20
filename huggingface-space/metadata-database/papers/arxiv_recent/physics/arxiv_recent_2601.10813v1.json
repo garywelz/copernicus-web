@@ -1,0 +1,37 @@
+{
+  "id": "arxiv_2601.10813v1",
+  "arxiv_id": "2601.10813v1",
+  "title": "Chemically decisive benchmarks on the path to quantum utility",
+  "authors": [
+    "Srivathsan Poyyapakkam Sundar",
+    "Vibin Abraham",
+    "Bo Peng",
+    "Ayush Asthana"
+  ],
+  "author_string": "Srivathsan Poyyapakkam Sundar, Vibin Abraham, Bo Peng, Ayush Asthana",
+  "journal": "arXiv:2601.10813v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Progress towards quantum utility in chemistry requires not only algorithmic advances, but also the identification of chemically meaningful problems whose electronic structure fundamentally challenges classical methods. Here, we introduce a curated hierarchy of chemically decisive benchmark systems designed to probe distinct regimes of electronic correlation relevant to molecular, bioinorganic, and heavy-element chemistry. Moving beyond minimal toy models, our benchmark set spans multireference bond breaking (N$_2$), high-spin transition-metal chemistry (FeS), biologically relevant iron-sulfur clusters ([2Fe-2S]), and actinide-actinide bonding (U$_2$), which exhibits extreme sensitivity to active-space choice, relativistic treatment, and correlation hierarchy even within advanced multireference frameworks. As a concrete realization, we benchmark a recently developed automated and adaptive quantum algorithm based on generator-coordinate-inspired subspace expansion,ADAPT-GCIM, using a black-box workflow that integrates entropy-based active-space selection via the ActiveSpaceFinder tool. Across this chemically diverse problem set, ADAPT-GCIM achieves high accuracy in challenging correlation regimes. Equally importantly, these benchmarks expose general failure modes and design constraints-independent of any specific algorithm-highlighting the necessity of problem-aware and correlation-specific strategies for treating strongly correlated chemistry on quantum computers. To support systematic benchmarking and reproducible comparisons, the Hamiltonians for all systems studied are made openly available.",
+  "categories": [
+    "physics.chem-ph",
+    "cond-mat.str-el",
+    "physics.class-ph",
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": null,
+  "published_date": "2026-01-15T19:24:51Z",
+  "updated_date": "2026-01-15T19:24:51Z",
+  "url": "https://arxiv.org/abs/2601.10813v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.10813v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:18:40.154019",
+  "category": "physics",
+  "subcategories": [
+    "physics.chem-ph",
+    "cond-mat.str-el",
+    "physics.class-ph"
+  ]
+}

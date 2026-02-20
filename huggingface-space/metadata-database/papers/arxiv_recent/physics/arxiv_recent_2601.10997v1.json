@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2601.10997v1",
+  "arxiv_id": "2601.10997v1",
+  "title": "Data-driven Prediction of Ionic Conductivity in Solid-State Electrolytes with Machine Learning and Large Language Models",
+  "authors": [
+    "Haewon Kim",
+    "Taekgi Lee",
+    "Seongeun Hong",
+    "Kyeong-Ho Kim",
+    "Yongchul G. Chung"
+  ],
+  "author_string": "Haewon Kim, Taekgi Lee, Seongeun Hong, Kyeong-Ho Kim, Yongchul G. Chung",
+  "journal": "arXiv:2601.10997v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Solid-state electrolytes (SSEs) are attractive for next-generation lithium-ion batteries due to improved safety and stability but their low room-temperature ionic conductivity hinders practical application. Experimental synthesis and testing of new SSEs remain time-consuming and resource intensive. Machine learning (ML) offers an accelerated route for SSE discovery; however, composition-only models neglect structural factors important for ion transport while graph neural networks (GNNs) are challenged by the scarcity of structure-labeled conductivity data and the prevalence of crystallographic disorder in CIFs. Here, we train two complementary predictors on the same room-temperature, structure-labeled dataset (n = 499). A gradient-boosted tree regressor (GBR) combining stoichiometric and geometric descriptors achieves best performance (MAE = 0.543 in log(S cm-1)), and Shapley Additive exPlanations (SHAP) identifies probe-occupiable volume (POAV) and lattice parameters as key correlations for conductivity. In parallel, we fine-tune large language models (LLMs) using compact text prompts derived from CIF metadata (formula with optional symmetry and disorder tags), avoiding direct use of raw atomic coordinates. Notably, Llama-3.1-8B-Instruct achieves high accuracy (MAE = 0.657 in log(S cm-1)) using formula and symmetry information, eliminating the need for numerical feature extraction from CIF files. Together, these results show that global geometric descriptors improve tree-based predictions and enable interpretable structure-property analysis, while LLMs provide a competitive low-preprocessing alternative for rapid SSE screening.",
+  "categories": [
+    "cond-mat.mtrl-sci"
+  ],
+  "primary_category": "cond-mat.mtrl-sci",
+  "comment": null,
+  "published_date": "2026-01-16T05:13:09Z",
+  "updated_date": "2026-01-16T05:13:09Z",
+  "url": "https://arxiv.org/abs/2601.10997v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.10997v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:18:36.099436",
+  "category": "physics",
+  "subcategories": [
+    "cond-mat.mtrl-sci"
+  ]
+}

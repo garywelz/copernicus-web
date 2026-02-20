@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2601.08912v1",
+  "arxiv_id": "2601.08912v1",
+  "title": "LUMOS : Linear programming Utility for Multi-messenger Optical Scheduling",
+  "authors": [
+    "Yogesh P. Wagh",
+    "Michael W. Coughlin",
+    "Leo P. Singer",
+    "Varun Bhalerao"
+  ],
+  "author_string": "Yogesh P. Wagh, Michael W. Coughlin, Leo P. Singer, Varun Bhalerao",
+  "journal": "arXiv:2601.08912v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "The detection of gravitational-wave events by LIGO-Virgo-KAGRA has opened new avenues for multi-messenger astrophysics; however, electromagnetic counterparts remain elusive due to large localization uncertainties. Wide-field optical surveys like the Zwicky Transient Facility (ZTF) play a crucial role in follow-up, but efficient scheduling is essential. In this work, we present LUMOS, a Mixed Integer Linear Programming (MILP) approach that selects fields via a maximum coverage problem and schedules observations to maximize cumulative probability while respecting observability constraints. Using 1199 GW events from O4, we compare the LUMOS scheduler with gwemopt, showing an 84.7 percent higher mean cumulative probability and better performance in nearly all cases. While designed for ZTF, LUMOS's framework parallels the M4OPT toolkit for space missions, highlighting the broader applicability of MILP-based scheduling to both ground- and space-based follow-up.",
+  "categories": [
+    "astro-ph.IM",
+    "astro-ph.HE"
+  ],
+  "primary_category": "astro-ph.HE",
+  "comment": "Submitted to PASP. 9 pages, 5 figures",
+  "published_date": "2026-01-13T19:00:05Z",
+  "updated_date": "2026-01-13T19:00:05Z",
+  "url": "https://arxiv.org/abs/2601.08912v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.08912v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:06.570105",
+  "category": "physics",
+  "subcategories": [
+    "astro-ph.IM",
+    "astro-ph.HE"
+  ]
+}

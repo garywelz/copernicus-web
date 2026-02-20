@@ -1,0 +1,36 @@
+{
+  "id": "pubmed_40907688",
+  "pmid": "40907688",
+  "title": "Deep learning-driven proteomics analysis for gene annotation in the renin-angiotensin system.",
+  "authors": [
+    "Eivazi, Mortaza",
+    "Hosseini, Kamran",
+    "Alipanahi, Shahin",
+    "Xia, Huijing",
+    "Restivo, Luke",
+    "Patel, Ayushi",
+    "Gozali, Mahdieh",
+    "Ebrahimi, Tahereh",
+    "Scarborough, Amy",
+    "Tarhriz, Vahideh",
+    "Lazartigues, Eric"
+  ],
+  "author_string": "Eivazi, Mortaza, Hosseini, Kamran, Alipanahi, Shahin, Xia, Huijing, Restivo, Luke et al.",
+  "journal": "Eur J Pharmacol",
+  "journal_full": "European journal of pharmacology",
+  "year": "",
+  "doi": "10.1016/j.ejphar.2025.178119",
+  "abstract": "The renin-angiotensin system (RAS) is central to cardiovascular diseases such as hypertension and cardiomyopathy, yet the functions of many RAS genes remain unclear. This study developed a multi-label deep learning model to systematically annotate RAS gene functions and elucidate their roles in biological pathways. A total of 39,463 RAS-related publications from PubMed and PMC were processed into text format. Feature matrices were generated using TF-IDF and token processing, followed by dimensionality reduction via Principal Component Analysis (PCA). A Multi-Layer Perceptron (MLP) was applied for multi-label classification, with performance evaluated using Precision, F1-Score, Ranking Loss, and ROC-AUC metrics. The model outperformed traditional methods (SVM, Random Forest), achieving a Precision of 0.7474 and ROC-AUC of 0.8697. Grouping into three major biological branches improved interpretability and performance (Precision: 0.8312; ROC-AUC: 0.9182). In silico predictions were validated using extracellular vesicle (EV) proteomics and capillary Western assays in DOCA-salt hypertensive mice. Key genes-AGTR2, IRAP (LNPEP), Ywhas (SFN), EDNRA, and ESR2-were identified as critical RAS components. Notably, IRAP was markedly upregulated in hypertension and showed regulatory interactions with 14-3-3 proteins, modulating Nedd4-2, ACE2, and AGTR1 signaling. To our knowledge, this is the first integration of multi-label AI modeling with EV proteomics for RAS pathway annotation. This framework captures complex gene-pathway relationships, advancing systems-level understanding of RAS biology and revealing a novel IRAP/Ywha(s)/Nedd4-2-ACE2 interaction axis as a potential therapeutic target.",
+  "keywords": [
+    "Hypertension",
+    "Machine learning",
+    "Multi-layer perceptron",
+    "Renin-angiotensin system"
+  ],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/40907688",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T16:58:33.053196",
+  "category": "biology",
+  "subcategories": []
+}

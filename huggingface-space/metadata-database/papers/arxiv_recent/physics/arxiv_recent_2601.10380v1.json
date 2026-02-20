@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2601.10380v1",
+  "arxiv_id": "2601.10380v1",
+  "title": "Learning Hamiltonians in the Heisenberg limit with static single-qubit fields",
+  "authors": [
+    "Shrigyan Brahmachari",
+    "Shuchen Zhu",
+    "Iman Marvian",
+    "Yu Tong"
+  ],
+  "author_string": "Shrigyan Brahmachari, Shuchen Zhu, Iman Marvian, Yu Tong",
+  "journal": "arXiv:2601.10380v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Learning the Hamiltonian governing a quantum system is a central task in quantum metrology, sensing, and device characterization. Existing Heisenberg-limited Hamiltonian learning protocols either require multi-qubit operations that are prone to noise, or single-qubit operations whose frequency or strength increases with the desired precision. These two requirements limit the applicability of Hamiltonian learning on near-term quantum platforms. We present a protocol that learns a quantum Hamiltonian with the optimal Heisenberg-limited scaling using only single-qubit control in the form of static fields with strengths that are independent of the target precision. Our protocol is robust against the state preparation and measurement (SPAM) error. By overcoming these limitations, our protocol provides new tools for device characterization and quantum sensing. We demonstrate that our method achieves the Heisenberg-limited scaling through rigorous mathematical proof and numerical experiments. We also prove an information-theoretic lower bound showing that a non-vanishing static field strength is necessary for achieving the Heisenberg limit unless one employs an extensive number of discrete control operations.",
+  "categories": [
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": null,
+  "published_date": "2026-01-15T13:34:50Z",
+  "updated_date": "2026-01-15T13:34:50Z",
+  "url": "https://arxiv.org/abs/2601.10380v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.10380v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:18:46.731208",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph"
+  ]
+}

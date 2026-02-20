@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2601.09122v1",
+  "arxiv_id": "2601.09122v1",
+  "title": "Statistical Guarantees for Data-driven Posterior Tempering",
+  "authors": [
+    "Ruchira Ray",
+    "Marco Avella Medina",
+    "Cynthia Rush"
+  ],
+  "author_string": "Ruchira Ray, Marco Avella Medina, Cynthia Rush",
+  "journal": "arXiv:2601.09122v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Posterior tempering reduces the influence of the likelihood in the calculation of the posterior by raising the likelihood to a fractional power $α$. The resulting power posterior - also known as an $α$-posterior or fractional posterior - has been shown to exhibit appealing properties, including robustness to model misspecification and asymptotic normality (Bernstein-von Mises theorem). However, practical recommendations for selecting the tempering parameter and statistical guarantees for the resulting power posterior remain open questions. Cross-validation-based approaches to tuning this parameter suggest interesting asymptotic regimes for the selected $α$, which can either vanish or behave like a mixture distribution with a point mass at infinity and the remaining mass converging to zero. We formalize the asymptotic properties of the power posterior in these regimes. In particular, we provide sufficient conditions for (i) consistency of the power posterior moments and (ii) asymptotic normality of the power posterior mean. Our analysis required us to establish a new Laplace approximation that is interesting in its own right and is the key technical tool for showing a critical threshold $α\\asymp 1/\\sqrt{n}$ where the asymptotic normality of the posterior mean breaks. Our results allow for the power to depend on the data in an arbitrary way.",
+  "categories": [
+    "math.ST"
+  ],
+  "primary_category": "math.ST",
+  "comment": null,
+  "published_date": "2026-01-14T03:45:56Z",
+  "updated_date": "2026-01-14T03:45:56Z",
+  "url": "https://arxiv.org/abs/2601.09122v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.09122v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:52.505521",
+  "category": "mathematics",
+  "subcategories": [
+    "math.ST"
+  ]
+}

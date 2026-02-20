@@ -1,0 +1,38 @@
+{
+  "id": "arxiv_1904.12986v1",
+  "arxiv_id": "1904.12986v1",
+  "title": "Community Detection and Growth Potential Prediction Using the Stochastic Block Model and the Long Short-term Memory from Patent Citation Networks",
+  "authors": [
+    "Kensei Nakai",
+    "Hirofumi Nonaka",
+    "Asahi Hentona",
+    "Yuki Kanai",
+    "Takeshi Sakumoto",
+    "Shotaro Kataoka",
+    "Elisa Claire Alemán Carreón",
+    "Toru Hiraoka"
+  ],
+  "author_string": "Kensei Nakai, Hirofumi Nonaka, Asahi Hentona, Yuki Kanai, Takeshi Sakumoto et al.",
+  "journal": "In Proceedings of the 2018 IEEE International Conference on Industrial Engineering and Engineering Management (IEEM2018). pp. 1884 - 1888. Bangkok, Thailand. December 16-19, 2018",
+  "journal_ref": "In Proceedings of the 2018 IEEE International Conference on Industrial Engineering and Engineering Management (IEEM2018). pp. 1884 - 1888. Bangkok, Thailand. December 16-19, 2018",
+  "year": "2019",
+  "doi": "10.1109/IEEM.2018.8607487",
+  "abstract": "Scoring patent documents is very useful for technology management. However, conventional methods are based on static models and, thus, do not reflect the growth potential of the technology cluster of the patent. Because even if the cluster of a patent has no hope of growing, we recognize the patent is important if PageRank or other ranking score is high. Therefore, there arises a necessity of developing citation network clustering and prediction of future citations. In our research, clustering of patent citation networks by Stochastic Block Model was done with the aim of enabling corporate managers and investors to evaluate the scale and life cycle of technology. As a result, we confirmed nested SBM is appropriate for graph clustering of patent citation networks. Also, a high MAPE value was obtained and the direction accuracy achieved a value greater than 50% when predicting growth potential for each cluster by using LSTM.",
+  "categories": [
+    "cs.DL",
+    "cs.IR"
+  ],
+  "primary_category": "cs.IR",
+  "comment": "arXiv admin note: substantial text overlap with arXiv:1904.12040",
+  "published_date": "2019-04-23T15:50:58Z",
+  "updated_date": "2019-04-23T15:50:58Z",
+  "url": "https://arxiv.org/abs/1904.12986v1",
+  "pdf_url": "https://arxiv.org/pdf/1904.12986v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:23.478113",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.DL",
+    "cs.IR"
+  ]
+}

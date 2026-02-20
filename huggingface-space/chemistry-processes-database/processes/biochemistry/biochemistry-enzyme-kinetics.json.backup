@@ -1,0 +1,92 @@
+{
+  "category": "chemistry",
+  "colorScheme": {
+    "blue": {
+      "category": "Intermediates & States",
+      "hex": "#74c0fc"
+    },
+    "green": {
+      "category": "Processing & Operations",
+      "hex": "#51cf66"
+    },
+    "red": {
+      "category": "Triggers & Inputs",
+      "hex": "#ff6b6b"
+    },
+    "violet": {
+      "category": "Products & Outputs",
+      "hex": "#b197fc"
+    },
+    "yellow": {
+      "category": "Structures & Objects",
+      "hex": "#ffd43b"
+    }
+  },
+  "complexity": {
+    "conditionals": 0,
+    "detailLevel": "medium",
+    "edges": 24,
+    "level": "medium",
+    "logicGates": {
+      "andGates": 0,
+      "orGates": 28,
+      "total": 28
+    },
+    "nodes": 26
+  },
+  "created": "2026-01-08",
+  "description": "Enzyme Kinetics Process. This biochemistry process visualization demonstrates enzyme catalytic mechanisms and kinetic analysis. The flowchart shows substrate inputs and active site binding, enzyme methods and complex formation, enzyme operations and catalytic reactions, intermediate results, and final enzyme kinetics outputs.",
+  "id": "biochemistry-enzyme-kinetics",
+  "keywords": [
+    "mechanism",
+    "enzyme",
+    "kinetics",
+    "reaction",
+    "biochemistry"
+  ],
+  "lastUpdated": "2026-01-08",
+  "mermaid": "graph TD\nA1[Substrate Binding] --> B1[Enzyme Method]\nC1[Active Site] --> D1[Enzyme Substrate Complex]\nE1[Catalytic Reaction] --> F1[Enzyme Kinetics Analysis]\nB1 --> G1[Michaelis Menten]\nD1 --> H1[Lock and Key Model]\nF1 --> I1[Induced Fit Model]\nG1 --> J1[Km Determination]\nH1 --> K1[Substrate Specificity]\nI1 --> L1[Conformational Change]\nJ1 --> M1[Vmax Calculation]\nK1 --> L1\nL1 --> N1[Transition State]\nM1 --> O1[Turnover Number]\nN1 --> P1[Product Formation]\nO1 --> Q1[Enzyme Kinetics Process]\nP1 --> R1[Enzyme Kinetics Validation]\nQ1 --> S1[Enzyme Kinetics Verification]\nR1 --> T1[Enzyme Kinetics Result]\nS1 --> U1[Enzyme Kinetics Analysis]\nT1 --> V1[Enzyme Kinetics Parameters]\nU1 --> W1[Enzyme Kinetics Output]\nV1 --> X1[Enzyme Kinetics Analysis]\nW1 --> Y1[Enzyme Kinetics Final Result]\nX1 --> Z1[Enzyme Kinetics Complete]\n\n    style A1 fill:#ff6b6b,color:#fff\n    style C1 fill:#ff6b6b,color:#fff\n    style E1 fill:#ff6b6b,color:#fff\n    style B1 fill:#ffd43b,color:#000\n    style D1 fill:#ffd43b,color:#000\n    style F1 fill:#ffd43b,color:#000\n    style G1 fill:#ffd43b,color:#000\n    style H1 fill:#ffd43b,color:#000\n    style I1 fill:#ffd43b,color:#000\n    style J1 fill:#ffd43b,color:#000\n    style K1 fill:#ffd43b,color:#000\n    style L1 fill:#ffd43b,color:#000\n    style M1 fill:#51cf66,color:#fff\n    style N1 fill:#51cf66,color:#fff\n    style O1 fill:#51cf66,color:#fff\n    style P1 fill:#51cf66,color:#fff\n    style Q1 fill:#51cf66,color:#fff\n    style R1 fill:#51cf66,color:#fff\n    style S1 fill:#51cf66,color:#fff\n    style T1 fill:#51cf66,color:#fff\n    style U1 fill:#51cf66,color:#fff\n    style V1 fill:#51cf66,color:#fff\n    style W1 fill:#51cf66,color:#fff\n    style X1 fill:#51cf66,color:#fff\n    style Y1 fill:#51cf66,color:#fff\n    style Z1 fill:#b197fc,color:#fff",
+  "name": "Enzyme Kinetics",
+  "notes": "Converted from chemistry batch HTML. Process number: 1.",
+  "relatedProcesses": [],
+  "sources": [
+    {
+      "authors": "Welz, G.",
+      "doi": null,
+      "journal": "CopernicusAI Knowledge Engine",
+      "notes": "Chemistry process visualization: Enzyme Kinetics. Created using the Programming Framework methodology for process analysis and visualization.",
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "year": "2025"
+    },
+    {
+      "authors": "Johnson, M.L.; Frahm, E.M.",
+      "doi": "10.1146/annurev-biochem-062917-012540",
+      "journal": "Annu Rev Biochem",
+      "pubmed": "29924765",
+      "title": "The Michaelis-Menten Equation: Past, Present, and Future",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/29924765",
+      "year": "2018"
+    },
+    {
+      "authors": "Robinson, D.H.; Frey, P.A.",
+      "doi": "10.1016/S0021-9258(18)81757-0",
+      "journal": "J. Biol. Chem.",
+      "pubmed": "2501062",
+      "title": "Enzyme Reaction Mechanisms: New Insights from Kinetic Isotope Effects",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/2501062",
+      "year": "1989"
+    },
+    {
+      "authors": "Herschlag, D.",
+      "doi": "10.1146/annurev.biochem.71.110601.144412",
+      "journal": "Annu Rev Biochem",
+      "pubmed": "12056515",
+      "title": "Enzyme Catalysis in the Time Domain",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/12056515",
+      "year": "2002"
+    }
+  ],
+  "subcategory": "biochemistry",
+  "verified": false
+}

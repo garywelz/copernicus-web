@@ -1,0 +1,66 @@
+{
+  "id": "thermodynamics_statistical-heat-engine",
+  "name": "Heat Engine",
+  "category": "physics",
+  "subcategory": "thermodynamics_statistical",
+  "subcategory_name": "Thermodynamics & Statistical Physics",
+  "description": "Heat Engine Process. This thermodynamics process visualization demonstrates heat engine cycles and power generation. The flowchart shows heat inputs and working fluids, heat engine methods and thermal cycles, heat engine operations and mechanical work, intermediate results, and final heat engine outputs.",
+  "complexity": {
+    "nodes": 26,
+    "edges": 24,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nA1[Heat Input] --> B1[Heat Engine Method]\nC1[Working Fluid] --> D1[Thermal Cycle]\nE1[Mechanical Work] --> F1[Heat Engine Analysis]\nB1 --> G1[Carnot Cycle]\nD1 --> H1[Otto Cycle]\nF1 --> I1[Diesel Cycle]\nG1 --> J1[Isothermal Process]\nH1 --> K1[Adiabatic Process]\nI1 --> L1[Isentropic Process]\nJ1 --> M1[Heat Transfer]\nK1 --> L1\nL1 --> N1[Work Output]\nM1 --> O1[Thermal Efficiency]\nN1 --> P1[Power Generation]\nO1 --> Q1[Heat Engine Process]\nP1 --> R1[Heat Engine Validation]\nQ1 --> S1[Heat Engine Verification]\nR1 --> T1[Heat Engine Result]\nS1 --> U1[Heat Engine Analysis]\nT1 --> V1[Heat Engine Parameters]\nU1 --> W1[Heat Engine Output]\nV1 --> X1[Heat Engine Analysis]\nW1 --> Y1[Heat Engine Final Result]\nX1 --> Z1[Heat Engine Complete]\n\n    style A1 fill:#ff6b6b,color:#fff\n    style C1 fill:#ff6b6b,color:#fff\n    style E1 fill:#ff6b6b,color:#fff\n    style B1 fill:#ffd43b,color:#000\n    style D1 fill:#ffd43b,color:#000\n    style F1 fill:#ffd43b,color:#000\n    style G1 fill:#ffd43b,color:#000\n    style H1 fill:#ffd43b,color:#000\n    style I1 fill:#ffd43b,color:#000\n    style J1 fill:#ffd43b,color:#000\n    style K1 fill:#ffd43b,color:#000\n    style L1 fill:#ffd43b,color:#000\n    style M1 fill:#51cf66,color:#fff\n    style N1 fill:#51cf66,color:#fff\n    style O1 fill:#51cf66,color:#fff\n    style P1 fill:#51cf66,color:#fff\n    style Q1 fill:#51cf66,color:#fff\n    style R1 fill:#51cf66,color:#fff\n    style S1 fill:#51cf66,color:#fff\n    style T1 fill:#51cf66,color:#fff\n    style U1 fill:#51cf66,color:#fff\n    style V1 fill:#51cf66,color:#fff\n    style W1 fill:#51cf66,color:#fff\n    style X1 fill:#51cf66,color:#fff\n    style Y1 fill:#51cf66,color:#fff\n    style Z1 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "notes": "Chemistry process visualization: Heat Engine. Created using the Programming Framework methodology for process analysis and visualization."
+    }
+  ],
+  "keywords": [
+    "statistical",
+    "thermodynamics",
+    "physics",
+    "engine",
+    "heat"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-08",
+  "verified": false,
+  "notes": "Converted from physics batch HTML. Process number: 1."
+}

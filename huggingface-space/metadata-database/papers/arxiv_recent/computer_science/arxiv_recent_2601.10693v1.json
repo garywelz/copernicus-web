@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2601.10693v1",
+  "arxiv_id": "2601.10693v1",
+  "title": "Constant-Depth Unitary Preparation of Dicke States",
+  "authors": [
+    "Francisca Vasconcelos",
+    "Malvika Raj Joshi"
+  ],
+  "author_string": "Francisca Vasconcelos, Malvika Raj Joshi",
+  "journal": "arXiv:2601.10693v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Dicke states serve as a critical resource in quantum metrology, communication, and computation. However, unitary preparation of Dicke states is limited to logarithmic depth in standard circuit models and existing constant-depth protocols require measurement and feed-forward. In this work, we present the first unitary, constant-depth protocols for exact Dicke state preparation. We overcome the logarithmic-depth barrier by moving beyond the standard circuit model and leveraging global interactions (native to architectures such as neutral atoms and trapped ions). Specifically, utilizing unbounded CZ gates (i.e. within the QAC$^0$ circuit class), we offer circuits for exact computation of constant-weight Dicke states, using polynomial ancillae, and approximation of weight-1 Dicke states (i.e. $W$ states), using only constant ancillae. Granted additional access to the quantum FAN-OUT operation (i.e. upgrading to the QAC$_f^0$ circuit class), we also achieve exact preparation of arbitrary-weight Dicke states, with polynomial ancillae. These protocols distinguish the constant-depth capabilities of quantum architectures based on connectivity and offer a novel path toward resolving a long-standing quantum complexity conjecture.",
+  "categories": [
+    "quant-ph",
+    "cs.CC"
+  ],
+  "primary_category": "cs.CC",
+  "comment": null,
+  "published_date": "2026-01-15T18:51:09Z",
+  "updated_date": "2026-01-15T18:51:09Z",
+  "url": "https://arxiv.org/abs/2601.10693v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.10693v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:18:40.158057",
+  "category": "computer_science",
+  "subcategories": [
+    "quant-ph",
+    "cs.CC"
+  ]
+}

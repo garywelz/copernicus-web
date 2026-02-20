@@ -1,0 +1,43 @@
+{
+  "id": "software-development-lifecycle-process",
+  "title": "Software Development Lifecycle Process",
+  "description": "Computer Science process: Software Development Lifecycle Process",
+  "category": "computer_science",
+  "subcategory": "software_engineering",
+  "mermaid": "graph TD\n    A1[Requirements Analysis] --> B1[Software Development Method]\n    C1[System Design] --> D1[Architecture Planning]\n    E1[Implementation Phase] --> F1[Software Development Analysis]\n    \n    B1 --> G1[Waterfall Model]\n    D1 --> H1[Agile Methodology]\n    F1 --> I1[Spiral Model]\n    \n    G1 --> J1[Requirements Gathering]\n    H1 --> K1[Sprint Planning]\n    I1 --> L1[Risk Analysis]\n    \n    J1 --> M1[System Specification]\n    K1 --> L1\n    L1 --> N1[Prototype Development]\n    \n    M1 --> O1[Design Implementation]\n    N1 --> P1[Testing Integration]\n    O1 --> Q1[Software Development Lifecycle Process]\n    \n    P1 --> R1[Software Development Validation]\n    Q1 --> S1[Software Development Verification]\n    R1 --> T1[Software Development Result]\n    \n    S1 --> U1[Software Development Analysis]\n    T1 --> V1[Software Development Parameters]\n    U1 --> W1[Software Development Output]\n    \n    V1 --> X1[Software Development Analysis]\n    W1 --> Y1[Software Development Final Result]\n    X1 --> Z1[Software Development Lifecycle Complete]\n    \n    style A1 fill:#ff6b6b,color:#fff\n    style C1 fill:#ff6b6b,color:#fff\n    style E1 fill:#ff6b6b,color:#fff\n    \n    style B1 fill:#ffd43b,color:#000\n    style D1 fill:#ffd43b,color:#000\n    style F1 fill:#ffd43b,color:#000\n    style G1 fill:#ffd43b,color:#000\n    style H1 fill:#ffd43b,color:#000\n    style I1 fill:#ffd43b,color:#000\n    style J1 fill:#ffd43b,color:#000\n    style K1 fill:#ffd43b,color:#000\n    style L1 fill:#ffd43b,color:#000\n    style M1 fill:#ffd43b,color:#000\n    style N1 fill:#ffd43b,color:#000\n    style O1 fill:#ffd43b,color:#000\n    style P1 fill:#ffd43b,color:#000\n    style Q1 fill:#ffd43b,color:#000\n    style R1 fill:#ffd43b,color:#000\n    style S1 fill:#ffd43b,color:#000\n    style T1 fill:#ffd43b,color:#000\n    style U1 fill:#ffd43b,color:#000\n    style V1 fill:#ffd43b,color:#000\n    style W1 fill:#ffd43b,color:#000\n    style X1 fill:#ffd43b,color:#000\n    style Y1 fill:#ffd43b,color:#000\n    style Z1 fill:#ffd43b,color:#000\n    \n    style M1 fill:#51cf66,color:#fff\n    style N1 fill:#51cf66,color:#fff\n    style O1 fill:#51cf66,color:#fff\n    style P1 fill:#51cf66,color:#fff\n    style Q1 fill:#51cf66,color:#fff\n    style R1 fill:#51cf66,color:#fff\n    style S1 fill:#51cf66,color:#fff\n    style T1 fill:#51cf66,color:#fff\n    style U1 fill:#51cf66,color:#fff\n    style V1 fill:#51cf66,color:#fff\n    style W1 fill:#51cf66,color:#fff\n    style X1 fill:#51cf66,color:#fff\n    style Y1 fill:#51cf66,color:#fff\n    style Z1 fill:#51cf66,color:#fff\n    \n    style Z1 fill:#b197fc,color:#fff",
+  "entities": [
+    "Requirements Analysis",
+    "Software Development Method",
+    "System Design",
+    "Architecture Planning",
+    "Implementation Phase",
+    "Software Development Analysis",
+    "Waterfall Model",
+    "Agile Methodology",
+    "Spiral Model",
+    "Requirements Gathering",
+    "Sprint Planning",
+    "Risk Analysis",
+    "System Specification",
+    "Prototype Development",
+    "Design Implementation",
+    "Testing Integration",
+    "Software Development Lifecycle Process",
+    "Software Development Validation",
+    "Software Development Verification",
+    "Software Development Result",
+    "Software Development Parameters",
+    "Software Development Output",
+    "Software Development Final Result",
+    "Software Development Lifecycle Complete"
+  ],
+  "metadata": {
+    "source": "programming_framework",
+    "batch": "batch_02",
+    "batch_number": 2,
+    "batch_title": "Computer Science Batch 02 - Software Engineering - Programming Framework Analysis",
+    "color_scheme": "discipline_based",
+    "node_count": 24,
+    "complexity": "medium"
+  }
+}

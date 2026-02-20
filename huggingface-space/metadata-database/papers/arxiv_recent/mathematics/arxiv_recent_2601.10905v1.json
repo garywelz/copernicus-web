@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2601.10905v1",
+  "arxiv_id": "2601.10905v1",
+  "title": "Action Shapley: A Training Data Selection Metric for World Model in Reinforcement Learning",
+  "authors": [
+    "Rajat Ghosh",
+    "Debojyoti Dutta"
+  ],
+  "author_string": "Rajat Ghosh, Debojyoti Dutta",
+  "journal": "arXiv:2601.10905v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Numerous offline and model-based reinforcement learning systems incorporate world models to emulate the inherent environments. A world model is particularly important in scenarios where direct interactions with the real environment is costly, dangerous, or impractical. The efficacy and interpretability of such world models are notably contingent upon the quality of the underlying training data. In this context, we introduce Action Shapley as an agnostic metric for the judicious and unbiased selection of training data. To facilitate the computation of Action Shapley, we present a randomized dynamic algorithm specifically designed to mitigate the exponential complexity inherent in traditional Shapley value computations. Through empirical validation across five data-constrained real-world case studies, the algorithm demonstrates a computational efficiency improvement exceeding 80\\% in comparison to conventional exponential time computations. Furthermore, our Action Shapley-based training data selection policy consistently outperforms ad-hoc training data selection.",
+  "categories": [
+    "cs.LG",
+    "stat.ME"
+  ],
+  "primary_category": "stat.ME",
+  "comment": null,
+  "published_date": "2026-01-15T23:33:21Z",
+  "updated_date": "2026-01-15T23:33:21Z",
+  "url": "https://arxiv.org/abs/2601.10905v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.10905v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:37.519436",
+  "category": "mathematics",
+  "subcategories": [
+    "cs.LG",
+    "stat.ME"
+  ]
+}

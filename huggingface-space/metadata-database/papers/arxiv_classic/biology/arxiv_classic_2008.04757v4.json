@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2008.04757v4",
+  "arxiv_id": "2008.04757v4",
+  "title": "Transfer Learning for Protein Structure Classification at Low Resolution",
+  "authors": [
+    "Alexander Hudson",
+    "Shaogang Gong"
+  ],
+  "author_string": "Alexander Hudson, Shaogang Gong",
+  "journal": "arXiv:2008.04757v4",
+  "journal_ref": null,
+  "year": "2020",
+  "doi": null,
+  "abstract": "Structure determination is key to understanding protein function at a molecular level. Whilst significant advances have been made in predicting structure and function from amino acid sequence, researchers must still rely on expensive, time-consuming analytical methods to visualise detailed protein conformation. In this study, we demonstrate that it is possible to make accurate ($\\geq$80%) predictions of protein class and architecture from structures determined at low ($>$3A) resolution, using a deep convolutional neural network trained on high-resolution ($\\leq$3A) structures represented as 2D matrices. Thus, we provide proof of concept for high-speed, low-cost protein structure classification at low resolution, and a basis for extension to prediction of function. We investigate the impact of the input representation on classification performance, showing that side-chain information may not be necessary for fine-grained structure predictions. Finally, we confirm that high-resolution, low-resolution and NMR-determined structures inhabit a common feature space, and thus provide a theoretical foundation for boosting with single-image super-resolution.",
+  "categories": [
+    "cs.CV",
+    "cs.LG",
+    "q-bio.BM"
+  ],
+  "primary_category": "q-bio.BM",
+  "comment": "9 pages excluding references and appendices",
+  "published_date": "2020-08-11T15:01:32Z",
+  "updated_date": "2020-08-31T17:02:33Z",
+  "url": "https://arxiv.org/abs/2008.04757v4",
+  "pdf_url": "https://arxiv.org/pdf/2008.04757v4.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:27.423298",
+  "category": "biology",
+  "subcategories": [
+    "cs.CV",
+    "cs.LG",
+    "q-bio.BM"
+  ]
+}

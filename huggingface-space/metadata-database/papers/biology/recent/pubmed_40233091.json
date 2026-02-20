@@ -1,0 +1,27 @@
+{
+  "id": "pubmed_40233091",
+  "pmid": "40233091",
+  "title": "MINT: A toolbox for the analysis of multivariate neural information coding and transmission.",
+  "authors": [
+    "Lorenz, Gabriel Matías",
+    "Engel, Nicola Marie",
+    "Celotto, Marco",
+    "Koçillari, Loren",
+    "Curreli, Sebastiano",
+    "Fellin, Tommaso",
+    "Panzeri, Stefano"
+  ],
+  "author_string": "Lorenz, Gabriel Matías, Engel, Nicola Marie, Celotto, Marco, Koçillari, Loren, Curreli, Sebastiano et al.",
+  "journal": "PLoS Comput Biol",
+  "journal_full": "PLoS computational biology",
+  "year": "",
+  "doi": "10.1371/journal.pcbi.1012934",
+  "abstract": "Information theory has deeply influenced the conceptualization of brain information processing and is a mainstream framework for analyzing how neural networks in the brain process information to generate behavior. Information theory tools have been initially conceived and used to study how information about sensory variables is encoded by the activity of small neural populations. However, recent multivariate information theoretic advances have enabled addressing how information is exchanged across areas and used to inform behavior. Moreover, its integration with dimensionality-reduction techniques has enabled addressing information encoding and communication by the activity of large neural populations or many brain areas, as recorded by multichannel activity measurements in functional imaging and electrophysiology. Here, we provide a Multivariate Information in Neuroscience Toolbox (MINT) that combines these new methods with statistical tools for robust estimation from limited-size empirical datasets. We demonstrate the capabilities of MINT by applying it to both simulated and real neural data recorded with electrophysiology or calcium imaging, but all MINT functions are equally applicable to other brain-activity measurement modalities. We highlight the synergistic opportunities that combining its methods afford for reverse engineering of specific information processing and flow between neural populations or areas, and for discovering how information processing functions emerge from interactions between neurons or areas. MINT works on Linux, Windows and macOS operating systems, is written in MATLAB (requires MATLAB version 2018b or newer) and depends on 4 native MATLAB toolboxes. The calculation of one possible way to compute information redundancy requires the installation and compilation of C files (made available by us also as pre-compiled files). MINT is freely available at https://github.com/panzerilab/MINT with DOI doi.org/10.5281/zenodo.13998526 and operates under a GNU GPLv3 license.",
+  "keywords": [],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/40233091",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T17:01:13.078412",
+  "category": "biology",
+  "subcategories": []
+}

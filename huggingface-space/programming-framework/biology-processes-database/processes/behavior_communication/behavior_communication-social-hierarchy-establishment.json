@@ -1,0 +1,94 @@
+{
+  "id": "behavior_communication-social-hierarchy-establishment",
+  "name": "Social Hierarchy Establishment",
+  "category": "biology",
+  "subcategory": "behavior_communication",
+  "subcategory_name": "Behavior & Communication",
+  "organism": "Animals",
+  "description": "Social Hierarchy Establishment in Animals. This process represents a higher-level biological mechanism distinct from molecular/biochemical processes covered in GLMP.",
+  "complexity": {
+    "nodes": 9,
+    "edges": 8,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "low",
+    "detailLevel": "low"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\n    A18[Group Formation] --> B18[Individual Assessment]\n    B18 --> C18[Agonistic Encounters]\n    C18 --> D18[Competition]\n    D18 --> E18[Victory/Defeat]\n    E18 --> F18[Rank Assignment]\n    F18 --> G18[Hierarchy Structure]\n    G18 --> H18[Stabilization]\n    H18 --> I18[Resource Access Rules]\n    \n    style A18 fill:#ff6b6b,color:#fff\n    style B18 fill:#ffd43b,color:#000\n    style C18 fill:#51cf66,color:#fff\n    style D18 fill:#51cf66,color:#fff\n    style E18 fill:#74c0fc,color:#fff\n    style F18 fill:#74c0fc,color:#fff\n    style G18 fill:#b197fc,color:#fff\n    style H18 fill:#b197fc,color:#fff\n    style I18 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "notes": "Higher-level biological process visualization: Social Hierarchy Establishment. Created using the Programming Framework methodology for organismal and ecological process analysis."
+    },
+    {
+      "title": "The Neurobiology of Social Hierarchies",
+      "authors": "Riede, T.S.K.; Lemaire, L.M.T.; Vandenbussche, R.J.R.",
+      "journal": "Annu Rev Psychol",
+      "year": "2017",
+      "pubmed": "27959624",
+      "doi": "10.1146/annurev-psych-010416-014316",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/27959624"
+    },
+    {
+      "title": "Social status and the brain: where does the hierarchy come from?",
+      "authors": "Popov, D.; Bessa, J.M.; Meller, M.; Monje, M.L.; Wersinger, E.",
+      "journal": "Nat Rev Neurosci",
+      "year": "2023",
+      "pubmed": "37400593",
+      "doi": "10.1038/s41583-023-00713-3",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/37400593"
+    },
+    {
+      "title": "The Ecology of Aggression and Hierarchy Formation in Animal Groups",
+      "authors": "Pusey, A.E.; Packer, C.",
+      "journal": "Trends Ecol Evol",
+      "year": "2011",
+      "pubmed": "21237930",
+      "doi": "10.1016/j.tree.2011.01.006",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/21237930"
+    }
+  ],
+  "keywords": [
+    "hierarchy",
+    "animals",
+    "establishment",
+    "behavior",
+    "social",
+    "communication"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-08",
+  "verified": false,
+  "notes": "Higher-level biological process. GLMP covers biochemical/molecular processes; this database covers organismal/ecological processes."
+}

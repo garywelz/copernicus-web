@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CopernicusAI Knowledge Engine - Status Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .stat-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        .link-card {
+            transition: all 0.3s ease;
+        }
+        .link-card:hover {
+            transform: translateX(4px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="gradient-bg text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="text-center">
+                <div class="text-5xl mb-4">🔬</div>
+                <h1 class="text-4xl font-bold mb-4">CopernicusAI Knowledge Engine</h1>
+                <p class="text-xl opacity-90 mb-2">Status Dashboard</p>
+                <p class="text-lg opacity-75" id="currentDate"></p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Statistics Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            <div class="stat-card bg-white rounded-xl shadow-lg p-6 border-l-4 border-blue-500">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-600 text-sm font-medium">Research Papers</p>
+                        <p class="text-3xl font-bold text-gray-900 mt-2" id="paperCount">Loading...</p>
+                        <p class="text-sm text-gray-500 mt-1">Target: 200,000</p>
+                    </div>
+                    <div class="text-4xl">📄</div>
+                </div>
+                <div class="mt-4">
+                    <div class="w-full bg-gray-200 rounded-full h-2">
+                        <div class="bg-blue-500 h-2 rounded-full" id="paperProgress" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stat-card bg-white rounded-xl shadow-lg p-6 border-l-4 border-green-500">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-600 text-sm font-medium">Processes</p>
+                        <p class="text-3xl font-bold text-gray-900 mt-2" id="processCount">Loading...</p>
+                        <p class="text-sm text-gray-500 mt-1">Target: 1,000+</p>
+                    </div>
+                    <div class="text-4xl">🔬</div>
+                </div>
+                <div class="mt-4">
+                    <div class="w-full bg-gray-200 rounded-full h-2">
+                        <div class="bg-green-500 h-2 rounded-full" id="processProgress" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stat-card bg-white rounded-xl shadow-lg p-6 border-l-4 border-purple-500">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-600 text-sm font-medium">Videos</p>
+                        <p class="text-3xl font-bold text-gray-900 mt-2" id="videoCount">Loading...</p>
+                        <p class="text-sm text-gray-500 mt-1">Target: 500+</p>
+                    </div>
+                    <div class="text-4xl">🎥</div>
+                </div>
+                <div class="mt-4">
+                    <div class="w-full bg-gray-200 rounded-full h-2">
+                        <div class="bg-purple-500 h-2 rounded-full" id="videoProgress" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stat-card bg-white rounded-xl shadow-lg p-6 border-l-4 border-yellow-500">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-600 text-sm font-medium">Podcasts</p>
+                        <p class="text-3xl font-bold text-gray-900 mt-2" id="podcastCount">Loading...</p>
+                        <p class="text-sm text-gray-500 mt-1">Target: 200+</p>
+                    </div>
+                    <div class="text-4xl">🎙️</div>
+                </div>
+                <div class="mt-4">
+                    <div class="w-full bg-gray-200 rounded-full h-2">
+                        <div class="bg-yellow-500 h-2 rounded-full" id="podcastProgress" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Project Links -->
+        <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">🔗 Project Links</h2>
+            
+            <!-- Hugging Face Spaces -->
+            <div class="mb-8">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">🤗 Hugging Face Spaces</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <a href="https://huggingface.co/garywelz" target="_blank" class="link-card bg-gray-50 rounded-lg p-4 border border-gray-200 flex items-center justify-between">
+                        <div>
+                            <p class="font-medium text-gray-900">Gary Welz Profile</p>
+                            <p class="text-sm text-gray-600">All Spaces & Projects</p>
+                        </div>
+                        <span class="text-gray-400">→</span>
+                    </a>
+                    <a href="https://huggingface.co/spaces/garywelz/copernicusai" target="_blank" class="link-card bg-gray-50 rounded-lg p-4 border border-gray-200 flex items-center justify-between">
+                        <div>
+                            <p class="font-medium text-gray-900">CopernicusAI</p>
+                            <p class="text-sm text-gray-600">Research-Driven Podcast Generation</p>
+                        </div>
+                        <span class="text-gray-400">→</span>
+                    </a>
+                    <a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" class="link-card bg-gray-50 rounded-lg p-4 border border-gray-200 flex items-center justify-between">
+                        <div>
+                            <p class="font-medium text-gray-900">Programming Framework</p>
+                            <p class="text-sm text-gray-600">Process Visualization Tool</p>
+                        </div>
+                        <span class="text-gray-400">→</span>
+                    </a>
+                    <a href="https://huggingface.co/spaces/garywelz/glmp" target="_blank" class="link-card bg-gray-50 rounded-lg p-4 border border-gray-200 flex items-center justify-between">
+                        <div>
+                            <p class="font-medium text-gray-900">GLMP</p>
+                            <p class="text-sm text-gray-600">Genome Logic Modeling Project</p>
+                        </div>
+                        <span class="text-gray-400">→</span>
+                    </a>
+                    <a href="https://huggingface.co/spaces/garywelz/metadata_database" target="_blank" class="link-card bg-gray-50 rounded-lg p-4 border border-gray-200 flex items-center justify-between">
+                        <div>
+                            <p class="font-medium text-gray-900">Metadata Database</p>
+                            <p class="text-sm text-gray-600">Research Paper Metadata</p>
+                        </div>
+                        <span class="text-gray-400">→</span>
+                    </a>
+                    <a href="https://huggingface.co/spaces/garywelz/sciencevideodb" target="_blank" class="link-card bg-gray-50 rounded-lg p-4 border border-gray-200 flex items-center justify-between">
+                        <div>
+                            <p class="font-medium text-gray-900">Science Video Database</p>
+                            <p class="text-sm text-gray-600">Video Search & Browse</p>
+                        </div>
+                        <span class="text-gray-400">→</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Web Applications -->
+            <div class="mb-8">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">🌐 Web Applications</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <a href="https://www.copernicusai.fyi/" target="_blank" class="link-card bg-gray-50 rounded-lg p-4 border border-gray-200 flex items-center justify-between">
+                        <div>
+                            <p class="font-medium text-gray-900">CopernicusAI Website</p>
+                            <p class="text-sm text-gray-600">Main Website</p>
+                        </div>
+                        <span class="text-gray-400">→</span>
+                    </a>
+                    <a href="https://copernicus-frontend-phzp4ie2sq-uc.a.run.app/knowledge-engine" target="_blank" class="link-card bg-gray-50 rounded-lg p-4 border border-gray-200 flex items-center justify-between">
+                        <div>
+                            <p class="font-medium text-gray-900">Knowledge Engine Dashboard</p>
+                            <p class="text-sm text-gray-600">Knowledge Map & Search</p>
+                        </div>
+                        <span class="text-gray-400">→</span>
+                    </a>
+                    <a href="https://www.copernicusai.fyi/podcast-database.html" target="_blank" class="link-card bg-gray-50 rounded-lg p-4 border border-gray-200 flex items-center justify-between">
+                        <div>
+                            <p class="font-medium text-gray-900">Podcast Database</p>
+                            <p class="text-sm text-gray-600">All Podcast Episodes</p>
+                        </div>
+                        <span class="text-gray-400">→</span>
+                    </a>
+                    <a href="https://www.copernicusai.fyi/admin-dashboard.html" target="_blank" class="link-card bg-gray-50 rounded-lg p-4 border border-gray-200 flex items-center justify-between">
+                        <div>
+                            <p class="font-medium text-gray-900">Admin Dashboard</p>
+                            <p class="text-sm text-gray-600">Subscriber & Podcast Management</p>
+                        </div>
+                        <span class="text-gray-400">→</span>
+                    </a>
+                    <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/videos-database-table.html" target="_blank" class="link-card bg-gray-50 rounded-lg p-4 border border-gray-200 flex items-center justify-between">
+                        <div>
+                            <p class="font-medium text-gray-900">Science Video Database</p>
+                            <p class="text-sm text-gray-600">Browse & Search 700+ Videos</p>
+                        </div>
+                        <span class="text-gray-400">→</span>
+                    </a>
+                    <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/papers-database-table.html" target="_blank" class="link-card bg-gray-50 rounded-lg p-4 border border-gray-200 flex items-center justify-between">
+                        <div>
+                            <p class="font-medium text-gray-900">Research Paper Database</p>
+                            <p class="text-sm text-gray-600">Browse & Search Papers</p>
+                        </div>
+                        <span class="text-gray-400">→</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Process Database Tables -->
+            <div class="mb-8">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">📊 Process Database Tables</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-database-table.html" target="_blank" class="link-card bg-gray-50 rounded-lg p-4 border border-gray-200 flex items-center justify-between">
+                        <div>
+                            <p class="font-medium text-gray-900">GLMP Processes</p>
+                            <p class="text-sm text-gray-600">109 processes</p>
+                        </div>
+                        <span class="text-gray-400">→</span>
+                    </a>
+                    <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/biology-processes-database/biology-database-table.html" target="_blank" class="link-card bg-gray-50 rounded-lg p-4 border border-gray-200 flex items-center justify-between">
+                        <div>
+                            <p class="font-medium text-gray-900">Biology Processes</p>
+                            <p class="text-sm text-gray-600">52 processes</p>
+                        </div>
+                        <span class="text-gray-400">→</span>
+                    </a>
+                    <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/chemistry-processes-database/chemistry-database-table.html" target="_blank" class="link-card bg-gray-50 rounded-lg p-4 border border-gray-200 flex items-center justify-between">
+                        <div>
+                            <p class="font-medium text-gray-900">Chemistry Processes</p>
+                            <p class="text-sm text-gray-600">91 processes</p>
+                        </div>
+                        <span class="text-gray-400">→</span>
+                    </a>
+                    <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/physics-processes-database/physics-database-table.html" target="_blank" class="link-card bg-gray-50 rounded-lg p-4 border border-gray-200 flex items-center justify-between">
+                        <div>
+                            <p class="font-medium text-gray-900">Physics Processes</p>
+                            <p class="text-sm text-gray-600">21 processes</p>
+                        </div>
+                        <span class="text-gray-400">→</span>
+                    </a>
+                    <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/mathematics-database-table.html" target="_blank" class="link-card bg-gray-50 rounded-lg p-4 border border-gray-200 flex items-center justify-between">
+                        <div>
+                            <p class="font-medium text-gray-900">Mathematics Processes</p>
+                            <p class="text-sm text-gray-600">20 processes</p>
+                        </div>
+                        <span class="text-gray-400">→</span>
+                    </a>
+                    <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/computer-science-processes-database/computer-science-database-table.html" target="_blank" class="link-card bg-gray-50 rounded-lg p-4 border border-gray-200 flex items-center justify-between">
+                        <div>
+                            <p class="font-medium text-gray-900">Computer Science Processes</p>
+                            <p class="text-sm text-gray-600">21 processes</p>
+                        </div>
+                        <span class="text-gray-400">→</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Google Cloud & Infrastructure -->
+            <div class="mb-8">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">☁️ Google Cloud & Infrastructure</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <a href="https://console.cloud.google.com/storage/browser/regal-scholar-453620-r7-podcast-storage?pageState=(%22StorageObjectListTable%22:(%22f%22:%22%255B%255D%22))&project=regal-scholar-453620-r7" target="_blank" class="link-card bg-gray-50 rounded-lg p-4 border border-gray-200 flex items-center justify-between">
+                        <div>
+                            <p class="font-medium text-gray-900">Google Cloud Storage</p>
+                            <p class="text-sm text-gray-600">File Storage & Backups</p>
+                        </div>
+                        <span class="text-gray-400">→</span>
+                    </a>
+                    <a href="https://console.cloud.google.com/welcome?project=regal-scholar-453620-r7" target="_blank" class="link-card bg-gray-50 rounded-lg p-4 border border-gray-200 flex items-center justify-between">
+                        <div>
+                            <p class="font-medium text-gray-900">Google Cloud Console</p>
+                            <p class="text-sm text-gray-600">Project Dashboard</p>
+                        </div>
+                        <span class="text-gray-400">→</span>
+                    </a>
+                    <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/feeds/copernicus-mvp-rss-feed.xml" target="_blank" class="link-card bg-gray-50 rounded-lg p-4 border border-gray-200 flex items-center justify-between">
+                        <div>
+                            <p class="font-medium text-gray-900">RSS Feed</p>
+                            <p class="text-sm text-gray-600">Podcast Feed XML</p>
+                        </div>
+                        <span class="text-gray-400">→</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Last Updated -->
+        <div class="bg-gray-100 rounded-lg p-4 text-center text-sm text-gray-600">
+            <p>Last updated: <span id="lastUpdated"></span></p>
+            <p class="mt-2">Auto-refreshes every 5 minutes</p>
+        </div>
+    </main>
+
+    <script>
+        // Set current date
+        const now = new Date();
+        document.getElementById('currentDate').textContent = now.toLocaleDateString('en-US', { 
+            weekday: 'long', 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric' 
+        });
+        document.getElementById('lastUpdated').textContent = now.toLocaleTimeString('en-US');
+
+        // Function to fetch counts from GCS metadata or local files
+        async function fetchCounts() {
+            try {
+                // Try to fetch from a metadata endpoint or calculate from GCS
+                // For now, we'll use static values that can be updated
+                // In production, this would fetch from an API or GCS metadata
+                
+                const response = await fetch('https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/knowledge-engine-status.json');
+                if (response.ok) {
+                    const data = await response.json();
+                    updateCounts(data);
+                } else {
+                    // Fallback to default values
+                    updateCounts({
+                        papers: 23246,
+                        processes: 293,
+                        videos: 753,
+                        podcasts: 79
+                    });
+                }
+            } catch (error) {
+                // Fallback to default values
+                updateCounts({
+                    papers: 23246,
+                    processes: 293,
+                    videos: 753,
+                    podcasts: 79
+                });
+            }
+        }
+
+        function updateCounts(data) {
+            // Update paper count
+            const paperCount = data.papers || 23246;
+            document.getElementById('paperCount').textContent = paperCount.toLocaleString();
+            document.getElementById('paperProgress').style.width = Math.min((paperCount / 200000) * 100, 100) + '%';
+
+            // Update process count
+            const processCount = data.processes || 293;
+            document.getElementById('processCount').textContent = processCount.toLocaleString();
+            document.getElementById('processProgress').style.width = Math.min((processCount / 1000) * 100, 100) + '%';
+
+            // Update video count
+            const videoCount = data.videos || 753;
+            document.getElementById('videoCount').textContent = videoCount.toLocaleString();
+            document.getElementById('videoProgress').style.width = Math.min((videoCount / 500) * 100, 100) + '%';
+
+            // Update podcast count
+            const podcastCount = data.podcasts || 79;
+            document.getElementById('podcastCount').textContent = podcastCount.toLocaleString();
+            document.getElementById('podcastProgress').style.width = Math.min((podcastCount / 200) * 100, 100) + '%';
+
+            // Update last updated time
+            document.getElementById('lastUpdated').textContent = new Date().toLocaleTimeString('en-US');
+        }
+
+        // Initial load
+        fetchCounts();
+
+        // Auto-refresh every 5 minutes
+        setInterval(fetchCounts, 5 * 60 * 1000);
+    </script>
+</body>
+</html>

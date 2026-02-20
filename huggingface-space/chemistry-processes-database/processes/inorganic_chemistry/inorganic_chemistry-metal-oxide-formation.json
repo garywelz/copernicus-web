@@ -1,0 +1,92 @@
+{
+  "id": "inorganic_chemistry-metal-oxide-formation",
+  "name": "Metal Oxide Formation",
+  "category": "chemistry",
+  "subcategory": "inorganic_chemistry",
+  "subcategory_name": "Inorganic Chemistry",
+  "description": "Metal Oxide Formation process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 5,
+    "edges": 4,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nN1[\"Metal Precursor\"]\nN2[\"Oxidant/Heat\"]\nN3[\"Nucleation Sites\"]\nN4[\"Growth/Calcination\"]\nN5[\"Metal Oxide\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ff6b6b,color:#fff\n    style N3 fill:#ffd43b,color:#000\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Metal Oxide Formation. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "Formation and characterization of metal and metal oxide nanoparticles",
+      "authors": "Glaspell, Garry",
+      "journal": "",
+      "year": "None",
+      "pubmed": null,
+      "doi": "10.33915/etd.2100",
+      "url": "https://doi.org/10.33915/etd.2100"
+    },
+    {
+      "title": "Formation and investigation of phospholipid bilayers on metal/metal oxide surfaces",
+      "authors": "Sabirovas, Tomas",
+      "journal": "",
+      "year": "None",
+      "pubmed": null,
+      "doi": "10.15388/vu.thesis.87",
+      "url": "https://doi.org/10.15388/vu.thesis.87"
+    },
+    {
+      "title": "Formation, stability and structure of transition metal oxide clusters",
+      "authors": "Γκλόντιτς, Παύλος",
+      "journal": "",
+      "year": "None",
+      "pubmed": null,
+      "doi": "10.12681/eadd/40782",
+      "url": "https://doi.org/10.12681/eadd/40782"
+    }
+  ],
+  "keywords": [
+    "metal",
+    "oxide",
+    "formation"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-15",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+}

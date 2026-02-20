@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2007.03208v1",
+  "arxiv_id": "2007.03208v1",
+  "title": "A Topological Approach to Inferring the Intrinsic Dimension of Convex Sensing Data",
+  "authors": [
+    "Min-Chun Wu",
+    "Vladimir Itskov"
+  ],
+  "author_string": "Min-Chun Wu, Vladimir Itskov",
+  "journal": "arXiv:2007.03208v1",
+  "journal_ref": null,
+  "year": "2020",
+  "doi": null,
+  "abstract": "We consider a common measurement paradigm, where an unknown subset of an affine space is measured by unknown continuous quasi-convex functions. Given the measurement data, can one determine the dimension of this space? In this paper, we develop a method for inferring the intrinsic dimension of the data from measurements by quasi-convex functions, under natural generic assumptions.   The dimension inference problem depends only on discrete data of the ordering of the measured points of space, induced by the sensor functions. We introduce a construction of a filtration of Dowker complexes, associated to measurements by quasi-convex functions. Topological features of these complexes are then used to infer the intrinsic dimension. We prove convergence theorems that guarantee obtaining the correct intrinsic dimension in the limit of large data, under natural generic assumptions. We also illustrate the usability of this method in simulations.",
+  "categories": [
+    "math.AT",
+    "math.CO",
+    "q-bio.NC",
+    "stat.ML"
+  ],
+  "primary_category": "stat.ML",
+  "comment": null,
+  "published_date": "2020-07-07T05:35:23Z",
+  "updated_date": "2020-07-07T05:35:23Z",
+  "url": "https://arxiv.org/abs/2007.03208v1",
+  "pdf_url": "https://arxiv.org/pdf/2007.03208v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:30:37.491442",
+  "category": "mathematics",
+  "subcategories": [
+    "math.AT",
+    "math.CO",
+    "q-bio.NC"
+  ]
+}

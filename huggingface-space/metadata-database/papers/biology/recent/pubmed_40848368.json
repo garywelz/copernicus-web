@@ -1,0 +1,33 @@
+{
+  "id": "pubmed_40848368",
+  "pmid": "40848368",
+  "title": "Water quality variables and spectral indices as predictors of E. coli concentrations in an irrigation pond: A case study.",
+  "authors": [
+    "Hong, Seok Min",
+    "Morgan, Billie J",
+    "Stocker, Matthew D",
+    "Smith, Jaclyn E",
+    "Kim, Moon S",
+    "Cho, Kyung Hwa",
+    "Pachepsky, Yakov A"
+  ],
+  "author_string": "Hong, Seok Min, Morgan, Billie J, Stocker, Matthew D, Smith, Jaclyn E, Kim, Moon S et al.",
+  "journal": "Water Res",
+  "journal_full": "Water research",
+  "year": "",
+  "doi": "10.1016/j.watres.2025.124344",
+  "abstract": "Escherichia coli (E. coli) is a commonly used indicator of microbial water quality affecting public health and farm enterprise sustainability. Remote sensing has become an effective tool to overcome traditional water quality monitoring limitations. In this study, we applied the random forest (RF) machine learning algorithm to estimate E. coli concentrations in irrigation pond water during the summer season using a) 17 water quality variables, b) reflectance in five spectral bands, and c) 24 spectral indices derived from these reflectance values. The linear transform-based postprocessing was found beneficial. The RF model with water quality variables as inputs demonstrated good performance with an R<sup>2</sup> of 0.736 and RMSE of 0.384 log(MPN/100 mL). While the accuracy of the RF model with five reflectance values as inputs was moderate (R<sup>2</sup> = 0.562), the RF model using spectral indices had the highest testing R<sup>2</sup> of 0.762 and the lowest RMSE of 0.380 log(MPN/100 mL). After training the RF models for each input dataset, we calculated the variable importance by applying out-of-bag (OOB) and Shapley additive explanations (SHAP). Dissolved oxygen, chlorophyll-a, pH, and fluorescent dissolved organic matter were the most important when modeling the E. coli concentrations using the water quality variables. The most important predictors in the case of using spectral indices were the visible atmospherically resistant index (VARI) and the normalized difference turbidity index (NDTI). Comparisons of variable importance between different sampling locations revealed that samples from interior and nearshore locations had different magnitudes and trends of influence of VARI and NDTI on E. coli concentrations. We hypothesized that the good predictive power of spectral indices can be explained by their capabilities to characterize the aspects of water quality important for E. coli survival. The results of this work demonstrate the feasibility and advantages of applying spectral indices derived from the UAV-based multispectral imagery for estimating E. coli concentrations in irrigation ponds.",
+  "keywords": [
+    "Escherichia coli",
+    "Machine learning",
+    "Multispectral indices",
+    "Remote sensing",
+    "Variable importance"
+  ],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/40848368",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T17:03:05.788212",
+  "category": "biology",
+  "subcategories": []
+}

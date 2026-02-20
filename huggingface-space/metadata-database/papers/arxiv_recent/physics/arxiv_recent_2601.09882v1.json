@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2601.09882v1",
+  "arxiv_id": "2601.09882v1",
+  "title": "An efficient probabilistic scheme for the exit time probability of $α$-stable Lévy process",
+  "authors": [
+    "Minglei Yang",
+    "Diego del-Castillo-Negrete",
+    "Guannan Zhang"
+  ],
+  "author_string": "Minglei Yang, Diego del-Castillo-Negrete, Guannan Zhang",
+  "journal": "arXiv:2601.09882v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "The α-stable Lévy process, commonly used to describe Lévy flight, is characterized by discontinuous jumps and is widely used to model anomalous transport phenomena. In this study, we investigate the associated exit problem and propose a method to compute the exit time probability, which quantifies the likelihood that a trajectory starting from an initial condition exits a bounded region in phase space within a given time. This estimation plays a key role in understanding anomalous diffusion behavior. The proposed method approximates the α-stable process by combining a Brownian motion with a compound Poisson process. The exit time probability is then modeled using a framework based on partial integro-differential equations (PIDEs). The Feynman-Kac formula provides a probabilistic representation of the solution, involving conditional expectations over stochastic differential equations. These expectations are computed via tailored quadrature rules and interpolation techniques. The proposed method achieves first-order convergence in time and offers significant computational advantages over standard Monte Carlo and deterministic approaches. In particular, it avoids assembling and solving large dense linear systems, resulting in improved efficiency. We demonstrate the method's accuracy and performance through two numerical examples, highlighting its applicability to physical transport problems.",
+  "categories": [
+    "math.NA",
+    "math-ph"
+  ],
+  "primary_category": "math-ph",
+  "comment": null,
+  "published_date": "2026-01-14T21:33:37Z",
+  "updated_date": "2026-01-14T21:33:37Z",
+  "url": "https://arxiv.org/abs/2601.09882v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.09882v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:49.116577",
+  "category": "physics",
+  "subcategories": [
+    "math.NA",
+    "math-ph"
+  ]
+}

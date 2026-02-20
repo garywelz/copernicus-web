@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mathematics Knowledge Map - Interactive</title>
+    <script src="https://unpkg.com/cytoscape@3.27.0/dist/cytoscape.min.js"></script>
+    <script src="https://unpkg.com/cytoscape-dagre@2.5.0/cytoscape-dagre.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+        h1 {
+            color: #2c3e50;
+            margin-top: 0;
+        }
+        .main-layout {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 20px;
+        }
+        .sidebar {
+            background: #ecf0f1;
+            border-radius: 5px;
+            padding: 15px;
+        }
+        .sidebar h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        .query-section {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: white;
+            border-radius: 5px;
+            border: 1px solid #bdc3c7;
+        }
+        .query-section h4 {
+            margin-top: 0;
+            color: #34495e;
+        }
+        .query-section input, .query-section select {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #bdc3c7;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .query-section button {
+            width: 100%;
+            padding: 10px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .query-section button:hover {
+            background: #2980b9;
+        }
+        .query-section button.secondary {
+            background: #95a5a6;
+        }
+        .query-section button.secondary:hover {
+            background: #7f8c8d;
+        }
+        .results {
+            margin-top: 10px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 4px;
+            max-height: 200px;
+            overflow-y: auto;
+            font-size: 12px;
+        }
+        .result-item {
+            padding: 5px;
+            margin: 5px 0;
+            background: white;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .result-item:hover {
+            background: #e8f4f8;
+        }
+        .graph-container {
+            background: white;
+            border-radius: 5px;
+        }
+        .controls {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #ecf0f1;
+            border-radius: 5px;
+        }
+        .controls label {
+            margin-right: 15px;
+        }
+        .controls input, .controls select, .controls button {
+            margin-right: 10px;
+            padding: 8px;
+            border: 1px solid #bdc3c7;
+            border-radius: 4px;
+        }
+        .controls button {
+            background: #3498db;
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 8px 16px;
+        }
+        .controls button:hover {
+            background: #2980b9;
+        }
+        #cy {
+            width: 100%;
+            height: 700px;
+            border: 1px solid #bdc3c7;
+            border-radius: 5px;
+        }
+        .stats {
+            margin-top: 20px;
+            padding: 15px;
+            background: #ecf0f1;
+            border-radius: 5px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+        }
+        .stat-item {
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #3498db;
+        }
+        .stat-label {
+            font-size: 12px;
+            color: #7f8c8d;
+            text-transform: uppercase;
+        }
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #7f8c8d;
+        }
+        .highlighted {
+            background-color: #f39c12 !important;
+        }
+        .path-edge {
+            line-color: #e74c3c;
+            width: 5px;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📊 Mathematics Knowledge Map - Interactive</h1>
+        
+        <div class="controls">
+            <label>
+                Max Papers:
+                <input type="number" id="maxPapers" value="500" min="10" max="5000" step="10">
+            </label>
+            <label>
+                <input type="checkbox" id="includeConcepts" checked> Include Concepts
+            </label>
+            <label>
+                <input type="checkbox" id="includeSimilarity" checked> Include Similarity
+            </label>
+            <label>
+                <input type="checkbox" id="includeCategories" checked> Include Categories
+            </label>
+            <button onclick="loadGraph()">Load Graph</button>
+            <button onclick="resetView()">Reset View</button>
+            <button onclick="clearHighlights()">Clear Highlights</button>
+        </div>
+        
+        <div class="main-layout">
+            <div class="sidebar">
+                <div class="query-section">
+                    <h4>🔍 Search Papers</h4>
+                    <input type="text" id="searchQuery" placeholder="Enter paper title...">
+                    <button onclick="searchPapers()">Search</button>
+                    <div id="searchResults" class="results" style="display: none;"></div>
+                </div>
+                
+                <div class="query-section">
+                    <h4>📚 Papers by Concept</h4>
+                    <input type="text" id="conceptQuery" placeholder="Enter concept name...">
+                    <button onclick="findPapersByConcept()">Find Papers</button>
+                    <div id="conceptResults" class="results" style="display: none;"></div>
+                </div>
+                
+                <div class="query-section">
+                    <h4>🔗 Find Path</h4>
+                    <input type="text" id="pathSource" placeholder="Source paper ID">
+                    <input type="text" id="pathTarget" placeholder="Target paper ID">
+                    <label>
+                        Max Depth:
+                        <input type="number" id="pathDepth" value="5" min="1" max="10">
+                    </label>
+                    <button onclick="findPath()">Find Path</button>
+                    <div id="pathResults" class="results" style="display: none;"></div>
+                </div>
+                
+                <div class="query-section">
+                    <h4>🔗 Related Papers</h4>
+                    <input type="text" id="relatedPaperId" placeholder="Paper ID">
+                    <label>
+                        Depth:
+                        <input type="number" id="relatedDepth" value="2" min="1" max="5">
+                    </label>
+                    <button onclick="findRelated()">Find Related</button>
+                    <div id="relatedResults" class="results" style="display: none;"></div>
+                </div>
+                
+                <div class="query-section">
+                    <h4>📊 Cluster Analysis</h4>
+                    <input type="text" id="clusterPaperId" placeholder="Seed paper ID">
+                    <button onclick="getCluster()">Get Cluster</button>
+                    <div id="clusterResults" class="results" style="display: none;"></div>
+                </div>
+            </div>
+            
+            <div class="graph-container">
+                <div id="cy"></div>
+            </div>
+        </div>
+        
+        <div class="stats" id="stats" style="display: none;">
+            <div class="stat-item">
+                <div class="stat-value" id="statNodes">0</div>
+                <div class="stat-label">Nodes</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="statEdges">0</div>
+                <div class="stat-label">Edges</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="statPapers">0</div>
+                <div class="stat-label">Papers</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="statConcepts">0</div>
+                <div class="stat-label">Concepts</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let cy;
+        let currentGraph = null;
+        
+        // Initialize Cytoscape
+        cy = cytoscape({
+            container: document.getElementById('cy'),
+            elements: [],
+            style: [
+                {
+                    selector: 'node[type="paper"]',
+                    style: {
+                        'background-color': '#3498db',
+                        'label': 'data(label)',
+                        'width': 20,
+                        'height': 20,
+                        'font-size': '10px',
+                        'text-wrap': 'wrap',
+                        'text-max-width': '100px',
+                        'text-valign': 'center',
+                        'text-halign': 'center',
+                        'color': '#2c3e50'
+                    }
+                },
+                {
+                    selector: 'node[type="concept"]',
+                    style: {
+                        'background-color': '#e74c3c',
+                        'label': 'data(label)',
+                        'width': 30,
+                        'height': '30',
+                        'shape': 'diamond',
+                        'font-size': '12px',
+                        'font-weight': 'bold',
+                        'text-valign': 'center',
+                        'text-halign': 'center',
+                        'color': '#2c3e50'
+                    }
+                },
+                {
+                    selector: 'edge',
+                    style: {
+                        'width': 2,
+                        'line-color': '#95a5a6',
+                        'target-arrow-color': '#95a5a6',
+                        'target-arrow-shape': 'triangle',
+                        'curve-style': 'bezier',
+                        'opacity': 0.6
+                    }
+                },
+                {
+                    selector: 'edge[type="cites"]',
+                    style: {
+                        'line-color': '#e74c3c',
+                        'target-arrow-color': '#e74c3c'
+                    }
+                },
+                {
+                    selector: 'edge[type="similar_to"]',
+                    style: {
+                        'line-color': '#3498db',
+                        'target-arrow-color': '#3498db'
+                    }
+                },
+                {
+                    selector: 'edge[type="same_category"]',
+                    style: {
+                        'line-color': '#95a5a6',
+                        'target-arrow-color': '#95a5a6',
+                        'opacity': 0.3
+                    }
+                },
+                {
+                    selector: '.highlighted',
+                    style: {
+                        'background-color': '#f39c12',
+                        'border-width': 3,
+                        'border-color': '#e67e22'
+                    }
+                },
+                {
+                    selector: '.path-edge',
+                    style: {
+                        'line-color': '#e74c3c',
+                        'width': 5,
+                        'opacity': 1
+                    }
+                }
+            ],
+            layout: {
+                name: 'cose',
+                idealEdgeLength: 100,
+                nodeOverlap: 20,
+                refresh: 20,
+                fit: true,
+                padding: 30,
+                randomize: false,
+                componentSpacing: 100,
+                nodeRepulsion: 4000000,
+                edgeElasticity: 100,
+                nestingFactor: 5,
+                gravity: 80,
+                numIter: 1000,
+                initialTemp: 200,
+                coolingFactor: 0.95,
+                minTemp: 1.0
+            }
+        });
+        
+        async function loadGraph() {
+            const maxPapers = document.getElementById('maxPapers').value;
+            const includeConcepts = document.getElementById('includeConcepts').checked;
+            const includeSimilarity = document.getElementById('includeSimilarity').checked;
+            const includeCategories = document.getElementById('includeCategories').checked;
+            
+            document.getElementById('cy').innerHTML = '<div class="loading">Loading graph...</div>';
+            
+            try {
+                const params = new URLSearchParams({
+                    max_papers: maxPapers,
+                    include_concepts: includeConcepts,
+                    include_similarity: includeSimilarity,
+                    include_categories: includeCategories,
+                    format: 'cytoscape'
+                });
+                
+                const response = await fetch(`/api/knowledge-map/graph?${params}`);
+                const data = await response.json();
+                
+                currentGraph = data;
+                
+                // Update graph
+                cy.elements().remove();
+                cy.add(data);
+                
+                // Update stats
+                if (data.metadata) {
+                    document.getElementById('statNodes').textContent = data.metadata.papers + data.metadata.concepts;
+                    document.getElementById('statEdges').textContent = data.metadata.relationships;
+                    document.getElementById('statPapers').textContent = data.metadata.papers;
+                    document.getElementById('statConcepts').textContent = data.metadata.concepts;
+                    document.getElementById('stats').style.display = 'grid';
+                }
+                
+                // Fit view
+                cy.fit();
+                
+            } catch (error) {
+                console.error('Error loading graph:', error);
+                alert('Error loading graph: ' + error.message);
+            }
+        }
+        
+        function resetView() {
+            cy.fit();
+            clearHighlights();
+        }
+        
+        function clearHighlights() {
+            cy.elements().removeClass('highlighted path-edge');
+        }
+        
+        function highlightNodes(nodeIds) {
+            clearHighlights();
+            nodeIds.forEach(id => {
+                const node = cy.getElementById(id);
+                if (node.length > 0) {
+                    node.addClass('highlighted');
+                }
+            });
+            cy.fit(cy.collection(nodeIds.map(id => cy.getElementById(id)).filter(n => n.length > 0)));
+        }
+        
+        async function searchPapers() {
+            const query = document.getElementById('searchQuery').value;
+            if (!query) return;
+            
+            try {
+                const response = await fetch(`/api/knowledge-map/query/search?q=${encodeURIComponent(query)}&limit=10`);
+                const data = await response.json();
+                
+                const resultsDiv = document.getElementById('searchResults');
+                resultsDiv.style.display = 'block';
+                resultsDiv.innerHTML = '';
+                
+                if (data.results.length === 0) {
+                    resultsDiv.innerHTML = '<div>No results found</div>';
+                    return;
+                }
+                
+                data.results.forEach(paper => {
+                    const paperId = paper.data?.id || paper.id;
+                    const title = paper.data?.label || paper.label || 'Untitled';
+                    const div = document.createElement('div');
+                    div.className = 'result-item';
+                    div.textContent = title.substring(0, 60);
+                    div.onclick = () => highlightNodes([paperId]);
+                    resultsDiv.appendChild(div);
+                });
+            } catch (error) {
+                console.error('Search error:', error);
+                alert('Search failed: ' + error.message);
+            }
+        }
+        
+        async function findPapersByConcept() {
+            const concept = document.getElementById('conceptQuery').value;
+            if (!concept) return;
+            
+            try {
+                const response = await fetch(`/api/knowledge-map/query/papers-by-concept?concept=${encodeURIComponent(concept)}&limit=10`);
+                const data = await response.json();
+                
+                const resultsDiv = document.getElementById('conceptResults');
+                resultsDiv.style.display = 'block';
+                resultsDiv.innerHTML = `<div><strong>Found ${data.count} papers for "${concept}"</strong></div>`;
+                
+                data.papers.forEach(paper => {
+                    const paperId = paper.data?.id || paper.id;
+                    const title = paper.data?.label || paper.label || 'Untitled';
+                    const div = document.createElement('div');
+                    div.className = 'result-item';
+                    div.textContent = title.substring(0, 60);
+                    div.onclick = () => highlightNodes([paperId]);
+                    resultsDiv.appendChild(div);
+                });
+            } catch (error) {
+                console.error('Concept search error:', error);
+                alert('Concept search failed: ' + error.message);
+            }
+        }
+        
+        async function findPath() {
+            const source = document.getElementById('pathSource').value;
+            const target = document.getElementById('pathTarget').value;
+            const depth = document.getElementById('pathDepth').value;
+            
+            if (!source || !target) {
+                alert('Please enter both source and target paper IDs');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`/api/knowledge-map/query/path?source=${encodeURIComponent(source)}&target=${encodeURIComponent(target)}&max_depth=${depth}`);
+                const data = await response.json();
+                
+                const resultsDiv = document.getElementById('pathResults');
+                resultsDiv.style.display = 'block';
+                
+                if (!data.found) {
+                    resultsDiv.innerHTML = '<div>No path found</div>';
+                    return;
+                }
+                
+                resultsDiv.innerHTML = `<div><strong>Path found (length: ${data.length})</strong></div>`;
+                
+                // Highlight path
+                clearHighlights();
+                highlightNodes([source, target]);
+                
+                // Highlight path edges
+                data.path.forEach(edge => {
+                    const edgeId = edge.data?.id || `${edge.source}-${edge.target}`;
+                    const cyEdge = cy.getElementById(edgeId);
+                    if (cyEdge.length > 0) {
+                        cyEdge.addClass('path-edge');
+                    }
+                });
+                
+            } catch (error) {
+                console.error('Path finding error:', error);
+                alert('Path finding failed: ' + error.message);
+            }
+        }
+        
+        async function findRelated() {
+            const paperId = document.getElementById('relatedPaperId').value;
+            const depth = document.getElementById('relatedDepth').value;
+            
+            if (!paperId) {
+                alert('Please enter a paper ID');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`/api/knowledge-map/query/related?paper_id=${encodeURIComponent(paperId)}&depth=${depth}&limit=10`);
+                const data = await response.json();
+                
+                const resultsDiv = document.getElementById('relatedResults');
+                resultsDiv.style.display = 'block';
+                resultsDiv.innerHTML = `<div><strong>Found ${data.count} related papers</strong></div>`;
+                
+                const allIds = [paperId];
+                data.related_papers.forEach(paper => {
+                    const pid = paper.data?.id || paper.id;
+                    allIds.push(pid);
+                    const title = paper.data?.label || paper.label || 'Untitled';
+                    const div = document.createElement('div');
+                    div.className = 'result-item';
+                    div.textContent = title.substring(0, 60);
+                    div.onclick = () => highlightNodes([pid]);
+                    resultsDiv.appendChild(div);
+                });
+                
+                highlightNodes(allIds);
+            } catch (error) {
+                console.error('Related papers error:', error);
+                alert('Failed to find related papers: ' + error.message);
+            }
+        }
+        
+        async function getCluster() {
+            const paperId = document.getElementById('clusterPaperId').value;
+            
+            if (!paperId) {
+                alert('Please enter a paper ID');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`/api/knowledge-map/query/cluster?paper_id=${encodeURIComponent(paperId)}`);
+                const data = await response.json();
+                
+                const resultsDiv = document.getElementById('clusterResults');
+                resultsDiv.style.display = 'block';
+                resultsDiv.innerHTML = `<div><strong>Cluster size: ${data.size}</strong></div>`;
+                
+                const clusterIds = [paperId];
+                data.cluster.forEach(paper => {
+                    const pid = paper.data?.id || paper.id;
+                    clusterIds.push(pid);
+                    const title = paper.data?.label || paper.label || 'Untitled';
+                    const div = document.createElement('div');
+                    div.className = 'result-item';
+                    div.textContent = title.substring(0, 60);
+                    div.onclick = () => highlightNodes([pid]);
+                    resultsDiv.appendChild(div);
+                });
+                
+                highlightNodes(clusterIds);
+            } catch (error) {
+                console.error('Cluster error:', error);
+                alert('Failed to get cluster: ' + error.message);
+            }
+        }
+        
+        // Load initial graph
+        loadGraph();
+    </script>
+</body>
+</html>
+

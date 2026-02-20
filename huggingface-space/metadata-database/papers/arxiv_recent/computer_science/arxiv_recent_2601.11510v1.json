@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2601.11510v1",
+  "arxiv_id": "2601.11510v1",
+  "title": "Applying Formal Methods Tools to an Electronic Warfare Codebase (Experience report)",
+  "authors": [
+    "Letitia W. Li",
+    "Denley Lam",
+    "Vu Le",
+    "Daniel Mitchell",
+    "Mark J. Gerken",
+    "Robert B. Ross"
+  ],
+  "author_string": "Letitia W. Li, Denley Lam, Vu Le, Daniel Mitchell, Mark J. Gerken et al.",
+  "journal": "arXiv:2601.11510v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "While using formal methods offers advantages over unit testing, their steep learning curve can be daunting to developers and can be a major impediment to widespread adoption. To support integration into an industrial software engineering workflow, a tool must provide useful information and must be usable with relatively minimal user effort. In this paper, we discuss our experiences associated with identifying and applying formal methods tools on an electronic warfare (EW) system with stringent safety requirements and present perspectives on formal methods tools from EW software engineers who are proficient in development yet lack formal methods training. In addition to a difference in mindset between formal methods and unit testing approaches, some formal methods tools use terminology or annotations that differ from their target programming language, creating another barrier to adoption. Input/output contracts, objects in memory affected by a function, and loop invariants can be difficult to grasp and use. In addition to usability, our findings include a comparison of vulnerabilities detected by different tools. Finally, we present suggestions for improving formal methods usability including better documentation of capabilities, decreased manual effort, and improved handling of library code.",
+  "categories": [
+    "cs.LO",
+    "cs.SE"
+  ],
+  "primary_category": "cs.SE",
+  "comment": null,
+  "published_date": "2026-01-16T18:46:19Z",
+  "updated_date": "2026-01-16T18:46:19Z",
+  "url": "https://arxiv.org/abs/2601.11510v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11510v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:30.207491",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.LO",
+    "cs.SE"
+  ]
+}

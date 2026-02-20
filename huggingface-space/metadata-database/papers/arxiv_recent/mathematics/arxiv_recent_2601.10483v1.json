@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2601.10483v1",
+  "arxiv_id": "2601.10483v1",
+  "title": "High-Dimensional Analysis of Gradient Flow for Extensive-Width Quadratic Neural Networks",
+  "authors": [
+    "Simon Martin",
+    "Giulio Biroli",
+    "Francis Bach"
+  ],
+  "author_string": "Simon Martin, Giulio Biroli, Francis Bach",
+  "journal": "arXiv:2601.10483v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We study the high-dimensional training dynamics of a shallow neural network with quadratic activation in a teacher-student setup. We focus on the extensive-width regime, where the teacher and student network widths scale proportionally with the input dimension, and the sample size grows quadratically. This scaling aims to describe overparameterized neural networks in which feature learning still plays a central role. In the high-dimensional limit, we derive a dynamical characterization of the gradient flow, in the spirit of dynamical mean-field theory (DMFT). Under l2-regularization, we analyze these equations at long times and characterize the performance and spectral properties of the resulting estimator. This result provides a quantitative understanding of the effect of overparameterization on learning and generalization, and reveals a double descent phenomenon in the presence of label noise, where generalization improves beyond interpolation. In the small regularization limit, we obtain an exact expression for the perfect recovery threshold as a function of the network widths, providing a precise characterization of how overparameterization influences recovery.",
+  "categories": [
+    "math.OC",
+    "cond-mat.dis-nn",
+    "stat.ML"
+  ],
+  "primary_category": "stat.ML",
+  "comment": null,
+  "published_date": "2026-01-15T15:05:41Z",
+  "updated_date": "2026-01-15T15:05:41Z",
+  "url": "https://arxiv.org/abs/2601.10483v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.10483v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:41.983241",
+  "category": "mathematics",
+  "subcategories": [
+    "math.OC",
+    "cond-mat.dis-nn",
+    "stat.ML"
+  ]
+}

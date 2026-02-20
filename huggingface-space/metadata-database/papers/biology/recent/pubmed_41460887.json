@@ -1,0 +1,25 @@
+{
+  "id": "pubmed_41460887",
+  "pmid": "41460887",
+  "title": "Scanning the Horizon of Replicability in Neuroscience: A Recipe of Developing Replicable Deep Models for Functional Neuroimages.",
+  "authors": [
+    "Ding, Jiaqi",
+    "Dan, Tingting",
+    "Wei, Ziquan",
+    "Laurienti, Paul J",
+    "Wu, Guorong"
+  ],
+  "author_string": "Ding, Jiaqi, Dan, Tingting, Wei, Ziquan, Laurienti, Paul J, Wu, Guorong",
+  "journal": "IEEE Trans Biomed Eng",
+  "journal_full": "IEEE transactions on bio-medical engineering",
+  "year": "",
+  "doi": "10.1109/TBME.2025.3581167",
+  "abstract": "Neuroimaging techniques have revolutionized our capacity to understand the neurobiological underpinnings of behavior in-vivo. Leveraging an unprecedented wealth of public neuroimaging data, there is a surging interest to answer novel neuroscience questions using machine learning techniques. Despite the remarkable successes in existing deep models, current state-of-arts have not yet recognized the potential issues of experimental replicability arising from ubiquitous cognitive state changes, which might lead to spurious conclusions and impede generalizability across neuroscience studies. In this work, we first dissect the critical (but often missed) challenge of ensuring prediction replicability in spite of task-irrelevant functional fluctuations. Then, we formulate the solution as a domain adaptation where we devise a cross-attention mechanism with discrepancy loss in a Transformer backbone. We have evaluated the cognitive task recognition accuracy and consistency on multi-run functional neuroimages (successive imaging measurements of the same cognitive task in a short period of time) from Human Connectome Project, where the significantly enhanced replicability and accuracy by our proposed deep model indicate the great potential of addressing real-world neuroscience questions through the lens of reliable deep models.",
+  "keywords": [],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/41460887",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T17:01:13.080643",
+  "category": "biology",
+  "subcategories": []
+}

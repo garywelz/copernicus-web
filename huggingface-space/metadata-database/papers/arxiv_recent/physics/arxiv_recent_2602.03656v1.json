@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2602.03656v1",
+  "arxiv_id": "2602.03656v1",
+  "title": "Resolving Quantum Criticality in the Honeycomb Hubbard Model",
+  "authors": [
+    "Fo-Hong Wang",
+    "Fanjie Sun",
+    "Chenghao He",
+    "Xiao Yan Xu"
+  ],
+  "author_string": "Fo-Hong Wang, Fanjie Sun, Chenghao He, Xiao Yan Xu",
+  "journal": "arXiv:2602.03656v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "The interplay between Dirac fermions and electronic correlations on the honeycomb lattice hosts a fundamental quantum phase transition from a semimetal to a Mott insulator, governed by the Gross-Neveu-Heisenberg (GNH) universality class. Despite its importance, consensus on the precise critical exponents remains elusive due to severe finite-size effects in numerical simulations and the lack of conformal bootstrap benchmarks. Here we try to resolve this long-standing controversy by performing projector determinant quantum Monte Carlo (QMC) simulations on lattices of unprecedented size, reaching 10,368 sites. By developing a novel projected submatrix update algorithm, we achieve a significant algorithmic speedup that enables us to access the thermodynamic limit with high precision. We observe that the fermion anomalous dimension and the correlation length exponent converge rapidly, while the boson anomalous dimension exhibits a systematic size dependence that we resolve via linear extrapolation. To validate our analysis, we perform parallel large-scale simulations of the spinless $t$-$V$ model on the honeycomb lattice, which belongs to the Gross-Neveu-Ising class. Our results for the $t$-$V$ model, including the first QMC determination of the fermion anomalous dimension, show agreement with conformal bootstrap predictions, thereby corroborating the robustness of our methodology. Our work provides state-of-the-art critical exponents for the honeycomb Hubbard model and establishes a systematic finite-size scaling workflow applicable to a broad class of strongly correlated quantum systems, paving the way for resolving other challenging fermionic quantum critical phenomena.",
+  "categories": [
+    "cond-mat.str-el",
+    "cond-mat.stat-mech",
+    "hep-lat"
+  ],
+  "primary_category": "hep-lat",
+  "comment": "12+20 pages, 6+16 figures",
+  "published_date": "2026-02-03T15:36:39Z",
+  "updated_date": "2026-02-03T15:36:39Z",
+  "url": "https://arxiv.org/abs/2602.03656v1",
+  "pdf_url": "https://arxiv.org/pdf/2602.03656v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-02-04T07:47:26.329253",
+  "category": "physics",
+  "subcategories": [
+    "cond-mat.str-el",
+    "cond-mat.stat-mech",
+    "hep-lat"
+  ]
+}

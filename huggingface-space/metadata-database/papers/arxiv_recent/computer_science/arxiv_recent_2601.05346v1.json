@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2601.05346v1",
+  "arxiv_id": "2601.05346v1",
+  "title": "The Complexity of Resilience for Digraph Queries",
+  "authors": [
+    "Manuel Bodirsky",
+    "Žaneta Semanišinová"
+  ],
+  "author_string": "Manuel Bodirsky, Žaneta Semanišinová",
+  "journal": "arXiv:2601.05346v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We prove a complexity dichotomy for the resilience problem for unions of conjunctive digraph queries (i.e., for existential positive sentences over the signature $\\{R\\}$ of directed graphs). Specifically, for every union $μ$ of conjunctive digraph queries, the following problem is in P or NP-complete: given a directed multigraph $G$ and a natural number $u$, can we remove $u$ edges from $G$ so that $G \\models \\neg μ$? In fact, we verify a more general dichotomy conjecture from (Bodirsky et al., 2024) for all resilience problems in the special case of directed graphs, and show that for such unions of queries $μ$ there exists a countably infinite ('dual') valued structure $Δ_μ$ which either primitively positively constructs 1-in-3-3-SAT, and hence the resilience problem for $μ$ is NP-complete by general principles, or has a pseudo cyclic canonical fractional polymorphism, and the resilience problem for $μ$ is in P.",
+  "categories": [
+    "math.LO",
+    "cs.CC",
+    "cs.DB"
+  ],
+  "primary_category": "cs.DB",
+  "comment": null,
+  "published_date": "2026-01-08T19:52:11Z",
+  "updated_date": "2026-01-08T19:52:11Z",
+  "url": "https://arxiv.org/abs/2601.05346v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.05346v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:26.893722",
+  "category": "computer_science",
+  "subcategories": [
+    "math.LO",
+    "cs.CC",
+    "cs.DB"
+  ]
+}

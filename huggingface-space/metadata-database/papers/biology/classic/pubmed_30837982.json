@@ -1,0 +1,30 @@
+{
+  "id": "pubmed_30837982",
+  "pmid": "30837982",
+  "title": "Comparison of Open-Source Reverse Vaccinology Programs for Bacterial Vaccine Antigen Discovery.",
+  "authors": [
+    "Dalsass, Mattia",
+    "Brozzi, Alessandro",
+    "Medini, Duccio",
+    "Rappuoli, Rino"
+  ],
+  "author_string": "Dalsass, Mattia, Brozzi, Alessandro, Medini, Duccio, Rappuoli, Rino",
+  "journal": "Front Immunol",
+  "journal_full": "Frontiers in immunology",
+  "year": "",
+  "doi": "10.3389/fimmu.2019.00113",
+  "abstract": "Reverse Vaccinology (RV) is a widely used approach to identify potential vaccine candidates (PVCs) by screening the proteome of a pathogen through computational analyses. Since its first application in Group B <i>meningococcus</i> (MenB) vaccine in early 1990's, several software programs have been developed implementing different flavors of the first RV protocol. However, there has been no comprehensive review to date on these different RV tools. We have compared six of these applications designed for bacterial vaccines (NERVE, Vaxign, VaxiJen, Jenner-predict, Bowman-Heinson, and VacSol) against a set of 11 pathogens for which a curated list of known bacterial protective antigens (BPAs) was available. We present results on: (1) the comparison of criteria and programs used for the selection of PVCs (2) computational runtime and (3) performances in terms of fraction of proteome identified as PVC, fraction and enrichment of BPA identified in the set of PVCs. This review demonstrates that none of the programs was able to recall 100% of the tested set of BPAs and that the output lists of proteins are in poor agreement suggesting in the process of prioritize vaccine candidates not to rely on a single RV tool response. Singularly the best balance in terms of fraction of a proteome predicted as good candidate and recall of BPAs has been observed by the machine-learning approach proposed by Bowman (1) and enhanced by Heinson (2). Even though more performing than the other approaches it shows the disadvantage of limited accessibility to non-experts users and strong dependence between results and <i>a-priori</i> training dataset composition. In conclusion we believe that to significantly enhance the performances of next RV methods further studies should focus on the enhancement of accuracy of the existing protein annotation tools and should leverage on the assets of machine-learning techniques applied to biological datasets expanded also through the incorporation and curation of bacterial proteins characterized by negative experimental results.",
+  "keywords": [
+    "antigen",
+    "bacterial pathogens",
+    "bacterial protective antigens (BPAs)",
+    "potential vaccine candidates (PVCs)",
+    "reverse vaccinology (RV) programs"
+  ],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/30837982",
+  "source": "pubmed",
+  "acquired_date": "2026-01-13T20:29:14.742712",
+  "category": "biology",
+  "subcategories": []
+}

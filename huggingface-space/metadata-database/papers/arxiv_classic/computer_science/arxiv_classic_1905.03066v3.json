@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_1905.03066v3",
+  "arxiv_id": "1905.03066v3",
+  "title": "Training a Fast Object Detector for LiDAR Range Images Using Labeled Data from Sensors with Higher Resolution",
+  "authors": [
+    "Manuel Herzog",
+    "Klaus Dietmayer"
+  ],
+  "author_string": "Manuel Herzog, Klaus Dietmayer",
+  "journal": "2019 IEEE Intelligent Transportation Systems Conference (ITSC), Auckland, New Zealand, 2019, pp. 2707-2713",
+  "journal_ref": "2019 IEEE Intelligent Transportation Systems Conference (ITSC), Auckland, New Zealand, 2019, pp. 2707-2713",
+  "year": "2019",
+  "doi": "10.1109/ITSC.2019.8917011",
+  "abstract": "In this paper, we describe a strategy for training neural networks for object detection in range images obtained from one type of LiDAR sensor using labeled data from a different type of LiDAR sensor. Additionally, an efficient model for object detection in range images for use in self-driving cars is presented. Currently, the highest performing algorithms for object detection from LiDAR measurements are based on neural networks. Training these networks using supervised learning requires large annotated datasets. Therefore, most research using neural networks for object detection from LiDAR point clouds is conducted on a very small number of publicly available datasets. Consequently, only a small number of sensor types are used. We use an existing annotated dataset to train a neural network that can be used with a LiDAR sensor that has a lower resolution than the one used for recording the annotated dataset. This is done by simulating data from the lower resolution LiDAR sensor based on the higher resolution dataset. Furthermore, improvements to models that use LiDAR range images for object detection are presented. The results are validated using both simulated sensor data and data from an actual lower resolution sensor mounted to a research vehicle. It is shown that the model can detect objects from 360° range images in real time.",
+  "categories": [
+    "cs.CV",
+    "cs.LG",
+    "cs.RO"
+  ],
+  "primary_category": "cs.RO",
+  "comment": null,
+  "published_date": "2019-05-08T13:43:03Z",
+  "updated_date": "2019-12-05T14:03:40Z",
+  "url": "https://arxiv.org/abs/1905.03066v3",
+  "pdf_url": "https://arxiv.org/pdf/1905.03066v3.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:19.479315",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV",
+    "cs.LG",
+    "cs.RO"
+  ]
+}

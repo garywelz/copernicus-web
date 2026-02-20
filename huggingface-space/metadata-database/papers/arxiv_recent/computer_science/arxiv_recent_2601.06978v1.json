@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2601.06978v1",
+  "arxiv_id": "2601.06978v1",
+  "title": "Benchmarking Autonomy in Scientific Experiments: A Hierarchical Taxonomy for Autonomous Large-Scale Facilities",
+  "authors": [
+    "James Le Houx"
+  ],
+  "author_string": "James Le Houx",
+  "journal": "arXiv:2601.06978v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "The transition from automated data collection to fully autonomous discovery requires a shared vocabulary to benchmark progress. While the automotive industry relies on the SAE J3016 standard, current taxonomies for autonomous science presuppose an owner-operator model that is incompatible with the operational rigidities of Large-Scale User Facilities. Here, we propose the Benchmarking Autonomy in Scientific Experiments (BASE) Scale, a 6-level taxonomy (Levels 0-5) specifically adapted for these unique constraints. Unlike owner-operator models, User Facilities require zero-shot deployment where agents must operate immediately without extensive training periods. We define the specific technical requirements for each tier, identifying the Inference Barrier (Level 3) as the critical latency threshold where decisions shift from scalar feedback to semantic digital twins. Fundamentally, this level extends the decision manifold from spatial exploration to temporal gating, enabling the agent to synchronise acquisition with the onset of transient physical events. By establishing these operational definitions, the BASE Scale provides facility directors, funding bodies, and beamline scientists with a standardised metric to assess risk, define liability, and quantify the intelligence of experimental workflows.",
+  "categories": [
+    "physics.ins-det",
+    "cond-mat.mtrl-sci",
+    "cs.AI",
+    "cs.RO"
+  ],
+  "primary_category": "cs.RO",
+  "comment": "12 pages, 2 figures, 2 tables",
+  "published_date": "2026-01-11T16:26:31Z",
+  "updated_date": "2026-01-11T16:26:31Z",
+  "url": "https://arxiv.org/abs/2601.06978v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.06978v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:35.465812",
+  "category": "computer_science",
+  "subcategories": [
+    "physics.ins-det",
+    "cond-mat.mtrl-sci",
+    "cs.AI"
+  ]
+}

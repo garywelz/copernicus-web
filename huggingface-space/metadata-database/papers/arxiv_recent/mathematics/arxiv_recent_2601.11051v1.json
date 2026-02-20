@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2601.11051v1",
+  "arxiv_id": "2601.11051v1",
+  "title": "An Adaptive Lagrangian B-Spline Framework for Point Cloud Manifold Evolution",
+  "authors": [
+    "Muhammad Ammad",
+    "Leevan Ling"
+  ],
+  "author_string": "Muhammad Ammad, Leevan Ling",
+  "journal": "arXiv:2601.11051v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We extend our recent curve-evolution framework based on localized B-spline interpolation to present an adaptive Lagrangian framework for the geometric evolution of point-cloud data representing smooth, codimension-one surfaces in $\\mathbb{R}^3$. The method constructs overlapping, localized tensor-product B-spline patches, enabling direct, meshless surface evolution from discrete samples. Within each patch, the differentiable B-spline representation yields analytic, high-order estimates of intrinsic geometric invariants, supporting curvature-driven and geometry-coupled flows. The organization of control points facilitates coherent updates of both surface samples and spline coefficients under intrinsic velocity fields. A conditioning-aware formulation of the local interpolation system, combined with a Gauss-Seidel refinement of control points, maintains interpolation quality throughout the evolution. Adaptive knot insertion and point redistribution, guided by geometric error indicators and local sampling density, preserve surface resolution and regularity during deformation. Numerical experiments demonstrate efficient and accurate reproduction of surface evolution phenomena, including mean-curvature flow, anisotropic deformations, and coupled surface-field dynamics, establishing localized B-spline methods as precise and versatile tools for dynamic manifold approximation.",
+  "categories": [
+    "math.NA",
+    "math.DG"
+  ],
+  "primary_category": "math.DG",
+  "comment": null,
+  "published_date": "2026-01-16T07:31:20Z",
+  "updated_date": "2026-01-16T07:31:20Z",
+  "url": "https://arxiv.org/abs/2601.11051v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11051v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:41.978698",
+  "category": "mathematics",
+  "subcategories": [
+    "math.NA",
+    "math.DG"
+  ]
+}

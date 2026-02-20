@@ -1,0 +1,31 @@
+{
+  "id": "pubmed_38487981",
+  "pmid": "38487981",
+  "title": "Spectral averaging with outlier rejection algorithms to increase identifications in top-down proteomics.",
+  "authors": [
+    "Carr, Austin V",
+    "Bollis, Nicholas E",
+    "Pavek, John G",
+    "Shortreed, Michael R",
+    "Smith, Lloyd M"
+  ],
+  "author_string": "Carr, Austin V, Bollis, Nicholas E, Pavek, John G, Shortreed, Michael R, Smith, Lloyd M",
+  "journal": "Proteomics",
+  "journal_full": "Proteomics",
+  "year": "",
+  "doi": "10.1002/pmic.202300234",
+  "abstract": "The identification of proteoforms by top-down proteomics requires both high quality fragmentation spectra and the neutral mass of the proteoform from which the fragments derive. Intact proteoform spectra can be highly complex and may include multiple overlapping proteoforms, as well as many isotopic peaks and charge states. The resulting lower signal-to-noise ratios for intact proteins complicates downstream analyses such as deconvolution. Averaging multiple scans is a common way to improve signal-to-noise, but mass spectrometry data contains artifacts unique to it that can degrade the quality of an averaged spectra. To overcome these limitations and increase signal-to-noise, we have implemented outlier rejection algorithms to remove outlier measurements efficiently and robustly in a set of MS1 scans prior to averaging. We have implemented averaging with rejection algorithms in the open-source, freely available, proteomics search engine MetaMorpheus. Herein, we report the application of the averaging with rejection algorithms to direct injection and online liquid chromatography mass spectrometry data. Averaging with rejection algorithms demonstrated a 45% increase in the number of proteoforms detected in Jurkat T cell lysate. We show that the increase is due to improved spectral quality, particularly in regions surrounding isotopic envelopes.",
+  "keywords": [
+    "averaging",
+    "outlier rejection",
+    "proteoform",
+    "proteomics",
+    "top‐down"
+  ],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/38487981",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T16:59:13.257138",
+  "category": "biology",
+  "subcategories": []
+}

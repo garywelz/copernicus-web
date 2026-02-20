@@ -1,0 +1,29 @@
+{
+  "id": "pubmed_41174245",
+  "pmid": "41174245",
+  "title": "GPBD: high-confidence N-glycopeptide identification via glycopeptide boundary discriminator.",
+  "authors": [
+    "Ye, Qiudi",
+    "Yuan, Xiguo",
+    "Sun, Shisheng",
+    "Li, Xue"
+  ],
+  "author_string": "Ye, Qiudi, Yuan, Xiguo, Sun, Shisheng, Li, Xue",
+  "journal": "Anal Bioanal Chem",
+  "journal_full": "Analytical and bioanalytical chemistry",
+  "year": "",
+  "doi": "10.1007/s00216-025-06171-w",
+  "abstract": "Accurate identification of both glycan and peptide components is critical for mass spectrometry-based glycoproteomics, yet high-confidence glycan spectrum matches (GSMs) are often discarded during quality control due to low-confidence peptide spectrum matches (PSMs). To address this, we developed the glycopeptide boundary discriminator (GPBD), a new methodology that integrates glycan and peptide information to precisely define the glycan-peptide boundary. The GPBD framework consists of three main steps, for each spectrum: (1) enumerating several possible peptide masses from the core Y-ion ladder (low-energy scan) and then uses b/y evidence in the high-energy scan to rank peptide candidates, (2) for each candidate, matching a series of glycan ions to build a glycan ion pattern (GIP), (3) a classifier discriminates GIPs of the top candidates to finalize peptide assignment. This method is integrated into StrucGP, our previously developed software for N-glycopeptide identification. Experiments using GPBD on mouse brain and sperm datasets demonstrated an increase in glycopeptide spectra matches (GPSMs) due to more accurate peptide identification, while simultaneously maintaining high confidence in glycan identification. Furthermore, analysis of fetuin datasets showed GPBD's potential usage in database-independent peptide identification pipeline.",
+  "keywords": [
+    "Glycoproteomics",
+    "Machine learning",
+    "Mass spectrometry",
+    "N-Glycopeptide identification"
+  ],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/41174245",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T16:58:23.240819",
+  "category": "biology",
+  "subcategories": []
+}

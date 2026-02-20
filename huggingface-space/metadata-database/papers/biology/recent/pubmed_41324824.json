@@ -1,0 +1,31 @@
+{
+  "id": "pubmed_41324824",
+  "pmid": "41324824",
+  "title": "Non-targeted metabolomics can identify disease-specific characteristics of ischemic stroke.",
+  "authors": [
+    "Zhang, Haijun",
+    "Guo, Zhiyuan",
+    "Zhao, Tian",
+    "Han, Liyuan",
+    "Chen, Yan",
+    "Yao, Yingshui"
+  ],
+  "author_string": "Zhang, Haijun, Guo, Zhiyuan, Zhao, Tian, Han, Liyuan, Chen, Yan et al.",
+  "journal": "Metabolomics",
+  "journal_full": "Metabolomics : Official journal of the Metabolomic Society",
+  "year": "",
+  "doi": "10.1007/s11306-025-02362-9",
+  "abstract": "Ischemic stroke (IS) is a leading cause of disability and mortality. Metabolomics, in conjunction with machine learning (ML), can be employed to identify potential biomarkers associated with this condition. We aimed to utilize metabolomics to evaluated the potential biomarkers and crucial metabolic pathways linked with IS. Furthermore, to construct a predictive model employing ML algorithms. We conducted non-targeted liquid chromatography-tandem mass spectrometry-based plasma analysis on 786 study participants (discovery set IS/control group = 198/198; external validation set IS patients/control group = 195/195). The aim was to identify differential metabolites and examine metabolic pathways potentially related to the etiology of IS using pathway enrichment analysis. Feature variables were screened using the Least Absolute Shrinkage and Selection Operator and random forest algorithm. We employed XGBoost to construct prediction models for these feature variables, and utilized various evaluation indicators to assess model performance. This was subsequently confirmed in an independent external validation set. In the comparison between the IS group and the control group, 200 differential metabolites were detected. Notable dysbiotic pathways encompass arachidonic acid metabolism and folate biosynthesis among others. Four significant metabolites were further investigated to differentiate between the IS group and the control group: Calcitroic acid, Diguanosine tetraphosphate, PC (P-18:0/P-18:1(9Z)), and Deoxycholic acid. The XGBoost model exhibited an AUC of 1.000 for the training set and 0.992 for the test set in the discovery columns, while the external independent validation set recorded an AUC of 0.941. Our study unveiled the metabolic landscape of IS, identified four biomarkers, and developed a prediction model that effectively differentiates between the IS group and the control group based on these four biomarkers.",
+  "keywords": [
+    "Diagnostic biomarkers",
+    "Ischemic stroke",
+    "Machine learning",
+    "Metabolomics"
+  ],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/41324824",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T16:58:16.265389",
+  "category": "biology",
+  "subcategories": []
+}

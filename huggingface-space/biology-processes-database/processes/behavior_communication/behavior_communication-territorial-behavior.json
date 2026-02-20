@@ -1,0 +1,91 @@
+{
+  "id": "behavior_communication-territorial-behavior",
+  "name": "Territorial Behavior",
+  "category": "biology",
+  "subcategory": "behavior_communication",
+  "subcategory_name": "Behavior & Communication",
+  "description": "Territorial Behavior process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 6,
+    "edges": 5,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nN1[\"Context / Trigger\"]\nN2[\"Sensory Inputs\"]\nN3[\"Decision/Planning\"]\nN4[\"Motor Output/Action\"]\nN5[\"Social/Environmental Feedback\"]\nN6[\"Behavioral Outcome\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\nN5 --> N6\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ffd43b,color:#000\n    style N3 fill:#74c0fc,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#74c0fc,color:#fff\n    style N6 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Territorial Behavior. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "Fig. 1. The territorial behavior of the 10 major territorial strategic consulting (TSC) market suppliers.",
+      "authors": "",
+      "journal": "",
+      "year": "None",
+      "pubmed": null,
+      "doi": "10.31857/s0869-607115151-17-16299",
+      "url": "https://doi.org/10.31857/s0869-607115151-17-16299"
+    },
+    {
+      "title": "Red Imported Fire Ant Territorial Behavior",
+      "authors": "",
+      "journal": "SpringerReference",
+      "year": "None",
+      "pubmed": null,
+      "doi": "10.1007/springerreference_88471",
+      "url": "https://doi.org/10.1007/springerreference_88471"
+    },
+    {
+      "title": "Territorial threats and political behavior",
+      "authors": "",
+      "journal": "The Territorial Peace",
+      "year": "2012",
+      "pubmed": null,
+      "doi": "10.1017/cbo9781139060233.004",
+      "url": "https://doi.org/10.1017/cbo9781139060233.004"
+    }
+  ],
+  "keywords": [
+    "territorial",
+    "behavior"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-15",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+}

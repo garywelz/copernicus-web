@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2601.06674v1",
+  "arxiv_id": "2601.06674v1",
+  "title": "Reduction and classification of higher-order Markov chains for categorical data",
+  "authors": [
+    "Christophe Gallesco",
+    "Caio Teodore Genovese Huss Oliveira",
+    "Daniel Yasumasa Takahashi"
+  ],
+  "author_string": "Christophe Gallesco, Caio Teodore Genovese Huss Oliveira, Daniel Yasumasa Takahashi",
+  "journal": "arXiv:2601.06674v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Categorical time series models are powerful tools for understanding natural phenomena. Most available models can be formulated as special cases of $m$-th order Markov chains, for $m\\geq 1$. Despite their broad applicability, theoretical research has largely focused on first-order Markov chains, mainly because many properties of higher-order chains can be analyzed by reducing them to first-order chains on an enlarged alphabet. However, the resulting first-order representation is sparse and possesses a highly structured transition kernel, a feature that has not been fully exploited.   In this work, we study finite-alphabet Markov chains with arbitrary memory length and introduce a new reduction framework for their structural classification. We define the skeleton of a transition kernel, an object that captures the intrinsic pattern of transition probability constraints in a higher-order Markov chain.   We show that the class structure of a binary matrix associated with the skeleton completely determines the recurrent classes and their periods in the original chain. We also provide an explicit algorithm for efficiently extracting the skeleton, which in many cases yields substantial computational savings. Applications include simple criteria for irreducibility and essential irreducibility of higher-order Markov chains and a concrete illustration based on a 10th-order Markov chain.",
+  "categories": [
+    "math.ST",
+    "math.PR"
+  ],
+  "primary_category": "math.PR",
+  "comment": "7 pages, 5 figures",
+  "published_date": "2026-01-10T20:24:35Z",
+  "updated_date": "2026-01-10T20:24:35Z",
+  "url": "https://arxiv.org/abs/2601.06674v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.06674v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:18.736595",
+  "category": "mathematics",
+  "subcategories": [
+    "math.ST",
+    "math.PR"
+  ]
+}

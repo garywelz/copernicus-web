@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_1809.02741v1",
+  "arxiv_id": "1809.02741v1",
+  "title": "A high dimensional Central Limit Theorem for martingales, with applications to context tree models",
+  "authors": [
+    "Alexandre Belloni",
+    "Roberto I. Oliveira"
+  ],
+  "author_string": "Alexandre Belloni, Roberto I. Oliveira",
+  "journal": "arXiv:1809.02741v1",
+  "journal_ref": null,
+  "year": "2018",
+  "doi": null,
+  "abstract": "We establish a central limit theorem for (a sequence of) multivariate martingales which dimension potentially grows with the length $n$ of the martingale. A consequence of the results are Gaussian couplings and a multiplier bootstrap for the maximum of a multivariate martingale whose dimensionality $d$ can be as large as $e^{n^c}$ for some $c>0$. We also develop new anti-concentration bounds for the maximum component of a high-dimensional Gaussian vector, which we believe is of independent interest.   The results are applicable to a variety of settings. We fully develop its use to the estimation of context tree models (or variable length Markov chains) for discrete stationary time series. Specifically, we provide a bootstrap-based rule to tune several regularization parameters in a theoretically valid Lepski-type method. Such bootstrap-based approach accounts for the correlation structure and leads to potentially smaller penalty choices, which in turn improve the estimation of the transition probabilities.",
+  "categories": [
+    "math.ST",
+    "math.PR"
+  ],
+  "primary_category": "math.PR",
+  "comment": null,
+  "published_date": "2018-09-08T02:15:18Z",
+  "updated_date": "2018-09-08T02:15:18Z",
+  "url": "https://arxiv.org/abs/1809.02741v1",
+  "pdf_url": "https://arxiv.org/pdf/1809.02741v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:30:52.385244",
+  "category": "mathematics",
+  "subcategories": [
+    "math.ST",
+    "math.PR"
+  ]
+}

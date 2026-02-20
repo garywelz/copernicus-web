@@ -1,0 +1,65 @@
+{
+  "id": "systems-network-performance",
+  "name": "Network Performance",
+  "category": "computer_science",
+  "subcategory": "systems",
+  "subcategory_name": "Systems & Architecture",
+  "description": "Network Performance Process. This computer networks process visualization demonstrates network performance optimization and monitoring. The flowchart shows monitoring inputs and bandwidth analysis, network performance methods and latency measurement, network performance operations and throughput optimization, intermediate results, and final network performance outputs.",
+  "complexity": {
+    "nodes": 26,
+    "edges": 24,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nA3[Performance Monitoring] --> B3[Network Performance Method]\nC3[Bandwidth Analysis] --> D3[Latency Measurement]\nE3[Throughput Optimization] --> F3[Network Performance Analysis]\nB3 --> G3[Quality of Service]\nD3 --> H3[Traffic Engineering]\nF3 --> I3[Load Balancing]\nG3 --> J3[Priority Queuing]\nH3 --> K3[Resource Allocation]\nI3 --> L3[Traffic Distribution]\nJ3 --> M3[Performance Metrics]\nK3 --> L3\nL3 --> N3[Bottleneck Detection]\nM3 --> O3[Capacity Planning]\nN3 --> P3[Performance Tuning]\nO3 --> Q3[Network Performance Process]\nP3 --> R3[Network Performance Validation]\nQ3 --> S3[Network Performance Verification]\nR3 --> T3[Network Performance Result]\nS3 --> U3[Network Performance Analysis]\nT3 --> V3[Network Performance Parameters]\nU3 --> W3[Network Performance Output]\nV3 --> X3[Network Performance Analysis]\nW3 --> Y3[Network Performance Final Result]\nX3 --> Z3[Network Performance Complete]\n\n    style A3 fill:#ff6b6b,color:#fff\n    style C3 fill:#ff6b6b,color:#fff\n    style E3 fill:#ff6b6b,color:#fff\n    style B3 fill:#ffd43b,color:#000\n    style D3 fill:#ffd43b,color:#000\n    style F3 fill:#ffd43b,color:#000\n    style G3 fill:#ffd43b,color:#000\n    style H3 fill:#ffd43b,color:#000\n    style I3 fill:#ffd43b,color:#000\n    style J3 fill:#ffd43b,color:#000\n    style K3 fill:#ffd43b,color:#000\n    style L3 fill:#ffd43b,color:#000\n    style M3 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style O3 fill:#51cf66,color:#fff\n    style P3 fill:#51cf66,color:#fff\n    style Q3 fill:#51cf66,color:#fff\n    style R3 fill:#51cf66,color:#fff\n    style S3 fill:#51cf66,color:#fff\n    style T3 fill:#51cf66,color:#fff\n    style U3 fill:#51cf66,color:#fff\n    style V3 fill:#51cf66,color:#fff\n    style W3 fill:#51cf66,color:#fff\n    style X3 fill:#51cf66,color:#fff\n    style Y3 fill:#51cf66,color:#fff\n    style Z3 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "notes": "Chemistry process visualization: Network Performance. Created using the Programming Framework methodology for process analysis and visualization."
+    }
+  ],
+  "keywords": [
+    "performance",
+    "architecture",
+    "network",
+    "systems"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-08",
+  "verified": false,
+  "notes": "Converted from computer science batch HTML. Process number: 3."
+}

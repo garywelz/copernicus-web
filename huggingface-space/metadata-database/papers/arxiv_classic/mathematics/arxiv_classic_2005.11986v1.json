@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2005.11986v1",
+  "arxiv_id": "2005.11986v1",
+  "title": "How linear reinforcement affects Donsker's Theorem for empirical processes",
+  "authors": [
+    "Jean Bertoin"
+  ],
+  "author_string": "Jean Bertoin",
+  "journal": "arXiv:2005.11986v1",
+  "journal_ref": null,
+  "year": "2020",
+  "doi": null,
+  "abstract": "A reinforcement algorithm introduced by H.A. Simon \\cite{Simon} produces a sequence of uniform random variables with memory as follows. At each step, with a fixed probability $p\\in(0,1)$, $\\hat U_{n+1}$ is sampled uniformly from $\\hat U_1, \\ldots, \\hat U_n$, and with complementary probability $1-p$, $\\hat U_{n+1}$ is a new independent uniform variable. The Glivenko-Cantelli theorem remains valid for the reinforced empirical measure, but not the Donsker theorem. Specifically, we show that the sequence of empirical processes converges in law to a Brownian bridge only up to a constant factor when $p<1/2$, and that a further rescaling is needed when $p>1/2$ and the limit is then a bridge with exchangeable increments and discontinuous paths. This is related to earlier limit theorems for correlated Bernoulli processes, the so-called elephant random walk, and more generally step reinforced random walks.",
+  "categories": [
+    "math.PR",
+    "math.ST"
+  ],
+  "primary_category": "math.ST",
+  "comment": null,
+  "published_date": "2020-05-25T09:07:09Z",
+  "updated_date": "2020-05-25T09:07:09Z",
+  "url": "https://arxiv.org/abs/2005.11986v1",
+  "pdf_url": "https://arxiv.org/pdf/2005.11986v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:30:41.236341",
+  "category": "mathematics",
+  "subcategories": [
+    "math.PR",
+    "math.ST"
+  ]
+}

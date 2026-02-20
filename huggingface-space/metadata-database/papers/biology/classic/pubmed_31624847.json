@@ -1,0 +1,36 @@
+{
+  "id": "pubmed_31624847",
+  "pmid": "31624847",
+  "title": "Beware the Jaccard: the choice of similarity measure is important and non-trivial in genomic colocalisation analysis.",
+  "authors": [
+    "Salvatore, Stefania",
+    "Dagestad Rand, Knut",
+    "Grytten, Ivar",
+    "Ferkingstad, Egil",
+    "Domanska, Diana",
+    "Holden, Lars",
+    "Gheorghe, Marius",
+    "Mathelier, Anthony",
+    "Glad, Ingrid",
+    "Kjetil Sandve, Geir"
+  ],
+  "author_string": "Salvatore, Stefania, Dagestad Rand, Knut, Grytten, Ivar, Ferkingstad, Egil, Domanska, Diana et al.",
+  "journal": "Brief Bioinform",
+  "journal_full": "Briefings in bioinformatics",
+  "year": "",
+  "doi": "10.1093/bib/bbz083",
+  "abstract": "The generation and systematic collection of genome-wide data is ever-increasing. This vast amount of data has enabled researchers to study relations between a variety of genomic and epigenomic features, including genetic variation, gene regulation and phenotypic traits. Such relations are typically investigated by comparatively assessing genomic co-occurrence. Technically, this corresponds to assessing the similarity of pairs of genome-wide binary vectors. A variety of similarity measures have been proposed for this problem in other fields like ecology. However, while several of these measures have been employed for assessing genomic co-occurrence, their appropriateness for the genomic setting has never been investigated. We show that the choice of similarity measure may strongly influence results and propose two alternative modelling assumptions that can be used to guide this choice. On both simulated and real genomic data, the Jaccard index is strongly altered by dataset size and should be used with caution. The Forbes coefficient (fold change) and tetrachoric correlation are less influenced by dataset size, but one should be aware of increased variance for small datasets. All results on simulated and real data can be inspected and reproduced at https://hyperbrowser.uio.no/sim-measure.",
+  "keywords": [
+    "fold enrichment",
+    "genomic track similarity",
+    "similarity indices",
+    "similarity measures",
+    "statistical genomics"
+  ],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/31624847",
+  "source": "pubmed",
+  "acquired_date": "2026-01-13T20:29:36.329202",
+  "category": "biology",
+  "subcategories": []
+}

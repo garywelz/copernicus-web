@@ -1,0 +1,27 @@
+{
+  "id": "pubmed_40973591",
+  "pmid": "40973591",
+  "title": "RNA velocity and beyond: Current advances in modeling single-cell transcriptional dynamics.",
+  "authors": [
+    "Shimamura, Teppei"
+  ],
+  "author_string": "Shimamura, Teppei",
+  "journal": "Allergol Int",
+  "journal_full": "Allergology international : official journal of the Japanese Society of Allergology",
+  "year": "",
+  "doi": "10.1016/j.alit.2025.08.005",
+  "abstract": "Single-cell RNA sequencing (scRNA-seq) has revolutionized biology through high-throughput quantification of gene expression at individual cell resolution. However, standard scRNA-seq provides only static cellular snapshots, obscuring dynamic processes that unfold temporally, such as differentiation, reprogramming, and disease progression. RNA Velocity, introduced in 2018, offers a groundbreaking solution. By leveraging unspliced pre-mRNA and spliced mRNA information, RNA Velocity models infer instantaneous gene expression change rates and effectively predict future transcriptional states over hour-long timescales. This review charts the evolution of this powerful concept, beginning with foundational principles and mathematical models of transcriptional dynamics. We explore Velocyto's pioneering implementation, discuss successes and limitations, and then examine second-generation advanced computational tools that generalize the framework, including scVelo, dynamo, and CellRank. A dedicated section highlights growing applications in allergy and immunology research, where these methods reveal novel disease mechanisms in asthma, atopic dermatitis, and chronic inflammation by analyzing immune cell differentiation and state transitions. We explored modern frontiers, including RNA Velocity integration with spatial and multimodal data, and the latest deep learning-based methods. Finally, we addressed the current challenges and remaining limitations of RNA Velocity analysis, offering insights into best practices and future directions. Throughout, we emphasize applications to allergic and immune-mediated diseases-including asthma, atopic dermatitis, and prurigo nodularis-to guide researchers and clinicians in allergy and immunology. RNA Velocity is becoming indispensable for navigating the complex, dynamic cellular world and transforming our understanding of temporal biological processes from static observations to predictive, dynamic insights that illuminate cellular fate decisions and disease mechanisms.",
+  "keywords": [
+    "Deep learning",
+    "Dynamic model",
+    "RNA velocity",
+    "Single-cell RNA sequencing",
+    "Transcriptional dynamics"
+  ],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/40973591",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T17:00:41.182428",
+  "category": "biology",
+  "subcategories": []
+}

@@ -1,0 +1,92 @@
+{
+  "id": "environmental_chemistry-atmospheric-aerosol-formation",
+  "name": "Atmospheric Aerosol Formation",
+  "category": "chemistry",
+  "subcategory": "environmental_chemistry",
+  "subcategory_name": "Environmental Chemistry",
+  "description": "Atmospheric Aerosol Formation process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 5,
+    "edges": 4,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nN1[\"Gas Precursors\"]\nN2[\"Oxidants (OH/O3/NO3)\"]\nN3[\"Nucleation\"]\nN4[\"Condensation/Coagulation\"]\nN5[\"Aerosol Particles\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ff6b6b,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Atmospheric Aerosol Formation. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "Aerosol formation processes",
+      "authors": "",
+      "journal": "Springer Praxis Books",
+      "year": "None",
+      "pubmed": null,
+      "doi": "10.1007/3-540-37698-4_4",
+      "url": "https://doi.org/10.1007/3-540-37698-4_4"
+    },
+    {
+      "title": "Atmospheric acidity and aerosol nitrate formation",
+      "authors": "Ζακούρα, Μαρία",
+      "journal": "",
+      "year": "None",
+      "pubmed": null,
+      "doi": "10.12681/eadd/46516",
+      "url": "https://doi.org/10.12681/eadd/46516"
+    },
+    {
+      "title": "Atmospheric acidity and secondary inorganic aerosol formation",
+      "authors": "Κακαβάς, Στυλιανός",
+      "journal": "",
+      "year": "None",
+      "pubmed": null,
+      "doi": "10.12681/eadd/52213",
+      "url": "https://doi.org/10.12681/eadd/52213"
+    }
+  ],
+  "keywords": [
+    "atmospheric",
+    "aerosol",
+    "formation"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-15",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+}

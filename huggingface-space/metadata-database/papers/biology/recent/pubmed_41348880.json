@@ -1,0 +1,32 @@
+{
+  "id": "pubmed_41348880",
+  "pmid": "41348880",
+  "title": "Atom-level machine learning of protein-glycan interactions and cross-chiral recognition in glycobiology.",
+  "authors": [
+    "Carpenter, Eric J",
+    "Peng, Chuanhao",
+    "Haregu, Simatsidk",
+    "Twells, Nicholas",
+    "Woudstra, Logan",
+    "Sood, Amika",
+    "Cartmell, Jonathan",
+    "Woods, Robert J",
+    "Mahal, Lara K",
+    "Wang, Sheng-Kai",
+    "Greiner, Russell",
+    "Derda, Ratmir"
+  ],
+  "author_string": "Carpenter, Eric J, Peng, Chuanhao, Haregu, Simatsidk, Twells, Nicholas, Woudstra, Logan et al.",
+  "journal": "Sci Adv",
+  "journal_full": "Science advances",
+  "year": "",
+  "doi": "10.1126/sciadv.adx6373",
+  "abstract": "We describe a machine-learned (ML) model, MCNet, which predicts interactions between proteins and glycans. MCNet predicted quantitative interactions between glycan-binding proteins (GBPs) and enantiomers of common glycans, which were not part of the original training datasets. l-glycans are rare in nature but are important in consideration of safety of putative mirror-image life-forms. Current ML models that predict properties of glycans from their monosaccharide composition cannot extrapolate properties of mirror glycans. Instead, MCNet uses an atom-level description of the glycan to output an estimate of binding to GBPs. MCNet is trained using data from glycan microarrays and affinity measurements unified using a \"fraction bound\" parameter. Trained MCNet predicted unexpected binding of l-glucose to some fucose-binding GBPs. Both glycan and lectin arrays conformed these predictions. ML models akin to MCNet reach beyond traditional glycobiology and make it possible to anticipate interaction between biomolecules in mirror-life forms and present-day life-forms.",
+  "keywords": [],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/41348880",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T16:58:23.243084",
+  "category": "biology",
+  "subcategories": []
+}

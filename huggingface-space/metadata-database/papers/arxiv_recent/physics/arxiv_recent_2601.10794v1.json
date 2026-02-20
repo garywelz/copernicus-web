@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2601.10794v1",
+  "arxiv_id": "2601.10794v1",
+  "title": "Metal Pipe: A Broadly-Applicable Stellar Abundance Pipeline Using Isochronal Parameters",
+  "authors": [
+    "Jared R. Kolecki",
+    "Lauren M. Weiss"
+  ],
+  "author_string": "Jared R. Kolecki, Lauren M. Weiss",
+  "journal": "arXiv:2601.10794v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Characterizing exoplanet host stars at a population level requires a method of homogeneously characterizing stellar properties across all spectral types. To this end, we have developed Metal Pipe, a new code for determining stellar parameters and abundances, which is designed for use across a wider range of spectral types than many commonly used codes. It combines the widely-used package MOOG with photometric stellar parameters, a user-supplied high-resolution spectrum, and a newly curated list of spectral lines. Metal Pipe outputs values for $T_{\\rm{eff}}$, $\\log{(g)}$, $M_*$, $R_*$, and $L_*$ from isochrones, and abundances of C, O, Na, Mg, Al, Si, S, Ca, Ti, and Fe from MOOG. In this paper, we describe the Metal Pipe algorithm and tests of Metal Pipe against previous abundance measurements on archival HIRES spectra of 503 F, G, and K type stars. We find RMS scatters of ~100 K in $T_{\\rm{eff}}$, ~0.10 dex in $\\log{(g)}$, and ~0.10 dex for all measured abundances. These values are comparable to estimated measurement uncertainties, verifying Metal Pipe for continued use in building a detailed abundance catalog. Future papers in this series will test Metal Pipe's applicability to late K and M dwarf stars, and provide other improvements.",
+  "categories": [
+    "astro-ph.SR",
+    "astro-ph.EP"
+  ],
+  "primary_category": "astro-ph.EP",
+  "comment": "28 pages, 19 figures, 6 tables, submitted to the AAS journals (full Table 2 csv included as ancillary data)",
+  "published_date": "2026-01-15T19:00:20Z",
+  "updated_date": "2026-01-15T19:00:20Z",
+  "url": "https://arxiv.org/abs/2601.10794v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.10794v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:18:40.156444",
+  "category": "physics",
+  "subcategories": [
+    "astro-ph.SR",
+    "astro-ph.EP"
+  ]
+}

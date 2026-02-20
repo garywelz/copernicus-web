@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2601.09008v1",
+  "arxiv_id": "2601.09008v1",
+  "title": "Changes in Visual Attention Patterns for Detection Tasks due to Dependencies on Signal and Background Spatial Frequencies",
+  "authors": [
+    "Amar Kavuri",
+    "Howard C. Gifford",
+    "Mini Das"
+  ],
+  "author_string": "Amar Kavuri, Howard C. Gifford, Mini Das",
+  "journal": "arXiv:2601.09008v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We aim to investigate the impact of image and signal properties on visual attention mechanisms during a signal detection task in digital images. The application of insight yielded from this work spans many areas of digital imaging where signal or pattern recognition is involved in complex heterogenous background. We used simulated tomographic breast images as the platform to investigate this question. While radiologists are highly effective at analyzing medical images to detect and diagnose diseases, misdiagnosis still occurs. We selected digital breast tomosynthesis (DBT) images as a sample medical images with different breast densities and structures using digital breast phantoms (Bakic and XCAT). Two types of lesions (with distinct spatial frequency properties) were randomly inserted in the phantoms during projections to generate abnormal cases. Six human observers participated in observer study designed for a locating and detection of an 3-mm sphere lesion and 6-mm spicule lesion in reconstructed in-plane DBT slices. We collected eye-gaze data to estimate gaze metrics and to examine differences in visual attention mechanisms. We found that detection performance in complex visual environments is strongly constrained by later perceptual stages, with decision failures accounting for the largest proportion of errors. Signal detectability is jointly influenced by both target morphology and background complexity, revealing a critical interaction between local signal features and global anatomical noise. Increased fixation duration on spiculated lesions suggests that visual attention is differentially engaged depending on background and signal spatial frequency dependencies.",
+  "categories": [
+    "cs.CV",
+    "eess.IV",
+    "eess.SP",
+    "physics.med-ph"
+  ],
+  "primary_category": "physics.med-ph",
+  "comment": "21 pages, 7 images",
+  "published_date": "2026-01-13T22:12:27Z",
+  "updated_date": "2026-01-13T22:12:27Z",
+  "url": "https://arxiv.org/abs/2601.09008v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.09008v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:06.567077",
+  "category": "physics",
+  "subcategories": [
+    "cs.CV",
+    "eess.IV",
+    "eess.SP"
+  ]
+}

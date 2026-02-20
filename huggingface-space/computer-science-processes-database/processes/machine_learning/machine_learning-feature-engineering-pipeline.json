@@ -1,0 +1,92 @@
+{
+  "id": "machine_learning-feature-engineering-pipeline",
+  "name": "Feature Engineering Pipeline",
+  "category": "computer_science",
+  "subcategory": "machine_learning",
+  "subcategory_name": "Machine Learning",
+  "description": "Feature Engineering Pipeline process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 12,
+    "edges": 12,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 1,
+      "andGates": 1,
+      "total": 2
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nN1[\"Raw Data\"]\nN2[\"Target Definition\"]\nN3[\"Schema + Types\"]\nN4[\"Choose Approach\"]\nN5[\"Train/Val Split\"]\nN6[\"Clean/Impute\"]\nN7[\"Encode/Scale\"]\nN8[\"Generate Features\"]\nN9[\"Integrate Results\"]\nN10[\"Select Features\"]\nN11[\"Feature Dataset Artifact\"]\nN12[\"Model-Ready Features\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\nN4 --> N7\nN5 --> N6\nN7 --> N8\nN6 --> N9\nN8 --> N9\nN9 --> N10\nN10 --> N11\nN11 --> N12\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ff6b6b,color:#fff\n    style N3 fill:#ffd43b,color:#000\n    style N4 fill:#ffd43b,color:#000\n    style N5 fill:#ffd43b,color:#000\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#74c0fc,color:#fff\n    style N10 fill:#51cf66,color:#fff\n    style N11 fill:#74c0fc,color:#fff\n    style N12 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Feature Engineering Pipeline. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "Algorithm 2: Deep feature engineering pipeline.",
+      "authors": "",
+      "journal": "",
+      "year": "None",
+      "pubmed": null,
+      "doi": "10.7717/peerj-cs.3329/table-14",
+      "url": "https://doi.org/10.7717/peerj-cs.3329/table-14"
+    },
+    {
+      "title": "An Interpretable AutoML Pipeline: Automated Feature Engineering with FeatureTools and SurX",
+      "authors": "PERVEZ, MOHAMMMAD FARAZ",
+      "journal": "",
+      "year": "2025",
+      "pubmed": null,
+      "doi": "10.21203/rs.3.rs-8205273/v1",
+      "url": "https://doi.org/10.21203/rs.3.rs-8205273/v1"
+    },
+    {
+      "title": "Feature Selection and Feature Engineering",
+      "authors": "El-Amir, Hisham; Hamdy, Mahmoud",
+      "journal": "Deep Learning Pipeline",
+      "year": "2019",
+      "pubmed": null,
+      "doi": "10.1007/978-1-4842-5349-6_8",
+      "url": "https://doi.org/10.1007/978-1-4842-5349-6_8"
+    }
+  ],
+  "keywords": [
+    "feature",
+    "engineering",
+    "pipeline"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-15",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+}

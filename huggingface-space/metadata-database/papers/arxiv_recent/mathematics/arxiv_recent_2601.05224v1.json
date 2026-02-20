@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2601.05224v1",
+  "arxiv_id": "2601.05224v1",
+  "title": "Variable Projection Methods for Solving Regularized Separable Inverse Problems with Applications to Semi-Blind Image Deblurring",
+  "authors": [
+    "Delfina B. Comerso Salzer",
+    "Malena I. Español",
+    "Gabriela Jeronimo"
+  ],
+  "author_string": "Delfina B. Comerso Salzer, Malena I. Español, Gabriela Jeronimo",
+  "journal": "arXiv:2601.05224v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Separable nonlinear least squares problems appear in many inverse problems, including semi-blind image deblurring. The variable projection (VarPro) method provides an efficient approach for solving such problems by eliminating linear variables and reducing the problem to a smaller, nonlinear one. In this work, we extend VarPro to solve minimization problems containing a differentiable regularization term on the nonlinear parameters, along with a general-form Tikhonov regularization term on the linear variables. Furthermore, we develop a quasi-Newton method for solving the resulting reduced problem, and provide a local convergence analysis under standard smoothness assumptions, establishing conditions for superlinear or quadratic convergence. For large-scale settings, we introduce an inexact LSQR-based variant and prove its local convergence despite inner-solve and Hessian approximations. Numerical experiments on semi-blind deblurring show that parameter regularization prevents degenerate no-blur solutions and that the proposed methods achieve accurate reconstructions, with the inexact variant offering a favorable accuracy-cost tradeoff consistent with the theory.",
+  "categories": [
+    "math.NA"
+  ],
+  "primary_category": "math.NA",
+  "comment": "26 pages",
+  "published_date": "2026-01-08T18:52:27Z",
+  "updated_date": "2026-01-08T18:52:27Z",
+  "url": "https://arxiv.org/abs/2601.05224v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.05224v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:26.894772",
+  "category": "mathematics",
+  "subcategories": [
+    "math.NA"
+  ]
+}

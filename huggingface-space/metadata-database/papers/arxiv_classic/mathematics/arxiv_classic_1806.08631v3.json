@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_1806.08631v3",
+  "arxiv_id": "1806.08631v3",
+  "title": "Computing isomorphisms between lattices",
+  "authors": [
+    "Tommy Hofmann",
+    "Henri Johnston"
+  ],
+  "author_string": "Tommy Hofmann, Henri Johnston",
+  "journal": "arXiv:1806.08631v3",
+  "journal_ref": null,
+  "year": "2018",
+  "doi": null,
+  "abstract": "Let K be a number field, let A be a finite dimensional semisimple K-algebra and let Lambda be an O_K-order in A. It was shown in previous work that, under certain hypotheses on A, there exists an algorithm that for a given (left) Lambda-lattice X either computes a free basis of X over Lambda or shows that X is not free over Lambda. In the present article, we generalise this by showing that, under weaker hypotheses on A, there exists an algorithm that for two given Lambda-lattices X and Y either computes an isomorphism X -> Y or determines that X and Y are not isomorphic. The algorithm is implemented in Magma for A=Q[G], Lambda=Z[G] and Lambda-lattices X and Y contained in Q[G], where G is a finite group satisfying certain hypotheses. This is used to investigate the Galois module structure of rings of integers and ambiguous ideals of tamely ramified Galois extensions of Q with Galois group isomorphic to Q_8 x C_2, the direct product of the quaternion group of order 8 and the cyclic group of order 2.",
+  "categories": [
+    "math.NT",
+    "math.RA"
+  ],
+  "primary_category": "math.RA",
+  "comment": "30 pages; v3 revised and accepted version to appear in Mathematics of Computation; v2 has many minor corrections with additional explanation in section 10",
+  "published_date": "2018-06-22T12:38:46Z",
+  "updated_date": "2020-03-02T12:03:34Z",
+  "url": "https://arxiv.org/abs/1806.08631v3",
+  "pdf_url": "https://arxiv.org/pdf/1806.08631v3.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:04.099970",
+  "category": "mathematics",
+  "subcategories": [
+    "math.NT",
+    "math.RA"
+  ]
+}

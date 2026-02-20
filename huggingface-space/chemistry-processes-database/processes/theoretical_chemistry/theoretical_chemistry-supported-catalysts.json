@@ -1,0 +1,91 @@
+{
+  "id": "theoretical_chemistry-supported-catalysts",
+  "name": "Supported Catalysts",
+  "category": "chemistry",
+  "subcategory": "theoretical_chemistry",
+  "subcategory_name": "Theoretical Chemistry",
+  "description": "Supported Catalysts process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 26,
+    "edges": 22,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 1,
+      "total": 1
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nA5[Metal Precursors] --> B5[Supported Catalyst Method]\nC5[Support Material] --> D5[Surface Area Analysis]\nE5[Reaction Conditions] --> F5[Temperature Control]\nB5 --> G5[Support Preparation]\nD5 --> H5[Pore Volume]\nF5 --> I5[Pressure Regulation]\nG5 --> J5[Surface Modification]\nH5 --> K5[Active Site Density]\nI5 --> L5[Reaction Pressure]\nJ5 --> M5[Metal Deposition]\nK5 --> L5\nL5 --> N5[Catalyst Activation]\nM5 --> O5[Particle Formation]\nN5 --> P5[Surface Reaction]\nO5 --> Q5[Catalytic Activity]\nP5 --> R5[Product Formation]\nQ5 --> S5[Reaction Rate]\nR5 --> T5[Product Desorption]\nS5 --> U5[Turnover Frequency]\nT5 --> V5[Product Analysis]\nU5 --> W5[Catalyst Performance]\nV5 --> X5[Conversion Yield]\nW5 --> Y5[Stability Testing]\nX5 --> Z5[Supported Catalyst Efficiency]\nY5 --> Z5\n\n    style A5 fill:#ff6b6b,color:#fff\n    style C5 fill:#ff6b6b,color:#fff\n    style E5 fill:#ff6b6b,color:#fff\n    style B5 fill:#ffd43b,color:#000\n    style D5 fill:#ffd43b,color:#000\n    style F5 fill:#ffd43b,color:#000\n    style G5 fill:#ffd43b,color:#000\n    style H5 fill:#ffd43b,color:#000\n    style I5 fill:#ffd43b,color:#000\n    style J5 fill:#ffd43b,color:#000\n    style K5 fill:#ffd43b,color:#000\n    style L5 fill:#ffd43b,color:#000\n    style M5 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style O5 fill:#51cf66,color:#fff\n    style P5 fill:#51cf66,color:#fff\n    style Q5 fill:#51cf66,color:#fff\n    style R5 fill:#51cf66,color:#fff\n    style S5 fill:#51cf66,color:#fff\n    style T5 fill:#51cf66,color:#fff\n    style U5 fill:#51cf66,color:#fff\n    style V5 fill:#51cf66,color:#fff\n    style W5 fill:#51cf66,color:#fff\n    style X5 fill:#51cf66,color:#fff\n    style Y5 fill:#51cf66,color:#fff\n    style Z5 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Supported Catalysts. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "Carbon-Supported Catalysts",
+      "authors": "",
+      "journal": "Carbons and Carbon-Supported Catalysts in Hydroprocessing",
+      "year": "2008",
+      "pubmed": null,
+      "doi": "10.1039/9781847558411-00048",
+      "url": "https://doi.org/10.1039/9781847558411-00048"
+    },
+    {
+      "title": "Alkaloid-supported Catalysts",
+      "authors": "Kumari, Poonam; Kumar Meena, Rajesh; Fageria, Pragati",
+      "journal": "Polymer Supported Organic Catalysts",
+      "year": "2024",
+      "pubmed": null,
+      "doi": "10.1201/9781003039785-5",
+      "url": "https://doi.org/10.1201/9781003039785-5"
+    },
+    {
+      "title": "Peptide-supported Catalysts: Synthesis and Applications",
+      "authors": "Rajput, Anupama; Rajput, Prachika; Samanta, Srikanta",
+      "journal": "Polymer Supported Organic Catalysts",
+      "year": "2024",
+      "pubmed": null,
+      "doi": "10.1201/9781003039785-2",
+      "url": "https://doi.org/10.1201/9781003039785-2"
+    }
+  ],
+  "keywords": [
+    "supported",
+    "catalysts"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+}

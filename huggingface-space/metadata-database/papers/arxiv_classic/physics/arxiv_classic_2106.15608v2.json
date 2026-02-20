@@ -1,0 +1,39 @@
+{
+  "id": "arxiv_2106.15608v2",
+  "arxiv_id": "2106.15608v2",
+  "title": "Fast & accurate emulation of two-body scattering observables without wave functions",
+  "authors": [
+    "J. A. Melendez",
+    "C. Drischler",
+    "A. J. Garcia",
+    "R. J. Furnstahl",
+    "Xilin Zhang"
+  ],
+  "author_string": "J. A. Melendez, C. Drischler, A. J. Garcia, R. J. Furnstahl, Xilin Zhang",
+  "journal": "arXiv:2106.15608v2",
+  "journal_ref": null,
+  "year": "2021",
+  "doi": "10.1016/j.physletb.2021.136608",
+  "abstract": "We combine Newton's variational method with ideas from eigenvector continuation to construct a fast & accurate emulator for two-body scattering observables. The emulator will facilitate the application of rigorous statistical methods for interactions that depend smoothly on a set of free parameters. Our approach begins with a trial $K$ or $T$ matrix constructed from a small number of exact solutions to the Lippmann--Schwinger equation. Subsequent emulation only requires operations on small matrices. We provide several applications to short-range potentials with and without the Coulomb interaction and partial-wave coupling. It is shown that the emulator can accurately extrapolate far from the support of the training data. When used to emulate the neutron-proton cross section with a modern chiral interaction as a function of 26 free parameters, it reproduces the exact calculation with negligible error and provides an over 300x improvement in CPU time.",
+  "categories": [
+    "nucl-th",
+    "cond-mat.mtrl-sci",
+    "hep-lat",
+    "hep-ph",
+    "nucl-ex"
+  ],
+  "primary_category": "nucl-ex",
+  "comment": "9 pages, 6 figures; minor updates, close to published version",
+  "published_date": "2021-06-29T17:50:06Z",
+  "updated_date": "2021-09-07T16:12:49Z",
+  "url": "https://arxiv.org/abs/2106.15608v2",
+  "pdf_url": "https://arxiv.org/pdf/2106.15608v2.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-02-03T13:21:06.612055",
+  "category": "physics",
+  "subcategories": [
+    "nucl-th",
+    "cond-mat.mtrl-sci",
+    "hep-lat"
+  ]
+}

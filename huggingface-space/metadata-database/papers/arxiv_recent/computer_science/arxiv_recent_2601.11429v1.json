@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2601.11429v1",
+  "arxiv_id": "2601.11429v1",
+  "title": "Relational Linearity is a Predictor of Hallucinations",
+  "authors": [
+    "Yuetian Lu",
+    "Yihong Liu",
+    "Hinrich Schütze"
+  ],
+  "author_string": "Yuetian Lu, Yihong Liu, Hinrich Schütze",
+  "journal": "arXiv:2601.11429v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Hallucination is a central failure mode in large language models (LLMs). We focus on hallucinations of answers to questions like: \"Which instrument did Glenn Gould play?\", but we ask these questions for synthetic entities that are unknown to the model. Surprisingly, we find that medium-size models like Gemma-7B-IT frequently hallucinate, i.e., they have difficulty recognizing that the hallucinated fact is not part of their knowledge. We hypothesize that an important factor in causing these hallucinations is the linearity of the relation: linear relations tend to be stored more abstractly, making it difficult for the LLM to assess its knowledge; the facts of nonlinear relations tend to be stored more directly, making knowledge assessment easier. To investigate this hypothesis, we create SyntHal, a dataset of 6000 synthetic entities for six relations. In our experiments with four models, we determine, for each relation, the hallucination rate on SyntHal and also measure its linearity, using $Δ\\cos$. We find a strong correlation ($r \\in [.78,.82]$) between relational linearity and hallucination rate, providing evidence for our hypothesis that the underlying storage of triples of a relation is a factor in how well a model can self-assess its knowledge. This finding has implications for how to manage hallucination behavior and suggests new research directions for improving the representation of factual knowledge in LLMs.",
+  "categories": [
+    "cs.CL",
+    "cs.AI"
+  ],
+  "primary_category": "cs.AI",
+  "comment": "11 pages, 4 figures, 8 tables",
+  "published_date": "2026-01-16T16:47:49Z",
+  "updated_date": "2026-01-16T16:47:49Z",
+  "url": "https://arxiv.org/abs/2601.11429v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11429v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:30.212040",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CL",
+    "cs.AI"
+  ]
+}

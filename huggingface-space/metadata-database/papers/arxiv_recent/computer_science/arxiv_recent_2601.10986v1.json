@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2601.10986v1",
+  "arxiv_id": "2601.10986v1",
+  "title": "ZPD Detector: Data Selection via Capability-Difficulty Alignment for Large Language Models",
+  "authors": [
+    "Bo Yang",
+    "Yunkui Chen",
+    "Lanfei Feng",
+    "Yu Zhang",
+    "Shijian Li"
+  ],
+  "author_string": "Bo Yang, Yunkui Chen, Lanfei Feng, Yu Zhang, Shijian Li",
+  "journal": "arXiv:2601.10986v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "As the cost of training large language models continues to increase and high-quality training data become increasingly scarce, selecting high-value samples or synthesizing effective training data under limited data budgets has emerged as a critical research problem. Most existing data selection methods rely on static criteria, such as difficulty, uncertainty, or heuristics, and fail to model the evolving relationship between the model and the data. Inspired by the educational theory of the Zone of Proximal Development (ZPD), we propose ZPD Detector, a data selection framework that adopts a bidirectional perspective between models and data by explicitly modeling the alignment between sample difficulty and the model's current capability. ZPD Detector integrates difficulty calibration, model capability estimation based on Item Response Theory (IRT), and a capability-difficulty matching score to dynamically identify the most informative samples at each learning stage, improving data utilization efficiency; moreover, this dynamic matching strategy provides new insights into training strategy design. All code and data will be released after our work be accepted to support reproducible researc",
+  "categories": [
+    "cs.CL"
+  ],
+  "primary_category": "cs.CL",
+  "comment": null,
+  "published_date": "2026-01-16T04:23:10Z",
+  "updated_date": "2026-01-16T04:23:10Z",
+  "url": "https://arxiv.org/abs/2601.10986v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.10986v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:37.513717",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CL"
+  ]
+}

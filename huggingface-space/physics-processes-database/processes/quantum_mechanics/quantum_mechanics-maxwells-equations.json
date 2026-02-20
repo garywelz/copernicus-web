@@ -1,0 +1,108 @@
+{
+  "acquired_date": "2026-01-08T00:00:00Z",
+  "category": "physics",
+  "colorScheme": {
+    "blue": {
+      "category": "Intermediates & States",
+      "hex": "#74c0fc"
+    },
+    "green": {
+      "category": "Processing & Operations",
+      "hex": "#51cf66"
+    },
+    "red": {
+      "category": "Triggers & Inputs",
+      "hex": "#ff6b6b"
+    },
+    "violet": {
+      "category": "Products & Outputs",
+      "hex": "#b197fc"
+    },
+    "yellow": {
+      "category": "Structures & Objects",
+      "hex": "#ffd43b"
+    }
+  },
+  "complexity": {
+    "conditionals": 0,
+    "detailLevel": "medium",
+    "edges": 24,
+    "level": "medium",
+    "logicGates": {
+      "andGates": 1,
+      "orGates": 0,
+      "total": 1
+    },
+    "nodes": 26
+  },
+  "created": "2026-01-08",
+  "description": "Maxwell's Equations Process. This electromagnetism process visualization demonstrates electromagnetic field theory and wave propagation. The flowchart shows field inputs and charge distributions, Maxwell's equations methods and field coupling, Maxwell's equations operations and analysis, intermediate results, and final Maxwell's equations outputs.",
+  "id": "process_physics_maxwell's-equations",
+  "keywords": [
+    "equations",
+    "quantum",
+    "mechanics",
+    "maxwells"
+  ],
+  "lastUpdated": "2026-01-08",
+  "mermaid": "graph TD\nA1[Electric Field] --> B1[Maxwell's Equations Method]\nC1[Magnetic Field] --> D1[Field Coupling]\nE1[Charge Distribution] --> F1[Maxwell's Equations Analysis]\nB1 --> G1[Gauss's Law]\nD1 --> H1[Faraday's Law]\nF1 --> I1[Ampere's Law]\nG1 --> J1[Electric Flux]\nH1 --> K1[Electromagnetic Induction]\nI1 --> L1[Magnetic Circulation]\nJ1 --> M1[Field Divergence]\nK1 --> L1\nL1 --> N1[Current Density]\nM1 --> O1[Electromagnetic Wave]\nN1 --> P1[Field Propagation]\nO1 --> Q1[Maxwell's Equations Process]\nP1 --> R1[Maxwell's Equations Validation]\nQ1 --> S1[Maxwell's Equations Verification]\nR1 --> T1[Maxwell's Equations Result]\nS1 --> U1[Maxwell's Equations Analysis]\nT1 --> V1[Maxwell's Equations Parameters]\nU1 --> W1[Maxwell's Equations Output]\nV1 --> X1[Maxwell's Equations Analysis]\nW1 --> Y1[Maxwell's Equations Final Result]\nX1 --> Z1[Maxwell's Equations Complete]\n\n    style A1 fill:#ff6b6b,color:#fff\n    style C1 fill:#ff6b6b,color:#fff\n    style E1 fill:#ff6b6b,color:#fff\n    style B1 fill:#ffd43b,color:#000\n    style D1 fill:#ffd43b,color:#000\n    style F1 fill:#ffd43b,color:#000\n    style G1 fill:#ffd43b,color:#000\n    style H1 fill:#ffd43b,color:#000\n    style I1 fill:#ffd43b,color:#000\n    style J1 fill:#ffd43b,color:#000\n    style K1 fill:#ffd43b,color:#000\n    style L1 fill:#ffd43b,color:#000\n    style M1 fill:#51cf66,color:#fff\n    style N1 fill:#51cf66,color:#fff\n    style O1 fill:#51cf66,color:#fff\n    style P1 fill:#51cf66,color:#fff\n    style Q1 fill:#51cf66,color:#fff\n    style R1 fill:#51cf66,color:#fff\n    style S1 fill:#51cf66,color:#fff\n    style T1 fill:#51cf66,color:#fff\n    style U1 fill:#51cf66,color:#fff\n    style V1 fill:#51cf66,color:#fff\n    style W1 fill:#51cf66,color:#fff\n    style X1 fill:#51cf66,color:#fff\n    style Y1 fill:#51cf66,color:#fff\n    style Z1 fill:#b197fc,color:#fff",
+  "name": "Maxwell's Equations",
+  "notes": "Converted from physics batch HTML. Process number: 1.",
+  "relatedProcesses": [],
+  "related_papers": [
+    "crossref_10_1103_RevModPhys_70_857",
+    "crossref_10_1103_RevModPhys_62_673",
+    "crossref_10_1126_science_1058847"
+  ],
+  "related_podcasts": [],
+  "related_processes": [],
+  "related_videos": [],
+  "source": "programming_framework",
+  "sources": [
+    {
+      "authors": "Welz, G.",
+      "doi": null,
+      "journal": "CopernicusAI Knowledge Engine",
+      "notes": "Chemistry process visualization: Maxwell's Equations. Created using the Programming Framework methodology for process analysis and visualization.",
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "year": "2025"
+    },
+    {
+      "authors": "Kunhardt, E. E.; D'Aguiar, G. M. L. G.",
+      "doi": "10.1103/RevModPhys.70.857",
+      "journal": "Rev. Mod. Phys.",
+      "paper_id": "crossref_10_1103_RevModPhys_70_857",
+      "pubmed": null,
+      "title": "Computation of electromagnetic fields and waves: A review of the past two decades",
+      "url": "https://doi.org/10.1103/RevModPhys.70.857",
+      "year": "1998"
+    },
+    {
+      "authors": "Sheng, P.; Page, J. H.; Zhang, Z. Q.; Weitz, D. A.",
+      "doi": "10.1103/RevModPhys.62.673",
+      "journal": "Rev. Mod. Phys.",
+      "paper_id": "crossref_10_1103_RevModPhys_62_673",
+      "pubmed": null,
+      "title": "Wave propagation in random media",
+      "url": "https://doi.org/10.1103/RevModPhys.62.673",
+      "year": "1990"
+    },
+    {
+      "authors": "Shelby, R. A.; Smith, D. R.; Schultz, S.",
+      "doi": "10.1126/science.1058847",
+      "journal": "Science",
+      "paper_id": "crossref_10_1126_science_1058847",
+      "pubmed": null,
+      "title": "Experimental verification of a negative refractive index of refraction",
+      "url": "https://doi.org/10.1126/science.1058847",
+      "year": "2001"
+    }
+  ],
+  "subcategories": [
+    "quantum_mechanics"
+  ],
+  "subcategory": "quantum_mechanics",
+  "subcategory_name": "Quantum Mechanics",
+  "verified": false
+}

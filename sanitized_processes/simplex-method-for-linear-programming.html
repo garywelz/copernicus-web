@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simplex Method for Linear Programming - Mathematics Process</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .mermaid-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="gradient-bg text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="text-center">
+                <div class="text-4xl mb-4">🔢</div>
+                <h1 class="text-4xl font-bold mb-4">Simplex Method for Linear Programming</h1>
+                <p class="text-lg opacity-90">Mathematics Process Visualization</p>
+                <div class="mt-4">
+                    <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/math-processes-database/mathematics-database-table.html" 
+                       class="text-white hover:text-gray-200 underline">
+                        ← Back to Mathematics Processes Database
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Process Information -->
+        <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">Process Information</h2>
+            
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                <div>
+                    <h3 class="font-semibold text-gray-800 mb-2">Category</h3>
+                    <p class="text-gray-600">mathematics</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-800 mb-2">Subcategory</h3>
+                    <p class="text-gray-600">Optimization</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-800 mb-2">Complexity</h3>
+                    <p class="text-gray-600">low</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-800 mb-2">Nodes</h3>
+                    <p class="text-gray-600">11</p>
+                </div>
+            </div>
+            
+            <div class="mb-6"><h3 class="font-semibold text-gray-800 mb-2">Description</h3><p class="text-gray-600">Solve linear programming problems using simplex algorithm</p></div>
+            
+            <div class="mb-6">
+                <h3 class="font-semibold text-gray-800 mb-2">Source Information</h3>
+                <p class="text-gray-600">Source information to be added - please specify the book, paper, or reference material used by the LLM to generate this flowchart.</p>
+                
+            </div>
+        </div>
+
+        <!-- Flowchart Visualization -->
+        <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">Process Flowchart</h2>
+            <div class="mermaid-container">
+                <div class="mermaid">
+graph TD
+A1[Define Problem: Objective function, constraints, non-negativity] B1[Convert to Standard Form: Introduce slack, surplus, artificial variables] C1[Initialize Tableau: Basic feasible solution] D1[Calculate Reduced Costs: cj - zj for each variable] E1{Optimality Check: Are all reduced costs &lt;= 0 (for maximization) or &gt;= 0 (for minimization)?} F1[Select Entering Variable: Most negative (maximization) or most positive (minimization) reduced cost] G1[Calculate Ratios: Divide solution column by entering variable column (only for positive denominators)] H1[Select Leaving Variable: Row with smallest non-negative ratio] I1[Perform Row Operations: Make entering variable column a unit vector (pivot)] J1[Update Tableau: New basic feasible solution] K1{Unboundedness Check: Are all ratio denominators &lt;= 0?} L1[Optimal Solution Found: Read variable values and objective function value from tableau] M1[Problem is Unbounded: Solution is infinite]
+A1 --&gt; B1
+B1 --&gt; C1
+C1 --&gt; D1
+D1 --&gt; E1
+E1 -- Yes --&gt; L1
+E1 -- No --&gt; F1
+F1 --&gt; G1
+G1 --&gt; H1
+H1 --&gt; I1
+I1 --&gt; J1
+J1 --&gt; D1
+G1 --&gt; K1
+K1 -- Yes --&gt; M1
+K1 -- No --&gt; H1
+
+style A1 fill:#ff6b6b,color:#fff
+style B1 fill:#ffd43b,color:#000
+style C1 fill:#ffd43b,color:#000
+style D1 fill:#51cf66,color:#fff
+style E1 fill:#74c0fc,color:#fff
+style F1 fill:#51cf66,color:#fff
+style G1 fill:#51cf66,color:#fff
+style H1 fill:#51cf66,color:#fff
+style I1 fill:#51cf66,color:#fff
+style J1 fill:#ffd43b,color:#000
+style K1 fill:#74c0fc,color:#fff
+style L1 fill:#b197fc,color:#fff
+style M1 fill:#b197fc,color:#fff
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Entities/Concepts -->
+        <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">Key Concepts</h2>
+            <div class="flex flex-wrap gap-2">
+                <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Define Problem: Objective function, constraints, non-negativity</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Convert to Standard Form: Introduce slack, surplus, artificial variables</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Initialize Tableau: Basic feasible solution</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Calculate Reduced Costs: cj - zj for each variable</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">/"Optimality Check: Are all reduced costs <= 0 (for maximization) or >= 0 (for minimization)?"/}style E1 fill:#74c0fc,color:#fff F1[Select Entering Variable: Most negative (maximization) or most positive (minimization) reduced cost</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Calculate Ratios: Divide solution column by entering variable column (only for positive denominators)</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Select Leaving Variable: Row with smallest non-negative ratio</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Perform Row Operations: Make entering variable column a unit vector (pivot)</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Update Tableau: New basic feasible solution</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">/"Unboundedness Check: Are all ratio denominators <= 0?"/}style K1 fill:#74c0fc,color:#fff L1[Optimal Solution Found: Read variable values and objective function value from tableau</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Problem is Unbounded: Solution is infinite</span>
+            </div>
+        </div>
+
+        <!-- Suggestion Box -->
+        <div class="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl shadow-lg p-8 mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">💡 Suggest Improvements</h2>
+            <p class="text-gray-700 mb-4">
+                Have suggestions for improving this process visualization? Found an error or want to add more detail? 
+                We'd love to hear from you!
+            </p>
+            <a href="https://forms.gle/YOUR_FORM_ID" 
+               target="_blank"
+               class="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition text-lg font-medium">
+                Suggest Improvements →
+            </a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-sm opacity-75">Part of the Copernicus AI Knowledge Engine</p>
+            <p class="text-xs opacity-50 mt-2">&copy; 2025 Gary Welz. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        mermaid.initialize({ startOnLoad: true, theme: 'default' });
+    </script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+{
+  "id": "defense_immune-adaptive-immune-response-process",
+  "name": "Adaptive Immune Response Process",
+  "category": "biology",
+  "subcategory": "defense_immune",
+  "subcategory_name": "Defense & Immune Response",
+  "description": "Adaptive Immune Response Process process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 10,
+    "edges": 10,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 1,
+      "andGates": 0,
+      "total": 1
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\n    A24[Antigen Presentation] --> B24[T-Cell Activation]\n    B24 --> C24[Clonal Selection]\n    C24 --> D24[Proliferation]\n    D24 --> E24[Differentiation]\n    E24 --> F24[Cytotoxic T-Cells]\n    E24 --> G24[Helper T-Cells]\n    E24 --> H24[B-Cell Activation]\n    F24 --> I24[Target Elimination]\n    G24 --> I24\n    H24 --> J24[Antibody Production]\n    J24 --> I24\n    \n    style A24 fill:#ff6b6b,color:#fff\n    style B24 fill:#ffd43b,color:#000\n    style C24 fill:#51cf66,color:#fff\n    style D24 fill:#51cf66,color:#fff\n    style E24 fill:#51cf66,color:#fff\n    style F24 fill:#74c0fc,color:#fff\n    style G24 fill:#74c0fc,color:#fff\n    style H24 fill:#74c0fc,color:#fff\n    style I24 fill:#b197fc,color:#fff\n    style J24 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Adaptive Immune Response Process. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "Adaptive Immune Response",
+      "authors": "",
+      "journal": "SpringerReference",
+      "year": "None",
+      "pubmed": null,
+      "doi": "10.1007/springerreference_31729",
+      "url": "https://doi.org/10.1007/springerreference_31729"
+    },
+    {
+      "title": "Investigation of the adaptive immune response in immune-mediated diseases",
+      "authors": "Dulic, Sonja",
+      "journal": "",
+      "year": "None",
+      "pubmed": null,
+      "doi": "10.14232/phd.10030",
+      "url": "https://doi.org/10.14232/phd.10030"
+    },
+    {
+      "title": "The adaptive immune response to Epstein-Barr virus",
+      "authors": "Rist, Melissa",
+      "journal": "",
+      "year": "None",
+      "pubmed": null,
+      "doi": "10.14264/uql.2015.815",
+      "url": "https://doi.org/10.14264/uql.2015.815"
+    }
+  ],
+  "keywords": [
+    "adaptive",
+    "immune",
+    "response",
+    "process"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+}

@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Physics Processes Database</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #3498db 0%, #3498db 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 300;
+        }
+        
+        .header p {
+            margin: 10px 0 0 0;
+            opacity: 0.8;
+            font-size: 1.1em;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 30px;
+            background: #f8f9fa;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            border-left: 4px solid #3498db;
+        }
+        
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin: 0;
+        }
+        
+        .stat-label {
+            color: #7f8c8d;
+            font-size: 0.9em;
+            margin: 5px 0 0 0;
+        }
+        
+        .table-container {
+            padding: 30px;
+            overflow-x: auto;
+        }
+        
+        .table-header {
+            background: #3498db;
+            color: white;
+            padding: 20px;
+            margin: -30px -30px 20px -30px;
+        }
+        
+        .table-header h2 {
+            margin: 0;
+            font-size: 1.8em;
+            font-weight: 300;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 0.9em;
+        }
+        
+        th, td {
+            padding: 12px 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background: #ecf0f1;
+            font-weight: 600;
+            color: #2c3e50;
+            position: sticky;
+            top: 0;
+            cursor: pointer;
+        }
+        
+        th:hover {
+            background: #d5dbdb;
+        }
+        
+        tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .process-name {
+            font-weight: 600;
+            color: #2c3e50;
+            max-width: 300px;
+        }
+        
+        .process-name a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        
+        .process-name a:hover {
+            text-decoration: underline;
+        }
+        
+        .subcategory {
+            background: #fde8e8;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            color: #3498db;
+        }
+        
+        .complexity {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: 600;
+        }
+        
+        .complexity.low {
+            background: #d5f4e6;
+            color: #27ae60;
+        }
+        
+        .complexity.medium {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .complexity.detailed, .complexity.high {
+            background: #fadbd8;
+            color: #3498db;
+        }
+        
+        .number {
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 50px;
+            color: #7f8c8d;
+        }
+        
+        .error {
+            text-align: center;
+            padding: 50px;
+            color: #3498db;
+        }
+        
+        .refresh-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+            margin: 10px;
+        }
+        
+        .refresh-btn:hover {
+            background: #3498db;
+        }
+        
+        .breakdown {
+            padding: 30px;
+            background: #f8f9fa;
+            border-top: 1px solid #ecf0f1;
+        }
+        
+        .breakdown h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .breakdown-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .breakdown-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .breakdown-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        
+        .breakdown-item:last-child {
+            border-bottom: none;
+        }
+        
+        .breakdown-label {
+            color: #7f8c8d;
+        }
+        
+        .breakdown-count {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .color-legend {
+            padding: 20px;
+            background: #f8f9fa;
+            border-top: 1px solid #ecf0f1;
+        }
+        
+        .color-legend h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .color-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            background: white;
+            border-radius: 5px;
+        }
+        
+        .color-box {
+            width: 30px;
+            height: 30px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>⚛️ Physics Processes Database</h1>
+            <p>Programming Framework - Interactive Database Analysis</p>
+            <button class="refresh-btn" onclick="loadData()">🔄 Refresh Data</button>
+        </div>
+        
+        <div id="loading" class="loading">
+            <h3>Loading physics processes database...</h3>
+            <p>Fetching process data from metadata.json</p>
+        </div>
+        
+        <div id="error" class="error" style="display: none;">
+            <h3>❌ Error Loading Data</h3>
+            <p>Could not fetch physics processes metadata. Please check your connection and try again.</p>
+        </div>
+        
+        <div id="content" style="display: none;">
+            <div class="stats-grid" id="statsGrid">
+                <!-- Stats will be populated here -->
+            </div>
+            
+            <div class="table-container">
+                <div class="table-header">
+                    <h2>📊 Process Database Table</h2>
+                    <p style="margin: 10px 0 0 0; opacity: 0.8; font-size: 0.9em;">
+                        💡 Click on any process name to view its interactive flowchart
+                    </p>
+                </div>
+                <table id="processTable">
+                    <thead>
+                        <tr>
+                            <th onclick="sortTable(0)">Process Name ↕</th>
+                            <th onclick="sortTable(1)">Subcategory ↕</th>
+                            <th onclick="sortTable(2)">Complexity ↕</th>
+                            <th onclick="sortTable(3)">Nodes ↕</th>
+                            <th onclick="sortTable(4)">Edges ↕</th>
+                            <th onclick="sortTable(5)">AND Gates ↕</th>
+                            <th onclick="sortTable(6)">OR Gates ↕</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <!-- Data will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="breakdown">
+                <h3>📈 Database Analysis</h3>
+                <div class="breakdown-grid" id="breakdownGrid">
+                    <!-- Breakdown will be populated here -->
+                </div>
+            </div>
+            
+            <div class="color-legend">
+                <h3>🎨 Color Scheme (5-Color System)</h3>
+                <div class="color-grid">
+                    <div class="color-item">
+                        <div class="color-box" style="background: #ff6b6b;"></div>
+                        <div>
+                            <strong>Red</strong><br>
+                            <small>Triggers & Inputs</small>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-box" style="background: #ffd43b;"></div>
+                        <div>
+                            <strong>Yellow</strong><br>
+                            <small>Structures & Objects</small>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-box" style="background: #51cf66;"></div>
+                        <div>
+                            <strong>Green</strong><br>
+                            <small>Processing & Operations</small>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-box" style="background: #74c0fc;"></div>
+                        <div>
+                            <strong>Blue</strong><br>
+                            <small>Intermediates & States</small>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-box" style="background: #b197fc;"></div>
+                        <div>
+                            <strong>Violet</strong><br>
+                            <small>Products & Outputs</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Determine metadata URL based on where this file is hosted
+        const METADATA_URL = window.location.hostname.includes('storage.googleapis.com') 
+            ? 'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/physics-processes-database/metadata.json'
+            : (window.location.hostname.includes('huggingface.co'))
+            ? './physics-processes-database/metadata.json'
+            : './metadata.json';
+        let currentSortColumn = -1;
+        let sortDirection = 1;
+        let processes = [];
+        
+        async function loadData() {
+            console.log('🔄 Starting data load from:', METADATA_URL);
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('error').style.display = 'none';
+            document.getElementById('content').style.display = 'none';
+            
+            try {
+                const cacheBustedUrl = METADATA_URL + (METADATA_URL.includes('?') ? '&' : '?') + 'ts=' + Date.now();
+                const response = await fetch(cacheBustedUrl, { cache: 'no-store' });
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const data = await response.json();
+                console.log('✅ Data loaded successfully:', data.totalProcesses, 'processes');
+                
+                processes = data.processes || [];
+                populateData(data);
+                
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('content').style.display = 'block';
+                
+            } catch (error) {
+                console.error('❌ Error loading data:', error);
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('error').style.display = 'block';
+                document.getElementById('error').innerHTML = `
+                    <h3>❌ Error Loading Data</h3>
+                    <p>Could not fetch physics processes metadata.</p>
+                    <p style="font-size: 0.9em; color: #95a5a6; margin-top: 10px;">
+                        Error: ${error.message}
+                    </p>
+                `;
+            }
+        }
+        
+        function populateData(data) {
+            // Populate statistics
+            const stats = data.statistics || {};
+            document.getElementById('statsGrid').innerHTML = `
+                <div class="stat-card">
+                    <div class="stat-number">${data.totalProcesses || 0}</div>
+                    <div class="stat-label">Total Processes</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${stats.totalNodes || 0}</div>
+                    <div class="stat-label">Total Nodes</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${stats.totalEdges || 0}</div>
+                    <div class="stat-label">Total Edges</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${data.subcategories || 0}</div>
+                    <div class="stat-label">Subcategories</div>
+                </div>
+            `;
+            
+            // Populate table
+            const tableBody = document.getElementById('tableBody');
+            tableBody.innerHTML = '';
+            
+            const processList = data.processes || [];
+            processList.forEach(process => {
+                const row = document.createElement('tr');
+                const isGCS = window.location.hostname.includes('storage.googleapis.com');
+                const isHF = window.location.hostname.includes('huggingface.co');
+                const viewerUrl = isGCS 
+                    ? `https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/physics-processes-database/processes/${process.subcategory}/${process.id}.html`
+                    : (isHF)
+                    ? `./physics-processes-database/processes/${process.subcategory}/${process.id}.html`
+                    : `./processes/${process.subcategory}/${process.id}.html`;
+                row.innerHTML = `
+                    <td class="process-name">
+                        <a href="${viewerUrl}" target="_blank">${process.name}</a>
+                    </td>
+                    <td><span class="subcategory">${process.subcategory_name || process.subcategory}</span></td>
+                    <td><span class="complexity ${process.complexity}">${process.complexity}</span></td>
+                    <td class="number">${process.nodes}</td>
+                    <td class="number">${process.edges}</td>
+                    <td class="number">${process.andGates || 0}</td>
+                    <td class="number">${process.orGates || 0}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+            
+            // Populate breakdown
+            const breakdown = {};
+            processList.forEach(p => {
+                const subcat = p.subcategory_name || p.subcategory;
+                breakdown[subcat] = (breakdown[subcat] || 0) + 1;
+            });
+            
+            let breakdownHTML = '<div class="breakdown-card"><h4>Processes by Subcategory</h4>';
+            Object.entries(breakdown).sort((a, b) => b[1] - a[1]).forEach(([subcat, count]) => {
+                breakdownHTML += `
+                    <div class="breakdown-item">
+                        <span class="breakdown-label">${subcat}</span>
+                        <span class="breakdown-count">${count}</span>
+                    </div>
+                `;
+            });
+            breakdownHTML += '</div>';
+            
+            const complexityBreakdown = {};
+            processList.forEach(p => {
+                const comp = p.complexity || 'unknown';
+                complexityBreakdown[comp] = (complexityBreakdown[comp] || 0) + 1;
+            });
+            
+            breakdownHTML += '<div class="breakdown-card"><h4>Processes by Complexity</h4>';
+            Object.entries(complexityBreakdown).sort((a, b) => b[1] - a[1]).forEach(([comp, count]) => {
+                breakdownHTML += `
+                    <div class="breakdown-item">
+                        <span class="breakdown-label">${comp}</span>
+                        <span class="breakdown-count">${count}</span>
+                    </div>
+                `;
+            });
+            breakdownHTML += '</div>';
+            
+            document.getElementById('breakdownGrid').innerHTML = breakdownHTML;
+        }
+        
+        function sortTable(column) {
+            const table = document.getElementById('processTable');
+            const tbody = table.querySelector('tbody');
+            const rows = Array.from(tbody.querySelectorAll('tr'));
+            
+            if (currentSortColumn === column) {
+                sortDirection *= -1;
+            } else {
+                currentSortColumn = column;
+                sortDirection = 1;
+            }
+            
+            rows.sort((a, b) => {
+                const aText = a.cells[column].textContent.trim();
+                const bText = b.cells[column].textContent.trim();
+                
+                // Try to parse as number
+                const aNum = parseFloat(aText);
+                const bNum = parseFloat(bText);
+                
+                if (!isNaN(aNum) && !isNaN(bNum)) {
+                    return (aNum - bNum) * sortDirection;
+                }
+                
+                return aText.localeCompare(bText) * sortDirection;
+            });
+            
+            rows.forEach(row => tbody.appendChild(row));
+        }
+        
+        // Load data on page load
+        loadData();
+    </script>
+</body>
+</html>

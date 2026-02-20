@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2601.10558v1",
+  "arxiv_id": "2601.10558v1",
+  "title": "A Mirror-Descent Algorithm for Computing the Petz-Rényi Capacity of Classical-Quantum Channels",
+  "authors": [
+    "Yu-Hong Lai",
+    "Hao-Chung Cheng"
+  ],
+  "author_string": "Yu-Hong Lai, Hao-Chung Cheng",
+  "journal": "arXiv:2601.10558v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We study the computation of the $α$-Rényi capacity of a classical-quantum (c-q) channel for $α\\in(0,1)$. We propose an exponentiated-gradient (mirror descent) iteration that generalizes the Blahut-Arimoto algorithm. Our analysis establishes relative smoothness with respect to the entropy geometry, guaranteeing a global sublinear convergence of the objective values. Furthermore, under a natural tangent-space nondegeneracy condition (and a mild spectral lower bound in one regime), we prove local linear (geometric) convergence in Kullback-Leibler divergence on a truncated probability simplex, with an explicit contraction factor once the local curvature constants are bounded.",
+  "categories": [
+    "quant-ph",
+    "cs.IT",
+    "math.OC"
+  ],
+  "primary_category": "math.OC",
+  "comment": "This paper is independent and concurrent to arXiv:2601.06492",
+  "published_date": "2026-01-15T16:22:52Z",
+  "updated_date": "2026-01-15T16:22:52Z",
+  "url": "https://arxiv.org/abs/2601.10558v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.10558v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:41.982329",
+  "category": "mathematics",
+  "subcategories": [
+    "quant-ph",
+    "cs.IT",
+    "math.OC"
+  ]
+}

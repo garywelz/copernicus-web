@@ -1,0 +1,76 @@
+flowchart TD
+    A[Academic Databases<br/>PubMed, arXiv, NASA ADS] --> B[Ingest Data]
+    C[Literature Sources<br/>Textbooks, Reviews] --> B
+    D[Educational Content<br/>Videos, Transcripts] --> B
+    
+    B --> E{Data Type?}
+    E -->|Papers| F[Extract Entities<br/>via LLM]
+    E -->|Process Descriptions| G[Extract Process Logic<br/>via LLM]
+    E -->|Media| H[Process Media<br/>Transcribe, Parse]
+    
+    F --> I[Paper Metadata<br/>Structured JSON]
+    G --> J[Process Flowcharts<br/>Mermaid Format]
+    H --> K[Podcast Transcripts<br/>Structured Text]
+    
+    I --> L[Paper Metadata DB]
+    J --> M[Process Flowchart DB]
+    K --> N[Podcast Transcript DB]
+    
+    L --> O[Calculate Similarities]
+    M --> P[Recognize Patterns]
+    L --> Q[Discover Connections]
+    M --> R[Validate Processes]
+    
+    O --> S{Query Type?}
+    P --> S
+    Q --> S
+    R --> S
+    
+    S -->|MCP Query| U[MCP Server<br/>AI Assistant Access]
+    S -->|RAG Query| V[RAG System]
+    S -->|API Query| W[API Endpoint]
+    S -->|Vector Search| AA[Vector Search]
+    S -->|Knowledge Graph| BB[Knowledge Graph]
+    S -->|Web Interface| T[Web Interface]
+    
+    U --> X[Knowledge Output<br/>Papers, Processes, Insights]
+    V --> X
+    W --> X
+    T --> X
+    AA --> X
+    BB --> X
+    
+    Y[Character Specification<br/>copernicus.character.json] -.influences.-> F
+    Y -.influences.-> G
+    Y -.influences.-> Q
+    Y -.influences.-> U
+    
+    style A fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style D fill:#ff6b6b,color:#fff
+    style B fill:#51cf66,color:#fff
+    style E fill:#74c0fc,color:#fff
+    style F fill:#51cf66,color:#fff
+    style G fill:#51cf66,color:#fff
+    style H fill:#51cf66,color:#fff
+    style I fill:#ffd43b,color:#000
+    style J fill:#ffd43b,color:#000
+    style K fill:#ffd43b,color:#000
+    style L fill:#ffd43b,color:#000
+    style M fill:#ffd43b,color:#000
+    style N fill:#ffd43b,color:#000
+    style O fill:#51cf66,color:#fff
+    style P fill:#51cf66,color:#fff
+    style Q fill:#51cf66,color:#fff
+    style R fill:#51cf66,color:#fff
+    style S fill:#74c0fc,color:#fff
+    style T fill:#51cf66,color:#fff
+    style U fill:#51cf66,color:#fff
+    style V fill:#51cf66,color:#fff
+    style W fill:#51cf66,color:#fff
+    style AA fill:#51cf66,color:#fff
+    style BB fill:#51cf66,color:#fff
+    style X fill:#b197fc,color:#fff
+    style Y fill:#ffd43b,color:#000
+
+

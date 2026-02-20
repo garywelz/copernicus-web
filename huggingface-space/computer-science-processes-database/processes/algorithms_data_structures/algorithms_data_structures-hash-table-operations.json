@@ -1,0 +1,92 @@
+{
+  "id": "algorithms_data_structures-hash-table-operations",
+  "name": "Hash Table Operations",
+  "category": "computer_science",
+  "subcategory": "algorithms_data_structures",
+  "subcategory_name": "Algorithms & Data Structures",
+  "description": "Hash Table Operations process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 11,
+    "edges": 11,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 1,
+      "andGates": 1,
+      "total": 2
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nN1[\"Key + Hash Function\"]\nN2[\"Operation (get/put/delete)\"]\nN3[\"Bucket Array\"]\nN4[\"Choose Approach\"]\nN5[\"Collision Strategy\"]\nN6[\"Compute Hash/Index\"]\nN7[\"Probe/Chain Walk\"]\nN8[\"Update Entry\"]\nN9[\"Integrate Results\"]\nN10[\"Resize/Rehash (if needed)\"]\nN11[\"Return Value/Status\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\nN4 --> N7\nN5 --> N6\nN7 --> N8\nN6 --> N9\nN8 --> N9\nN9 --> N10\nN10 --> N11\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ff6b6b,color:#fff\n    style N3 fill:#ffd43b,color:#000\n    style N4 fill:#ffd43b,color:#000\n    style N5 fill:#ffd43b,color:#000\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#74c0fc,color:#fff\n    style N10 fill:#74c0fc,color:#fff\n    style N11 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Hash Table Operations. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "Distributed Hash Table",
+      "authors": "",
+      "journal": "SpringerReference",
+      "year": "None",
+      "pubmed": null,
+      "doi": "10.1007/springerreference_64148",
+      "url": "https://doi.org/10.1007/springerreference_64148"
+    },
+    {
+      "title": "hash-table search",
+      "authors": "",
+      "journal": "SpringerReference",
+      "year": "None",
+      "pubmed": null,
+      "doi": "10.1007/springerreference_15658",
+      "url": "https://doi.org/10.1007/springerreference_15658"
+    },
+    {
+      "title": "Table 6: Impact of hash layer, hash code length and loss function on model performance.",
+      "authors": "",
+      "journal": "",
+      "year": "None",
+      "pubmed": null,
+      "doi": "10.7717/peerjcs.2545/table-6",
+      "url": "https://doi.org/10.7717/peerjcs.2545/table-6"
+    }
+  ],
+  "keywords": [
+    "hash",
+    "table",
+    "operations"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-15",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+}

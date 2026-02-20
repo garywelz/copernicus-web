@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2601.04999v1",
+  "arxiv_id": "2601.04999v1",
+  "title": "Guided Variational Network for Image Decomposition",
+  "authors": [
+    "Alessandro Lanza",
+    "Serena Morigi",
+    "Youwei Wen",
+    "Li Yang"
+  ],
+  "author_string": "Alessandro Lanza, Serena Morigi, Youwei Wen, Li Yang",
+  "journal": "arXiv:2601.04999v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Cartoon-texture image decomposition is a critical preprocessing problem bottlenecked by the numerical intractability of classical variational or optimization models and the tedious manual tuning of global regularization parameters.We propose a Guided Variational Decomposition (GVD) model which introduces spatially adaptive quadratic norms whose pixel-wise weights are learned either through local probabilistic statistics or via a lightweight neural network within a bilevel framework.This leads to a unified, interpretable, and computationally efficient model that bridges classical variational ideas with modern adaptive and data-driven methodologies. Numerical experiments on this framework, which inherently includes automatic parameter selection, delivers GVD as a robust, self-tuning, and superior solution for reliable image decomposition.",
+  "categories": [
+    "math.NA"
+  ],
+  "primary_category": "math.NA",
+  "comment": null,
+  "published_date": "2026-01-08T14:59:04Z",
+  "updated_date": "2026-01-08T14:59:04Z",
+  "url": "https://arxiv.org/abs/2601.04999v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.04999v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:26.898827",
+  "category": "mathematics",
+  "subcategories": [
+    "math.NA"
+  ]
+}

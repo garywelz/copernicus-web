@@ -1,0 +1,30 @@
+{
+  "id": "arxiv_2602.04480v1",
+  "arxiv_id": "2602.04480v1",
+  "title": "Optimal Control Design Guided by Adam Algorithm and LSTM-Predicted Open Quantum System Dynamics",
+  "authors": [
+    "JunDong Zhong",
+    "ZhaoMing Wang"
+  ],
+  "author_string": "JunDong Zhong, ZhaoMing Wang",
+  "journal": "arXiv:2602.04480v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "The realization of high-fidelity quantum control is crucial for quantum information processing, particularly in noisy environments where control strategies must simultaneously achieve precise manipulation and effective noise suppression. Conventional optimal control designs typically requires numerical calculations of the system dynamics. Recent studies have demonstrated that long short-term memory neural networks (LSTM-NNs) can accurately predict the time evolution of open quantum systems. Based on LSTM-NN predicted dynamics, we propose an optimal control framework for rapid and efficient optimal control design in open quantum systems. As an exemplary example, we apply our scheme to design an optimal control for the adiabatic speedup in a two-level system under a non-Markovian environment. Our optimization procedure entails two steps: driving trajectory optimization and zero-area pulse optimization. Fidelity improvement for both steps have been obtained, showing the effectiveness of the scheme. Our optimal control design scheme utilizes predicted dynamics to generate optimized controls, offering broad application potential in quantum computing, communication, and sensing.",
+  "categories": [
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": null,
+  "published_date": "2026-02-04T12:08:12Z",
+  "updated_date": "2026-02-04T12:08:12Z",
+  "url": "https://arxiv.org/abs/2602.04480v1",
+  "pdf_url": "https://arxiv.org/pdf/2602.04480v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-02-05T07:00:33.002569",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph"
+  ]
+}

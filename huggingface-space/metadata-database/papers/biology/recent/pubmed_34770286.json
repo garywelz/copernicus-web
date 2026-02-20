@@ -1,0 +1,31 @@
+{
+  "id": "pubmed_34770286",
+  "pmid": "34770286",
+  "title": "Cloud-Based Software Architecture for Fully Automated Point-of-Care Molecular Diagnostic Device.",
+  "authors": [
+    "Kil, Byeong-Heon",
+    "Park, Ji-Seong",
+    "Ryu, Mun-Ho",
+    "Park, Chan-Young",
+    "Kim, Yu-Seop",
+    "Kim, Jong-Dae"
+  ],
+  "author_string": "Kil, Byeong-Heon, Park, Ji-Seong, Ryu, Mun-Ho, Park, Chan-Young, Kim, Yu-Seop et al.",
+  "journal": "Sensors (Basel)",
+  "journal_full": "Sensors (Basel, Switzerland)",
+  "year": "",
+  "doi": "10.3390/s21216980",
+  "abstract": "This paper proposes a cloud-based software architecture for fully automated point-of-care molecular diagnostic devices. The target system operates a cartridge consisting of an extraction body for DNA extraction and a PCR chip for amplification and fluorescence detection. To facilitate control and monitoring via the cloud, a socket server was employed for fundamental molecular diagnostic functions such as DNA extraction, amplification, and fluorescence detection. The user interface for experimental control and monitoring was constructed with the RESTful application programming interface, allowing access from the terminal device, edge, and cloud. Furthermore, it can also be accessed through any web-based user interface on smart computing devices such as smart phones or tablets. An emulator with the proposed software architecture was fabricated to validate successful operation.",
+  "keywords": [
+    "cloud-based",
+    "fully automated molecular diagnostic system",
+    "point-of-care",
+    "web-based user interface"
+  ],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/34770286",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T16:57:33.621162",
+  "category": "biology",
+  "subcategories": []
+}

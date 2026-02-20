@@ -1,0 +1,31 @@
+{
+  "id": "pubmed_34788695",
+  "pmid": "34788695",
+  "title": "Toolkit for Oscillatory Real-time Tracking and Estimation (TORTE).",
+  "authors": [
+    "Schatza, Mark J",
+    "Blackwood, Ethan B",
+    "Nagrale, Sumedh S",
+    "Widge, Alik S"
+  ],
+  "author_string": "Schatza, Mark J, Blackwood, Ethan B, Nagrale, Sumedh S, Widge, Alik S",
+  "journal": "J Neurosci Methods",
+  "journal_full": "Journal of neuroscience methods",
+  "year": "",
+  "doi": "10.1016/j.jneumeth.2021.109409",
+  "abstract": "Closing the loop between brain activity and behavior is one of the most active areas of development in neuroscience. There is particular interest in developing closed-loop control of neural oscillations. Many studies report correlations between oscillations and functional processes. Oscillation-informed closed-loop experiments might determine whether these relationships are causal and would provide important mechanistic insights which may lead to new therapeutic tools. These closed-loop perturbations require accurate estimates of oscillatory phase and amplitude, which are challenging to compute in real time. We developed an easy to implement, fast and accurate Toolkit for Oscillatory Real-time Tracking and Estimation (TORTE). TORTE operates with the open-source Open Ephys GUI (OEGUI) system, making it immediately compatible with a wide range of acquisition systems and experimental preparations. TORTE efficiently extracts oscillatory phase and amplitude from a target signal and includes a variety of options to trigger closed-loop perturbations. Implementing these tools into existing experiments is easy and adds minimal latency to existing protocols. Most labs use in-house lab-specific approaches, limiting replication and extension of their experiments by other groups. Accuracy of the extracted analytic signal and accuracy of oscillation-informed perturbations with TORTE match presented results by these groups. However, TORTE provides access to these tools in a flexible, easy to use toolkit without requiring proprietary software. We hope that the availability of a high-quality, open-source, and broadly applicable toolkit will increase the number of labs able to perform oscillatory closed-loop experiments, and will improve the replicability of protocols and data across labs.",
+  "keywords": [
+    "Analytic signal",
+    "Closed-loop",
+    "Open-source",
+    "Oscillations",
+    "Toolkit",
+    "Translational"
+  ],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/34788695",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T17:01:26.802338",
+  "category": "biology",
+  "subcategories": []
+}

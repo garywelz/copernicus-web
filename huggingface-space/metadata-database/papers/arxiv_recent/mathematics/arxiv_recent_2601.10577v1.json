@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2601.10577v1",
+  "arxiv_id": "2601.10577v1",
+  "title": "Jordan-Segmentable Masks: A Topology-Aware definition for characterizing Binary Image Segmentation",
+  "authors": [
+    "Serena Grazia De Benedictis",
+    "Amedeo Altavilla",
+    "Nicoletta Del Buono"
+  ],
+  "author_string": "Serena Grazia De Benedictis, Amedeo Altavilla, Nicoletta Del Buono",
+  "journal": "arXiv:2601.10577v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Image segmentation plays a central role in computer vision. However, widely used evaluation metrics, whether pixel-wise, region-based, or boundary-focused, often struggle to capture the structural and topological coherence of a segmentation. In many practical scenarios, such as medical imaging or object delineation, small inaccuracies in boundary, holes, or fragmented predictions can result in high metric scores, despite the fact that the resulting masks fail to preserve the object global shape or connectivity. This highlights a limitation of conventional metrics: they are unable to assess whether a predicted segmentation partitions the image into meaningful interior and exterior regions.   In this work, we introduce a topology-aware notion of segmentation based on the Jordan Curve Theorem, and adapted for use in digital planes. We define the concept of a \\emph{Jordan-segmentatable mask}, which is a binary segmentation whose structure ensures a topological separation of the image domain into two connected components. We analyze segmentation masks through the lens of digital topology and homology theory, extracting a $4$-curve candidate from the mask, verifying its topological validity using Betti numbers. A mask is considered Jordan-segmentatable when this candidate forms a digital 4-curve with $β_0 = β_1 = 1$, or equivalently when its complement splits into exactly two $8$-connected components.   This framework provides a mathematically rigorous, unsupervised criterion with which to assess the structural coherence of segmentation masks. By combining digital Jordan theory and homological invariants, our approach provides a valuable alternative to standard evaluation metrics, especially in applications where topological correctness must be preserved.",
+  "categories": [
+    "cs.CV",
+    "math.AT",
+    "math.NA"
+  ],
+  "primary_category": "math.NA",
+  "comment": "27 pages, 18 figures",
+  "published_date": "2026-01-15T16:47:53Z",
+  "updated_date": "2026-01-15T16:47:53Z",
+  "url": "https://arxiv.org/abs/2601.10577v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.10577v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:41.981865",
+  "category": "mathematics",
+  "subcategories": [
+    "cs.CV",
+    "math.AT",
+    "math.NA"
+  ]
+}

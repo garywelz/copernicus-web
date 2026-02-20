@@ -1,0 +1,92 @@
+{
+  "id": "computational_chemistry-uv-vis-spectroscopy",
+  "name": "UV-Vis Spectroscopy",
+  "category": "chemistry",
+  "subcategory": "computational_chemistry",
+  "subcategory_name": "Computational Chemistry",
+  "description": "UV-Vis Spectroscopy process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 26,
+    "edges": 22,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 1,
+      "total": 1
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nA1[Light Source] --> B1[UV-Vis Spectroscopy Method]\nC1[Sample Solution] --> D1[Wavelength Control]\nE1[Detector System] --> F1[Data Collection]\nB1 --> G1[Monochromator Setup]\nD1 --> H1[Wavelength Selection]\nF1 --> I1[Signal Processing]\nG1 --> J1[Light Dispersion]\nH1 --> K1[Wavelength Range]\nI1 --> L1[Absorbance Measurement]\nJ1 --> M1[Light Transmission]\nK1 --> L1\nL1 --> N1[Electronic Transitions]\nM1 --> O1[Sample Irradiation]\nN1 --> P1[Absorption Process]\nO1 --> Q1[Spectroscopic Analysis]\nP1 --> R1[Absorbance Spectrum]\nQ1 --> S1[Peak Analysis]\nR1 --> T1[Concentration Determination]\nS1 --> U1[Beer's Law Analysis]\nT1 --> V1[Concentration Calculation]\nU1 --> W1[Spectroscopic Efficiency]\nV1 --> X1[Sample Characterization]\nW1 --> Y1[Process Optimization]\nX1 --> Z1[Final Absorption Spectrum]\nY1 --> Z1\n\n    style A1 fill:#ff6b6b,color:#fff\n    style C1 fill:#ff6b6b,color:#fff\n    style E1 fill:#ff6b6b,color:#fff\n    style B1 fill:#ffd43b,color:#000\n    style D1 fill:#ffd43b,color:#000\n    style F1 fill:#ffd43b,color:#000\n    style G1 fill:#ffd43b,color:#000\n    style H1 fill:#ffd43b,color:#000\n    style I1 fill:#ffd43b,color:#000\n    style J1 fill:#ffd43b,color:#000\n    style K1 fill:#ffd43b,color:#000\n    style L1 fill:#ffd43b,color:#000\n    style M1 fill:#51cf66,color:#fff\n    style N1 fill:#51cf66,color:#fff\n    style O1 fill:#51cf66,color:#fff\n    style P1 fill:#51cf66,color:#fff\n    style Q1 fill:#51cf66,color:#fff\n    style R1 fill:#51cf66,color:#fff\n    style S1 fill:#51cf66,color:#fff\n    style T1 fill:#51cf66,color:#fff\n    style U1 fill:#51cf66,color:#fff\n    style V1 fill:#51cf66,color:#fff\n    style W1 fill:#51cf66,color:#fff\n    style X1 fill:#51cf66,color:#fff\n    style Y1 fill:#51cf66,color:#fff\n    style Z1 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: UV-Vis Spectroscopy. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "Analytical Applications of UV-VIS Spectroscopy",
+      "authors": "Perkampus, Heinz-Helmut",
+      "journal": "UV-VIS Spectroscopy and Its Applications",
+      "year": "1992",
+      "pubmed": null,
+      "doi": "10.1007/978-3-642-77477-5_4",
+      "url": "https://doi.org/10.1007/978-3-642-77477-5_4"
+    },
+    {
+      "title": "Recent Developments in UV-VIS Spectroscopy",
+      "authors": "Perkampus, Heinz-Helmut",
+      "journal": "UV-VIS Spectroscopy and Its Applications",
+      "year": "1992",
+      "pubmed": null,
+      "doi": "10.1007/978-3-642-77477-5_5",
+      "url": "https://doi.org/10.1007/978-3-642-77477-5_5"
+    },
+    {
+      "title": "Applikationsbroschüre zur UV/Vis und UV/Vis/NIR-Spektroskopie / Application brochure on UV/Vis and UV/Vis/NIR spectroscopy",
+      "authors": "",
+      "journal": "Tenside Surfactants Detergents",
+      "year": "1995",
+      "pubmed": null,
+      "doi": "10.1515/tsd-1995-320317",
+      "url": "https://doi.org/10.1515/tsd-1995-320317"
+    }
+  ],
+  "keywords": [
+    "uv",
+    "vis",
+    "spectroscopy"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+}

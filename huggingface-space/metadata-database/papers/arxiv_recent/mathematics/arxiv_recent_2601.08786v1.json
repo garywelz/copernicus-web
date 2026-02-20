@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2601.08786v1",
+  "arxiv_id": "2601.08786v1",
+  "title": "Simple repair policies and decompositions for semi-coherent systems with simultaneous failures",
+  "authors": [
+    "Guido Lagos",
+    "Jorge Navarro",
+    "Hector Olivero"
+  ],
+  "author_string": "Guido Lagos, Jorge Navarro, Hector Olivero",
+  "journal": "arXiv:2601.08786v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We consider semi-coherent binary systems that are subject to simultaneous failures of its components. These are systems whose components can be either working or failed; the system can also be working or failed depending on the state of the components; and repairing a component cannot cause the system to fail. We consider that one or more components can fail simultaneously, allowing us to model external shocks and disasters. For this, we use the Lévy-frailty Marshall-Olkin (LFMO) multivariate distribution to model the failure times of the components. We aim to answer in which states of the system we should repair the components. This is a challenging question, as the number of repair policies grows super-exponentially in the number of components. To tackle this, we propose a simple family of repair policies, which we call $r$-out-of-$n$:R repair policies, where one repairs all failed components when the system fails or when there are $r$ or more failed components. Our main contribution is that we derive exact and simple expressions for key performance-evaluation quantities of the system operating under our proposed repair policies. That is, we give explicit expressions for the mean time-to-failure of the system, mean time-to-repair, probability of system-failure before repair, and component- and system-repair rate. We also give expressions for the expected cost and long-term average cost, when there are components' and system repair cost. The only relevant parameters involved in the derived expressions are the structural signature of the system, and the Laplace exponent associated to the LFMO distribution.",
+  "categories": [
+    "math.PR",
+    "math.OC"
+  ],
+  "primary_category": "math.OC",
+  "comment": null,
+  "published_date": "2026-01-13T18:19:04Z",
+  "updated_date": "2026-01-13T18:19:04Z",
+  "url": "https://arxiv.org/abs/2601.08786v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.08786v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:03.406655",
+  "category": "mathematics",
+  "subcategories": [
+    "math.PR",
+    "math.OC"
+  ]
+}

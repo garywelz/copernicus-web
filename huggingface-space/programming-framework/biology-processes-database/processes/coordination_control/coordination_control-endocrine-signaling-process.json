@@ -1,0 +1,94 @@
+{
+  "id": "coordination_control-endocrine-signaling-process",
+  "name": "Endocrine Signaling Process",
+  "category": "biology",
+  "subcategory": "coordination_control",
+  "subcategory_name": "Coordination & Control",
+  "organism": "Animals",
+  "description": "Endocrine Signaling Process in Animals. This process represents a higher-level biological mechanism distinct from molecular/biochemical processes covered in GLMP.",
+  "complexity": {
+    "nodes": 8,
+    "edges": 7,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "low",
+    "detailLevel": "low"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\n    A47[Stimulus Detection] --> B47[Hormone Synthesis]\n    B47 --> C47[Gland Secretion]\n    C47 --> D47[Blood Transport]\n    D47 --> E47[Target Tissue]\n    E47 --> F47[Receptor Binding]\n    F47 --> G47[Signal Transduction]\n    G47 --> H47[Cellular Response]\n    \n    style A47 fill:#ff6b6b,color:#fff\n    style B47 fill:#ffd43b,color:#000\n    style C47 fill:#51cf66,color:#fff\n    style D47 fill:#74c0fc,color:#fff\n    style E47 fill:#ffd43b,color:#000\n    style F47 fill:#51cf66,color:#fff\n    style G47 fill:#51cf66,color:#fff\n    style H47 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "notes": "Higher-level biological process visualization: Endocrine Signaling Process. Created using the Programming Framework methodology for organismal and ecological process analysis."
+    },
+    {
+      "title": "Current concepts of hormone action: a historical perspective",
+      "authors": "Jensen, EV.",
+      "journal": "Annu Rev Physiol.",
+      "year": "1982",
+      "pubmed": "6121958",
+      "doi": "10.1146/annurev.ph.44.030182.000341",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/6121958"
+    },
+    {
+      "title": "G proteins: transducers of receptor-generated signals",
+      "authors": "Gilman, AG.",
+      "journal": "Annu Rev Biochem.",
+      "year": "1987",
+      "pubmed": "3113331",
+      "doi": "10.1146/annurev.bi.56.070187.000305",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/3113331"
+    },
+    {
+      "title": "The nuclear receptor superfamily: the first 25 years",
+      "authors": "Mangelsdorf, DJ.",
+      "journal": "Cell.",
+      "year": "1995",
+      "pubmed": "8521507",
+      "doi": "10.1016/0092-8674(95)90189-4",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/8521507"
+    }
+  ],
+  "keywords": [
+    "control",
+    "animals",
+    "process",
+    "signaling",
+    "coordination",
+    "endocrine"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-08",
+  "verified": false,
+  "notes": "Higher-level biological process. GLMP covers biochemical/molecular processes; this database covers organismal/ecological processes."
+}

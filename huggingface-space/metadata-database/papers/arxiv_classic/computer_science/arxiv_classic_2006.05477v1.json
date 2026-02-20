@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2006.05477v1",
+  "arxiv_id": "2006.05477v1",
+  "title": "Unsupervised Paraphrase Generation using Pre-trained Language Models",
+  "authors": [
+    "Chaitra Hegde",
+    "Shrikumar Patil"
+  ],
+  "author_string": "Chaitra Hegde, Shrikumar Patil",
+  "journal": "arXiv:2006.05477v1",
+  "journal_ref": null,
+  "year": "2020",
+  "doi": null,
+  "abstract": "Large scale Pre-trained Language Models have proven to be very powerful approach in various Natural language tasks. OpenAI's GPT-2 \\cite{radford2019language} is notable for its capability to generate fluent, well formulated, grammatically consistent text and for phrase completions. In this paper we leverage this generation capability of GPT-2 to generate paraphrases without any supervision from labelled data. We examine how the results compare with other supervised and unsupervised approaches and the effect of using paraphrases for data augmentation on downstream tasks such as classification. Our experiments show that paraphrases generated with our model are of good quality, are diverse and improves the downstream task performance when used for data augmentation.",
+  "categories": [
+    "cs.CL",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": null,
+  "published_date": "2020-06-09T19:40:19Z",
+  "updated_date": "2020-06-09T19:40:19Z",
+  "url": "https://arxiv.org/abs/2006.05477v1",
+  "pdf_url": "https://arxiv.org/pdf/2006.05477v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:23.480904",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CL",
+    "cs.LG"
+  ]
+}

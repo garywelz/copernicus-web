@@ -1,0 +1,91 @@
+{
+  "id": "materials_chemistry-composite-materials",
+  "name": "Composite Materials",
+  "category": "chemistry",
+  "subcategory": "materials_chemistry",
+  "subcategory_name": "Materials Chemistry",
+  "description": "Composite Materials process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 26,
+    "edges": 21,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 1,
+      "total": 1
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nA3[Matrix Selection] --> B3[Composite Method]\nC3[Fiber Reinforcement] --> D3[Interface Design]\nE3[Processing Technique] --> F3[Composite Analysis]\nB3 --> G3[Polymer Matrix Composites]\nD3 --> H3[Ceramic Matrix Composites]\nF3 --> I3[Metal Matrix Composites]\nG3 --> J3[Fiber Orientation]\nH3 --> K3[Fiber Matrix Bonding]\nI3 --> L3[Processing Parameters]\nJ3 --> M3[Mechanical Properties]\nK3 --> L3\nL3 --> N3[Thermal Properties]\nM3 --> O3[Strength Analysis]\nN3 --> P3[Stiffness Analysis]\nO3 --> Q3[Composite Materials Process]\nP3 --> R3[Composite Materials Validation]\nQ3 --> S3[Composite Materials Verification]\nR3 --> T3[Composite Materials Result]\nS3 --> U3[Composite Materials Analysis]\nT3 --> V3[Composite Materials Parameters]\nU3 --> W3[Composite Materials Output]\nV3 --> X3[Composite Materials Analysis]\nW3 --> Y3[Composite Materials Final Result]\nX3 --> Z3[Composite Materials Complete]\n\n    style A3 fill:#ff6b6b,color:#fff\n    style C3 fill:#ff6b6b,color:#fff\n    style E3 fill:#ff6b6b,color:#fff\n    style B3 fill:#ffd43b,color:#000\n    style D3 fill:#ffd43b,color:#000\n    style F3 fill:#ffd43b,color:#000\n    style G3 fill:#ffd43b,color:#000\n    style H3 fill:#ffd43b,color:#000\n    style I3 fill:#ffd43b,color:#000\n    style J3 fill:#ffd43b,color:#000\n    style K3 fill:#ffd43b,color:#000\n    style L3 fill:#ffd43b,color:#000\n    style M3 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style O3 fill:#51cf66,color:#fff\n    style P3 fill:#51cf66,color:#fff\n    style Q3 fill:#51cf66,color:#fff\n    style R3 fill:#51cf66,color:#fff\n    style S3 fill:#51cf66,color:#fff\n    style T3 fill:#51cf66,color:#fff\n    style U3 fill:#51cf66,color:#fff\n    style V3 fill:#51cf66,color:#fff\n    style W3 fill:#51cf66,color:#fff\n    style X3 fill:#51cf66,color:#fff\n    style Y3 fill:#51cf66,color:#fff\n    style Z3 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Composite Materials. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "Composite Materials Series",
+      "authors": "",
+      "journal": "Composite Materials Series",
+      "year": "1991",
+      "pubmed": null,
+      "doi": "10.1016/b978-0-444-70507-5.50001-9",
+      "url": "https://doi.org/10.1016/b978-0-444-70507-5.50001-9"
+    },
+    {
+      "title": "Composite Materials Series",
+      "authors": "",
+      "journal": "Composite Materials Series",
+      "year": "1989",
+      "pubmed": null,
+      "doi": "10.1016/b978-0-444-87285-2.50001-7",
+      "url": "https://doi.org/10.1016/b978-0-444-87285-2.50001-7"
+    },
+    {
+      "title": "Composite Functional Materials",
+      "authors": "",
+      "journal": "",
+      "year": "None",
+      "pubmed": null,
+      "doi": "10.63823/cfm",
+      "url": "https://doi.org/10.63823/cfm"
+    }
+  ],
+  "keywords": [
+    "composite",
+    "materials"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+}

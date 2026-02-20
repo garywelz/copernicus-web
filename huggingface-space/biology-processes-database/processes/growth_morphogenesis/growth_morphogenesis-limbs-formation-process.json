@@ -1,0 +1,92 @@
+{
+  "id": "growth_morphogenesis-limbs-formation-process",
+  "name": "Limbs Formation Process",
+  "category": "biology",
+  "subcategory": "growth_morphogenesis",
+  "subcategory_name": "Growth & Morphogenesis",
+  "description": "Limbs Formation Process process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 10,
+    "edges": 8,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\n    A14[Lateral Plate Mesoderm] --> B14[Limb Field Specification]\n    B14 --> C14[Limb Bud Formation]\n    C14 --> D14[Apical Ectodermal Ridge]\n    D14 --> E14[Proliferation Zone]\n    E14 --> F14[Proximo-Distal Patterning]\n    F14 --> G14[Antero-Posterior Patterning]\n    G14 --> H14[Digit Formation]\n    H14 --> I14[Interdigital Apoptosis]\n    I14 --> J14[Final Limb Structure]\n    \n    style A14 fill:#ff6b6b,color:#fff\n    style B14 fill:#ffd43b,color:#000\n    style C14 fill:#ffd43b,color:#000\n    style D14 fill:#51cf66,color:#fff\n    style E14 fill:#51cf66,color:#fff\n    style F14 fill:#51cf66,color:#fff\n    style G14 fill:#51cf66,color:#fff\n    style H14 fill:#74c0fc,color:#fff\n    style I14 fill:#51cf66,color:#fff\n    style J14 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Limbs Formation Process. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "Formation of Phantom Limbs Following Ischemic Nerve Block",
+      "authors": "Inui, Nobuyuki",
+      "journal": "SpringerBriefs in Biology",
+      "year": "2016",
+      "pubmed": null,
+      "doi": "10.1007/978-981-10-1460-4_2",
+      "url": "https://doi.org/10.1007/978-981-10-1460-4_2"
+    },
+    {
+      "title": "Formation of Limbs",
+      "authors": "Kadasne, DK",
+      "journal": "Kadasne’s Textbook of Embryology",
+      "year": "2011",
+      "pubmed": null,
+      "doi": "10.5005/jp/books/11285_40",
+      "url": "https://doi.org/10.5005/jp/books/11285_40"
+    },
+    {
+      "title": "Formation of Vertebrate Limbs",
+      "authors": "Yang, Yingzi",
+      "journal": "Principles of Developmental Genetics",
+      "year": "2015",
+      "pubmed": null,
+      "doi": "10.1016/b978-0-12-405945-0.00029-6",
+      "url": "https://doi.org/10.1016/b978-0-12-405945-0.00029-6"
+    }
+  ],
+  "keywords": [
+    "limbs",
+    "formation",
+    "process"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+}

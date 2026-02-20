@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2601.10953v1",
+  "arxiv_id": "2601.10953v1",
+  "title": "SwiftKV: An Edge-Oriented Attention Algorithm and Multi-Head Accelerator for Fast, Efficient LLM Decoding",
+  "authors": [
+    "Junming Zhang",
+    "Qinyan Zhang",
+    "Huajun Sun",
+    "Feiyang Gao",
+    "Sheng Hu",
+    "Rui Nie",
+    "Xiangshui Miao"
+  ],
+  "author_string": "Junming Zhang, Qinyan Zhang, Huajun Sun, Feiyang Gao, Sheng Hu et al.",
+  "journal": "arXiv:2601.10953v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Edge acceleration for large language models is crucial for their widespread application; however, achieving fast attention inference and efficient decoding on resource-constrained edge accelerators remains challenging. This paper presents SwiftKV Attention, a per-token pipelined, low-latency single-pass attention inference algorithm, where every (kt, vt) in the KV cache is processed exactly once in a uniform per-token pipeline without score materialization, blockwise softmax, or a second pass, thereby enabling fast execution on edge accelerators with a single hardware set and no resource-intensive parallelism. Furthermore, to address the limited support for multi-head LLM decoding in existing accelerators, we design the SwiftKV-MHA accelerator, which enables high precision attention and low precision GEMV on the same processor array, achieving fast and efficient multi-head parallel decoding. Experimental results show that, on the edge accelerator, the SwiftKV Attention algorithm achieves a 7.16* speedup over native attention and significantly outperforms other attention algorithms. SwiftKV-MHA further reduces attention latency by 13.48*; under the same settings, it improves generation speed by 17.4% and increases token efficiency by 1.98* compared with state-of-the-art works.",
+  "categories": [
+    "cs.AR"
+  ],
+  "primary_category": "cs.AR",
+  "comment": null,
+  "published_date": "2026-01-16T02:44:40Z",
+  "updated_date": "2026-01-16T02:44:40Z",
+  "url": "https://arxiv.org/abs/2601.10953v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.10953v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:37.515430",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.AR"
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "id": "arxiv_1904.12059v1",
+  "arxiv_id": "1904.12059v1",
+  "title": "ARCHANGEL: Tamper-proofing Video Archives using Temporal Content Hashes on the Blockchain",
+  "authors": [
+    "Tu Bui",
+    "Daniel Cooper",
+    "John Collomosse",
+    "Mark Bell",
+    "Alex Green",
+    "John Sheridan",
+    "Jez Higgins",
+    "Arindra Das",
+    "Jared Keller",
+    "Olivier Thereaux",
+    "Alan Brown"
+  ],
+  "author_string": "Tu Bui, Daniel Cooper, John Collomosse, Mark Bell, Alex Green et al.",
+  "journal": "arXiv:1904.12059v1",
+  "journal_ref": null,
+  "year": "2019",
+  "doi": null,
+  "abstract": "We present ARCHANGEL; a novel distributed ledger based system for assuring the long-term integrity of digital video archives. First, we describe a novel deep network architecture for computing compact temporal content hashes (TCHs) from audio-visual streams with durations of minutes or hours. Our TCHs are sensitive to accidental or malicious content modification (tampering) but invariant to the codec used to encode the video. This is necessary due to the curatorial requirement for archives to format shift video over time to ensure future accessibility. Second, we describe how the TCHs (and the models used to derive them) are secured via a proof-of-authority blockchain distributed across multiple independent archives. We report on the efficacy of ARCHANGEL within the context of a trial deployment in which the national government archives of the United Kingdom, Estonia and Norway participated.",
+  "categories": [
+    "cs.CV",
+    "cs.AI",
+    "cs.CR",
+    "cs.DC"
+  ],
+  "primary_category": "cs.DC",
+  "comment": "Accepted to CVPR Blockchain Workshop 2019",
+  "published_date": "2019-04-26T21:59:02Z",
+  "updated_date": "2019-04-26T21:59:02Z",
+  "url": "https://arxiv.org/abs/1904.12059v1",
+  "pdf_url": "https://arxiv.org/pdf/1904.12059v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:19.479851",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV",
+    "cs.AI",
+    "cs.CR"
+  ]
+}

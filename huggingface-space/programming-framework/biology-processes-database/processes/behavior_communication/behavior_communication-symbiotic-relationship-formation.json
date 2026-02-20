@@ -1,0 +1,94 @@
+{
+  "id": "behavior_communication-symbiotic-relationship-formation",
+  "name": "Symbiotic Relationship Formation",
+  "category": "biology",
+  "subcategory": "behavior_communication",
+  "subcategory_name": "Behavior & Communication",
+  "organism": "Multiple",
+  "description": "Symbiotic Relationship Formation in Multiple. This process represents a higher-level biological mechanism distinct from molecular/biochemical processes covered in GLMP.",
+  "complexity": {
+    "nodes": 10,
+    "edges": 9,
+    "conditionals": 1,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "low",
+    "detailLevel": "low"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\n    A22[Host Organism] --> B22[Symbiont Encounter]\n    C22[Symbiont Organism] --> B22\n    B22 --> D22[Recognition]\n    D22 --> E22{Compatible?}\n    E22 -->|Yes| F22[Association Establishment]\n    E22 -->|No| G22[Rejection]\n    F22 --> H22[Benefits Exchange]\n    H22 --> I22[Relationship Maintenance]\n    G22 --> J22[Separate Existence]\n    \n    style A22 fill:#ff6b6b,color:#fff\n    style C22 fill:#ff6b6b,color:#fff\n    style B22 fill:#ffd43b,color:#000\n    style D22 fill:#51cf66,color:#fff\n    style E22 fill:#74c0fc,color:#fff\n    style F22 fill:#51cf66,color:#fff\n    style G22 fill:#51cf66,color:#fff\n    style H22 fill:#74c0fc,color:#fff\n    style I22 fill:#b197fc,color:#fff\n    style J22 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "notes": "Higher-level biological process visualization: Symbiotic Relationship Formation. Created using the Programming Framework methodology for organismal and ecological process analysis."
+    },
+    {
+      "title": "The evolution of mutualism and the symbiotic relationship",
+      "authors": "Werner, D., Kiers, E. T.",
+      "journal": "Annu Rev Ecol Evol Syst",
+      "year": "2015",
+      "pubmed": "26430349",
+      "doi": "10.1146/annurev-ecolsys-112414-054457",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/26430349"
+    },
+    {
+      "title": "The biological basis of symbiosis: a universal paradigm for animal-microbe interactions",
+      "authors": "Gilbert, S. F., McFall-Ngai, M. J.",
+      "journal": "Annu Rev Microbiol",
+      "year": "2019",
+      "pubmed": "31276483",
+      "doi": "10.1146/annurev-micro-020518-115729",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/31276483"
+    },
+    {
+      "title": "Coevolution of nodulation in legumes and rhizobium",
+      "authors": "Oldroyd, G. E. D., Downie, J. A.",
+      "journal": "Annu Rev Plant Biol",
+      "year": "2008",
+      "pubmed": "18444890",
+      "doi": "10.1146/annurev.arplant.59.032607.092830",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/18444890"
+    }
+  ],
+  "keywords": [
+    "formation",
+    "relationship",
+    "symbiotic",
+    "behavior",
+    "multiple",
+    "communication"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-08",
+  "verified": false,
+  "notes": "Higher-level biological process. GLMP covers biochemical/molecular processes; this database covers organismal/ecological processes."
+}

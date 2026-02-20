@@ -1,0 +1,92 @@
+{
+  "id": "physical_chemistry-spectroscopic-line-broadening",
+  "name": "Spectroscopic Line Broadening",
+  "category": "chemistry",
+  "subcategory": "physical_chemistry",
+  "subcategory_name": "Physical Chemistry",
+  "description": "Spectroscopic Line Broadening process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 6,
+    "edges": 5,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nN1[\"Spectral Data\"]\nN2[\"Instrument Settings\"]\nN3[\"Broadening Mechanisms\"]\nN4[\"Line-Shape Model\"]\nN5[\"Fit Line Profile\"]\nN6[\"Width Parameters\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\nN5 --> N6\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ff6b6b,color:#fff\n    style N3 fill:#ffd43b,color:#000\n    style N4 fill:#ffd43b,color:#000\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Spectroscopic Line Broadening. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "Line broadening",
+      "authors": "Linne, Mark A.",
+      "journal": "Spectroscopic Measurement",
+      "year": "2024",
+      "pubmed": null,
+      "doi": "10.1016/b978-0-44-315474-4.00018-x",
+      "url": "https://doi.org/10.1016/b978-0-44-315474-4.00018-x"
+    },
+    {
+      "title": "Line Broadening",
+      "authors": "Linne, Mark A.",
+      "journal": "Spectroscopic Measurement",
+      "year": "2002",
+      "pubmed": null,
+      "doi": "10.1016/b978-012451071-5/50013-0",
+      "url": "https://doi.org/10.1016/b978-012451071-5/50013-0"
+    },
+    {
+      "title": "Temperature Induced Spectroscopic Line-broadening Effects in Open-path Eddy Covariance CO2 Flux",
+      "authors": "Bogoev, Ivan; Holl, David",
+      "journal": "",
+      "year": "2020",
+      "pubmed": null,
+      "doi": "10.5194/egusphere-egu2020-2779",
+      "url": "https://doi.org/10.5194/egusphere-egu2020-2779"
+    }
+  ],
+  "keywords": [
+    "spectroscopic",
+    "line",
+    "broadening"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-15",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+}

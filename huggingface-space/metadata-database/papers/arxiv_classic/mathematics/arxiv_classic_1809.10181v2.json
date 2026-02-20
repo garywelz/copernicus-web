@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_1809.10181v2",
+  "arxiv_id": "1809.10181v2",
+  "title": "A reaction coefficient identification problem for fractional diffusion",
+  "authors": [
+    "Enrique Otarola",
+    "Tran Nhan Tam Quyen"
+  ],
+  "author_string": "Enrique Otarola, Tran Nhan Tam Quyen",
+  "journal": "arXiv:1809.10181v2",
+  "journal_ref": null,
+  "year": "2018",
+  "doi": "10.1088/1361-6420/ab0127",
+  "abstract": "We analyze a reaction coefficient identification problem for the spectral fractional powers of a symmetric, coercive, linear, elliptic, second-order operator in a bounded domain $Ω$. We realize fractional diffusion as the Dirichlet-to-Neumann map for a nonuniformly elliptic problem posed on the semi-infinite cylinder $Ω\\times (0,\\infty)$. We thus consider an equivalent coefficient identification problem, where the coefficient to be identified appears explicitly. We derive existence of local solutions, optimality conditions, regularity estimates, and a rapid decay of solutions on the extended domain $(0,\\infty)$. The latter property suggests a truncation that is suitable for numerical approximation. We thus propose and analyze a fully discrete scheme that discretizes the set of admissible coefficients with piecewise constant functions. The discretization of the state equation relies on the tensorization of a first-degree FEM in $Ω$ with a suitable $hp$-FEM in the extended dimension. We derive convergence results and obtain, under the assumption that in neighborhood of a local solution the second derivative of the reduced cost functional is coercive, a priori error estimates.",
+  "categories": [
+    "math.NA",
+    "math.OC"
+  ],
+  "primary_category": "math.OC",
+  "comment": null,
+  "published_date": "2018-09-26T18:35:48Z",
+  "updated_date": "2018-12-25T23:10:03Z",
+  "url": "https://arxiv.org/abs/1809.10181v2",
+  "pdf_url": "https://arxiv.org/pdf/1809.10181v2.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:30:56.112980",
+  "category": "mathematics",
+  "subcategories": [
+    "math.NA",
+    "math.OC"
+  ]
+}

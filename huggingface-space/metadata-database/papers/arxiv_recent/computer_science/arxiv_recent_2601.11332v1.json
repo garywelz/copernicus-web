@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2601.11332v1",
+  "arxiv_id": "2601.11332v1",
+  "title": "Idea First, Code Later: Disentangling Problem Solving from Code Generation in Evaluating LLMs for Competitive Programming",
+  "authors": [
+    "Sama Hadhoud",
+    "Alaa Elsetohy",
+    "Frederikus Hudi",
+    "Jan Christian Blaise Cruz",
+    "Steven Halim",
+    "Alham Fikri Aji"
+  ],
+  "author_string": "Sama Hadhoud, Alaa Elsetohy, Frederikus Hudi, Jan Christian Blaise Cruz, Steven Halim et al.",
+  "journal": "arXiv:2601.11332v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Large Language Models (LLMs) increasingly succeed on competitive programming problems, yet existing evaluations conflate algorithmic reasoning with code-level implementation. We argue that competitive programming is fundamentally a problem-solving task and propose centering natural-language editorials in both solution generation and evaluation. Generating an editorial prior to code improves solve rates for some LLMs, with substantially larger gains when using expertly written gold editorials. However, even with gold editorials, models continue to struggle with implementation, while the gap between generated and gold editorials reveals a persistent problem-solving bottleneck in specifying correct and complete algorithms. Beyond pass/fail metrics, we diagnose reasoning errors by comparing model-generated editorials to gold standards using expert annotations and validate an LLM-as-a-judge protocol for scalable evaluation. We introduce a dataset of 83 ICPC-style problems with gold editorials and full test suites, and evaluate 19 LLMs, arguing that future benchmarks should explicitly separate problem solving from implementation.",
+  "categories": [
+    "cs.CL"
+  ],
+  "primary_category": "cs.CL",
+  "comment": null,
+  "published_date": "2026-01-16T14:29:54Z",
+  "updated_date": "2026-01-16T14:29:54Z",
+  "url": "https://arxiv.org/abs/2601.11332v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11332v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:30.214897",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CL"
+  ]
+}

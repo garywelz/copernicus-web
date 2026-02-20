@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_1904.07683v2",
+  "arxiv_id": "1904.07683v2",
+  "title": "Fast Commutative Matrix Algorithm",
+  "authors": [
+    "Andreas Rosowski"
+  ],
+  "author_string": "Andreas Rosowski",
+  "journal": "arXiv:1904.07683v2",
+  "journal_ref": null,
+  "year": "2019",
+  "doi": null,
+  "abstract": "We show that the product of an nx3 matrix and a 3x3 matrix over a commutative ring can be computed using 6n+3 multiplications. For two 3x3 matrices this gives us an algorithm using 21 multiplications. This is an improvement with respect to Makarov's algorithm using 22 multiplications[13]. We generalize our result for nx3 and 3x3 matrices and present an algorithm for computing the product of an lxn matrix and an nxm matrix over a commutative ring for odd n using n(lm+l+m-1)/2 multiplications if m is odd and using (n(lm+l+m-1)+l-1)/2 multiplications if m is even. Waksman's and Islam's algorithm for odd n needs (n-1)(lm+l+m-1)/2+lm multiplications [10,19], thus in both cases less multiplications are required by our algorithm. We also give an algorithm for even n using n(lm+l+m-1)/2 multiplications without making use of divisions, since Waksman's and Islam's algorithm make use of some divisions by 2 [10,19]. Furthermore we present a novelty for matrix multiplication: In this paper we show that some non-bilinear algorithms with special properties can be used as recursive algorithms. In comparison to bilinear algorithms for small nxn matrices say n<20 we obtain some better results. From these non-bilinear algorithms we finally obtain approximate non-bilinear algorithms. For instance we obtain an approximate non-bilinear algorithm for 5x5 matrices that uses only 89 multiplications. If at all it is possible to compare this algorithm with a bilinear algorithm we obtain a better result with respect to Smirnov's algorithm [15].",
+  "categories": [
+    "cs.CC",
+    "cs.DS"
+  ],
+  "primary_category": "cs.DS",
+  "comment": null,
+  "published_date": "2019-04-16T14:05:49Z",
+  "updated_date": "2020-07-27T06:22:54Z",
+  "url": "https://arxiv.org/abs/1904.07683v2",
+  "pdf_url": "https://arxiv.org/pdf/1904.07683v2.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:19.480296",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CC",
+    "cs.DS"
+  ]
+}

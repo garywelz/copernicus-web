@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2601.06755v1",
+  "arxiv_id": "2601.06755v1",
+  "title": "Water Demand Maximization: Quick Recovery of Nonlinear Physics Solutions",
+  "authors": [
+    "Sai Krishna Kanth Hari",
+    "Russell Bent"
+  ],
+  "author_string": "Sai Krishna Kanth Hari, Russell Bent",
+  "journal": "arXiv:2601.06755v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Determining the maximum demand a water distribution network can satisfy is crucial for ensuring reliable supply and planning network expansion. This problem, typically formulated as a mixed-integer nonlinear program (MINLP), is computationally challenging. A common strategy to address this challenge is to solve mixed-integer linear program (MILP) relaxations derived by partitioning variable domains and constructing linear over- and under-estimators to nonlinear constraints over each partition. While MILP relaxations are easier to solve up to a modest level of partitioning, their solutions often violate nonlinear water flow physics. Thus, recovering feasible MINLP solutions from the MILP relaxations is crucial for enhancing MILP-based approaches. In this paper, we propose a robust solution recovery method that efficiently computes feasible MINLP solutions from MILP relaxations, regardless of partition granularity. Combined with iterative partition refinement, our method generates a sequence of feasible solutions that progressively approach the optimum. Through extensive numerical experiments, we demonstrate that our method outperforms baseline methods and direct MINLP solves by consistently recovering high-quality feasible solutions with significantly reduced computation times.",
+  "categories": [
+    "math.OC",
+    "eess.SY"
+  ],
+  "primary_category": "eess.SY",
+  "comment": null,
+  "published_date": "2026-01-11T03:06:11Z",
+  "updated_date": "2026-01-11T03:06:11Z",
+  "url": "https://arxiv.org/abs/2601.06755v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.06755v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:18.735812",
+  "category": "interdisciplinary",
+  "subcategories": [
+    "math.OC",
+    "eess.SY"
+  ]
+}

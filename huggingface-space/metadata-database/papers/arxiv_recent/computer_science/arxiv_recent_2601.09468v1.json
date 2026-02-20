@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2601.09468v1",
+  "arxiv_id": "2601.09468v1",
+  "title": "High-fidelity lunar topographic reconstruction across diverse terrain and illumination environments using deep learning",
+  "authors": [
+    "Hao Chen",
+    "Philipp Gläser",
+    "Konrad Willner",
+    "Jürgen Oberst"
+  ],
+  "author_string": "Hao Chen, Philipp Gläser, Konrad Willner, Jürgen Oberst",
+  "journal": "arXiv:2601.09468v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Topographic models are essential for characterizing planetary surfaces and for inferring underlying geological processes. Nevertheless, meter-scale topographic data remain limited, which constrains detailed planetary investigations, even for the Moon, where extensive high-resolution orbital images are available. Recent advances in deep learning (DL) exploit single-view imagery, constrained by low-resolution topography, for fast and flexible reconstruction of fine-scale topography. However, their robustness and general applicability across diverse lunar landforms and illumination conditions remain insufficiently explored. In this study, we build upon our previously proposed DL framework by incorporating a more robust scale recovery scheme and extending the model to polar regions under low solar illumination conditions. We demonstrate that, compared with single-view shape-from-shading methods, the proposed DL approach exhibits greater robustness to varying illumination and achieves more consistent and accurate topographic reconstructions. Furthermore, it reliably reconstructs topography across lunar features of diverse scales, morphologies, and geological ages. High-quality topographic models are also produced for the lunar south polar areas, including permanently shadowed regions, demonstrating the method's capability in reconstructing complex and low-illumination terrain. These findings suggest that DL-based approaches have the potential to leverage extensive lunar datasets to support advanced exploration missions and enable investigations of the Moon at unprecedented topographic resolution.",
+  "categories": [
+    "astro-ph.EP",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": "25 pages, 1 table, 8 figures",
+  "published_date": "2026-01-14T13:21:09Z",
+  "updated_date": "2026-01-14T13:21:09Z",
+  "url": "https://arxiv.org/abs/2601.09468v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.09468v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:18:58.574090",
+  "category": "computer_science",
+  "subcategories": [
+    "astro-ph.EP",
+    "cs.LG"
+  ]
+}

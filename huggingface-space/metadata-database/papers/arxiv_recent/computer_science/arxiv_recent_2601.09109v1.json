@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2601.09109v1",
+  "arxiv_id": "2601.09109v1",
+  "title": "Correspondences in computational and dynamical complexity I",
+  "authors": [
+    "Samuel Everett"
+  ],
+  "author_string": "Samuel Everett",
+  "journal": "arXiv:2601.09109v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We begin development of a method for studying dynamical systems using concepts from computational complexity theory. We associate families of decision problems, called telic problems, to dynamical systems of a certain class. These decision problems formalize finite-time reachability questions for the dynamics with respect to natural coarse-grainings of state space. Our main result shows that complexity-theoretic lower bounds have dynamical consequences: if a system admits a telic problem for which every decider runs in time $2^{Ω(n)}$, then it must have positive topological entropy. This result and others lead to methods for classifying dynamical systems through proving bounds on the runtime of algorithms solving their associated telic problems, or by constructing polynomial-time reductions between telic problems coming from distinct dynamical systems.",
+  "categories": [
+    "math.DS",
+    "cs.CC"
+  ],
+  "primary_category": "cs.CC",
+  "comment": "25 pages, 1 figure",
+  "published_date": "2026-01-14T03:14:42Z",
+  "updated_date": "2026-01-14T03:14:42Z",
+  "url": "https://arxiv.org/abs/2601.09109v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.09109v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:52.505590",
+  "category": "computer_science",
+  "subcategories": [
+    "math.DS",
+    "cs.CC"
+  ]
+}

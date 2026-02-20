@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2601.11041v1",
+  "arxiv_id": "2601.11041v1",
+  "title": "B-spline-Based ALE-MFS Framework for Evolving Domains",
+  "authors": [
+    "Muhammad Ammad",
+    "Leevan Ling",
+    "Shu Ma"
+  ],
+  "author_string": "Muhammad Ammad, Leevan Ling, Shu Ma",
+  "journal": "arXiv:2601.11041v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We develop and analyze a B-spline based arbitrary Lagrangian-Eulerian method of fundamental solutions (ALE-MFS) for curvature-driven motion of two-dimensional evolving domains. Boundary points move with the material to track the geometric flow, while interior points move within an ALE framework via a harmonic extension of the boundary velocity, computed by a meshless MFS with sources on a fixed auxiliary circle, thus avoiding volumetric meshing. Boundary normals and curvature are reconstructed by an adaptive local B-spline scheme that remains robust for strongly nonconvex shapes and large deformations. A posteriori error estimates are obtained from a hatmatrix formulation of leave-one-out cross-validation (LOOCV) for both square collocation and zero-padded least-squares systems, and are complemented by maximum principle indicators for harmonic problems. Numerical experiments on circular, star-shaped, and amoeba-like domains show that square collocation suffices for moderately complex geometries, while zero-padded least-squares significantly improves interior velocity regularity and pointwise transport accuracy for strongly nonconvex shapes, without altering the source or collocation sets. The ALE-MFS algorithm also generates high-quality moving meshes for ALE-finite element methods, with larger minimum angles and slower mesh ratio growth than classical FEM mesh-motion strategies, suggesting a practical and easily integrable alternative for challenging moving-interface simulations.",
+  "categories": [
+    "math.NA"
+  ],
+  "primary_category": "math.NA",
+  "comment": null,
+  "published_date": "2026-01-16T07:17:12Z",
+  "updated_date": "2026-01-16T07:17:12Z",
+  "url": "https://arxiv.org/abs/2601.11041v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11041v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:41.978755",
+  "category": "mathematics",
+  "subcategories": [
+    "math.NA"
+  ]
+}

@@ -1,0 +1,94 @@
+{
+  "category": "biology",
+  "colorScheme": {
+    "blue": {
+      "category": "Intermediates & States",
+      "hex": "#74c0fc"
+    },
+    "green": {
+      "category": "Processing & Operations",
+      "hex": "#51cf66"
+    },
+    "red": {
+      "category": "Triggers & Inputs",
+      "hex": "#ff6b6b"
+    },
+    "violet": {
+      "category": "Products & Outputs",
+      "hex": "#b197fc"
+    },
+    "yellow": {
+      "category": "Structures & Objects",
+      "hex": "#ffd43b"
+    }
+  },
+  "complexity": {
+    "conditionals": 0,
+    "detailLevel": "low",
+    "edges": 8,
+    "level": "low",
+    "logicGates": {
+      "andGates": 0,
+      "orGates": 0,
+      "total": 0
+    },
+    "nodes": 9
+  },
+  "created": "2026-01-08",
+  "description": "Chemical Defense Production in Plants/Animals. This process represents a higher-level biological mechanism distinct from molecular/biochemical processes covered in GLMP.",
+  "id": "defense_immune-chemical-defense-production",
+  "keywords": [
+    "defense",
+    "response",
+    "immune",
+    "chemical",
+    "production",
+    "plants/animals"
+  ],
+  "lastUpdated": "2026-01-08",
+  "mermaid": "graph TD\n    A28[Threat Detection] --> B28[Defense Signal]\n    B28 --> C28[Gene Activation]\n    C28 --> D28[Enzyme Synthesis]\n    D28 --> E28[Precursor Availability]\n    E28 --> F28[Toxin Biosynthesis]\n    F28 --> G28[Storage/Sequestration]\n    G28 --> H28[Release Mechanism]\n    H28 --> I28[Defense Deployment]\n    \n    style A28 fill:#ff6b6b,color:#fff\n    style B28 fill:#ffd43b,color:#000\n    style C28 fill:#51cf66,color:#fff\n    style D28 fill:#51cf66,color:#fff\n    style E28 fill:#ffd43b,color:#000\n    style F28 fill:#51cf66,color:#fff\n    style G28 fill:#74c0fc,color:#fff\n    style H28 fill:#51cf66,color:#fff\n    style I28 fill:#b197fc,color:#fff",
+  "name": "Chemical Defense Production",
+  "notes": "Higher-level biological process. GLMP covers biochemical/molecular processes; this database covers organismal/ecological processes.",
+  "organism": "Plants/Animals",
+  "relatedProcesses": [],
+  "sources": [
+    {
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "notes": "Higher-level biological process visualization: Chemical Defense Production. Created using the Programming Framework methodology for organismal and ecological process analysis.",
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "year": "2025"
+    },
+    {
+      "authors": "Pichersky, E., Dudareva, N.",
+      "doi": "10.1146/annurev-arplant-042916-040852",
+      "journal": "Annu Rev Plant Biol.",
+      "pubmed": "28486008",
+      "title": "Biosynthesis of Plant Specialized Metabolites",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/28486008",
+      "year": "2017"
+    },
+    {
+      "authors": "Opitz, SE., M\u00fcller, C.",
+      "doi": "10.1146/annurev-ento-010814-021021",
+      "journal": "Annu Rev Entomol.",
+      "pubmed": "25341071",
+      "title": "Chemical defense and chemical signalling in insects: Recent advances and future perspectives",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/25341071",
+      "year": "2015"
+    },
+    {
+      "authors": "Whittaker, RH., Feeny, PP.",
+      "doi": "10.1126/science.171.3970.757",
+      "journal": "Science.",
+      "pubmed": "5540302",
+      "title": "Allelochemics: chemical interactions between species",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/5540302",
+      "year": "1971"
+    }
+  ],
+  "subcategory": "defense_immune",
+  "subcategory_name": "Defense & Immune Response",
+  "verified": false
+}

@@ -1,0 +1,33 @@
+{
+  "id": "pubmed_41220580",
+  "pmid": "41220580",
+  "title": "Serum metabolomics-based diagnostic biomarkers for colorectal cancer: insights and multi-omics validation.",
+  "authors": [
+    "Wang, Taorui",
+    "Gao, Yuanxu",
+    "Liu, Zhihai",
+    "Du, Peng",
+    "Tang, Shengjun",
+    "Lai, Zijun",
+    "Li, Gen"
+  ],
+  "author_string": "Wang, Taorui, Gao, Yuanxu, Liu, Zhihai, Du, Peng, Tang, Shengjun et al.",
+  "journal": "Front Endocrinol (Lausanne)",
+  "journal_full": "Frontiers in endocrinology",
+  "year": "",
+  "doi": "10.3389/fendo.2025.1663938",
+  "abstract": "Colorectal cancer (CRC) remains one of the leading causes of cancer-related mortality worldwide, primarily due to delayed diagnosis. There is an urgent need for sensitive, noninvasive biomarkers that can facilitate early detection and improve clinical outcomes. In this study, we performed untargeted metabolomic profiling of serum samples from 715 participants (248 CRC patients and 467 noncancer controls, NCC) using liquid chromatography-mass spectrometry (LC-MS). Differential metabolites were identified through statistical filtering and multivariate analysis, followed by pathway enrichment to elucidate biologically relevant dysregulations. Subsequently, machine learning algorithms, including Support Vector Machine (SVM), Random Forest (RF), eXtreme Gradient Boosting (XGBoost), and Logistic Regression (LR), were applied to construct predictive models. As a complementary approach, we also profiled cfDNA methylation patterns in a subset of samples and developed a multi-omics classifier integrating metabolite and epigenetic features. We identified 26 CRC-associated serum metabolites, many of which mapped to dysregulated pathways such as primary bile acid biosynthesis and taurine/hypotaurine metabolism, suggesting active reprogramming of host-microbiota metabolic axes in CRC pathogenesis. A metabolomics-based diagnostic model built using ten selected metabolites demonstrated excellent discriminatory performance, achieving area under the receiver operaring characteristic curve (AUROC) of 0.96-0.97 and accuracies up to 92.5% across multiple machine learning methods. Integration of cell-free DNA (cfDNA) methylation markers yielded a multi-omics model with slightly enhanced performance (AUROC=0.98), but the gain over the metabolomics-only model was modest. This study reveals distinct serum metabolic signatures and pathway disruptions in CRC patients and presents a high-performance, minimally invasive diagnostic model based solely on metabolomics data. While the integration of methylation features offers incremental benefit, metabolomics remains the dominant predictor, underscoring its potential as a standalone platform for early CRC screening and precision medicine.",
+  "keywords": [
+    "biomarker",
+    "colorectal cancer",
+    "diagnostic model",
+    "machine learning",
+    "metabolomics"
+  ],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/41220580",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T16:58:23.242571",
+  "category": "biology",
+  "subcategories": []
+}

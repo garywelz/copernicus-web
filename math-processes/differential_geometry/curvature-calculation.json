@@ -1,0 +1,25 @@
+{
+  "id": "curvature-calculation",
+  "title": "Curvature Calculation",
+  "description": "Compute curvature of a curve in space",
+  "category": "mathematics",
+  "subcategory": "differential_geometry",
+  "mermaid": "graph TD A1[Input: Parametric Curve r(t)] --> B1[\"Compute: r'(t) (Tangent Vector)\"] style A1 fill:#ff6b6b,color:#fff style B1 fill:#51cf66,color:#fff B1 --> C1[Intermediate: Tangent Vector r'(t)] style C1 fill:#74c0fc,color:#fff C1 --> D1[\"Compute: ||r'(t)|| (Speed)\"] style D1 fill:#51cf66,color:#fff D1 --> E1[Intermediate: Speed ||r'(t)||] style E1 fill:#74c0fc,color:#fff E1 --> F1[\"Compute: T(t) = r'(t) / ||r'(t)|| (Unit Tangent Vector)\"] style F1 fill:#51cf66,color:#fff F1 --> G1[Intermediate: Unit Tangent Vector T(t)] style G1 fill:#74c0fc,color:#fff G1 --> H1[\"Compute: T'(t) (Derivative of Unit Tangent)\"] style H1 fill:#51cf66,color:#fff H1 --> I1[Intermediate: Derivative of Unit Tangent T'(t)] style I1 fill:#74c0fc,color:#fff I1 --> J1[\"Compute: ||T'(t)|| (Magnitude of T'(t))\"] style J1 fill:#51cf66,color:#fff J1 --> K1[Intermediate: Magnitude of T'(t), ||T'(t)||] style K1 fill:#74c0fc,color:#fff K1 --> L1[\"Compute: Curvature κ(t) = ||T'(t)|| / ||r'(t)||\"] style L1 fill:#51cf66,color:#fff L1 --> M1[Output: Curvature κ(t)] style M1 fill:#b197fc,color:#fff",
+  "entities": [
+    "Input: Parametric Curve r(t)",
+    "/\"Compute: r'(t) (Tangent Vector)\"/)style A1 fill:#ff6b6b,color:#fff style B1 fill:#51cf66,color:#fff B1 --> C1[Intermediate: Tangent Vector r'(t)",
+    "/\"Compute: ||r'(t)|| (Speed)\"/)style D1 fill:#51cf66,color:#fff D1 --> E1[/\"Intermediate: Speed ||r'(t)||\" /",
+    "/\"Compute: T(t) = r'(t) / ||r'(t)|| (Unit Tangent Vector)\"/)style F1 fill:#51cf66,color:#fff F1 --> G1[Intermediate: Unit Tangent Vector T(t)",
+    "/\"Compute: T'(t) (Derivative of Unit Tangent)\"/)style H1 fill:#51cf66,color:#fff H1 --> I1[Intermediate: Derivative of Unit Tangent T'(t)",
+    "/\"Compute: ||T'(t)|| (Magnitude of T'(t))\"/)style J1 fill:#51cf66,color:#fff J1 --> K1[/\"Intermediate: Magnitude of T'(t), ||T'(t)||\" /",
+    "/\"Compute: Curvature κ(t) = ||T'(t)|| / ||r'(t)||\"/)style L1 fill:#51cf66,color:#fff L1 --> M1[Output: Curvature κ(t)"
+  ],
+  "metadata": {
+    "source": "programming_framework",
+    "color_scheme": "discipline_based",
+    "node_count": 7,
+    "complexity": "low"
+  },
+  "sources": [],
+  "source_text": "Source information to be added - please specify the book, paper, or reference material used by the LLM to generate this flowchart."
+}

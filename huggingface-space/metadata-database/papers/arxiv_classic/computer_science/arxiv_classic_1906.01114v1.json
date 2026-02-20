@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_1906.01114v1",
+  "arxiv_id": "1906.01114v1",
+  "title": "On Romeo and Juliet Problems: Minimizing Distance-to-Sight",
+  "authors": [
+    "Hee-Kap Ahn",
+    "Eunjin Oh",
+    "Lena Schlipf",
+    "Fabian Stehn",
+    "Darren Strash"
+  ],
+  "author_string": "Hee-Kap Ahn, Eunjin Oh, Lena Schlipf, Fabian Stehn, Darren Strash",
+  "journal": "arXiv:1906.01114v1",
+  "journal_ref": null,
+  "year": "2019",
+  "doi": null,
+  "abstract": "We introduce a variant of the watchman route problem, which we call the quickest pair-visibility problem. Given two persons standing at points $s$ and $t$ in a simple polygon $P$ with no holes, we want to minimize the distance they travel in order to see each other in $P$. We solve two variants of this problem, one minimizing the longer distance the two persons travel (min-max) and one minimizing the total travel distance (min-sum), optimally in linear time. We also consider a query version of this problem for the min-max variant. We can preprocess a simple $n$-gon in linear time so that the minimum of the longer distance the two persons travel can be computed in $O(\\log^2 n)$ time for any two query positions $s,t$ where the two persons start.",
+  "categories": [
+    "cs.CG",
+    "cs.DS"
+  ],
+  "primary_category": "cs.DS",
+  "comment": "12 pages, 8 figures; appeared in Proc. 16th Scandinavian Symposium and Workshops on Algorithm Theory (SWAT 2018)",
+  "published_date": "2019-06-03T22:47:57Z",
+  "updated_date": "2019-06-03T22:47:57Z",
+  "url": "https://arxiv.org/abs/1906.01114v1",
+  "pdf_url": "https://arxiv.org/pdf/1906.01114v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:23.478919",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CG",
+    "cs.DS"
+  ]
+}

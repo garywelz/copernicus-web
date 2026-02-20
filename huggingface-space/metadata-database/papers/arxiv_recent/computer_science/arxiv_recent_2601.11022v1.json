@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2601.11022v1",
+  "arxiv_id": "2601.11022v1",
+  "title": "Matching High-Dimensional Geometric Quantiles for Test-Time Adaptation of Transformers and Convolutional Networks Alike",
+  "authors": [
+    "Sravan Danda",
+    "Aditya Challa",
+    "Shlok Mehendale",
+    "Snehanshu Saha"
+  ],
+  "author_string": "Sravan Danda, Aditya Challa, Shlok Mehendale, Snehanshu Saha",
+  "journal": "arXiv:2601.11022v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Test-time adaptation (TTA) refers to adapting a classifier for the test data when the probability distribution of the test data slightly differs from that of the training data of the model. To the best of our knowledge, most of the existing TTA approaches modify the weights of the classifier relying heavily on the architecture. It is unclear as to how these approaches are extendable to generic architectures. In this article, we propose an architecture-agnostic approach to TTA by adding an adapter network pre-processing the input images suitable to the classifier. This adapter is trained using the proposed quantile loss. Unlike existing approaches, we correct for the distribution shift by matching high-dimensional geometric quantiles. We prove theoretically that under suitable conditions minimizing quantile loss can learn the optimal adapter. We validate our approach on CIFAR10-C, CIFAR100-C and TinyImageNet-C by training both classic convolutional and transformer networks on CIFAR10, CIFAR100 and TinyImageNet datasets.",
+  "categories": [
+    "cs.LG",
+    "cs.CV"
+  ],
+  "primary_category": "cs.CV",
+  "comment": null,
+  "published_date": "2026-01-16T06:36:08Z",
+  "updated_date": "2026-01-16T06:36:08Z",
+  "url": "https://arxiv.org/abs/2601.11022v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11022v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:37.511153",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.LG",
+    "cs.CV"
+  ]
+}

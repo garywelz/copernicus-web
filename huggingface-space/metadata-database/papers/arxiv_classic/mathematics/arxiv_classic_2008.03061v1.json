@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2008.03061v1",
+  "arxiv_id": "2008.03061v1",
+  "title": "Hierarchical Clusterings of Unweighted Graphs",
+  "authors": [
+    "Svein Høgemo",
+    "Christophe Paul",
+    "Jan Arne Telle"
+  ],
+  "author_string": "Svein Høgemo, Christophe Paul, Jan Arne Telle",
+  "journal": "arXiv:2008.03061v1",
+  "journal_ref": null,
+  "year": "2020",
+  "doi": null,
+  "abstract": "We study the complexity of finding an optimal hierarchical clustering of an unweighted similarity graph under the recently introduced Dasgupta objective function. We introduce a proof technique, called the normalization procedure, that takes any such clustering of a graph $G$ and iteratively improves it until a desired target clustering of G is reached. We use this technique to show both a negative and a positive complexity result. Firstly, we show that in general the problem is NP-complete. Secondly, we consider min-well-behaved graphs, which are graphs $H$ having the property that for any $k$ the graph $H(k)$ being the join of $k$ copies of $H$ has an optimal hierarchical clustering that splits each copy of $H$ in the same optimal way. To optimally cluster such a graph $H(k)$ we thus only need to optimally cluster the smaller graph $H$. Co-bipartite graphs are min-well-behaved, but otherwise they seem to be scarce. We use the normalization procedure to show that also the cycle on 6 vertices is min-well-behaved.",
+  "categories": [
+    "cs.CC",
+    "cs.DS",
+    "math.CO"
+  ],
+  "primary_category": "math.CO",
+  "comment": "19 pages, 7 figures. Extended version of conference paper, to appear in proceedings from MFCS 2020",
+  "published_date": "2020-08-07T09:45:46Z",
+  "updated_date": "2020-08-07T09:45:46Z",
+  "url": "https://arxiv.org/abs/2008.03061v1",
+  "pdf_url": "https://arxiv.org/pdf/2008.03061v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:27.421360",
+  "category": "mathematics",
+  "subcategories": [
+    "cs.CC",
+    "cs.DS",
+    "math.CO"
+  ]
+}

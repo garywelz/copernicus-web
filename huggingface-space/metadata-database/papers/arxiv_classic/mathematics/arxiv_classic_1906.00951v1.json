@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_1906.00951v1",
+  "arxiv_id": "1906.00951v1",
+  "title": "User Traffic Prediction for Proactive Resource Management: Learning-Powered Approaches",
+  "authors": [
+    "Amin Azari",
+    "Panagiotis Papapetrou",
+    "Stojan Denic",
+    "Gunnar Peters"
+  ],
+  "author_string": "Amin Azari, Panagiotis Papapetrou, Stojan Denic, Gunnar Peters",
+  "journal": "arXiv:1906.00951v1",
+  "journal_ref": null,
+  "year": "2019",
+  "doi": null,
+  "abstract": "Traffic prediction plays a vital role in efficient planning and usage of network resources in wireless networks. While traffic prediction in wired networks is an established field, there is a lack of research on the analysis of traffic in cellular networks, especially in a content-blind manner at the user level. Here, we shed light into this problem by designing traffic prediction tools that employ either statistical, rule-based, or deep machine learning methods. First, we present an extensive experimental evaluation of the designed tools over a real traffic dataset. Within this analysis, the impact of different parameters, such as length of prediction, feature set used in analyses, and granularity of data, on accuracy of prediction are investigated. Second, regarding the coupling observed between behavior of traffic and its generating application, we extend our analysis to the blind classification of applications generating the traffic based on the statistics of traffic arrival/departure. The results demonstrate presence of a threshold number of previous observations, beyond which, deep machine learning can outperform linear statistical learning, and before which, statistical learning outperforms deep learning approaches. Further analysis of this threshold value represents a strong coupling between this threshold, the length of future prediction, and the feature set in use. Finally, through a case study, we present how the experienced delay could be decreased by traffic arrival prediction.",
+  "categories": [
+    "cs.NI",
+    "cs.LG",
+    "stat.ML"
+  ],
+  "primary_category": "stat.ML",
+  "comment": "arXiv admin note: text overlap with arXiv:1906.00939",
+  "published_date": "2019-05-09T13:56:51Z",
+  "updated_date": "2019-05-09T13:56:51Z",
+  "url": "https://arxiv.org/abs/1906.00951v1",
+  "pdf_url": "https://arxiv.org/pdf/1906.00951v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:23.478747",
+  "category": "mathematics",
+  "subcategories": [
+    "cs.NI",
+    "cs.LG",
+    "stat.ML"
+  ]
+}

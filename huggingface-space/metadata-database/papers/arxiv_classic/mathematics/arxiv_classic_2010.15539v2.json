@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2010.15539v2",
+  "arxiv_id": "2010.15539v2",
+  "title": "Rates of convergence for Gibbs sampling in the analysis of almost exchangeable data",
+  "authors": [
+    "Balázs Gerencsér",
+    "Andrea Ottolini"
+  ],
+  "author_string": "Balázs Gerencsér, Andrea Ottolini",
+  "journal": "arXiv:2010.15539v2",
+  "journal_ref": null,
+  "year": "2020",
+  "doi": null,
+  "abstract": "Motivated by de Finetti's representation theorem for almost exchangeable arrays, we want to sample $\\mathbf p \\in [0,1]^d$ from a distribution with density proportional to $\\exp(-A^2\\sum_{i<j}c_{ij}(p_i-p_j)^2)$, where $A$ is large and $c_{ij}$'s are non-negative weights. We analyze the rate of convergence of a coordinate Gibbs sampler used to simulate from these measures. We show that for every non-zero fixed matrix $C=(c_{ij})$, and large enough $A$, mixing happens in $Θ(A^2)$ steps in a suitable Wasserstein distance. The upper and lower bounds are explicit and depend on the matrix $C$ through few relevant spectral parameters.",
+  "categories": [
+    "math.PR",
+    "math.ST"
+  ],
+  "primary_category": "math.ST",
+  "comment": null,
+  "published_date": "2020-10-29T13:15:51Z",
+  "updated_date": "2020-12-21T18:47:56Z",
+  "url": "https://arxiv.org/abs/2010.15539v2",
+  "pdf_url": "https://arxiv.org/pdf/2010.15539v2.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:30:41.237803",
+  "category": "mathematics",
+  "subcategories": [
+    "math.PR",
+    "math.ST"
+  ]
+}

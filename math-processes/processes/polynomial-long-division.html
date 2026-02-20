@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polynomial Long Division - Mathematics Process</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .mermaid-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="gradient-bg text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="text-center">
+                <div class="text-4xl mb-4">🔢</div>
+                <h1 class="text-4xl font-bold mb-4">Polynomial Long Division</h1>
+                <p class="text-lg opacity-90">Mathematics Process Visualization</p>
+                <div class="mt-4">
+                    <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/math-processes-database/mathematics-database-table.html" 
+                       class="text-white hover:text-gray-200 underline">
+                        ← Back to Mathematics Processes Database
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Process Information -->
+        <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">Process Information</h2>
+            
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                <div>
+                    <h3 class="font-semibold text-gray-800 mb-2">Category</h3>
+                    <p class="text-gray-600">mathematics</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-800 mb-2">Subcategory</h3>
+                    <p class="text-gray-600">Polynomial Algebra</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-800 mb-2">Complexity</h3>
+                    <p class="text-gray-600">low</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-800 mb-2">Nodes</h3>
+                    <p class="text-gray-600">14</p>
+                </div>
+            </div>
+            
+            <div class="mb-6"><h3 class="font-semibold text-gray-800 mb-2">Description</h3><p class="text-gray-600">Divide one polynomial by another using long division algorithm</p></div>
+            
+            <div class="mb-6">
+                <h3 class="font-semibold text-gray-800 mb-2">Source Information</h3>
+                <p class="text-gray-600">Source information to be added - please specify the book, paper, or reference material used by the LLM to generate this flowchart.</p>
+                
+            </div>
+        </div>
+
+        <!-- Flowchart Visualization -->
+        <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">Process Flowchart</h2>
+            <div class="mermaid-container">
+                <div class="mermaid">
+graph TD
+A1[Input: Dividend Polynomial (P(x))]
+
+A1 --&gt; B1["Input: Divisor Polynomial (D(x))"]
+B1 --&gt; C1["Is D(x) = 0?"]
+C1 -- Yes --&gt; D1["Error: Division by zero"]
+C1 -- No --&gt; E1["Ensure Dividend Degree &gt;= Divisor Degree"]
+
+E1 --&gt; F1["Current Quotient = 0"]
+
+F1 --&gt; G1["Current Remainder = P(x)"]
+
+G1 --&gt; H1["Find term to multiply D(x) by to match the leading term of Current Remainder"]
+
+H1 --&gt; I1["New Quotient Term = (Leading Term of Remainder) / (Leading Term of Divisor)"]
+
+I1 --&gt; J1["Current Quotient = Current Quotient + New Quotient Term"]
+
+J1 --&gt; K1["New Remainder = Current Remainder - (New Quotient Term * D(x))"]
+
+K1 --&gt; L1["Current Remainder = New Remainder"]
+
+L1 --&gt; M1["Is Degree(Current Remainder) &lt; Degree(D(x))?"]
+M1 -- No --&gt; H1
+M1 -- Yes --&gt; N1["Quotient = Current Quotient"]
+
+N1 --&gt; O1["Remainder = Current Remainder"]
+
+O1 --&gt; P1(Output: Quotient Polynomial)
+
+P1 --&gt; Q1(Output: Remainder Polynomial)
+
+style A1 fill:#ff6b6b,color:#fff
+style B1 fill:#ff6b6b,color:#fff
+style C1 fill:#ffd43b,color:#000
+style D1 fill:#b197fc,color:#fff
+style E1 fill:#ffd43b,color:#000
+style F1 fill:#74c0fc,color:#fff
+style G1 fill:#74c0fc,color:#fff
+style H1 fill:#51cf66,color:#fff
+style I1 fill:#51cf66,color:#fff
+style J1 fill:#74c0fc,color:#fff
+style K1 fill:#51cf66,color:#fff
+style L1 fill:#74c0fc,color:#fff
+style M1 fill:#ffd43b,color:#000
+style N1 fill:#b197fc,color:#fff
+style O1 fill:#b197fc,color:#fff
+style P1 fill:#b197fc,color:#fff
+style Q1 fill:#b197fc,color:#fff
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Entities/Concepts -->
+        <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">Key Concepts</h2>
+            <div class="flex flex-wrap gap-2">
+                <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Input: Dividend Polynomial (P(x</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Input: Divisor Polynomial (x))B1 &quot;Is x = 0?&quot;</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">&quot;Error: Division by zero&quot;</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">&quot;Ensure Dividend Degree &gt;= Divisor Degree&quot;</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">&quot;Current Quotient = 0&quot;</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">&quot;Current Remainder = x&quot;</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">&quot;Find term to multiply x by to match the leading term of Current Remainder&quot;</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">&quot;New Quotient Term = (Leading Term of Remainder) / (Leading Term of Divisor)&quot;</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">&quot;Current Quotient = Current Quotient + New Quotient Term&quot;</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">&quot;New Remainder = Current Remainder - (New Quotient Term * x)&quot;</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">&quot;Current Remainder = New Remainder&quot;</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">&quot;Is Degree(Current Remainder) &lt; Degree(x)?&quot;</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">&quot;Quotient = Current Quotient&quot;</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">&quot;Remainder = Current Remainder&quot;</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Output: Quotient Polynomial) P1 Output: Remainder Polynomial</span>
+            </div>
+        </div>
+
+        <!-- Suggestion Box -->
+        <div class="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl shadow-lg p-8 mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">💡 Suggest Improvements</h2>
+            <p class="text-gray-700 mb-4">
+                Have suggestions for improving this process visualization? Found an error or want to add more detail? 
+                We'd love to hear from you!
+            </p>
+            <a href="https://forms.gle/YOUR_FORM_ID" 
+               target="_blank"
+               class="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition text-lg font-medium">
+                Suggest Improvements →
+            </a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-sm opacity-75">Part of the Copernicus AI Knowledge Engine</p>
+            <p class="text-xs opacity-50 mt-2">&copy; 2025 Gary Welz. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        mermaid.initialize({ startOnLoad: true, theme: 'default' });
+    </script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2601.04866v1",
+  "arxiv_id": "2601.04866v1",
+  "title": "Virtual Element methods for non-Newtonian shear-thickening fluid flow problems",
+  "authors": [
+    "Paola F. Antonietti",
+    "Lourenço Beirão da Veiga",
+    "Michele Botti",
+    "André Harnist",
+    "Giuseppe Vacca",
+    "Marco Verani"
+  ],
+  "author_string": "Paola F. Antonietti, Lourenço Beirão da Veiga, Michele Botti, André Harnist, Giuseppe Vacca et al.",
+  "journal": "arXiv:2601.04866v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "In this work, we present a comprehensive theoretical analysis for Virtual Element discretizations of incompressible non-Newtonian flows governed by the Carreau-Yasuda constitutive law, in the shear-thickening regime (r > 2) including both degenerate (delta = 0) and non-degenerate (delta > 0) cases. The proposed Virtual Element method features two distinguishing advantages: the construction of an exactly divergence-free discrete velocity field and compatibility with general polygonal meshes. The analysis presented in this work extends a previous work, where only shear-thinning behavior (1 < r < 2) was considered. Indeed, the theoretical analysis of the shear-thickening setting requires several novel analytical tools, including: an inf-sup stability analysis of the discrete velocity-pressure coupling in non-Hilbertian norms, a stabilization term specifically designed to address the nonlinear structure as the exponent r > 2; and the introduction of a suitable discrete norm tailored to the underlying nonlinear constitutive relation. Numerical results demonstrate the practical performance of the proposed formulation.",
+  "categories": [
+    "math.NA"
+  ],
+  "primary_category": "math.NA",
+  "comment": null,
+  "published_date": "2026-01-08T12:02:10Z",
+  "updated_date": "2026-01-08T12:02:10Z",
+  "url": "https://arxiv.org/abs/2601.04866v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.04866v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:26.900213",
+  "category": "mathematics",
+  "subcategories": [
+    "math.NA"
+  ]
+}

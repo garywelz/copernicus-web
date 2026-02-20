@@ -1,0 +1,30 @@
+{
+  "id": "arxiv_2602.04783v1",
+  "arxiv_id": "2602.04783v1",
+  "title": "Reducing the Cost of Unitary Coupled Cluster via Active Space Partitioning",
+  "authors": [
+    "Prateek Vaish",
+    "Brenda Rubenstein"
+  ],
+  "author_string": "Prateek Vaish, Brenda Rubenstein",
+  "journal": "arXiv:2602.04783v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Unitary Coupled Cluster (UCC) theory is a promising variational method for electronic structure calculations, especially for strongly correlated systems and quantum computers. However, its practical application is limited by the steep scaling of its non-terminating Baker-Campbell-Hausdorff expansion. We introduce an active space UCCSD(4)/MP2 approach that leverages a fourth-order many-body perturbation theory truncation of UCCSD within a selected active space, while treating external excitations at the MP2 level. We explore two variants: a composite method that sums separate internal and external contributions and an interacting method that couples the amplitudes for greater accuracy. We test our approach on the GW100 dataset, a metaphosphate hydrolysis reaction, and the strongly correlated torsion of ethylene. Our results suggest that the interacting method with canonical orbitals is robust for weakly and moderately correlated systems and accurately reproduces the full UCCSD(4) potential energy curves using only 15-25% of the virtual orbitals in its active space. In comparison, the composite formulation exhibits greater sensitivity to the orbital basis and active space size, leading to less systematic behavior across the benchmark set. For ethylene torsion, a system dominated by strong static correlation, both composite and interacting formulations employing canonical orbitals closely track the full UCCSD(4) reference but do not alleviate the unphysical features inherited from the underlying single-reference UCCSD(4) description. This active space framework offers a tractable approach for modeling correlated molecules and reactions on classical computers and provides a viable path for scaling UCC calculations for resource-constrained quantum hardware.",
+  "categories": [
+    "physics.chem-ph"
+  ],
+  "primary_category": "physics.chem-ph",
+  "comment": "35 pages, 5 figures, 2 tables. Includes 5 pages of Supplemental Information with detailed GW100 benchmark data and molecule-by-molecule error analysis",
+  "published_date": "2026-02-04T17:30:56Z",
+  "updated_date": "2026-02-04T17:30:56Z",
+  "url": "https://arxiv.org/abs/2602.04783v1",
+  "pdf_url": "https://arxiv.org/pdf/2602.04783v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-02-05T07:00:23.039776",
+  "category": "physics",
+  "subcategories": [
+    "physics.chem-ph"
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "id": "arxiv_2012.13391v2",
+  "arxiv_id": "2012.13391v2",
+  "title": "I like fish, especially dolphins: Addressing Contradictions in Dialogue Modeling",
+  "authors": [
+    "Yixin Nie",
+    "Mary Williamson",
+    "Mohit Bansal",
+    "Douwe Kiela",
+    "Jason Weston"
+  ],
+  "author_string": "Yixin Nie, Mary Williamson, Mohit Bansal, Douwe Kiela, Jason Weston",
+  "journal": "arXiv:2012.13391v2",
+  "journal_ref": null,
+  "year": "2020",
+  "doi": null,
+  "abstract": "To quantify how well natural language understanding models can capture consistency in a general conversation, we introduce the DialoguE COntradiction DEtection task (DECODE) and a new conversational dataset containing both human-human and human-bot contradictory dialogues. We then compare a structured utterance-based approach of using pre-trained Transformer models for contradiction detection with the typical unstructured approach. Results reveal that: (i) our newly collected dataset is notably more effective at providing supervision for the dialogue contradiction detection task than existing NLI data including those aimed to cover the dialogue domain; (ii) the structured utterance-based approach is more robust and transferable on both analysis and out-of-distribution dialogues than its unstructured counterpart. We also show that our best contradiction detection model correlates well with human judgments and further provide evidence for its usage in both automatically evaluating and improving the consistency of state-of-the-art generative chatbots.",
+  "categories": [
+    "cs.CL",
+    "cs.AI",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": "15 pages",
+  "published_date": "2020-12-24T18:47:49Z",
+  "updated_date": "2020-12-28T18:32:21Z",
+  "url": "https://arxiv.org/abs/2012.13391v2",
+  "pdf_url": "https://arxiv.org/pdf/2012.13391v2.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:19.475419",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CL",
+    "cs.AI",
+    "cs.LG"
+  ]
+}

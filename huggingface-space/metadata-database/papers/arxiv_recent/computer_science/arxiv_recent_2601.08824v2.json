@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2601.08824v2",
+  "arxiv_id": "2601.08824v2",
+  "title": "Breaking the Orthogonality Barrier in Quantum LDPC Codes",
+  "authors": [
+    "Kenta Kasai"
+  ],
+  "author_string": "Kenta Kasai",
+  "journal": "arXiv:2601.08824v2",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Classical low-density parity-check (LDPC) codes are a widely deployed and well-established technology, forming the backbone of modern communication and storage systems. It is well known that, in this classical setting, increasing the girth of the Tanner graph while maintaining regular degree distributions leads simultaneously to good belief-propagation (BP) decoding performance and large minimum distance. In the quantum setting, however, this principle does not directly apply because quantum LDPC codes must satisfy additional orthogonality constraints between their parity-check matrices. When one enforces both orthogonality and regularity in a straightforward manner, the girth is typically reduced and the minimum distance becomes structurally upper bounded.   In this work, we overcome this limitation by using permutation matrices with controlled commutativity and by restricting the orthogonality constraints to only the necessary parts of the construction, while preserving regular check-matrix structures. This design breaks the conventional trade-off between orthogonality, regularity, girth, and minimum distance, allowing us to construct quantum LDPC codes with large girth and without the usual distance upper bounds. As a concrete demonstration, we construct a girth-8, (3,12)-regular $[[9216,4612, \\leq 48]]$ quantum LDPC code and show that, under BP decoding combined with a low-complexity post-processing algorithm, it achieves a frame error rate as low as $10^{-8}$ on the depolarizing channel with error probability $4 \\%$.",
+  "categories": [
+    "quant-ph",
+    "cs.IT"
+  ],
+  "primary_category": "cs.IT",
+  "comment": "I have corrected a typo in the matrix in Section 6.1",
+  "published_date": "2026-01-13T18:57:43Z",
+  "updated_date": "2026-01-14T18:26:06Z",
+  "url": "https://arxiv.org/abs/2601.08824v2",
+  "pdf_url": "https://arxiv.org/pdf/2601.08824v2.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:06.570808",
+  "category": "computer_science",
+  "subcategories": [
+    "quant-ph",
+    "cs.IT"
+  ]
+}

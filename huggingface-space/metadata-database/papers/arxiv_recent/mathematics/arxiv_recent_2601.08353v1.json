@@ -1,0 +1,30 @@
+{
+  "id": "arxiv_2601.08353v1",
+  "arxiv_id": "2601.08353v1",
+  "title": "Rank tests for time-varying covariance matrices observed under noise",
+  "authors": [
+    "Markus Reiß",
+    "Lars Winkelmann"
+  ],
+  "author_string": "Markus Reiß, Lars Winkelmann",
+  "journal": "arXiv:2601.08353v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We consider a $d$-dimensional continuous martingale $X(t)$ with quadratic variation matrix $\\langle X\\rangle_t=\\int_0^t Σ(s)\\,ds$ and develop tests for the rank of its spot covariance matrix $Σ(t)$, $t\\in[0,1]$. The process $X$ is observed under observational noise, as is standard for microstructure noise models in high-frequency finance. We test the null hypothesis ${\\mathcal H}_0:rank(Σ(t))\\le r$ against local alternatives ${\\mathcal H}_{1,n}:λ_{r+1}(Σ(t))\\ge v_n$, where $λ_{r+1}$ denotes the $(r+1)$st eigenvalue and $v_n\\downarrow 0$ as the sample size $n\\to\\infty$. We construct test statistics based on eigenvalues of carefully calibrated localized spectral covariance matrix estimates. Critical values are provided non-asymptotically as well as asymptotically via maximal eigenvalues of Gaussian orthogonal ensembles. The power analysis establishes asymptotic consistency for a separation rate $v_n\\thicksim (\\underlineλ_r^{-1/(β+1)}n^{-β/(β+1)})\\wedge n^{-β/(β+2)}$, depending on the Hölder-regularity $β$ of $Σ$ and a possible spectral gap $\\underlineλ_r\\ge 0$ under ${\\mathcal H}_0$. A lower bound shows the optimality of this rate. We discuss why the rate is much faster than conventional estimation rates. The theory is illustrated by simulations and a real data example with German government bonds of varying maturity.",
+  "categories": [
+    "math.ST"
+  ],
+  "primary_category": "math.ST",
+  "comment": null,
+  "published_date": "2026-01-13T09:10:59Z",
+  "updated_date": "2026-01-13T09:10:59Z",
+  "url": "https://arxiv.org/abs/2601.08353v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.08353v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:07.224430",
+  "category": "mathematics",
+  "subcategories": [
+    "math.ST"
+  ]
+}

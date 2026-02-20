@@ -183,39 +183,33 @@ async def get_subscriber_profile(subscriber_id: str):
         # Remove sensitive data
         subscriber_data.pop('password_hash', None)
         
-        # Calculate actual podcast count dynamically
-        all_canonical_filenames = set()
-        
-        # Count from podcast_jobs
+        # Calculate actual podcast count - use UNION counting (podcast_jobs + episodes) to match what's shown in "View Podcasts"
+        # This ensures the count matches what users see when they view their podcast list
         try:
+            unique_podcasts = set()
+            
+            # Count from podcast_jobs
             jobs_query = db.collection('podcast_jobs').where('subscriber_id', '==', subscriber_id).stream()
             for job_doc in jobs_query:
                 job_data = job_doc.to_dict() or {}
                 result = job_data.get('result', {})
                 canonical = result.get('canonical_filename')
                 if canonical:
-                    all_canonical_filenames.add(canonical)
+                    unique_podcasts.add(canonical)
                 else:
-                    # If no canonical, use job_id as identifier
-                    all_canonical_filenames.add(job_doc.id)
-        except Exception as e:
-            structured_logger.debug("Could not count podcasts from jobs for subscriber profile",
-                                   subscriber_id=subscriber_id,
-                                   error=str(e))
-        
-        # Count from episodes
-        try:
+                    unique_podcasts.add(job_doc.id)
+            
+            # Count from episodes
             episodes_query = db.collection(EPISODE_COLLECTION_NAME).where('subscriber_id', '==', subscriber_id).stream()
             for episode_doc in episodes_query:
-                canonical = episode_doc.id  # Episode ID is canonical filename
-                all_canonical_filenames.add(canonical)
+                unique_podcasts.add(episode_doc.id)
+            
+            actual_podcast_count = len(unique_podcasts)
         except Exception as e:
-            structured_logger.debug("Could not count podcasts from episodes for subscriber profile",
+            structured_logger.debug("Could not count podcasts for subscriber profile",
                                    subscriber_id=subscriber_id,
                                    error=str(e))
-        
-        # Override stored count with actual calculated count
-        actual_podcast_count = len(all_canonical_filenames)
+            actual_podcast_count = 0
         subscriber_data['podcasts_generated'] = actual_podcast_count
         
         # Calculate RSS submission count dynamically
@@ -317,11 +311,18 @@ async def get_subscriber_podcasts(subscriber_id: str):
                 podcast_id = canonical or job_doc.id
                 
                 if podcast_id and podcast_id not in podcasts_by_id:
+                    # Get title from multiple sources
+                    title = (
+                        result.get('title') or 
+                        job_data.get('request', {}).get('topic') or 
+                        'Untitled'
+                    )
+                    
                     podcasts_by_id[podcast_id] = {
                         'podcast_id': podcast_id,
                         'id': podcast_id,
                         'canonical_filename': canonical,
-                        'title': result.get('title') or job_data.get('request', {}).get('topic', 'Untitled'),
+                        'title': title,
                         'topic': job_data.get('request', {}).get('topic', ''),
                         'category': job_data.get('request', {}).get('category', ''),
                         'subscriber_id': subscriber_id,
@@ -339,7 +340,8 @@ async def get_subscriber_podcasts(subscriber_id: str):
         
         # Get podcasts from episodes collection and merge/update with episode data
         try:
-            episodes_query = db.collection(EPISODE_COLLECTION_NAME).where('subscriber_id', '==', subscriber_id).stream()
+            # IMPORTANT: Order episodes by created_at DESCENDING to get newest first
+            episodes_query = db.collection(EPISODE_COLLECTION_NAME).where('subscriber_id', '==', subscriber_id).order_by('created_at', direction=firestore.Query.DESCENDING).stream()
             
             for episode_doc in episodes_query:
                 episode_data = episode_doc.to_dict() or {}
@@ -347,25 +349,74 @@ async def get_subscriber_podcasts(subscriber_id: str):
                 
                 if canonical in podcasts_by_id:
                     # Update existing podcast with episode data
+                    existing_podcast = podcasts_by_id[canonical]
+                    
+                    # ALWAYS prioritize episode title - match admin endpoint logic exactly
+                    episode_title = episode_data.get('title')
+                    
+                    # Always prefer episode title if it exists and is valid (same as admin endpoint)
+                    if episode_title and episode_title.strip() and episode_title != 'Untitled':
+                        final_title = episode_title
+                    else:
+                        # Fallback: use existing title from podcast_jobs if it's valid
+                        final_title = existing_podcast.get('title', 'Untitled')
+                    
+                    # Update result object with all URLs from episodes (frontend expects podcast.result.*)
+                    result_obj = existing_podcast.get('result', {}).copy()
+                    result_obj.update({
+                        'audio_url': episode_data.get('audio_url') or result_obj.get('audio_url'),
+                        'thumbnail_url': episode_data.get('thumbnail_url') or result_obj.get('thumbnail_url'),
+                        'description_url': episode_data.get('description_url') or result_obj.get('description_url'),
+                        'transcript_url': episode_data.get('transcript_url') or result_obj.get('transcript_url'),
+                    })
+                    
+                    # Prioritize episode created_at for sorting (episodes are the source of truth)
+                    episode_created_at = episode_data.get('created_at') or episode_data.get('generated_at')
+                    
                     podcasts_by_id[canonical].update({
+                        'title': final_title,
                         'submitted_to_rss': episode_data.get('submitted_to_rss', podcasts_by_id[canonical].get('submitted_to_rss', False)),
-                        'audio_url': episode_data.get('audio_url') or podcasts_by_id[canonical].get('result', {}).get('audio_url'),
-                        'thumbnail_url': episode_data.get('thumbnail_url') or podcasts_by_id[canonical].get('result', {}).get('thumbnail_url'),
+                        'audio_url': episode_data.get('audio_url') or result_obj.get('audio_url'),
+                        'thumbnail_url': episode_data.get('thumbnail_url') or result_obj.get('thumbnail_url'),
+                        'result': result_obj,  # Ensure result object has all URLs for frontend
+                        # Update created_at with episode timestamp if available (more accurate for sorting)
+                        'created_at': episode_created_at or podcasts_by_id[canonical].get('created_at')
                     })
                 else:
-                    # New podcast only in episodes
+                    # New podcast only in episodes - need to create request object for frontend compatibility
+                    request_obj = {
+                        'topic': episode_data.get('title') or episode_data.get('topic', ''),
+                        'category': episode_data.get('category', ''),
+                        'expertise_level': episode_data.get('expertise_level', ''),
+                        'duration': episode_data.get('duration', '')
+                    }
+                    
+                    # Create result object with all URLs from episodes (frontend expects podcast.result.*)
+                    result_obj_episodes = {
+                        'audio_url': episode_data.get('audio_url'),
+                        'thumbnail_url': episode_data.get('thumbnail_url'),
+                        'description_url': episode_data.get('description_url'),
+                        'transcript_url': episode_data.get('transcript_url'),
+                    }
+                    
+                    # Use episode created_at or generated_at for accurate sorting
+                    episode_timestamp = episode_data.get('created_at') or episode_data.get('generated_at') or ''
+                    
                     podcasts_by_id[canonical] = {
                         'podcast_id': canonical,
                         'id': canonical,
                         'canonical_filename': canonical,
-                        'title': episode_data.get('title', 'Untitled'),
+                        'title': episode_data.get('title') or episode_data.get('topic') or request_obj.get('topic') or 'Untitled',
                         'topic': episode_data.get('topic', ''),
                         'category': episode_data.get('category', ''),
                         'subscriber_id': subscriber_id,
                         'submitted_to_rss': episode_data.get('submitted_to_rss', False),
-                        'created_at': episode_data.get('created_at') or episode_data.get('generated_at'),
+                        'created_at': episode_timestamp,  # Use episode timestamp for accurate sorting
                         'audio_url': episode_data.get('audio_url'),
                         'thumbnail_url': episode_data.get('thumbnail_url'),
+                        'request': request_obj,  # Add request object for frontend compatibility
+                        'result': result_obj_episodes,  # Add result object with URLs for frontend
+                        'status': 'completed',
                         'source': 'episodes'
                     }
         except Exception as e:
@@ -373,9 +424,44 @@ async def get_subscriber_podcasts(subscriber_id: str):
                                      subscriber_id=subscriber_id,
                                      error=str(e))
         
-        # Convert dict to list and sort
+        # Convert dict to list and sort by created_at (newest first)
         podcasts_list = list(podcasts_by_id.values())
-        podcasts_list.sort(key=lambda x: x.get('created_at', ''), reverse=True)
+        
+        # Sort with proper date handling - newest podcasts first
+        # Use updated_at as fallback if created_at is missing
+        def get_sort_key(podcast):
+            # Try created_at first, then updated_at, then generated_at
+            timestamp = (
+                podcast.get('created_at') or 
+                podcast.get('updated_at') or 
+                podcast.get('generated_at') or
+                podcast.get('result', {}).get('generated_at') or
+                ''
+            )
+            
+            # Handle ISO format timestamps (string comparison works for ISO8601)
+            # Empty strings sort to the end
+            if not timestamp:
+                return ''  # Will sort last
+            # Ensure we have a string for comparison
+            if isinstance(timestamp, str):
+                # Normalize timestamp format for comparison
+                # Remove timezone info if present for consistent sorting
+                timestamp = timestamp.replace('+00:00', '').replace('Z', '')
+                return timestamp
+            # If it's a datetime object, convert to ISO string
+            if hasattr(timestamp, 'isoformat'):
+                return timestamp.isoformat()
+            return str(timestamp)
+        
+        podcasts_list.sort(key=get_sort_key, reverse=True)
+        
+        # Log first few podcasts for debugging
+        if podcasts_list:
+            structured_logger.debug("Podcasts sorted - first 3 timestamps",
+                                  first_timestamp=podcasts_list[0].get('created_at'),
+                                  second_timestamp=podcasts_list[1].get('created_at') if len(podcasts_list) > 1 else None,
+                                  third_timestamp=podcasts_list[2].get('created_at') if len(podcasts_list) > 2 else None)
         
         structured_logger.info("Found podcasts for subscriber",
                               subscriber_id=subscriber_id,
@@ -401,19 +487,66 @@ async def submit_podcast_to_rss(submission: PodcastSubmission):
         raise HTTPException(status_code=503, detail="Firestore service is unavailable")
     
     try:
-        # Get podcast details
+        # The podcast_id might be either a job ID or a canonical filename
+        # Try to find by document ID first (if it's a job ID)
         podcast_doc = db.collection('podcast_jobs').document(submission.podcast_id).get()
-        if not podcast_doc.exists:
-            raise HTTPException(status_code=404, detail="Podcast not found")
+        podcast_data = None
+        job_id = None
         
-        podcast_data = podcast_doc.to_dict()
+        if podcast_doc.exists:
+            # Found by job ID
+            podcast_data = podcast_doc.to_dict()
+            job_id = submission.podcast_id
+            structured_logger.info("Found podcast by job ID",
+                                  job_id=job_id,
+                                  podcast_id=submission.podcast_id)
+        else:
+            # Not found by job ID - try searching by canonical filename
+            # Search in podcast_jobs where canonical_filename matches
+            jobs_query = db.collection('podcast_jobs').where('result.canonical_filename', '==', submission.podcast_id).limit(1).stream()
+            job_found = False
+            for job_doc in jobs_query:
+                podcast_data = job_doc.to_dict()
+                job_id = job_doc.id
+                job_found = True
+                structured_logger.info("Found podcast by canonical filename",
+                                      canonical=submission.podcast_id,
+                                      job_id=job_id)
+                break
+            
+            if not job_found:
+                # Also check episodes collection (canonical filename is the document ID there)
+                episode_doc = db.collection(EPISODE_COLLECTION_NAME).document(submission.podcast_id).get()
+                if episode_doc.exists:
+                    # Found in episodes - need to find corresponding job
+                    episode_data = episode_doc.to_dict()
+                    subscriber_id_from_ep = episode_data.get('subscriber_id')
+                    if subscriber_id_from_ep:
+                        # Search for job with this canonical and subscriber
+                        jobs_query = db.collection('podcast_jobs').where(
+                            'subscriber_id', '==', subscriber_id_from_ep
+                        ).where(
+                            'result.canonical_filename', '==', submission.podcast_id
+                        ).limit(1).stream()
+                        for job_doc in jobs_query:
+                            podcast_data = job_doc.to_dict()
+                            job_id = job_doc.id
+                            structured_logger.info("Found podcast via episode collection",
+                                                  canonical=submission.podcast_id,
+                                                  job_id=job_id)
+                            break
+        
+        if not podcast_data or not job_id:
+            raise HTTPException(status_code=404, detail=f"Podcast not found: {submission.podcast_id}")
+        
         subscriber_id = podcast_data.get('subscriber_id')
         
         if not subscriber_id:
             raise HTTPException(status_code=400, detail="Podcast not associated with a subscriber")
         
-        episode_service.ensure_episode_document_from_job(submission.podcast_id, podcast_data)
-        canonical = (podcast_data.get('result') or {}).get('canonical_filename')
+        # Ensure episode document exists (use job_id for this)
+        episode_service.ensure_episode_document_from_job(job_id, podcast_data)
+        canonical = (podcast_data.get('result') or {}).get('canonical_filename') or submission.podcast_id
         
         # Update podcast to mark as submitted to RSS
         if submission.submit_to_rss:
@@ -452,11 +585,14 @@ async def submit_podcast_to_rss(submission: PodcastSubmission):
             if creator_attribution:
                 update_data['creator_attribution'] = creator_attribution
             
-            db.collection('podcast_jobs').document(submission.podcast_id).update(update_data)
+            # Use job_id (not submission.podcast_id which might be canonical)
+            db.collection('podcast_jobs').document(job_id).update(update_data)
             rss_service.update_episode_submission_state(canonical, True, creator_attribution)
             
             structured_logger.info("Podcast submitted to RSS feed",
                                   podcast_id=submission.podcast_id,
+                                  job_id=job_id,
+                                  canonical=canonical,
                                   creator_attribution=creator_attribution if creator_attribution else None)
             
             return {
@@ -470,7 +606,8 @@ async def submit_podcast_to_rss(submission: PodcastSubmission):
             subscriber_doc = db.collection('subscribers').document(subscriber_id).get()
             await rss_service.update_rss_feed(podcast_data, subscriber_doc.to_dict() if subscriber_doc.exists else None, False, None)
 
-            db.collection('podcast_jobs').document(submission.podcast_id).update({
+            # Use job_id (not submission.podcast_id which might be canonical)
+            db.collection('podcast_jobs').document(job_id).update({
                 'submitted_to_rss': False,
                 'rss_removed_at': datetime.utcnow().isoformat()
             })

@@ -9,6 +9,7 @@ type EpisodeRecord = {
   summary: string;
   audioUrl: string;
   thumbnailUrl?: string;
+  episodeImages?: string[];  // Array of 1-2 image URLs
   pubDate?: string;
   duration?: string;
   category?: string;
@@ -50,6 +51,7 @@ const getEpisodeFromCatalog = cache(async (slug: string): Promise<EpisodeRecord 
     summary: data.summary ?? descriptionMarkdown ?? '',
     audioUrl: data.audio_url ?? '',
     thumbnailUrl: data.thumbnail_url ?? undefined,
+    episodeImages: data.episode_images ?? undefined,  // Array of 1-2 image URLs
     pubDate: data.generated_at ?? data.created_at,
     duration: data.duration ?? data.request?.duration,
     category: data.category ?? data.category_slug,
@@ -58,11 +60,12 @@ const getEpisodeFromCatalog = cache(async (slug: string): Promise<EpisodeRecord 
 });
 
 type EpisodePageParams = {
-  params: { episodeId: string };
+  params: Promise<{ episodeId: string }>;
 };
 
 export async function generateMetadata({ params }: EpisodePageParams): Promise<Metadata> {
-  const episode = await getEpisodeFromCatalog(params.episodeId);
+  const { episodeId } = await params;
+  const episode = await getEpisodeFromCatalog(episodeId);
 
   if (!episode) {
     return {
@@ -89,7 +92,8 @@ export async function generateMetadata({ params }: EpisodePageParams): Promise<M
 }
 
 export default async function EpisodePage({ params }: EpisodePageParams) {
-  const episode = await getEpisodeFromCatalog(params.episodeId);
+  const { episodeId } = await params;
+  const episode = await getEpisodeFromCatalog(episodeId);
 
   if (!episode) {
     notFound();
@@ -142,6 +146,24 @@ export default async function EpisodePage({ params }: EpisodePageParams) {
               <a href={episode.audioUrl} className="text-blue-600 hover:underline">
                 Download episode
               </a>
+            </div>
+          </div>
+        )}
+
+        {/* Episode Images - Display during audio playback */}
+        {episode.episodeImages && episode.episodeImages.length > 0 && (
+          <div className="mt-6 space-y-4">
+            <h2 className="text-lg font-semibold text-gray-900">Episode Images</h2>
+            <div className="grid grid-cols-1 gap-4">
+              {episode.episodeImages.map((imageUrl, index) => (
+                <img
+                  key={index}
+                  src={imageUrl}
+                  alt={`${episode.title} - Image ${index + 1}`}
+                  className="w-full rounded-lg object-cover shadow-md"
+                  loading="lazy"
+                />
+              ))}
             </div>
           </div>
         )}

@@ -1,0 +1,85 @@
+{
+  "category": "biology",
+  "colorScheme": {
+    "blue": {
+      "category": "Intermediates & States",
+      "hex": "#74c0fc"
+    },
+    "green": {
+      "category": "Processing & Operations",
+      "hex": "#51cf66"
+    },
+    "red": {
+      "category": "Triggers & Inputs",
+      "hex": "#ff6b6b"
+    },
+    "violet": {
+      "category": "Products & Outputs",
+      "hex": "#b197fc"
+    },
+    "yellow": {
+      "category": "Structures & Objects",
+      "hex": "#ffd43b"
+    }
+  },
+  "complexity": {
+    "conditionals": 0,
+    "detailLevel": "low",
+    "edges": 13,
+    "level": "low",
+    "logicGates": {
+      "andGates": 0,
+      "orGates": 0,
+      "total": 0
+    },
+    "nodes": 13
+  },
+  "created": "2026-01-08",
+  "description": "Seed Germination Process in Plants. This process represents a higher-level biological mechanism distinct from molecular/biochemical processes covered in GLMP.",
+  "id": "reproduction_development-seed-germination-process",
+  "keywords": [
+    "reproduction",
+    "germination",
+    "process",
+    "plants",
+    "development",
+    "seed"
+  ],
+  "lastUpdated": "2026-01-08",
+  "mermaid": "graph TD\n    A6[Mature Seed] --> B6[Dormancy State]\n    C6[Environmental Signals] --> D6[Water Uptake]\n    C6 --> E6[Temperature Cues]\n    C6 --> F6[Light Exposure]\n    D6 --> G6[Imbibition]\n    E6 --> G6\n    F6 --> G6\n    G6 --> H6[Enzyme Activation]\n    H6 --> I6[Reserve Mobilization]\n    I6 --> J6[Radicle Emergence]\n    J6 --> K6[Root Development]\n    K6 --> L6[Cotyledon Expansion]\n    L6 --> M6[Seedling Establishment]\n    \n    style A6 fill:#ff6b6b,color:#fff\n    style C6 fill:#ff6b6b,color:#fff\n    style B6 fill:#ffd43b,color:#000\n    style D6 fill:#ffd43b,color:#000\n    style E6 fill:#ffd43b,color:#000\n    style F6 fill:#ffd43b,color:#000\n    style G6 fill:#51cf66,color:#fff\n    style H6 fill:#51cf66,color:#fff\n    style I6 fill:#51cf66,color:#fff\n    style J6 fill:#74c0fc,color:#fff\n    style K6 fill:#74c0fc,color:#fff\n    style L6 fill:#74c0fc,color:#fff\n    style M6 fill:#b197fc,color:#fff",
+  "name": "Seed Germination Process",
+  "notes": "Higher-level biological process. GLMP covers biochemical/molecular processes; this database covers organismal/ecological processes.",
+  "organism": "Plants",
+  "relatedProcesses": [],
+  "sources": [
+    {
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "notes": "Higher-level biological process visualization: Seed Germination Process. Created using the Programming Framework methodology for organismal and ecological process analysis.",
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "year": "2025"
+    },
+    {
+      "authors": "Bradford KJ, Nonogaki H",
+      "doi": "10.1146/annurev.arplant.58.032806.103734",
+      "journal": "Annu Rev Plant Biol.",
+      "pubmed": "17209778",
+      "title": "The control of seed germination",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/17209778",
+      "year": "2007"
+    },
+    {
+      "authors": "Finkelstein R, Reeves W, Ariizumi T, Steber C",
+      "doi": "10.1146/annurev.arplant.59.032607.092740",
+      "journal": "Annu Rev Plant Biol.",
+      "pubmed": "18406592",
+      "title": "Seed dormancy and germination: the molecular link between the environment and the embryo",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/18406592",
+      "year": "2008"
+    }
+  ],
+  "subcategory": "reproduction_development",
+  "subcategory_name": "Reproduction & Development",
+  "verified": false
+}

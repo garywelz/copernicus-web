@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2601.11397v1",
+  "arxiv_id": "2601.11397v1",
+  "title": "Latent Space Inference via Paired Autoencoders",
+  "authors": [
+    "Emma Hart",
+    "Bas Peters",
+    "Julianne Chung",
+    "Matthias Chung"
+  ],
+  "author_string": "Emma Hart, Bas Peters, Julianne Chung, Matthias Chung",
+  "journal": "arXiv:2601.11397v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "This work describes a novel data-driven latent space inference framework built on paired autoencoders to handle observational inconsistencies when solving inverse problems. Our approach uses two autoencoders, one for the parameter space and one for the observation space, connected by learned mappings between the autoencoders' latent spaces. These mappings enable a surrogate for regularized inversion and optimization in low-dimensional, informative latent spaces. Our flexible framework can work with partial, noisy, or out-of-distribution data, all while maintaining consistency with the underlying physical models. The paired autoencoders enable reconstruction of corrupted data, and then use the reconstructed data for parameter estimation, which produces more accurate reconstructions compared to paired autoencoders alone and end-to-end encoder-decoders of the same architecture, especially in scenarios with data inconsistencies. We demonstrate our approaches on two imaging examples in medical tomography and geophysical seismic-waveform inversion, but the described approaches are broadly applicable to a variety of inverse problems in scientific and engineering applications.",
+  "categories": [
+    "cs.LG",
+    "math.NA"
+  ],
+  "primary_category": "math.NA",
+  "comment": "21 pages, 7 figures",
+  "published_date": "2026-01-16T16:08:04Z",
+  "updated_date": "2026-01-16T16:08:04Z",
+  "url": "https://arxiv.org/abs/2601.11397v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11397v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:30.213379",
+  "category": "mathematics",
+  "subcategories": [
+    "cs.LG",
+    "math.NA"
+  ]
+}

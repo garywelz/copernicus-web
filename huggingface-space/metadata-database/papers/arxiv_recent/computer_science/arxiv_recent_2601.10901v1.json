@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2601.10901v1",
+  "arxiv_id": "2601.10901v1",
+  "title": "Streaming Stochastic Submodular Maximization with On-Demand User Requests",
+  "authors": [
+    "Honglian Wang",
+    "Sijing Tu",
+    "Lutz Oettershagen",
+    "Aristides Gionis"
+  ],
+  "author_string": "Honglian Wang, Sijing Tu, Lutz Oettershagen, Aristides Gionis",
+  "journal": "arXiv:2601.10901v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We explore a novel problem in streaming submodular maximization, inspired by the dynamics of news-recommendation platforms. We consider a setting where users can visit a news website at any time, and upon each visit, the website must display up to $k$ news items. User interactions are inherently stochastic: each news item presented to the user is consumed with a certain acceptance probability by the user, and each news item covers certain topics. Our goal is to design a streaming algorithm that maximizes the expected total topic coverage. To address this problem, we establish a connection to submodular maximization subject to a matroid constraint. We show that we can effectively adapt previous methods to address our problem when the number of user visits is known in advance or linear-size memory in the stream length is available. However, in more realistic scenarios where only an upper bound on the visits and sublinear memory is available, the algorithms fail to guarantee any bounded performance. To overcome these limitations, we introduce a new online streaming algorithm that achieves a competitive ratio of $1/(8δ)$, where $δ$ controls the approximation quality. Moreover, it requires only a single pass over the stream, and uses memory independent of the stream length. Empirically, our algorithms consistently outperform the baselines.",
+  "categories": [
+    "cs.DS",
+    "cs.IR"
+  ],
+  "primary_category": "cs.IR",
+  "comment": "NeurIPS'25",
+  "published_date": "2026-01-15T23:00:10Z",
+  "updated_date": "2026-01-15T23:00:10Z",
+  "url": "https://arxiv.org/abs/2601.10901v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.10901v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:37.519636",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.DS",
+    "cs.IR"
+  ]
+}

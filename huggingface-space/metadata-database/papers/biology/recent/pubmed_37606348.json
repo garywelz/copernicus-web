@@ -1,0 +1,30 @@
+{
+  "id": "pubmed_37606348",
+  "pmid": "37606348",
+  "title": "Survival Analysis as a Basis for Testing Hypotheses when Using Quantitative Ordinal Scale Disease Severity Data.",
+  "authors": [
+    "Chiang, K S",
+    "Chang, Y M",
+    "Liu, H I",
+    "Lee, J Y",
+    "Jarroudi, M El",
+    "Bock, C H"
+  ],
+  "author_string": "Chiang, K S, Chang, Y M, Liu, H I, Lee, J Y, Jarroudi, M El et al.",
+  "journal": "Phytopathology",
+  "journal_full": "Phytopathology",
+  "year": "",
+  "doi": "10.1094/PHYTO-02-23-0055-R",
+  "abstract": "Disease severity in plant pathology is often measured by the amount of a plant or plant part that exhibits disease symptoms. This is typically assessed using a numerical scale, which allows a standardized, convenient, and quick method of rating. These scales, known as quantitative ordinal scales (QOS), divide the percentage scale into a predetermined number of intervals. There are various ways to analyze these ordinal data, with traditional methods involving the use of midpoint conversion to represent the interval. However, this may not be precise enough, as it is only an estimate of the true value. In this case, the data may be considered interval-censored, meaning that we have some knowledge of the value but not an exact measurement. This type of uncertainty is known as censoring, and techniques that address censoring, such as survival analysis (SA), use all available information and account for this uncertainty. To investigate the pros and cons of using SA with QOS measurements, we conducted a simulation based on three pathosystems. The results showed that SA almost always outperformed midpoint conversion with data analyzed using a <i>t</i> test, particularly when data were not normally distributed. Midpoint conversion is currently a standard procedure. In certain cases, the midpoint approach required a 400% increase in sample size to achieve the same power as the SA method. However, as the mean severity increases, fewer additional samples are needed (approximately an additional 100%), regardless of the assessment method used. Based on these findings, we conclude that SA is a valuable method for enhancing the power of hypothesis testing when analyzing QOS severity data. Future research should investigate the wider use of survival analysis techniques in plant pathology and their potential applications in the discipline.",
+  "keywords": [
+    "data science",
+    "epidemiology",
+    "modeling"
+  ],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/37606348",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T16:59:46.121809",
+  "category": "biology",
+  "subcategories": []
+}

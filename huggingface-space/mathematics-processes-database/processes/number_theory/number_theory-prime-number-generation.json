@@ -1,0 +1,108 @@
+{
+  "acquired_date": "2026-01-08T00:00:00Z",
+  "category": "mathematics",
+  "colorScheme": {
+    "blue": {
+      "category": "Intermediates & States",
+      "hex": "#74c0fc"
+    },
+    "green": {
+      "category": "Processing & Operations",
+      "hex": "#51cf66"
+    },
+    "red": {
+      "category": "Triggers & Inputs",
+      "hex": "#ff6b6b"
+    },
+    "violet": {
+      "category": "Products & Outputs",
+      "hex": "#b197fc"
+    },
+    "yellow": {
+      "category": "Structures & Objects",
+      "hex": "#ffd43b"
+    }
+  },
+  "complexity": {
+    "conditionals": 0,
+    "detailLevel": "medium",
+    "edges": 24,
+    "level": "medium",
+    "logicGates": {
+      "andGates": 1,
+      "orGates": 0,
+      "total": 1
+    },
+    "nodes": 26
+  },
+  "created": "2026-01-08",
+  "description": "Prime Number Generation Process. This number theory process visualization demonstrates the Sieve of Eratosthenes algorithm. The flowchart shows range inputs and optimization strategies, number theory methods and sieve algorithms, prime operations and marking strategies, intermediate results, and final prime number outputs.",
+  "id": "process_mathematics_prime-number-generation",
+  "keywords": [
+    "generation",
+    "number",
+    "theory",
+    "prime"
+  ],
+  "lastUpdated": "2026-01-08",
+  "mermaid": "graph TD\nA1[Range Definition] --> B1[Sieve Algorithm Selection]\nC1[Upper Bound] --> D1[Memory Allocation]\nE1[Optimization Strategy] --> F1[Algorithm Implementation]\nB1 --> G1[Eratosthenes Sieve]\nD1 --> H1[Boolean Array Creation]\nF1 --> I1[Marking Strategy]\nG1 --> J1[Initialize All True]\nH1 --> K1[Array Size Calculation]\nI1 --> L1[Prime Detection]\nJ1 --> M1[Mark 0 and 1 False]\nK1 --> L1\nL1 --> N1[Square Root Optimization]\nM1 --> O1[Iterate from 2]\nN1 --> P1[Stop at Square Root]\nO1 --> Q1[Prime Number Process]\nP1 --> R1[Mark Multiples False]\nQ1 --> S1[Collect Prime Numbers]\nR1 --> T1[Prime Number Result]\nS1 --> U1[Prime Number Validation]\nT1 --> V1[Prime Number Count]\nU1 --> W1[Prime Number Output]\nV1 --> X1[Prime Number Analysis]\nW1 --> Y1[Prime Number Final Result]\nX1 --> Z1[Prime Number Analysis Complete]\n\n    style A1 fill:#ff6b6b,color:#fff\n    style C1 fill:#ff6b6b,color:#fff\n    style E1 fill:#ff6b6b,color:#fff\n    style B1 fill:#ffd43b,color:#000\n    style D1 fill:#ffd43b,color:#000\n    style F1 fill:#ffd43b,color:#000\n    style G1 fill:#ffd43b,color:#000\n    style H1 fill:#ffd43b,color:#000\n    style I1 fill:#ffd43b,color:#000\n    style J1 fill:#ffd43b,color:#000\n    style K1 fill:#ffd43b,color:#000\n    style L1 fill:#ffd43b,color:#000\n    style M1 fill:#51cf66,color:#fff\n    style N1 fill:#51cf66,color:#fff\n    style O1 fill:#51cf66,color:#fff\n    style P1 fill:#51cf66,color:#fff\n    style Q1 fill:#51cf66,color:#fff\n    style R1 fill:#51cf66,color:#fff\n    style S1 fill:#51cf66,color:#fff\n    style T1 fill:#51cf66,color:#fff\n    style U1 fill:#51cf66,color:#fff\n    style V1 fill:#51cf66,color:#fff\n    style W1 fill:#51cf66,color:#fff\n    style X1 fill:#51cf66,color:#fff\n    style Y1 fill:#51cf66,color:#fff\n    style Z1 fill:#b197fc,color:#fff",
+  "name": "Prime Number Generation",
+  "notes": "Converted from mathematics batch HTML. Process number: 1.",
+  "relatedProcesses": [],
+  "related_papers": [
+    "crossref_10_1145_214617_214619",
+    "crossref_10_1090_S0025-5718-03-01602-5",
+    "crossref_10_1109_IPDPS_2007_382"
+  ],
+  "related_podcasts": [],
+  "related_processes": [],
+  "related_videos": [],
+  "source": "programming_framework",
+  "sources": [
+    {
+      "authors": "Welz, G.",
+      "doi": null,
+      "journal": "CopernicusAI Knowledge Engine",
+      "notes": "Chemistry process visualization: Prime Number Generation. Created using the Programming Framework methodology for process analysis and visualization.",
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "year": "2025"
+    },
+    {
+      "authors": "Pritchard, P.",
+      "doi": "10.1145/214617.214619",
+      "journal": "Commun. ACM",
+      "paper_id": "crossref_10_1145_214617_214619",
+      "pubmed": null,
+      "title": "Algorithms for prime number sieves (revisited)",
+      "url": "https://doi.org/10.1145/214617.214619",
+      "year": "1987"
+    },
+    {
+      "authors": "Atkin, A. O. L.; Bernstein, D. J.",
+      "doi": "10.1090/S0025-5718-03-01602-5",
+      "journal": "Math. Comput.",
+      "paper_id": "crossref_10_1090_S0025-5718-03-01602-5",
+      "pubmed": null,
+      "title": "The Sieve of Atkin",
+      "url": "https://doi.org/10.1090/S0025-5718-03-01602-5",
+      "year": "2004"
+    },
+    {
+      "authors": "Smith, S. A.; Bernstein, D. J.",
+      "doi": "10.1109/IPDPS.2007.382",
+      "journal": "2007 IEEE Int. Parallel Distrib. Process. Symp. (IPDPS)",
+      "paper_id": "crossref_10_1109_IPDPS_2007_382",
+      "pubmed": null,
+      "title": "A comparison of parallel sieve methods",
+      "url": "https://doi.org/10.1109/IPDPS.2007.382",
+      "year": "2007"
+    }
+  ],
+  "subcategories": [
+    "number_theory"
+  ],
+  "subcategory": "number_theory",
+  "subcategory_name": "Number Theory",
+  "verified": false
+}

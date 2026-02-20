@@ -1,0 +1,29 @@
+{
+  "id": "arxiv_2601.10873v1",
+  "arxiv_id": "2601.10873v1",
+  "title": "Unit-Consistent (UC) Adjoint for GSD and Backprop in Deep Learning Applications",
+  "authors": [
+    "Jeffrey Uhlmann"
+  ],
+  "author_string": "Jeffrey Uhlmann",
+  "journal": "arXiv:2601.10873v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Deep neural networks constructed from linear maps and positively homogeneous nonlinearities (e.g., ReLU) possess a fundamental gauge symmetry: the network function is invariant to node-wise diagonal rescalings. However, standard gradient descent is not equivariant to this symmetry, causing optimization trajectories to depend heavily on arbitrary parameterizations. Prior work has proposed rescaling-invariant optimization schemes for positively homogeneous networks (e.g., path-based or path-space updates). Our contribution is complementary: we formulate the invariance requirement at the level of the backward adjoint/optimization geometry, which provides a simple, operator-level recipe that can be applied uniformly across network components and optimizer state. By replacing the Euclidean transpose with a Unit-Consistent (UC) adjoint, we derive UC gauge-consistent steepest descent and backprogation.",
+  "categories": [
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": null,
+  "published_date": "2026-01-15T21:58:04Z",
+  "updated_date": "2026-01-15T21:58:04Z",
+  "url": "https://arxiv.org/abs/2601.10873v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.10873v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:37.520472",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.LG"
+  ]
+}

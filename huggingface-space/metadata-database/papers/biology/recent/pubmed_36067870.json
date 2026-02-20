@@ -1,0 +1,31 @@
+{
+  "id": "pubmed_36067870",
+  "pmid": "36067870",
+  "title": "Development and validation of a machine-learning algorithm to predict the relevance of scientific articles within the field of teratology.",
+  "authors": [
+    "Habets, Philippe C",
+    "van IJzendoorn, David Gp",
+    "Vinkers, Christiaan H",
+    "Härmark, Linda",
+    "de Vries, Loes C",
+    "Otte, Willem M"
+  ],
+  "author_string": "Habets, Philippe C, van IJzendoorn, David Gp, Vinkers, Christiaan H, Härmark, Linda, de Vries, Loes C et al.",
+  "journal": "Reprod Toxicol",
+  "journal_full": "Reproductive toxicology (Elmsford, N.Y.)",
+  "year": "",
+  "doi": "10.1016/j.reprotox.2022.09.001",
+  "abstract": "The Dutch Teratology Information Service Lareb counsels healthcare professionals and patients about medication use during pregnancy and lactation. To keep the evidence up to date, employees perform a standardized weekly PubMed query where relevant literature is identified manually. We aimed to develop an accurate machine-learning algorithm to predict the relevance of PubMed entries, thereby reducing the labor-intensive task of manually screening the articles. We fine-tuned a pre-trained natural language processing transformer model to identify relevant entries. We split 15,540 labeled entries into case-control-balanced train, validation, and test datasets. Additionally, we externally validated the model prospectively with 1288 labeled entries obtained from weekly queries after developing the model. This dataset was also independently labeled by a team of six experienced human raters to evaluate our model's performance. The validation of our machine learning model on the retrospectively collected outheld dataset obtained an area under the sensitivity-versus-specificity curve of 89.3 % (CI: 88.2- 90.4). In the prospective external validation of the model, our model classified relevant literature with a sensitivity versus specificity curve area of 87.4 % (CI: 85.0-89.8). Our model achieved a higher sensitivity than the human raters' team without sacrificing too much specificity. The team of human raters showed weak to moderate levels of agreement in their article classifications (kappa range 0.40-0.64). The human selection of the latest relevant literature is indispensable to keep the teratology information up to date. We show that automatic preselection of relevant abstracts using machine learning is possible without sacrificing the selection performance.",
+  "keywords": [
+    "Deep learning",
+    "Literature screening",
+    "Pharmacovigilance",
+    "TIS"
+  ],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/36067870",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T16:59:49.399406",
+  "category": "biology",
+  "subcategories": []
+}

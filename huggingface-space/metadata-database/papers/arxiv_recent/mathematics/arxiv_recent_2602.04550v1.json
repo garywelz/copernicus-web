@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2602.04550v1",
+  "arxiv_id": "2602.04550v1",
+  "title": "Locally Gentle State Certification for High Dimensional Quantum Systems",
+  "authors": [
+    "Cristina Butucea",
+    "Jan Johannes",
+    "Henning Stein"
+  ],
+  "author_string": "Cristina Butucea, Jan Johannes, Henning Stein",
+  "journal": "arXiv:2602.04550v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Standard approaches to quantum statistical inference rely on measurements that induce a collapse of the wave function, effectively consuming the quantum state to extract information. In this work, we investigate the fundamental limits of \\emph{locally-gentle} quantum state certification, where the learning algorithm is constrained to perturb the state by at most $α$ in trace norm, thereby allowing for the reuse of samples. We analyze the hypothesis testing problem of distinguishing whether an unknown state $ρ$ is equal to a reference $ρ_0$ or $ε$-far from it. We derive the minimax sample complexity for this problem, quantifying the information-theoretic price of non-destructive measurements. Specifically, by constructing explicit measurement operators, we show that the constraint of $α$-gentleness imposes a sample size penalty of $\\frac{d}{α^2}$, yielding a total sample complexity of $n = Θ(\\frac{d^3}{ε^2 α^2})$. Our results clarify the trade-off between information extraction and state disturbance, and highlight deep connections between physical measurement constraints and privacy mechanisms in quantum learning. Crucially, we find that the sample size penalty incurred by enforcing $α$-gentleness scales linearly with the Hilbert-space dimension $d$ rather than the number of parameters $d^2-1$ typical for high-dimensional private estimation.",
+  "categories": [
+    "quant-ph",
+    "math.ST"
+  ],
+  "primary_category": "math.ST",
+  "comment": null,
+  "published_date": "2026-02-04T13:41:11Z",
+  "updated_date": "2026-02-04T13:41:11Z",
+  "url": "https://arxiv.org/abs/2602.04550v1",
+  "pdf_url": "https://arxiv.org/pdf/2602.04550v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-02-05T07:00:23.047155",
+  "category": "mathematics",
+  "subcategories": [
+    "quant-ph",
+    "math.ST"
+  ]
+}

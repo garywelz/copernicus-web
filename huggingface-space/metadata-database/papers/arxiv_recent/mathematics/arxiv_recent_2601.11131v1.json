@@ -1,0 +1,30 @@
+{
+  "id": "arxiv_2601.11131v1",
+  "arxiv_id": "2601.11131v1",
+  "title": "Deterministic methods for finding elements of large multiplicative order",
+  "authors": [
+    "David Harvey",
+    "Markus Hittmeir"
+  ],
+  "author_string": "David Harvey, Markus Hittmeir",
+  "journal": "arXiv:2601.11131v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We revisit the problem of rigorously and deterministically finding elements of large order in the multiplicative group of integers modulo a natural number $N$. Solving this problem is an essential step in several recent deterministic algorithms for factoring $N$, including the currently fastest ones. In 2018, the second author gave an algorithm that for a given target order $D \\geq N^{2/5}$, finds either an element of order exceeding $D$, or a nontrivial divisor of $N$, or proves that $N$ is prime. The running time was \\[ O\\left(\\frac{D^{1/2}}{(\\log \\log D)^{1/2}} \\log^2 N \\right) \\] bit operations, asymptotically the same as the cost of computing the order of a single element using Sutherland's optimisation of the classical babystep-giantstep method. Subsequent work by several authors weakened the hypothesis $D \\geq N^{2/5}$ to $D \\geq N^{1/6}$. In this paper, we show that the hypothesis may be dropped altogether. Moreover, if $N$ is prime, we can guarantee returning an element of order exceeding $D$, rather than a proof that $N$ is prime.",
+  "categories": [
+    "math.NT"
+  ],
+  "primary_category": "math.NT",
+  "comment": "10 pages",
+  "published_date": "2026-01-16T09:45:56Z",
+  "updated_date": "2026-01-16T09:45:56Z",
+  "url": "https://arxiv.org/abs/2601.11131v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11131v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:38.717151",
+  "category": "mathematics",
+  "subcategories": [
+    "math.NT"
+  ]
+}

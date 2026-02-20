@@ -1,0 +1,31 @@
+{
+  "id": "crossref_10.1088_2632-2153_ae056d",
+  "doi": "10.1088/2632-2153/ae056d",
+  "title": "Quantum architecture search for optimizing quantum generators in quantum GAN",
+  "authors": [
+    "Ma, Quangong",
+    "Hao, Chaolong",
+    "Si, NianWen",
+    "Qu, Dan"
+  ],
+  "author_string": "Ma, Quangong, Hao, Chaolong, Si, NianWen, Qu, Dan",
+  "journal": "Machine Learning: Science and Technology",
+  "issn": "2632-2153",
+  "issn_type": "electronic",
+  "volume": "6",
+  "issue": "3",
+  "page": "035061",
+  "year": "2025",
+  "publisher": "IOP Publishing",
+  "language": "",
+  "abstract": "Abstract\n               As quantum computing continues to advance alongside machine learning, Quantum Generative Adversarial Networks (QGANs) have gained attention as a compelling generative modeling approach in quantum machine learning. Despite their potential, most existing QGAN implementations rely on manually designed quantum circuits, which often suffer from high complexity and limited scalability. To overcome these limitations, we propose a Quantum Architecture Search (QAS) method built upon the SuperCircuit framework. This approach enables the automatic discovery of efficient quantum circuit structures tailored for generative tasks, thereby reducing gate count. However, applying SuperCircuit-based QAS directly to QGANs presents two primary challenges: an expansive search space and a lack of guarantees regarding circuit efficiency. To mitigate these issues, we incorporate Principal Component Analysis (PCA) and a PCA-guided feature distribution mechanism during preprocessing. This strategy both compresses the search space and ensures balanced allocation of principal components across sub-generators. Extensive experiments confirm the viability of the proposed framework. When employing the discovered quantum circuits, QAS-QGAN achieves image quality comparable to a state-of-the-art (SOTA) baseline (Silver et al 2023 2023 IEEE/CVF Int. Conf. on Computer Vision (ICCV) pp 7007–16) on both the MNIST and Fashion MNIST datasets. Notably, our model reduces the number of two-qubit gates by 52.08% on MNIST and 52.92% on Fashion MNIST, highlighting substantial improvements in quantum resource efficiency. Furthermore, the model successfully generates high-resolution facial images (\n                     \n                     \n                        \n                           109\n                           ×\n                           89\n                        \n                     \n                  ) on the CelebA dataset, demonstrating strong scalability and practical applicability.",
+  "subjects": [],
+  "keywords": [],
+  "article_type": "journal-article",
+  "citation_count": 1,
+  "url": "https://doi.org/10.1088/2632-2153/ae056d",
+  "source": "crossref",
+  "acquired_date": "2026-01-19T10:54:11.062284",
+  "category": "interdisciplinary",
+  "subcategories": []
+}

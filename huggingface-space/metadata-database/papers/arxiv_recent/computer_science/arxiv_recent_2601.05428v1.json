@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2601.05428v1",
+  "arxiv_id": "2601.05428v1",
+  "title": "Dynamic Inclusion and Bounded Multi-Factor Tilts for Robust Portfolio Construction",
+  "authors": [
+    "Roberto Garrone"
+  ],
+  "author_string": "Roberto Garrone",
+  "journal": "arXiv:2601.05428v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "This paper proposes a portfolio construction framework designed to remain robust under estimation error, non-stationarity, and realistic trading constraints. The methodology combines dynamic asset eligibility, deterministic rebalancing, and bounded multi-factor tilts applied to an equal-weight baseline. Asset eligibility is formalized as a state-dependent constraint on portfolio construction, allowing factor exposure to adjust endogenously in response to observable market conditions such as liquidity, volatility, and cross-sectional breadth. Rather than estimating expected returns or covariances, the framework relies on cross-sectional rankings and hard structural bounds to control concentration, turnover, and fragility. The resulting approach is fully algorithmic, transparent, and directly implementable. It provides a robustness-oriented alternative to parametric optimization and unconstrained multi-factor models, particularly suited for long-horizon allocations where stability and operational feasibility are primary objectives.",
+  "categories": [
+    "math.OC",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": "28 pages, 7 figures, algorithmic portfolio construction framework emphasizing robustness, explicit constraints, and implementability",
+  "published_date": "2026-01-08T23:26:58Z",
+  "updated_date": "2026-01-08T23:26:58Z",
+  "url": "https://arxiv.org/abs/2601.05428v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.05428v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:22.690519",
+  "category": "computer_science",
+  "subcategories": [
+    "math.OC",
+    "cs.LG"
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2006.04984v1",
+  "arxiv_id": "2006.04984v1",
+  "title": "Making Convolutions Resilient via Algorithm-Based Error Detection Techniques",
+  "authors": [
+    "Siva Kumar Sastry Hari",
+    "Michael B. Sullivan",
+    "Timothy Tsai",
+    "Stephen W. Keckler"
+  ],
+  "author_string": "Siva Kumar Sastry Hari, Michael B. Sullivan, Timothy Tsai, Stephen W. Keckler",
+  "journal": "arXiv:2006.04984v1",
+  "journal_ref": null,
+  "year": "2020",
+  "doi": null,
+  "abstract": "The ability of Convolutional Neural Networks (CNNs) to accurately process real-time telemetry has boosted their use in safety-critical and high-performance computing systems. As such systems require high levels of resilience to errors, CNNs must execute correctly in the presence of hardware faults. Full duplication provides the needed assurance but incurs a prohibitive 100% overhead. Algorithmic techniques are known to offer low-cost solutions, but the practical feasibility and performance of such techniques have never been studied for CNN deployment platforms (e.g., TensorFlow or TensorRT on GPUs). In this paper, we focus on algorithmically verifying Convolutions, which are the most resource-demanding operations in CNNs. We use checksums to verify convolutions, adding a small amount of redundancy, far less than full-duplication. We first identify the challenges that arise in employing Algorithm-Based Error Detection (ABED) for Convolutions in optimized inference platforms that fuse multiple network layers and use reduced-precision operations, and demonstrate how to overcome them. We propose and evaluate variations of ABED techniques that offer implementation complexity, runtime overhead, and coverage trade-offs. Results show that ABED can detect all transient hardware errors that might otherwise corrupt output and does so while incurring low runtime overheads (6-23%), offering at least 1.6X throughput to workloads compared to full duplication.",
+  "categories": [
+    "cs.DC",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": null,
+  "published_date": "2020-06-08T23:17:57Z",
+  "updated_date": "2020-06-08T23:17:57Z",
+  "url": "https://arxiv.org/abs/2006.04984v1",
+  "pdf_url": "https://arxiv.org/pdf/2006.04984v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:23.481017",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.DC",
+    "cs.LG"
+  ]
+}

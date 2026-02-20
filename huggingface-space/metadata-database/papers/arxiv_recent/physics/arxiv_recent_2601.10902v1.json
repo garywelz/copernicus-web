@@ -1,0 +1,50 @@
+{
+  "id": "arxiv_2601.10902v1",
+  "arxiv_id": "2601.10902v1",
+  "title": "The Deeper, Wider, Faster programme's first DECam optical data release",
+  "authors": [
+    "James Freeburn",
+    "Jeff Cooke",
+    "Anais Möller",
+    "Jielai Zhang",
+    "Dougal Dobie",
+    "Brent Miszalski",
+    "Simon O'Toole",
+    "James Tocknell",
+    "Sam Huynh",
+    "Sara Webb",
+    "Igor Andreoni",
+    "Natasha Van Bemmel",
+    "Timothy M. C. Abbott",
+    "Rebecca Allen",
+    "Stephanie Bernard",
+    "Simon Goode",
+    "Sarah Hegarty",
+    "J. Chuck Horst",
+    "Cassidy Mihalenko",
+    "Mark Suhr"
+  ],
+  "author_string": "James Freeburn, Jeff Cooke, Anais Möller, Jielai Zhang, Dougal Dobie et al.",
+  "journal": "Publications of the Astronomical Society of Australia, Volume 43, 2026, e009",
+  "journal_ref": "Publications of the Astronomical Society of Australia, Volume 43, 2026, e009",
+  "year": "2026",
+  "doi": "10.1017/pasa.2025.10140",
+  "abstract": "The transient and variable optical sky is relatively poorly characterised on fast ($<$1$\\,$hr) timescales. With the Dark Energy Camera (DECam), the Deeper, Wider, Faster programme (DWF) probes a unique parameter space with its deep (median of $g\\sim22.2$ AB mag), minute-cadence imaging. In this work, we present DWF's first data release which comprises high cadence photometry extracted from $\\sim$12000 images and 166 hours of telescope time. We present a novel data processing pipeline, $\\texttt{dwf-postpipe}$, developed to identify sources and extract their light curves. The accuracy of the photometry is assessed by cross-matching to public catalogues. In addition, we injected a population of synthetic GRB afterglows into a subset of the DWF DECam imaging to compare the efficiency of our pipeline with a standard difference imaging approach. Both pipelines show performance and reliably recover injected transients with peak magnitudes $g<22$ AB mag with an efficiency of $97.24^{+0.7}_{-1.0}$ percent for \\texttt{dwf-postpipe} and $96.14^{+0.9}_{-1.1}$ percent for a difference imaging approach. However, we find that $\\texttt{dwf-postpipe}$ is less likely to recover transients appearing in galaxies that are brighter or comparable in brightness to the transient itself. To demonstrate the power of the data in this release, we conduct a search for uncatalogued variable stars in a single night of DWF DECam imaging and find ten pulsating variables, two eclipsing binaries and one ZZ ceti. We also conduct a search for variable phenomena in the Chandra Deep Field South, a Rubin deep drilling field, and identify two flares from likely UV ceti type stars.",
+  "categories": [
+    "astro-ph.HE",
+    "astro-ph.GA"
+  ],
+  "primary_category": "astro-ph.GA",
+  "comment": "16 pages, 9 figures, 7 tables, published in PASA",
+  "published_date": "2026-01-15T23:04:25Z",
+  "updated_date": "2026-01-15T23:04:25Z",
+  "url": "https://arxiv.org/abs/2601.10902v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.10902v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:18:40.151932",
+  "category": "physics",
+  "subcategories": [
+    "astro-ph.HE",
+    "astro-ph.GA"
+  ]
+}

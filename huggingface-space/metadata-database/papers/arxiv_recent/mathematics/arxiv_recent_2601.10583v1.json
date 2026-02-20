@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2601.10583v1",
+  "arxiv_id": "2601.10583v1",
+  "title": "Combinatorial Optimization Augmented Machine Learning",
+  "authors": [
+    "Maximilian Schiffer",
+    "Heiko Hoppe",
+    "Yue Su",
+    "Louis Bouvier",
+    "Axel Parmentier"
+  ],
+  "author_string": "Maximilian Schiffer, Heiko Hoppe, Yue Su, Louis Bouvier, Axel Parmentier",
+  "journal": "arXiv:2601.10583v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Combinatorial optimization augmented machine learning (COAML) has recently emerged as a powerful paradigm for integrating predictive models with combinatorial decision-making. By embedding combinatorial optimization oracles into learning pipelines, COAML enables the construction of policies that are both data-driven and feasibility-preserving, bridging the traditions of machine learning, operations research, and stochastic optimization. This paper provides a comprehensive overview of the state of the art in COAML. We introduce a unifying framework for COAML pipelines, describe their methodological building blocks, and formalize their connection to empirical cost minimization. We then develop a taxonomy of problem settings based on the form of uncertainty and decision structure. Using this taxonomy, we review algorithmic approaches for static and dynamic problems, survey applications across domains such as scheduling, vehicle routing, stochastic programming, and reinforcement learning, and synthesize methodological contributions in terms of empirical cost minimization, imitation learning, and reinforcement learning. Finally, we identify key research frontiers. This survey aims to serve both as a tutorial introduction to the field and as a roadmap for future research at the interface of combinatorial optimization and machine learning.",
+  "categories": [
+    "cs.LG",
+    "math.OC"
+  ],
+  "primary_category": "math.OC",
+  "comment": null,
+  "published_date": "2026-01-15T16:55:19Z",
+  "updated_date": "2026-01-15T16:55:19Z",
+  "url": "https://arxiv.org/abs/2601.10583v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.10583v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:41.981811",
+  "category": "mathematics",
+  "subcategories": [
+    "cs.LG",
+    "math.OC"
+  ]
+}

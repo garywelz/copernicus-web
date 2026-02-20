@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2602.04670v1",
+  "arxiv_id": "2602.04670v1",
+  "title": "A Parameterized Physics Informed Neural Network Solver for the Navier Stokes Equations Across Reynolds Numbers",
+  "authors": [
+    "A. Jangir",
+    "R. Clements",
+    "R. Goyal",
+    "G. Tabor"
+  ],
+  "author_string": "A. Jangir, R. Clements, R. Goyal, G. Tabor",
+  "journal": "arXiv:2602.04670v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Physics informed neural networks provide a meshfree framework for solving partial differential equations by embedding governing physical laws directly into the training process. However, most PINNs developed for fluid dynamics remain restricted to fixed flow parameters, requiring retraining for each new condition and limiting their usefulness as general purpose solvers. In this work, we develop a parameterized PINNs formulation for the incompressible Navier Stokes equations in which the Reynolds number (Re) is treated as an explicit network input, enabling a single trained model to represent a continuous family of flow solutions. The approach is demonstrated using the 2D lid driven cavity flow as a canonical benchmark. For low Re, where the flow is laminar and diffusion dominated, pure PINNs trained solely using the governing equations and boundary conditions accurately reproduce velocity and pressure fields across a wide range of Re, including cases not explicitly sampled during training. As the Re increases and the flow becomes increasingly convection dominated, the predictive accuracy of pure PINNs deteriorates due to stiffness and optimization imbalance. To address this limitation, a hybrid framework is introduced that combines transfer learning with sparse supervision from high fidelity CFD data. The resulting parameterized PINNs model accurately captures the Re dependence of the flow over both interpolation and limited extrapolation regimes while requiring CFD data only over a narrow subset of the parameter space. Detailed comparisons with OpenFOAM simulations demonstrate strong agreement in velocity profiles, and pressure fields. The results show that incorporating governing parameters directly into PINNs enables the construction of parametric Navier Stokes solvers, offering a promising route toward efficient reduced order modeling and data assisted simulation of fluid flows.",
+  "categories": [
+    "physics.flu-dyn"
+  ],
+  "primary_category": "physics.flu-dyn",
+  "comment": "19 pages, 18 figures",
+  "published_date": "2026-02-04T15:41:25Z",
+  "updated_date": "2026-02-04T15:41:25Z",
+  "url": "https://arxiv.org/abs/2602.04670v1",
+  "pdf_url": "https://arxiv.org/pdf/2602.04670v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-02-05T07:00:23.043412",
+  "category": "physics",
+  "subcategories": [
+    "physics.flu-dyn"
+  ]
+}

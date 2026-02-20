@@ -1,0 +1,37 @@
+{
+  "id": "arxiv_2601.07998v1",
+  "arxiv_id": "2601.07998v1",
+  "title": "Predicting Region of Interest in Human Visual Search Based on Statistical Texture and Gabor Features",
+  "authors": [
+    "Hongwei Lin",
+    "Diego Andrade",
+    "Mini Das",
+    "Howard C. Gifford"
+  ],
+  "author_string": "Hongwei Lin, Diego Andrade, Mini Das, Howard C. Gifford",
+  "journal": "arXiv:2601.07998v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Understanding human visual search behavior is a fundamental problem in vision science and computer vision, with direct implications for modeling how observers allocate attention in location-unknown search tasks. In this study, we investigate the relationship between Gabor-based features and gray-level co-occurrence matrix (GLCM) based texture features in modeling early-stage visual search behavior. Two feature-combination pipelines are proposed to integrate Gabor and GLCM features for narrowing the region of possible human fixations. The pipelines are evaluated using simulated digital breast tomosynthesis images. Results show qualitative agreement among fixation candidates predicted by the proposed pipelines and a threshold-based model observer. A strong correlation is observed between GLCM mean and Gabor feature responses, indicating that these features encode related image information despite their different formulations. Eye-tracking data from human observers further suggest consistency between predicted fixation regions and early-stage gaze behavior. These findings highlight the value of combining structural and texture-based features for modeling visual search and support the development of perceptually informed observer models.",
+  "categories": [
+    "cs.CV",
+    "eess.IV",
+    "eess.SP",
+    "physics.med-ph"
+  ],
+  "primary_category": "physics.med-ph",
+  "comment": "10 pages, 6 fgures",
+  "published_date": "2026-01-12T21:06:23Z",
+  "updated_date": "2026-01-12T21:06:23Z",
+  "url": "https://arxiv.org/abs/2601.07998v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.07998v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:19.623601",
+  "category": "physics",
+  "subcategories": [
+    "cs.CV",
+    "eess.IV",
+    "eess.SP"
+  ]
+}

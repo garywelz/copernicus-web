@@ -1,0 +1,92 @@
+{
+  "id": "electrochemistry-fuel-cell-operation",
+  "name": "Fuel Cell Operation",
+  "category": "chemistry",
+  "subcategory": "electrochemistry",
+  "subcategory_name": "Electrochemistry",
+  "description": "Fuel Cell Operation process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 9,
+    "edges": 10,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 1,
+      "andGates": 2,
+      "total": 3
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nN1[\"Fuel + Oxidant\"]\nN2[\"Load Demand\"]\nN3[\"Electrodes + Membrane\"]\nN4[\"Choose Path\"]\nN5[\"Anode Oxidation\"]\nN6[\"Cathode Reduction\"]\nN7[\"Ion Transport\"]\nN8[\"Electrical Power\"]\nN9[\"Integrate\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\nN4 --> N7\nN5 --> N6\nN7 --> N8\nN6 --> N9\nN8 --> N9\nN9 --> N6\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ff6b6b,color:#fff\n    style N3 fill:#ffd43b,color:#000\n    style N4 fill:#ffd43b,color:#000\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#74c0fc,color:#fff\n    style N8 fill:#b197fc,color:#fff\n    style N9 fill:#74c0fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Fuel Cell Operation. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "Fuel cell technologies",
+      "authors": "",
+      "journal": "",
+      "year": "None",
+      "pubmed": null,
+      "doi": "10.3403/30451601u",
+      "url": "https://doi.org/10.3403/30451601u"
+    },
+    {
+      "title": "Fuel cell technologies",
+      "authors": "",
+      "journal": "",
+      "year": "None",
+      "pubmed": null,
+      "doi": "10.3403/30451601",
+      "url": "https://doi.org/10.3403/30451601"
+    },
+    {
+      "title": "Fuel cell operation with periodic fuel cell starvation",
+      "authors": "",
+      "journal": "Fuel Cells Bulletin",
+      "year": "2001",
+      "pubmed": null,
+      "doi": "10.1016/s1464-2859(01)80077-8",
+      "url": "https://doi.org/10.1016/s1464-2859(01)80077-8"
+    }
+  ],
+  "keywords": [
+    "fuel",
+    "cell",
+    "operation"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-15",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+}

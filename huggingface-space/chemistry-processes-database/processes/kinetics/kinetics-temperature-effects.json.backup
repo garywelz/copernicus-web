@@ -1,0 +1,89 @@
+{
+  "category": "chemistry",
+  "colorScheme": {
+    "blue": {
+      "category": "Intermediates & States",
+      "hex": "#74c0fc"
+    },
+    "green": {
+      "category": "Processing & Operations",
+      "hex": "#51cf66"
+    },
+    "red": {
+      "category": "Triggers & Inputs",
+      "hex": "#ff6b6b"
+    },
+    "violet": {
+      "category": "Products & Outputs",
+      "hex": "#b197fc"
+    },
+    "yellow": {
+      "category": "Structures & Objects",
+      "hex": "#ffd43b"
+    }
+  },
+  "complexity": {
+    "conditionals": 0,
+    "detailLevel": "medium",
+    "edges": 25,
+    "level": "medium",
+    "logicGates": {
+      "andGates": 0,
+      "orGates": 26,
+      "total": 26
+    },
+    "nodes": 26
+  },
+  "created": "2026-01-08",
+  "description": "Temperature effects process illustrating Arrhenius analysis, energy distribution, and temperature optimization.",
+  "id": "kinetics-temperature-effects",
+  "keywords": [
+    "effects",
+    "temperature"
+  ],
+  "lastUpdated": "2026-01-08",
+  "mermaid": "graph TD\nA2[Thermal Energy] --> B2[Temperature Effect Method]\nC2[Reaction System] --> D2[Temperature Control]\nE2[Kinetic Parameters] --> F2[Arrhenius Analysis]\nB2 --> G2[Temperature Setup]\nD2 --> H2[Thermal Regulation]\nF2 --> I2[Parameter Analysis]\nG2 --> J2[Temperature Range]\nH2 --> K2[Heat Transfer]\nI2 --> L2[Arrhenius Plot]\nJ2 --> M2[Energy Distribution]\nK2 --> L2\nL2 --> N2[Activation Energy]\nM2 --> O2[Molecular Motion]\nN2 --> P2[Temperature Dependence]\nO2 --> Q2[Kinetic Analysis]\nP2 --> R2[Rate Changes]\nQ2 --> S2[Energy Analysis]\nR2 --> T2[Temperature Optimization]\nS2 --> U2[Arrhenius Parameters]\nT2 --> V2[Optimal Temperature]\nU2 --> W2[Temperature Efficiency]\nV2 --> X2[Temperature Characterization]\nW2 --> Y2[Process Optimization]\nX2 --> Z2[Final Temperature Conditions]\nY2 --> Z2\n\n    style A2 fill:#ff6b6b,color:#fff\n    style C2 fill:#ff6b6b,color:#fff\n    style E2 fill:#ff6b6b,color:#fff\n    style B2 fill:#ffd43b,color:#000\n    style D2 fill:#ffd43b,color:#000\n    style F2 fill:#ffd43b,color:#000\n    style G2 fill:#ffd43b,color:#000\n    style H2 fill:#ffd43b,color:#000\n    style I2 fill:#ffd43b,color:#000\n    style J2 fill:#ffd43b,color:#000\n    style K2 fill:#ffd43b,color:#000\n    style L2 fill:#ffd43b,color:#000\n    style M2 fill:#51cf66,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style O2 fill:#51cf66,color:#fff\n    style P2 fill:#51cf66,color:#fff\n    style Q2 fill:#51cf66,color:#fff\n    style R2 fill:#51cf66,color:#fff\n    style S2 fill:#51cf66,color:#fff\n    style T2 fill:#51cf66,color:#fff\n    style U2 fill:#51cf66,color:#fff\n    style V2 fill:#51cf66,color:#fff\n    style W2 fill:#51cf66,color:#fff\n    style X2 fill:#51cf66,color:#fff\n    style Y2 fill:#51cf66,color:#fff\n    style Z2 fill:#b197fc,color:#fff",
+  "name": "Temperature Effects",
+  "notes": "Converted from chemistry batch HTML. Process number: 2.",
+  "relatedProcesses": [],
+  "sources": [
+    {
+      "authors": "Welz, G.",
+      "doi": null,
+      "journal": "CopernicusAI Knowledge Engine",
+      "notes": "Chemistry process visualization: Temperature Effects. Created using the Programming Framework methodology for process analysis and visualization.",
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "year": "2025"
+    },
+    {
+      "authors": "Resende, J. L. P.; Lima, L. R.",
+      "doi": "10.1021/acs.chemrev.8b00282",
+      "journal": "Chem. Rev.",
+      "pubmed": "30207213",
+      "title": "The Arrhenius Equation beyond Traditional Limits: The Role of Quantum Tunneling",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/30207213",
+      "year": "2018"
+    },
+    {
+      "authors": "Manz, T. A.; Medlin, J. W.",
+      "doi": "10.1021/acscatal.0c03991",
+      "journal": "ACS Catal.",
+      "pubmed": null,
+      "title": "Understanding and Optimizing Heterogeneous Catalysis Using Microkinetic Modeling",
+      "url": "https://doi.org/10.1021/acscatal.0c03991",
+      "year": "2021"
+    },
+    {
+      "authors": "Troe, J.",
+      "doi": "10.1021/cr00078a005",
+      "journal": "Chem. Rev.",
+      "pubmed": null,
+      "title": "Unimolecular Reactions: A Review of the Classical and Quantum Chemical Viewpoints",
+      "url": "https://doi.org/10.1021/cr00078a005",
+      "year": "1987"
+    }
+  ],
+  "subcategory": "kinetics",
+  "verified": false
+}

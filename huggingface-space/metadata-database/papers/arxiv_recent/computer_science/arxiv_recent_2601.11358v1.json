@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2601.11358v1",
+  "arxiv_id": "2601.11358v1",
+  "title": "Cutting Corners on Uncertainty: Zonotope Abstractions for Stream-based Runtime Monitoring",
+  "authors": [
+    "Bernd Finkbeiner",
+    "Martin Fränzle",
+    "Florian Kohn",
+    "Paul Kröger"
+  ],
+  "author_string": "Bernd Finkbeiner, Martin Fränzle, Florian Kohn, Paul Kröger",
+  "journal": "arXiv:2601.11358v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Stream-based monitoring assesses the health of safety-critical systems by transforming input streams of sensor measurements into output streams that determine a verdict. These inputs are often treated as accurate representations of the physical state, although real sensors introduce calibration and measurement errors. Such errors propagate through the monitor's computations and can distort the final verdict. Affine arithmetic with symbolic slack variables can track these errors precisely, but independent measurement noise introduces a fresh slack variable upon each measurement event, causing the monitor's state representation to grow without bound over time. Therefore, any bounded-memory monitoring algorithm must unify slack variables at runtime in a way that generates a sound approximation.   This paper introduces zonotopes as an abstract domain for online monitoring of RLola specifications. We demonstrate that zonotopes precisely capture the affine state of the monitor and that their over-approximation produces a sound bounded-memory monitor. We present a comparison of different zonotope over-approximation strategies in the context of runtime monitoring, evaluating their performance and false-positive rates.",
+  "categories": [
+    "cs.PL"
+  ],
+  "primary_category": "cs.PL",
+  "comment": null,
+  "published_date": "2026-01-16T15:14:04Z",
+  "updated_date": "2026-01-16T15:14:04Z",
+  "url": "https://arxiv.org/abs/2601.11358v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11358v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:30.214272",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.PL"
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "id": "arxiv_2601.08494v1",
+  "arxiv_id": "2601.08494v1",
+  "title": "A New Duality-Free Framework for Convex Optimisation with Superlinear Convergence and Effective Warm-Starting",
+  "authors": [
+    "Michael Cummins",
+    "Eric Kerrigan"
+  ],
+  "author_string": "Michael Cummins, Eric Kerrigan",
+  "journal": "arXiv:2601.08494v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Modern second order solvers for convex optimisation, such as interior point methods, rely on primal dual information and are difficult to warm start, limiting their applicability in real time control. We propose the PVM, a duality free framework that reformulates the constrained problem as the unconstrained minimisation of a value function. The resulting problem always has a solution, yields a certificate of infeasibility and is amenable to warm starting. We develop a second order algorithm for Quadratic Programming based on the PPA and semismooth Newton methods, and establish sufficient conditions for superlinear convergence to an arbitrarily small neighbourhood of the solution. Numerical experiments on a MPC problem demonstrate competitive performance with state of the art solvers from a cold start and up to 70\\% reduction in Newton iterations when warm starting.",
+  "categories": [
+    "math.OC"
+  ],
+  "primary_category": "math.OC",
+  "comment": null,
+  "published_date": "2026-01-13T12:27:34Z",
+  "updated_date": "2026-01-13T12:27:34Z",
+  "url": "https://arxiv.org/abs/2601.08494v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.08494v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:03.416154",
+  "category": "mathematics",
+  "subcategories": [
+    "math.OC"
+  ]
+}

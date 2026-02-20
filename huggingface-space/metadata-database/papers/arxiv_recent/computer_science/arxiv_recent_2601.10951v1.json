@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2601.10951v1",
+  "arxiv_id": "2601.10951v1",
+  "title": "Multi-Stage Patient Role-Playing Framework for Realistic Clinical Interactions",
+  "authors": [
+    "Shijie Jiang",
+    "Zefan Zhang",
+    "Kehua Zhu",
+    "Tian Bai",
+    "Ruihong Zhao"
+  ],
+  "author_string": "Shijie Jiang, Zefan Zhang, Kehua Zhu, Tian Bai, Ruihong Zhao",
+  "journal": "arXiv:2601.10951v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "The simulation of realistic clinical interactions plays a pivotal role in advancing clinical Large Language Models (LLMs) and supporting medical diagnostic education. Existing approaches and benchmarks rely on generic or LLM-generated dialogue data, which limits the authenticity and diversity of doctor-patient interactions. In this work, we propose the first Chinese patient simulation dataset (Ch-PatientSim), constructed from realistic clinical interaction scenarios to comprehensively evaluate the performance of models in emulating patient behavior. Patients are simulated based on a five-dimensional persona structure. To address issues of the persona class imbalance, a portion of the dataset is augmented using few-shot generation, followed by manual verification. We evaluate various state-of-the-art LLMs and find that most produce overly formal responses that lack individual personality. To address this limitation, we propose a training-free Multi-Stage Patient Role-Playing (MSPRP) framework, which decomposes interactions into three stages to ensure both personalization and realism in model responses. Experimental results demonstrate that our approach significantly improves model performance across multiple dimensions of patient simulation.",
+  "categories": [
+    "cs.CL",
+    "cs.AI"
+  ],
+  "primary_category": "cs.AI",
+  "comment": "22 pages, 5figures, under review",
+  "published_date": "2026-01-16T02:34:22Z",
+  "updated_date": "2026-01-16T02:34:22Z",
+  "url": "https://arxiv.org/abs/2601.10951v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.10951v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:37.515679",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CL",
+    "cs.AI"
+  ]
+}

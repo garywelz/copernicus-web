@@ -1,0 +1,93 @@
+{
+  "id": "reproduction_development-pollination-process",
+  "name": "Pollination Process",
+  "category": "biology",
+  "subcategory": "reproduction_development",
+  "subcategory_name": "Reproduction & Development",
+  "organism": "Plants",
+  "description": "Pollination Process in Plants. This process represents a higher-level biological mechanism distinct from molecular/biochemical processes covered in GLMP.",
+  "complexity": {
+    "nodes": 12,
+    "edges": 11,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "low",
+    "detailLevel": "low"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\n    A3[Pollen Development] --> B3[Anther Dehiscence]\n    C3[Pollinator Activity] --> D3[Pollen Transfer]\n    B3 --> D3\n    D3 --> E3[Stigma Reception]\n    E3 --> F3[Pollen Adhesion]\n    F3 --> G3[Hydration]\n    G3 --> H3[Germination]\n    H3 --> I3[Pollen Tube Growth]\n    I3 --> J3[Style Navigation]\n    J3 --> K3[Ovary Entry]\n    K3 --> L3[Double Fertilization]\n    \n    style A3 fill:#ff6b6b,color:#fff\n    style C3 fill:#ff6b6b,color:#fff\n    style B3 fill:#ffd43b,color:#000\n    style D3 fill:#ffd43b,color:#000\n    style E3 fill:#51cf66,color:#fff\n    style F3 fill:#51cf66,color:#fff\n    style G3 fill:#74c0fc,color:#fff\n    style H3 fill:#74c0fc,color:#fff\n    style I3 fill:#51cf66,color:#fff\n    style J3 fill:#51cf66,color:#fff\n    style K3 fill:#74c0fc,color:#fff\n    style L3 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "notes": "Higher-level biological process visualization: Pollination Process. Created using the Programming Framework methodology for organismal and ecological process analysis."
+    },
+    {
+      "title": "Pollen-Pistil Interaction and the Regulation of Self-Incompatibility",
+      "authors": "Takayama, S., & Isogai, A.",
+      "journal": "Annu Rev Plant Biol",
+      "year": "2010",
+      "pubmed": "20265147",
+      "doi": "10.1146/annurev-arplant-042809-112249",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/20265147"
+    },
+    {
+      "title": "Mechanisms of Pollen Recognition and Rejection",
+      "authors": "McClure, B. A., & Stone, S. L.",
+      "journal": "Science",
+      "year": "2002",
+      "pubmed": "12065842",
+      "doi": "10.1126/science.1070771",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/12065842"
+    },
+    {
+      "title": "Plant-Pollinator Interactions: From Specialization to Generalization",
+      "authors": "Waser, N. M., & Ollerton, J.",
+      "journal": "Annu Rev Ecol Evol Syst",
+      "year": "2006",
+      "pubmed": null,
+      "doi": "10.1146/annurev.ecolsys.37.091305.110245",
+      "url": "https://doi.org/10.1146/annurev.ecolsys.37.091305.110245"
+    }
+  ],
+  "keywords": [
+    "reproduction",
+    "pollination",
+    "process",
+    "plants",
+    "development"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-08",
+  "verified": false,
+  "notes": "Higher-level biological process. GLMP covers biochemical/molecular processes; this database covers organismal/ecological processes."
+}

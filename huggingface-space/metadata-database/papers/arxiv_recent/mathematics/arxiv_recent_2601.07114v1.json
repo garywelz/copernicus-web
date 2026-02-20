@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2601.07114v1",
+  "arxiv_id": "2601.07114v1",
+  "title": "Cyclic Modulation Control of Multi-Conflict Connected Automated Traffic",
+  "authors": [
+    "Fan Pu",
+    "Zihao Li",
+    "Sivakumar Rathinam",
+    "Minghui Zheng",
+    "Yang Zhou"
+  ],
+  "author_string": "Fan Pu, Zihao Li, Sivakumar Rathinam, Minghui Zheng, Yang Zhou",
+  "journal": "arXiv:2601.07114v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Multi-conflict traffic is ubiquitous. Connected Automated Vehicles (CAVs) offer unprecedented opportunities to enhance safety, reduce emissions, and increase throughput through precise coordination and automation. However, existing CAV strategies remain confined to specialized scenarios, such as highway on-ramp merging or single-lane roundabouts, and traditional traffic signals sacrifice efficiency for safety via rigid phasing and all-red intervals. In this paper, we present Cyclic Modulation Control of Multi-Conflict Connected Automated Traffic (CMAT), a unified, geometry-agnostic framework that embeds each conflict point into a repeating sequence of \"micro-phases\". Vehicles dynamically form platoons with demand-responsive sizes and negotiate time slots for occupying conflict points, enabling collision-free traversal and high intersection utilization. CMAT aims to minimize delay, guarantee safety, and accommodate arbitrary merging, diverging, and crossing patterns without manual retuning. We formalize CMAT as a mixed-integer linear programming model constructed on a directed graph abstracted from the physical intersection layout. The performance of CMAT is evaluated across a suite of multi-conflict tests, including simple two-way crossings, four-leg intersections, complex connected intersections. The results demonstrate substantial reductions in delay and significant throughput improvements compared with state-of-the-art CAV coordination methods and traditional signal timing strategies.",
+  "categories": [
+    "math.OC"
+  ],
+  "primary_category": "math.OC",
+  "comment": null,
+  "published_date": "2026-01-12T00:45:45Z",
+  "updated_date": "2026-01-12T00:45:45Z",
+  "url": "https://arxiv.org/abs/2601.07114v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.07114v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:14.915465",
+  "category": "mathematics",
+  "subcategories": [
+    "math.OC"
+  ]
+}

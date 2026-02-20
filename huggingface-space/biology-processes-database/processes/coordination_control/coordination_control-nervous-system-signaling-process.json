@@ -1,0 +1,93 @@
+{
+  "id": "coordination_control-nervous-system-signaling-process",
+  "name": "Nervous System Signaling Process",
+  "category": "biology",
+  "subcategory": "coordination_control",
+  "subcategory_name": "Coordination & Control",
+  "description": "Nervous System Signaling Process process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 8,
+    "edges": 6,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\n    A48[Neuron Stimulation] --> B48[Action Potential]\n    B48 --> C48[Axon Propagation]\n    C48 --> D48[Synaptic Terminal]\n    D48 --> E48[Neurotransmitter Release]\n    E48 --> F48[Receptor Binding]\n    F48 --> G48[Post-Synaptic Response]\n    G48 --> H48[Signal Transmission]\n    \n    style A48 fill:#ff6b6b,color:#fff\n    style B48 fill:#ffd43b,color:#000\n    style C48 fill:#51cf66,color:#fff\n    style D48 fill:#74c0fc,color:#fff\n    style E48 fill:#51cf66,color:#fff\n    style F48 fill:#51cf66,color:#fff\n    style G48 fill:#74c0fc,color:#fff\n    style H48 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Nervous System Signaling Process. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "Reverse Signaling: Nervous System Development",
+      "authors": "",
+      "journal": "SpringerReference",
+      "year": "None",
+      "pubmed": null,
+      "doi": "10.1007/springerreference_118685",
+      "url": "https://doi.org/10.1007/springerreference_118685"
+    },
+    {
+      "title": "Erythropoietin and Neuroprotection in the Central Nervous System: Intracellular Signaling Pathways",
+      "authors": "Digicaylioglu, Murat",
+      "journal": "Erythropoietin and the Nervous System",
+      "year": "None",
+      "pubmed": null,
+      "doi": "10.1007/978-0-387-30011-5_3",
+      "url": "https://doi.org/10.1007/978-0-387-30011-5_3"
+    },
+    {
+      "title": "MT1-MMP regulates central nervous system development through Notch signaling",
+      "authors": "Zhou, Jin",
+      "journal": "",
+      "year": "None",
+      "pubmed": null,
+      "doi": "10.5353/th_b5016254",
+      "url": "https://doi.org/10.5353/th_b5016254"
+    }
+  ],
+  "keywords": [
+    "nervous",
+    "system",
+    "signaling",
+    "process"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+}

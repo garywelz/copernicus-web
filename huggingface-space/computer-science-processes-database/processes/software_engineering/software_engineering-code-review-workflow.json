@@ -1,0 +1,92 @@
+{
+  "id": "software_engineering-code-review-workflow",
+  "name": "Code Review Workflow",
+  "category": "computer_science",
+  "subcategory": "software_engineering",
+  "subcategory_name": "Software Engineering",
+  "description": "Code Review Workflow process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 10,
+    "edges": 10,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 1,
+      "andGates": 1,
+      "total": 2
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nN1[\"Pull Request\"]\nN2[\"Change Context\"]\nN3[\"Reviewers\"]\nN4[\"Choose Approach\"]\nN5[\"Diff + Checks\"]\nN6[\"Automated CI\"]\nN7[\"Human Review\"]\nN8[\"Address Feedback\"]\nN9[\"Integrate Results\"]\nN10[\"Merge\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\nN4 --> N7\nN5 --> N6\nN7 --> N8\nN6 --> N9\nN8 --> N9\nN9 --> N10\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ff6b6b,color:#fff\n    style N3 fill:#ffd43b,color:#000\n    style N4 fill:#ffd43b,color:#000\n    style N5 fill:#ffd43b,color:#000\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#74c0fc,color:#fff\n    style N10 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Code Review Workflow. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "Crossref work (10.7287/peerj.preprints.2163v1/supp-5)",
+      "authors": "",
+      "journal": "Supplemental Information 5: Code review process workflow and structured unit testable code template block diagram",
+      "year": "None",
+      "pubmed": null,
+      "doi": "10.7287/peerj.preprints.2163v1/supp-5",
+      "url": "https://doi.org/10.7287/peerj.preprints.2163v1/supp-5"
+    },
+    {
+      "title": "Crossref work (10.7287/peerj.preprints.2163/supp-5)",
+      "authors": "",
+      "journal": "Supplemental Information 5: Code review process workflow and structured unit testable code template block diagram",
+      "year": "None",
+      "pubmed": null,
+      "doi": "10.7287/peerj.preprints.2163/supp-5",
+      "url": "https://doi.org/10.7287/peerj.preprints.2163/supp-5"
+    },
+    {
+      "title": "Supplemental Information 1: Diagram of code workflow.",
+      "authors": "",
+      "journal": "",
+      "year": "None",
+      "pubmed": null,
+      "doi": "10.7717/peerj.11298/supp-1",
+      "url": "https://doi.org/10.7717/peerj.11298/supp-1"
+    }
+  ],
+  "keywords": [
+    "code",
+    "review",
+    "workflow"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-15",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+}

@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2601.09123v1",
+  "arxiv_id": "2601.09123v1",
+  "title": "Data-Driven Exploration and Insights into Temperature-Dependent Phonons in Inorganic Materials",
+  "authors": [
+    "Huiju Lee",
+    "Zhi Li",
+    "Jiangang he",
+    "Yi Xia"
+  ],
+  "author_string": "Huiju Lee, Zhi Li, Jiangang he, Yi Xia",
+  "journal": "arXiv:2601.09123v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Phonons, quantized vibrations of the atomic lattice, are fundamental to understanding thermal transport, structural stability, and phase behavior in crystalline solids. Despite advances in computational materials science, most predictions of vibrational properties in large materials databases rely on the harmonic approximation and overlook crucial temperature-dependent anharmonic effects. Here, we present a scalable computational framework that combines machine learning interatomic potentials, anharmonic lattice dynamics, and high-throughput calculations to investigate temperature-dependent phonons across thousands of materials. By fine-tuning the universal M3GNet interatomic potential using high-quality phonon data, we improve phonon prediction accuracy by a factor of four while preserving computational efficiency. Integrating this refined model into a high-throughput implementation of the stochastic self-consistent harmonic approximation, we compute temperature-dependent phonons for 4,669 inorganic compounds. Our analysis identifies systematic elemental and structural trends governing anharmonic phonon renormalization, with particularly strong manifestations in alkali metals, perovskite-derived frameworks, and related systems. Machine learning models trained on this dataset identify key atomic-scale features driving strong anharmonicity, including weak bonding, large atomic radii, and specific coordination motifs. First-principles validation confirms that anharmonic effects can dramatically alter lattice thermal conductivity by factors of two to four in some materials. This work establishes a robust and efficient data-driven approach for predicting finite-temperature phonon behavior, offering new pathways for the design and discovery of materials with tailored thermal and vibrational properties.",
+  "categories": [
+    "cond-mat.mtrl-sci"
+  ],
+  "primary_category": "cond-mat.mtrl-sci",
+  "comment": null,
+  "published_date": "2026-01-14T03:45:58Z",
+  "updated_date": "2026-01-14T03:45:58Z",
+  "url": "https://arxiv.org/abs/2601.09123v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.09123v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:02.858862",
+  "category": "physics",
+  "subcategories": [
+    "cond-mat.mtrl-sci"
+  ]
+}

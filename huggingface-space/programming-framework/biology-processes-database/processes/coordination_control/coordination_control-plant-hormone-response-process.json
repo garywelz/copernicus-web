@@ -1,0 +1,95 @@
+{
+  "id": "coordination_control-plant-hormone-response-process",
+  "name": "Plant Hormone Response Process",
+  "category": "biology",
+  "subcategory": "coordination_control",
+  "subcategory_name": "Coordination & Control",
+  "organism": "Plants",
+  "description": "Plant Hormone Response Process in Plants. This process represents a higher-level biological mechanism distinct from molecular/biochemical processes covered in GLMP.",
+  "complexity": {
+    "nodes": 8,
+    "edges": 11,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "low",
+    "detailLevel": "low"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\n    A49[Hormone Production] --> B49[Auxin]\n    A49 --> C49[Cytokinin]\n    A49 --> D49[Gibberellin]\n    A49 --> E49[Abscisic Acid]\n    A49 --> F49[Ethylene]\n    B49 --> G49[Target Response]\n    C49 --> G49\n    D49 --> G49\n    E49 --> G49\n    F49 --> G49\n    G49 --> H49[Growth/Development]\n    \n    style A49 fill:#ff6b6b,color:#fff\n    style B49 fill:#ffd43b,color:#000\n    style C49 fill:#ffd43b,color:#000\n    style D49 fill:#ffd43b,color:#000\n    style E49 fill:#ffd43b,color:#000\n    style F49 fill:#ffd43b,color:#000\n    style G49 fill:#51cf66,color:#fff\n    style H49 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "notes": "Higher-level biological process visualization: Plant Hormone Response Process. Created using the Programming Framework methodology for organismal and ecological process analysis."
+    },
+    {
+      "title": "Plant hormone signaling: a systems-level perspective",
+      "authors": "Speth EB.",
+      "journal": "Annu Rev Plant Biol",
+      "year": "2014",
+      "pubmed": "24706509",
+      "doi": "10.1146/annurev-arplant-050213-035722",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/24706509"
+    },
+    {
+      "title": "Plant hormone signaling: when perception meets transduction",
+      "authors": "Santner D.",
+      "journal": "Nat Rev Mol Cell Biol",
+      "year": "2009",
+      "pubmed": "19707164",
+      "doi": "10.1038/nrm2765",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/19707164"
+    },
+    {
+      "title": "Plant hormones, genetic manipulation, and their application in agricultural production",
+      "authors": "Ding Y.",
+      "journal": "PNAS",
+      "year": "2021",
+      "pubmed": "33907077",
+      "doi": "10.1073/pnas.2023921118",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/33907077"
+    }
+  ],
+  "keywords": [
+    "response",
+    "control",
+    "plant",
+    "hormone",
+    "process",
+    "plants",
+    "coordination"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-08",
+  "verified": false,
+  "notes": "Higher-level biological process. GLMP covers biochemical/molecular processes; this database covers organismal/ecological processes."
+}

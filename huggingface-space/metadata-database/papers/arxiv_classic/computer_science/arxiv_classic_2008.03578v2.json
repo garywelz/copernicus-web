@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2008.03578v2",
+  "arxiv_id": "2008.03578v2",
+  "title": "TransForm: Formally Specifying Transistency Models and Synthesizing Enhanced Litmus Tests",
+  "authors": [
+    "Naorin Hossain",
+    "Caroline Trippel",
+    "Margaret Martonosi"
+  ],
+  "author_string": "Naorin Hossain, Caroline Trippel, Margaret Martonosi",
+  "journal": "arXiv:2008.03578v2",
+  "journal_ref": null,
+  "year": "2020",
+  "doi": "10.1109/ISCA45697.2020.00076",
+  "abstract": "Memory consistency models (MCMs) specify the legal ordering and visibility of shared memory accesses in a parallel program. Traditionally, instruction set architecture (ISA) MCMs assume that relevant program-visible memory ordering behaviors only result from shared memory interactions that take place between user-level program instructions. This assumption fails to account for virtual memory (VM) implementations that may result in additional shared memory interactions between user-level program instructions and both 1) system-level operations (e.g., address remappings and translation lookaside buffer invalidations initiated by system calls) and 2) hardware-level operations (e.g., hardware page table walks and dirty bit updates) during a user-level program's execution. These additional shared memory interactions can impact the observable memory ordering behaviors of user-level programs. Thus, memory transistency models (MTMs) have been coined as a superset of MCMs to additionally articulate VM-aware consistency rules. However, no prior work has enabled formal MTM specifications, nor methods to support their automated analysis.   To fill the above gap, this paper presents the TransForm framework. First, TransForm features an axiomatic vocabulary for formally specifying MTMs. Second, TransForm includes a synthesis engine to support the automated generation of litmus tests enhanced with MTM features (i.e., enhanced litmus tests, or ELTs) when supplied with a TransForm MTM specification. As a case study, we formally define an estimated MTM for Intel x86 processors, called x86t_elt, that is based on observations made by an ELT-based evaluation of an Intel x86 MTM implementation from prior work and available public documentation. Given x86t_elt and a synthesis bound as input, TransForm's synthesis engine successfully produces a set of ELTs including relevant ELTs from prior work.",
+  "categories": [
+    "cs.DC",
+    "cs.AR"
+  ],
+  "primary_category": "cs.AR",
+  "comment": "*This is an updated version of the TransForm paper that features updated results reflecting performance optimizations and software bug fixes. 14 pages, 11 figures, Proceedings of the 47th Annual International Symposium on Computer Architecture (ISCA)",
+  "published_date": "2020-08-08T18:48:01Z",
+  "updated_date": "2020-08-11T15:01:28Z",
+  "url": "https://arxiv.org/abs/2008.03578v2",
+  "pdf_url": "https://arxiv.org/pdf/2008.03578v2.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:27.424167",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.DC",
+    "cs.AR"
+  ]
+}

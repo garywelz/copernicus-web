@@ -1,0 +1,33 @@
+{
+  "id": "pubmed_41323972",
+  "pmid": "41323972",
+  "title": "Early prediction of gestational diabetes mellitus using machine learning-integrated metabolomic and clinical features.",
+  "authors": [
+    "Ji, Qun",
+    "Gao, Lan",
+    "Liu, Haiwei",
+    "Chen, Xiaofang",
+    "Fu, Boxia",
+    "Lin, Yingbei",
+    "Wang, Fei"
+  ],
+  "author_string": "Ji, Qun, Gao, Lan, Liu, Haiwei, Chen, Xiaofang, Fu, Boxia et al.",
+  "journal": "Front Endocrinol (Lausanne)",
+  "journal_full": "Frontiers in endocrinology",
+  "year": "",
+  "doi": "10.3389/fendo.2025.1687146",
+  "abstract": "Gestational diabetes mellitus (GDM), a prevalent metabolic disorder associated with pregnancy, which often postpones intervention until after metabolic complications have developed. This study seeks to develop an integrated predictive model that combines first trimester metabolomic signatures with established clinical risk factors to enable the early detection of high-risk pregnancies prior to the onset of irreversible metabolic damages. A total of 89 pregnant women [45 with GDM, 44 with normal glucose tolerance (NGT)] was recruited at Hainan Provincial People's Hospital. Serum and urine samples were subjected to untargeted metabolomic profiling employing UPLC-MS/MS. Metabolite identification was conducted using the Human Metabolome Database and Metlin databases. Bioinformatics analyses were performed on the differential metabolites. Lasso regression was employed to select the metabolites and clinical features utilized in constructing the model. The entire dataset was divided into a training set and a validation set in a 7:3 ratio. Six Machine learning models were trained to identify patients with GDM. Model performance was assessed using area under the receiver operating characteristic curve (AUC), precision, recall, and F1-score. Shapley Additive exPlanations (SHAP) analysis was used to interpret feature contributions in the optimal model. Cases of GDM demonstrated distinct metabolic profiles in comparison to participants with NGT. A total of 528 differential metabolites were identified, and KEGG pathway analysis mapped these metabolites to 20 pathways related to metabolism and human diseases. Lasso regression identified 11 differential metabolites and 3 clinical features for training the ML models. Ultimately, the multilayer perceptron achieved the highest classification performance, with an AUC of 0.984 (95%CI: 0.866-1.000) in the validation set. SHAP analysis identified GlcCer(d18:1/16:0) and triglycerides as the most significant predictors, demonstrating positive associations with the risk of GDM. Participants with GDM and NGT show great difference in the levels of many metabolites. The ML model according to the metabolites in the first trimester and clinical feature demonstrates high accuracy for early GDM prediction. The result of this research highlighted the potential of metabolites in the prediction of GDM in the early stage of pregnancy.",
+  "keywords": [
+    "early prediction",
+    "gestational diabetes mellitus",
+    "machine learning",
+    "metabolites",
+    "metabolomic profiling"
+  ],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/41323972",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T16:58:25.003864",
+  "category": "biology",
+  "subcategories": []
+}

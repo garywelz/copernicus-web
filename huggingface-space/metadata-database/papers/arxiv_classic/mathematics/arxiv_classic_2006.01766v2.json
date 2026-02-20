@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2006.01766v2",
+  "arxiv_id": "2006.01766v2",
+  "title": "Computing spectral measures of self-adjoint operators",
+  "authors": [
+    "Matthew J. Colbrook",
+    "Andrew Horning",
+    "Alex Townsend"
+  ],
+  "author_string": "Matthew J. Colbrook, Andrew Horning, Alex Townsend",
+  "journal": "arXiv:2006.01766v2",
+  "journal_ref": null,
+  "year": "2020",
+  "doi": null,
+  "abstract": "Using the resolvent operator, we develop an algorithm for computing smoothed approximations of spectral measures associated with self-adjoint operators. The algorithm can achieve arbitrarily high-orders of convergence in terms of a smoothing parameter for computing spectral measures of general differential, integral, and lattice operators. Explicit pointwise and $L^p$-error bounds are derived in terms of the local regularity of the measure. We provide numerical examples, including a partial differential operator, a magnetic tight-binding model of graphene, and compute one thousand eigenvalues of a Dirac operator to near machine precision without spectral pollution. The algorithm is publicly available in $\\texttt{SpecSolve}$, which is a software package written in MATLAB.",
+  "categories": [
+    "math.NA",
+    "math-ph",
+    "math.FA",
+    "math.SP"
+  ],
+  "primary_category": "math.SP",
+  "comment": null,
+  "published_date": "2020-06-02T16:46:04Z",
+  "updated_date": "2020-12-01T13:23:03Z",
+  "url": "https://arxiv.org/abs/2006.01766v2",
+  "pdf_url": "https://arxiv.org/pdf/2006.01766v2.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:30:37.486053",
+  "category": "mathematics",
+  "subcategories": [
+    "math.NA",
+    "math-ph",
+    "math.FA"
+  ]
+}

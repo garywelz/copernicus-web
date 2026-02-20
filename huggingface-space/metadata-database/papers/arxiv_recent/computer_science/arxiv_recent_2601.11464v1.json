@@ -1,0 +1,38 @@
+{
+  "id": "arxiv_2601.11464v1",
+  "arxiv_id": "2601.11464v1",
+  "title": "MHA2MLA-VLM: Enabling DeepSeek's Economical Multi-Head Latent Attention across Vision-Language Models",
+  "authors": [
+    "Xiaoran Fan",
+    "Zhichao Sun",
+    "Tao Ji",
+    "Lixing Shen",
+    "Tao Gui"
+  ],
+  "author_string": "Xiaoran Fan, Zhichao Sun, Tao Ji, Lixing Shen, Tao Gui",
+  "journal": "arXiv:2601.11464v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "As vision-language models (VLMs) tackle increasingly complex and multimodal tasks, the rapid growth of Key-Value (KV) cache imposes significant memory and computational bottlenecks during inference. While Multi-Head Latent Attention (MLA) offers an effective means to compress the KV cache and accelerate inference, adapting existing VLMs to the MLA architecture without costly pretraining remains largely unexplored. In this work, we present MHA2MLA-VLM, a parameter-efficient and multimodal-aware framework for converting off-the-shelf VLMs to MLA. Our approach features two core techniques: (1) a modality-adaptive partial-RoPE strategy that supports both traditional and multimodal settings by selectively masking nonessential dimensions, and (2) a modality-decoupled low-rank approximation method that independently compresses the visual and textual KV spaces. Furthermore, we introduce parameter-efficient fine-tuning to minimize adaptation cost and demonstrate that minimizing output activation error, rather than parameter distance, substantially reduces performance loss. Extensive experiments on three representative VLMs show that MHA2MLA-VLM restores original model performance with minimal supervised data, significantly reduces KV cache footprint, and integrates seamlessly with KV quantization.",
+  "categories": [
+    "cs.CV",
+    "cs.AI",
+    "cs.CL",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": null,
+  "published_date": "2026-01-16T17:45:34Z",
+  "updated_date": "2026-01-16T17:45:34Z",
+  "url": "https://arxiv.org/abs/2601.11464v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11464v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:30.210311",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV",
+    "cs.AI",
+    "cs.CL"
+  ]
+}

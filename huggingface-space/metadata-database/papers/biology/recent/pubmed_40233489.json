@@ -1,0 +1,36 @@
+{
+  "id": "pubmed_40233489",
+  "pmid": "40233489",
+  "title": "Physically grounded deep learning-enabled gold nanoparticle localization and quantification in photonic resonator absorption microscopy for digital resolution molecular diagnostics.",
+  "authors": [
+    "Lee, Hankeun",
+    "Li, Siyan",
+    "Liu, Leyang",
+    "Wang, Weijing",
+    "Ayupova, Takhmina",
+    "Tibbs, Joseph",
+    "Kim, Chansong",
+    "Fang, Ying",
+    "Do, Minh N",
+    "Cunningham, Brian T"
+  ],
+  "author_string": "Lee, Hankeun, Li, Siyan, Liu, Leyang, Wang, Weijing, Ayupova, Takhmina et al.",
+  "journal": "Biosens Bioelectron",
+  "journal_full": "Biosensors & bioelectronics",
+  "year": "",
+  "doi": "10.1016/j.bios.2025.117455",
+  "abstract": "Accurate molecular biomarker detection with digital-resolution sensitivity is essential for applications such as disease diagnostics, therapeutic studies, and biomedical research. Here, we present LOCA-PRAM (LOcalization with Context Awareness), a deep learning-based method integrated with a Photonic Resonator Absorption Microscope (PRAM) to achieve digital-resolution detection of biomolecules using gold nanoparticles (AuNPs) as molecular tags. LOCA-PRAM leverages photonic crystal (PC)-AuNP resonant-coupling to enhance signal contrast, facilitating precise quantification of target molecules without partitioning the sample into droplets or enzymatic amplification. Through registration of PRAM images with Scanning Electron Microscopy (SEM) images, we empirically obtain the point spread function (PSF) of AuNP tags, enabling realistic training data generation for the deep learning framework. LOCA-PRAM surpasses conventional image processing method in accuracy and sensitivity, achieving reliable AuNP detection and localization even in high-density conditions, minimizing false-positive and false-negative quantifications and expending the dynamic range of assay. Benchmarking with SEM-derived ground truth confirms LOCA-PRAM's sub-pixel resolution and ability to accurately quantify AuNPs with overlapping PSF. Overall, the PRAM combined with LOCA-based AuNP digital counting enables real-time, high-precision detection of molecular biomarkers, advancing digital-resolution biosensing for biomedical research and diagnostics.",
+  "keywords": [
+    "Digital resolution detection",
+    "Gold nanoparticle",
+    "Machine learning",
+    "Molecular diagnostics",
+    "Photonic crystal"
+  ],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/40233489",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T16:57:20.717812",
+  "category": "biology",
+  "subcategories": []
+}

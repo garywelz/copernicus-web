@@ -1,0 +1,206 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CopernicusAI Knowledge Engine - Process Metadata Schema",
+  "description": "Unified metadata schema for process visualizations (Mermaid flowcharts) supporting NSF Objective 2: Unified Multi-Modal Metadata Representation. Enables cross-modal linking with papers, videos, podcasts, and other content.",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "category",
+    "source",
+    "acquired_date"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier in format: process_{category}_{subcategory}-{name} (e.g., process_biology_dna-replication, process_chemistry_glycolysis) - matches paper/video ID format for cross-modal linking"
+    },
+    "name": {
+      "type": "string",
+      "description": "Process name/title",
+      "minLength": 1
+    },
+    "description": {
+      "type": ["string", "null"],
+      "description": "Process description"
+    },
+    "source": {
+      "type": "string",
+      "enum": ["glmp", "programming_framework", "manual", "llm_generated"],
+      "description": "Source of process visualization"
+    },
+    "category": {
+      "type": "string",
+      "enum": ["biology", "chemistry", "physics", "mathematics", "computer_science", "interdisciplinary", "foundational"],
+      "description": "Primary discipline category - matches paper/video schema for cross-modal linking"
+    },
+    "subcategory": {
+      "type": ["string", "null"],
+      "description": "Sub-discipline category (e.g., 'dna_replication', 'organic_reactions')"
+    },
+    "subcategory_name": {
+      "type": ["string", "null"],
+      "description": "Human-readable subcategory name"
+    },
+    "organism": {
+      "type": ["string", "null"],
+      "description": "Organism or system context (for biological processes)"
+    },
+    "complexity": {
+      "type": "object",
+      "description": "Process complexity metrics",
+      "properties": {
+        "nodes": {
+          "type": "integer",
+          "description": "Number of nodes in flowchart"
+        },
+        "edges": {
+          "type": "integer",
+          "description": "Number of edges/connections"
+        },
+        "conditionals": {
+          "type": "integer",
+          "description": "Number of conditional branches"
+        },
+        "logicGates": {
+          "type": "object",
+          "properties": {
+            "orGates": {"type": "integer"},
+            "andGates": {"type": "integer"},
+            "total": {"type": "integer"}
+          }
+        },
+        "level": {
+          "type": "string",
+          "enum": ["low", "medium", "high"],
+          "description": "Complexity level"
+        },
+        "detailLevel": {
+          "type": "string",
+          "enum": ["low", "medium", "high"],
+          "description": "Detail level"
+        }
+      }
+    },
+    "mermaid": {
+      "type": "string",
+      "description": "Mermaid flowchart syntax"
+    },
+    "colorScheme": {
+      "type": "object",
+      "description": "Color scheme for visualization",
+      "properties": {
+        "red": {"type": "object"},
+        "yellow": {"type": "object"},
+        "green": {"type": "object"},
+        "blue": {"type": "object"},
+        "violet": {"type": "object"}
+      }
+    },
+    "sources": {
+      "type": "array",
+      "description": "Source papers/processes that this process is based on - array of paper/process IDs",
+      "items": {
+        "type": "object",
+        "properties": {
+          "title": {"type": "string"},
+          "authors": {"type": "array", "items": {"type": "string"}},
+          "journal": {"type": "string"},
+          "year": {"type": "string"},
+          "url": {"type": "string", "format": "uri"},
+          "paper_id": {
+            "type": ["string", "null"],
+            "description": "Paper ID in format: pubmed_12345, arxiv_2301.12345 (for cross-modal linking)"
+          }
+        }
+      }
+    },
+    "related_papers": {
+      "type": "array",
+      "description": "Related research papers (for cross-modal linking) - array of paper IDs",
+      "items": {
+        "type": "string"
+      }
+    },
+    "related_videos": {
+      "type": "array",
+      "description": "Related videos explaining this process (for cross-modal linking) - array of video IDs",
+      "items": {
+        "type": "string"
+      }
+    },
+    "related_podcasts": {
+      "type": "array",
+      "description": "Related podcasts discussing this process (for cross-modal linking) - array of podcast IDs",
+      "items": {
+        "type": "string"
+      }
+    },
+    "related_processes": {
+      "type": "array",
+      "description": "Related processes (for cross-modal linking) - array of process IDs",
+      "items": {
+        "type": "string"
+      }
+    },
+    "keywords": {
+      "type": "array",
+      "description": "Extracted keywords (for cross-modal linking with papers/videos)",
+      "items": {
+        "type": "string"
+      }
+    },
+    "entities": {
+      "type": "array",
+      "description": "Extracted entities (genes, proteins, compounds, concepts) - for cross-modal linking",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["gene", "protein", "compound", "concept", "method", "organism", "other"]
+          },
+          "name": {"type": "string"}
+        },
+        "required": ["type", "name"]
+      }
+    },
+    "url": {
+      "type": ["string", "null"],
+      "description": "URL to process visualization (HTML page)",
+      "format": "uri"
+    },
+    "html_file": {
+      "type": ["string", "null"],
+      "description": "Path to HTML file containing Mermaid visualization"
+    },
+    "acquired_date": {
+      "type": "string",
+      "description": "ISO 8601 timestamp of when metadata was acquired",
+      "format": "date-time"
+    },
+    "created_date": {
+      "type": ["string", "null"],
+      "description": "ISO 8601 timestamp of when process was created",
+      "format": "date-time"
+    },
+    "quality_score": {
+      "type": ["number", "null"],
+      "description": "Overall quality score (0.0 to 1.0) - for NSF metadata quality >=85% requirement",
+      "minimum": 0.0,
+      "maximum": 1.0
+    },
+    "deduplication_method": {
+      "type": ["string", "null"],
+      "enum": ["unique", "exact_name_match", "exact_mermaid_match", "semantic_similarity"],
+      "description": "Method used for deduplication (null if not deduplicated)"
+    },
+    "deduplication_confidence": {
+      "type": ["number", "null"],
+      "description": "Confidence score for deduplication (0.0 to 1.0)",
+      "minimum": 0.0,
+      "maximum": 1.0
+    }
+  },
+  "additionalProperties": true
+}

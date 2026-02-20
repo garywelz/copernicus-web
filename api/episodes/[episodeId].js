@@ -35,6 +35,7 @@ function normalizeApiEpisode(payload = {}, slug) {
     duration: payload.duration ?? payload.request?.duration ?? '',
     audioUrl: payload.audio_url ?? '',
     imageUrl: payload.thumbnail_url ?? '',
+    episodeImages: payload.episode_images ?? [],  // Array of 1-2 image URLs
     attribution: payload.creator_attribution ?? '',
     slug: payload.slug ?? payload.episode_id ?? slug,
   };
@@ -148,6 +149,7 @@ async function handler(req, res) {
       duration,
       audioUrl,
       imageUrl,
+      episodeImages,
       attribution,
     } = episode;
 
@@ -171,6 +173,10 @@ async function handler(req, res) {
       header .meta span { display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(255, 255, 255, 0.16); padding: 0.35rem 0.75rem; border-radius: 999px; }
       section { padding: 2rem 2.5rem; }
       img.hero { max-width: 100%; border-radius: 18px; margin: 1.5rem 0; box-shadow: 0 15px 35px rgba(30, 64, 175, 0.22); }
+      .episode-images { margin-top: 2rem; }
+      .episode-images h2 { font-size: 1.25rem; font-weight: 600; margin-bottom: 1rem; color: #111827; }
+      .episode-images-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+      .episode-images img { width: 100%; border-radius: 0.5rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); }
       audio { width: 100%; margin-top: 1rem; }
       .description { font-size: 1.05rem; line-height: 1.65; color: #1f2937; }
       .description h1, .description h2, .description h3 { color: #0f172a; margin-top: 2rem; }
@@ -200,6 +206,16 @@ async function handler(req, res) {
       <section>
         ${imageUrl ? `<img class="hero" src="${imageUrl}" alt="${title} artwork" loading="lazy" />` : ''}
         ${audioUrl ? `<audio controls preload="metadata" src="${audioUrl}"></audio>` : ''}
+        ${episodeImages && episodeImages.length > 0 ? `
+          <div class="episode-images">
+            <h2>Episode Images</h2>
+            <div class="episode-images-grid">
+              ${episodeImages.map((imgUrl, idx) => `
+                <img src="${imgUrl}" alt="${title} - Image ${idx + 1}" loading="lazy" />
+              `).join('')}
+            </div>
+          </div>
+        ` : ''}
         <article class="description">${descriptionHtml}</article>
       </section>
       <footer>

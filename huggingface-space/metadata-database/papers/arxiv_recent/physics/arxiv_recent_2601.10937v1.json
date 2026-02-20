@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2601.10937v1",
+  "arxiv_id": "2601.10937v1",
+  "title": "Quantum trajectories for time-binned data and their closeness to fully conditioned quantum trajectories",
+  "authors": [
+    "Nattaphong Wonglakhon",
+    "Areeya Chantasri",
+    "Howard M. Wiseman"
+  ],
+  "author_string": "Nattaphong Wonglakhon, Areeya Chantasri, Howard M. Wiseman",
+  "journal": "arXiv:2601.10937v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Quantum trajectories are dynamical equations for quantum states conditioned on the results of a time-continuous measurement, such as a continuous-in-time current $\\vec y_t$. Recently there has been renewed interest in dynamical maps for quantum trajectories with time-intervals of finite size $Δt$. Guilmin \\emph{et al.} (unpublished) derived such a dynamical map for the (experimentally relevant) case where only the average current $I_t$ over each interval is available. Surprisingly, this binned data still generates a conditioned state $ρ_\\text{\\faFaucet}$ that is almost pure (for efficient measurements), with an impurity scaling as $(Δt)^{3}$. We show that, nevertheless, the typical distance of $ρ_\\text{\\faFaucet}$ from $\\hatψ_{\\text{F}; \\vec y_t}$ -- the projector for the pure state conditioned on the full current -- is as large as $(Δt)^{3/2}$. We introduce another finite-interval dynamical map (``$Φ$-map''), which requires only one additional real statistic, $φ_t$, of the current in the interval, that gives a conditioned state $\\hatψ_Φ$ which is only $(Δt)^{2}$-distant from $\\hatψ_{\\text{F}; \\vec y_t}$. We numerically verify these scalings of the error (distance from the true states) for these two maps, as well as for the lowest-order (Itô) map and two other higher-order maps. Our results show that, for a generic system, if the statistic $φ_t$ can be extracted from experiment along with $I_t$, then the $Φ$-map gives a smaller error than any other.",
+  "categories": [
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": "14 pages, 3 figures, 1 table",
+  "published_date": "2026-01-16T01:46:56Z",
+  "updated_date": "2026-01-16T01:46:56Z",
+  "url": "https://arxiv.org/abs/2601.10937v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.10937v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:18:36.102100",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph"
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "id": "pubmed_34609643",
+  "pmid": "34609643",
+  "title": "Extent of detection of hidden relationships among different hydrological variables during floods using data-driven models.",
+  "authors": [
+    "Sawaf, Mohamad Basel Al",
+    "Kawanisi, Kiyosi",
+    "Jlilati, Mohamad Nazieh",
+    "Xiao, Cong",
+    "Bahreinimotlagh, Masoud"
+  ],
+  "author_string": "Sawaf, Mohamad Basel Al, Kawanisi, Kiyosi, Jlilati, Mohamad Nazieh, Xiao, Cong, Bahreinimotlagh, Masoud",
+  "journal": "Environ Monit Assess",
+  "journal_full": "Environmental monitoring and assessment",
+  "year": "",
+  "doi": "10.1007/s10661-021-09499-9",
+  "abstract": "Understanding of flood dynamics forms the basis for the leading water resource management and flood risk mitigation practices. In particular, accurate prediction of river flow during massive flood events and capturing the hysteretic behavior of river stage-discharge are among the key interests in hydrological research. The literature demonstrates that data-driven models are significant in identifying complex and hidden relationships among dependent variables, without considering explicit physical schemes. In this regard, we aim to discover the extent to which data-driven models can recognize the hidden relationships among different hydrological variables, in order to generate accurate predictions of the river flow. A secondary aim involves the detection of whether data-driven models can digest the internal features of training inputs to extrapolate severe flood records beyond the training domain. To achieve these aims, we developed a recurrent neural network (RNN) model of two hidden layers to capture the hidden relationships among the inputs, and investigated the model's predictive capability using quantitative and qualitative analyses. The quantitative analysis comprised of a comparison between model predictions, and another set of precise independent records obtained through an advanced hydroacoustic system for reference. A qualitative approach was adopted to visualize the hysteretic behavior of the stage-discharge relations of the model records, with the high-resolution records of the hydroacoustic system. The findings display the potential of data-driven models for accurately predicting river flow. Consequently, the qualitative analysis revealed moderate correlations of stage-discharge loops as compared to the reference records. Additionally, the model was tested against severe destructive flood records generated from the East Asian monsoon and tropical cyclones. Its findings suggest that data-driven models cannot extrapolate new features beyond their training dataset. Overall, this study discusses the competence of RNNs in providing reliable and accurate river flow predictions during floods.",
+  "keywords": [
+    "Data-driven models",
+    "Deep learning",
+    "Discharge",
+    "Hydroacoustics",
+    "Recurrent neural networks",
+    "River floods"
+  ],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/34609643",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T17:02:33.039497",
+  "category": "biology",
+  "subcategories": []
+}

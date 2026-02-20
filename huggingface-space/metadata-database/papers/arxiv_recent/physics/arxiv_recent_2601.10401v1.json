@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2601.10401v1",
+  "arxiv_id": "2601.10401v1",
+  "title": "A comparison of simulation tools for Muon-Induced X-ray Emission (MIXE) in thin films: a study case with lithium batteries",
+  "authors": [
+    "Maxime Lamotte",
+    "Michael W. Heiss",
+    "Thomas Prokscha",
+    "Alex Amato"
+  ],
+  "author_string": "Maxime Lamotte, Michael W. Heiss, Thomas Prokscha, Alex Amato",
+  "journal": "arXiv:2601.10401v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We present a comparative study of three Monte Carlo simulation frameworks -SRIM, GEANT4, and PHITS- for modeling the transport, stopping, and atomic cascade of negative muons in micrometer-scale, multilayer systems relevant to Muon-Induced X-ray Emission (MIXE) experiments at the Paul Scherrer Institute (PSI). Using a lithium-ion battery as a benchmark target, simulated implantation profiles are compared with experimental data from the GIANT spectrometer. All three codes reproduce the overall muon depth distributions with good consistency, even across sharp density contrasts. SRIM provides reliable implantation estimates for compact geometries, whereas PHITS reproduces GEANT4 results with comparable accuracy and additionally generates muonic X-ray spectra. These spectra, however, exhibit a systematic energy offset in the K-line transitions of medium- and high-Z elements relative to theoretical and experimental values. Despite this bias, PHITS accurately captures relative intensities and spectral shapes, enabling element-specific line identification. The results demonstrate that SRIM and PHITS constitute practical tools for rapid estimation of muon implantation and stopping profiles, and that PHITS holds strong potential for predictive MIXE spectroscopy once its transition-energy bias is corrected.",
+  "categories": [
+    "hep-ex",
+    "cond-mat.mtrl-sci",
+    "physics.app-ph"
+  ],
+  "primary_category": "physics.app-ph",
+  "comment": null,
+  "published_date": "2026-01-15T13:51:15Z",
+  "updated_date": "2026-01-15T13:51:15Z",
+  "url": "https://arxiv.org/abs/2601.10401v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.10401v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:18:46.730534",
+  "category": "physics",
+  "subcategories": [
+    "hep-ex",
+    "cond-mat.mtrl-sci",
+    "physics.app-ph"
+  ]
+}

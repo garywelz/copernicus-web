@@ -161,6 +161,162 @@ class RSSService:
         return cleaned
     
     @staticmethod
+    def _make_reference_links_clickable(text: str) -> str:
+        """Convert reference URLs to clickable markdown links"""
+        import re
+        
+        if not text or '## References' not in text:
+            return text
+        
+        # Split into parts before and including References
+        parts = text.split('## References', 1)
+        if len(parts) < 2:
+            return text
+        
+        before_refs = parts[0]
+        refs_section = '## References' + parts[1]
+        
+        # Extract references section content (until next section)
+        next_section_markers = ['## Hashtags', '## Episode Details']
+        refs_content = refs_section
+        after_refs = ""
+        
+        for marker in next_section_markers:
+            if marker in refs_content:
+                split_parts = refs_content.split(marker, 1)
+                refs_content = split_parts[0]
+                after_refs = marker + split_parts[1]
+                break
+        
+        # Find URLs in references and convert to markdown links
+        # Pattern: URLs like "https://..." or DOIs like "10.xxxx/xxxx"
+        # Handle formats: "Available: URL" and "DOI: 10.xxxx/xxxx"
+        
+        # Pattern for URLs and DOIs
+        url_pattern = r'(https?://[^\s\n\)]+)'
+        doi_pattern = r'(10\.\d{4}/[^\s\n\)]+)'
+        
+        # Replace "Available: URL" with "Available: [URL](URL)" 
+        def replace_available_url(match):
+            url = match.group(1)
+            # Keep URL as link text, URL as link target
+            return f"Available: [{url}]({url})"
+        
+        refs_content = re.sub(r'Available:\s*' + url_pattern, replace_available_url, refs_content)
+        
+        # Replace "DOI: 10.xxxx/xxxx" with "DOI: [10.xxxx/xxxx](https://doi.org/10.xxxx/xxxx)"
+        def replace_doi(match):
+            doi = match.group(1)
+            doi_url = f"https://doi.org/{doi}"
+            return f"DOI: [{doi}]({doi_url})"
+        
+        refs_content = re.sub(r'DOI:\s*' + doi_pattern, replace_doi, refs_content)
+        
+        # Replace standalone URLs at end of lines (not already in links, not after "Available:" or "DOI:")
+        def replace_standalone_url(match):
+            url = match.group(1)
+            # Get context to check if already processed
+            start_pos = match.start()
+            context_before = refs_content[max(0, start_pos-20):start_pos]
+            
+            # Skip if already in markdown link or after Available:/DOI:
+            if '](' in context_before or 'Available:' in context_before or 'DOI:' in context_before:
+                return url
+            
+            return f"[{url}]({url})"
+        
+        # Replace standalone URLs (not already processed)
+        refs_content = re.sub(url_pattern + r'(?=\s*\n|$|\.)', replace_standalone_url, refs_content)
+        
+        return before_refs + refs_content + after_refs
+    
+    @staticmethod
+    def _clean_description_for_spotify(text: str) -> str:
+        """Clean description text to remove HTML entities, unwanted symbols, and ensure clean formatting for Spotify."""
+        if not text:
+            return ""
+        import html
+        import re
+        
+        # First strip any HTML tags that might be in the text
+        text = re.sub(r'<[^>]+>', '', text)
+        
+        # Decode HTML entities first (e.g., &amp; -> &, &lt; -> <)
+        cleaned = html.unescape(text)
+        
+        # Remove common unwanted symbols and patterns
+        # Remove curly quotes and replace with straight quotes
+        cleaned = cleaned.replace('\u201c', '"').replace('\u201d', '"')
+        cleaned = cleaned.replace('\u2018', "'").replace('\u2019', "'")
+        cleaned = cleaned.replace('\u2013', '-').replace('\u2014', '--')  # En/em dashes
+        
+        # Remove zero-width spaces and other invisible characters
+        cleaned = re.sub(r'[\u200B-\u200D\uFEFF]', '', cleaned)
+        
+        # Remove markdown code blocks that might have slipped through
+        cleaned = re.sub(r'```[a-z]*\n.*?```', '', cleaned, flags=re.DOTALL)
+        cleaned = re.sub(r'`[^`]+`', '', cleaned)  # Remove inline code
+        
+        # Clean up excessive whitespace but preserve paragraph breaks
+        cleaned = re.sub(r'[ \t]+', ' ', cleaned)  # Multiple spaces/tabs to single space
+        cleaned = re.sub(r'\n[ \t]+', '\n', cleaned)  # Remove leading whitespace from lines
+        cleaned = re.sub(r'[ \t]+\n', '\n', cleaned)  # Remove trailing whitespace from lines
+        cleaned = re.sub(r'\n{3,}', '\n\n', cleaned)  # Multiple newlines to double newline
+        
+        # Remove HTML tags that might have been embedded in markdown
+        # BUT preserve markdown links [text](url) format
+        # First, temporarily replace markdown links with placeholders
+        markdown_link_pattern = r'\[([^\]]+)\]\(([^\)]+)\)'
+        markdown_links = {}
+        placeholder_counter = 0
+        
+        def replace_link(match):
+            nonlocal placeholder_counter
+            placeholder = f"__MARKDOWN_LINK_{placeholder_counter}__"
+            markdown_links[placeholder] = match.group(0)
+            placeholder_counter += 1
+            return placeholder
+        
+        cleaned = re.sub(markdown_link_pattern, replace_link, cleaned)
+        
+        # Now remove HTML tags
+        cleaned = re.sub(r'<[^>]+>', '', cleaned)
+        
+        # Remove JSON artifacts and unwanted formatting
+        cleaned = re.sub(r'\{[^}]*\}', '', cleaned)  # Remove JSON-like objects
+        
+        # Restore markdown links
+        for placeholder, link in markdown_links.items():
+            cleaned = cleaned.replace(placeholder, link)
+        
+        # Restore markdown links (they might have been removed)
+        # This is a simple approach - keep links that look like markdown
+        # [text](url) format
+        
+        # Remove control characters except newlines and tabs
+        cleaned = ''.join(char for char in cleaned if ord(char) >= 32 or char in '\n\t')
+        
+        # Clean up common artifacts
+        cleaned = cleaned.replace('&nbsp;', ' ')
+        cleaned = cleaned.replace('&amp;', '&')
+        cleaned = cleaned.replace('&lt;', '<')
+        cleaned = cleaned.replace('&gt;', '>')
+        cleaned = cleaned.replace('&quot;', '"')
+        cleaned = cleaned.replace('&#39;', "'")
+        
+        # Remove excessive punctuation (more than 3 of the same in a row)
+        cleaned = re.sub(r'\.{4,}', '...', cleaned)
+        cleaned = re.sub(r'-{4,}', '---', cleaned)
+        cleaned = re.sub(r'={4,}', '===', cleaned)
+        
+        # Final cleanup
+        cleaned = cleaned.strip()
+        while "\n\n\n" in cleaned:
+            cleaned = cleaned.replace("\n\n\n", "\n\n")
+        
+        return cleaned
+    
+    @staticmethod
     def _append_cdata_element(parent: Element, tag: str, text: str) -> Element:
         """Append an element whose contents will be serialized as CDATA."""
         safe_text = text.replace("]]>", "]]]]><![CDATA[>")
@@ -181,14 +337,45 @@ class RSSService:
         thumbnail_url = result.get("thumbnail_url") or DEFAULT_ARTWORK_URL
         transcript_url = result.get("transcript_url")
         description_markdown = cls._strip_legacy_tagline(result.get("description", ""))
+        
+        # Convert reference URLs to clickable markdown links BEFORE HTML conversion
+        description_markdown = cls._make_reference_links_clickable(description_markdown)
+        
+        # Clean description for Spotify compatibility (remove HTML entities, unwanted symbols)
+        # BUT preserve markdown link syntax [text](url)
+        description_markdown = cls._clean_description_for_spotify(description_markdown)
 
+        # Limit description length to 4000 chars while preserving references
+        from content_fixes import limit_description_length
+        description_markdown = limit_description_length(description_markdown, 4000)
+        
         description_html = cls._markdown_to_html(description_markdown)
         if transcript_url:
             description_html += f'\n<p><a href="{transcript_url}">View full transcript</a></p>'
         if attribution_initials:
             description_html += f"\n<p>Creator: {attribution_initials}</p>"
 
+        # Create plain text version for RSS description field (Spotify/iTunes compatibility)
+        # Convert from markdown (not HTML) to preserve links as URLs
+        import re
+        import html as html_module
+        
+        # Convert markdown links to plain text with URLs: [text](url) -> text (url)
+        description_plain = re.sub(r'\[([^\]]+)\]\(([^\)]+)\)', r'\1 (\2)', description_markdown)
+        # Remove any remaining HTML if present
+        description_plain = re.sub(r'<[^>]+>', '', description_plain)
+        # Decode HTML entities
+        description_plain = html_module.unescape(description_plain)
+        description_plain = description_plain.strip()
+        
+        # Already limited to 4000 chars above, but double-check plain text version
+        if len(description_plain) > 4000:
+            # Use limit_description_length which preserves references
+            description_plain = limit_description_length(description_plain, 4000)
+
+        # Clean summary text for Spotify (plain text, no HTML)
         summary_text = extract_itunes_summary(description_markdown or "")
+        summary_text = cls._clean_description_for_spotify(summary_text)
 
         generated_at = result.get("generated_at") or podcast_data.get("updated_at") or podcast_data.get("created_at")
         pub_date = cls._parse_iso_datetime(generated_at)
@@ -203,6 +390,7 @@ class RSSService:
         return {
             "title": title.strip(),
             "description_html": description_html,
+            "description_plain": description_plain,  # Plain text version for RSS description field
             "summary": summary_text or result.get("title", ""),
             "audio_url": audio_url,
             "thumbnail_url": thumbnail_url,
@@ -225,7 +413,9 @@ class RSSService:
         cls._append_cdata_element(item_el, "title", item_data["title"])
         SubElement(item_el, "link").text = item_data["episode_link"]
 
-        cls._append_cdata_element(item_el, "description", item_data["description_html"])
+        # Use plain text for description field (Spotify/iTunes compatibility)
+        # Use HTML for content:encoded (for platforms that support it)
+        cls._append_cdata_element(item_el, "description", item_data.get("description_plain", item_data["description_html"]))
         cls._append_cdata_element(item_el, f"{{{RSS_NAMESPACES['itunes']}}}summary", item_data["summary"])
         cls._append_cdata_element(item_el, f"{{{RSS_NAMESPACES['content']}}}encoded", item_data["description_html"])
 

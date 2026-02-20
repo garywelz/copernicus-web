@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2601.09383v1",
+  "arxiv_id": "2601.09383v1",
+  "title": "Thermodynamically consistent phase-field modeling and numerical simulation for two-phase fluid-solid dynamics",
+  "authors": [
+    "Cedric Riethmüller",
+    "Lars von Wolff",
+    "Dominik Göddeke",
+    "Christian Rohde"
+  ],
+  "author_string": "Cedric Riethmüller, Lars von Wolff, Dominik Göddeke, Christian Rohde",
+  "journal": "arXiv:2601.09383v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We introduce a coupled Cahn-Hilliard Navier-Stokes model that governs the two-phase dynamics of a system that consists of a fluid and a solid phase and prove its thermodynamic consistency. Moreover, we present an associated fully-discrete numerical method that relies on a continuous finite element approach and a semi-implicit time-stepping method. As the main theoretical result we show that the fully-discrete method satisfies a discrete analog of the free energy dissipation inequality. Numerical experiments confirm the theoretical findings and show the applicability of the method for realistic settings including an extension to chemically reacting flow. In this context, we provide a preprocessing strategy that enables computing fluid flow in complex geometries given a sharp-interface formulation of the initial phase distribution. Moreover, we briefly introduce different solution strategies for the novel discretization based on the monolithic and partitioned solution paradigms and assess these in a comparative study.",
+  "categories": [
+    "math.NA"
+  ],
+  "primary_category": "math.NA",
+  "comment": null,
+  "published_date": "2026-01-14T11:21:53Z",
+  "updated_date": "2026-01-14T11:21:53Z",
+  "url": "https://arxiv.org/abs/2601.09383v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.09383v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:52.500615",
+  "category": "mathematics",
+  "subcategories": [
+    "math.NA"
+  ]
+}

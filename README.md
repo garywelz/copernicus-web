@@ -2,6 +2,9 @@
 
 A Next.js website that displays podcast episodes from Spotify with category filtering and a modern UI.
 
+**Copyright (c) 2025 Gary Welz / CopernicusAI**  
+**Licensed under MIT License** - See [LICENSE](LICENSE) file for details.
+
 ## Features
 
 - Spotify API integration for podcast episodes

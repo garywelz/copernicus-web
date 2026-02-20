@@ -1,0 +1,38 @@
+{
+  "id": "arxiv_2602.04695v1",
+  "arxiv_id": "2602.04695v1",
+  "title": "Turbulence teaches equivariance to neural networks",
+  "authors": [
+    "Ryley McConkey",
+    "Julia Balla",
+    "Jeremiah Bailey",
+    "Ali Backour",
+    "Elyssa Hofgard",
+    "Tommi Jaakkola",
+    "Abigail Bodner",
+    "Tess Smidt"
+  ],
+  "author_string": "Ryley McConkey, Julia Balla, Jeremiah Bailey, Ali Backour, Elyssa Hofgard et al.",
+  "journal": "arXiv:2602.04695v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We investigate how the rotational nature of turbulence affects learned mappings between quantities governed by the Navier-Stokes equations. By varying the degree of anisotropy in a turbulence dataset, we explore how statistical symmetry affects these mappings. To do this, we train super-resolution models at different wall-normal locations in a channel flow, where anisotropy varies naturally, and test their generalization. By evaluating the learned mappings on new coordinate frames and new flow conditions, we find that coordinate-frame generalization is a key part of the generalization problem. Turbulent flows naturally present a wide range of local orientations, so respecting the symmetries of the Navier-Stokes equations improves generalization to new flows. Importantly, turbulence's rotational structure can embed these symmetries into learned mappings -- an effect that strengthens with isotropy and dataset size. This is because a more isotropic dataset samples a wider range of orientations, more fully covering the rotational symmetries of the Navier-Stokes equations. The dependence on isotropy means equivariance error is also scale-dependent, consistent with Kolmogorov's hypothesis. Therefore, turbulence provides its own data augmentation (we term this implicit data augmentation). We expect this effect to apply broadly to learned mappings between tensorial flow quantities, making it relevant to most machine learning applications in turbulence.",
+  "categories": [
+    "physics.flu-dyn",
+    "physics.comp-ph"
+  ],
+  "primary_category": "physics.comp-ph",
+  "comment": "10 pages, 6 figures. Submitted to Journal of Fluid Mechanics",
+  "published_date": "2026-02-04T16:00:13Z",
+  "updated_date": "2026-02-04T16:00:13Z",
+  "url": "https://arxiv.org/abs/2602.04695v1",
+  "pdf_url": "https://arxiv.org/pdf/2602.04695v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-02-05T07:00:23.042698",
+  "category": "physics",
+  "subcategories": [
+    "physics.flu-dyn",
+    "physics.comp-ph"
+  ]
+}

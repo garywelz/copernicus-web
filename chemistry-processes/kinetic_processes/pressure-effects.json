@@ -1,0 +1,42 @@
+{
+  "id": "pressure-effects",
+  "title": "Pressure Effects",
+  "description": "Chemistry process: Pressure Effects",
+  "category": "chemistry",
+  "subcategory": "kinetic_processes",
+  "mermaid": "graph TD\n    A5[Gas Pressure] --> B5[Pressure Effect Method]\n    C5[Reaction System] --> D5[Pressure Control]\n    E5[Volume Changes] --> F5[Pressure Analysis]\n    \n    B5 --> G5[Pressure Setup]\n    D5 --> H5[Pressure Regulation]\n    F5 --> I5[Volume Monitoring]\n    \n    G5 --> J5[Pressure Range]\n    H5 --> K5[Pressure Control]\n    I5 --> L5[Volume Analysis]\n    \n    J5 --> M5[Gas Compression]\n    K5 --> L5\n    L5 --> N5[Volume Changes]\n    \n    M5 --> O5[Molecular Density]\n    N5 --> P5[Pressure Kinetics]\n    O5 --> Q5[Collision Frequency]\n    \n    P5 --> R5[Rate Changes]\n    Q5 --> S5[Pressure Analysis]\n    R5 --> T5[Pressure Optimization]\n    \n    S5 --> U5[Pressure Parameters]\n    T5 --> V5[Optimal Pressure]\n    U5 --> W5[Pressure Efficiency]\n    \n    V5 --> X5[Pressure Characterization]\n    W5 --> Y5[Process Optimization]\n    X5 --> Z5[Final Pressure Conditions]\n    \n    Y5 --> Z5\n    \n    style A5 fill:#ff6b6b,color:#fff\n    style C5 fill:#ff6b6b,color:#fff\n    style E5 fill:#ff6b6b,color:#fff\n    \n    style B5 fill:#ffd43b,color:#000\n    style D5 fill:#ffd43b,color:#000\n    style F5 fill:#ffd43b,color:#000\n    style G5 fill:#ffd43b,color:#000\n    style H5 fill:#ffd43b,color:#000\n    style I5 fill:#ffd43b,color:#000\n    style J5 fill:#ffd43b,color:#000\n    style K5 fill:#ffd43b,color:#000\n    style L5 fill:#ffd43b,color:#000\n    \n    style M5 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style O5 fill:#51cf66,color:#fff\n    style P5 fill:#51cf66,color:#fff\n    style Q5 fill:#51cf66,color:#fff\n    style R5 fill:#51cf66,color:#fff\n    style S5 fill:#51cf66,color:#fff\n    style T5 fill:#51cf66,color:#fff\n    style U5 fill:#51cf66,color:#fff\n    style V5 fill:#51cf66,color:#fff\n    style W5 fill:#51cf66,color:#fff\n    style X5 fill:#51cf66,color:#fff\n    style Y5 fill:#51cf66,color:#fff\n    \n    style Z5 fill:#b197fc,color:#fff",
+  "entities": [
+    "Gas Pressure",
+    "Pressure Effect Method",
+    "Reaction System",
+    "Pressure Control",
+    "Volume Changes",
+    "Pressure Analysis",
+    "Pressure Setup",
+    "Pressure Regulation",
+    "Volume Monitoring",
+    "Pressure Range",
+    "Volume Analysis",
+    "Gas Compression",
+    "Molecular Density",
+    "Pressure Kinetics",
+    "Collision Frequency",
+    "Rate Changes",
+    "Pressure Optimization",
+    "Pressure Parameters",
+    "Optimal Pressure",
+    "Pressure Efficiency",
+    "Pressure Characterization",
+    "Process Optimization",
+    "Final Pressure Conditions"
+  ],
+  "metadata": {
+    "source": "programming_framework",
+    "batch": "batch_11",
+    "batch_number": 11,
+    "batch_title": "Chemistry Batch 11: Kinetic Processes",
+    "color_scheme": "discipline_based",
+    "node_count": 23,
+    "complexity": "medium"
+  }
+}

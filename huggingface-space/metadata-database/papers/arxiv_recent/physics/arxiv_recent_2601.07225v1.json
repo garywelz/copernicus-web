@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2601.07225v1",
+  "arxiv_id": "2601.07225v1",
+  "title": "On optimization of Paganin's method for propagation-based X-ray phase-contrast imaging and tomography",
+  "authors": [
+    "Timur E. Gureyev",
+    "David M. Paganin",
+    "Ashkan Pakzad",
+    "Harry M. Quiney"
+  ],
+  "author_string": "Timur E. Gureyev, David M. Paganin, Ashkan Pakzad, Harry M. Quiney",
+  "journal": "arXiv:2601.07225v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Paganin's method for image reconstruction in propagation-based phase-contrast X-ray imaging and tomography has enjoyed broad acceptance in recent years, with over one thousand publications citing its use. The present paper discusses approaches to optimization of the method with respect to simple image quality metrics, such as signal-to-noise ratio and spatial resolution, as well as a reference-based metric corresponding to the relative mean squared difference between the reconstructed image and the \"ground truth\" image that would be obtained in a setup with perfect spatial resolution and no noise. The problem of optimization of the intrinsic regularization parameter of Paganin's method with respect to spatial resolution in the reconstructed image is studied in detail. It is also demonstrated that a combination of Paganin's method with a Tikhonov-regularized deconvolution of the point-spread function of the imaging system can provide significantly higher image quality compared to the standard version of the method. Analytical expressions for some relevant image quality metrics are obtained and compared with results of numerical simulations. Advantages and shortcomings of optimization approaches using a number of different image quality metrics are discussed. The results of this study are expected to be useful in practical X-ray imaging and training of deep machine learning models for image denoising and segmentation.",
+  "categories": [
+    "physics.med-ph",
+    "physics.optics"
+  ],
+  "primary_category": "physics.optics",
+  "comment": "29 pages, 4 figures",
+  "published_date": "2026-01-12T05:43:28Z",
+  "updated_date": "2026-01-12T05:43:28Z",
+  "url": "https://arxiv.org/abs/2601.07225v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.07225v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:28.437515",
+  "category": "physics",
+  "subcategories": [
+    "physics.med-ph",
+    "physics.optics"
+  ]
+}

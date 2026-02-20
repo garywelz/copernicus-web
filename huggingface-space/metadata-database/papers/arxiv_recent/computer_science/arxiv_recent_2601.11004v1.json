@@ -1,0 +1,38 @@
+{
+  "id": "arxiv_2601.11004v1",
+  "arxiv_id": "2601.11004v1",
+  "title": "NAACL: Noise-AwAre Verbal Confidence Calibration for LLMs in RAG Systems",
+  "authors": [
+    "Jiayu Liu",
+    "Rui Wang",
+    "Qing Zong",
+    "Qingcheng Zeng",
+    "Tianshi Zheng",
+    "Haochen Shi",
+    "Dadi Guo",
+    "Baixuan Xu",
+    "Chunyang Li",
+    "Yangqiu Song"
+  ],
+  "author_string": "Jiayu Liu, Rui Wang, Qing Zong, Qingcheng Zeng, Tianshi Zheng et al.",
+  "journal": "arXiv:2601.11004v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Accurately assessing model confidence is essential for deploying large language models (LLMs) in mission-critical factual domains. While retrieval-augmented generation (RAG) is widely adopted to improve grounding, confidence calibration in RAG settings remains poorly understood. We conduct a systematic study across four benchmarks, revealing that LLMs exhibit poor calibration performance due to noisy retrieved contexts. Specifically, contradictory or irrelevant evidence tends to inflate the model's false certainty, leading to severe overconfidence. To address this, we propose NAACL Rules (Noise-AwAre Confidence CaLibration Rules) to provide a principled foundation for resolving overconfidence under noise. We further design NAACL, a noise-aware calibration framework that synthesizes supervision from about 2K HotpotQA examples guided by these rules. By performing supervised fine-tuning (SFT) with this data, NAACL equips models with intrinsic noise awareness without relying on stronger teacher models. Empirical results show that NAACL yields substantial gains, improving ECE scores by 10.9% in-domain and 8.0% out-of-domain. By bridging the gap between retrieval noise and verbal calibration, NAACL paves the way for both accurate and epistemically reliable LLMs.",
+  "categories": [
+    "cs.CL"
+  ],
+  "primary_category": "cs.CL",
+  "comment": null,
+  "published_date": "2026-01-16T05:38:25Z",
+  "updated_date": "2026-01-16T05:38:25Z",
+  "url": "https://arxiv.org/abs/2601.11004v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11004v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:37.512696",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CL"
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2601.08547v1",
+  "arxiv_id": "2601.08547v1",
+  "title": "Convergence of gradient flow for learning convolutional neural networks",
+  "authors": [
+    "Jona-Maria Diederen",
+    "Holger Rauhut",
+    "Ulrich Terstiege"
+  ],
+  "author_string": "Jona-Maria Diederen, Holger Rauhut, Ulrich Terstiege",
+  "journal": "arXiv:2601.08547v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Convolutional neural networks are widely used in imaging and image recognition. Learning such networks from training data leads to the minimization of a non-convex function. This makes the analysis of standard optimization methods such as variants of (stochastic) gradient descent challenging. In this article we study the simplified setting of linear convolutional networks. We show that the gradient flow (to be interpreted as an abstraction of gradient descent) applied to the empirical risk defined via certain loss functions including the square loss always converges to a critical point, under a mild condition on the training data.",
+  "categories": [
+    "math.OC",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": "17 pages",
+  "published_date": "2026-01-13T13:33:48Z",
+  "updated_date": "2026-01-13T13:33:48Z",
+  "url": "https://arxiv.org/abs/2601.08547v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.08547v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:03.415456",
+  "category": "computer_science",
+  "subcategories": [
+    "math.OC",
+    "cs.LG"
+  ]
+}

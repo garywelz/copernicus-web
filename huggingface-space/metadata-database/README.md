@@ -33,7 +33,7 @@ The Research Paper Metadata Database represents **prior work** that demonstrates
 The Research Paper Metadata Database serves as a **core data infrastructure component** of the CopernicusAI Knowledge Engine, providing:
 
 - **Foundation for Knowledge Graph Construction:** Structured metadata enables relationship mapping - **✅ Now Fully Operational** (December 2025) with 12,000+ mathematics papers indexed, interactive knowledge graph visualization, and relationship extraction (citations, semantic similarity, categories)
-- **Knowledge Engine Dashboard** (✅ Implemented December 2025) - Fully operational web interface providing unified access to research papers through knowledge graph visualization, vector search, RAG queries, and content browsing. Live at: https://copernicus-frontend-phzp4ie2sq-uc.a.run.app/knowledge-engine
+- **Research Tools Dashboard** (✅ Implemented December 2025) - Fully operational web interface providing unified access to research papers through knowledge graph visualization, vector search, RAG queries, and content browsing. Live at: https://copernicus-frontend-phzp4ie2sq-uc.a.run.app/knowledge-engine
 - **Vector Search:** Semantic search using Vertex AI embeddings across papers, podcasts, and processes
 - **RAG System:** Retrieval-augmented generation with citation support and multi-modal content integration
 - **Integration with AI Podcast Generation:** Links research papers to generated podcast content
@@ -78,7 +78,7 @@ This project creates a database of scientific research paper metadata for the pu
 
 ## 🔗 Related Projects
 
-- [Copernicus AI](https://huggingface.co/spaces/garywelz/copernicusai) - Main knowledge engine integrating metadata with AI podcasts
+- [CopernicusAI](https://huggingface.co/spaces/garywelz/copernicusai) - Main knowledge engine integrating metadata with AI podcasts
 - [GLMP](https://huggingface.co/spaces/garywelz/glmp) - Genome Logic Modeling Project using metadata for source references
 - [Programming Framework](https://huggingface.co/spaces/garywelz/programming_framework) - Universal process analysis tool that can utilize metadata
 - [Science Video Database](https://huggingface.co/spaces/garywelz/sciencevideodb) - Video content management with potential metadata linking
@@ -107,7 +107,7 @@ The Research Paper Metadata Database is designed as infrastructure for AI-assist
 
 ---
 
-**Part of the Copernicus AI Knowledge Engine**
+**Part of the CopernicusAI Knowledge Engine**
 
 © 2025 Gary Welz. All rights reserved.
 

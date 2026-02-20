@@ -1,0 +1,30 @@
+{
+  "id": "arxiv_2601.09951v1",
+  "arxiv_id": "2601.09951v1",
+  "title": "Parallelizing the Variational Quantum Eigensolver: From JIT Compilation to Multi-GPU Scaling",
+  "authors": [
+    "Rylan Malarchick",
+    "Ashton Steed"
+  ],
+  "author_string": "Rylan Malarchick, Ashton Steed",
+  "journal": "arXiv:2601.09951v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "The Variational Quantum Eigensolver (VQE) is a hybrid quantum-classical algorithm for computing ground state energies of molecular systems. We implement VQE to calculate the potential energy surface of the hydrogen molecule (H$_2$) across 100 bond lengths using the PennyLane quantum computing framework on an HPC cluster featuring 4$\\times$ NVIDIA H100 GPUs (80GB each). We present a comprehensive parallelization study with four phases: (1) Optimizer + JIT compilation achieving 4.13$\\times$ speedup, (2) GPU device acceleration achieving 3.60$\\times$ speedup at 4 qubits scaling to 80.5$\\times$ at 26 qubits, (3) MPI parallelization achieving 28.5$\\times$ speedup, and (4) Multi-GPU scaling achieving 3.98$\\times$ speedup with 99.4% parallel efficiency across 4 H100 GPUs. The combined effect yields 117$\\times$ total speedup for the H$_2$ potential energy surface (593.95s $\\rightarrow$ 5.04s). We conduct a CPU vs GPU scaling study from 4--26 qubits, finding GPU advantage at all scales with speedups ranging from 10.5$\\times$ to 80.5$\\times$. Multi-GPU benchmarks demonstrate near-perfect scaling with 99.4% efficiency and establish that a single H100 can simulate up to 29 qubits before hitting memory limits. The optimized implementation reduces runtime from nearly 10 minutes to 5 seconds, enabling interactive quantum chemistry exploration.",
+  "categories": [
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": null,
+  "published_date": "2026-01-15T00:21:51Z",
+  "updated_date": "2026-01-15T00:21:51Z",
+  "url": "https://arxiv.org/abs/2601.09951v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.09951v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:18:54.506366",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph"
+  ]
+}

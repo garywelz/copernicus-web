@@ -1,0 +1,39 @@
+{
+  "id": "arxiv_2601.09289v1",
+  "arxiv_id": "2601.09289v1",
+  "title": "Computational Complexity of Swish",
+  "authors": [
+    "Takashi Horiyama",
+    "Takehiro Ito",
+    "Jun Kawahara",
+    "Shin-ichi Minato",
+    "Akira Suzuki",
+    "Ryuhei Uehara",
+    "Yutaro Yamaguchi"
+  ],
+  "author_string": "Takashi Horiyama, Takehiro Ito, Jun Kawahara, Shin-ichi Minato, Akira Suzuki et al.",
+  "journal": "arXiv:2601.09289v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Swish is a card game in which players are given cards having symbols (hoops and balls), and find a valid superposition of cards, called a \"swish.\" Dailly, Lafourcade, and Marcadet (FUN 2024) studied a generalized version of Swish and showed that the problem is solvable in polynomial time with one symbol per card, while it is NP-complete with three or more symbols per card. In this paper, we resolve the previously open case of two symbols per card, which corresponds to the original game. We show that Swish is NP-complete for this case. Specifically, we prove the NP-hardness when the allowed transformations of cards are restricted to a single (horizontal or vertical) flip or 180-degree rotation, and extend the results to the original setting allowing all three transformations. In contrast, when neither transformation is allowed, we present a polynomial-time algorithm. Combining known and our results, we establish a complete characterization of the computational complexity of Swish with respect to both the number of symbols per card and the allowed transformations.",
+  "categories": [
+    "cs.DS",
+    "cs.CC",
+    "math.CO"
+  ],
+  "primary_category": "math.CO",
+  "comment": "10 pages, 5 figures",
+  "published_date": "2026-01-14T08:50:14Z",
+  "updated_date": "2026-01-14T08:50:14Z",
+  "url": "https://arxiv.org/abs/2601.09289v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.09289v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:52.502374",
+  "category": "mathematics",
+  "subcategories": [
+    "cs.DS",
+    "cs.CC",
+    "math.CO"
+  ]
+}

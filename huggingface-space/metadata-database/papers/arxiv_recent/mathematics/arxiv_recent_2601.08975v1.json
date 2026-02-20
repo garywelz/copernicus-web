@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2601.08975v1",
+  "arxiv_id": "2601.08975v1",
+  "title": "Stability and robustness of a generalized pump-leak model for epithelial cell and lumen volume regulation",
+  "authors": [
+    "Kerry Tarrant",
+    "Alan R. Kay",
+    "Zahra Aminzare"
+  ],
+  "author_string": "Kerry Tarrant, Alan R. Kay, Zahra Aminzare",
+  "journal": "arXiv:2601.08975v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Epithelial cells regulate ion concentrations and volume through coordinated membrane pumps, ion channels, and paracellular pathways which can be modeled by classical single-compartment pump-leak equations (PLEs). Many epithelial functions, however, depend on the interaction between a cell and an enclosed luminal space, a geometry that cannot be captured by classical PLEs. To address this, we develop a two-compartment model consisting of an intracellular compartment coupled to a luminal compartment through the apical membrane, with both compartments interfacing an infinite extracellular bath and connected to it through the basolateral membrane and a paracellular pathway. Building on the five-dimensional single-cell PLEs, we formulate a ten-dimensional PLE system for this geometry and derive analytical equilibria and steady-state formulas for both the passive system and the Na+/K+-ATPase (NKA) driven active system. We characterize how these equilibria depend on physiologically relevant parameters, analyze local stability across wide parameter ranges, and apply global sensitivity and robustness methods to identify the principal determinants of ion and volume homeostasis. The model reveals fundamental differences between basolateral and apical placement of the NKA, including the onset of luminal volume blow-up when apical potassium recycling is insufficient. More broadly, this framework provides a mathematically tractable and physiologically grounded foundation for studying epithelial transport and for predicting conditions under which pump localization and conductance changes lead to stable function or pathological lumen expansion.",
+  "categories": [
+    "q-bio.CB",
+    "math.DS"
+  ],
+  "primary_category": "math.DS",
+  "comment": "48 pages, 23 figures, 5 tables",
+  "published_date": "2026-01-13T20:50:57Z",
+  "updated_date": "2026-01-13T20:50:57Z",
+  "url": "https://arxiv.org/abs/2601.08975v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.08975v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:52.507379",
+  "category": "mathematics",
+  "subcategories": [
+    "q-bio.CB",
+    "math.DS"
+  ]
+}

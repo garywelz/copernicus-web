@@ -1,0 +1,37 @@
+{
+  "id": "arxiv_2601.11425v1",
+  "arxiv_id": "2601.11425v1",
+  "title": "PubMed-OCR: PMC Open Access OCR Annotations",
+  "authors": [
+    "Hunter Heidenreich",
+    "Yosheb Getachew",
+    "Olivia Dinica",
+    "Ben Elliott"
+  ],
+  "author_string": "Hunter Heidenreich, Yosheb Getachew, Olivia Dinica, Ben Elliott",
+  "journal": "arXiv:2601.11425v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "PubMed-OCR is an OCR-centric corpus of scientific articles derived from PubMed Central Open Access PDFs. Each page image is annotated with Google Cloud Vision and released in a compact JSON schema with word-, line-, and paragraph-level bounding boxes. The corpus spans 209.5K articles (1.5M pages; ~1.3B words) and supports layout-aware modeling, coordinate-grounded QA, and evaluation of OCR-dependent pipelines. We analyze corpus characteristics (e.g., journal coverage and detected layout features) and discuss limitations, including reliance on a single OCR engine and heuristic line reconstruction. We release the data and schema to facilitate downstream research and invite extensions.",
+  "categories": [
+    "cs.CV",
+    "cs.CL",
+    "cs.DL",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": null,
+  "published_date": "2026-01-16T16:44:50Z",
+  "updated_date": "2026-01-16T16:44:50Z",
+  "url": "https://arxiv.org/abs/2601.11425v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11425v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:30.212398",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV",
+    "cs.CL",
+    "cs.DL"
+  ]
+}

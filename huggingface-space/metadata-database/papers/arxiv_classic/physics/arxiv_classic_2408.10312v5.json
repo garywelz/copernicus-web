@@ -1,0 +1,37 @@
+{
+  "id": "arxiv_2408.10312v5",
+  "arxiv_id": "2408.10312v5",
+  "title": "Rotations, Negative Eigenvalues, and Newton Method in Tensor Network Renormalization Group",
+  "authors": [
+    "Nikolay Ebel",
+    "Tom Kennedy",
+    "Slava Rychkov"
+  ],
+  "author_string": "Nikolay Ebel, Tom Kennedy, Slava Rychkov",
+  "journal": "Phys.Rev.X 15 (2025) 3, 031047",
+  "journal_ref": "Phys.Rev.X 15 (2025) 3, 031047",
+  "year": "2024",
+  "doi": "10.1103/y3xz-t2w8",
+  "abstract": "In the tensor network approach to statistical physics, properties of the critical point of a 2D lattice model are encoded by a four-legged tensor which is a fixed point of an RG map. The traditional way to find the fixed point tensor consists in iterating the RG map after having tuned the temperature to criticality. Here we develop a different and more direct technique, which solves the fixed point equation via the Newton method. This is challenging due to the existence of marginal deformations -- linear transformations of the coordinate frame, which parametrize a two-dimensional family of fixed points. We address this challenge by including a 90 degree rotation into the RG map. This flips the sign of the problematic marginal eigenvalues, rendering the fixed point isolated and accessible via the Newton method. We demonstrate the power of this technique via explicit computations for the 2D Ising and 3-state Potts models. Using the Gilt-TNR algorithm at bond dimension $χ=30$, we find the fixed point tensors with $10^{-9}$ accuracy, much higher than what was previously achieved.",
+  "categories": [
+    "cond-mat.stat-mech",
+    "cond-mat.str-el",
+    "hep-lat",
+    "hep-th",
+    "math-ph"
+  ],
+  "primary_category": "math-ph",
+  "comment": "37+25 pages, 16 figures, 7 tables. V4: 3-state Potts model discussion was added; discussions of CFT and RG were extended; discussion of Jacobian approximations was rearranged and extended; many clarifying comments were added; V5: references and clarifications added; version to appear in PRX",
+  "published_date": "2024-08-19T18:00:02Z",
+  "updated_date": "2025-07-10T21:13:12Z",
+  "url": "https://arxiv.org/abs/2408.10312v5",
+  "pdf_url": "https://arxiv.org/pdf/2408.10312v5.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:30:25.491914",
+  "category": "physics",
+  "subcategories": [
+    "cond-mat.stat-mech",
+    "cond-mat.str-el",
+    "hep-lat"
+  ]
+}

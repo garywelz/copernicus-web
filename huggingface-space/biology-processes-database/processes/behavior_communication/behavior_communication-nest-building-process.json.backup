@@ -1,0 +1,94 @@
+{
+  "category": "biology",
+  "colorScheme": {
+    "blue": {
+      "category": "Intermediates & States",
+      "hex": "#74c0fc"
+    },
+    "green": {
+      "category": "Processing & Operations",
+      "hex": "#51cf66"
+    },
+    "red": {
+      "category": "Triggers & Inputs",
+      "hex": "#ff6b6b"
+    },
+    "violet": {
+      "category": "Products & Outputs",
+      "hex": "#b197fc"
+    },
+    "yellow": {
+      "category": "Structures & Objects",
+      "hex": "#ffd43b"
+    }
+  },
+  "complexity": {
+    "conditionals": 0,
+    "detailLevel": "low",
+    "edges": 8,
+    "level": "low",
+    "logicGates": {
+      "andGates": 0,
+      "orGates": 0,
+      "total": 0
+    },
+    "nodes": 9
+  },
+  "created": "2026-01-08",
+  "description": "Nest Building Process in Animals. This process represents a higher-level biological mechanism distinct from molecular/biochemical processes covered in GLMP.",
+  "id": "behavior_communication-nest-building-process",
+  "keywords": [
+    "animals",
+    "behavior",
+    "process",
+    "building",
+    "nest",
+    "communication"
+  ],
+  "lastUpdated": "2026-01-08",
+  "mermaid": "graph TD\n    A20[Reproductive Season] --> B20[Site Selection]\n    B20 --> C20[Material Collection]\n    C20 --> D20[Construction Initiation]\n    D20 --> E20[Structure Assembly]\n    E20 --> F20[Shape Formation]\n    F20 --> G20[Lining Addition]\n    G20 --> H20[Completion]\n    H20 --> I20[Nest Maintenance]\n    \n    style A20 fill:#ff6b6b,color:#fff\n    style B20 fill:#ffd43b,color:#000\n    style C20 fill:#51cf66,color:#fff\n    style D20 fill:#51cf66,color:#fff\n    style E20 fill:#51cf66,color:#fff\n    style F20 fill:#74c0fc,color:#fff\n    style G20 fill:#74c0fc,color:#fff\n    style H20 fill:#b197fc,color:#fff\n    style I20 fill:#b197fc,color:#fff",
+  "name": "Nest Building Process",
+  "notes": "Higher-level biological process. GLMP covers biochemical/molecular processes; this database covers organismal/ecological processes.",
+  "organism": "Animals",
+  "relatedProcesses": [],
+  "sources": [
+    {
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "notes": "Higher-level biological process visualization: Nest Building Process. Created using the Programming Framework methodology for organismal and ecological process analysis.",
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "year": "2025"
+    },
+    {
+      "authors": "Martin TE et al.",
+      "doi": "10.1126/science.aau1174",
+      "journal": "Science",
+      "pubmed": "30361303",
+      "title": "Animal architecture: the function and evolution of nest design",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/30361303",
+      "year": "2018"
+    },
+    {
+      "authors": "Goodale E, Dingemanse NJ, Roff DA",
+      "doi": "10.1073/pnas.1420551112",
+      "journal": "PNAS",
+      "pubmed": "25712015",
+      "title": "Convergent evolution of anti-predator nest architectures in passerine birds",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/25712015",
+      "year": "2015"
+    },
+    {
+      "authors": "Robinson GE, Ben-Shahar Y",
+      "doi": "10.1146/annurev.ento.45.1.121",
+      "journal": "Annu Rev Entomol",
+      "pubmed": "10769325",
+      "title": "The development and evolution of social insect behavior",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/10769325",
+      "year": "2000"
+    }
+  ],
+  "subcategory": "behavior_communication",
+  "subcategory_name": "Behavior & Communication",
+  "verified": false
+}

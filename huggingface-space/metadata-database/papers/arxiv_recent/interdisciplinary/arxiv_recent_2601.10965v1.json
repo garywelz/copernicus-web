@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2601.10965v1",
+  "arxiv_id": "2601.10965v1",
+  "title": "Noise-Aware Quantum Architecture Search Based on NSGA-II Algorithm",
+  "authors": [
+    "Chenlu Li",
+    "Hui Zeng",
+    "Dazhi Ding"
+  ],
+  "author_string": "Chenlu Li, Hui Zeng, Dazhi Ding",
+  "journal": "arXiv:2601.10965v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Quantum architecture search (QAS) has emerged to automate the design of high-performance quantum circuits under specific tasks and hardware constraints. We propose a noise-aware quantum architecture search (NA-QAS) framework based on variational quantum circuit design. By incorporating a noise model into the training of parameterized quantum circuits (PQCs) , the proposed framework identifies the noise-robust architectures. We introduce a hybrid Hamiltonian $\\varepsilon$ -greedy strategy to optimize evaluation costs and circumvent local optima. Furthermore, an enhanced variable-depth NSGA-II algorithm is employed to navigate the vast search space, enabling an automated trade-off between architectural expressibility and quantum hardware overhead. The effectiveness of the framework is validated through binary classification and iris multi-classification tasks under a noisy condition. Compared to existing approaches, our framework can search for quantum architectures with superior performance and greater resource efficiency under a noisy condition.",
+  "categories": [
+    "quant-ph",
+    "eess.SP"
+  ],
+  "primary_category": "eess.SP",
+  "comment": null,
+  "published_date": "2026-01-16T03:11:34Z",
+  "updated_date": "2026-01-16T03:11:34Z",
+  "url": "https://arxiv.org/abs/2601.10965v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.10965v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:18:36.100912",
+  "category": "interdisciplinary",
+  "subcategories": [
+    "quant-ph",
+    "eess.SP"
+  ]
+}

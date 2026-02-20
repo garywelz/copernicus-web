@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_0808.3643v2",
+  "arxiv_id": "0808.3643v2",
+  "title": "Bayesian Methods for Parameter Estimation in Effective Field Theories",
+  "authors": [
+    "Matthias R. Schindler",
+    "Daniel R. Phillips"
+  ],
+  "author_string": "Matthias R. Schindler, Daniel R. Phillips",
+  "journal": "Annals Phys.324:682-708,2009; Erratum-Annals Phys.324:2051-2055,2009",
+  "journal_ref": "Annals Phys.324:682-708,2009; Erratum-Annals Phys.324:2051-2055,2009",
+  "year": "2008",
+  "doi": "10.1016/j.aop.2008.09.003",
+  "abstract": "We demonstrate and explicate Bayesian methods for fitting the parameters that encode the impact of short-distance physics on observables in effective field theories (EFTs). We use Bayes' theorem together with the principle of maximum entropy to account for the prior information that these parameters should be natural, i.e.O(1) in appropriate units. Marginalization can then be employed to integrate the resulting probability density function (pdf) over the EFT parameters that are not of specific interest in the fit. We also explore marginalization over the order of the EFT calculation, M, and over the variable, R, that encodes the inherent ambiguity in the notion that these parameters are O(1). This results in a very general formula for the pdf of the EFT parameters of interest given a data set, D. We use this formula and the simpler \"augmented chi-squared\" in a toy problem for which we generate pseudo-data. These Bayesian methods, when used in combination with the \"naturalness prior\", facilitate reliable extractions of EFT parameters in cases where chi-squared methods are ambiguous at best. We also examine the problem of extracting the nucleon mass in the chiral limit, M_0, and the nucleon sigma term, from pseudo-data on the nucleon mass as a function of the pion mass. We find that Bayesian techniques can provide reliable information on M_0, even if some of the data points used for the extraction lie outside the region of applicability of the EFT.",
+  "categories": [
+    "hep-ph",
+    "hep-lat",
+    "nucl-ex",
+    "nucl-th",
+    "physics.data-an"
+  ],
+  "primary_category": "physics.data-an",
+  "comment": "36 pages, 4 figures, numerical errors in Sec. IV and V corrected, main conclusions unaffected",
+  "published_date": "2008-08-27T15:00:02Z",
+  "updated_date": "2009-08-14T15:49:56Z",
+  "url": "https://arxiv.org/abs/0808.3643v2",
+  "pdf_url": "https://arxiv.org/pdf/0808.3643v2.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:30:21.590818",
+  "category": "physics",
+  "subcategories": [
+    "hep-ph",
+    "hep-lat",
+    "nucl-ex"
+  ]
+}

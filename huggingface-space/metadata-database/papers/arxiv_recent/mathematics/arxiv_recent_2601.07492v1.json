@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2601.07492v1",
+  "arxiv_id": "2601.07492v1",
+  "title": "Online Markov Decision Processes with Terminal Law Constraints",
+  "authors": [
+    "Bianca Marin Moreno",
+    "Margaux Brégère",
+    "Pierre Gaillard",
+    "Nadia Oudjane"
+  ],
+  "author_string": "Bianca Marin Moreno, Margaux Brégère, Pierre Gaillard, Nadia Oudjane",
+  "journal": "arXiv:2601.07492v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Traditional reinforcement learning usually assumes either episodic interactions with resets or continuous operation to minimize average or cumulative loss. While episodic settings have many theoretical results, resets are often unrealistic in practice. The infinite-horizon setting avoids this issue but lacks non-asymptotic guarantees in online scenarios with unknown dynamics. In this work, we move towards closing this gap by introducing a reset-free framework called the periodic framework, where the goal is to find periodic policies: policies that not only minimize cumulative loss but also return the agents to their initial state distribution after a fixed number of steps. We formalize the problem of finding optimal periodic policies and identify sufficient conditions under which it is well-defined for tabular Markov decision processes. To evaluate algorithms in this framework, we introduce the periodic regret, a measure that balances cumulative loss with the terminal law constraint. We then propose the first algorithms for computing periodic policies in two multi-agent settings and show they achieve sublinear periodic regret of order $\\tilde O(T^{3/4})$. This provides the first non-asymptotic guarantees for reset-free learning in the setting of $M$ homogeneous agents, for $M > 1$.",
+  "categories": [
+    "math.OC",
+    "stat.ML"
+  ],
+  "primary_category": "stat.ML",
+  "comment": null,
+  "published_date": "2026-01-12T12:46:12Z",
+  "updated_date": "2026-01-12T12:46:12Z",
+  "url": "https://arxiv.org/abs/2601.07492v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.07492v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:11.151172",
+  "category": "mathematics",
+  "subcategories": [
+    "math.OC",
+    "stat.ML"
+  ]
+}

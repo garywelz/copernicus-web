@@ -1,0 +1,30 @@
+{
+  "id": "arxiv_2601.09301v1",
+  "arxiv_id": "2601.09301v1",
+  "title": "A Posteriori Certification Framework for Generalized Quantum Arimoto-Blahut Algorithms",
+  "authors": [
+    "Geng Liu",
+    "Masahito Hayashi"
+  ],
+  "author_string": "Geng Liu, Masahito Hayashi",
+  "journal": "arXiv:2601.09301v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "The generalized quantum Arimoto--Blahut (QAB) algorithm is a powerful derivative-free iterative method in quantum information theory. A key obstacle to its broader use is that existing convergence guarantees typically rely on analytical conditions that are either overly restrictive or difficult to verify for concrete problems. We address this issue by introducing an a posteriori certification viewpoint: instead of requiring fully a priori verifiable assumptions, we provide convergence and error guarantees that can be validated directly from the iterates produced by the algorithm. Specifically, we prove a generalized global convergence theorem showing that, under convexity and a substantially weaker numerically verifiable condition, the QAB iteration converges to the global minimizer. This theorem yields a practical certification procedure: by checking explicit inequalities along the computed trajectory, one can certify global optimality and bound the suboptimality of the obtained value. As an application, we develop a certified iterative scheme for computing the quantum relative entropy of channels, a fundamental measure of distinguishability in quantum dynamics. This quantity is notoriously challenging to evaluate numerically: gradient-based methods are impeded by the complexity of matrix functions such as square roots and logarithms, while recent semidefinite programming approaches can become computationally and memory intensive at high precision. Our method avoids these bottlenecks by combining the QAB iteration with a posteriori certification, yielding an efficient and scalable algorithm. Numerical experiments demonstrate rapid convergence and improved scalability and adaptivity compared with SDP-based approaches.",
+  "categories": [
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": null,
+  "published_date": "2026-01-14T09:10:41Z",
+  "updated_date": "2026-01-14T09:10:41Z",
+  "url": "https://arxiv.org/abs/2601.09301v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.09301v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:02.856565",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph"
+  ]
+}

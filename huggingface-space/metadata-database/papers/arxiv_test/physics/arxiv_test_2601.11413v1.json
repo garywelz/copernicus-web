@@ -1,0 +1,30 @@
+{
+  "id": "arxiv_2601.11413v1",
+  "arxiv_id": "2601.11413v1",
+  "title": "Quantum-enhanced optimization for patient stratification in clinical trials",
+  "authors": [
+    "Laia Domingo",
+    "Christine Johnson"
+  ],
+  "author_string": "Laia Domingo, Christine Johnson",
+  "journal": "arXiv:2601.11413v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Clinical trials are notorious for their high failure rates and steep costs, leading to wasted time and resources spend, prolonged development timelines, and delayed patient access to new therapies. A key contributor to these failures is biological uncertainty, which complicates trial design and weakens the ability to detect true treatment effects. In particular, inadequate patient stratification often results in covariate imbalances across treatment arms, masking treatment effects and reducing statistical power, even when therapies are effective for specific patient subpopulations. This work presents an optimization-based, quantum-enhanced approach to patient stratification that explicitly minimizes covariate imbalance across numerical and categorical variables, without altering protocol design or trial endpoints. Using real clinical trial data, we demonstrate that hybrid quantum-classical optimization methods achieve high-quality stratification while scaling efficiently to larger cohorts. In our benchmark study, the quantum-enhanced pipeline delivered over a 100x improvement in computational efficiency compared to classical approaches, enabling faster iteration and practical deployment at scale. This report shows how improved stratification can lead to decision-relevant gains, including up to a fivefold increase in statistical significance in treatment effect estimation, reducing treatment-effect dilution and increasing trial sensitivity. Together, these results show that optimization-driven stratification can strengthen clinical trial design, improve confidence in downstream decisions, and reduce the risk of costly late-stage failure.",
+  "categories": [
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": null,
+  "published_date": "2026-01-16T16:33:46Z",
+  "updated_date": "2026-01-16T16:33:46Z",
+  "url": "https://arxiv.org/abs/2601.11413v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11413v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:18:15.371571",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph"
+  ]
+}

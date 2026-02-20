@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2005.13905v1",
+  "arxiv_id": "2005.13905v1",
+  "title": "Modeling the Location Selection of Mirror Servers in Content Delivery Networks",
+  "authors": [
+    "Peter Hillmann",
+    "Tobias Uhlig",
+    "Gabi Dreo Rodosek",
+    "Oliver Rose"
+  ],
+  "author_string": "Peter Hillmann, Tobias Uhlig, Gabi Dreo Rodosek, Oliver Rose",
+  "journal": "arXiv:2005.13905v1",
+  "journal_ref": null,
+  "year": "2020",
+  "doi": null,
+  "abstract": "For a provider of a Content Delivery Network (CDN), the location selection of mirror servers is a complex optimization problem. Generally, the objective is to place the nodes centralized such that all customers have convenient access to the service according to their demands. It is an instance of the k-center problem, which is proven to be NP-hard. Determining reasonable server locations directly influences run time effects and future service costs. We model, simulate, and optimize the properties of a content delivery network. Specifically, considering the server locations in a network infrastructure with prioritized customers and weighted connections. A simulation model for the servers is necessary to analyze the caching behavior in accordance to the targeted customer requests. We analyze the problem and compare different optimization strategies. For our simulation, we employ various realistic scenarios and evaluate several performance indicators. Our new optimization approach shows a significant improvement. The presented results are generally applicable to other domains with k-center problems, e.g., the placement of military bases, the planning and placement of facility locations, or data mining.",
+  "categories": [
+    "cs.NI",
+    "cs.DC",
+    "eess.SY"
+  ],
+  "primary_category": "eess.SY",
+  "comment": "Conference on Services Computing 2016",
+  "published_date": "2020-05-28T11:06:57Z",
+  "updated_date": "2020-05-28T11:06:57Z",
+  "url": "https://arxiv.org/abs/2005.13905v1",
+  "pdf_url": "https://arxiv.org/pdf/2005.13905v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:27.417548",
+  "category": "interdisciplinary",
+  "subcategories": [
+    "cs.NI",
+    "cs.DC",
+    "eess.SY"
+  ]
+}

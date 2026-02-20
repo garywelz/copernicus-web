@@ -1,0 +1,30 @@
+{
+  "id": "arxiv_2601.08228v1",
+  "arxiv_id": "2601.08228v1",
+  "title": "Second-Generation Wavelet-inspired Tensor Product with Applications in Hyperspectral Imaging",
+  "authors": [
+    "Aneesh Panchal",
+    "Ratikanta Behera"
+  ],
+  "author_string": "Aneesh Panchal, Ratikanta Behera",
+  "journal": "arXiv:2601.08228v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "This paper introduces the $w$-product, a novel wavelet-based tensor multiplication scheme leveraging second-generation wavelet transforms to achieve linear transformation complexity while preserving essential algebraic properties. The $w$-product outperforms existing tensor multiplication approaches by enabling fast and numerically stable tensor decompositions by proposing ``$w$-svd'' and its sparse variant ``sp-$w$-svd'', for efficient low-rank approximations with significantly reduced computational costs. Experiments on low-rank hyperspectral image reconstruction demonstrate up to a $92.21$ times speedup compared to state-of-the-art ``$t$-svd'', with comparable PSNR and SSIM metrics. We discuss the Moore-Penrose inverse of tensors based on the $w$-product and examine its essential properties. Numerical examples are provided to support the theoretical results. Then, hyperspectral image deblurring experiments demonstrate up to $27.88$ times speedup with improved image quality. In particular, the $w$-product and the sp-$w$-product exhibit exponentially increasing acceleration with the decomposition level compared to the traditional approach of the $t$-product. This work provides a scalable framework for multidimensional data analysis, with future research directions including adaptive wavelet designs, higher-order tensor extensions, and real-time implementations.",
+  "categories": [
+    "math.NA"
+  ],
+  "primary_category": "math.NA",
+  "comment": null,
+  "published_date": "2026-01-13T05:18:44Z",
+  "updated_date": "2026-01-13T05:18:44Z",
+  "url": "https://arxiv.org/abs/2601.08228v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.08228v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:07.226366",
+  "category": "mathematics",
+  "subcategories": [
+    "math.NA"
+  ]
+}

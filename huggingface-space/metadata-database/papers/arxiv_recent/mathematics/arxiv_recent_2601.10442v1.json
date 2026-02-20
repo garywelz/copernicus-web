@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2601.10442v1",
+  "arxiv_id": "2601.10442v1",
+  "title": "Non-Intrusive Hyperreduction by a Physics-Augmented Neural Network with Second-Order Sobolev Training",
+  "authors": [
+    "Arwed Schütz",
+    "Lars Nolle",
+    "Tamara Bechtold"
+  ],
+  "author_string": "Arwed Schütz, Lars Nolle, Tamara Bechtold",
+  "journal": "arXiv:2601.10442v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "The finite element method is an indispensable tool in engineering, but its computational complexity prevents applications for control or at system-level. Model order reduction bridges this gap, creating highly efficient yet accurate surrogate models. Reducing nonlinear setups additionally requires hyperreduction. Compatibility with commercial finite element software requires non-intrusive methods based on data. Methods include the trajectory piecewise linear approach, or regression, typically via neural networks. Important aspects for these methods are accuracy, efficiency, generalization, including desired physical and mathematical properties, and extrapolation. Especially the last two aspects are problematic for neural networks. Therefore, several studies investigated how to incorporate physical knowledge or desirable properties. A promising approach from constitutive modeling is physics augmented neural networks. This concept has been elegantly transferred to hyperreduction by Fleres et al. in 2025 and guarantees several desired properties, incorporates physics, can include parameters, and results in smaller architectures. We augment this reference work by second-order Sobolev training, i.e., using a function and its first two derivatives. These are conveniently accessible and promise improved performance. Further modifications are proposed and studied. While Sobolev training does not meet expectations, several minor changes improve accuracy by up to an order of magnitude. Eventually, our best model is compared to reference work and the trajectory piecewise linear approach. The comparison relies on the same numerical case study as the reference work and additionally emphasizes extrapolation due to its critical role in typical applications. Our results indicate quick divergence of physics-augmented neural networks for extrapolation, preventing its deployment.",
+  "categories": [
+    "math.DS"
+  ],
+  "primary_category": "math.DS",
+  "comment": "36 pages, 16 figures, 2 tables",
+  "published_date": "2026-01-15T14:34:24Z",
+  "updated_date": "2026-01-15T14:34:24Z",
+  "url": "https://arxiv.org/abs/2601.10442v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.10442v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:41.983725",
+  "category": "mathematics",
+  "subcategories": [
+    "math.DS"
+  ]
+}

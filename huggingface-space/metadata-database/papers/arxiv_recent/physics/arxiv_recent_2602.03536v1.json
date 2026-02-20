@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2602.03536v1",
+  "arxiv_id": "2602.03536v1",
+  "title": "An Evaluation of the Remote CX Protocol under Noise in Distributed Quantum Computing",
+  "authors": [
+    "Leo Sünkel",
+    "Michael Kölle",
+    "Tobias Rohe",
+    "Claudia Linnhoff-Popien"
+  ],
+  "author_string": "Leo Sünkel, Michael Kölle, Tobias Rohe, Claudia Linnhoff-Popien",
+  "journal": "arXiv:2602.03536v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Quantum computers connected through classical and quantum communication channels can be combined to function as a single unit to run large quantum circuits that each device is unable to execute on their own. The distributed quantum computing paradigm is therefore often seen as a potential pathway to scaling quantum computing to capacities necessary for practical and large-scale applications. Whether connecting multiple quantum processing units (QPUs) in clusters or over networks, quantum communication requires entanglement to be generated and distributed over distances. Using entanglement, the remote CX protocol can be performed, which allows the application of the CX gate involving qubits located in different QPUs. In this work, we use a specialized simulation framework for a high-level evaluation of the impact of the protocol when executed under noise in various network configurations using different number of QPUs. We compare naive and graph partitioning qubit assignment strategies and how they affect the fidelity in experiments run on Grover, GHZ, VQC, and random circuits. The results provide insights on how QPU and network configurations or naive scheduling can degrade performance.",
+  "categories": [
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": "Accepted at IEEE ICC 2026",
+  "published_date": "2026-02-03T13:52:13Z",
+  "updated_date": "2026-02-03T13:52:13Z",
+  "url": "https://arxiv.org/abs/2602.03536v1",
+  "pdf_url": "https://arxiv.org/pdf/2602.03536v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-02-04T07:47:26.390963",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph"
+  ]
+}

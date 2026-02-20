@@ -1,0 +1,30 @@
+{
+  "id": "arxiv_2601.10866v1",
+  "arxiv_id": "2601.10866v1",
+  "title": "Adaptive Privacy Budgeting",
+  "authors": [
+    "Yuting Liang",
+    "Ke Yi"
+  ],
+  "author_string": "Yuting Liang, Ke Yi",
+  "journal": "arXiv:2601.10866v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We study the problem of adaptive privacy budgeting under generalized differential privacy. Consider the setting where each user $i\\in [n]$ holds a tuple $x_i\\in U:=U_1\\times \\dotsb \\times U_T$, where $x_i(l)\\in U_l$ represents the $l$-th component of their data. For every $l\\in [T]$ (or a subset), an untrusted analyst wishes to compute some $f_l(x_1(l),\\dots,x_n(l))$, while respecting the privacy of each user. For many functions $f_l$, data from the users are not all equally important, and there is potential to use the privacy budgets of the users strategically, leading to privacy savings that can be used to improve the utility of later queries. In particular, the budgeting should be adaptive to the outputs of previous queries, so that greater savings can be achieved on more typical instances. In this paper, we provide such an adaptive budgeting framework, with various applications demonstrating its applicability.",
+  "categories": [
+    "cs.CR"
+  ],
+  "primary_category": "cs.CR",
+  "comment": null,
+  "published_date": "2026-01-15T21:32:50Z",
+  "updated_date": "2026-01-15T21:32:50Z",
+  "url": "https://arxiv.org/abs/2601.10866v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.10866v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:37.520552",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CR"
+  ]
+}

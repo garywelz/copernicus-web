@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2601.08504v2",
+  "arxiv_id": "2601.08504v2",
+  "title": "MultiQ: Multi-Programming Neutral Atom Quantum Architectures",
+  "authors": [
+    "Francisco Romão",
+    "Daniel Vonk",
+    "Emmanuil Giortamis",
+    "Dennis Sprokholt",
+    "Pramod Bhatotia"
+  ],
+  "author_string": "Francisco Romão, Daniel Vonk, Emmanuil Giortamis, Dennis Sprokholt, Pramod Bhatotia",
+  "journal": "arXiv:2601.08504v2",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Neutral atom Quantum Processing Units (QPUs) are emerging as a popular quantum computing technology due to their large qubit counts and flexible connectivity. However, performance challenges arise as large circuits experience significant fidelity drops, while small circuits underutilize hardware and face initialization latency issues. To tackle these problems, we propose $\\textit{multi-programming on neutral atom QPUs}$, allowing the co-execution of multiple circuits by logically partitioning the qubit array. This approach increases resource utilization and mitigates initialization latency while maintaining result fidelity. Currently, state-of-the-art compilers for neutral atom architectures do not support multi-programming.   To fill this gap, we introduce MultiQ, the first system designed for this purpose. MultiQ addresses three main challenges: (i) it compiles circuits into a $\\textit{virtual zone layout}$ to optimize spatio-temporal hardware utilization; (ii) it parallelizes the execution of co-located circuits, allowing single hardware instructions to operate on different circuits; and (iii) it includes an algorithm to verify the functional independence of the bundled circuits. MultiQ functions as a cross-layer system comprising a compiler, controller, and checker. Our compiler generates \\emph{virtual zone layouts} to enhance performance, while the controller efficiently maps these layouts onto the hardware and resolves any conflicts. The checker ensures the correct bundling of circuits.   Experimental results show a throughput increase from 3.8$\\times$ to 12.3$\\times$ when multi-programming 4 to 14 circuits, with fidelity largely maintained, ranging from a 1.3% improvement for four circuits to only a 3.5% loss for fourteen circuits. Overall, MultiQ facilitates concurrent execution of multiple quantum circuits, boosting throughput and hardware utilization.",
+  "categories": [
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": null,
+  "published_date": "2026-01-13T12:40:00Z",
+  "updated_date": "2026-01-15T21:24:39Z",
+  "url": "https://arxiv.org/abs/2601.08504v2",
+  "pdf_url": "https://arxiv.org/pdf/2601.08504v2.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:10.462497",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph"
+  ]
+}

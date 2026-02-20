@@ -1,0 +1,30 @@
+{
+  "id": "crossref_10.1103_prxquantum.5.040346",
+  "doi": "10.1103/prxquantum.5.040346",
+  "title": "Quantum Control without Quantum States",
+  "authors": [
+    "Orozco-Ruiz, Modesto",
+    "Le, Nguyen H.",
+    "Mintert, Florian"
+  ],
+  "author_string": "Orozco-Ruiz, Modesto, Le, Nguyen H., Mintert, Florian",
+  "journal": "PRX Quantum",
+  "issn": "2691-3399",
+  "issn_type": "electronic",
+  "volume": "5",
+  "issue": "4",
+  "page": "",
+  "year": "2024",
+  "publisher": "American Physical Society (APS)",
+  "language": "en",
+  "abstract": "We show that combining ideas from the fields of quantum invariants and optimal control can be used to design optimal quantum control solutions without explicit reference to quantum states. The states are specified only implicitly in terms of operators to which they are eigenstates. The scaling in numerical effort of the resultant approach is not given by the typically exponentially growing effort required for the specification of a time-evolved quantum state, but it is given by the effort required for the specification of a time-evolved operator. For certain Hamiltonians, this effort can be polynomial in the system size. We describe how control problems for state preparation and the realization of propagators can be formulated in this approach, and we provide explicit control solutions for a spin chain with an extended Ising Hamiltonian. The states considered for state-preparation protocols include eigenstates of Hamiltonians with more than pairwise interactions and these Hamiltonians are also used for the definition of target propagators. The cost of describing suitable time-evolving operators grows only quadratically with the system size, allowing us to construct explicit control solutions for up to 50 spins. While subexponential scaling is obtained only in special cases, we provide several examples that demonstrate favorable scaling beyond the extended Ising model.\n          \n            \n            \n              \n                Published by the American Physical Society\n                2024",
+  "subjects": [],
+  "keywords": [],
+  "article_type": "journal-article",
+  "citation_count": 2,
+  "url": "https://doi.org/10.1103/prxquantum.5.040346",
+  "source": "crossref",
+  "acquired_date": "2026-01-19T10:54:06.767223",
+  "category": "physics",
+  "subcategories": []
+}

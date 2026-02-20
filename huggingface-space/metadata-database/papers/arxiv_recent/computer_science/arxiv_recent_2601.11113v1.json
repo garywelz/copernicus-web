@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2601.11113v1",
+  "arxiv_id": "2601.11113v1",
+  "title": "Differentially Private Subspace Fine-Tuning for Large Language Models",
+  "authors": [
+    "Lele Zheng",
+    "Xiang Wang",
+    "Tao Zhang",
+    "Yang Cao",
+    "Ke Cheng",
+    "Yulong Shen"
+  ],
+  "author_string": "Lele Zheng, Xiang Wang, Tao Zhang, Yang Cao, Ke Cheng et al.",
+  "journal": "arXiv:2601.11113v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Fine-tuning large language models on downstream tasks is crucial for realizing their cross-domain potential but often relies on sensitive data, raising privacy concerns. Differential privacy (DP) offers rigorous privacy guarantees and has been widely adopted in fine-tuning; however, naively injecting noise across the high-dimensional parameter space creates perturbations with large norms, degrading performance and destabilizing training. To address this issue, we propose DP-SFT, a two-stage subspace fine-tuning method that substantially reduces noise magnitude while preserving formal DP guarantees. Our intuition is that, during fine-tuning, significant parameter updates lie within a low-dimensional, task-specific subspace, while other directions change minimally. Hence, we only inject DP noise into this subspace to protect privacy without perturbing irrelevant parameters. In phase one, we identify the subspace by analyzing principal gradient directions to capture task-specific update signals. In phase two, we project full gradients onto this subspace, add DP noise, and map the perturbed gradients back to the original parameter space for model updates, markedly lowering noise impact. Experiments on multiple datasets demonstrate that DP-SFT enhances accuracy and stability under rigorous DP constraints, accelerates convergence, and achieves substantial gains over DP fine-tuning baselines.",
+  "categories": [
+    "cs.LG",
+    "cs.CR"
+  ],
+  "primary_category": "cs.CR",
+  "comment": null,
+  "published_date": "2026-01-16T09:15:46Z",
+  "updated_date": "2026-01-16T09:15:46Z",
+  "url": "https://arxiv.org/abs/2601.11113v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11113v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:33.863138",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.LG",
+    "cs.CR"
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2601.07400v2",
+  "arxiv_id": "2601.07400v2",
+  "title": "Inference for Multiple Change-points in Piecewise Locally Stationary Time Series",
+  "authors": [
+    "Wai Leong Ng",
+    "Xinyi Tang",
+    "Mun Lau Cheung",
+    "Jiacheng Gao",
+    "Chun Yip Yau",
+    "Holger Dette"
+  ],
+  "author_string": "Wai Leong Ng, Xinyi Tang, Mun Lau Cheung, Jiacheng Gao, Chun Yip Yau et al.",
+  "journal": "arXiv:2601.07400v2",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Change-point detection and locally stationary time series modeling are two major approaches for the analysis of non-stationary data. The former aims to identify stationary phases by detecting abrupt changes in the dynamics of a time series model, while the latter employs (locally) time-varying models to describe smooth changes in dependence structure of a time series. However, in some applications, abrupt and smooth changes can co-exist, and neither of the two approaches alone can model the data adequately. In this paper, we propose a novel likelihood-based procedure for the inference of multiple change-points in locally stationary time series. In contrast to traditional change-point analysis where an abrupt change occurs in a real-valued parameter, a change in locally stationary time series occurs in a parameter curve, and can be classified as a jump or a kink depending on whether the curve is discontinuous or not. We show that the proposed method can consistently estimate the number, locations, and the types of change-points. Two different asymptotic distributions corresponding respectively to jump and kink estimators are also established. Extensive simulation studies and a real data application to financial time series are provided.",
+  "categories": [
+    "stat.ME",
+    "math.ST"
+  ],
+  "primary_category": "math.ST",
+  "comment": null,
+  "published_date": "2026-01-12T10:38:02Z",
+  "updated_date": "2026-01-15T10:23:28Z",
+  "url": "https://arxiv.org/abs/2601.07400v2",
+  "pdf_url": "https://arxiv.org/pdf/2601.07400v2.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:11.151856",
+  "category": "mathematics",
+  "subcategories": [
+    "stat.ME",
+    "math.ST"
+  ]
+}

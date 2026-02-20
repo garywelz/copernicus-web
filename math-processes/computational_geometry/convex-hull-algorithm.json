@@ -1,0 +1,30 @@
+{
+  "id": "convex-hull-algorithm",
+  "title": "Convex Hull Algorithm",
+  "description": "Find the convex hull of a set of points",
+  "category": "mathematics",
+  "subcategory": "computational_geometry",
+  "mermaid": "graph TD\n    A1[Input: Set of points P] --> B1[Sort points P by x-coordinate]\n    style A1 fill:#ff6b6b,color:#fff\n    style B1 fill:#ffd43b,color:#000\n\n    B1 --> C1[Initialize: Lower Hull L = [], Upper Hull U = []]\n    style C1 fill:#ffd43b,color:#000\n\n    C1 --> D1[For each point p in sorted P]\n    style D1 fill:#ffd43b,color:#000\n\n    D1 --> E1{While L contains at least 2 points AND last two points of L form a non-left turn with p}\n    style E1 fill:#ffd43b,color:#000\n\n    E1 -- Yes --> F1[Remove last point from L]\n    style F1 fill:#51cf66,color:#fff\n\n    F1 --> E1\n    E1 -- No --> G1[Append p to L]\n    style G1 fill:#51cf66,color:#fff\n\n    G1 --> H1[For each point p in sorted P (in reverse order)]\n    style H1 fill:#ffd43b,color:#000\n\n    H1 --> I1{While U contains at least 2 points AND last two points of U form a non-left turn with p}\n    style I1 fill:#ffd43b,color:#000\n\n    I1 -- Yes --> J1[Remove last point from U]\n    style J1 fill:#51cf66,color:#fff\n\n    J1 --> I1\n    I1 -- No --> K1[Append p to U]\n    style K1 fill:#51cf66,color:#fff\n\n    K1 --> L1[Remove first and last point from L and U (avoid duplicates)]\n    style L1 fill:#51cf66,color:#fff\n\n    L1 --> M1[Concatenate L and U to form Convex Hull CH]\n    style M1 fill:#51cf66,color:#fff\n\n    M1 --> N1[Output: Convex Hull CH]\n    style N1 fill:#b197fc,color:#fff",
+  "entities": [
+    "/\"Input: Set of points P\"/",
+    "/\"Initialize: Lower Hull L = [",
+    "/\"For each point p in sorted P\"/",
+    "/\"For each point p in sorted P (in reverse order)\"/",
+    "/\"Concatenate L and U to form Convex Hull CH\"/",
+    "/\"Append p to U\"/",
+    "/\"While L contains at least 2 points AND last two points of L form a non-left turn with p\"/}\n    style E1 fill:#ffd43b,color:#000\n\n    E1 -- Yes --> F1[/\"Remove last point from L\"/",
+    "/\"Remove first and last point from L and U (avoid duplicates)\"/",
+    "/\"Append p to L\"/",
+    "/\"Output: Convex Hull CH\"/",
+    "/\"While U contains at least 2 points AND last two points of U form a non-left turn with p\"/}\n    style I1 fill:#ffd43b,color:#000\n\n    I1 -- Yes --> J1[/\"Remove last point from U\"/",
+    "/\"Sort points P by x-coordinate\"/"
+  ],
+  "metadata": {
+    "source": "programming_framework",
+    "color_scheme": "discipline_based",
+    "node_count": 12,
+    "complexity": "low"
+  },
+  "sources": [],
+  "source_text": "Source information to be added - please specify the book, paper, or reference material used by the LLM to generate this flowchart."
+}

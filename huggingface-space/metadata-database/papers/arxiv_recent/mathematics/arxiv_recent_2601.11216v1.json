@@ -1,0 +1,30 @@
+{
+  "id": "arxiv_2601.11216v1",
+  "arxiv_id": "2601.11216v1",
+  "title": "A Gaussian process limit for the self-normalized Ewens-Pitman process",
+  "authors": [
+    "Bernard Bercu",
+    "Stefano Favaro"
+  ],
+  "author_string": "Bernard Bercu, Stefano Favaro",
+  "journal": "arXiv:2601.11216v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "For an integer $n\\geq1$, consider a random partition $Π_{n}$ of $\\{1,\\ldots,n\\}$ into $K_{n}$ partition sets with $K_{r,n}$ partition subsets of size $r=1,\\ldots,n$, and assume $Π_{n}$ distributed according to the Ewens-Pitman model with parameters $α\\in]0,1[$ and $θ>-α$. Although the large-$n$ asymptotic behaviors of $K_{n}$ and $K_{r,n}$ are well understood in terms of almost sure convergence and Gaussian fluctuations, much less is known about the asymptotic behavior of $P_{r,n}=K_{r,n}/K_n$ and of the self-normalized Ewens-Pitman process $(P_{1,n},P_{2,n},\\dots)$. Motivated by the almost sure convergence of $(P_{1,n},P_{2,n},\\dots)$ to the Sibuya distribution $p_α=(p_α(1),p_α(2),\\ldots)$, where $p_α(r)$ is the probability mass at $r=1,2,\\ldots$, we establish the $\\ell^{2}$ distributional convergence \\begin{displaymath} \\sqrt{K_{n}}((P_{1,n},\\,P_{2,n},\\ldots)-p_α)\\underset{n\\rightarrow+\\infty}{\\overset{\\cL}{\\longrightarrow}}\\mathcal{G}(Γ_α), \\end{displaymath} where $\\mathcal{G}(Γ_α)$ stands for a centered Gaussian process with covariance matrix $Γ_α=diag(p_α) - p_α p_α^T$. We apply our result to the estimation of the parameter",
+  "categories": [
+    "math.PR"
+  ],
+  "primary_category": "math.PR",
+  "comment": "27 pages",
+  "published_date": "2026-01-16T11:48:02Z",
+  "updated_date": "2026-01-16T11:48:02Z",
+  "url": "https://arxiv.org/abs/2601.11216v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11216v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:38.716420",
+  "category": "mathematics",
+  "subcategories": [
+    "math.PR"
+  ]
+}

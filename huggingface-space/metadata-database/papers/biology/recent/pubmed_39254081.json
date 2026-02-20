@@ -1,0 +1,38 @@
+{
+  "id": "pubmed_39254081",
+  "pmid": "39254081",
+  "title": "Analysis and Visualization of Quantitative Proteomics Data Using FragPipe-Analyst.",
+  "authors": [
+    "Hsiao, Yi",
+    "Zhang, Haijian",
+    "Li, Ginny Xiaohe",
+    "Deng, Yamei",
+    "Yu, Fengchao",
+    "Valipour Kahrood, Hossein",
+    "Steele, Joel R",
+    "Schittenhelm, Ralf B",
+    "Nesvizhskii, Alexey I"
+  ],
+  "author_string": "Hsiao, Yi, Zhang, Haijian, Li, Ginny Xiaohe, Deng, Yamei, Yu, Fengchao et al.",
+  "journal": "J Proteome Res",
+  "journal_full": "Journal of proteome research",
+  "year": "",
+  "doi": "10.1021/acs.jproteome.4c00294",
+  "abstract": "The FragPipe computational proteomics platform is gaining widespread popularity among the proteomics research community because of its fast processing speed and user-friendly graphical interface. Although FragPipe produces well-formatted output tables that are ready for analysis, there is still a need for an easy-to-use and user-friendly downstream statistical analysis and visualization tool. FragPipe-Analyst addresses this need by providing an R shiny web server to assist FragPipe users in conducting downstream analyses of the resulting quantitative proteomics data. It supports major quantification workflows, including label-free quantification, tandem mass tags, and data-independent acquisition. FragPipe-Analyst offers a range of useful functionalities, such as various missing value imputation options, data quality control, unsupervised clustering, differential expression (DE) analysis using Limma, and gene ontology and pathway enrichment analysis using Enrichr. To support advanced analysis and customized visualizations, we also developed FragPipeAnalystR, an R package encompassing all FragPipe-Analyst functionalities that is extended to support site-specific analysis of post-translational modifications (PTMs). FragPipe-Analyst and FragPipeAnalystR are both open-source and freely available.",
+  "keywords": [
+    "AP-MS",
+    "FragPipe",
+    "LiP-MS",
+    "bioinformatics",
+    "downstream analysis",
+    "open source",
+    "protein phosphorylation",
+    "software"
+  ],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/39254081",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T16:59:00.688362",
+  "category": "biology",
+  "subcategories": []
+}

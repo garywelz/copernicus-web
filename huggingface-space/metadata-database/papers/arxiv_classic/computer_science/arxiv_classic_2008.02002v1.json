@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2008.02002v1",
+  "arxiv_id": "2008.02002v1",
+  "title": "Fast top-K Cosine Similarity Search through XOR-Friendly Binary Quantization on GPUs",
+  "authors": [
+    "Xiaozheng Jian",
+    "Jianqiu Lu",
+    "Zexi Yuan",
+    "Ao Li"
+  ],
+  "author_string": "Xiaozheng Jian, Jianqiu Lu, Zexi Yuan, Ao Li",
+  "journal": "arXiv:2008.02002v1",
+  "journal_ref": null,
+  "year": "2020",
+  "doi": null,
+  "abstract": "We explore the use of GPU for accelerating large scale nearest neighbor search and we propose a fast vector-quantization-based exhaustive nearest neighbor search algorithm that can achieve high accuracy without any indexing construction specifically designed for cosine similarity. This algorithm uses a novel XOR-friendly binary quantization method to encode floating-point numbers such that high-complexity multiplications can be optimized as low-complexity bitwise operations. Experiments show that, our quantization method takes short preprocessing time, and helps make the search speed of our exhaustive search method much more faster than that of popular approximate nearest neighbor algorithms when high accuracy is needed.",
+  "categories": [
+    "cs.CV",
+    "cs.IR"
+  ],
+  "primary_category": "cs.IR",
+  "comment": "10 pages, 6 figures",
+  "published_date": "2020-08-05T08:50:21Z",
+  "updated_date": "2020-08-05T08:50:21Z",
+  "url": "https://arxiv.org/abs/2008.02002v1",
+  "pdf_url": "https://arxiv.org/pdf/2008.02002v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:27.422162",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV",
+    "cs.IR"
+  ]
+}

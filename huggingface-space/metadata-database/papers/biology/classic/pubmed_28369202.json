@@ -1,0 +1,23 @@
+{
+  "id": "pubmed_28369202",
+  "pmid": "28369202",
+  "title": "Row versus column correlations: avoiding the ecological fallacy in RNA/protein expression studies.",
+  "authors": [
+    "O'Brien, Jonathon J",
+    "Gunawardena, Harsha P",
+    "Qaqish, Bahjat F"
+  ],
+  "author_string": "O'Brien, Jonathon J, Gunawardena, Harsha P, Qaqish, Bahjat F",
+  "journal": "Brief Bioinform",
+  "journal_full": "Briefings in bioinformatics",
+  "year": "",
+  "doi": "10.1093/bib/bbx021",
+  "abstract": "Biomedical researchers are often interested in computing the correlation between RNA and protein abundance. However, correlations can be computed between rows of a data matrix or between columns, and the results are not the same. The belief that these two types of correlation are estimating the same phenomenon is a special case of a well-known logical error called the ecological fallacy. In this article, we review different uses of correlation found in the literature, explain the differences between row and column correlations and argue that one of them has an undesirable interpretation in most applications. Through simulation studies and theoretical derivations, we show that the commonly used Pearson's coefficient, computed from protein and transcript data from a single sample, is only loosely related to the biological correlation that most researchers will be interested in studying. Beyond our basic exploration of the ecological fallacy, we examine how correlations are affected by relative quantification proteomics data and common normalization procedures, finding that double normalization is capable of completely masking true correlative relationships. We conclude with guidelines for properly identifying and computing consistent correlation coefficients.",
+  "keywords": [],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/28369202",
+  "source": "pubmed",
+  "acquired_date": "2026-01-13T20:29:26.308247",
+  "category": "biology",
+  "subcategories": []
+}

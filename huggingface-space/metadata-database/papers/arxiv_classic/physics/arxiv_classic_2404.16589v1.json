@@ -1,0 +1,37 @@
+{
+  "id": "arxiv_2404.16589v1",
+  "arxiv_id": "2404.16589v1",
+  "title": "Preconditioned flow as a solution to the hierarchical growth problem in the generalized Lefschetz thimble method",
+  "authors": [
+    "Jun Nishimura",
+    "Katsuta Sakai",
+    "Atis Yosprakob"
+  ],
+  "author_string": "Jun Nishimura, Katsuta Sakai, Atis Yosprakob",
+  "journal": "arXiv:2404.16589v1",
+  "journal_ref": null,
+  "year": "2024",
+  "doi": null,
+  "abstract": "The generalized Lefschetz thimble method is a promising approach that attempts to solve the sign problem in Monte Carlo methods by deforming the integration contour using the flow equation. Here we point out a general problem that occurs due to the property of the flow equation, which extends a region on the original contour exponentially to a region on the deformed contour. Since the growth rate for each eigenmode is governed by the singular values of the Hessian of the action, a huge hierarchy in the singular value spectrum, which typically appears for large systems, leads to various technical problems in numerical simulations. We solve this hierarchical growth problem by preconditioning the flow so that the growth rate becomes identical for every eigenmode. As an example, we show that the preconditioned flow enables us to investigate the real-time quantum evolution of an anharmonic oscillator with the system size that can hardly be achieved by using the original flow.",
+  "categories": [
+    "hep-lat",
+    "gr-qc",
+    "hep-th",
+    "physics.comp-ph",
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": "35 pages, 5 figures",
+  "published_date": "2024-04-25T13:13:29Z",
+  "updated_date": "2024-04-25T13:13:29Z",
+  "url": "https://arxiv.org/abs/2404.16589v1",
+  "pdf_url": "https://arxiv.org/pdf/2404.16589v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:30:17.209467",
+  "category": "physics",
+  "subcategories": [
+    "hep-lat",
+    "gr-qc",
+    "hep-th"
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "id": "quality-assurance-process",
+  "title": "Quality Assurance Process",
+  "description": "Computer Science process: Quality Assurance Process",
+  "category": "computer_science",
+  "subcategory": "software_engineering",
+  "mermaid": "graph TD\n    A2[Test Planning] --> B2[Quality Assurance Method]\n    C2[Test Case Design] --> D2[Testing Framework]\n    E2[Test Execution] --> F2[Quality Assurance Analysis]\n    \n    B2 --> G2[Unit Testing]\n    D2 --> H2[Integration Testing]\n    F2 --> I2[System Testing]\n    \n    G2 --> J2[Code Coverage]\n    H2 --> K2[Interface Testing]\n    I2 --> L2[Performance Testing]\n    \n    J2 --> M2[Test Automation]\n    K2 --> L2\n    L2 --> N2[Regression Testing]\n    \n    M2 --> O2[Quality Metrics]\n    N2 --> P2[Defect Tracking]\n    O2 --> Q2[Quality Assurance Process]\n    \n    P2 --> R2[Quality Assurance Validation]\n    Q2 --> S2[Quality Assurance Verification]\n    R2 --> T2[Quality Assurance Result]\n    \n    S2 --> U2[Quality Assurance Analysis]\n    T2 --> V2[Quality Assurance Parameters]\n    U2 --> W2[Quality Assurance Output]\n    \n    V2 --> X2[Quality Assurance Analysis]\n    W2 --> Y2[Quality Assurance Final Result]\n    X2 --> Z2[Quality Assurance Process Complete]\n    \n    style A2 fill:#ff6b6b,color:#fff\n    style C2 fill:#ff6b6b,color:#fff\n    style E2 fill:#ff6b6b,color:#fff\n    \n    style B2 fill:#ffd43b,color:#000\n    style D2 fill:#ffd43b,color:#000\n    style F2 fill:#ffd43b,color:#000\n    style G2 fill:#ffd43b,color:#000\n    style H2 fill:#ffd43b,color:#000\n    style I2 fill:#ffd43b,color:#000\n    style J2 fill:#ffd43b,color:#000\n    style K2 fill:#ffd43b,color:#000\n    style L2 fill:#ffd43b,color:#000\n    style M2 fill:#ffd43b,color:#000\n    style N2 fill:#ffd43b,color:#000\n    style O2 fill:#ffd43b,color:#000\n    style P2 fill:#ffd43b,color:#000\n    style Q2 fill:#ffd43b,color:#000\n    style R2 fill:#ffd43b,color:#000\n    style S2 fill:#ffd43b,color:#000\n    style T2 fill:#ffd43b,color:#000\n    style U2 fill:#ffd43b,color:#000\n    style V2 fill:#ffd43b,color:#000\n    style W2 fill:#ffd43b,color:#000\n    style X2 fill:#ffd43b,color:#000\n    style Y2 fill:#ffd43b,color:#000\n    style Z2 fill:#ffd43b,color:#000\n    \n    style M2 fill:#51cf66,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style O2 fill:#51cf66,color:#fff\n    style P2 fill:#51cf66,color:#fff\n    style Q2 fill:#51cf66,color:#fff\n    style R2 fill:#51cf66,color:#fff\n    style S2 fill:#51cf66,color:#fff\n    style T2 fill:#51cf66,color:#fff\n    style U2 fill:#51cf66,color:#fff\n    style V2 fill:#51cf66,color:#fff\n    style W2 fill:#51cf66,color:#fff\n    style X2 fill:#51cf66,color:#fff\n    style Y2 fill:#51cf66,color:#fff\n    style Z2 fill:#51cf66,color:#fff\n    \n    style Z2 fill:#b197fc,color:#fff",
+  "entities": [
+    "Test Planning",
+    "Quality Assurance Method",
+    "Test Case Design",
+    "Testing Framework",
+    "Test Execution",
+    "Quality Assurance Analysis",
+    "Unit Testing",
+    "Integration Testing",
+    "System Testing",
+    "Code Coverage",
+    "Interface Testing",
+    "Performance Testing",
+    "Test Automation",
+    "Regression Testing",
+    "Quality Metrics",
+    "Defect Tracking",
+    "Quality Assurance Process",
+    "Quality Assurance Validation",
+    "Quality Assurance Verification",
+    "Quality Assurance Result",
+    "Quality Assurance Parameters",
+    "Quality Assurance Output",
+    "Quality Assurance Final Result",
+    "Quality Assurance Process Complete"
+  ],
+  "metadata": {
+    "source": "programming_framework",
+    "batch": "batch_02",
+    "batch_number": 2,
+    "batch_title": "Computer Science Batch 02 - Software Engineering - Programming Framework Analysis",
+    "color_scheme": "discipline_based",
+    "node_count": 24,
+    "complexity": "medium"
+  }
+}

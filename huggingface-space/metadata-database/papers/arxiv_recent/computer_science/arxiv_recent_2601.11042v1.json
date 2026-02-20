@@ -1,0 +1,38 @@
+{
+  "id": "arxiv_2601.11042v1",
+  "arxiv_id": "2601.11042v1",
+  "title": "Spectral Characterization and Mitigation of Sequential Knowledge Editing Collapse",
+  "authors": [
+    "Chi Zhang",
+    "Mengqi Zhang",
+    "Xiaotian Ye",
+    "Runxi Cheng",
+    "Zisheng Zhou",
+    "Ying Zhou",
+    "Pengjie Ren",
+    "Zhumin Chen"
+  ],
+  "author_string": "Chi Zhang, Mengqi Zhang, Xiaotian Ye, Runxi Cheng, Zisheng Zhou et al.",
+  "journal": "arXiv:2601.11042v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Sequential knowledge editing in large language models often causes catastrophic collapse of the model's general abilities, especially for parameter-modifying methods. Existing approaches mitigate this issue through heuristic constraints on parameter updates, yet the mechanisms underlying such degradation remain insufficiently understood. In this work, we present a spectral analysis of sequential knowledge editing and show that a model's general abilities are closely associated with dominant singular directions of pretrained weight matrices. These directions are highly sensitive to perturbations and are progressively disrupted by repeated edits, closely tracking the collapse in both editing efficacy and general performance. Building on this insight, we propose REVIVE, a plug-and-play framework that stabilizes sequential editing by explicitly preserving the dominant singular subspace. REVIVE represents parameter updates in the spectral basis of the original weights and filters components that would interfere with the protected region. Extensive experiments across multiple models and benchmarks show that REVIVE consistently improves editing efficacy while substantially preserving general abilities under long-horizon sequential editing, including extreme settings with up to 20,000 edits.",
+  "categories": [
+    "cs.CL",
+    "cs.AI"
+  ],
+  "primary_category": "cs.AI",
+  "comment": "22 pages, 18 figures",
+  "published_date": "2026-01-16T07:18:14Z",
+  "updated_date": "2026-01-16T07:18:14Z",
+  "url": "https://arxiv.org/abs/2601.11042v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11042v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:37.505005",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CL",
+    "cs.AI"
+  ]
+}

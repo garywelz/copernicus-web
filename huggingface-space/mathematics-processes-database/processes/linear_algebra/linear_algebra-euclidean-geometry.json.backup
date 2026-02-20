@@ -1,0 +1,92 @@
+{
+  "category": "mathematics",
+  "colorScheme": {
+    "blue": {
+      "category": "Intermediates & States",
+      "hex": "#74c0fc"
+    },
+    "green": {
+      "category": "Processing & Operations",
+      "hex": "#51cf66"
+    },
+    "red": {
+      "category": "Triggers & Inputs",
+      "hex": "#ff6b6b"
+    },
+    "violet": {
+      "category": "Products & Outputs",
+      "hex": "#b197fc"
+    },
+    "yellow": {
+      "category": "Structures & Objects",
+      "hex": "#ffd43b"
+    }
+  },
+  "complexity": {
+    "conditionals": 0,
+    "detailLevel": "medium",
+    "edges": 24,
+    "level": "medium",
+    "logicGates": {
+      "andGates": 0,
+      "orGates": 0,
+      "total": 0
+    },
+    "nodes": 26
+  },
+  "created": "2026-01-08",
+  "description": "Euclidean Geometry Process. This geometry process visualization demonstrates Euclidean geometric constructions and proofs. The flowchart shows geometric object inputs and axioms, geometric methods and theorems, geometric operations and constructions, intermediate results, and final Euclidean geometry outputs.",
+  "id": "linear_algebra-euclidean-geometry",
+  "keywords": [
+    "algebra",
+    "geometry",
+    "euclidean",
+    "linear"
+  ],
+  "lastUpdated": "2026-01-08",
+  "mermaid": "graph TD\nA1[Geometric Objects] --> B1[Euclidean Axioms]\nC1[Point Line Plane] --> D1[Distance Measurement]\nE1[Angle Measurement] --> F1[Geometric Constructions]\nB1 --> G1[Parallel Postulate]\nD1 --> H1[Pythagorean Theorem]\nF1 --> I1[Circle Constructions]\nG1 --> J1[Triangle Properties]\nH1 --> K1[Area Calculations]\nI1 --> L1[Geometric Proofs]\nJ1 --> M1[Congruence Theorems]\nK1 --> L1\nL1 --> N1[Similarity Theorems]\nM1 --> O1[Geometric Transformations]\nN1 --> P1[Coordinate Geometry]\nO1 --> Q1[Euclidean Geometry Process]\nP1 --> R1[Euclidean Geometry Validation]\nQ1 --> S1[Euclidean Geometry Verification]\nR1 --> T1[Euclidean Geometry Result]\nS1 --> U1[Euclidean Geometry Analysis]\nT1 --> V1[Euclidean Geometry Parameters]\nU1 --> W1[Euclidean Geometry Output]\nV1 --> X1[Euclidean Geometry Analysis]\nW1 --> Y1[Euclidean Geometry Final Result]\nX1 --> Z1[Euclidean Geometry Analysis Complete]\n\n    style A1 fill:#ff6b6b,color:#fff\n    style C1 fill:#ff6b6b,color:#fff\n    style E1 fill:#ff6b6b,color:#fff\n    style B1 fill:#ffd43b,color:#000\n    style D1 fill:#ffd43b,color:#000\n    style F1 fill:#ffd43b,color:#000\n    style G1 fill:#ffd43b,color:#000\n    style H1 fill:#ffd43b,color:#000\n    style I1 fill:#ffd43b,color:#000\n    style J1 fill:#ffd43b,color:#000\n    style K1 fill:#ffd43b,color:#000\n    style L1 fill:#ffd43b,color:#000\n    style M1 fill:#51cf66,color:#fff\n    style N1 fill:#51cf66,color:#fff\n    style O1 fill:#51cf66,color:#fff\n    style P1 fill:#51cf66,color:#fff\n    style Q1 fill:#51cf66,color:#fff\n    style R1 fill:#51cf66,color:#fff\n    style S1 fill:#51cf66,color:#fff\n    style T1 fill:#51cf66,color:#fff\n    style U1 fill:#51cf66,color:#fff\n    style V1 fill:#51cf66,color:#fff\n    style W1 fill:#51cf66,color:#fff\n    style X1 fill:#51cf66,color:#fff\n    style Y1 fill:#51cf66,color:#fff\n    style Z1 fill:#b197fc,color:#fff",
+  "name": "Euclidean Geometry",
+  "notes": "Converted from mathematics batch HTML. Process number: 1.",
+  "relatedProcesses": [],
+  "sources": [
+    {
+      "authors": "Welz, G.",
+      "doi": null,
+      "journal": "CopernicusAI Knowledge Engine",
+      "notes": "Chemistry process visualization: Euclidean Geometry. Created using the Programming Framework methodology for process analysis and visualization.",
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "year": "2025"
+    },
+    {
+      "authors": "Veblen O.",
+      "doi": "10.2307/1986462",
+      "journal": "Trans Am Math Soc.",
+      "pubmed": null,
+      "title": "A System of Axioms for Geometry",
+      "url": "https://doi.org/10.2307/1986462",
+      "year": "1904"
+    },
+    {
+      "authors": "Wu W.",
+      "doi": "10.1360/ya1978-21-2-159",
+      "journal": "Sci Sin.",
+      "pubmed": null,
+      "title": "On the decision problem and the mechanization of theorem proving in elementary geometry",
+      "url": "https://doi.org/10.1360/ya1978-21-2-159",
+      "year": "1978"
+    },
+    {
+      "authors": "Tarski A.",
+      "doi": "10.2307/2320701",
+      "journal": "Am Math Mon.",
+      "pubmed": null,
+      "title": "What is elementary geometry?",
+      "url": "https://doi.org/10.2307/2320701",
+      "year": "1981"
+    }
+  ],
+  "subcategory": "linear_algebra",
+  "subcategory_name": "Linear Algebra",
+  "verified": false
+}

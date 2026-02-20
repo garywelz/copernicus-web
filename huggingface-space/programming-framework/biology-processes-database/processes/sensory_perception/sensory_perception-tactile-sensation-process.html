@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tactile Sensation Process - Biology Process</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #27ae60 0%, #27ae60dd 100%);
+            color: white;
+            padding: 30px;
+        }
+        
+        .header h1 {
+            margin: 0 0 10px 0;
+            font-size: 2em;
+            font-weight: 300;
+        }
+        
+        .header-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 15px;
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        
+        .meta-item {
+            background: rgba(255,255,255,0.2);
+            padding: 5px 12px;
+            border-radius: 20px;
+        }
+        
+        .nav-links {
+            padding: 15px 30px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        
+        .nav-links a {
+            color: #27ae60;
+            text-decoration: none;
+            margin-right: 20px;
+            font-weight: 500;
+        }
+        
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .description {
+            margin-bottom: 30px;
+        }
+        
+        .description h2 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .flowchart-container {
+            margin: 30px 0;
+        }
+        
+        .flowchart-container h2 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .mermaid {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #ecf0f1;
+            overflow-x: auto;
+        }
+        
+        .color-legend {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 30px 0;
+        }
+        
+        .color-legend h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .color-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            background: white;
+            border-radius: 5px;
+        }
+        
+        .color-box {
+            width: 30px;
+            height: 30px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+        
+        .info-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .info-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        
+        .info-card h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .info-card ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .info-card li {
+            padding: 8px 0;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        
+        .info-card li:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Tactile Sensation Process</h1>
+            <div class="header-meta">
+                <span class="meta-item">Biology</span>
+                <span class="meta-item">Sensory & Perception</span>
+                <span class="meta-item">Complexity: low</span>
+            </div>
+        </div>
+        
+        <div class="nav-links">
+            <a id="back-link" href="#">← Back to Biology Database</a>
+            <a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank">Programming Framework</a>
+        </div>
+        <script>
+            // Dynamically set back link based on current location
+            (function() {
+                const hostname = window.location.hostname;
+                const pathname = window.location.pathname;
+                const backLink = document.getElementById('back-link');
+                
+                if (hostname.includes('storage.googleapis.com')) {
+                    // GCS hosted
+                    backLink.href = 'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/biology-processes-database/biology-database-table.html';
+                } else if (hostname.includes('huggingface.co') || pathname.includes('huggingface')) {
+                    // Hugging Face hosted
+                    backLink.href = '../biology-database-table.html';
+                } else {
+                    // Local or relative
+                    backLink.href = '../biology-database-table.html';
+                }
+            })();
+        </script>
+        
+        <div class="content">
+            <div class="description">
+                <h2>Description</h2>
+                <p>Tactile Sensation Process in Animals. This process represents a higher-level biological mechanism distinct from molecular/biochemical processes covered in GLMP.</p>
+            </div>
+            
+            <div class="flowchart-container">
+                <h2>Process Flowchart</h2>
+                <div class="mermaid">
+graph TD
+    A40[Mechanical Stimulus] --> B40[Touch Receptor]
+    B40 --> C40[Pressure Detection]
+    B40 --> D40[Vibration Detection]
+    B40 --> E40[Temperature Detection]
+    C40 --> F40[Signal Generation]
+    D40 --> F40
+    E40 --> F40
+    F40 --> G40[Sensory Neuron]
+    G40 --> H40[Spinal Cord]
+    H40 --> I40[Brain Processing]
+    
+    style A40 fill:#ff6b6b,color:#fff
+    style B40 fill:#ffd43b,color:#000
+    style C40 fill:#51cf66,color:#fff
+    style D40 fill:#51cf66,color:#fff
+    style E40 fill:#51cf66,color:#fff
+    style F40 fill:#51cf66,color:#fff
+    style G40 fill:#74c0fc,color:#fff
+    style H40 fill:#74c0fc,color:#fff
+    style I40 fill:#b197fc,color:#fff
+                </div>
+            </div>
+            
+            <div class="color-legend">
+                <h3>🎨 Color Scheme (5-Color System)</h3>
+                <div class="color-grid">
+                    <div class="color-item">
+                        <div class="color-box" style="background: #ff6b6b;"></div>
+                        <div>
+                            <strong>Red</strong><br>
+                            <small>Triggers & Inputs</small>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-box" style="background: #ffd43b;"></div>
+                        <div>
+                            <strong>Yellow</strong><br>
+                            <small>Structures & Objects</small>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-box" style="background: #51cf66;"></div>
+                        <div>
+                            <strong>Green</strong><br>
+                            <small>Processing & Operations</small>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-box" style="background: #74c0fc;"></div>
+                        <div>
+                            <strong>Blue</strong><br>
+                            <small>Intermediates & States</small>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-box" style="background: #b197fc;"></div>
+                        <div>
+                            <strong>Violet</strong><br>
+                            <small>Products & Outputs</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="info-section">
+                <div class="info-card">
+                    <h3>Process Statistics</h3>
+                    <ul>
+                        <li><strong>Nodes:</strong> 9</li>
+                        <li><strong>Edges:</strong> 10</li>
+                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>AND Gates:</strong> 0</li>
+                        <li><strong>OR Gates:</strong> 0</li>
+                        <li><strong>Total Gates:</strong> 0</li>
+                    </ul>
+                </div>
+                
+                
+                <div class="info-card">
+                    <h3>Keywords</h3>
+                    <ul>
+                        <li>sensory</li><li>animals</li><li>sensation</li><li>perception</li><li>process</li><li>tactile</li>
+                    </ul>
+                </div>
+                
+                
+                <div class="info-card">
+                    <h3>Sources & References</h3>
+                    
+                    <ul style="list-style: none; padding: 0;">
+                        
+                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
+                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
+                            , CopernicusAI Knowledge Engine
+                             (2025)
+                            </span>
+                            
+                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #27ae60; font-size: 0.85em;">View Source</a>
+                        </li>
+                        
+                    </ul>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: false,
+                htmlLabels: true,
+                curve: 'linear',
+                nodeSpacing: 30,
+                rankSpacing: 30,
+                padding: 10
+            },
+            themeVariables: {
+                fontFamily: 'Arial Unicode MS, Arial, sans-serif'
+            }
+        });
+    </script>
+</body>
+</html>

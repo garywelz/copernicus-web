@@ -1,0 +1,28 @@
+{
+  "id": "pubmed_36114925",
+  "pmid": "36114925",
+  "title": "A model and a numerical scheme for the description of distribution and abundance of individuals.",
+  "authors": [
+    "Ballesteros, Miguel",
+    "Garro, Guillermo"
+  ],
+  "author_string": "Ballesteros, Miguel, Garro, Guillermo",
+  "journal": "J Math Biol",
+  "journal_full": "Journal of mathematical biology",
+  "year": "",
+  "doi": "10.1007/s00285-022-01788-2",
+  "abstract": "We introduce a model in the context of ecology that can be used to describe the distribution and abundance of individuals when data from field work is extremely limited (for example, in the case of endangered species). Our procedure is based on an intuitive understanding of the physical properties of phenomena. The idea is that individuals have the tendency to be attracted (or repulsed) to certain properties of the environment. At the same time, they are spread in such a way that if there is no reason for them to be in some specific locations, then they are uniformly distributed throughout the region. Our model draws from quantum mechanics, by using quantum Hamiltonians in the context of classical statistical mechanics. The equilibrium between the spreading and the attractive (or repulsive) forces determines the behavior of the species that we model, and this is expressed in terms of a global control problem of an energy operator which is the sum of a kinetic term (spreading) and a potential (attraction or repulsion). We focus on the full probability measure and a global control of the model (instead of looking at conditional measures that generate a global measure). Furthermore, we propose a numerical solution to this global control problem that overcomes the well-known major difficulty of Gibbs sampling (annealing) which is the fact that a global control is hardly reachable when the number of variables is large (the algorithms get stuck in non-optimal states).",
+  "keywords": [
+    "Gibbs measure",
+    "Gibbs sampling",
+    "Markov random fields",
+    "Monte Carlo methods",
+    "Population biology and ecology"
+  ],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/36114925",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T17:02:28.116619",
+  "category": "biology",
+  "subcategories": []
+}

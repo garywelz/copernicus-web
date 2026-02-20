@@ -1,0 +1,28 @@
+{
+  "id": "pubmed_39405889",
+  "pmid": "39405889",
+  "title": "Development of a deep surrogate model with spatiotemporal characteristics mining capabilities for the prediction of groundwater level in coastal areas.",
+  "authors": [
+    "Xie, Xuan",
+    "Zhang, Xiaodong"
+  ],
+  "author_string": "Xie, Xuan, Zhang, Xiaodong",
+  "journal": "J Environ Manage",
+  "journal_full": "Journal of environmental management",
+  "year": "",
+  "doi": "10.1016/j.jenvman.2024.122724",
+  "abstract": "Effective reflection of the spatio-temporal characteristics of time series is crucial in development of time-series-based surrogate models for hydrologic systems, especially in coastal areas. In this study, a deep learning-based surrogate modeling framework, named STA-GRU, is proposed to predict groundwater levels accurately and efficiently through incorporation of spatio-temporal attention mechanism of multivariate time series and gated recurrent neural network. Firstly, a three-dimensional groundwater flow model is developed based on GMS-MODFLOW and used to generate groundwater levels as input datasets for the STA-GRU framework. The spatio-temporal sequence window is then reconstructed, and the spatio-temporal attention mechanism is employed to assign different weights to the time series of each groundwater well and the time step of a single time series. The gated recurrent unit (GRU) is finally introduced to address the spatial and temporal characteristics of groundwater levels. The comparison between the ablation experiment and the baseline model demonstrates that the framework is efficient in reducing the conflict of non-target variables by capturing the spatiotemporal dependence of variables. The STA-GRU modeling framework developed in this study can effectively extract the spatio-temporal characteristics of the groundwater table and improve model performance. In addition, compared with the finite difference method, the STA-GRU surrogate model saves a lot of calculation and time costs to achieve accurate prediction of complex hydrological sequences. The proposed STA-GRU framework has provided an effective method for predicting groundwater levels in coastal areas.",
+  "keywords": [
+    "Coastal region",
+    "Groundwater level forecasting",
+    "Multivariate time series",
+    "STA-GRU",
+    "Spatio-temporal attention"
+  ],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/39405889",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T17:02:14.267710",
+  "category": "biology",
+  "subcategories": []
+}

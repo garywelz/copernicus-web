@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2601.04901v1",
+  "arxiv_id": "2601.04901v1",
+  "title": "Rigorous numerical computation of the Stokes multipliers for linear differential equations with single level one",
+  "authors": [
+    "Michèle Loday-Richaud",
+    "Marc Mezzarobba",
+    "Pascal Remy"
+  ],
+  "author_string": "Michèle Loday-Richaud, Marc Mezzarobba, Pascal Remy",
+  "journal": "arXiv:2601.04901v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We describe a practical algorithm for computing the Stokes multipliers of a linear differential equation with polynomial coefficients at an irregular singular point of single level one. The algorithm follows a classical approach based on Borel summation and numerical ODE solving, but avoids a large amount of redundant work compared to a direct implementation. It applies to differential equations of arbitrary order, with no genericity assumption, and is suited to high-precision computations. In addition, we present an open-source implementation of this algorithm in the SageMath computer algebra system and illustrate its use with several examples. Our implementation supports arbitrary-precision computations and automatically provides rigorous error bounds. The article assumes minimal prior knowledge of the asymptotic theory of meromorphic differential equations and provides an elementary introduction to the linear Stokes phenomenon that may be of independent interest.",
+  "categories": [
+    "cs.MS",
+    "cs.SC",
+    "math.CA",
+    "math.DS"
+  ],
+  "primary_category": "math.DS",
+  "comment": null,
+  "published_date": "2026-01-08T12:56:55Z",
+  "updated_date": "2026-01-08T12:56:55Z",
+  "url": "https://arxiv.org/abs/2601.04901v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.04901v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:26.899822",
+  "category": "mathematics",
+  "subcategories": [
+    "cs.MS",
+    "cs.SC",
+    "math.CA"
+  ]
+}

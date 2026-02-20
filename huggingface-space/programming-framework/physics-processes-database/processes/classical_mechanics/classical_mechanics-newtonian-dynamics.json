@@ -1,0 +1,65 @@
+{
+  "id": "classical_mechanics-newtonian-dynamics",
+  "name": "Newtonian Dynamics",
+  "category": "physics",
+  "subcategory": "classical_mechanics",
+  "subcategory_name": "Classical Mechanics",
+  "description": "Newtonian Dynamics Process. This classical mechanics process visualization demonstrates Newton's laws of motion and force analysis. The flowchart shows system definition and initial conditions, Newtonian methods and laws, dynamics operations and energy analysis, intermediate results, and final Newtonian dynamics outputs.",
+  "complexity": {
+    "nodes": 26,
+    "edges": 24,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nA1[System Definition] --> B1[Force Analysis]\nC1[Mass Distribution] --> D1[Inertia Calculation]\nE1[Initial Conditions] --> F1[Boundary Conditions]\nB1 --> G1[Newton First Law]\nD1 --> H1[Newton Second Law]\nF1 --> I1[Newton Third Law]\nG1 --> J1[Inertial Reference Frame]\nH1 --> K1[Force Equals Mass Times Acceleration]\nI1 --> L1[Action Reaction Pairs]\nJ1 --> M1[Equilibrium Analysis]\nK1 --> L1\nL1 --> N1[Momentum Conservation]\nM1 --> O1[Static Equilibrium]\nN1 --> P1[Angular Momentum]\nO1 --> Q1[Newtonian Dynamics Process]\nP1 --> R1[Torque Analysis]\nQ1 --> S1[Energy Conservation]\nR1 --> T1[Newtonian Dynamics Result]\nS1 --> U1[Kinetic Energy]\nT1 --> V1[Potential Energy]\nU1 --> W1[Newtonian Dynamics Output]\nV1 --> X1[Newtonian Dynamics Analysis]\nW1 --> Y1[Newtonian Dynamics Final Result]\nX1 --> Z1[Newtonian Dynamics Analysis Complete]\n\n    style A1 fill:#ff6b6b,color:#fff\n    style C1 fill:#ff6b6b,color:#fff\n    style E1 fill:#ff6b6b,color:#fff\n    style B1 fill:#ffd43b,color:#000\n    style D1 fill:#ffd43b,color:#000\n    style F1 fill:#ffd43b,color:#000\n    style G1 fill:#ffd43b,color:#000\n    style H1 fill:#ffd43b,color:#000\n    style I1 fill:#ffd43b,color:#000\n    style J1 fill:#ffd43b,color:#000\n    style K1 fill:#ffd43b,color:#000\n    style L1 fill:#ffd43b,color:#000\n    style M1 fill:#51cf66,color:#fff\n    style N1 fill:#51cf66,color:#fff\n    style O1 fill:#51cf66,color:#fff\n    style P1 fill:#51cf66,color:#fff\n    style Q1 fill:#51cf66,color:#fff\n    style R1 fill:#51cf66,color:#fff\n    style S1 fill:#51cf66,color:#fff\n    style T1 fill:#51cf66,color:#fff\n    style U1 fill:#51cf66,color:#fff\n    style V1 fill:#51cf66,color:#fff\n    style W1 fill:#51cf66,color:#fff\n    style X1 fill:#51cf66,color:#fff\n    style Y1 fill:#51cf66,color:#fff\n    style Z1 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "notes": "Chemistry process visualization: Newtonian Dynamics. Created using the Programming Framework methodology for process analysis and visualization."
+    }
+  ],
+  "keywords": [
+    "newtonian",
+    "mechanics",
+    "dynamics",
+    "classical"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-08",
+  "verified": false,
+  "notes": "Converted from physics batch HTML. Process number: 1."
+}

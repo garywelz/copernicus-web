@@ -1,0 +1,92 @@
+{
+  "id": "materials_chemistry-sol-gel-synthesis",
+  "name": "Sol-Gel Synthesis",
+  "category": "chemistry",
+  "subcategory": "materials_chemistry",
+  "subcategory_name": "Materials Chemistry",
+  "description": "Sol-Gel Synthesis process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 9,
+    "edges": 10,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 1,
+      "andGates": 2,
+      "total": 3
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nN1[\"Metal Alkoxide\"]\nN2[\"Water + Catalyst\"]\nN3[\"Hydrolysis\"]\nN4[\"Choose Path\"]\nN5[\"Condensation\"]\nN6[\"Gel Network\"]\nN7[\"Dry/Calcine\"]\nN8[\"Oxide Material\"]\nN9[\"Integrate\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\nN4 --> N7\nN5 --> N6\nN7 --> N8\nN6 --> N9\nN8 --> N9\nN9 --> N6\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ff6b6b,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#ffd43b,color:#000\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#74c0fc,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#b197fc,color:#fff\n    style N9 fill:#74c0fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Sol-Gel Synthesis. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "Facile Methodology of Sol-Gel Synthesis for Metal Oxide Nanostructures",
+      "authors": "Thiagarajan, Shrividhya; Sanmugam, Anandhavelu; Vikraman, Dhanasekaran",
+      "journal": "Recent Applications in Sol-Gel Synthesis",
+      "year": "2017",
+      "pubmed": null,
+      "doi": "10.5772/intechopen.68708",
+      "url": "https://doi.org/10.5772/intechopen.68708"
+    },
+    {
+      "title": "Introductory Chapter: Sol-Gel Synthesis",
+      "authors": "Shankar Acharya, Shakti; Pal Singh, Jitendra",
+      "journal": "Sol-Gel Method - Recent Advances",
+      "year": "2023",
+      "pubmed": null,
+      "doi": "10.5772/intechopen.112248",
+      "url": "https://doi.org/10.5772/intechopen.112248"
+    },
+    {
+      "title": "Synthesis Strategies for the Preparation of Sol-Gel Nanocomposites",
+      "authors": "Guglielmi, Massimo",
+      "journal": "Sol-Gel Nanocomposites",
+      "year": "2014",
+      "pubmed": null,
+      "doi": "10.1007/978-1-4939-1209-4_3",
+      "url": "https://doi.org/10.1007/978-1-4939-1209-4_3"
+    }
+  ],
+  "keywords": [
+    "sol",
+    "gel",
+    "synthesis"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-15",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+}

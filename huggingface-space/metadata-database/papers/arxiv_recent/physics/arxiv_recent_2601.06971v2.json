@@ -1,0 +1,40 @@
+{
+  "id": "arxiv_2601.06971v2",
+  "arxiv_id": "2601.06971v2",
+  "title": "A survey of active learning in materials science: Data-driven paradigm for accelerating the research pipeline",
+  "authors": [
+    "Jiaxin Chen",
+    "Tianjiao Wan",
+    "Hui Geng",
+    "Liang Xiong",
+    "Guohong Wang",
+    "Yihan Zhao",
+    "Longxiang Deng",
+    "Susu Fang",
+    "Zheng Luo",
+    "Huaimin Wang",
+    "Shanshan Wang",
+    "Kele Xu"
+  ],
+  "author_string": "Jiaxin Chen, Tianjiao Wan, Hui Geng, Liang Xiong, Guohong Wang et al.",
+  "journal": "arXiv:2601.06971v2",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "The exploration of materials composition, structure, and processing spaces is constrained by high dimensionality and the cost of data acquisition. While machine learning has supported property prediction and design, its effectiveness depends on labeled data, which remains expensive to generate via experiments or high-fidelity simulations. Improving data efficiency is thus a central concern in materials informatics.   Active learning (AL) addresses this by coupling model training with adaptive data acquisition. Instead of static datasets, AL iteratively prioritizes candidates based on uncertainty, diversity, or task-specific objectives. By guiding data collection under limited budgets, AL offers a structured approach to decision-making, complementing physical insight with quantitative measures of informativeness.   Recently, AL has been applied to computational simulation, structure optimization, and autonomous experimentation. However, the diversity of AL formulations has led to fragmented methodologies and inconsistent assessments. This Review provides a concise overview of AL methods in materials science, focusing on their role in improving data efficiency under realistic constraints. We summarize key methodological principles, representative applications, and persistent challenges, aiming to clarify the scope and limitations of AL as a practical tool within contemporary materials informatics.",
+  "categories": [
+    "cond-mat.mtrl-sci"
+  ],
+  "primary_category": "cond-mat.mtrl-sci",
+  "comment": null,
+  "published_date": "2026-01-11T15:59:53Z",
+  "updated_date": "2026-01-15T13:04:30Z",
+  "url": "https://arxiv.org/abs/2601.06971v2",
+  "pdf_url": "https://arxiv.org/pdf/2601.06971v2.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:35.465918",
+  "category": "physics",
+  "subcategories": [
+    "cond-mat.mtrl-sci"
+  ]
+}

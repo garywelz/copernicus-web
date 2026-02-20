@@ -1,0 +1,37 @@
+{
+  "id": "arxiv_2601.08266v1",
+  "arxiv_id": "2601.08266v1",
+  "title": "An open-source computational framework for immersed fluid-structure interaction modeling using FEBio and MFEM",
+  "authors": [
+    "Ryan T. Black",
+    "Steve A. Maas",
+    "Wensi Wu",
+    "Jalaj Maheshwari",
+    "Tzanio Kolev",
+    "Jeffrey A. Weiss",
+    "Matthew A. Jolley"
+  ],
+  "author_string": "Ryan T. Black, Steve A. Maas, Wensi Wu, Jalaj Maheshwari, Tzanio Kolev et al.",
+  "journal": "arXiv:2601.08266v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Fluid-structure interaction (FSI) simulation of biological systems presents significant computational challenges, particularly for applications involving large structural deformations and contact mechanics, such as heart valve dynamics. Traditional ALE methods encounter fundamental difficulties with such problems due to mesh distortion, motivating immersed techniques. This work presents a novel open-source immersed FSI framework that strategically couples two mature finite element libraries: MFEM, a GPU-ready and scalable library with state-of-the-art parallel performance developed at Lawrence Livermore National Laboratory, and FEBio, a nonlinear finite element solver with sophisticated solid mechanics capabilities designed for biomechanics applications developed at the University of Utah. This coupling creates a unique synergy wherein the fluid solver leverages MFEM's distributed-memory parallelization and pathway to GPU acceleration, while the immersed solid exploits FEBio's comprehensive suite of hyperelastic and viscoelastic constitutive models and advanced solid mechanics modeling targeted for biomechanics applications. FSI coupling is achieved using a fictitious domain methodology with variational multiscale stabilization for enhanced accuracy on under-resolved grids expected with unfitted meshes used in immersed FSI. A fully implicit, monolithic scheme provides robust coupling for strongly coupled FSI characteristic of cardiovascular applications. The framework's modular architecture facilitates straightforward extension to additional physics and element technologies. Several test problems are considered to demonstrate the capabilities of the proposed framework, including a 3D semilunar heart valve simulation. This platform addresses a critical need for open-source immersed FSI software combining advanced biomechanics modeling with high-performance computing infrastructure.",
+  "categories": [
+    "q-bio.QM",
+    "physics.comp-ph"
+  ],
+  "primary_category": "physics.comp-ph",
+  "comment": null,
+  "published_date": "2026-01-13T06:46:48Z",
+  "updated_date": "2026-01-13T06:46:48Z",
+  "url": "https://arxiv.org/abs/2601.08266v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.08266v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:14.423052",
+  "category": "physics",
+  "subcategories": [
+    "q-bio.QM",
+    "physics.comp-ph"
+  ]
+}

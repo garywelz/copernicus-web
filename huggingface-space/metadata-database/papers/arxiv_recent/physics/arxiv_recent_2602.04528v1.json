@@ -1,0 +1,38 @@
+{
+  "id": "arxiv_2602.04528v1",
+  "arxiv_id": "2602.04528v1",
+  "title": "Separation of polarized dust emission in Planck observations with Scattering Transforms",
+  "authors": [
+    "Alexandros Tsouros",
+    "Elisa Russier",
+    "Erwan Allys",
+    "Constant Auclair",
+    "François Boulanger",
+    "Jacques Delabrouille"
+  ],
+  "author_string": "Alexandros Tsouros, Elisa Russier, Erwan Allys, Constant Auclair, François Boulanger et al.",
+  "journal": "arXiv:2602.04528v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Polarized dust emission is a major astrophysical foreground contaminant of the cosmic microwave background polarization (CMB), which must be accurately measured to look for the faint primordial polarization B-modes of inflationary origin. The available maps to date, obtained from Planck space mission data, are noise-dominated in the high Galactic latitude regions that are most relevant for CMB observations. The goal of this work is to obtain better dust polarization maps from Planck observations, by exploiting both the dependence between polarization and total intensity, as well as the non-Gaussian filamentary structure of the dust emission. To this end, we use scattering transforms, which provide a stable and interpretable representation of complex non-Gaussian textures, allowing for a data-driven analysis approach requiring no explicit priors on dust. The analysis is performed locally on Cartesian patches of sky, where Stokes linear polarization parameters, redefined in a local reference frame, are modeled as the sum of a signal of interest and a nuisance term. Using multiple realizations of the random nuisance term, we recover the polarized dust maps by minimizing a composite objective function that enforces multiple statistical constraints in scattering space. The proposed algorithm reconstructs maps of polarized dust emission whose statistics are consistent with those expected from the Planck data once random nuisance realizations are added. This is confirmed in a validation test using a high signal-to-noise sky region as a test case. Comparisons with existing dust polarization maps and models show that our approach better recovers small-scale polarized dust emission, and that our reconstructed power and cross-spectra closely match those of the dust polarization maps. A second set of maps that deterministically reproduce the features of the dust polarized emission is also produced.",
+  "categories": [
+    "astro-ph.CO",
+    "astro-ph.GA",
+    "astro-ph.IM"
+  ],
+  "primary_category": "astro-ph.IM",
+  "comment": null,
+  "published_date": "2026-02-04T13:18:44Z",
+  "updated_date": "2026-02-04T13:18:44Z",
+  "url": "https://arxiv.org/abs/2602.04528v1",
+  "pdf_url": "https://arxiv.org/pdf/2602.04528v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-02-05T07:00:33.001518",
+  "category": "physics",
+  "subcategories": [
+    "astro-ph.CO",
+    "astro-ph.GA",
+    "astro-ph.IM"
+  ]
+}

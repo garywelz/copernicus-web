@@ -1,0 +1,43 @@
+{
+  "id": "catalyst-effects",
+  "title": "Catalyst Effects",
+  "description": "Chemistry process: Catalyst Effects",
+  "category": "chemistry",
+  "subcategory": "kinetic_processes",
+  "mermaid": "graph TD\n    A4[Catalyst Material] --> B4[Catalyst Effect Method]\n    C4[Reaction System] --> D4[Catalyst Loading]\n    E4[Rate Enhancement] --> F4[Catalytic Analysis]\n    \n    B4 --> G4[Catalyst Preparation]\n    D4 --> H4[Loading Optimization]\n    F4 --> I4[Activity Measurement]\n    \n    G4 --> J4[Catalyst Characterization]\n    H4 --> K4[Surface Area]\n    I4 --> L4[Turnover Frequency]\n    \n    J4 --> M4[Active Sites]\n    K4 --> L4\n    L4 --> N4[Catalytic Activity]\n    \n    M4 --> O4[Reaction Pathway]\n    N4 --> P4[Catalyst Kinetics]\n    O4 --> Q4[Mechanism Modification]\n    \n    P4 --> R4[Rate Enhancement]\n    Q4 --> S4[Pathway Analysis]\n    R4 --> T4[Catalyst Optimization]\n    \n    S4 --> U4[Catalytic Parameters]\n    T4 --> V4[Optimal Loading]\n    U4 --> W4[Catalyst Efficiency]\n    \n    V4 --> X4[Catalyst Characterization]\n    W4 --> Y4[Process Optimization]\n    X4 --> Z4[Final Catalyst Conditions]\n    \n    Y4 --> Z4\n    \n    style A4 fill:#ff6b6b,color:#fff\n    style C4 fill:#ff6b6b,color:#fff\n    style E4 fill:#ff6b6b,color:#fff\n    \n    style B4 fill:#ffd43b,color:#000\n    style D4 fill:#ffd43b,color:#000\n    style F4 fill:#ffd43b,color:#000\n    style G4 fill:#ffd43b,color:#000\n    style H4 fill:#ffd43b,color:#000\n    style I4 fill:#ffd43b,color:#000\n    style J4 fill:#ffd43b,color:#000\n    style K4 fill:#ffd43b,color:#000\n    style L4 fill:#ffd43b,color:#000\n    \n    style M4 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style O4 fill:#51cf66,color:#fff\n    style P4 fill:#51cf66,color:#fff\n    style Q4 fill:#51cf66,color:#fff\n    style R4 fill:#51cf66,color:#fff\n    style S4 fill:#51cf66,color:#fff\n    style T4 fill:#51cf66,color:#fff\n    style U4 fill:#51cf66,color:#fff\n    style V4 fill:#51cf66,color:#fff\n    style W4 fill:#51cf66,color:#fff\n    style X4 fill:#51cf66,color:#fff\n    style Y4 fill:#51cf66,color:#fff\n    \n    style Z4 fill:#b197fc,color:#fff",
+  "entities": [
+    "Catalyst Material",
+    "Catalyst Effect Method",
+    "Reaction System",
+    "Catalyst Loading",
+    "Rate Enhancement",
+    "Catalytic Analysis",
+    "Catalyst Preparation",
+    "Loading Optimization",
+    "Activity Measurement",
+    "Catalyst Characterization",
+    "Surface Area",
+    "Turnover Frequency",
+    "Active Sites",
+    "Catalytic Activity",
+    "Reaction Pathway",
+    "Catalyst Kinetics",
+    "Mechanism Modification",
+    "Pathway Analysis",
+    "Catalyst Optimization",
+    "Catalytic Parameters",
+    "Optimal Loading",
+    "Catalyst Efficiency",
+    "Process Optimization",
+    "Final Catalyst Conditions"
+  ],
+  "metadata": {
+    "source": "programming_framework",
+    "batch": "batch_11",
+    "batch_number": 11,
+    "batch_title": "Chemistry Batch 11: Kinetic Processes",
+    "color_scheme": "discipline_based",
+    "node_count": 24,
+    "complexity": "medium"
+  }
+}

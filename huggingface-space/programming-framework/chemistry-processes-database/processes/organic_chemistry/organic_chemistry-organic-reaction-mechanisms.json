@@ -1,0 +1,64 @@
+{
+  "id": "organic_chemistry-organic-reaction-mechanisms",
+  "name": "Organic Reaction Mechanisms",
+  "category": "chemistry",
+  "subcategory": "organic_chemistry",
+  "description": "Organic Reaction Mechanisms Process. This organic chemistry process visualization demonstrates nucleophilic substitution, elimination, and radical reactions. The flowchart shows reactant inputs and energy profiles, reaction methods and mechanisms, mechanism operations and analysis, intermediate results, and final organic reaction outputs.",
+  "complexity": {
+    "nodes": 29,
+    "edges": 27,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 35,
+      "andGates": 0,
+      "total": 35
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nA1[Reactant Molecules] --> B1[Reaction Type Classification]\nC1[Electron Flow Analysis] --> D1[Mechanism Determination]\nE1[Energy Profile] --> F1[Transition State Analysis]\nB1 --> G1[Nucleophilic Substitution]\nD1 --> H1[SN1 Mechanism]\nF1 --> I1[SN2 Mechanism]\nG1 --> J1[Electrophilic Addition]\nH1 --> K1[Carbocation Formation]\nI1 --> L1[Backside Attack]\nJ1 --> M1[Elimination Reactions]\nK1 --> N1[Carbocation Stability]\nL1 --> O1[Stereochemistry Analysis]\nM1 --> P1[E1 Elimination]\nN1 --> O1\nO1 --> Q1[E2 Elimination]\nP1 --> R1[Radical Reactions]\nQ1 --> S1[Concerted Mechanism]\nR1 --> T1[Radical Initiation]\nS1 --> U1[Radical Propagation]\nT1 --> V1[Radical Termination]\nU1 --> W1[Organic Reaction Result]\nV1 --> X1[Reaction Mechanism Analysis]\nW1 --> Y1[Mechanism Validation]\nX1 --> Z1[Organic Reaction Output]\nY1 --> AA1[Organic Reaction Analysis]\nZ1 --> BB1[Organic Reaction Final Result]\nAA1 --> CC1[Organic Reaction Analysis Complete]\n\n    style A1 fill:#ff6b6b,color:#fff\n    style C1 fill:#ff6b6b,color:#fff\n    style E1 fill:#ff6b6b,color:#fff\n    style B1 fill:#ffd43b,color:#000\n    style D1 fill:#ffd43b,color:#000\n    style F1 fill:#ffd43b,color:#000\n    style G1 fill:#ffd43b,color:#000\n    style H1 fill:#ffd43b,color:#000\n    style I1 fill:#ffd43b,color:#000\n    style J1 fill:#ffd43b,color:#000\n    style K1 fill:#ffd43b,color:#000\n    style L1 fill:#ffd43b,color:#000\n    style M1 fill:#51cf66,color:#fff\n    style N1 fill:#51cf66,color:#fff\n    style O1 fill:#51cf66,color:#fff\n    style P1 fill:#51cf66,color:#fff\n    style Q1 fill:#51cf66,color:#fff\n    style R1 fill:#51cf66,color:#fff\n    style S1 fill:#51cf66,color:#fff\n    style T1 fill:#51cf66,color:#fff\n    style U1 fill:#51cf66,color:#fff\n    style V1 fill:#51cf66,color:#fff\n    style W1 fill:#51cf66,color:#fff\n    style X1 fill:#51cf66,color:#fff\n    style Y1 fill:#51cf66,color:#fff\n    style Z1 fill:#51cf66,color:#fff\n    style AA1 fill:#51cf66,color:#fff\n    style BB1 fill:#51cf66,color:#fff\n    style CC1 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "notes": "Chemistry process visualization: Organic Reaction Mechanisms. Created using the Programming Framework methodology for process analysis and visualization."
+    }
+  ],
+  "keywords": [
+    "mechanism",
+    "organic",
+    "reaction",
+    "mechanisms"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-08",
+  "verified": false,
+  "notes": "Converted from chemistry batch HTML. Process number: 1."
+}

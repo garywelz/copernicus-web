@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2601.11235v1",
+  "arxiv_id": "2601.11235v1",
+  "title": "Bio-inspired fine-tuning for selective transfer learning in image classification",
+  "authors": [
+    "Ana Davila",
+    "Jacinto Colan",
+    "Yasuhisa Hasegawa"
+  ],
+  "author_string": "Ana Davila, Jacinto Colan, Yasuhisa Hasegawa",
+  "journal": "Published in IEEE Access, vol. 13, pp. 129234-129249, 2025",
+  "journal_ref": "Published in IEEE Access, vol. 13, pp. 129234-129249, 2025",
+  "year": "2026",
+  "doi": "10.1109/ACCESS.2025.3587524",
+  "abstract": "Deep learning has significantly advanced image analysis across diverse domains but often depends on large, annotated datasets for success. Transfer learning addresses this challenge by utilizing pre-trained models to tackle new tasks with limited labeled data. However, discrepancies between source and target domains can hinder effective transfer learning. We introduce BioTune, a novel adaptive fine-tuning technique utilizing evolutionary optimization. BioTune enhances transfer learning by optimally choosing which layers to freeze and adjusting learning rates for unfrozen layers. Through extensive evaluation on nine image classification datasets, spanning natural and specialized domains such as medical imaging, BioTune demonstrates superior accuracy and efficiency over state-of-the-art fine-tuning methods, including AutoRGN and LoRA, highlighting its adaptability to various data characteristics and distribution changes. Additionally, BioTune consistently achieves top performance across four different CNN architectures, underscoring its flexibility. Ablation studies provide valuable insights into the impact of BioTune's key components on overall performance. The source code is available at https://github.com/davilac/BioTune.",
+  "categories": [
+    "cs.CV"
+  ],
+  "primary_category": "cs.CV",
+  "comment": null,
+  "published_date": "2026-01-16T12:28:49Z",
+  "updated_date": "2026-01-16T12:28:49Z",
+  "url": "https://arxiv.org/abs/2601.11235v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11235v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:33.860379",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV"
+  ]
+}

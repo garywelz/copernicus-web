@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_1902.07263v2",
+  "arxiv_id": "1902.07263v2",
+  "title": "Diffusion map-based algorithm for Gain function approximation in the Feedback Particle Filter",
+  "authors": [
+    "Amirhossein Taghvaei",
+    "Prashant G. Mehta",
+    "Sean P. Meyn"
+  ],
+  "author_string": "Amirhossein Taghvaei, Prashant G. Mehta, Sean P. Meyn",
+  "journal": "arXiv:1902.07263v2",
+  "journal_ref": null,
+  "year": "2019",
+  "doi": null,
+  "abstract": "Feedback particle filter (FPF) is a numerical algorithm to approximate the solution of the nonlinear filtering problem in continuous-time settings. In any numerical implementation of the FPF algorithm, the main challenge is to numerically approximate the so-called gain function. A numerical algorithm for gain function approximation is the subject of this paper. The exact gain function is the solution of a Poisson equation involving a probability-weighted Laplacian $Δ_ρ$. The numerical problem is to approximate this solution using {\\em only} finitely many particles sampled from the probability distribution $ρ$. A diffusion map-based algorithm was proposed by the authors in a prior work to solve this problem. The algorithm is named as such because it involves, as an intermediate step, a diffusion map approximation of the exact semigroup $e^{Δ_ρ}$. The original contribution of this paper is to carry out a rigorous error analysis of the diffusion map-based algorithm. The error is shown to include two components: bias and variance. The bias results from the diffusion map approximation of the exact semigroup. The variance arises because of finite sample size. Scalings and upper bounds are derived for bias and variance. These bounds are then illustrated with numerical experiments that serve to emphasize the effects of problem dimension and sample size. The proposed algorithm is applied to two filtering examples and comparisons provided with the sequential importance resampling (SIR) particle filter.",
+  "categories": [
+    "math.OC",
+    "math.NA",
+    "math.PR"
+  ],
+  "primary_category": "math.PR",
+  "comment": null,
+  "published_date": "2019-02-19T20:05:09Z",
+  "updated_date": "2019-09-30T06:40:49Z",
+  "url": "https://arxiv.org/abs/1902.07263v2",
+  "pdf_url": "https://arxiv.org/pdf/1902.07263v2.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:15.356639",
+  "category": "mathematics",
+  "subcategories": [
+    "math.OC",
+    "math.NA",
+    "math.PR"
+  ]
+}

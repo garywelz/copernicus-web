@@ -1,0 +1,91 @@
+{
+  "id": "reproduction_development-flowering-process",
+  "name": "Flowering Process",
+  "category": "biology",
+  "subcategory": "reproduction_development",
+  "subcategory_name": "Reproduction & Development",
+  "description": "Flowering Process process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 13,
+    "edges": 14,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 1,
+      "andGates": 2,
+      "total": 3
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\n    A7[Vegetative Growth] --> B7[Floral Induction Signals]\n    C7[Photoperiod] --> D7[Vernalization]\n    C7 --> E7[Hormonal Cues]\n    B7 --> F7[Floral Meristem Initiation]\n    D7 --> F7\n    E7 --> F7\n    F7 --> G7[Organ Identity Genes]\n    G7 --> H7[Sepal Formation]\n    G7 --> I7[Petal Formation]\n    G7 --> J7[Stamen Formation]\n    G7 --> K7[Carpel Formation]\n    H7 --> L7[Flower Development]\n    I7 --> L7\n    J7 --> L7\n    K7 --> L7\n    L7 --> M7[Anthesis]\n    \n    style A7 fill:#ff6b6b,color:#fff\n    style C7 fill:#ff6b6b,color:#fff\n    style B7 fill:#ffd43b,color:#000\n    style D7 fill:#ffd43b,color:#000\n    style E7 fill:#ffd43b,color:#000\n    style F7 fill:#51cf66,color:#fff\n    style G7 fill:#51cf66,color:#fff\n    style H7 fill:#74c0fc,color:#fff\n    style I7 fill:#74c0fc,color:#fff\n    style J7 fill:#74c0fc,color:#fff\n    style K7 fill:#74c0fc,color:#fff\n    style L7 fill:#51cf66,color:#fff\n    style M7 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Flowering Process. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "ECOLOGY AND THE FLOWERING PROCESS",
+      "authors": "SALISBURY, FRANK B.",
+      "journal": "The Flowering Process",
+      "year": "1963",
+      "pubmed": null,
+      "doi": "10.1016/b978-0-08-013611-0.50009-9",
+      "url": "https://doi.org/10.1016/b978-0-08-013611-0.50009-9"
+    },
+    {
+      "title": "TIMING AND THE FLOWERING PROCESS",
+      "authors": "SALISBURY, FRANK B.",
+      "journal": "The Flowering Process",
+      "year": "1963",
+      "pubmed": null,
+      "doi": "10.1016/b978-0-08-013611-0.50014-2",
+      "url": "https://doi.org/10.1016/b978-0-08-013611-0.50014-2"
+    },
+    {
+      "title": "The Flowering Process",
+      "authors": "",
+      "journal": "",
+      "year": "1963",
+      "pubmed": null,
+      "doi": "10.1016/c2013-0-10044-x",
+      "url": "https://doi.org/10.1016/c2013-0-10044-x"
+    }
+  ],
+  "keywords": [
+    "flowering",
+    "process"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+}

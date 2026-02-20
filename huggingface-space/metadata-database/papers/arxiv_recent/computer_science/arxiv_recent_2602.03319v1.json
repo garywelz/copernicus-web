@@ -1,0 +1,39 @@
+{
+  "id": "arxiv_2602.03319v1",
+  "arxiv_id": "2602.03319v1",
+  "title": "Information-Theoretic Multi-Model Fusion for Target-Oriented Adaptive Sampling in Materials Design",
+  "authors": [
+    "Yixuan Zhang",
+    "Zhiyuan Li",
+    "Weijia He",
+    "Mian Dai",
+    "Chen Shen",
+    "Teng Long",
+    "Hongbin Zhang"
+  ],
+  "author_string": "Yixuan Zhang, Zhiyuan Li, Weijia He, Mian Dai, Chen Shen et al.",
+  "journal": "arXiv:2602.03319v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Target-oriented discovery under limited evaluation budgets requires making reliable progress in high-dimensional, heterogeneous design spaces where each new measurement is costly, whether experimental or high-fidelity simulation. We present an information-theoretic framework for target-oriented adaptive sampling that reframes optimization as trajectory discovery: instead of approximating the full response surface, the method maintains and refines a low-entropy information state that concentrates search on target-relevant directions. The approach couples data, model beliefs, and physics/structure priors through dimension-aware information budgeting, adaptive bootstrapped distillation over a heterogeneous surrogate reservoir, and structure-aware candidate manifold analysis with Kalman-inspired multi-model fusion to balance consensus-driven exploitation and disagreement-driven exploration. Evaluated under a single unified protocol without dataset-specific tuning, the framework improves sample efficiency and reliability across 14 single- and multi-objective materials design tasks spanning candidate pools from $600$ to $4 \\times 10^6$ and feature dimensions from $10$ to $10^3$, typically reaching top-performing regions within 100 evaluations. Complementary 20-dimensional synthetic benchmarks (Ackley, Rastrigin, Schwefel) further demonstrate robustness to rugged and multimodal landscapes.",
+  "categories": [
+    "cs.LG",
+    "cond-mat.mtrl-sci",
+    "cs.IT"
+  ],
+  "primary_category": "cs.IT",
+  "comment": "37 pages, 5 figures, 2 tables",
+  "published_date": "2026-02-03T09:47:13Z",
+  "updated_date": "2026-02-03T09:47:13Z",
+  "url": "https://arxiv.org/abs/2602.03319v1",
+  "pdf_url": "https://arxiv.org/pdf/2602.03319v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-02-04T07:47:31.248677",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.LG",
+    "cond-mat.mtrl-sci",
+    "cs.IT"
+  ]
+}

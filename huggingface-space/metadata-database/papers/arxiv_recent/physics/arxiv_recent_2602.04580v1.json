@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2602.04580v1",
+  "arxiv_id": "2602.04580v1",
+  "title": "Doberman: a modular and distributed slow control system for small- to medium-scale experiments",
+  "authors": [
+    "Jaron Grigat",
+    "Darryl Masson",
+    "Marc Schumann"
+  ],
+  "author_string": "Jaron Grigat, Darryl Masson, Marc Schumann",
+  "journal": "arXiv:2602.04580v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We present Doberman (Detector OBsERving and Monitoring ApplicatioN), a lightweight, modular, and open-source slow control system designed for small-to medium-scale physics experiments. Doberman addresses the gap between heavyweight industrial SCADA frameworks and ad hoc laboratory solutions by providing a flexible software architecture that supports heterogeneous instrumentation, distributed deployment, automated control, and robust alarm handling. The web-based graphical user interface Doberview provides live and continuously updated visualization, configuration, and control of the entire experiment, supporting both routine operation and rapid response to exceptional conditions. Doberman has been deployed and validated in multiple experimental setups, ranging from a remotely operated underground gamma-ray spectrometer to a large, highly instrumented liquid xenon test facility with several hundred monitored quantities.   Doberman and Doberview are released under permissive open-source licenses, and the software, documentation, and example device integrations are publicly available.",
+  "categories": [
+    "physics.ins-det"
+  ],
+  "primary_category": "physics.ins-det",
+  "comment": null,
+  "published_date": "2026-02-04T14:06:28Z",
+  "updated_date": "2026-02-04T14:06:28Z",
+  "url": "https://arxiv.org/abs/2602.04580v1",
+  "pdf_url": "https://arxiv.org/pdf/2602.04580v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-02-05T07:00:23.046409",
+  "category": "physics",
+  "subcategories": [
+    "physics.ins-det"
+  ]
+}

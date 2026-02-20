@@ -1,0 +1,30 @@
+{
+  "id": "arxiv_2601.10961v1",
+  "arxiv_id": "2601.10961v1",
+  "title": "Multivariate LSTM-Based Forecasting for Renewable Energy: Enhancing Climate Change Mitigation",
+  "authors": [
+    "Farshid Kamrani",
+    "Kristen Schell"
+  ],
+  "author_string": "Farshid Kamrani, Kristen Schell",
+  "journal": "arXiv:2601.10961v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "The increasing integration of renewable energy sources (RESs) into modern power systems presents significant opportunities but also notable challenges, primarily due to the inherent variability of RES generation. Accurate forecasting of RES generation is crucial for maintaining the reliability, stability, and economic efficiency of power system operations. Traditional approaches, such as deterministic methods and stochastic programming, frequently depend on representative scenarios generated through clustering techniques like K-means. However, these methods may fail to fully capture the complex temporal dependencies and non-linear patterns within RES data. This paper introduces a multivariate Long Short-Term Memory (LSTM)-based network designed to forecast RESs generation using their real-world historical data. The proposed model effectively captures long-term dependencies and interactions between different RESs, utilizing historical data from both local and neighboring areas to enhance predictive accuracy. In the case study, we showed that the proposed forecasting approach results in lower CO2 emissions, and a more reliable supply of electric loads.",
+  "categories": [
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": "ICLR 2025 Workshop on Tackling Climate Change with Machine Learning, paper #57 (https://www.climatechange.ai/papers/iclr2025/57)",
+  "published_date": "2026-01-16T03:01:46Z",
+  "updated_date": "2026-01-16T03:01:46Z",
+  "url": "https://arxiv.org/abs/2601.10961v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.10961v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:37.514587",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.LG"
+  ]
+}

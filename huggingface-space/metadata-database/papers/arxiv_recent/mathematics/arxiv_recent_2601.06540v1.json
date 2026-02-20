@@ -1,0 +1,37 @@
+{
+  "id": "arxiv_2601.06540v1",
+  "arxiv_id": "2601.06540v1",
+  "title": "Self-Organizing Dual-Buffer Adaptive Clustering Experience Replay (SODASER) for Safe Reinforcement Learning in Optimal Control",
+  "authors": [
+    "Roya Khalili Amirabadi",
+    "Mohsen Jalaeian Farimani",
+    "Omid Solaymani Fard"
+  ],
+  "author_string": "Roya Khalili Amirabadi, Mohsen Jalaeian Farimani, Omid Solaymani Fard",
+  "journal": "arXiv:2601.06540v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "This paper proposes a novel reinforcement learning framework, named Self-Organizing Dual-buffer Adaptive Clustering Experience Replay (SODACER), designed to achieve safe and scalable optimal control of nonlinear systems. The proposed SODACER mechanism consisting of a Fast-Buffer for rapid adaptation to recent experiences and a Slow-Buffer equipped with a self-organizing adaptive clustering mechanism to maintain diverse and non-redundant historical experiences. The adaptive clustering mechanism dynamically prunes redundant samples, optimizing memory efficiency while retaining critical environmental patterns. The approach integrates SODASER with Control Barrier Functions (CBFs) to guarantee safety by enforcing state and input constraints throughout the learning process. To enhance convergence and stability, the framework is combined with the Sophia optimizer, enabling adaptive second-order gradient updates. The proposed SODACER-Sophia's architecture ensures reliable, effective, and robust learning in dynamic, safety-critical environments, offering a generalizable solution for applications in robotics, healthcare, and large-scale system optimization. The proposed approach is validated on a nonlinear Human Papillomavirus (HPV) transmission model with multiple control inputs and safety constraints. Comparative evaluations against random and clustering-based experience replay methods demonstrate that SODACER achieves faster convergence, improved sample efficiency, and a superior bias-variance trade-off, while maintaining safe system trajectories, validated via the Friedman test.",
+  "categories": [
+    "eess.SY",
+    "cs.AI",
+    "cs.LG",
+    "cs.RO",
+    "math.OC"
+  ],
+  "primary_category": "math.OC",
+  "comment": "Also available at SSRN: https://ssrn.com/abstract=5191427 or http://dx.doi.org/10.2139/ssrn.5191427",
+  "published_date": "2026-01-10T11:43:15Z",
+  "updated_date": "2026-01-10T11:43:15Z",
+  "url": "https://arxiv.org/abs/2601.06540v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.06540v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:18.737556",
+  "category": "mathematics",
+  "subcategories": [
+    "eess.SY",
+    "cs.AI",
+    "cs.LG"
+  ]
+}

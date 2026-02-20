@@ -1,0 +1,94 @@
+{
+  "id": "behavior_communication-nest-building-process",
+  "name": "Nest Building Process",
+  "category": "biology",
+  "subcategory": "behavior_communication",
+  "subcategory_name": "Behavior & Communication",
+  "organism": "Animals",
+  "description": "Nest Building Process in Animals. This process represents a higher-level biological mechanism distinct from molecular/biochemical processes covered in GLMP.",
+  "complexity": {
+    "nodes": 9,
+    "edges": 8,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "low",
+    "detailLevel": "low"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\n    A20[Reproductive Season] --> B20[Site Selection]\n    B20 --> C20[Material Collection]\n    C20 --> D20[Construction Initiation]\n    D20 --> E20[Structure Assembly]\n    E20 --> F20[Shape Formation]\n    F20 --> G20[Lining Addition]\n    G20 --> H20[Completion]\n    H20 --> I20[Nest Maintenance]\n    \n    style A20 fill:#ff6b6b,color:#fff\n    style B20 fill:#ffd43b,color:#000\n    style C20 fill:#51cf66,color:#fff\n    style D20 fill:#51cf66,color:#fff\n    style E20 fill:#51cf66,color:#fff\n    style F20 fill:#74c0fc,color:#fff\n    style G20 fill:#74c0fc,color:#fff\n    style H20 fill:#b197fc,color:#fff\n    style I20 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "notes": "Higher-level biological process visualization: Nest Building Process. Created using the Programming Framework methodology for organismal and ecological process analysis."
+    },
+    {
+      "title": "Social wasps: a worldwide review",
+      "authors": "Akre RD, Greene A, Landolt PJ, Davis HR.",
+      "journal": "Annu Rev Entomol",
+      "year": "1981",
+      "pubmed": null,
+      "doi": "10.1146/annurev.en.26.010181.002157",
+      "url": "https://doi.org/10.1146/annurev.en.26.010181.002157"
+    },
+    {
+      "title": "Genetic and developmental basis for social nest architecture",
+      "authors": "Smith EJG, Purves D, Schaerf TM.",
+      "journal": "Proc Natl Acad Sci U.S.A.",
+      "year": "2020",
+      "pubmed": "32471900",
+      "doi": "10.1073/pnas.1920803117",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/32471900"
+    },
+    {
+      "title": "How animals build: The physical and biological principles of animal construction",
+      "authors": "Nesterenko VV, Nesterenko VF, Shakhidzhanov VE, Ryabchuk DA, Turchina YE, Polilov AA.",
+      "journal": "Proc Natl Acad Sci U.S.A.",
+      "year": "2022",
+      "pubmed": "36279586",
+      "doi": "10.1073/pnas.2207038119",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/36279586"
+    }
+  ],
+  "keywords": [
+    "animals",
+    "behavior",
+    "process",
+    "building",
+    "nest",
+    "communication"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-08",
+  "verified": false,
+  "notes": "Higher-level biological process. GLMP covers biochemical/molecular processes; this database covers organismal/ecological processes."
+}

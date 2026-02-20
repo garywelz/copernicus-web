@@ -1,0 +1,43 @@
+{
+  "id": "geometric-modeling-process",
+  "title": "Geometric Modeling Process",
+  "description": "Computer Science process: Geometric Modeling Process",
+  "category": "computer_science",
+  "subcategory": "computer_graphics",
+  "mermaid": "graph TD\n    A3[Geometric Input] --> B3[Geometric Modeling Method]\n    C3[Shape Definition] --> D3[Surface Generation]\n    E3[Mesh Processing] --> F3[Geometric Modeling Analysis]\n    \n    B3 --> G3[Polygonal Modeling]\n    D3 --> H3[NURBS Modeling]\n    F3 --> I3[Subdivision Surface]\n    \n    G3 --> J3[Vertex Manipulation]\n    H3 --> K3[Control Point Editing]\n    I3 --> L3[Subdivision Algorithm]\n    \n    J3 --> M3[Topology Optimization]\n    K3 --> L3\n    L3 --> N3[Surface Smoothing]\n    \n    M3 --> O3[Mesh Simplification]\n    N3 --> P3[UV Mapping]\n    O3 --> Q3[Geometric Modeling Process]\n    \n    P3 --> R3[Geometric Modeling Validation]\n    Q3 --> S3[Geometric Modeling Verification]\n    R3 --> T3[Geometric Modeling Result]\n    \n    S3 --> U3[Geometric Modeling Analysis]\n    T3 --> V3[Geometric Modeling Parameters]\n    U3 --> W3[Geometric Modeling Output]\n    \n    V3 --> X3[Geometric Modeling Analysis]\n    W3 --> Y3[Geometric Modeling Final Result]\n    X3 --> Z3[Geometric Modeling Complete]\n    \n    style A3 fill:#ff6b6b,color:#fff\n    style C3 fill:#ff6b6b,color:#fff\n    style E3 fill:#ff6b6b,color:#fff\n    \n    style B3 fill:#ffd43b,color:#000\n    style D3 fill:#ffd43b,color:#000\n    style F3 fill:#ffd43b,color:#000\n    style G3 fill:#ffd43b,color:#000\n    style H3 fill:#ffd43b,color:#000\n    style I3 fill:#ffd43b,color:#000\n    style J3 fill:#ffd43b,color:#000\n    style K3 fill:#ffd43b,color:#000\n    style L3 fill:#ffd43b,color:#000\n    style M3 fill:#ffd43b,color:#000\n    style N3 fill:#ffd43b,color:#000\n    style O3 fill:#ffd43b,color:#000\n    style P3 fill:#ffd43b,color:#000\n    style Q3 fill:#ffd43b,color:#000\n    style R3 fill:#ffd43b,color:#000\n    style S3 fill:#ffd43b,color:#000\n    style T3 fill:#ffd43b,color:#000\n    style U3 fill:#ffd43b,color:#000\n    style V3 fill:#ffd43b,color:#000\n    style W3 fill:#ffd43b,color:#000\n    style X3 fill:#ffd43b,color:#000\n    style Y3 fill:#ffd43b,color:#000\n    style Z3 fill:#ffd43b,color:#000\n    \n    style M3 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style O3 fill:#51cf66,color:#fff\n    style P3 fill:#51cf66,color:#fff\n    style Q3 fill:#51cf66,color:#fff\n    style R3 fill:#51cf66,color:#fff\n    style S3 fill:#51cf66,color:#fff\n    style T3 fill:#51cf66,color:#fff\n    style U3 fill:#51cf66,color:#fff\n    style V3 fill:#51cf66,color:#fff\n    style W3 fill:#51cf66,color:#fff\n    style X3 fill:#51cf66,color:#fff\n    style Y3 fill:#51cf66,color:#fff\n    style Z3 fill:#51cf66,color:#fff\n    \n    style Z3 fill:#b197fc,color:#fff",
+  "entities": [
+    "Geometric Input",
+    "Geometric Modeling Method",
+    "Shape Definition",
+    "Surface Generation",
+    "Mesh Processing",
+    "Geometric Modeling Analysis",
+    "Polygonal Modeling",
+    "NURBS Modeling",
+    "Subdivision Surface",
+    "Vertex Manipulation",
+    "Control Point Editing",
+    "Subdivision Algorithm",
+    "Topology Optimization",
+    "Surface Smoothing",
+    "Mesh Simplification",
+    "UV Mapping",
+    "Geometric Modeling Process",
+    "Geometric Modeling Validation",
+    "Geometric Modeling Verification",
+    "Geometric Modeling Result",
+    "Geometric Modeling Parameters",
+    "Geometric Modeling Output",
+    "Geometric Modeling Final Result",
+    "Geometric Modeling Complete"
+  ],
+  "metadata": {
+    "source": "programming_framework",
+    "batch": "batch_07",
+    "batch_number": 7,
+    "batch_title": "Computer Science Batch 07 - Computer Graphics - Programming Framework Analysis",
+    "color_scheme": "discipline_based",
+    "node_count": 24,
+    "complexity": "medium"
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "id": "arxiv_2509.11477v1",
+  "arxiv_id": "2509.11477v1",
+  "title": "Observation of quantum-field-theory dynamics on a spin-phonon quantum computer",
+  "authors": [
+    "Anton T. Than",
+    "Saurabh V. Kadam",
+    "Vinay Vikramaditya",
+    "Nhung H. Nguyen",
+    "Xingxin Liu",
+    "Zohreh Davoudi",
+    "Alaina M. Green",
+    "Norbert M. Linke"
+  ],
+  "author_string": "Anton T. Than, Saurabh V. Kadam, Vinay Vikramaditya, Nhung H. Nguyen, Xingxin Liu et al.",
+  "journal": "arXiv:2509.11477v1",
+  "journal_ref": null,
+  "year": "2025",
+  "doi": null,
+  "abstract": "Simulating out-of-equilibrium dynamics of quantum field theories in nature is challenging with classical methods, but is a promising application for quantum computers. Unfortunately, simulating interacting bosonic fields involves a high boson-to-qubit encoding overhead. Furthermore, when mapping to qubits, the infinite-dimensional Hilbert space of bosons is necessarily truncated, with truncation errors that grow with energy and time. A qubit-based quantum computer, augmented with an active bosonic register, and with qubit, bosonic, and mixed qubit-boson quantum gates, offers a more powerful platform for simulating bosonic theories. We demonstrate this capability experimentally in a hybrid analog-digital trapped-ion quantum computer, where qubits are encoded in the internal states of the ions, and the bosons in the ions' motional states. Specifically, we simulate nonequilibrium dynamics of a (1+1)-dimensional Yukawa model, a simplified model of interacting nucleons and pions, and measure fermion- and boson-occupation-state probabilities. These dynamics populate high bosonic-field excitations starting from an empty state, and the experimental results capture well such high-occupation states. This simulation approaches the regime where classical methods become challenging, bypasses the need for a large qubit overhead, and removes truncation errors. Our results, therefore, open the way to achieving demonstrable quantum advantage in qubit-boson quantum computing.",
+  "categories": [
+    "quant-ph",
+    "cond-mat.quant-gas",
+    "hep-lat",
+    "hep-ph",
+    "nucl-th"
+  ],
+  "primary_category": "nucl-th",
+  "comment": "14 pages, 6 figures",
+  "published_date": "2025-09-14T23:47:35Z",
+  "updated_date": "2025-09-14T23:47:35Z",
+  "url": "https://arxiv.org/abs/2509.11477v1",
+  "pdf_url": "https://arxiv.org/pdf/2509.11477v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-02-03T13:21:06.605639",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph",
+    "cond-mat.quant-gas",
+    "hep-lat"
+  ]
+}

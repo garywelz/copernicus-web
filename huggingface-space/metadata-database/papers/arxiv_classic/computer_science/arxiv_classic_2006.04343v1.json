@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2006.04343v1",
+  "arxiv_id": "2006.04343v1",
+  "title": "Deep Neural Network Based Real-time Kiwi Fruit Flower Detection in an Orchard Environment",
+  "authors": [
+    "JongYoon Lim",
+    "Ho Seok Ahn",
+    "Mahla Nejati",
+    "Jamie Bell",
+    "Henry Williams",
+    "Bruce A. MacDonald"
+  ],
+  "author_string": "JongYoon Lim, Ho Seok Ahn, Mahla Nejati, Jamie Bell, Henry Williams et al.",
+  "journal": "arXiv:2006.04343v1",
+  "journal_ref": null,
+  "year": "2020",
+  "doi": null,
+  "abstract": "In this paper, we present a novel approach to kiwi fruit flower detection using Deep Neural Networks (DNNs) to build an accurate, fast, and robust autonomous pollination robot system. Recent work in deep neural networks has shown outstanding performance on object detection tasks in many areas. Inspired this, we aim for exploiting DNNs for kiwi fruit flower detection and present intensive experiments and their analysis on two state-of-the-art object detectors; Faster R-CNN and Single Shot Detector (SSD) Net, and feature extractors; Inception Net V2 and NAS Net with real-world orchard datasets. We also compare those approaches to find an optimal model which is suitable for a real-time agricultural pollination robot system in terms of accuracy and processing speed. We perform experiments with dataset collected from different seasons and locations (spatio-temporal consistency) in order to demonstrate the performance of the generalized model. The proposed system demonstrates promising results of 0.919, 0.874, and 0.889 for precision, recall, and F1-score respectively on our real-world dataset, and the performance satisfies the requirement for deploying the system onto an autonomous pollination robotics system.",
+  "categories": [
+    "cs.CV",
+    "cs.RO"
+  ],
+  "primary_category": "cs.RO",
+  "comment": "ACRA(Australian Robotics and Automation Association) 2019",
+  "published_date": "2020-06-08T03:53:54Z",
+  "updated_date": "2020-06-08T03:53:54Z",
+  "url": "https://arxiv.org/abs/2006.04343v1",
+  "pdf_url": "https://arxiv.org/pdf/2006.04343v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:23.481197",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV",
+    "cs.RO"
+  ]
+}

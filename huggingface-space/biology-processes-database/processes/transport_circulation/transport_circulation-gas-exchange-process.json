@@ -1,0 +1,92 @@
+{
+  "id": "transport_circulation-gas-exchange-process",
+  "name": "Gas Exchange Process",
+  "category": "biology",
+  "subcategory": "transport_circulation",
+  "subcategory_name": "Transport & Circulation",
+  "description": "Gas Exchange Process process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 8,
+    "edges": 6,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\n    A45[Respiratory Surface] --> B45[Partial Pressure Gradient]\n    B45 --> C45[O2 Diffusion In]\n    B45 --> D45[CO2 Diffusion Out]\n    C45 --> E45[Transport Medium]\n    D45 --> F45[Atmosphere]\n    E45 --> G45[Tissue Delivery]\n    G45 --> H45[Cellular Respiration]\n    \n    style A45 fill:#ff6b6b,color:#fff\n    style B45 fill:#ffd43b,color:#000\n    style C45 fill:#51cf66,color:#fff\n    style D45 fill:#51cf66,color:#fff\n    style E45 fill:#74c0fc,color:#fff\n    style F45 fill:#b197fc,color:#fff\n    style G45 fill:#74c0fc,color:#fff\n    style H45 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Gas Exchange Process. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "Case Study III — Respiratory Gas-Exchange Process Simulation",
+      "authors": "Murray-Smith, D. J.",
+      "journal": "Continuous System Simulation",
+      "year": "1995",
+      "pubmed": null,
+      "doi": "10.1007/978-1-4615-2504-2_12",
+      "url": "https://doi.org/10.1007/978-1-4615-2504-2_12"
+    },
+    {
+      "title": "PhotoGEA: Photosynthetic Gas Exchange Analysis",
+      "authors": "Lochocki, Edward B.; Salesse-Smith, Coralie E.; McGrath, Justin M.",
+      "journal": "CRAN: Contributed Packages",
+      "year": "2025",
+      "pubmed": null,
+      "doi": "10.32614/cran.package.photogea",
+      "url": "https://doi.org/10.32614/cran.package.photogea"
+    },
+    {
+      "title": "Process simulation of ion exchange desalination treatment of coal seam gas associated water",
+      "authors": "Wicks, Madeleine; Millar, Graeme J.; Altaee, Ali",
+      "journal": "Journal of Water Process Engineering",
+      "year": "2019",
+      "pubmed": null,
+      "doi": "10.1016/j.jwpe.2018.11.020",
+      "url": "https://doi.org/10.1016/j.jwpe.2018.11.020"
+    }
+  ],
+  "keywords": [
+    "gas",
+    "exchange",
+    "process"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+}

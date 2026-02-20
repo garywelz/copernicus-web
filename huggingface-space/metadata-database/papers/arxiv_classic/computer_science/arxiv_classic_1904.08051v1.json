@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_1904.08051v1",
+  "arxiv_id": "1904.08051v1",
+  "title": "Posterior-regularized REINFORCE for Instance Selection in Distant Supervision",
+  "authors": [
+    "Qi Zhang",
+    "Siliang Tang",
+    "Xiang Ren",
+    "Fei Wu",
+    "Shiliang Pu",
+    "Yueting Zhuang"
+  ],
+  "author_string": "Qi Zhang, Siliang Tang, Xiang Ren, Fei Wu, Shiliang Pu et al.",
+  "journal": "naacl 2019",
+  "journal_ref": "naacl 2019",
+  "year": "2019",
+  "doi": null,
+  "abstract": "This paper provides a new way to improve the efficiency of the REINFORCE training process. We apply it to the task of instance selection in distant supervision. Modeling the instance selection in one bag as a sequential decision process, a reinforcement learning agent is trained to determine whether an instance is valuable or not and construct a new bag with less noisy instances. However unbiased methods, such as REINFORCE, could usually take much time to train. This paper adopts posterior regularization (PR) to integrate some domain-specific rules in instance selection using REINFORCE. As the experiment results show, this method remarkably improves the performance of the relation classifier trained on cleaned distant supervision dataset as well as the efficiency of the REINFORCE training.",
+  "categories": [
+    "cs.CL",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": "Five pages",
+  "published_date": "2019-04-17T02:21:51Z",
+  "updated_date": "2019-04-17T02:21:51Z",
+  "url": "https://arxiv.org/abs/1904.08051v1",
+  "pdf_url": "https://arxiv.org/pdf/1904.08051v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:19.478214",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CL",
+    "cs.LG"
+  ]
+}

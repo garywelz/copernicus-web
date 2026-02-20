@@ -1,0 +1,29 @@
+{
+  "id": "pubmed_34788137",
+  "pmid": "34788137",
+  "title": "Evaluation and resolution of many challenges of neural spike sorting: a new sorter.",
+  "authors": [
+    "Hall, Nathan J",
+    "Herzfeld, David J",
+    "Lisberger, Stephen G"
+  ],
+  "author_string": "Hall, Nathan J, Herzfeld, David J, Lisberger, Stephen G",
+  "journal": "J Neurophysiol",
+  "journal_full": "Journal of neurophysiology",
+  "year": "",
+  "doi": "10.1152/jn.00047.2021",
+  "abstract": "We evaluate existing spike sorters and present a new one that resolves many sorting challenges. The new sorter, called \"full binary pursuit\" or FBP, comprises multiple steps. First, it thresholds and clusters to identify the waveforms of all unique neurons in the recording. Second, it uses greedy binary pursuit to optimally assign all the spike events in the original voltages to separable neurons. Third, it resolves spike events that are described more accurately as the superposition of spikes from two other neurons. Fourth, it resolves situations where the recorded neurons drift in amplitude or across electrode contacts during a long recording session. Comparison with other sorters on ground-truth data sets reveals many of the failure modes of spike sorting. We examine overall spike sorter performance in ground-truth data sets and suggest postsorting analyses that can improve the veracity of neural analyses by minimizing the intrusion of failure modes into analysis and interpretation of neural data. Our analysis reveals the tradeoff between the number of channels a sorter can process, speed of sorting, and some of the failure modes of spike sorting. FBP works best on data from 32 channels or fewer. It trades speed and number of channels for avoidance of specific failure modes that would be challenges for some use cases. We conclude that all spike sorting algorithms studied have advantages and shortcomings, and the appropriate use of a spike sorter requires a detailed assessment of the data being sorted and the experimental goals for analyses.<b>NEW & NOTEWORTHY</b> Electrophysiological recordings from multiple neurons across multiple channels pose great difficulty for spike sorting of single neurons. We propose methods that improve the ability to determine the number of individual neurons present in a recording and resolve near-simultaneous spike events from single neurons. We use ground-truth data sets to demonstrate the pros and cons of several current sorting algorithms and suggest strategies for determining the accuracy of spike sorting when ground-truth data are not available.",
+  "keywords": [
+    "binary pursuit",
+    "cerebellum",
+    "multi-contact electrodes",
+    "spike sorter",
+    "spike sorting"
+  ],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/34788137",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T17:01:13.079382",
+  "category": "biology",
+  "subcategories": []
+}

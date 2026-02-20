@@ -1,0 +1,31 @@
+{
+  "id": "crossref_10.26421_qic15.1-2-1",
+  "doi": "10.26421/qic15.1-2-1",
+  "title": "Improving quantum algorithms for quantum chemistry",
+  "authors": [
+    "Hastings, Matthew B.",
+    "Wecker, Dave",
+    "Bauer, Bela",
+    "Troyer, Matthias"
+  ],
+  "author_string": "Hastings, Matthew B., Wecker, Dave, Bauer, Bela, Troyer, Matthias",
+  "journal": "Quantum Information and Computation",
+  "issn": "1533-7146",
+  "issn_type": "print",
+  "volume": "15",
+  "issue": "1&2",
+  "page": "1-21",
+  "year": "2015",
+  "publisher": "Rinton Press",
+  "language": "",
+  "abstract": "We present several improvements to the standard Trotter-Suzuki based algorithms used in the simulation of quantum chemistry on a quantum computer. First, we modify how Jordan-Wigner transformations are implemented to reduce their cost from linear or logarithmic in the number of orbitals to a constant. Our modification does not require additional ancilla qubits. Then, we demonstrate how many operations can be parallelized, leading to a further linear decrease in the parallel depth of the circuit, at the cost of a small constant factor increase in number of qubits required. Thirdly, we modify the term order in the Trotter-Suzuki decomposition, significantly reducing the error at given Trotter-Suzuki timestep. A final improvement modifies the Hamiltonian to reduce errors introduced by the non-zero Trotter-Suzuki timestep. All of these techniques are validated using numerical simulation and detailed gate counts are given for realistic molecules.",
+  "subjects": [],
+  "keywords": [],
+  "article_type": "journal-article",
+  "citation_count": 63,
+  "url": "https://doi.org/10.26421/qic15.1-2-1",
+  "source": "crossref",
+  "acquired_date": "2026-01-19T10:54:16.507550",
+  "category": "physics",
+  "subcategories": []
+}

@@ -1,0 +1,41 @@
+{
+  "id": "arxiv_2601.11400v1",
+  "arxiv_id": "2601.11400v1",
+  "title": "Wetland mapping from sparse annotations with satellite image time series and temporal-aware segment anything model",
+  "authors": [
+    "Shuai Yuan",
+    "Tianwu Lin",
+    "Shuang Chen",
+    "Yu Xia",
+    "Peng Qin",
+    "Xiangyu Liu",
+    "Xiaoqing Xu",
+    "Nan Xu",
+    "Hongsheng Zhang",
+    "Jie Wang",
+    "Peng Gong"
+  ],
+  "author_string": "Shuai Yuan, Tianwu Lin, Shuang Chen, Yu Xia, Peng Qin et al.",
+  "journal": "arXiv:2601.11400v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Accurate wetland mapping is essential for ecosystem monitoring, yet dense pixel-level annotation is prohibitively expensive and practical applications usually rely on sparse point labels, under which existing deep learning models perform poorly, while strong seasonal and inter-annual wetland dynamics further render single-date imagery inadequate and lead to significant mapping errors; although foundation models such as SAM show promising generalization from point prompts, they are inherently designed for static images and fail to model temporal information, resulting in fragmented masks in heterogeneous wetlands. To overcome these limitations, we propose WetSAM, a SAM-based framework that integrates satellite image time series for wetland mapping from sparse point supervision through a dual-branch design, where a temporally prompted branch extends SAM with hierarchical adapters and dynamic temporal aggregation to disentangle wetland characteristics from phenological variability, and a spatial branch employs a temporally constrained region-growing strategy to generate reliable dense pseudo-labels, while a bidirectional consistency regularization jointly optimizes both branches. Extensive experiments across eight global regions of approximately 5,000 km2 each demonstrate that WetSAM substantially outperforms state-of-the-art methods, achieving an average F1-score of 85.58%, and delivering accurate and structurally consistent wetland segmentation with minimal labeling effort, highlighting its strong generalization capability and potential for scalable, low-cost, high-resolution wetland mapping.",
+  "categories": [
+    "cs.CV",
+    "cs.AI"
+  ],
+  "primary_category": "cs.AI",
+  "comment": null,
+  "published_date": "2026-01-16T16:10:32Z",
+  "updated_date": "2026-01-16T16:10:32Z",
+  "url": "https://arxiv.org/abs/2601.11400v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11400v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:30.213245",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV",
+    "cs.AI"
+  ]
+}

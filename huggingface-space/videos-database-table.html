@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Science Video Database</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 300;
+        }
+        
+        .header p {
+            margin: 10px 0 0 0;
+            opacity: 0.9;
+            font-size: 1.1em;
+        }
+        
+        .controls {
+            padding: 20px 30px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #ecf0f1;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            align-items: center;
+        }
+        
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+            padding: 10px 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+        }
+        
+        .search-box:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .filter-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-select {
+            padding: 10px 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 0.9em;
+            background: white;
+            cursor: pointer;
+        }
+        
+        .filter-select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 30px;
+            background: #f8f9fa;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            border-left: 4px solid #667eea;
+        }
+        
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin: 0;
+        }
+        
+        .stat-label {
+            color: #7f8c8d;
+            font-size: 0.9em;
+            margin: 5px 0 0 0;
+        }
+        
+        .table-container {
+            padding: 30px;
+            overflow-x: auto;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        th, td {
+            padding: 12px 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background: #ecf0f1;
+            font-weight: 600;
+            color: #2c3e50;
+            position: sticky;
+            top: 0;
+            cursor: pointer;
+            user-select: none;
+        }
+        
+        th:hover {
+            background: #d5dbdb;
+        }
+        
+        tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .video-title {
+            font-weight: 600;
+            color: #2c3e50;
+            max-width: 350px;
+        }
+        
+        .video-title a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        .video-title a:hover {
+            text-decoration: underline;
+        }
+        
+        .channel {
+            color: #7f8c8d;
+            font-size: 0.9em;
+            max-width: 200px;
+        }
+        
+        .thumbnail {
+            width: 120px;
+            height: 67px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+        
+        .duration {
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .views {
+            text-align: right;
+            color: #7f8c8d;
+        }
+        
+        .discipline-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75em;
+            font-weight: 600;
+            margin: 2px;
+        }
+        
+        .discipline-biology { background: #e8f5e9; color: #2e7d32; }
+        .discipline-chemistry { background: #e3f2fd; color: #1565c0; }
+        .discipline-physics { background: #fce4ec; color: #c2185b; }
+        .discipline-mathematics { background: #fff3e0; color: #e65100; }
+        .discipline-cs, .discipline-computer_science { background: #f3e5f5; color: #7b1fa2; }
+        
+        .transcript-badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75em;
+            font-weight: 600;
+            background: #d5f4e6;
+            color: #27ae60;
+        }
+        
+        .pagination {
+            padding: 20px 30px;
+            background: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .pagination button {
+            padding: 8px 15px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+        }
+        
+        .pagination button:hover:not(:disabled) {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+        
+        .pagination button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .pagination-info {
+            margin: 0 20px;
+            color: #7f8c8d;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 50px;
+            color: #7f8c8d;
+        }
+        
+        .error {
+            text-align: center;
+            padding: 50px;
+            color: #e74c3c;
+        }
+        
+        .description-preview {
+            max-width: 300px;
+            color: #7f8c8d;
+            font-size: 0.85em;
+            line-height: 1.4;
+            max-height: 60px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎥 Science Video Database</h1>
+            <p>CopernicusAI Knowledge Engine - Browse and Search Scientific Videos</p>
+        </div>
+        
+        <div class="controls">
+            <input type="text" id="searchBox" class="search-box" placeholder="Search videos by title, description, channel...">
+            <select id="categoryFilter" class="filter-select">
+                <option value="">All Categories</option>
+                <option value="biology">Biology</option>
+                <option value="chemistry">Chemistry</option>
+                <option value="physics">Physics</option>
+                <option value="mathematics">Mathematics</option>
+                <option value="computer_science">Computer Science</option>
+            </select>
+            <select id="disciplineFilter" class="filter-select">
+                <option value="">All Disciplines</option>
+                <option value="biology">Biology</option>
+                <option value="chemistry">Chemistry</option>
+                <option value="physics">Physics</option>
+                <option value="mathematics">Mathematics</option>
+                <option value="cs">Computer Science</option>
+            </select>
+            <select id="yearFilter" class="filter-select">
+                <option value="">All Years</option>
+                <!-- Years will be populated dynamically -->
+            </select>
+            <select id="transcriptFilter" class="filter-select">
+                <option value="">All Videos</option>
+                <option value="true">With Transcripts</option>
+                <option value="false">Without Transcripts</option>
+            </select>
+            <select id="sortBy" class="filter-select">
+                <option value="published_desc">Date (Newest)</option>
+                <option value="published_asc">Date (Oldest)</option>
+                <option value="title_asc">Title (A-Z)</option>
+                <option value="views_desc">Views (Most)</option>
+            </select>
+        </div>
+        
+        <div class="stats-grid" id="statsGrid">
+            <div class="stat-card">
+                <p class="stat-number" id="totalVideos">0</p>
+                <p class="stat-label">Total Videos</p>
+            </div>
+            <div class="stat-card">
+                <p class="stat-number" id="filteredVideos">0</p>
+                <p class="stat-label">Filtered Results</p>
+            </div>
+            <div class="stat-card">
+                <p class="stat-number" id="withTranscripts">0</p>
+                <p class="stat-label">With Transcripts</p>
+            </div>
+            <div class="stat-card">
+                <p class="stat-number" id="channels">0</p>
+                <p class="stat-label">Channels</p>
+            </div>
+        </div>
+        
+        <div id="loading" class="loading">
+            <h3>Loading videos...</h3>
+            <p>Fetching video metadata from Google Cloud Storage</p>
+        </div>
+        
+        <div id="error" class="error" style="display: none;">
+            <h3>❌ Error Loading Data</h3>
+            <p id="errorMessage">Could not fetch video metadata. Please check your connection and try again.</p>
+        </div>
+        
+        <div id="content" style="display: none;">
+            <div class="table-container">
+                <table id="videosTable">
+                    <thead>
+                        <tr>
+                            <th onclick="sortTable('thumbnail')">Thumbnail</th>
+                            <th onclick="sortTable('title')">Title ↕</th>
+                            <th onclick="sortTable('channel')">Channel ↕</th>
+                            <th onclick="sortTable('disciplines')">Disciplines</th>
+                            <th onclick="sortTable('published')">Published ↕</th>
+                            <th onclick="sortTable('duration')">Duration ↕</th>
+                            <th onclick="sortTable('views')">Views ↕</th>
+                            <th>Transcript</th>
+                            <th>Link</th>
+                        </tr>
+                    </thead>
+                    <tbody id="videosTableBody">
+                        <!-- Videos will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="pagination" id="pagination">
+                <button id="prevBtn" onclick="changePage(-1)">← Previous</button>
+                <span class="pagination-info" id="pageInfo">Page 1 of 1</span>
+                <button id="nextBtn" onclick="changePage(1)">Next →</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let allVideos = [];
+        let filteredVideos = [];
+        let currentPage = 1;
+        const itemsPerPage = 50;
+        let currentSort = { column: 'published', direction: 'desc' };
+
+        // Load videos from GCS
+        async function loadVideos() {
+            try {
+                document.getElementById('loading').style.display = 'block';
+                document.getElementById('error').style.display = 'none';
+                document.getElementById('content').style.display = 'none';
+                
+                const metadataUrl = 'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/videos-metadata.json';
+                
+                try {
+                    const response = await fetch(metadataUrl);
+                    if (response.ok) {
+                        const data = await response.json();
+                        allVideos = data.videos || [];
+                    } else {
+                        throw new Error('Metadata file not found');
+                    }
+                } catch (e) {
+                    document.getElementById('error').style.display = 'block';
+                    document.getElementById('errorMessage').textContent = 
+                        'Video metadata file not found. Please generate videos-metadata.json first. ' +
+                        'The database contains 753+ videos that need to be exported.';
+                    document.getElementById('loading').style.display = 'none';
+                    return;
+                }
+                
+                if (allVideos.length === 0) {
+                    throw new Error('No videos found');
+                }
+                
+                filteredVideos = [...allVideos];
+                updateStats();
+                populateYearFilter();
+                applyFilters();
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('content').style.display = 'block';
+                
+            } catch (error) {
+                console.error('Error loading videos:', error);
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('error').style.display = 'block';
+                document.getElementById('errorMessage').textContent = 
+                    `Error: ${error.message}. Please ensure videos-metadata.json exists in GCS.`;
+            }
+        }
+
+        function populateYearFilter() {
+            const years = [...new Set(allVideos.map(v => v.year).filter(y => y))].sort((a, b) => b - a);
+            const yearFilter = document.getElementById('yearFilter');
+            years.forEach(year => {
+                const option = document.createElement('option');
+                option.value = year;
+                option.textContent = year;
+                yearFilter.appendChild(option);
+            });
+        }
+
+        function updateStats() {
+            document.getElementById('totalVideos').textContent = allVideos.length.toLocaleString();
+            document.getElementById('filteredVideos').textContent = filteredVideos.length.toLocaleString();
+            
+            const withTranscripts = allVideos.filter(v => v.transcript_available).length;
+            document.getElementById('withTranscripts').textContent = withTranscripts.toLocaleString();
+            
+            const channels = new Set(allVideos.map(v => v.channel_id)).size;
+            document.getElementById('channels').textContent = channels.toLocaleString();
+        }
+
+        function applyFilters() {
+            const searchTerm = document.getElementById('searchBox').value.toLowerCase();
+            const categoryFilter = document.getElementById('categoryFilter').value;
+            const disciplineFilter = document.getElementById('disciplineFilter').value;
+            const yearFilter = document.getElementById('yearFilter').value;
+            const transcriptFilter = document.getElementById('transcriptFilter').value;
+            const sortBy = document.getElementById('sortBy').value;
+
+            filteredVideos = allVideos.filter(video => {
+                // Search filter
+                if (searchTerm) {
+                    const searchable = [
+                        video.title || '',
+                        video.description || '',
+                        video.channel_name || ''
+                    ].join(' ').toLowerCase();
+                    if (!searchable.includes(searchTerm)) return false;
+                }
+                
+                // Category filter
+                if (categoryFilter && video.category !== categoryFilter) return false;
+                
+                // Discipline filter
+                if (disciplineFilter) {
+                    const disciplines = video.disciplines || [];
+                    if (!disciplines.includes(disciplineFilter) && 
+                        !disciplines.includes(disciplineFilter === 'cs' ? 'computer_science' : disciplineFilter)) {
+                        return false;
+                    }
+                }
+                
+                // Year filter
+                if (yearFilter && video.year !== yearFilter) return false;
+                
+                // Transcript filter
+                if (transcriptFilter && video.transcript_available.toString() !== transcriptFilter) return false;
+                
+                return true;
+            });
+
+            // Sort
+            sortVideos(sortBy);
+            
+            currentPage = 1;
+            updateStats();
+            renderTable();
+        }
+
+        function sortVideos(sortBy) {
+            filteredVideos.sort((a, b) => {
+                switch(sortBy) {
+                    case 'published_desc':
+                        const aDate = a.published_date ? new Date(a.published_date) : new Date(0);
+                        const bDate = b.published_date ? new Date(b.published_date) : new Date(0);
+                        return bDate - aDate;
+                    case 'published_asc':
+                        const aDate2 = a.published_date ? new Date(a.published_date) : new Date(0);
+                        const bDate2 = b.published_date ? new Date(b.published_date) : new Date(0);
+                        return aDate2 - bDate2;
+                    case 'title_asc':
+                        return (a.title || '').localeCompare(b.title || '');
+                    case 'views_desc':
+                        return (b.view_count || 0) - (a.view_count || 0);
+                    default:
+                        return 0;
+                }
+            });
+        }
+
+        function sortTable(column) {
+            if (currentSort.column === column) {
+                currentSort.direction = currentSort.direction === 'asc' ? 'desc' : 'asc';
+            } else {
+                currentSort.column = column;
+                currentSort.direction = 'asc';
+            }
+            
+            filteredVideos.sort((a, b) => {
+                let aVal = a[column] || '';
+                let bVal = b[column] || '';
+                
+                if (column === 'published') {
+                    aVal = a.published_date ? new Date(a.published_date) : new Date(0);
+                    bVal = b.published_date ? new Date(b.published_date) : new Date(0);
+                }
+                
+                const comparison = String(aVal).localeCompare(String(bVal));
+                return currentSort.direction === 'asc' ? comparison : -comparison;
+            });
+            
+            currentPage = 1;
+            renderTable();
+        }
+
+        function formatDuration(seconds) {
+            if (!seconds) return 'N/A';
+            const hours = Math.floor(seconds / 3600);
+            const minutes = Math.floor((seconds % 3600) / 60);
+            const secs = seconds % 60;
+            if (hours > 0) {
+                return `${hours}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+            }
+            return `${minutes}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        function formatViews(views) {
+            if (!views) return 'N/A';
+            if (views >= 1000000) return `${(views / 1000000).toFixed(1)}M`;
+            if (views >= 1000) return `${(views / 1000).toFixed(1)}K`;
+            return views.toLocaleString();
+        }
+
+        function renderTable() {
+            const tbody = document.getElementById('videosTableBody');
+            tbody.innerHTML = '';
+            
+            const start = (currentPage - 1) * itemsPerPage;
+            const end = start + itemsPerPage;
+            const pageVideos = filteredVideos.slice(start, end);
+            
+            pageVideos.forEach(video => {
+                const row = document.createElement('tr');
+                
+                const title = video.title || 'Untitled';
+                const channel = video.channel_name || 'Unknown';
+                const disciplines = video.disciplines || [];
+                const published = video.published_date ? new Date(video.published_date).toLocaleDateString() : 'N/A';
+                const year = video.year || 'N/A';
+                const thumbnail = video.thumbnail_url || '';
+                const url = video.url || '#';
+                
+                const disciplineBadges = disciplines.map(d => {
+                    const dClass = d === 'cs' ? 'computer_science' : d;
+                    return `<span class="discipline-badge discipline-${dClass}">${d}</span>`;
+                }).join('');
+                
+                row.innerHTML = `
+                    <td>
+                        ${thumbnail ? `<img src="${thumbnail}" alt="${title}" class="thumbnail" onerror="this.style.display='none'">` : ''}
+                    </td>
+                    <td class="video-title">
+                        <a href="${url}" target="_blank">${title}</a>
+                    </td>
+                    <td class="channel">${channel}</td>
+                    <td>${disciplineBadges || 'N/A'}</td>
+                    <td>${published}<br><small>${year}</small></td>
+                    <td class="duration">${formatDuration(video.duration)}</td>
+                    <td class="views">${formatViews(video.view_count)}</td>
+                    <td>${video.transcript_available ? '<span class="transcript-badge">✓ Transcript</span>' : ''}</td>
+                    <td><a href="${url}" target="_blank">Watch →</a></td>
+                `;
+                
+                tbody.appendChild(row);
+            });
+            
+            // Update pagination
+            const totalPages = Math.ceil(filteredVideos.length / itemsPerPage);
+            document.getElementById('pageInfo').textContent = 
+                `Page ${currentPage} of ${totalPages} (${filteredVideos.length.toLocaleString()} videos)`;
+            document.getElementById('prevBtn').disabled = currentPage === 1;
+            document.getElementById('nextBtn').disabled = currentPage >= totalPages;
+        }
+
+        function changePage(delta) {
+            const totalPages = Math.ceil(filteredVideos.length / itemsPerPage);
+            const newPage = currentPage + delta;
+            if (newPage >= 1 && newPage <= totalPages) {
+                currentPage = newPage;
+                renderTable();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        // Event listeners
+        document.getElementById('searchBox').addEventListener('input', applyFilters);
+        document.getElementById('categoryFilter').addEventListener('change', applyFilters);
+        document.getElementById('disciplineFilter').addEventListener('change', applyFilters);
+        document.getElementById('yearFilter').addEventListener('change', applyFilters);
+        document.getElementById('transcriptFilter').addEventListener('change', applyFilters);
+        document.getElementById('sortBy').addEventListener('change', () => {
+            applyFilters();
+        });
+
+        // Initial load
+        loadVideos();
+    </script>
+</body>
+</html>

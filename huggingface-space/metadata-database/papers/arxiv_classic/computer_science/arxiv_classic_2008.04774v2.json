@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2008.04774v2",
+  "arxiv_id": "2008.04774v2",
+  "title": "SMT-based Safety Verification of Parameterised Multi-Agent Systems",
+  "authors": [
+    "Paolo Felli",
+    "Alessandro Gianola",
+    "Marco Montali"
+  ],
+  "author_string": "Paolo Felli, Alessandro Gianola, Marco Montali",
+  "journal": "arXiv:2008.04774v2",
+  "journal_ref": null,
+  "year": "2020",
+  "doi": null,
+  "abstract": "In this paper we study the verification of parameterised multi-agent systems (MASs), and in particular the task of verifying whether unwanted states, characterised as a given state formula, are reachable in a given MAS, i.e., whether the MAS is unsafe. The MAS is parameterised and the model only describes the finite set of possible agent templates, while the actual number of concrete agent instances for each template is unbounded and cannot be foreseen. This makes the state-space infinite. As safety may of course depend on the number of agent instances in the system, the verification result must be correct irrespective of such number. We solve this problem via infinite-state model checking based on satisfiability modulo theories (SMT), relying on the theory of array-based systems: we present parameterised MASs as particular array-based systems, under two execution semantics for the MAS, which we call concurrent and interleaved. We prove our decidability results under these assumptions and illustrate our implementation approach, called SAFE: the Swarm Safety Detector, based on the third-party model checker MCMT, which we evaluate experimentally. Finally, we discuss how this approach lends itself to richer parameterised and data-aware MAS settings beyond the state-of-the-art solutions in the literature, which we leave as future work.",
+  "categories": [
+    "cs.AI",
+    "cs.MA"
+  ],
+  "primary_category": "cs.MA",
+  "comment": null,
+  "published_date": "2020-08-11T15:24:05Z",
+  "updated_date": "2020-08-14T17:06:25Z",
+  "url": "https://arxiv.org/abs/2008.04774v2",
+  "pdf_url": "https://arxiv.org/pdf/2008.04774v2.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:27.423350",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.AI",
+    "cs.MA"
+  ]
+}

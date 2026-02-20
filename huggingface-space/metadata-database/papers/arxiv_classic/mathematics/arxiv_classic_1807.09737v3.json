@@ -1,0 +1,37 @@
+{
+  "id": "arxiv_1807.09737v3",
+  "arxiv_id": "1807.09737v3",
+  "title": "Convergence Rates of Gaussian ODE Filters",
+  "authors": [
+    "Hans Kersting",
+    "T. J. Sullivan",
+    "Philipp Hennig"
+  ],
+  "author_string": "Hans Kersting, T. J. Sullivan, Philipp Hennig",
+  "journal": "arXiv:1807.09737v3",
+  "journal_ref": null,
+  "year": "2018",
+  "doi": null,
+  "abstract": "A recently-introduced class of probabilistic (uncertainty-aware) solvers for ordinary differential equations (ODEs) applies Gaussian (Kalman) filtering to initial value problems. These methods model the true solution $x$ and its first $q$ derivatives \\emph{a priori} as a Gauss--Markov process $\\boldsymbol{X}$, which is then iteratively conditioned on information about $\\dot{x}$. This article establishes worst-case local convergence rates of order $q+1$ for a wide range of versions of this Gaussian ODE filter, as well as global convergence rates of order $q$ in the case of $q=1$ and an integrated Brownian motion prior, and analyses how inaccurate information on $\\dot{x}$ coming from approximate evaluations of $f$ affects these rates. Moreover, we show that, in the globally convergent case, the posterior credible intervals are well calibrated in the sense that they globally contract at the same rate as the truncation error. We illustrate these theoretical results by numerical experiments which might indicate their generalizability to $q \\in \\{2,3,\\dots\\}$.",
+  "categories": [
+    "math.NA",
+    "cs.LG",
+    "math.ST",
+    "stat.CO",
+    "stat.ML"
+  ],
+  "primary_category": "stat.ML",
+  "comment": "26 pages, 5 figures",
+  "published_date": "2018-07-25T17:33:55Z",
+  "updated_date": "2020-07-17T16:54:44Z",
+  "url": "https://arxiv.org/abs/1807.09737v3",
+  "pdf_url": "https://arxiv.org/pdf/1807.09737v3.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:30:52.378965",
+  "category": "mathematics",
+  "subcategories": [
+    "math.NA",
+    "cs.LG",
+    "math.ST"
+  ]
+}

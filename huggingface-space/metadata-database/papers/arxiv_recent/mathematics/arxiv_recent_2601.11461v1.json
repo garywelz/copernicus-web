@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2601.11461v1",
+  "arxiv_id": "2601.11461v1",
+  "title": "Smooth SCAD: A Raised Cosine SCAD Type Thresholding Rule for Wavelet Denoising",
+  "authors": [
+    "Radhika Kulkarni",
+    "Aluisio Pinheiro",
+    "Brani Vidakovic",
+    "Abdourrahmane M. Atto"
+  ],
+  "author_string": "Radhika Kulkarni, Aluisio Pinheiro, Brani Vidakovic, Abdourrahmane M. Atto",
+  "journal": "arXiv:2601.11461v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We introduce a smooth variant of the SCAD thresholding rule for wavelet denoising by replacing its piecewise linear transition with a raised cosine. The resulting shrinkage function is odd, continuous on R, and continuously differentiable away from the main threshold, yet retains the hallmark SCAD properties of sparsity for small coefficients and near unbiasedness for large ones. This smoothness places the rule within the continuous thresholding class for which Stein's unbiased risk estimate is valid. As a result, unbiased risk computation, stable data-driven threshold selection, and the asymptotic theory of Kudryavtsev and Shestakov apply.   A corresponding nonconvex prior is obtained whose posterior mode coincides with the estimator, yielding a transparent Bayesian interpretation. We give an explicit SURE risk expression, discuss the oracle scale of the optimal threshold, and describe both global and level-dependent adaptive versions. The smooth SCAD rule therefore offers a tractable refinement of SCAD, combining low bias, exact sparsity, and analytical convenience in a single wavelet shrinkage procedure.",
+  "categories": [
+    "stat.CO",
+    "cs.CE",
+    "math.ST"
+  ],
+  "primary_category": "math.ST",
+  "comment": "25 pages, 2 figures",
+  "published_date": "2026-01-16T17:35:02Z",
+  "updated_date": "2026-01-16T17:35:02Z",
+  "url": "https://arxiv.org/abs/2601.11461v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11461v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:30.210451",
+  "category": "mathematics",
+  "subcategories": [
+    "stat.CO",
+    "cs.CE",
+    "math.ST"
+  ]
+}

@@ -1,0 +1,93 @@
+{
+  "id": "nutrition_metabolism-photosynthesis-process",
+  "name": "Photosynthesis Process",
+  "category": "biology",
+  "subcategory": "nutrition_metabolism",
+  "subcategory_name": "Nutrition & Metabolism",
+  "organism": "Plants/Algae",
+  "description": "Photosynthesis Process in Plants/Algae. This process represents a higher-level biological mechanism distinct from molecular/biochemical processes covered in GLMP.",
+  "complexity": {
+    "nodes": 12,
+    "edges": 12,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "low",
+    "detailLevel": "low"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\n    A30[Light Energy] --> B30[Chlorophyll Absorption]\n    C30[CO2] --> D30[Stomatal Entry]\n    C30 --> E30[Water] --> F30[Root Uptake]\n    B30 --> G30[Light Reactions]\n    D30 --> H30[Calvin Cycle]\n    F30 --> G30\n    G30 --> I30[ATP Production]\n    G30 --> J30[NADPH Production]\n    G30 --> K30[O2 Release]\n    I30 --> H30\n    J30 --> H30\n    H30 --> L30[Glucose Synthesis]\n    \n    style A30 fill:#ff6b6b,color:#fff\n    style C30 fill:#ff6b6b,color:#fff\n    style E30 fill:#ff6b6b,color:#fff\n    style B30 fill:#ffd43b,color:#000\n    style D30 fill:#ffd43b,color:#000\n    style F30 fill:#ffd43b,color:#000\n    style G30 fill:#51cf66,color:#fff\n    style H30 fill:#51cf66,color:#fff\n    style I30 fill:#74c0fc,color:#fff\n    style J30 fill:#74c0fc,color:#fff\n    style K30 fill:#b197fc,color:#fff\n    style L30 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "notes": "Higher-level biological process visualization: Photosynthesis Process. Created using the Programming Framework methodology for organismal and ecological process analysis."
+    },
+    {
+      "title": "Photosynthesis: A unified mechanism for life on Earth",
+      "authors": "Barber J.",
+      "journal": "Nature",
+      "year": "2009",
+      "pubmed": "19924209",
+      "doi": "10.1038/nature08616",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/19924209"
+    },
+    {
+      "title": "The photosynthesis of carbon compounds",
+      "authors": "Calvin M.",
+      "journal": "Science",
+      "year": "1956",
+      "pubmed": "13327653",
+      "doi": "10.1126/science.123.3207.1101",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/13327653"
+    },
+    {
+      "title": "Redesigning Photosynthesis to Increase the Efficiency of Food Production",
+      "authors": "Ort DR, Merchant SS, Alric J, Barkan A, Blankenship RE, Bock R, Croce R, Hanson MR, Hibberd JM, Long SP, Niyogi KK, Parry MAJ, Weber APM, Zhu XG.",
+      "journal": "Annu Rev Plant Biol",
+      "year": "2015",
+      "pubmed": "25494218",
+      "doi": "10.1146/annurev-arplant-043014-114749",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/25494218"
+    }
+  ],
+  "keywords": [
+    "plants/algae",
+    "process",
+    "nutrition",
+    "photosynthesis",
+    "metabolism"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-08",
+  "verified": false,
+  "notes": "Higher-level biological process. GLMP covers biochemical/molecular processes; this database covers organismal/ecological processes."
+}

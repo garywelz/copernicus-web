@@ -1,0 +1,24 @@
+{
+  "id": "pubmed_40164028",
+  "pmid": "40164028",
+  "title": "LSDVvac: An immunoinformatics database for vaccine design against lumpy skin disease virus.",
+  "authors": [
+    "Sharma, Sumit",
+    "Bishnoi, Ritika",
+    "Jain, Riya",
+    "Singla, Deepak"
+  ],
+  "author_string": "Sharma, Sumit, Bishnoi, Ritika, Jain, Riya, Singla, Deepak",
+  "journal": "Comput Biol Med",
+  "journal_full": "Computers in biology and medicine",
+  "year": "",
+  "doi": "10.1016/j.compbiomed.2025.110077",
+  "abstract": "Development of an effective vaccine against Lumpy Skin Disease Virus (LSDV) is crucial for protecting livestock. The current study outlines a web-based platform developed to aid the scientific community in designing effective peptide-based vaccines against LSDV. First, we generated all possible overlapping (K-mer value 9 and 15) peptides from the proteins of 73 LSDV strains. Second, after removing redundancy, the obtained peptides were utilized for predicting B-cell and T-cell epitopes. Third, the predicted B-cell and T-cell epitopes were screened for immunogenicity, allergenicity, and toxicity. Finally, the LSDV candidate vaccine database was developed utilizing 3913 unique B-cell (Linear 3344 and conformational 569) and 6473 unique T-cell (MHC-I 3200 and MHC-II 3273) epitopes. The three-dimensional structure of 156 LSDV proteins from reference (AF325528.1) LSDV genome was predicted using I-TASSER software and implemented in the database. Additionally, tools for genome analysis like DotPlot, Gblocks, BLAST, and gRNA designing were incorporated into the database. In summary, LSDVvac has been developed, which integrates information about predicted potential vaccine candidates along with useful computational tools. LSDVvac database is available at http://45.248.163.59/bic/lsdb/.",
+  "keywords": [],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/40164028",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T17:00:08.212560",
+  "category": "biology",
+  "subcategories": []
+}

@@ -1,0 +1,29 @@
+{
+  "id": "arxiv_2601.10322v1",
+  "arxiv_id": "2601.10322v1",
+  "title": "Conjugate Gradient Methods are Not Efficient: Experimental Study of the Locality Limitation",
+  "authors": [
+    "Ulrich Rüde"
+  ],
+  "author_string": "Ulrich Rüde",
+  "journal": "arXiv:2601.10322v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "The convergence of the Conjugate Gradient method is subject to a locality limitation which imposes a lower bound on the number of iterations required before a qualitatively accurate approximation can be obtained. This limitation originates from the restricted transport of information in the graph induced by the sparsity pattern of the system matrix. In each iteration, information from the right-hand side can propagate only across directly connected graph nodes. The diameter of this graph therefore determines a minimum number of iterations that is necessary to achieve an acceptable level of accuracy.",
+  "categories": [
+    "math.NA"
+  ],
+  "primary_category": "math.NA",
+  "comment": "24 pages, 20 figures",
+  "published_date": "2026-01-15T12:06:25Z",
+  "updated_date": "2026-01-15T12:06:25Z",
+  "url": "https://arxiv.org/abs/2601.10322v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.10322v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:45.575833",
+  "category": "mathematics",
+  "subcategories": [
+    "math.NA"
+  ]
+}

@@ -1,0 +1,97 @@
+{
+  "acquired_date": "2026-01-08T00:00:00Z",
+  "category": "mathematics",
+  "colorScheme": {
+    "blue": {
+      "category": "Intermediates & States",
+      "hex": "#74c0fc"
+    },
+    "green": {
+      "category": "Processing & Operations",
+      "hex": "#51cf66"
+    },
+    "red": {
+      "category": "Triggers & Inputs",
+      "hex": "#ff6b6b"
+    },
+    "violet": {
+      "category": "Products & Outputs",
+      "hex": "#b197fc"
+    },
+    "yellow": {
+      "category": "Structures & Objects",
+      "hex": "#ffd43b"
+    }
+  },
+  "complexity": {
+    "conditionals": 0,
+    "detailLevel": "medium",
+    "edges": 27,
+    "level": "medium",
+    "logicGates": {
+      "andGates": 1,
+      "orGates": 0,
+      "total": 1
+    },
+    "nodes": 29
+  },
+  "created": "2026-01-08",
+  "description": "Euclid's Geometry Process. This historical mathematics process visualization demonstrates the axiomatic method of Euclidean geometry. The flowchart shows geometric problem inputs and postulates, Euclidean methods and axioms, geometric operations and proofs, intermediate results, and final Euclidean geometry outputs.",
+  "id": "process_mathematics_euclid's-geometry",
+  "keywords": [
+    "probability",
+    "geometry",
+    "statistics",
+    "euclids"
+  ],
+  "lastUpdated": "2026-01-08",
+  "mermaid": "graph TD\nA1[Geometric Problem] --> B1[Euclidean Axioms]\nC1[Postulates] --> D1[Common Notions]\nE1[Geometric Construction] --> F1[Proof Method]\nB1 --> G1[Point Line Plane]\nD1 --> H1[Equality Axioms]\nF1 --> I1[Logical Deduction]\nG1 --> J1[Postulate One]\nH1 --> K1[Transitive Property]\nI1 --> L1[Theorem Statement]\nJ1 --> M1[Postulate Two]\nK1 --> N1[Reflexive Property]\nL1 --> O1[Hypothesis Analysis]\nM1 --> P1[Postulate Three]\nN1 --> O1\nO1 --> Q1[Conclusion Deduction]\nP1 --> R1[Postulate Four]\nQ1 --> S1[Proof Construction]\nR1 --> T1[Postulate Five]\nS1 --> U1[Geometric Proof]\nT1 --> V1[Parallel Postulate]\nU1 --> W1[Euclidean Result]\nV1 --> X1[Euclidean Geometry]\nW1 --> Y1[Geometric Analysis]\nX1 --> Z1[Euclidean Geometry Output]\nY1 --> AA1[Euclidean Geometry Analysis]\nZ1 --> BB1[Euclidean Geometry Final Result]\nAA1 --> CC1[Euclidean Geometry Analysis Complete]\n\n    style A1 fill:#ff6b6b,color:#fff\n    style C1 fill:#ff6b6b,color:#fff\n    style E1 fill:#ff6b6b,color:#fff\n    style B1 fill:#ffd43b,color:#000\n    style D1 fill:#ffd43b,color:#000\n    style F1 fill:#ffd43b,color:#000\n    style G1 fill:#ffd43b,color:#000\n    style H1 fill:#ffd43b,color:#000\n    style I1 fill:#ffd43b,color:#000\n    style J1 fill:#ffd43b,color:#000\n    style K1 fill:#ffd43b,color:#000\n    style L1 fill:#ffd43b,color:#000\n    style M1 fill:#51cf66,color:#fff\n    style N1 fill:#51cf66,color:#fff\n    style O1 fill:#51cf66,color:#fff\n    style P1 fill:#51cf66,color:#fff\n    style Q1 fill:#51cf66,color:#fff\n    style R1 fill:#51cf66,color:#fff\n    style S1 fill:#51cf66,color:#fff\n    style T1 fill:#51cf66,color:#fff\n    style U1 fill:#51cf66,color:#fff\n    style V1 fill:#51cf66,color:#fff\n    style W1 fill:#51cf66,color:#fff\n    style X1 fill:#51cf66,color:#fff\n    style Y1 fill:#51cf66,color:#fff\n    style Z1 fill:#51cf66,color:#fff\n    style AA1 fill:#51cf66,color:#fff\n    style BB1 fill:#51cf66,color:#fff\n    style CC1 fill:#b197fc,color:#fff",
+  "name": "Euclid's Geometry",
+  "notes": "Converted from mathematics batch HTML. Process number: 1.",
+  "relatedProcesses": [],
+  "related_papers": [
+    "crossref_10_1073_pnas_71_10_3816",
+    "crossref_10_1073_pnas_73_5_1435"
+  ],
+  "related_podcasts": [],
+  "related_processes": [],
+  "related_videos": [],
+  "source": "programming_framework",
+  "sources": [
+    {
+      "authors": "Welz, G.",
+      "doi": null,
+      "journal": "CopernicusAI Knowledge Engine",
+      "notes": "Chemistry process visualization: Euclid's Geometry. Created using the Programming Framework methodology for process analysis and visualization.",
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "year": "2025"
+    },
+    {
+      "authors": "Van der Waerden, BL.",
+      "doi": "10.1073/pnas.71.10.3816",
+      "journal": "Proc. Natl. Acad. Sci. U. S. A.",
+      "paper_id": "crossref_10_1073_pnas_71_10_3816",
+      "pubmed": null,
+      "title": "The rise and development of the concept of axiomatic systems in mathematics",
+      "url": "https://doi.org/10.1073/pnas.71.10.3816",
+      "year": "1974"
+    },
+    {
+      "authors": "Mac Lane, S.",
+      "doi": "10.1073/pnas.73.5.1435",
+      "journal": "Proc. Natl. Acad. Sci. U. S. A.",
+      "paper_id": "crossref_10_1073_pnas_73_5_1435",
+      "pubmed": null,
+      "title": "The historical background to the present state of mathematical research",
+      "url": "https://doi.org/10.1073/pnas.73.5.1435",
+      "year": "1976"
+    }
+  ],
+  "subcategories": [
+    "statistics_probability"
+  ],
+  "subcategory": "statistics_probability",
+  "subcategory_name": "Statistics & Probability",
+  "verified": false
+}

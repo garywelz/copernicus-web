@@ -1,0 +1,37 @@
+{
+  "id": "arxiv_2008.04820v2",
+  "arxiv_id": "2008.04820v2",
+  "title": "LTIatCMU at SemEval-2020 Task 11: Incorporating Multi-Level Features for Multi-Granular Propaganda Span Identification",
+  "authors": [
+    "Sopan Khosla",
+    "Rishabh Joshi",
+    "Ritam Dutt",
+    "Alan W Black",
+    "Yulia Tsvetkov"
+  ],
+  "author_string": "Sopan Khosla, Rishabh Joshi, Ritam Dutt, Alan W Black, Yulia Tsvetkov",
+  "journal": "arXiv:2008.04820v2",
+  "journal_ref": null,
+  "year": "2020",
+  "doi": null,
+  "abstract": "In this paper we describe our submission for the task of Propaganda Span Identification in news articles. We introduce a BERT-BiLSTM based span-level propaganda classification model that identifies which token spans within the sentence are indicative of propaganda. The \"multi-granular\" model incorporates linguistic knowledge at various levels of text granularity, including word, sentence and document level syntactic, semantic and pragmatic affect features, which significantly improve model performance, compared to its language-agnostic variant. To facilitate better representation learning, we also collect a corpus of 10k news articles, and use it for fine-tuning the model. The final model is a majority-voting ensemble which learns different propaganda class boundaries by leveraging different subsets of incorporated knowledge and attains $4^{th}$ position on the test leaderboard. Our final model and code is released at https://github.com/sopu/PropagandaSemEval2020.",
+  "categories": [
+    "cs.CL",
+    "cs.IR",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": null,
+  "published_date": "2020-08-11T16:14:47Z",
+  "updated_date": "2020-08-20T15:14:18Z",
+  "url": "https://arxiv.org/abs/2008.04820v2",
+  "pdf_url": "https://arxiv.org/pdf/2008.04820v2.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:27.423508",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CL",
+    "cs.IR",
+    "cs.LG"
+  ]
+}

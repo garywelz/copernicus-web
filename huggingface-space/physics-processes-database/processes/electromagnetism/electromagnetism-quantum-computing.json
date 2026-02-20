@@ -1,0 +1,107 @@
+{
+  "acquired_date": "2026-01-08T00:00:00Z",
+  "category": "physics",
+  "colorScheme": {
+    "blue": {
+      "category": "Intermediates & States",
+      "hex": "#74c0fc"
+    },
+    "green": {
+      "category": "Processing & Operations",
+      "hex": "#51cf66"
+    },
+    "red": {
+      "category": "Triggers & Inputs",
+      "hex": "#ff6b6b"
+    },
+    "violet": {
+      "category": "Products & Outputs",
+      "hex": "#b197fc"
+    },
+    "yellow": {
+      "category": "Structures & Objects",
+      "hex": "#ffd43b"
+    }
+  },
+  "complexity": {
+    "conditionals": 0,
+    "detailLevel": "medium",
+    "edges": 24,
+    "level": "medium",
+    "logicGates": {
+      "andGates": 1,
+      "orGates": 0,
+      "total": 1
+    },
+    "nodes": 26
+  },
+  "created": "2026-01-08",
+  "description": "Quantum Computing Process. This quantum mechanics process visualization demonstrates quantum computing algorithms and qubit operations. The flowchart shows algorithm inputs and qubit initialization, quantum computing methods and gate operations, quantum computing operations and measurement, intermediate results, and final quantum computing outputs.",
+  "id": "process_physics_quantum-computing",
+  "keywords": [
+    "electromagnetism",
+    "quantum",
+    "computing"
+  ],
+  "lastUpdated": "2026-01-08",
+  "mermaid": "graph TD\nA3[Quantum Algorithm] --> B3[Quantum Computing Method]\nC3[Qubit Initialization] --> D3[Quantum Gate Operation]\nE3[Quantum Measurement] --> F3[Quantum Computing Analysis]\nB3 --> G3[Quantum Circuit]\nD3 --> H3[Quantum Fourier Transform]\nF3 --> I3[Quantum Error Correction]\nG3 --> J3[Quantum Gates]\nH3 --> K3[Quantum Parallelism]\nI3 --> L3[Decoherence Control]\nJ3 --> M3[Quantum Superposition]\nK3 --> L3\nL3 --> N3[Quantum Interference]\nM3 --> O3[Quantum Algorithm Execution]\nN3 --> P3[Quantum State Readout]\nO3 --> Q3[Quantum Computing Process]\nP3 --> R3[Quantum Computing Validation]\nQ3 --> S3[Quantum Computing Verification]\nR3 --> T3[Quantum Computing Result]\nS3 --> U3[Quantum Computing Analysis]\nT3 --> V3[Quantum Computing Parameters]\nU3 --> W3[Quantum Computing Output]\nV3 --> X3[Quantum Computing Analysis]\nW3 --> Y3[Quantum Computing Final Result]\nX3 --> Z3[Quantum Computing Complete]\n\n    style A3 fill:#ff6b6b,color:#fff\n    style C3 fill:#ff6b6b,color:#fff\n    style E3 fill:#ff6b6b,color:#fff\n    style B3 fill:#ffd43b,color:#000\n    style D3 fill:#ffd43b,color:#000\n    style F3 fill:#ffd43b,color:#000\n    style G3 fill:#ffd43b,color:#000\n    style H3 fill:#ffd43b,color:#000\n    style I3 fill:#ffd43b,color:#000\n    style J3 fill:#ffd43b,color:#000\n    style K3 fill:#ffd43b,color:#000\n    style L3 fill:#ffd43b,color:#000\n    style M3 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style O3 fill:#51cf66,color:#fff\n    style P3 fill:#51cf66,color:#fff\n    style Q3 fill:#51cf66,color:#fff\n    style R3 fill:#51cf66,color:#fff\n    style S3 fill:#51cf66,color:#fff\n    style T3 fill:#51cf66,color:#fff\n    style U3 fill:#51cf66,color:#fff\n    style V3 fill:#51cf66,color:#fff\n    style W3 fill:#51cf66,color:#fff\n    style X3 fill:#51cf66,color:#fff\n    style Y3 fill:#51cf66,color:#fff\n    style Z3 fill:#b197fc,color:#fff",
+  "name": "Quantum Computing",
+  "notes": "Converted from physics batch HTML. Process number: 3.",
+  "relatedProcesses": [],
+  "related_papers": [
+    "pubmed_20203009",
+    "crossref_10_1103_PhysRevLett_74_4091",
+    "crossref_10_1038_nphys3984"
+  ],
+  "related_podcasts": [],
+  "related_processes": [],
+  "related_videos": [],
+  "source": "programming_framework",
+  "sources": [
+    {
+      "authors": "Welz, G.",
+      "doi": null,
+      "journal": "CopernicusAI Knowledge Engine",
+      "notes": "Chemistry process visualization: Quantum Computing. Created using the Programming Framework methodology for process analysis and visualization.",
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "year": "2025"
+    },
+    {
+      "authors": "Ladd TD, Jelezko F, Laflamme R, Nakamura Y, Monroe C, O'Brien JL.",
+      "doi": "10.1038/nature08812",
+      "journal": "Nature",
+      "paper_id": "pubmed_20203009",
+      "pubmed": "20203009",
+      "title": "Quantum computers",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/20203009",
+      "year": "2010"
+    },
+    {
+      "authors": "Cirac JI, Zoller P.",
+      "doi": "10.1103/PhysRevLett.74.4091",
+      "journal": "Phys Rev Lett",
+      "paper_id": "crossref_10_1103_PhysRevLett_74_4091",
+      "pubmed": null,
+      "title": "Quantum Computations with Cold Trapped Ions",
+      "url": "https://doi.org/10.1103/PhysRevLett.74.4091",
+      "year": "1995"
+    },
+    {
+      "authors": "Gambetta JM, Chow JM, Steffen M.",
+      "doi": "10.1038/nphys3984",
+      "journal": "Nat Phys",
+      "paper_id": "crossref_10_1038_nphys3984",
+      "pubmed": null,
+      "title": "Building logical qubits in a quantum computing system",
+      "url": "https://doi.org/10.1038/nphys3984",
+      "year": "2017"
+    }
+  ],
+  "subcategories": [
+    "electromagnetism"
+  ],
+  "subcategory": "electromagnetism",
+  "subcategory_name": "Electromagnetism",
+  "verified": false
+}

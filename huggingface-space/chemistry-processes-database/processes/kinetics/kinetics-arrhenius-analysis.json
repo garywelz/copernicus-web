@@ -1,0 +1,91 @@
+{
+  "id": "kinetics-arrhenius-analysis",
+  "name": "Arrhenius Analysis",
+  "category": "chemistry",
+  "subcategory": "kinetics",
+  "subcategory_name": "Kinetic Processes",
+  "description": "Arrhenius Analysis process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 5,
+    "edges": 4,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nN1[\"Rate Constants vs Temperature\"]\nN2[\"Temperature Range\"]\nN3[\"Arrhenius Model\"]\nN4[\"Fit ln(k) vs 1/T\"]\nN5[\"Ea + A Parameters\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ff6b6b,color:#fff\n    style N3 fill:#ffd43b,color:#000\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Arrhenius Analysis. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "Analysis and characterization of the transition from the Arrhenius to non-Arrhenius structural relaxation in fragile glass-forming liquids",
+      "authors": "Ikeda, Masahiro; Aniya, Masaru",
+      "journal": "Journal of Thermal Analysis and Calorimetry",
+      "year": "2018",
+      "pubmed": null,
+      "doi": "10.1007/s10973-018-6976-6",
+      "url": "https://doi.org/10.1007/s10973-018-6976-6"
+    },
+    {
+      "title": "Arrhenius",
+      "authors": "",
+      "journal": "SpringerReference",
+      "year": "None",
+      "pubmed": null,
+      "doi": "10.1007/springerreference_221605",
+      "url": "https://doi.org/10.1007/springerreference_221605"
+    },
+    {
+      "title": "Arrhenius Equation",
+      "authors": "",
+      "journal": "SpringerReference",
+      "year": "None",
+      "pubmed": null,
+      "doi": "10.1007/springerreference_206910",
+      "url": "https://doi.org/10.1007/springerreference_206910"
+    }
+  ],
+  "keywords": [
+    "arrhenius",
+    "analysis"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-15",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+}

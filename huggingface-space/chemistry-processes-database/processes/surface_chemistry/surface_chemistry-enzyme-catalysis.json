@@ -1,0 +1,91 @@
+{
+  "id": "surface_chemistry-enzyme-catalysis",
+  "name": "Enzyme Catalysis",
+  "category": "chemistry",
+  "subcategory": "surface_chemistry",
+  "subcategory_name": "Surface Chemistry",
+  "description": "Enzyme Catalysis process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 26,
+    "edges": 22,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 1,
+      "total": 1
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nA3[Substrate Molecules] --> B3[Enzyme Catalysis Method]\nC3[Enzyme Protein] --> D3[Active Site Analysis]\nE3[Reaction Buffer] --> F3[Temperature Control]\nB3 --> G3[Enzyme Purification]\nD3 --> H3[Site Characterization]\nF3 --> I3[pH Regulation]\nG3 --> J3[Conformation Analysis]\nH3 --> K3[Binding Affinity]\nI3 --> L3[Optimal Conditions]\nJ3 --> M3[Substrate Binding]\nK3 --> L3\nL3 --> N3[Enzyme-Substrate Complex]\nM3 --> O3[Conformational Change]\nN3 --> P3[Catalytic Reaction]\nO3 --> Q3[Enzymatic Activity]\nP3 --> R3[Product Formation]\nQ3 --> S3[Reaction Rate]\nR3 --> T3[Product Release]\nS3 --> U3[Turnover Number]\nT3 --> V3[Product Analysis]\nU3 --> W3[Enzyme Performance]\nV3 --> X3[Conversion Efficiency]\nW3 --> Y3[Optimization Process]\nX3 --> Z3[Enzymatic Efficiency]\nY3 --> Z3\n\n    style A3 fill:#ff6b6b,color:#fff\n    style C3 fill:#ff6b6b,color:#fff\n    style E3 fill:#ff6b6b,color:#fff\n    style B3 fill:#ffd43b,color:#000\n    style D3 fill:#ffd43b,color:#000\n    style F3 fill:#ffd43b,color:#000\n    style G3 fill:#ffd43b,color:#000\n    style H3 fill:#ffd43b,color:#000\n    style I3 fill:#ffd43b,color:#000\n    style J3 fill:#ffd43b,color:#000\n    style K3 fill:#ffd43b,color:#000\n    style L3 fill:#ffd43b,color:#000\n    style M3 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style O3 fill:#51cf66,color:#fff\n    style P3 fill:#51cf66,color:#fff\n    style Q3 fill:#51cf66,color:#fff\n    style R3 fill:#51cf66,color:#fff\n    style S3 fill:#51cf66,color:#fff\n    style T3 fill:#51cf66,color:#fff\n    style U3 fill:#51cf66,color:#fff\n    style V3 fill:#51cf66,color:#fff\n    style W3 fill:#51cf66,color:#fff\n    style X3 fill:#51cf66,color:#fff\n    style Y3 fill:#51cf66,color:#fff\n    style Z3 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Enzyme Catalysis. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "Areas Related to Enzyme Catalysis",
+      "authors": "",
+      "journal": "New Trends in Enzyme Catalysis and Biomimetic Chemical Reactions",
+      "year": "None",
+      "pubmed": null,
+      "doi": "10.1007/0-306-48110-3_5",
+      "url": "https://doi.org/10.1007/0-306-48110-3_5"
+    },
+    {
+      "title": "Elementary Steps in Enzyme Catalysis",
+      "authors": "Hammes, Gordon G.",
+      "journal": "Enzyme Catalysis and Regulation",
+      "year": "1982",
+      "pubmed": null,
+      "doi": "10.1016/b978-0-12-321960-2.50010-x",
+      "url": "https://doi.org/10.1016/b978-0-12-321960-2.50010-x"
+    },
+    {
+      "title": "Enzyme Catalysis: An Overview from Physics",
+      "authors": "Careri, Giorgio",
+      "journal": "The Enzyme Catalysis Process",
+      "year": "1989",
+      "pubmed": null,
+      "doi": "10.1007/978-1-4757-1607-8_1",
+      "url": "https://doi.org/10.1007/978-1-4757-1607-8_1"
+    }
+  ],
+  "keywords": [
+    "enzyme",
+    "catalysis"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+}

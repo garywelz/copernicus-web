@@ -1,0 +1,91 @@
+{
+  "id": "sensory_perception-vision-process",
+  "name": "Vision Process",
+  "category": "biology",
+  "subcategory": "sensory_perception",
+  "subcategory_name": "Sensory & Perception",
+  "description": "Vision Process process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 10,
+    "edges": 9,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 1,
+      "andGates": 1,
+      "total": 2
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\n    A36[Light Waves] --> B36[Cornea Refraction]\n    B36 --> C36[Lens Focusing]\n    C36 --> D36[Retina Reception]\n    D36 --> E36[Photoreceptor Activation]\n    E36 --> F36[Rod Cells]\n    E36 --> G36[Cone Cells]\n    F36 --> H36[Signal Transduction]\n    G36 --> H36\n    H36 --> I36[Optic Nerve]\n    I36 --> J36[Brain Processing]\n    \n    style A36 fill:#ff6b6b,color:#fff\n    style B36 fill:#ffd43b,color:#000\n    style C36 fill:#ffd43b,color:#000\n    style D36 fill:#ffd43b,color:#000\n    style E36 fill:#51cf66,color:#fff\n    style F36 fill:#74c0fc,color:#fff\n    style G36 fill:#74c0fc,color:#fff\n    style H36 fill:#51cf66,color:#fff\n    style I36 fill:#74c0fc,color:#fff\n    style J36 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Vision Process. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "Vision is not a cognitive process",
+      "authors": "Orlandi, Nico",
+      "journal": "The Innocent Eye",
+      "year": "2014",
+      "pubmed": null,
+      "doi": "10.1093/acprof:oso/9780199375035.003.0001",
+      "url": "https://doi.org/10.1093/acprof:oso/9780199375035.003.0001"
+    },
+    {
+      "title": "Automating the Perioperative Process",
+      "authors": "",
+      "journal": "Series in Computer Vision",
+      "year": "2018",
+      "pubmed": null,
+      "doi": "10.1142/9789813233287_0001",
+      "url": "https://doi.org/10.1142/9789813233287_0001"
+    },
+    {
+      "title": "Machine Vision Measurement for Process Management In Automotive Assembly",
+      "authors": "Dewar, Robert",
+      "journal": "Topical Meeting on Machine Vision",
+      "year": "1987",
+      "pubmed": null,
+      "doi": "10.1364/mv.1987.thc1",
+      "url": "https://doi.org/10.1364/mv.1987.thc1"
+    }
+  ],
+  "keywords": [
+    "vision",
+    "process"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+}

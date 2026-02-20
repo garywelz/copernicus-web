@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2601.11362v1",
+  "arxiv_id": "2601.11362v1",
+  "title": "RITA: A Tool for Automated Requirements Classification and Specification from Online User Feedback",
+  "authors": [
+    "Manjeshwar Aniruddh Mallya",
+    "Alessio Ferrari",
+    "Mohammad Amin Zadenoori",
+    "Jacek Dąbrowski"
+  ],
+  "author_string": "Manjeshwar Aniruddh Mallya, Alessio Ferrari, Mohammad Amin Zadenoori, Jacek Dąbrowski",
+  "journal": "arXiv:2601.11362v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Context and motivation. Online user feedback is a valuable resource for requirements engineering, but its volume and noise make analysis difficult. Existing tools support individual feedback analysis tasks, but their capabilities are rarely integrated into end-to-end support. Problem. The lack of end-to-end integration limits the practical adoption of existing RE tools and makes it difficult to assess their real-world usefulness. Solution. To address this challenge, we present RITA, a tool that integrates lightweight open-source large language models into a unified workflow for feedback-driven RE. RITA supports automated request classification, non-functional requirement identification, and natural-language requirements specification generation from online feedback via a user-friendly interface, and integrates with Jira for seamless transfer of requirements specifications to development tools. Results and conclusions. RITA exploits previously evaluated LLM-based RE techniques to efficiently transform raw user feedback into requirements artefacts, helping bridge the gap between research and practice. A demonstration is available at: https://youtu.be/8meCLpwQWV8.",
+  "categories": [
+    "cs.SE"
+  ],
+  "primary_category": "cs.SE",
+  "comment": null,
+  "published_date": "2026-01-16T15:18:33Z",
+  "updated_date": "2026-01-16T15:18:33Z",
+  "url": "https://arxiv.org/abs/2601.11362v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11362v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:30.214177",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.SE"
+  ]
+}

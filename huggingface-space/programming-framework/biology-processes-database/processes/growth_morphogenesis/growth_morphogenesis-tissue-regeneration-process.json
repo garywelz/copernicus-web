@@ -1,0 +1,94 @@
+{
+  "id": "growth_morphogenesis-tissue-regeneration-process",
+  "name": "Tissue Regeneration Process",
+  "category": "biology",
+  "subcategory": "growth_morphogenesis",
+  "subcategory_name": "Growth & Morphogenesis",
+  "organism": "Animals",
+  "description": "Tissue Regeneration Process in Animals. This process represents a higher-level biological mechanism distinct from molecular/biochemical processes covered in GLMP.",
+  "complexity": {
+    "nodes": 9,
+    "edges": 8,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "low",
+    "detailLevel": "low"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\n    A8[Wound Detection] --> B8[Inflammatory Response]\n    B8 --> C8[Cell Migration]\n    C8 --> D8[Stem Cell Activation]\n    D8 --> E8[Cell Proliferation]\n    E8 --> F8[Differentiation]\n    F8 --> G8[Tissue Replacement]\n    G8 --> H8[Remodeling]\n    H8 --> I8[Function Restoration]\n    \n    style A8 fill:#ff6b6b,color:#fff\n    style B8 fill:#ffd43b,color:#000\n    style C8 fill:#51cf66,color:#fff\n    style D8 fill:#51cf66,color:#fff\n    style E8 fill:#51cf66,color:#fff\n    style F8 fill:#74c0fc,color:#fff\n    style G8 fill:#74c0fc,color:#fff\n    style H8 fill:#51cf66,color:#fff\n    style I8 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "notes": "Higher-level biological process visualization: Tissue Regeneration Process. Created using the Programming Framework methodology for organismal and ecological process analysis."
+    },
+    {
+      "title": "Animal regeneration: from mechanism to concept",
+      "authors": "Reddien, PW.",
+      "journal": "Cell",
+      "year": "2013",
+      "pubmed": "23993471",
+      "doi": "10.1016/j.cell.2013.08.016",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/23993471"
+    },
+    {
+      "title": "Strategies for animal regeneration",
+      "authors": "Poss, KD.",
+      "journal": "Science",
+      "year": "2010",
+      "pubmed": "20558705",
+      "doi": "10.1126/science.1188370",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/20558705"
+    },
+    {
+      "title": "Regeneration and tissue repair: how to build and rebuild a body",
+      "authors": "Tanaka, EM.; Galliot, B.",
+      "journal": "Annu Rev Cell Dev Biol",
+      "year": "2016",
+      "pubmed": "27501438",
+      "doi": "10.1146/annurev-cellbio-111315-125032",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/27501438"
+    }
+  ],
+  "keywords": [
+    "growth",
+    "animals",
+    "tissue",
+    "process",
+    "morphogenesis",
+    "regeneration"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-08",
+  "verified": false,
+  "notes": "Higher-level biological process. GLMP covers biochemical/molecular processes; this database covers organismal/ecological processes."
+}

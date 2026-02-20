@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2601.11391v1",
+  "arxiv_id": "2601.11391v1",
+  "title": "NAVIS: A LAMMPS-Python framework for efficient computation of nanochannel velocity and thermal interfacial slip",
+  "authors": [
+    "Sleeba Varghese",
+    "Sobin Alosious",
+    "Jesper Schmidt Hansen",
+    "Billy Dean Todd"
+  ],
+  "author_string": "Sleeba Varghese, Sobin Alosious, Jesper Schmidt Hansen, Billy Dean Todd",
+  "journal": "arXiv:2601.11391v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We present NAVIS (NAnochannel Velocity and thermal Interfacial Slip), a LAMMPS-Python scripted toolkit for computing the Navier (hydrodynamic) friction coefficient and Kapitza (thermal) resistance at arbitrary solid-fluid interfaces. NAVIS is based on equilibrium molecular dynamics (EMD) methods for calculating the linear response friction and thermal resistance at the interface, as well as the corresponding velocity and temperature slips. The methodology is based on our previous studies (Hansen, et al., Phys. Rev. E 84, 016313 (2011); Varghese et al., J. Chem. Phys. 154, 184707 (2021); Alosious, et al., J. Chem. Phys. 151, 194502 (2019); Alosious, et al., Langmuir 37, 2355-2361 (2021)), and in this work we provide a pedagogical framework for the implementation of this toolkit on two systems: (i) a water-graphene system (for hydrodynamic slip) and (ii) a water-CNT system (for thermal slip). We provide detailed instructions for performing the EMD simulations using the LAMMPS package and processing the simulation outputs using Python modules to obtain the desired quantities of interest. We expect the toolkit to be useful for computational researchers studying interfacial friction and thermal transport, key factors for efficient and practical applications of nanofluidic systems.",
+  "categories": [
+    "cond-mat.soft",
+    "physics.comp-ph"
+  ],
+  "primary_category": "physics.comp-ph",
+  "comment": "11 pages, 6 figures",
+  "published_date": "2026-01-16T16:03:03Z",
+  "updated_date": "2026-01-16T16:03:03Z",
+  "url": "https://arxiv.org/abs/2601.11391v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11391v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:18:31.285360",
+  "category": "physics",
+  "subcategories": [
+    "cond-mat.soft",
+    "physics.comp-ph"
+  ]
+}

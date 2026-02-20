@@ -1,0 +1,30 @@
+{
+  "id": "arxiv_2601.07498v1",
+  "arxiv_id": "2601.07498v1",
+  "title": "On spectral properties and fast initial convergence of the Kaczmarz method",
+  "authors": [
+    "Per Christian Hansen",
+    "Michiel E. Hochstenbach"
+  ],
+  "author_string": "Per Christian Hansen, Michiel E. Hochstenbach",
+  "journal": "arXiv:2601.07498v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "The Kaczmarz method is successfully used for solving discretizations of linear inverse problems, especially in computed tomography where it is known as ART. Practitioners often observe and appreciate its fast convergence in the first few iterations, leading to the same favorable semi-convergence that we observe for simultaneous iterative reconstruction methods. While the latter methods have symmetric and positive definite iteration operators that facilitate their analysis, the operator in Kaczmarz's method is nonsymmetric and it has been an open question so far to understand this fast initial convergence. We perform a spectral analysis of Kaczmarz's method that gives new insight into its (often fast) initial behavior. We also carry out a statistical analysis of how the data noise enters the iteration vectors, which sheds new light on the semi-convergence. Our results are illustrated with several numerical examples.",
+  "categories": [
+    "math.NA"
+  ],
+  "primary_category": "math.NA",
+  "comment": null,
+  "published_date": "2026-01-12T12:53:10Z",
+  "updated_date": "2026-01-12T12:53:10Z",
+  "url": "https://arxiv.org/abs/2601.07498v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.07498v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:11.150875",
+  "category": "mathematics",
+  "subcategories": [
+    "math.NA"
+  ]
+}

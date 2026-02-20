@@ -1,0 +1,38 @@
+{
+  "id": "arxiv_2601.10676v1",
+  "arxiv_id": "2601.10676v1",
+  "title": "Breaking the Storage-Bandwidth Tradeoff in Distributed Storage with Quantum Entanglement",
+  "authors": [
+    "Lei Hu",
+    "Mohamed Nomeir",
+    "Alptug Aytekin",
+    "Sennur Ulukus"
+  ],
+  "author_string": "Lei Hu, Mohamed Nomeir, Alptug Aytekin, Sennur Ulukus",
+  "journal": "arXiv:2601.10676v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "This work investigates the use of quantum resources in distributed storage systems. Consider an $(n,k,d)$ distributed storage system in which a file is stored across $n$ nodes such that any $k$ nodes suffice to reconstruct the file. When a node fails, any $d$ helper nodes transmit information to a newcomer to rebuild the system. In contrast to the classical repair, where helper nodes transmit classical bits, we allow them to send classical information over quantum channels to the newcomer. The newcomer then generates its storage by performing appropriate measurements on the received quantum states. In this setting, we fully characterize the fundamental tradeoff between storage and repair bandwidth (total communication cost). Compared to classical systems, the optimal storage--bandwidth tradeoff can be significantly improved with the enhancement of quantum entanglement shared only among the surviving nodes, particularly at the minimum-storage regenerating point. Remarkably, we show that when $d \\geq 2k-2$, there exists an operating point at which \\textit{both storage and repair bandwidth are simultaneously minimized}. This phenomenon breaks the tradeoff in the classical setting and reveals a fundamentally new regime enabled by quantum communication.",
+  "categories": [
+    "cs.IT",
+    "cs.DC",
+    "cs.NI",
+    "eess.SP",
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": null,
+  "published_date": "2026-01-15T18:41:10Z",
+  "updated_date": "2026-01-15T18:41:10Z",
+  "url": "https://arxiv.org/abs/2601.10676v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.10676v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:18:40.158365",
+  "category": "physics",
+  "subcategories": [
+    "cs.IT",
+    "cs.DC",
+    "cs.NI"
+  ]
+}

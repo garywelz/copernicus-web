@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2601.10289v1",
+  "arxiv_id": "2601.10289v1",
+  "title": "Exponential improvement in benchmarking multiphoton interference",
+  "authors": [
+    "Rodrigo M. Sanz",
+    "Emilio Annoni",
+    "Stephen C. Wein",
+    "Carmen G. Almudever",
+    "Shane Mansfield",
+    "Ellen Derbyshire",
+    "Rawad Mezher"
+  ],
+  "author_string": "Rodrigo M. Sanz, Emilio Annoni, Stephen C. Wein, Carmen G. Almudever, Shane Mansfield et al.",
+  "journal": "arXiv:2601.10289v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Several photonic quantum technologies rely on the ability to generate multiple indistinguishable photons. Benchmarking the level of indistinguishability of these photons is essential for scalability. The Hong-Ou-Mandel dip provides a benchmark for the indistinguishability between two photons, and extending this test to the multi-photon setting has so far resulted in a protocol that computes the genuine n-photon indistinguishability (GI). However, this protocol has a sample complexity that increases exponentially with the number of input photons for an estimation of GI up to a given additive error. To address this problem, we introduce new theorems that strengthen our understanding of the relationship between distinguishability and the suppression laws of the quantum Fourier transform interferometer (QFT). Building on this, we propose a protocol using the QFT for benchmarking GI that achieves constant sample complexity for the estimation of GI up to a given additive error for prime photon numbers, and sub-polynomial scaling otherwise, representing an exponential improvement over the state of the art. We prove the optimality of our protocol in many relevant scenarios and validate our approach experimentally on Quandela's reconfigurable photonic quantum processor, where we observe a clear advantage in runtime and precision over the state of the art. We therefore establish the first scalable method for computing multi-photon indistinguishability, which applies naturally to current and near-term photonic quantum hardware.",
+  "categories": [
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": "7 pages + 20 pages appendix, comments welcome !",
+  "published_date": "2026-01-15T11:07:02Z",
+  "updated_date": "2026-01-15T11:07:02Z",
+  "url": "https://arxiv.org/abs/2601.10289v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.10289v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:18:50.679015",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph"
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2601.11116v1",
+  "arxiv_id": "2601.11116v1",
+  "title": "Comprehensive Robust Dynamic Mode Decomposition from Mode Extraction to Dimensional Reduction",
+  "authors": [
+    "Yuki Nakamura",
+    "Shingo Takemoto",
+    "Shunsuke Ono"
+  ],
+  "author_string": "Yuki Nakamura, Shingo Takemoto, Shunsuke Ono",
+  "journal": "arXiv:2601.11116v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We propose Comprehensive Robust Dynamic Mode Decomposition (CR-DMD), a novel framework that robustifies the entire DMD process - from mode extraction to dimensional reduction - against mixed noise. Although standard DMD widely used for uncovering spatio-temporal patterns and constructing low-dimensional models of dynamical systems, it suffers from significant performance degradation under noise due to its reliance on least-squares estimation for computing the linear time evolution operator. Existing robust variants typically modify the least-squares formulation, but they remain unstable and fail to ensure faithful low-dimensional representations. First, we introduce a convex optimization-based preprocessing method designed to effectively remove mixed noise, achieving accurate and stable mode extraction. Second, we propose a new convex formulation for dimensional reduction that explicitly links the robustly extracted modes to the original noisy observations, constructing a faithful representation of the original data via a sparse weighted sum of the modes. Both stages are efficiently solved by a preconditioned primal-dual splitting method. Experiments on fluid dynamics datasets demonstrate that CR-DMD consistently outperforms state-of-the-art robust DMD methods in terms of mode accuracy and fidelity of low-dimensional representations under noisy conditions.",
+  "categories": [
+    "eess.SP",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": "Submitted to IEEE Transactions on Signal Processing. The source code is available at https://github.com/MDI-TokyoTech/Comprehensive-Robust-Dynamic-Mode-Decomposition. The project page is https://www.mdi.c.titech.ac.jp/publications/cr-dmd",
+  "published_date": "2026-01-16T09:21:56Z",
+  "updated_date": "2026-01-16T09:21:56Z",
+  "url": "https://arxiv.org/abs/2601.11116v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11116v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:33.863037",
+  "category": "computer_science",
+  "subcategories": [
+    "eess.SP",
+    "cs.LG"
+  ]
+}

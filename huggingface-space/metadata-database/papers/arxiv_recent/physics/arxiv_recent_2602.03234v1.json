@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2602.03234v1",
+  "arxiv_id": "2602.03234v1",
+  "title": "Liouvillian Gap in Dissipative Haar-Doped Clifford Circuits",
+  "authors": [
+    "Ha Eum Kim",
+    "Andrew D. Kim",
+    "Jong Yeon Lee"
+  ],
+  "author_string": "Ha Eum Kim, Andrew D. Kim, Jong Yeon Lee",
+  "journal": "arXiv:2602.03234v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Quantum chaos is commonly assessed through probe-dependent signatures such as spectral statistics, OTOCs, and entanglement growth, which need not coincide. Recently, a dissipative diagnostic of chaos has been proposed, in which an infinitesimal coupling to a bath yields a finite Liouvillian gap in chaotic systems, marking the onset of intrinsic relaxation. This raises a conceptual question: what is the minimal departure from Clifford dynamics needed for this intrinsically relaxing behavior to emerge? In this work, we investigate the dynamics under the Floquet two-qubit Clifford circuit interleaved with a finite density of Haar-random single-site gates, followed by a depolarizing channel with strength $γ$. For Floquet Clifford circuits built from an \\textit{i}SWAP-class two-qubit gate, our analysis identifies two distinct regimes for the Liouvillian gap in the thermodynamic limit, exemplified by the undoped and fully doped extreme cases. In both regimes, the dissipative diagnostic signals chaotic behavior, differing only in how the gap scales with system size. In the undoped circuit, the gap scales as $Δ\\sim γN$, whereas in the fully doped circuit it remains finite as $N\\to\\infty$. We find that the doping density $p_h$ governs the crossover: as $p_h\\to 0$, any spatial structure remains undoped-like, whereas for finite $p_h$ certain structures can enter a finite-gap regime. These results are analytically established in the strongly dissipative regime $γ\\gg 1$ by deriving lower bounds on the gap as a function of $p_h$ and explicit finite-gap constructions, and their extension toward $γ\\to 0$ is supported by numerics. Importantly, our analytic treatment depends only on the spatial doping structure, so the same gap scaling persists even when the Haar rotations are independently resampled each Floquet period.",
+  "categories": [
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": "29 pages, 8 figures",
+  "published_date": "2026-02-03T08:11:31Z",
+  "updated_date": "2026-02-03T08:11:31Z",
+  "url": "https://arxiv.org/abs/2602.03234v1",
+  "pdf_url": "https://arxiv.org/pdf/2602.03234v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-02-04T07:47:31.279291",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph"
+  ]
+}

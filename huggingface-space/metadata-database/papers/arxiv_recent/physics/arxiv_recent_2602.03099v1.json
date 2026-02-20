@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2602.03099v1",
+  "arxiv_id": "2602.03099v1",
+  "title": "Resource-efficient quantum simulation of transport phenomena via Hamiltonian embedding",
+  "authors": [
+    "Joseph Li",
+    "Gengzhi Yang",
+    "Jiaqi Leng",
+    "Xiaodi Wu"
+  ],
+  "author_string": "Joseph Li, Gengzhi Yang, Jiaqi Leng, Xiaodi Wu",
+  "journal": "arXiv:2602.03099v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Transport phenomena play a key role in a variety of application domains, and efficient simulation of these dynamics remains an outstanding challenge. While quantum computers offer potential for significant speedups, existing algorithms either lack rigorous theoretical guarantees or demand substantial quantum resources, preventing scalable and efficient validation on realistic quantum hardware. To address this gap, we develop a comprehensive framework for simulating classes of transport equations, offering both rigorous theoretical guarantees -- including exponential speedups in specific cases -- and a systematic, hardware-efficient implementation. Central to our approach is the Hamiltonian embedding technique, a white-box approach for end-to-end simulation of sparse Hamiltonians that avoids abstract query models and retains near-optimal asymptotic complexity. Empirical resource estimates indicate that our approach can yield an order-of-magnitude (e.g., $42\\times$) reduction in circuit depth given favorable problem structures. We then apply our framework to solve linear and nonlinear transport PDEs, including the first experimental demonstration of a 2D advection equation on a trapped-ion quantum computer.",
+  "categories": [
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": "27 pages, 7 figures",
+  "published_date": "2026-02-03T04:44:10Z",
+  "updated_date": "2026-02-03T04:44:10Z",
+  "url": "https://arxiv.org/abs/2602.03099v1",
+  "pdf_url": "https://arxiv.org/pdf/2602.03099v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-02-04T07:47:31.309981",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph"
+  ]
+}

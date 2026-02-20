@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_1808.01564v1",
+  "arxiv_id": "1808.01564v1",
+  "title": "An efficient third-order scheme for BSDEs based on nonequidistant difference scheme",
+  "authors": [
+    "Chol-Kyu Pak",
+    "Mun-Chol Kim",
+    "Chang-Ho Rim"
+  ],
+  "author_string": "Chol-Kyu Pak, Mun-Chol Kim, Chang-Ho Rim",
+  "journal": "Springer 2019",
+  "journal_ref": "Springer 2019",
+  "year": "2018",
+  "doi": "10.1007/s11075-019-00822-7",
+  "abstract": "In this paper we propose an efficient third-order numerical scheme for backward stochastic differential equations(BSDEs). We use 3-point Gauss-Hermite quadrature rule for approximation of the conditional expectation and avoid spatial interpolation by setting up a fully nested spatial grid and using the approximation of derivatives based on non-equidistant sample points. As a result, the overall computational complexity is reduced significantly. Several examples show that the proposed scheme is of third-order and very efficient.",
+  "categories": [
+    "math.NA",
+    "math.PR"
+  ],
+  "primary_category": "math.PR",
+  "comment": "14 pages, 6 tables",
+  "published_date": "2018-08-05T06:03:24Z",
+  "updated_date": "2018-08-05T06:03:24Z",
+  "url": "https://arxiv.org/abs/1808.01564v1",
+  "pdf_url": "https://arxiv.org/pdf/1808.01564v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:30:56.124910",
+  "category": "mathematics",
+  "subcategories": [
+    "math.NA",
+    "math.PR"
+  ]
+}

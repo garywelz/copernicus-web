@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2601.11357v1",
+  "arxiv_id": "2601.11357v1",
+  "title": "Assessing Building Heat Resilience Using UAV and Street-View Imagery with Coupled Global Context Vision Transformer",
+  "authors": [
+    "Steffen Knoblauch",
+    "Ram Kumar Muthusamy",
+    "Hao Li",
+    "Iddy Chazua",
+    "Benedcto Adamu",
+    "Innocent Maholi",
+    "Alexander Zipf"
+  ],
+  "author_string": "Steffen Knoblauch, Ram Kumar Muthusamy, Hao Li, Iddy Chazua, Benedcto Adamu et al.",
+  "journal": "arXiv:2601.11357v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Climate change is intensifying human heat exposure, particularly in densely built urban centers of the Global South. Low-cost construction materials and high thermal-mass surfaces further exacerbate this risk. Yet scalable methods for assessing such heat-relevant building attributes remain scarce. We propose a machine learning framework that fuses openly available unmanned aerial vehicle (UAV) and street-view (SV) imagery via a coupled global context vision transformer (CGCViT) to learn heat-relevant representations of urban structures. Thermal infrared (TIR) measurements from HotSat-1 are used to quantify the relationship between building attributes and heat-associated health risks. Our dual-modality cross-view learning approach outperforms the best single-modality models by up to $9.3\\%$, demonstrating that UAV and SV imagery provide valuable complementary perspectives on urban structures. The presence of vegetation surrounding buildings (versus no vegetation), brighter roofing (versus darker roofing), and roofing made of concrete, clay, or wood (versus metal or tarpaulin) are all significantly associated with lower HotSat-1 TIR values. Deployed across the city of Dar es Salaam, Tanzania, the proposed framework illustrates how household-level inequalities in heat exposure - often linked to socio-economic disadvantage and reflected in building materials - can be identified and addressed using machine learning. Our results point to the critical role of localized, data-driven risk assessment in shaping climate adaptation strategies that deliver equitable outcomes.",
+  "categories": [
+    "cs.CV"
+  ],
+  "primary_category": "cs.CV",
+  "comment": null,
+  "published_date": "2026-01-16T15:13:30Z",
+  "updated_date": "2026-01-16T15:13:30Z",
+  "url": "https://arxiv.org/abs/2601.11357v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11357v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:30.214323",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV"
+  ]
+}

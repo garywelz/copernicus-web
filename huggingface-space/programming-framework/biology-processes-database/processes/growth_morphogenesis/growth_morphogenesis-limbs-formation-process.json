@@ -1,0 +1,94 @@
+{
+  "id": "growth_morphogenesis-limbs-formation-process",
+  "name": "Limbs Formation Process",
+  "category": "biology",
+  "subcategory": "growth_morphogenesis",
+  "subcategory_name": "Growth & Morphogenesis",
+  "organism": "Animals",
+  "description": "Limbs Formation Process in Animals. This process represents a higher-level biological mechanism distinct from molecular/biochemical processes covered in GLMP.",
+  "complexity": {
+    "nodes": 10,
+    "edges": 9,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "low",
+    "detailLevel": "low"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\n    A14[Lateral Plate Mesoderm] --> B14[Limb Field Specification]\n    B14 --> C14[Limb Bud Formation]\n    C14 --> D14[Apical Ectodermal Ridge]\n    D14 --> E14[Proliferation Zone]\n    E14 --> F14[Proximo-Distal Patterning]\n    F14 --> G14[Antero-Posterior Patterning]\n    G14 --> H14[Digit Formation]\n    H14 --> I14[Interdigital Apoptosis]\n    I14 --> J14[Final Limb Structure]\n    \n    style A14 fill:#ff6b6b,color:#fff\n    style B14 fill:#ffd43b,color:#000\n    style C14 fill:#ffd43b,color:#000\n    style D14 fill:#51cf66,color:#fff\n    style E14 fill:#51cf66,color:#fff\n    style F14 fill:#51cf66,color:#fff\n    style G14 fill:#51cf66,color:#fff\n    style H14 fill:#74c0fc,color:#fff\n    style I14 fill:#51cf66,color:#fff\n    style J14 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "notes": "Higher-level biological process visualization: Limbs Formation Process. Created using the Programming Framework methodology for organismal and ecological process analysis."
+    },
+    {
+      "title": "Sonic hedgehog mediates the polarizing activity of the ZPA.",
+      "authors": "Riddle RD, Johnson RL, Laufer E, Tabin C.",
+      "journal": "Cell",
+      "year": "1993",
+      "pubmed": "8269599",
+      "doi": "10.1016/0092-8674(93)90623-6",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/8269599"
+    },
+    {
+      "title": "The FGF8 gene is required for normal mammalian limb development.",
+      "authors": "Boulet DM, Moon AM, Capecchi MR, Martin GR.",
+      "journal": "Genes & Development",
+      "year": "1996",
+      "pubmed": "8682305",
+      "doi": "10.1101/gad.10.14.1690",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/8682305"
+    },
+    {
+      "title": "Embryonic timing, axial patterning, and the evolution of the vertebrate limb.",
+      "authors": "Deschamps J, Duboule D.",
+      "journal": "Science",
+      "year": "2017",
+      "pubmed": "28059765",
+      "doi": "10.1126/science.aag0210",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/28059765"
+    }
+  ],
+  "keywords": [
+    "growth",
+    "animals",
+    "formation",
+    "process",
+    "limbs",
+    "morphogenesis"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-08",
+  "verified": false,
+  "notes": "Higher-level biological process. GLMP covers biochemical/molecular processes; this database covers organismal/ecological processes."
+}

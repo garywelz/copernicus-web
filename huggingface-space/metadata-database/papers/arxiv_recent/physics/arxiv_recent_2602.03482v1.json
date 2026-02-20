@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2602.03482v1",
+  "arxiv_id": "2602.03482v1",
+  "title": "Evaluating Quantum Wire Cutting for QAOA: Performance Benchmarks in Ideal and Noisy Environments",
+  "authors": [
+    "Michel Meulen",
+    "Niels M. P. Neumann",
+    "Jasper Verbree"
+  ],
+  "author_string": "Michel Meulen, Niels M. P. Neumann, Jasper Verbree",
+  "journal": "arXiv:2602.03482v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Current quantum computers suffer from a limited number of qubits and high error rates, limiting practical applicability. Different techniques exist to mitigate these effects and run larger algorithms. In this work, we analyze one of these techniques called quantum circuit cutting. With circuit cutting, a quantum circuit is decomposed into smaller sub-circuits, each of which can be run on smaller quantum hardware. We compare the performance of quantum circuit cutting with different cutting strategies, and then apply circuit cutting to a QAOA algorithm. Using simulations, we first show that Randomized Clifford measurements outperform both Pauli and random unitary measurements. Second, we show that circuit cutting has trouble providing correct answers in noisy settings, especially as the number of circuits increases.",
+  "categories": [
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": null,
+  "published_date": "2026-02-03T12:57:19Z",
+  "updated_date": "2026-02-03T12:57:19Z",
+  "url": "https://arxiv.org/abs/2602.03482v1",
+  "pdf_url": "https://arxiv.org/pdf/2602.03482v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-02-04T07:47:31.186965",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph"
+  ]
+}

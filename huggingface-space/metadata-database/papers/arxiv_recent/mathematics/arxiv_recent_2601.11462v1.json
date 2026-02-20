@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2601.11462v1",
+  "arxiv_id": "2601.11462v1",
+  "title": "Stochastic Recursive Inclusions under Biased Perturbations: An Input-to-State Stability Perspective",
+  "authors": [
+    "Anik Kumar Paul",
+    "Karthik Shenoy",
+    "Arun D. Mahindrakar"
+  ],
+  "author_string": "Anik Kumar Paul, Karthik Shenoy, Arun D. Mahindrakar",
+  "journal": "arXiv:2601.11462v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "This paper investigates the asymptotic behavior of stochastic recursive inclusions in the presence of non-zero, non-diminishing bias, a setting that frequently arises in zeroth-order optimization, stochastic approximation with iterate-dependent noise, and distributed learning with adversarial agents. The analysis is conducted through the lens of input-to-state stability of an associated differential inclusion, which serves as the continuous-time limit of the discrete recursion. We first establish that if the limiting differential inclusion is input-to-state stable and the iterates remain almost surely bounded, then the iterates converge almost surely to the neighborhood of desired equilibrium. We then provide a verifiable sufficient condition for almost sure boundedness by assuming that the underlying operator is single-valued and globally Lipschitz. Finally, we show that several zeroth-order variants of stochastic gradient naturally fit within this framework, and we demonstrate their input-to-state stability under standard conditions. Overall, the results provide a unified theoretical foundation for studying almost sure convergence of biased stochastic approximation schemes through the Input to State stability theory of differential inclusions.",
+  "categories": [
+    "math.OC"
+  ],
+  "primary_category": "math.OC",
+  "comment": null,
+  "published_date": "2026-01-16T17:36:37Z",
+  "updated_date": "2026-01-16T17:36:37Z",
+  "url": "https://arxiv.org/abs/2601.11462v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11462v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:38.714257",
+  "category": "mathematics",
+  "subcategories": [
+    "math.OC"
+  ]
+}

@@ -1,0 +1,91 @@
+{
+  "id": "analytical_chemistry-spectroscopy-analysis",
+  "name": "Spectroscopy Analysis",
+  "category": "chemistry",
+  "subcategory": "analytical_chemistry",
+  "subcategory_name": "Analytical Chemistry",
+  "description": "Spectroscopy Analysis process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 26,
+    "edges": 21,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 1,
+      "total": 1
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nA1[Sample Preparation] --> B1[Spectroscopic Method]\nC1[Wavelength Selection] --> D1[Instrument Calibration]\nE1[Data Collection] --> F1[Spectral Analysis]\nB1 --> G1[UV Visible Spectroscopy]\nD1 --> H1[Infrared Spectroscopy]\nF1 --> I1[Nuclear Magnetic Resonance]\nG1 --> J1[Absorbance Measurement]\nH1 --> K1[Vibrational Analysis]\nI1 --> L1[Chemical Shift Analysis]\nJ1 --> M1[Concentration Calculation]\nK1 --> L1\nL1 --> N1[Molecular Structure]\nM1 --> O1[Beer Lambert Law]\nN1 --> P1[Spectral Interpretation]\nO1 --> Q1[Spectroscopy Analysis Process]\nP1 --> R1[Spectroscopy Validation]\nQ1 --> S1[Spectroscopy Verification]\nR1 --> T1[Spectroscopy Result]\nS1 --> U1[Spectroscopy Analysis]\nT1 --> V1[Spectroscopy Parameters]\nU1 --> W1[Spectroscopy Output]\nV1 --> X1[Spectroscopy Analysis]\nW1 --> Y1[Spectroscopy Final Result]\nX1 --> Z1[Spectroscopy Analysis Complete]\n\n    style A1 fill:#ff6b6b,color:#fff\n    style C1 fill:#ff6b6b,color:#fff\n    style E1 fill:#ff6b6b,color:#fff\n    style B1 fill:#ffd43b,color:#000\n    style D1 fill:#ffd43b,color:#000\n    style F1 fill:#ffd43b,color:#000\n    style G1 fill:#ffd43b,color:#000\n    style H1 fill:#ffd43b,color:#000\n    style I1 fill:#ffd43b,color:#000\n    style J1 fill:#ffd43b,color:#000\n    style K1 fill:#ffd43b,color:#000\n    style L1 fill:#ffd43b,color:#000\n    style M1 fill:#51cf66,color:#fff\n    style N1 fill:#51cf66,color:#fff\n    style O1 fill:#51cf66,color:#fff\n    style P1 fill:#51cf66,color:#fff\n    style Q1 fill:#51cf66,color:#fff\n    style R1 fill:#51cf66,color:#fff\n    style S1 fill:#51cf66,color:#fff\n    style T1 fill:#51cf66,color:#fff\n    style U1 fill:#51cf66,color:#fff\n    style V1 fill:#51cf66,color:#fff\n    style W1 fill:#51cf66,color:#fff\n    style X1 fill:#51cf66,color:#fff\n    style Y1 fill:#51cf66,color:#fff\n    style Z1 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Spectroscopy Analysis. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "Chemical Structural Analysis of Bone by Spectroscopy",
+      "authors": "",
+      "journal": "Vibrational Spectroscopy for Tissue Analysis",
+      "year": "2012",
+      "pubmed": null,
+      "doi": "10.1201/b12949-12",
+      "url": "https://doi.org/10.1201/b12949-12"
+    },
+    {
+      "title": "Surface Analysis by Electron Spectroscopy",
+      "authors": "Smith, Graham C.",
+      "journal": "Surface Analysis by Electron Spectroscopy",
+      "year": "1994",
+      "pubmed": null,
+      "doi": "10.1007/978-1-4899-0967-1_2",
+      "url": "https://doi.org/10.1007/978-1-4899-0967-1_2"
+    },
+    {
+      "title": "Illicit Drug Analysis in Blood Samples with Multivariate Analysis Using Surface-Enhanced Raman Spectroscopy",
+      "authors": "Açıkgöz, Güneş; Çolak, Abdullah",
+      "journal": "Spectroscopy",
+      "year": "2023",
+      "pubmed": null,
+      "doi": "10.56530/spectroscopy.er6076l5",
+      "url": "https://doi.org/10.56530/spectroscopy.er6076l5"
+    }
+  ],
+  "keywords": [
+    "spectroscopy",
+    "analysis"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+}

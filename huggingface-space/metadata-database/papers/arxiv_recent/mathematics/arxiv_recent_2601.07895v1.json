@@ -1,0 +1,30 @@
+{
+  "id": "arxiv_2601.07895v1",
+  "arxiv_id": "2601.07895v1",
+  "title": "Distance spectral radius conditions for edge-disjoint spanning trees and a forest with constraints",
+  "authors": [
+    "Yongbin Gao",
+    "Ligong Wang"
+  ],
+  "author_string": "Yongbin Gao, Ligong Wang",
+  "journal": "arXiv:2601.07895v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Let $k\\ge 2$ be a positive integer and let $G$ be a simple graph of order $n$ with minimum degree $δ$. A graph $G$ is said to have property $P(k, d)$ if it contains $k$ edge-disjoint spanning trees and an additional forest $F$ with edge number $|E(F)| > \\frac{d-1}{d}(n-1)$, such that if $F$ is not a spanning tree, then $F$ has a component with at least $d$ edges. Let $D(G)$ be the distance matrix of $G$. We denote $ρ_D(G)$ as the largest eigenvalue of $D(G)$, which is called the distance spectral radius of $G$. In this paper, we investigate the relationship between the distance spectral radius and the property $P(k, δ)$. We prove that for a connected graph $G$ of order $n \\ge 2k+8$ with minimum degree $δ\\ge k+2$, if $ρ_D(G) \\le ρ_D(K_{k-1} \\vee (K_{n-k} \\cup K_1))$, then $G$ possesses property $P(k, δ)$. Furthermore, for a connected balanced bipartite graph $G$ of order $n \\ge 4k+8$ with minimum degree $δ\\ge k+2$, we show that if $ρ_D(G) \\le ρ_D(K_{\\frac{n}{2}, \\frac{n}{2}} \\setminus E(K_{1, \\frac{n}{2}-k+1}))$, then $G$ also possesses property $P(k, δ)$. Our results generalize the work of Fan et al. [Discrete Appl. Math. 376 (2025), 31--40] from the existence of $k$ edge-disjoint spanning trees to the more refined structural property $P(k, δ)$.",
+  "categories": [
+    "math.CO"
+  ],
+  "primary_category": "math.CO",
+  "comment": null,
+  "published_date": "2026-01-12T09:21:11Z",
+  "updated_date": "2026-01-12T09:21:11Z",
+  "url": "https://arxiv.org/abs/2601.07895v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.07895v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:11.152315",
+  "category": "mathematics",
+  "subcategories": [
+    "math.CO"
+  ]
+}

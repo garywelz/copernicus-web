@@ -1,0 +1,93 @@
+{
+  "id": "defense_immune-plant-systemic-acquired-resistance",
+  "name": "Plant Systemic Acquired Resistance",
+  "category": "biology",
+  "subcategory": "defense_immune",
+  "subcategory_name": "Defense & Immune Response",
+  "description": "Plant Systemic Acquired Resistance process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 6,
+    "edges": 5,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nN1[\"Threat/Pathogen Exposure\"]\nN2[\"Recognition (innate sensors)\"]\nN3[\"Signal Amplification\"]\nN4[\"Effector Response\"]\nN5[\"Resolution/Memory (if any)\"]\nN6[\"Protection/Recovery\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\nN5 --> N6\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ffd43b,color:#000\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#74c0fc,color:#fff\n    style N6 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Plant Systemic Acquired Resistance. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "Systemic acquired resistance",
+      "authors": "Barker, Claire",
+      "journal": "Molecular Plant Pathology",
+      "year": "2020",
+      "pubmed": null,
+      "doi": "10.1201/9780367810955-8",
+      "url": "https://doi.org/10.1201/9780367810955-8"
+    },
+    {
+      "title": "Systemic Acquired Resistance (SAR) in integrated plant protection",
+      "authors": "",
+      "journal": "Progress in Plant Protection",
+      "year": "2017",
+      "pubmed": null,
+      "doi": "10.14199/ppp-2016-068",
+      "url": "https://doi.org/10.14199/ppp-2016-068"
+    },
+    {
+      "title": "Systemic Acquired Resistance",
+      "authors": "Barker, Claire",
+      "journal": "Annual Plant Reviews online",
+      "year": "2018",
+      "pubmed": null,
+      "doi": "10.1002/9781119312994.apr0032",
+      "url": "https://doi.org/10.1002/9781119312994.apr0032"
+    }
+  ],
+  "keywords": [
+    "plant",
+    "systemic",
+    "acquired",
+    "resistance"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-15",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+}

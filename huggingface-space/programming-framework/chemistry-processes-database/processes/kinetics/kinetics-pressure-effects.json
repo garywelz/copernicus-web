@@ -1,0 +1,62 @@
+{
+  "id": "kinetics-pressure-effects",
+  "name": "Pressure Effects",
+  "category": "chemistry",
+  "subcategory": "kinetics",
+  "description": "Pressure effects process showing gas compression, volume changes, and pressure optimization.",
+  "complexity": {
+    "nodes": 26,
+    "edges": 25,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 27,
+      "andGates": 0,
+      "total": 27
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nA5[Gas Pressure] --> B5[Pressure Effect Method]\nC5[Reaction System] --> D5[Pressure Control]\nE5[Volume Changes] --> F5[Pressure Analysis]\nB5 --> G5[Pressure Setup]\nD5 --> H5[Pressure Regulation]\nF5 --> I5[Volume Monitoring]\nG5 --> J5[Pressure Range]\nH5 --> K5[Pressure Control]\nI5 --> L5[Volume Analysis]\nJ5 --> M5[Gas Compression]\nK5 --> L5\nL5 --> N5[Volume Changes]\nM5 --> O5[Molecular Density]\nN5 --> P5[Pressure Kinetics]\nO5 --> Q5[Collision Frequency]\nP5 --> R5[Rate Changes]\nQ5 --> S5[Pressure Analysis]\nR5 --> T5[Pressure Optimization]\nS5 --> U5[Pressure Parameters]\nT5 --> V5[Optimal Pressure]\nU5 --> W5[Pressure Efficiency]\nV5 --> X5[Pressure Characterization]\nW5 --> Y5[Process Optimization]\nX5 --> Z5[Final Pressure Conditions]\nY5 --> Z5\n\n    style A5 fill:#ff6b6b,color:#fff\n    style C5 fill:#ff6b6b,color:#fff\n    style E5 fill:#ff6b6b,color:#fff\n    style B5 fill:#ffd43b,color:#000\n    style D5 fill:#ffd43b,color:#000\n    style F5 fill:#ffd43b,color:#000\n    style G5 fill:#ffd43b,color:#000\n    style H5 fill:#ffd43b,color:#000\n    style I5 fill:#ffd43b,color:#000\n    style J5 fill:#ffd43b,color:#000\n    style K5 fill:#ffd43b,color:#000\n    style L5 fill:#ffd43b,color:#000\n    style M5 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style O5 fill:#51cf66,color:#fff\n    style P5 fill:#51cf66,color:#fff\n    style Q5 fill:#51cf66,color:#fff\n    style R5 fill:#51cf66,color:#fff\n    style S5 fill:#51cf66,color:#fff\n    style T5 fill:#51cf66,color:#fff\n    style U5 fill:#51cf66,color:#fff\n    style V5 fill:#51cf66,color:#fff\n    style W5 fill:#51cf66,color:#fff\n    style X5 fill:#51cf66,color:#fff\n    style Y5 fill:#51cf66,color:#fff\n    style Z5 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "notes": "Chemistry process visualization: Pressure Effects. Created using the Programming Framework methodology for process analysis and visualization."
+    }
+  ],
+  "keywords": [
+    "pressure",
+    "effects"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-08",
+  "verified": false,
+  "notes": "Converted from chemistry batch HTML. Process number: 5."
+}

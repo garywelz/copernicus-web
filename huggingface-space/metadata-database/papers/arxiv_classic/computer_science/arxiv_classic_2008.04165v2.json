@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2008.04165v2",
+  "arxiv_id": "2008.04165v2",
+  "title": "Proof-Carrying Plans: a Resource Logic for AI Planning",
+  "authors": [
+    "Alasdair Hill",
+    "Ekaterina Komendantskaya",
+    "Ronald P. A. Petrick"
+  ],
+  "author_string": "Alasdair Hill, Ekaterina Komendantskaya, Ronald P. A. Petrick",
+  "journal": "arXiv:2008.04165v2",
+  "journal_ref": null,
+  "year": "2020",
+  "doi": "10.1145/3414080.3414094",
+  "abstract": "Recent trends in AI verification and Explainable AI have raised the question of whether AI planning techniques can be verified. In this paper, we present a novel resource logic, the Proof Carrying Plans (PCP) logic that can be used to verify plans produced by AI planners. The PCP logic takes inspiration from existing resource logics (such as Linear logic and Separation logic) as well as Hoare logic when it comes to modelling states and resource-aware plan execution. It also capitalises on the Curry-Howard approach to logics, in its treatment of plans as functions and plan pre- and post-conditions as types. This paper presents two main results. From the theoretical perspective, we show that the PCP logic is sound relative to the standard possible world semantics used in AI planning. From the practical perspective, we present a complete Agda formalisation of the PCP logic and of its soundness proof. Moreover, we showcase the Curry-Howard, or functional, value of this implementation by supplementing it with the library that parses AI plans into Agda's proofs automatically. We provide evaluation of this library and the resulting Agda functions.",
+  "categories": [
+    "cs.LO",
+    "cs.AI",
+    "cs.PL"
+  ],
+  "primary_category": "cs.PL",
+  "comment": "PPDP 2020, 13 pages, 9 figures",
+  "published_date": "2020-08-10T14:45:52Z",
+  "updated_date": "2020-10-28T03:49:19Z",
+  "url": "https://arxiv.org/abs/2008.04165v2",
+  "pdf_url": "https://arxiv.org/pdf/2008.04165v2.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:27.424491",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.LO",
+    "cs.AI",
+    "cs.PL"
+  ]
+}

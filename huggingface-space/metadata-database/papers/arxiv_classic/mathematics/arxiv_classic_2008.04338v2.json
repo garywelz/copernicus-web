@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2008.04338v2",
+  "arxiv_id": "2008.04338v2",
+  "title": "Self-accelerating root search and optimisation methods based on rational interpolation",
+  "authors": [
+    "Sebastian Cassel"
+  ],
+  "author_string": "Sebastian Cassel",
+  "journal": "arXiv:2008.04338v2",
+  "journal_ref": null,
+  "year": "2020",
+  "doi": null,
+  "abstract": "Iteration methods based on barycentric rational interpolation are derived that exhibit accelerating orders of convergence. For univariate root search, the derivative-free methods approach quadratic convergence and the first-derivative methods approach cubic convergence. For univariate optimisation, the convergence order of the derivative-free methods approaches 1.62 and the order of the first-derivative methods approaches 2.42. Generally, performance advantages are found with respect to low-memory iteration methods. In optimisation problems where the objective function and gradient is calculated at each step, the full-memory iteration methods converge asymptotically 1.8 times faster than the secant method. Frameworks for multivariate root search and optimisation are also proposed, though without discovery of practical parameter choices.",
+  "categories": [
+    "math.NA",
+    "math.OC"
+  ],
+  "primary_category": "math.OC",
+  "comment": "17 pages",
+  "published_date": "2020-08-10T18:04:04Z",
+  "updated_date": "2020-11-10T09:55:47Z",
+  "url": "https://arxiv.org/abs/2008.04338v2",
+  "pdf_url": "https://arxiv.org/pdf/2008.04338v2.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:30:37.487112",
+  "category": "mathematics",
+  "subcategories": [
+    "math.NA",
+    "math.OC"
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2601.10936v1",
+  "arxiv_id": "2601.10936v1",
+  "title": "Can Instructed Retrieval Models Really Support Exploration?",
+  "authors": [
+    "Piyush Maheshwari",
+    "Sheshera Mysore",
+    "Hamed Zamani"
+  ],
+  "author_string": "Piyush Maheshwari, Sheshera Mysore, Hamed Zamani",
+  "journal": "arXiv:2601.10936v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": "10.1145/3786304.3787888",
+  "abstract": "Exploratory searches are characterized by under-specified goals and evolving query intents. In such scenarios, retrieval models that can capture user-specified nuances in query intent and adapt results accordingly are desirable -- instruction-following retrieval models promise such a capability. In this work, we evaluate instructed retrievers for the prevalent yet under-explored application of aspect-conditional seed-guided exploration using an expert-annotated test collection. We evaluate both recent LLMs fine-tuned for instructed retrieval and general-purpose LLMs prompted for ranking with the highly performant Pairwise Ranking Prompting. We find that the best instructed retrievers improve on ranking relevance compared to instruction-agnostic approaches. However, we also find that instruction following performance, crucial to the user experience of interacting with models, does not mirror ranking relevance improvements and displays insensitivity or counter-intuitive behavior to instructions. Our results indicate that while users may benefit from using current instructed retrievers over instruction-agnostic models, they may not benefit from using them for long-running exploratory sessions requiring greater sensitivity to instructions.",
+  "categories": [
+    "cs.IR",
+    "cs.HC"
+  ],
+  "primary_category": "cs.HC",
+  "comment": null,
+  "published_date": "2026-01-16T01:45:29Z",
+  "updated_date": "2026-01-16T01:45:29Z",
+  "url": "https://arxiv.org/abs/2601.10936v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.10936v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:37.516937",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.IR",
+    "cs.HC"
+  ]
+}

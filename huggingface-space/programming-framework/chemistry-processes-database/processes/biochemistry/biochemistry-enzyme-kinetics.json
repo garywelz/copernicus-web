@@ -1,0 +1,65 @@
+{
+  "id": "biochemistry-enzyme-kinetics",
+  "name": "Enzyme Kinetics",
+  "category": "chemistry",
+  "subcategory": "biochemistry",
+  "description": "Enzyme Kinetics Process. This biochemistry process visualization demonstrates enzyme catalytic mechanisms and kinetic analysis. The flowchart shows substrate inputs and active site binding, enzyme methods and complex formation, enzyme operations and catalytic reactions, intermediate results, and final enzyme kinetics outputs.",
+  "complexity": {
+    "nodes": 26,
+    "edges": 24,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 28,
+      "andGates": 0,
+      "total": 28
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nA1[Substrate Binding] --> B1[Enzyme Method]\nC1[Active Site] --> D1[Enzyme Substrate Complex]\nE1[Catalytic Reaction] --> F1[Enzyme Kinetics Analysis]\nB1 --> G1[Michaelis Menten]\nD1 --> H1[Lock and Key Model]\nF1 --> I1[Induced Fit Model]\nG1 --> J1[Km Determination]\nH1 --> K1[Substrate Specificity]\nI1 --> L1[Conformational Change]\nJ1 --> M1[Vmax Calculation]\nK1 --> L1\nL1 --> N1[Transition State]\nM1 --> O1[Turnover Number]\nN1 --> P1[Product Formation]\nO1 --> Q1[Enzyme Kinetics Process]\nP1 --> R1[Enzyme Kinetics Validation]\nQ1 --> S1[Enzyme Kinetics Verification]\nR1 --> T1[Enzyme Kinetics Result]\nS1 --> U1[Enzyme Kinetics Analysis]\nT1 --> V1[Enzyme Kinetics Parameters]\nU1 --> W1[Enzyme Kinetics Output]\nV1 --> X1[Enzyme Kinetics Analysis]\nW1 --> Y1[Enzyme Kinetics Final Result]\nX1 --> Z1[Enzyme Kinetics Complete]\n\n    style A1 fill:#ff6b6b,color:#fff\n    style C1 fill:#ff6b6b,color:#fff\n    style E1 fill:#ff6b6b,color:#fff\n    style B1 fill:#ffd43b,color:#000\n    style D1 fill:#ffd43b,color:#000\n    style F1 fill:#ffd43b,color:#000\n    style G1 fill:#ffd43b,color:#000\n    style H1 fill:#ffd43b,color:#000\n    style I1 fill:#ffd43b,color:#000\n    style J1 fill:#ffd43b,color:#000\n    style K1 fill:#ffd43b,color:#000\n    style L1 fill:#ffd43b,color:#000\n    style M1 fill:#51cf66,color:#fff\n    style N1 fill:#51cf66,color:#fff\n    style O1 fill:#51cf66,color:#fff\n    style P1 fill:#51cf66,color:#fff\n    style Q1 fill:#51cf66,color:#fff\n    style R1 fill:#51cf66,color:#fff\n    style S1 fill:#51cf66,color:#fff\n    style T1 fill:#51cf66,color:#fff\n    style U1 fill:#51cf66,color:#fff\n    style V1 fill:#51cf66,color:#fff\n    style W1 fill:#51cf66,color:#fff\n    style X1 fill:#51cf66,color:#fff\n    style Y1 fill:#51cf66,color:#fff\n    style Z1 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "notes": "Chemistry process visualization: Enzyme Kinetics. Created using the Programming Framework methodology for process analysis and visualization."
+    }
+  ],
+  "keywords": [
+    "mechanism",
+    "enzyme",
+    "kinetics",
+    "reaction",
+    "biochemistry"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-08",
+  "verified": false,
+  "notes": "Converted from chemistry batch HTML. Process number: 1."
+}

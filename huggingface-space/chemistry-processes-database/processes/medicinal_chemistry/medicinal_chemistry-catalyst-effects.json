@@ -1,0 +1,91 @@
+{
+  "id": "medicinal_chemistry-catalyst-effects",
+  "name": "Catalyst Effects",
+  "category": "chemistry",
+  "subcategory": "medicinal_chemistry",
+  "subcategory_name": "Medicinal Chemistry",
+  "description": "Catalyst Effects process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 26,
+    "edges": 22,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 1,
+      "total": 1
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nA4[Catalyst Material] --> B4[Catalyst Effect Method]\nC4[Reaction System] --> D4[Catalyst Loading]\nE4[Rate Enhancement] --> F4[Catalytic Analysis]\nB4 --> G4[Catalyst Preparation]\nD4 --> H4[Loading Optimization]\nF4 --> I4[Activity Measurement]\nG4 --> J4[Catalyst Characterization]\nH4 --> K4[Surface Area]\nI4 --> L4[Turnover Frequency]\nJ4 --> M4[Active Sites]\nK4 --> L4\nL4 --> N4[Catalytic Activity]\nM4 --> O4[Reaction Pathway]\nN4 --> P4[Catalyst Kinetics]\nO4 --> Q4[Mechanism Modification]\nP4 --> R4[Rate Enhancement]\nQ4 --> S4[Pathway Analysis]\nR4 --> T4[Catalyst Optimization]\nS4 --> U4[Catalytic Parameters]\nT4 --> V4[Optimal Loading]\nU4 --> W4[Catalyst Efficiency]\nV4 --> X4[Catalyst Characterization]\nW4 --> Y4[Process Optimization]\nX4 --> Z4[Final Catalyst Conditions]\nY4 --> Z4\n\n    style A4 fill:#ff6b6b,color:#fff\n    style C4 fill:#ff6b6b,color:#fff\n    style E4 fill:#ff6b6b,color:#fff\n    style B4 fill:#ffd43b,color:#000\n    style D4 fill:#ffd43b,color:#000\n    style F4 fill:#ffd43b,color:#000\n    style G4 fill:#ffd43b,color:#000\n    style H4 fill:#ffd43b,color:#000\n    style I4 fill:#ffd43b,color:#000\n    style J4 fill:#ffd43b,color:#000\n    style K4 fill:#ffd43b,color:#000\n    style L4 fill:#ffd43b,color:#000\n    style M4 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style O4 fill:#51cf66,color:#fff\n    style P4 fill:#51cf66,color:#fff\n    style Q4 fill:#51cf66,color:#fff\n    style R4 fill:#51cf66,color:#fff\n    style S4 fill:#51cf66,color:#fff\n    style T4 fill:#51cf66,color:#fff\n    style U4 fill:#51cf66,color:#fff\n    style V4 fill:#51cf66,color:#fff\n    style W4 fill:#51cf66,color:#fff\n    style X4 fill:#51cf66,color:#fff\n    style Y4 fill:#51cf66,color:#fff\n    style Z4 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Catalyst Effects. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "Effects of oxygen and catalyst on tetraphenylborate decomposition rate",
+      "authors": "Walker, D.D.",
+      "journal": "",
+      "year": "1999",
+      "pubmed": null,
+      "doi": "10.2172/750108",
+      "url": "https://doi.org/10.2172/750108"
+    },
+    {
+      "title": "The Catalytic Effects of Water and Halogens on the Alteration of Catalyst Surfaces",
+      "authors": "Dowden, Dennis A.",
+      "journal": "Progress in Catalyst Deactivation",
+      "year": "1982",
+      "pubmed": null,
+      "doi": "10.1007/978-94-009-7597-2_13",
+      "url": "https://doi.org/10.1007/978-94-009-7597-2_13"
+    },
+    {
+      "title": "Cracking of heavy oils by combination of hydrogen donor solvent with catalyst. (Part 2). Effects of catalyst on cracking reaction.",
+      "authors": "KUBO, Junichi; YAMASHITA, Tadakazu; KAMIYA, Kohzo; SUZUKI, Kenji; AKIYAMA, Eiji; KATOH, Hiroshi",
+      "journal": "Journal of The Japan Petroleum Institute",
+      "year": "1988",
+      "pubmed": null,
+      "doi": "10.1627/jpi1958.31.203",
+      "url": "https://doi.org/10.1627/jpi1958.31.203"
+    }
+  ],
+  "keywords": [
+    "catalyst",
+    "effects"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+}

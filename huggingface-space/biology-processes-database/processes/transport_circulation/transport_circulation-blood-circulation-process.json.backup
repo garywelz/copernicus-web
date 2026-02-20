@@ -1,0 +1,93 @@
+{
+  "category": "biology",
+  "colorScheme": {
+    "blue": {
+      "category": "Intermediates & States",
+      "hex": "#74c0fc"
+    },
+    "green": {
+      "category": "Processing & Operations",
+      "hex": "#51cf66"
+    },
+    "red": {
+      "category": "Triggers & Inputs",
+      "hex": "#ff6b6b"
+    },
+    "violet": {
+      "category": "Products & Outputs",
+      "hex": "#b197fc"
+    },
+    "yellow": {
+      "category": "Structures & Objects",
+      "hex": "#ffd43b"
+    }
+  },
+  "complexity": {
+    "conditionals": 0,
+    "detailLevel": "low",
+    "edges": 11,
+    "level": "low",
+    "logicGates": {
+      "andGates": 0,
+      "orGates": 0,
+      "total": 0
+    },
+    "nodes": 9
+  },
+  "created": "2026-01-08",
+  "description": "Blood Circulation Process in Animals. This process represents a higher-level biological mechanism distinct from molecular/biochemical processes covered in GLMP.",
+  "id": "transport_circulation-blood-circulation-process",
+  "keywords": [
+    "animals",
+    "blood",
+    "process",
+    "circulation",
+    "transport"
+  ],
+  "lastUpdated": "2026-01-08",
+  "mermaid": "graph TD\n    A42[Heart Contraction] --> B42[Ventricle Ejection]\n    B42 --> C42[Arterial Flow]\n    C42 --> D42[Capillary Exchange]\n    D42 --> E42[O2 Delivery]\n    D42 --> F42[CO2 Removal]\n    D42 --> G42[Nutrient Delivery]\n    E42 --> H42[Venous Return]\n    F42 --> H42\n    G42 --> H42\n    H42 --> I42[Atrial Filling]\n    I42 --> A42\n    \n    style A42 fill:#ff6b6b,color:#fff\n    style B42 fill:#ffd43b,color:#000\n    style C42 fill:#51cf66,color:#fff\n    style D42 fill:#51cf66,color:#fff\n    style E42 fill:#74c0fc,color:#fff\n    style F42 fill:#74c0fc,color:#fff\n    style G42 fill:#74c0fc,color:#fff\n    style H42 fill:#51cf66,color:#fff\n    style I42 fill:#74c0fc,color:#fff",
+  "name": "Blood Circulation Process",
+  "notes": "Higher-level biological process. GLMP covers biochemical/molecular processes; this database covers organismal/ecological processes.",
+  "organism": "Animals",
+  "relatedProcesses": [],
+  "sources": [
+    {
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "notes": "Higher-level biological process visualization: Blood Circulation Process. Created using the Programming Framework methodology for organismal and ecological process analysis.",
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "year": "2025"
+    },
+    {
+      "authors": "Guyton AC, Coleman TG, Granger HJ.",
+      "doi": "10.1146/annurev.ph.34.030172.000305",
+      "journal": "Annu Rev Physiol",
+      "pubmed": "4552438",
+      "title": "Circulation: overall regulation",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/4552438",
+      "year": "1972"
+    },
+    {
+      "authors": "Joyner MJ, Casey DP.",
+      "doi": "10.1146/annurev-physiol-021014-071804",
+      "journal": "Annu Rev Physiol",
+      "pubmed": "25387222",
+      "title": "Regulation of human blood flow",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/25387222",
+      "year": "2015"
+    },
+    {
+      "authors": "Tabin CJ, Stainier DYR.",
+      "doi": "10.1146/annurev-cellbio-100913-013321",
+      "journal": "Annu Rev Cell Dev Biol",
+      "pubmed": "25288110",
+      "title": "Organogenesis of the cardiovascular system",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/25288110",
+      "year": "2014"
+    }
+  ],
+  "subcategory": "transport_circulation",
+  "subcategory_name": "Transport & Circulation",
+  "verified": false
+}

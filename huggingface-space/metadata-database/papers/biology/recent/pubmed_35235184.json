@@ -1,0 +1,32 @@
+{
+  "id": "pubmed_35235184",
+  "pmid": "35235184",
+  "title": "Neuroimaging-ITM: A Text Mining Pipeline Combining Deep Adversarial Learning with Interaction Based Topic Modeling for Enabling the FAIR Neuroimaging Study.",
+  "authors": [
+    "Yan, Jianzhuo",
+    "Chen, Lihong",
+    "Yu, Yongchuan",
+    "Xu, Hongxia",
+    "Xu, Zhe",
+    "Sheng, Ying",
+    "Chen, Jianhui"
+  ],
+  "author_string": "Yan, Jianzhuo, Chen, Lihong, Yu, Yongchuan, Xu, Hongxia, Xu, Zhe et al.",
+  "journal": "Neuroinformatics",
+  "journal_full": "Neuroinformatics",
+  "year": "",
+  "doi": "10.1007/s12021-022-09571-w",
+  "abstract": "Sharing various neuroimaging digital resources have received widespread attention in FAIR (Findable, Accessible, Interoperable and Reusable) neuroscience. In order to support a comprehensive understanding of brain cognition, neuroimaging provenance should be constructed to characterize both research processes and results, and integrates various digital resources for quick replication and open cooperation. This brings new challenges to neuroimaging text mining, including fragmented information, lack of labelled corpora, and vague topics. This paper proposes a text mining pipeline for enabling the FAIR neuroimaging study. In order to avoid fragmented information, the Brain Informatics provenance model is redesigned based on NIDM (Neuroimaging Data Model) and FAIR facets. It can systematically capture the provenance requests from the FAIR neuroimaging study and then transform them into a group of text mining tasks. A neuroimaging text mining pipeline combining deep adversarial learning with interaction based topic modeling, called neuroimaging interaction topic model (Neuroimaging-ITM), is proposed to automatically extract neuroimaging provenance and identify research topics in the few-shot scenario. Finally, a group of experiments is completed by using real data from the journal PloS One. The experimental results show that Neuroimaging-ITM can systematically and accurately extract provenance information and obtain high-quality research topics from the full text of neuroimaging articles. Most of the mean F1 values of provenance extraction exceed 0.9. The topic coherence and KL (Kullback-Leibler) divergence reach 9.95 and 0.96 respectively. The results are obviously better than baseline methods.",
+  "keywords": [
+    "Deep adversarial learning",
+    "Neuroimaging provenance",
+    "Text mining",
+    "Topic learning"
+  ],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/35235184",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T17:01:26.801232",
+  "category": "biology",
+  "subcategories": []
+}

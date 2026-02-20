@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2601.06434v1",
+  "arxiv_id": "2601.06434v1",
+  "title": "On a Gradient Approach to Chebyshev Center Problems with Applications to Function Learning",
+  "authors": [
+    "Abhinav Raghuvanshi",
+    "Mayank Baranwal",
+    "Debasish Chatterjee"
+  ],
+  "author_string": "Abhinav Raghuvanshi, Mayank Baranwal, Debasish Chatterjee",
+  "journal": "arXiv:2601.06434v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We introduce $\\textsf{gradOL}$, the first gradient-based optimization framework for solving Chebyshev center problems, a fundamental challenge in optimal function learning and geometric optimization. $\\textsf{gradOL}$ hinges on reformulating the semi-infinite problem as a finitary max-min optimization, making it amenable to gradient-based techniques. By leveraging automatic differentiation for precise numerical gradient computation, $\\textsf{gradOL}$ ensures numerical stability and scalability, making it suitable for large-scale settings. Under strong convexity of the ambient norm, $\\textsf{gradOL}$ provably recovers optimal Chebyshev centers while directly computing the associated radius. This addresses a key bottleneck in constructing stable optimal interpolants. Empirically, $\\textsf{gradOL}$ achieves significant improvements in accuracy and efficiency on 34 benchmark Chebyshev center problems from a benchmark $\\textsf{CSIP}$ library. Moreover, we extend $\\textsf{gradOL}$ to general convex semi-infinite programming (CSIP), attaining up to $4000\\times$ speedups over the state-of-the-art $\\texttt{SIPAMPL}$ solver tested on the indicated $\\textsf{CSIP}$ library containing 67 benchmark problems. Furthermore, we provide the first theoretical foundation for applying gradient-based methods to Chebyshev center problems, bridging rigorous analysis with practical algorithms. $\\textsf{gradOL}$ thus offers a unified solution framework for Chebyshev centers and broader CSIPs.",
+  "categories": [
+    "math.OC",
+    "cs.AI",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": "Accepted to TMLR",
+  "published_date": "2026-01-10T05:34:01Z",
+  "updated_date": "2026-01-10T05:34:01Z",
+  "url": "https://arxiv.org/abs/2601.06434v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.06434v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:18.738193",
+  "category": "computer_science",
+  "subcategories": [
+    "math.OC",
+    "cs.AI",
+    "cs.LG"
+  ]
+}

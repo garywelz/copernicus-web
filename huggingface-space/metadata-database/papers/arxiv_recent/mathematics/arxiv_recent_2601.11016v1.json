@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2601.11016v1",
+  "arxiv_id": "2601.11016v1",
+  "title": "Contextual Distributionally Robust Optimization with Causal and Continuous Structure: An Interpretable and Tractable Approach",
+  "authors": [
+    "Fenglin Zhang",
+    "Jie Wang"
+  ],
+  "author_string": "Fenglin Zhang, Jie Wang",
+  "journal": "arXiv:2601.11016v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "In this paper, we introduce a framework for contextual distributionally robust optimization (DRO) that considers the causal and continuous structure of the underlying distribution by developing interpretable and tractable decision rules that prescribe decisions using covariates. We first introduce the causal Sinkhorn discrepancy (CSD), an entropy-regularized causal Wasserstein distance that encourages continuous transport plans while preserving the causal consistency. We then formulate a contextual DRO model with a CSD-based ambiguity set, termed Causal Sinkhorn DRO (Causal-SDRO), and derive its strong dual reformulation where the worst-case distribution is characterized as a mixture of Gibbs distributions. To solve the corresponding infinite-dimensional policy optimization, we propose the Soft Regression Forest (SRF) decision rule, which approximates optimal policies within arbitrary measurable function spaces. The SRF preserves the interpretability of classical decision trees while being fully parametric, differentiable, and Lipschitz smooth, enabling intrinsic interpretation from both global and local perspectives. To solve the Causal-SDRO with parametric decision rules, we develop an efficient stochastic compositional gradient algorithm that converges to an $\\varepsilon$-stationary point at a rate of $O(\\varepsilon^{-4})$, matching the convergence rate of standard stochastic gradient descent. Finally, we validate our method through numerical experiments on synthetic and real-world datasets, demonstrating its superior performance and interpretability.",
+  "categories": [
+    "stat.ML",
+    "cs.AI",
+    "cs.LG",
+    "math.OC"
+  ],
+  "primary_category": "math.OC",
+  "comment": null,
+  "published_date": "2026-01-16T06:18:22Z",
+  "updated_date": "2026-01-16T06:18:22Z",
+  "url": "https://arxiv.org/abs/2601.11016v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11016v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:37.511971",
+  "category": "mathematics",
+  "subcategories": [
+    "stat.ML",
+    "cs.AI",
+    "cs.LG"
+  ]
+}

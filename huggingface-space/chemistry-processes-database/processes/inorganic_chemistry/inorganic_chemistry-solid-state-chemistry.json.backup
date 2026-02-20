@@ -1,0 +1,92 @@
+{
+  "category": "chemistry",
+  "colorScheme": {
+    "blue": {
+      "category": "Intermediates & States",
+      "hex": "#74c0fc"
+    },
+    "green": {
+      "category": "Processing & Operations",
+      "hex": "#51cf66"
+    },
+    "red": {
+      "category": "Triggers & Inputs",
+      "hex": "#ff6b6b"
+    },
+    "violet": {
+      "category": "Products & Outputs",
+      "hex": "#b197fc"
+    },
+    "yellow": {
+      "category": "Structures & Objects",
+      "hex": "#ffd43b"
+    }
+  },
+  "complexity": {
+    "conditionals": 0,
+    "detailLevel": "medium",
+    "edges": 24,
+    "level": "medium",
+    "logicGates": {
+      "andGates": 0,
+      "orGates": 26,
+      "total": 26
+    },
+    "nodes": 26
+  },
+  "created": "2026-01-08",
+  "description": "Solid State Chemistry Process. This inorganic chemistry process visualization demonstrates crystal structure analysis and solid state properties. The flowchart shows crystal inputs and lattice parameters, solid state methods and defect analysis, solid state operations and phase analysis, intermediate results, and final solid state chemistry outputs.",
+  "id": "inorganic_chemistry-solid-state-chemistry",
+  "keywords": [
+    "solid",
+    "chemistry",
+    "organic",
+    "state",
+    "inorganic"
+  ],
+  "lastUpdated": "2026-01-08",
+  "mermaid": "graph TD\nA3[Crystal Structure] --> B3[Solid State Method]\nC3[Lattice Parameters] --> D3[Defect Analysis]\nE3[Phase Transition] --> F3[Solid State Analysis]\nB3 --> G3[X Ray Diffraction]\nD3 --> H3[Electron Microscopy]\nF3 --> I3[Thermal Analysis]\nG3 --> J3[Bragg's Law]\nH3 --> K3[Defect Characterization]\nI3 --> L3[Phase Diagram]\nJ3 --> M3[Crystal Symmetry]\nK3 --> L3\nL3 --> N3[Thermodynamic Stability]\nM3 --> O3[Electronic Properties]\nN3 --> P3[Magnetic Properties]\nO3 --> Q3[Solid State Chemistry Process]\nP3 --> R3[Solid State Validation]\nQ3 --> S3[Solid State Verification]\nR3 --> T3[Solid State Result]\nS3 --> U3[Solid State Analysis]\nT3 --> V3[Solid State Parameters]\nU3 --> W3[Solid State Output]\nV3 --> X3[Solid State Analysis]\nW3 --> Y3[Solid State Final Result]\nX3 --> Z3[Solid State Chemistry Complete]\n\n    style A3 fill:#ff6b6b,color:#fff\n    style C3 fill:#ff6b6b,color:#fff\n    style E3 fill:#ff6b6b,color:#fff\n    style B3 fill:#ffd43b,color:#000\n    style D3 fill:#ffd43b,color:#000\n    style F3 fill:#ffd43b,color:#000\n    style G3 fill:#ffd43b,color:#000\n    style H3 fill:#ffd43b,color:#000\n    style I3 fill:#ffd43b,color:#000\n    style J3 fill:#ffd43b,color:#000\n    style K3 fill:#ffd43b,color:#000\n    style L3 fill:#ffd43b,color:#000\n    style M3 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style O3 fill:#51cf66,color:#fff\n    style P3 fill:#51cf66,color:#fff\n    style Q3 fill:#51cf66,color:#fff\n    style R3 fill:#51cf66,color:#fff\n    style S3 fill:#51cf66,color:#fff\n    style T3 fill:#51cf66,color:#fff\n    style U3 fill:#51cf66,color:#fff\n    style V3 fill:#51cf66,color:#fff\n    style W3 fill:#51cf66,color:#fff\n    style X3 fill:#51cf66,color:#fff\n    style Y3 fill:#51cf66,color:#fff\n    style Z3 fill:#b197fc,color:#fff",
+  "name": "Solid State Chemistry",
+  "notes": "Converted from chemistry batch HTML. Process number: 3.",
+  "relatedProcesses": [],
+  "sources": [
+    {
+      "authors": "Welz, G.",
+      "doi": null,
+      "journal": "CopernicusAI Knowledge Engine",
+      "notes": "Chemistry process visualization: Solid State Chemistry. Created using the Programming Framework methodology for process analysis and visualization.",
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "year": "2025"
+    },
+    {
+      "authors": "Rao CN; Gopalakrishnan J",
+      "doi": "10.1021/cr0406471",
+      "journal": "Chem. Rev.",
+      "pubmed": null,
+      "title": "Recent Advances in Inorganic Solid State Chemistry",
+      "url": "https://doi.org/10.1021/cr0406471",
+      "year": "2005"
+    },
+    {
+      "authors": "Rao CN; Cheetham AK",
+      "doi": "10.1002/(SICI)1521-3773(19990816)38:16<2314::AID-ANIE2314>3.0.CO;2-H",
+      "journal": "Angew. Chem. Int. Ed.",
+      "pubmed": null,
+      "title": "Advanced Solid-State Synthesis of Inorganic Materials",
+      "url": "https://doi.org/10.1002/(SICI)1521-3773(19990816)38:16<2314::AID-ANIE2314>3.0.CO;2-H",
+      "year": "1999"
+    },
+    {
+      "authors": "Cheetham AK; Treacy MMJ",
+      "doi": "10.1038/nature01881",
+      "journal": "Nature",
+      "pubmed": "12944955",
+      "title": "Electron microscopy in solid-state chemistry",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/12944955",
+      "year": "2003"
+    }
+  ],
+  "subcategory": "inorganic_chemistry",
+  "verified": false
+}

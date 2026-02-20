@@ -1,0 +1,92 @@
+{
+  "category": "mathematics",
+  "colorScheme": {
+    "blue": {
+      "category": "Intermediates & States",
+      "hex": "#74c0fc"
+    },
+    "green": {
+      "category": "Processing & Operations",
+      "hex": "#51cf66"
+    },
+    "red": {
+      "category": "Triggers & Inputs",
+      "hex": "#ff6b6b"
+    },
+    "violet": {
+      "category": "Products & Outputs",
+      "hex": "#b197fc"
+    },
+    "yellow": {
+      "category": "Structures & Objects",
+      "hex": "#ffd43b"
+    }
+  },
+  "complexity": {
+    "conditionals": 0,
+    "detailLevel": "medium",
+    "edges": 24,
+    "level": "medium",
+    "logicGates": {
+      "andGates": 0,
+      "orGates": 0,
+      "total": 0
+    },
+    "nodes": 26
+  },
+  "created": "2026-01-08",
+  "description": "Ring Theory Process. This abstract algebra process visualization demonstrates ring structure analysis and verification. The flowchart shows set inputs and binary operations, ring methods and axioms, ring operations and properties, intermediate results, and final ring theory outputs.",
+  "id": "abstract_algebra-ring-theory",
+  "keywords": [
+    "algebra",
+    "theory",
+    "abstract",
+    "ring"
+  ],
+  "lastUpdated": "2026-01-08",
+  "mermaid": "graph TD\nA2[Set R] --> B2[Two Binary Operations]\nC2[Ring Axioms] --> D2[Additive Group]\nE2[Multiplicative Semigroup] --> F2[Distributive Laws]\nB2 --> G2[Ring Verification]\nD2 --> H2[Commutative Ring]\nF2 --> I2[Ring with Unity]\nG2 --> J2[Integral Domain]\nH2 --> K2[Field Analysis]\nI2 --> L2[Division Ring]\nJ2 --> M2[Ring Homomorphisms]\nK2 --> L2\nL2 --> N2[Ring Isomorphisms]\nM2 --> O2[Ideals Analysis]\nN2 --> P2[Quotient Rings]\nO2 --> Q2[Ring Theory Process]\nP2 --> R2[Ring Theory Validation]\nQ2 --> S2[Ring Theory Verification]\nR2 --> T2[Ring Theory Result]\nS2 --> U2[Ring Theory Analysis]\nT2 --> V2[Ring Theory Parameters]\nU2 --> W2[Ring Theory Output]\nV2 --> X2[Ring Theory Analysis]\nW2 --> Y2[Ring Theory Final Result]\nX2 --> Z2[Ring Theory Analysis Complete]\n\n    style A2 fill:#ff6b6b,color:#fff\n    style C2 fill:#ff6b6b,color:#fff\n    style E2 fill:#ff6b6b,color:#fff\n    style B2 fill:#ffd43b,color:#000\n    style D2 fill:#ffd43b,color:#000\n    style F2 fill:#ffd43b,color:#000\n    style G2 fill:#ffd43b,color:#000\n    style H2 fill:#ffd43b,color:#000\n    style I2 fill:#ffd43b,color:#000\n    style J2 fill:#ffd43b,color:#000\n    style K2 fill:#ffd43b,color:#000\n    style L2 fill:#ffd43b,color:#000\n    style M2 fill:#51cf66,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style O2 fill:#51cf66,color:#fff\n    style P2 fill:#51cf66,color:#fff\n    style Q2 fill:#51cf66,color:#fff\n    style R2 fill:#51cf66,color:#fff\n    style S2 fill:#51cf66,color:#fff\n    style T2 fill:#51cf66,color:#fff\n    style U2 fill:#51cf66,color:#fff\n    style V2 fill:#51cf66,color:#fff\n    style W2 fill:#51cf66,color:#fff\n    style X2 fill:#51cf66,color:#fff\n    style Y2 fill:#51cf66,color:#fff\n    style Z2 fill:#b197fc,color:#fff",
+  "name": "Ring Theory",
+  "notes": "Converted from mathematics batch HTML. Process number: 2.",
+  "relatedProcesses": [],
+  "sources": [
+    {
+      "authors": "Welz, G.",
+      "doi": null,
+      "journal": "CopernicusAI Knowledge Engine",
+      "notes": "Chemistry process visualization: Ring Theory. Created using the Programming Framework methodology for process analysis and visualization.",
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "year": "2025"
+    },
+    {
+      "authors": "Auslander, M., Buchsbaum, D. A.",
+      "doi": "10.1073/pnas.45.6.808",
+      "journal": "Proc Natl Acad Sci U S A",
+      "pubmed": "16590396",
+      "title": "Homological dimension in Noetherian rings",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/16590396",
+      "year": "1959"
+    },
+    {
+      "authors": "Herstein, I. N.",
+      "doi": "10.2307/1969854",
+      "journal": "Ann. of Math.",
+      "pubmed": null,
+      "title": "On the Lie ring of a simple ring",
+      "url": "https://doi.org/10.2307/1969854",
+      "year": "1956"
+    },
+    {
+      "authors": "Quillen, D.",
+      "doi": "10.2307/1970825",
+      "journal": "Ann. of Math.",
+      "pubmed": null,
+      "title": "On the cohomology and K-theory of the general linear groups over a finite field",
+      "url": "https://doi.org/10.2307/1970825",
+      "year": "1972"
+    }
+  ],
+  "subcategory": "abstract_algebra",
+  "subcategory_name": "Abstract Algebra",
+  "verified": false
+}

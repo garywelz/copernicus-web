@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2601.09024v1",
+  "arxiv_id": "2601.09024v1",
+  "title": "An Inexact Weighted Proximal Trust-Region Method",
+  "authors": [
+    "Leandro Farias Maia",
+    "Robert Baraldi",
+    "Drew P. Kouri"
+  ],
+  "author_string": "Leandro Farias Maia, Robert Baraldi, Drew P. Kouri",
+  "journal": "arXiv:2601.09024v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "In [R. J. Baraldi and D. P. Kouri, Math. Program., 201:1 (2023), pp. 559-598], the authors introduced a trust-region method for minimizing the sum of a smooth nonconvex and a nonsmooth convex function, the latter of which has an analytical proximity operator. While many functions satisfy this criterion, e.g., the $\\ell_1$-norm defined on $\\ell_2$, many others are precluded by either the topology or the nature of the nonsmooth term. Using the $δ$-Fréchet subdifferential, we extend the definition of the inexact proximity operator and enable its use within the aforementioned trust-region algorithm. Moreover, we augment the analysis for the standard trust-region convergence theory to handle proximity operator inexactness with weighted inner products. We first introduce an algorithm to generate a point in the inexact proximity operator and then apply the algorithm within the trust-region method to solve an optimal control problem constrained by Burgers' equation.",
+  "categories": [
+    "math.OC",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": null,
+  "published_date": "2026-01-13T23:07:46Z",
+  "updated_date": "2026-01-13T23:07:46Z",
+  "url": "https://arxiv.org/abs/2601.09024v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.09024v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:52.506567",
+  "category": "computer_science",
+  "subcategories": [
+    "math.OC",
+    "cs.LG"
+  ]
+}

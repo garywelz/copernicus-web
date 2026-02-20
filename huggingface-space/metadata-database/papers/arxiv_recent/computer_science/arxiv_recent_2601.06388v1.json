@@ -1,0 +1,40 @@
+{
+  "id": "arxiv_2601.06388v1",
+  "arxiv_id": "2601.06388v1",
+  "title": "Supervised and Unsupervised Neural Network Solver for First Order Hyperbolic Nonlinear PDEs",
+  "authors": [
+    "Zakaria Baba",
+    "Alexandre M. Bayen",
+    "Alexi Canesse",
+    "Maria Laura Delle Monache",
+    "Martin Drieux",
+    "Zhe Fu",
+    "Nathan Lichtlé",
+    "Zihe Liu",
+    "Hossein Nick Zinat Matin",
+    "Benedetto Piccoli"
+  ],
+  "author_string": "Zakaria Baba, Alexandre M. Bayen, Alexi Canesse, Maria Laura Delle Monache, Martin Drieux et al.",
+  "journal": "arXiv:2601.06388v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We present a neural network-based method for learning scalar hyperbolic conservation laws. Our method replaces the traditional numerical flux in finite volume schemes with a trainable neural network while preserving the conservative structure of the scheme. The model can be trained both in a supervised setting with efficiently generated synthetic data or in an unsupervised manner, leveraging the weak formulation of the partial differential equation. We provide theoretical results that our model can perform arbitrarily well, and provide associated upper bounds on neural network size. Extensive experiments demonstrate that our method often outperforms efficient schemes such as Godunov's scheme, WENO, and Discontinuous Galerkin for comparable computational budgets. Finally, we demonstrate the effectiveness of our method on a traffic prediction task, leveraging field experimental highway data from the Berkeley DeepDrive drone dataset.",
+  "categories": [
+    "math.NA",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": null,
+  "published_date": "2026-01-10T02:14:45Z",
+  "updated_date": "2026-01-10T02:14:45Z",
+  "url": "https://arxiv.org/abs/2601.06388v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.06388v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:18.738653",
+  "category": "computer_science",
+  "subcategories": [
+    "math.NA",
+    "cs.LG"
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "id": "arxiv_2602.03437v1",
+  "arxiv_id": "2602.03437v1",
+  "title": "Accelerated Electromagnetic Simulation of MRI RF Interactions with Graphene Microtransistor-Based Neural Probes for Electrophysiology-fMRI Integration",
+  "authors": [
+    "Suchit Kumar",
+    "Alejandro Labastida Ramirez",
+    "Samuel M Flaherty",
+    "Anton Guimera Brunet",
+    "Nerea Alvarez de Eulate",
+    "Kostas Kostarelos",
+    "Ben Dickie",
+    "Rob C Wykes",
+    "Louis Lemieux"
+  ],
+  "author_string": "Suchit Kumar, Alejandro Labastida Ramirez, Samuel M Flaherty, Anton Guimera Brunet, Nerea Alvarez de Eulate et al.",
+  "journal": "arXiv:2602.03437v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Implementing electrophysiological recordings within an MRI environment is challenging due to complex interactions between recording probes and MRI-generated fields, which can affect both safety and data quality. This study aims to develop and evaluate a hybrid electromagnetic (EM) simulation framework for efficient and accurate assessment of such interactions. Methods: A hybrid EM strategy integrating the Huygens' Box (HB) method with sub-gridding was implemented in an FDTD solver (Sim4Life). RF coil models for mouse and rat head were simulated with and without intracortical (IC) and epicortical (EC) graphene-based micro-transistor arrays. Three-dimensional multi-layered probe models were reconstructed from two-dimensional layouts, and transmit field ($B_{1}^{+}$), electric field ($E$), and specific absorption rate (SAR) distributions were evaluated. Performance was benchmarked against conventional full-wave multi-port (MP) simulations using Bland-Altman analysis and voxel-wise percentage differences. Results: HB simulations reduced computational time by approximately 70-80%, while preserving spatial patterns of $|B_{1}^{+}|$, $|E|$, and SAR, including transmit-field symmetry and localized high-field regions. Deviations from MP were minimal for $|B_{1}^{+}|$ (median $Δ$% 0.02-0.07% in mice, -3.7% to -1.7% in rats) and modest for $|E|$ and SAR, with absolute SAR values remaining well below human safety limits. Graphene-based arrays produced negligible effects on RF transmission and SAR deposition. Conclusion: The HB approach enables computationally efficient, high-resolution evaluation of EM interactions involving microscopic probes in MRI environments, supporting simulations that are otherwise impractical with full-wave MP modeling.",
+  "categories": [
+    "physics.med-ph"
+  ],
+  "primary_category": "physics.med-ph",
+  "comment": null,
+  "published_date": "2026-02-03T12:01:20Z",
+  "updated_date": "2026-02-03T12:01:20Z",
+  "url": "https://arxiv.org/abs/2602.03437v1",
+  "pdf_url": "https://arxiv.org/pdf/2602.03437v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-02-04T07:47:31.203700",
+  "category": "physics",
+  "subcategories": [
+    "physics.med-ph"
+  ]
+}

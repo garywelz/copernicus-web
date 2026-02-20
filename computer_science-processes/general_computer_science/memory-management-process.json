@@ -1,0 +1,43 @@
+{
+  "id": "memory-management-process",
+  "title": "Memory Management Process",
+  "description": "Computer Science process: Memory Management Process",
+  "category": "computer_science",
+  "subcategory": "general_computer_science",
+  "mermaid": "graph TD\n    A2[Memory Allocation] --> B2[Memory Management Method]\n    C2[Virtual Memory] --> D2[Page Management]\n    E2[Memory Protection] --> F2[Memory Management Analysis]\n    \n    B2 --> G2[Paging System]\n    D2 --> H2[Segmentation]\n    F2 --> I2[Memory Mapping]\n    \n    G2 --> J2[Page Replacement]\n    H2 --> K2[Address Translation]\n    I2 --> L2[Memory Access]\n    \n    J2 --> M2[Cache Management]\n    K2 --> L2\n    L2 --> N2[Memory Fragmentation]\n    \n    M2 --> O2[Memory Optimization]\n    N2 --> P2[Garbage Collection]\n    O2 --> Q2[Memory Management Process]\n    \n    P2 --> R2[Memory Management Validation]\n    Q2 --> S2[Memory Management Verification]\n    R2 --> T2[Memory Management Result]\n    \n    S2 --> U2[Memory Management Analysis]\n    T2 --> V2[Memory Management Parameters]\n    U2 --> W2[Memory Management Output]\n    \n    V2 --> X2[Memory Management Analysis]\n    W2 --> Y2[Memory Management Final Result]\n    X2 --> Z2[Memory Management Complete]\n    \n    style A2 fill:#ff6b6b,color:#fff\n    style C2 fill:#ff6b6b,color:#fff\n    style E2 fill:#ff6b6b,color:#fff\n    \n    style B2 fill:#ffd43b,color:#000\n    style D2 fill:#ffd43b,color:#000\n    style F2 fill:#ffd43b,color:#000\n    style G2 fill:#ffd43b,color:#000\n    style H2 fill:#ffd43b,color:#000\n    style I2 fill:#ffd43b,color:#000\n    style J2 fill:#ffd43b,color:#000\n    style K2 fill:#ffd43b,color:#000\n    style L2 fill:#ffd43b,color:#000\n    style M2 fill:#ffd43b,color:#000\n    style N2 fill:#ffd43b,color:#000\n    style O2 fill:#ffd43b,color:#000\n    style P2 fill:#ffd43b,color:#000\n    style Q2 fill:#ffd43b,color:#000\n    style R2 fill:#ffd43b,color:#000\n    style S2 fill:#ffd43b,color:#000\n    style T2 fill:#ffd43b,color:#000\n    style U2 fill:#ffd43b,color:#000\n    style V2 fill:#ffd43b,color:#000\n    style W2 fill:#ffd43b,color:#000\n    style X2 fill:#ffd43b,color:#000\n    style Y2 fill:#ffd43b,color:#000\n    style Z2 fill:#ffd43b,color:#000\n    \n    style M2 fill:#51cf66,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style O2 fill:#51cf66,color:#fff\n    style P2 fill:#51cf66,color:#fff\n    style Q2 fill:#51cf66,color:#fff\n    style R2 fill:#51cf66,color:#fff\n    style S2 fill:#51cf66,color:#fff\n    style T2 fill:#51cf66,color:#fff\n    style U2 fill:#51cf66,color:#fff\n    style V2 fill:#51cf66,color:#fff\n    style W2 fill:#51cf66,color:#fff\n    style X2 fill:#51cf66,color:#fff\n    style Y2 fill:#51cf66,color:#fff\n    style Z2 fill:#51cf66,color:#fff\n    \n    style Z2 fill:#b197fc,color:#fff",
+  "entities": [
+    "Memory Allocation",
+    "Memory Management Method",
+    "Virtual Memory",
+    "Page Management",
+    "Memory Protection",
+    "Memory Management Analysis",
+    "Paging System",
+    "Segmentation",
+    "Memory Mapping",
+    "Page Replacement",
+    "Address Translation",
+    "Memory Access",
+    "Cache Management",
+    "Memory Fragmentation",
+    "Memory Optimization",
+    "Garbage Collection",
+    "Memory Management Process",
+    "Memory Management Validation",
+    "Memory Management Verification",
+    "Memory Management Result",
+    "Memory Management Parameters",
+    "Memory Management Output",
+    "Memory Management Final Result",
+    "Memory Management Complete"
+  ],
+  "metadata": {
+    "source": "programming_framework",
+    "batch": "batch_05",
+    "batch_number": 5,
+    "batch_title": "Computer Science Batch 05 - Operating Systems - Programming Framework Analysis",
+    "color_scheme": "discipline_based",
+    "node_count": 24,
+    "complexity": "medium"
+  }
+}

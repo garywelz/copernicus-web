@@ -1,0 +1,30 @@
+{
+  "id": "crossref_10.22331_q-2023-03-09-942",
+  "doi": "10.22331/q-2023-03-09-942",
+  "title": "Quantum Error Correction with Quantum Autoencoders",
+  "authors": [
+    "Locher, David F.",
+    "Cardarelli, Lorenzo",
+    "Müller, Markus"
+  ],
+  "author_string": "Locher, David F., Cardarelli, Lorenzo, Müller, Markus",
+  "journal": "Quantum",
+  "issn": "2521-327X",
+  "issn_type": "electronic",
+  "volume": "7",
+  "issue": "",
+  "page": "942",
+  "year": "2023",
+  "publisher": "Verein zur Forderung des Open Access Publizierens in den Quantenwissenschaften",
+  "language": "en",
+  "abstract": "Active quantum error correction is a central ingredient to achieve robust quantum processors. In this paper we investigate the potential of quantum machine learning for quantum error correction in a quantum memory. Specifically, we demonstrate how quantum neural networks, in the form of quantum autoencoders, can be trained to learn optimal strategies for active detection and correction of errors, including spatially correlated computational errors as well as qubit losses. We highlight that the denoising capabilities of quantum autoencoders are not limited to the protection of specific states but extend to the entire logical codespace. We also show that quantum neural networks can be used to discover new logical encodings that are optimally adapted to the underlying noise. Moreover, we find that, even in the presence of moderate noise in the quantum autoencoders themselves, they may still be successfully used to perform beneficial quantum error correction and thereby extend the lifetime of a logical qubit.",
+  "subjects": [],
+  "keywords": [],
+  "article_type": "journal-article",
+  "citation_count": 27,
+  "url": "https://doi.org/10.22331/q-2023-03-09-942",
+  "source": "crossref",
+  "acquired_date": "2026-01-19T10:54:18.907860",
+  "category": "physics",
+  "subcategories": []
+}

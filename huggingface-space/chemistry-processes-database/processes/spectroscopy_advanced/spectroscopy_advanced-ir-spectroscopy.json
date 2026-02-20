@@ -1,0 +1,91 @@
+{
+  "id": "spectroscopy_advanced-ir-spectroscopy",
+  "name": "IR Spectroscopy",
+  "category": "chemistry",
+  "subcategory": "spectroscopy_advanced",
+  "subcategory_name": "Spectroscopy Advanced",
+  "description": "IR Spectroscopy process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 26,
+    "edges": 22,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 1,
+      "total": 1
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nA2[IR Radiation] --> B2[IR Spectroscopy Method]\nC2[Molecular Sample] --> D2[Wavelength Control]\nE2[Detector System] --> F2[Data Collection]\nB2 --> G2[IR Source Setup]\nD2 --> H2[Wavelength Selection]\nF2 --> I2[Signal Processing]\nG2 --> J2[Radiation Generation]\nH2 --> K2[Frequency Range]\nI2 --> L2[Transmittance Measurement]\nJ2 --> M2[Radiation Transmission]\nK2 --> L2\nL2 --> N2[Molecular Vibrations]\nM2 --> O2[Sample Irradiation]\nN2 --> P2[Vibrational Absorption]\nO2 --> Q2[Spectroscopic Analysis]\nP2 --> R2[IR Spectrum]\nQ2 --> S2[Peak Assignment]\nR2 --> T2[Functional Group Analysis]\nS2 --> U2[Vibrational Analysis]\nT2 --> V2[Group Identification]\nU2 --> W2[Spectroscopic Efficiency]\nV2 --> X2[Molecular Characterization]\nW2 --> Y2[Process Optimization]\nX2 --> Z2[Final IR Spectrum]\nY2 --> Z2\n\n    style A2 fill:#ff6b6b,color:#fff\n    style C2 fill:#ff6b6b,color:#fff\n    style E2 fill:#ff6b6b,color:#fff\n    style B2 fill:#ffd43b,color:#000\n    style D2 fill:#ffd43b,color:#000\n    style F2 fill:#ffd43b,color:#000\n    style G2 fill:#ffd43b,color:#000\n    style H2 fill:#ffd43b,color:#000\n    style I2 fill:#ffd43b,color:#000\n    style J2 fill:#ffd43b,color:#000\n    style K2 fill:#ffd43b,color:#000\n    style L2 fill:#ffd43b,color:#000\n    style M2 fill:#51cf66,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style O2 fill:#51cf66,color:#fff\n    style P2 fill:#51cf66,color:#fff\n    style Q2 fill:#51cf66,color:#fff\n    style R2 fill:#51cf66,color:#fff\n    style S2 fill:#51cf66,color:#fff\n    style T2 fill:#51cf66,color:#fff\n    style U2 fill:#51cf66,color:#fff\n    style V2 fill:#51cf66,color:#fff\n    style W2 fill:#51cf66,color:#fff\n    style X2 fill:#51cf66,color:#fff\n    style Y2 fill:#51cf66,color:#fff\n    style Z2 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: IR Spectroscopy. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "Crossref work (10.1117/12.2213129.4848650665001)",
+      "authors": "",
+      "journal": "",
+      "year": "None",
+      "pubmed": null,
+      "doi": "10.1117/12.2213129.4848650665001",
+      "url": "https://doi.org/10.1117/12.2213129.4848650665001"
+    },
+    {
+      "title": "Attenuated total reflection infrared (ATR-IR) spectroscopy, modulation excitation spectroscopy (MES), and vibrational circular dichroism (VCD)",
+      "authors": "Bürgi, Thomas",
+      "journal": "Biointerface Characterization by Advanced IR Spectroscopy",
+      "year": "2011",
+      "pubmed": null,
+      "doi": "10.1016/b978-0-444-53558-0.00005-9",
+      "url": "https://doi.org/10.1016/b978-0-444-53558-0.00005-9"
+    },
+    {
+      "title": "IR spectroscopy for biorecognition and molecular sensing",
+      "authors": "Pradier, C.M.; Salmain, M.; Boujday, S.",
+      "journal": "Biointerface Characterization by Advanced IR Spectroscopy",
+      "year": "2011",
+      "pubmed": null,
+      "doi": "10.1016/b978-0-444-53558-0.00007-2",
+      "url": "https://doi.org/10.1016/b978-0-444-53558-0.00007-2"
+    }
+  ],
+  "keywords": [
+    "ir",
+    "spectroscopy"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+}

@@ -1,0 +1,18 @@
+flowchart TD
+    A[Start/Input] --> B[Process Step]
+    B --> C{Decision Point}
+    C -->|Yes| D[Operation Path 1]
+    C -->|No| E[Operation Path 2]
+    D --> F[Intermediate State]
+    E --> F
+    F --> G[Final Output]
+    
+    style A fill:#ff6b6b,color:#fff
+    style B fill:#51cf66,color:#fff
+    style C fill:#74c0fc,color:#fff
+    style D fill:#51cf66,color:#fff
+    style E fill:#51cf66,color:#fff
+    style F fill:#74c0fc,color:#fff
+    style G fill:#b197fc,color:#fff
+
+

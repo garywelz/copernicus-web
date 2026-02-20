@@ -1,0 +1,23 @@
+{
+  "id": "pubmed_36103318",
+  "pmid": "36103318",
+  "title": "Image Segmentation of Operative Neuroanatomy Into Tissue Categories Using a Machine Learning Construct and Its Role in Neurosurgical Training.",
+  "authors": [
+    "Witten, Andrew J",
+    "Patel, Neal",
+    "Cohen-Gadol, Aaron"
+  ],
+  "author_string": "Witten, Andrew J, Patel, Neal, Cohen-Gadol, Aaron",
+  "journal": "Oper Neurosurg",
+  "journal_full": "Operative neurosurgery (Hagerstown, Md.)",
+  "year": "",
+  "doi": "10.1227/ons.0000000000000322",
+  "abstract": "The complexity of the relationships among the structures within the brain makes efficient mastery of neuroanatomy difficult for medical students and neurosurgical residents. Therefore, there is a need to provide real-time segmentation of neuroanatomic images taken from various perspectives to assist with training. To develop the initial foundation of a neuroanatomic image segmentation algorithm using artificial intelligence for education. A pyramidal scene-parsing network with a convolutional residual neural network backbone was assessed for its ability to accurately segment neuroanatomy images. A data set of 879 images derived from The Neurosurgical Atlas was used to train, validate, and test the network. Quantitative assessment of the segmentation was performed using pixel accuracy, intersection-over-union, the Dice similarity coefficient, precision, recall, and the boundary F1 score. The network was trained, and performance was assessed class wise. Compared with the ground truth annotations, the ensembled results for our artificial intelligence framework for the pyramidal scene-parsing network during testing generated a total pixel accuracy of 91.8%. Using the presented methods, we show that a convolutional neural network can accurately segment gross neuroanatomy images, which represents an initial foundation in artificial intelligence gross neuroanatomy that will aid future neurosurgical training. These results also suggest that our network is sufficiently robust, to an unprecedented level, for performing anatomic category recognition in a clinical setting.",
+  "keywords": [],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/36103318",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T17:01:23.444017",
+  "category": "biology",
+  "subcategories": []
+}

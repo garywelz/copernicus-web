@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2009.01707v1",
+  "arxiv_id": "2009.01707v1",
+  "title": "Noise sensitivity of critical random graphs",
+  "authors": [
+    "Eyal Lubetzky",
+    "Yuval Peled"
+  ],
+  "author_string": "Eyal Lubetzky, Yuval Peled",
+  "journal": "arXiv:2009.01707v1",
+  "journal_ref": null,
+  "year": "2020",
+  "doi": null,
+  "abstract": "We study noise sensitivity of properties of the largest components $({\\cal C}_j)_{j\\geq 1}$ of the random graph ${\\cal G}(n,p)$ in its critical window $p=(1+λn^{-1/3})/n$. For instance, is the property \"$|{\\cal C}_1|$ exceeds its median size\" noise sensitive? Roberts and Şengül (2018) proved that the answer to this is yes if the noise $ε$ is such that $ε\\gg n^{-1/6}$, and conjectured the correct threshold is $ε\\gg n^{-1/3}$. That is, the threshold for sensitivity should coincide with the critical window---as shown for the existence of long cycles by the first author and Steif (2015).   We prove that for $ε\\gg n^{-1/3}$ the pair of vectors $ n^{-2/3}(|{\\cal C}_j|)_{j\\geq 1}$ before and after the noise converges in distribution to a pair of i.i.d. random variables, whereas for $ε\\ll n^{-1/3}$ the $\\ell^2$-distance between the two goes to 0 in probability. This confirms the above conjecture: any Boolean function of the vector of rescaled component sizes is sensitive in the former case and stable in the latter.   We also look at the effect of the noise on the metric space $n^{-1/3}({\\cal C}_j)_{j\\geq 1}$. E.g., for $ε\\geq n^{-1/3+o(1)}$, we show that the joint law of the spaces before and after the noise converges to a product measure, implying noise sensitivity of any property seen in the limit, e.g., \"the diameter of ${\\cal C}_1$ exceeds its median.\"",
+  "categories": [
+    "math.PR",
+    "math.CO"
+  ],
+  "primary_category": "math.CO",
+  "comment": "18 pages",
+  "published_date": "2020-09-03T14:37:39Z",
+  "updated_date": "2020-09-03T14:37:39Z",
+  "url": "https://arxiv.org/abs/2009.01707v1",
+  "pdf_url": "https://arxiv.org/pdf/2009.01707v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:30:48.653031",
+  "category": "mathematics",
+  "subcategories": [
+    "math.PR",
+    "math.CO"
+  ]
+}

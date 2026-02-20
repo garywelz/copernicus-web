@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2012.10226v1",
+  "arxiv_id": "2012.10226v1",
+  "title": "Should I visit this place? Inclusion and Exclusion Phrase Mining from Reviews",
+  "authors": [
+    "Omkar Gurjar",
+    "Manish Gupta"
+  ],
+  "author_string": "Omkar Gurjar, Manish Gupta",
+  "journal": "arXiv:2012.10226v1",
+  "journal_ref": null,
+  "year": "2020",
+  "doi": null,
+  "abstract": "Although several automatic itinerary generation services have made travel planning easy, often times travellers find themselves in unique situations where they cannot make the best out of their trip. Visitors differ in terms of many factors such as suffering from a disability, being of a particular dietary preference, travelling with a toddler, etc. While most tourist spots are universal, others may not be inclusive for all. In this paper, we focus on the problem of mining inclusion and exclusion phrases associated with 11 such factors, from reviews related to a tourist spot. While existing work on tourism data mining mainly focuses on structured extraction of trip related information, personalized sentiment analysis, and automatic itinerary generation, to the best of our knowledge this is the first work on inclusion/exclusion phrase mining from tourism reviews. Using a dataset of 2000 reviews related to 1000 tourist spots, our broad level classifier provides a binary overlap F1 of $\\sim$80 and $\\sim$82 to classify a phrase as inclusion or exclusion respectively. Further, our inclusion/exclusion classifier provides an F1 of $\\sim$98 and $\\sim$97 for 11-class inclusion and exclusion classification respectively. We believe that our work can significantly improve the quality of an automatic itinerary generation service.",
+  "categories": [
+    "cs.IR",
+    "cs.CL"
+  ],
+  "primary_category": "cs.CL",
+  "comment": "Accepted at European Conference On Information Retrieval (ECIR) 2021; 8 pages",
+  "published_date": "2020-12-18T13:43:13Z",
+  "updated_date": "2020-12-18T13:43:13Z",
+  "url": "https://arxiv.org/abs/2012.10226v1",
+  "pdf_url": "https://arxiv.org/pdf/2012.10226v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:19.474885",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.IR",
+    "cs.CL"
+  ]
+}

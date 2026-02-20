@@ -1,0 +1,30 @@
+{
+  "id": "arxiv_2601.10241v1",
+  "arxiv_id": "2601.10241v1",
+  "title": "Model order reduction of piecewise linear mechanical systems using invariant cones",
+  "authors": [
+    "A. Yassine Karoui",
+    "Remco I. Leine"
+  ],
+  "author_string": "A. Yassine Karoui, Remco I. Leine",
+  "journal": "arXiv:2601.10241v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We present a methodology that extends invariant manifold theory to a class of autonomous piecewise linear systems with nonsmoothness at the equilibrium, providing a framework for model order reduction in mechanical structures with compliant contact laws. The key idea is to make the absence of a local linearization around the equilibrium tractable by leveraging the positive homogeneity property. This property simplifies the invariance equations defining the geometry of the invariant cones, from a set of partial differential equations to a system of ordinary differential equations, enabling their effective solution. We introduce two techniques to compute these invariant cones. First, an intuitive graph-style parametrization is proposed that utilizes Fourier expansions and Chebyshev polynomials to derive explicit reduced-order models in closed form. Second, an arc-length parametrization is introduced to robustly compute invariant cones with complex folding geometries, which are intractable with a standard graph-style technique. The approach is demonstrated on mechanical oscillators with unilateral visco-elastic supports, showcasing its applicability for systems with both continuous (unilateral elastic) and discontinuous (unilateral visco-elastic) unilateral force laws.",
+  "categories": [
+    "math.DS"
+  ],
+  "primary_category": "math.DS",
+  "comment": "submitted to Nonlinear Dynamics",
+  "published_date": "2026-01-15T09:59:28Z",
+  "updated_date": "2026-01-15T09:59:28Z",
+  "url": "https://arxiv.org/abs/2601.10241v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.10241v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:45.576782",
+  "category": "mathematics",
+  "subcategories": [
+    "math.DS"
+  ]
+}

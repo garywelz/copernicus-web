@@ -1,0 +1,30 @@
+{
+  "id": "pubmed_37548786",
+  "pmid": "37548786",
+  "title": "Daily runoff prediction based on the adaptive fourier decomposition method and multiscale temporal convolutional network.",
+  "authors": [
+    "Yu, Lijin",
+    "Wang, Zheng",
+    "Dai, Rui",
+    "Wang, Wanliang"
+  ],
+  "author_string": "Yu, Lijin, Wang, Zheng, Dai, Rui, Wang, Wanliang",
+  "journal": "Environ Sci Pollut Res Int",
+  "journal_full": "Environmental science and pollution research international",
+  "year": "",
+  "doi": "10.1007/s11356-023-28936-5",
+  "abstract": "The non-linearity and non-stationarity of runoff series pose significant challenges to runoff forecasting, and conventional single forecasting models struggle to accurately capture the internal dynamics of the series. To address this issue, we propose a runoff prediction model named AFDM-MTCN, which combines the adaptive Fourier decomposition method (AFDM) and multiscale temporal convolutional network (MTCN). AFDM-MTCN consists of two stages: adaptive decomposition and multi-scale feature extraction. In the adaptive decomposition stage, the improved Fourier decomposition method (IFDM) is optimized using the Sparrow Search Algorithm to enhance its ability to extract temporal patterns. In the multi-scale feature extraction stage, improvements are made to the temporal convolutional network (TCN) through the use of multi-scale convolution kernels, skip connections, and depth-wise separable convolution, to capture information from multiple angles, enhance information propagation, and reduce training parameters. The model was applied to two hydrological stations in the Weihe River Basin and compared with state-of-the-art methods to assess its accuracy and feasibility. The results demonstrate that AFDM-MTCN exhibits satisfactory performance in runoff prediction. Furthermore, compared to other decomposition techniques, AFDM demonstrates stronger capability in extracting patterns from non-stationary runoff data.",
+  "keywords": [
+    "Fourier decomposition method",
+    "Multiscale dilated causal convolution",
+    "Runoff forecasting",
+    "Sparrow search algorithm",
+    "Temporal convolutional network"
+  ],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/37548786",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T17:02:21.225558",
+  "category": "biology",
+  "subcategories": []
+}

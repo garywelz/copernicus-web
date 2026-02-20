@@ -1,0 +1,93 @@
+{
+  "id": "behavior_communication-migration-process",
+  "name": "Migration Process",
+  "category": "biology",
+  "subcategory": "behavior_communication",
+  "subcategory_name": "Behavior & Communication",
+  "organism": "Animals",
+  "description": "Migration Process in Animals. This process represents a higher-level biological mechanism distinct from molecular/biochemical processes covered in GLMP.",
+  "complexity": {
+    "nodes": 9,
+    "edges": 8,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "low",
+    "detailLevel": "low"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\n    A15[Seasonal Cues] --> B15[Orientation Mechanism]\n    C15[Internal Compass] --> D15[Navigation System]\n    B15 --> E15[Direction Selection]\n    D15 --> E15\n    E15 --> F15[Path Following]\n    F15 --> G15[Energy Management]\n    G15 --> H15[Stopover Behavior]\n    H15 --> I15[Destination Arrival]\n    \n    style A15 fill:#ff6b6b,color:#fff\n    style C15 fill:#ff6b6b,color:#fff\n    style B15 fill:#ffd43b,color:#000\n    style D15 fill:#ffd43b,color:#000\n    style E15 fill:#51cf66,color:#fff\n    style F15 fill:#51cf66,color:#fff\n    style G15 fill:#74c0fc,color:#fff\n    style H15 fill:#74c0fc,color:#fff\n    style I15 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "notes": "Higher-level biological process visualization: Migration Process. Created using the Programming Framework methodology for organismal and ecological process analysis."
+    },
+    {
+      "title": "The Evolution of Animal Migration",
+      "authors": "Dingle, H.; Drake, V.A.",
+      "journal": "Annu Rev Ecol Evol Syst",
+      "year": "2007",
+      "pubmed": "18045330",
+      "doi": "10.1146/annurev.ecolsys.38.091206.095547",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/18045330"
+    },
+    {
+      "title": "Migratory strategies of animals",
+      "authors": "Nathan, R.; Getz, W.M.; Revilla, E.; Holyoak, M.; Kadmon, R.; Saltz, D.; Smouse, P.E.",
+      "journal": "Nature",
+      "year": "2008",
+      "pubmed": "18568019",
+      "doi": "10.1038/nature06955",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/18568019"
+    },
+    {
+      "title": "The global impacts of climate change on the future of animal migration",
+      "authors": "Bauer, S.; Klaassen, M.",
+      "journal": "Science",
+      "year": "2013",
+      "pubmed": "23413346",
+      "doi": "10.1126/science.1229313",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/23413346"
+    }
+  ],
+  "keywords": [
+    "animals",
+    "migration",
+    "behavior",
+    "process",
+    "communication"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-08",
+  "verified": false,
+  "notes": "Higher-level biological process. GLMP covers biochemical/molecular processes; this database covers organismal/ecological processes."
+}

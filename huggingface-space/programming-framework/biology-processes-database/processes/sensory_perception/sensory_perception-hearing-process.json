@@ -1,0 +1,93 @@
+{
+  "id": "sensory_perception-hearing-process",
+  "name": "Hearing Process",
+  "category": "biology",
+  "subcategory": "sensory_perception",
+  "subcategory_name": "Sensory & Perception",
+  "organism": "Animals",
+  "description": "Hearing Process in Animals. This process represents a higher-level biological mechanism distinct from molecular/biochemical processes covered in GLMP.",
+  "complexity": {
+    "nodes": 9,
+    "edges": 8,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "low",
+    "detailLevel": "low"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\n    A37[Sound Waves] --> B37[Outer Ear Collection]\n    B37 --> C37[Eardrum Vibration]\n    C37 --> D37[Middle Ear Bones]\n    D37 --> E37[Cochlear Fluid]\n    E37 --> F37[Hair Cell Activation]\n    F37 --> G37[Frequency Analysis]\n    G37 --> H37[Auditory Nerve]\n    H37 --> I37[Brain Interpretation]\n    \n    style A37 fill:#ff6b6b,color:#fff\n    style B37 fill:#ffd43b,color:#000\n    style C37 fill:#ffd43b,color:#000\n    style D37 fill:#ffd43b,color:#000\n    style E37 fill:#ffd43b,color:#000\n    style F37 fill:#51cf66,color:#fff\n    style G37 fill:#51cf66,color:#fff\n    style H37 fill:#74c0fc,color:#fff\n    style I37 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "notes": "Higher-level biological process visualization: Hearing Process. Created using the Programming Framework methodology for organismal and ecological process analysis."
+    },
+    {
+      "title": "How the ear's works work",
+      "authors": "Hudspeth, A. J.",
+      "journal": "Nature",
+      "year": "1989",
+      "pubmed": "2677685",
+      "doi": "10.1038/341397a0",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/2677685"
+    },
+    {
+      "title": "Neural mechanisms for acoustic communication across animal species",
+      "authors": "Hackett, T. A., Bendor, D.",
+      "journal": "Annu Rev Neurosci",
+      "year": "2023",
+      "pubmed": "37196606",
+      "doi": "10.1146/annurev-neuro-101121-020529",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/37196606"
+    },
+    {
+      "title": "Neural circuits for sound localization",
+      "authors": "King, A. J., Palmer, A. R.",
+      "journal": "Annu Rev Neurosci",
+      "year": "2021",
+      "pubmed": "33857508",
+      "doi": "10.1146/annurev-neuro-092520-101705",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/33857508"
+    }
+  ],
+  "keywords": [
+    "sensory",
+    "animals",
+    "perception",
+    "process",
+    "hearing"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-08",
+  "verified": false,
+  "notes": "Higher-level biological process. GLMP covers biochemical/molecular processes; this database covers organismal/ecological processes."
+}

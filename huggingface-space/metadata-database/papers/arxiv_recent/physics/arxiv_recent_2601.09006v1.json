@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2601.09006v1",
+  "arxiv_id": "2601.09006v1",
+  "title": "GOUHFI 2.0: A Next-Generation Toolbox for Brain Segmentation and Cortex Parcellation at Ultra-High Field MRI",
+  "authors": [
+    "Marc-Antoine Fortin",
+    "Anne Louise Kristoffersen",
+    "Paal Erik Goa"
+  ],
+  "author_string": "Marc-Antoine Fortin, Anne Louise Kristoffersen, Paal Erik Goa",
+  "journal": "arXiv:2601.09006v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Ultra-High Field MRI (UHF-MRI) is increasingly used in large-scale neuroimaging studies, yet automatic brain segmentation and cortical parcellation remain challenging due to signal inhomogeneities, heterogeneous contrasts and resolutions, and the limited availability of tools optimized for UHF data. Standard software packages such as FastSurferVINN and SynthSeg+ often yield suboptimal results when applied directly to UHF images, thereby restricting region-based quantitative analyses. To address this need, we introduce GOUHFI 2.0, an updated implementation of GOUHFI that incorporates increased training data variability and additional functionalities, including cortical parcellation and volumetry.   GOUHFI 2.0 preserves the contrast- and resolution-agnostic design of the original toolbox while introducing two independently trained 3D U-Net segmentation tasks. The first performs whole-brain segmentation into 35 labels across contrasts, resolutions, field strengths and populations, using a domain-randomization strategy and a training dataset of 238 subjects. Using the same training data, the second network performs cortical parcellation into 62 labels following the Desikan-Killiany-Tourville (DKT) protocol.   Across multiple datasets, GOUHFI 2.0 demonstrated improved segmentation accuracy relative to the original toolbox, particularly in heterogeneous cohorts, and produced reliable cortical parcellations. In addition, the integrated volumetry pipeline yielded results consistent with standard volumetric workflows. Overall, GOUHFI 2.0 provides a comprehensive solution for brain segmentation, parcellation and volumetry across field strengths, and constitutes the first deep-learning toolbox enabling robust cortical parcellation at UHF-MRI.",
+  "categories": [
+    "eess.IV",
+    "cs.CV",
+    "physics.med-ph"
+  ],
+  "primary_category": "physics.med-ph",
+  "comment": null,
+  "published_date": "2026-01-13T22:08:30Z",
+  "updated_date": "2026-01-13T22:08:30Z",
+  "url": "https://arxiv.org/abs/2601.09006v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.09006v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:06.567155",
+  "category": "physics",
+  "subcategories": [
+    "eess.IV",
+    "cs.CV",
+    "physics.med-ph"
+  ]
+}

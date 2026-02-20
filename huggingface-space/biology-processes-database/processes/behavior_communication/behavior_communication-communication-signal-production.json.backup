@@ -1,0 +1,93 @@
+{
+  "category": "biology",
+  "colorScheme": {
+    "blue": {
+      "category": "Intermediates & States",
+      "hex": "#74c0fc"
+    },
+    "green": {
+      "category": "Processing & Operations",
+      "hex": "#51cf66"
+    },
+    "red": {
+      "category": "Triggers & Inputs",
+      "hex": "#ff6b6b"
+    },
+    "violet": {
+      "category": "Products & Outputs",
+      "hex": "#b197fc"
+    },
+    "yellow": {
+      "category": "Structures & Objects",
+      "hex": "#ffd43b"
+    }
+  },
+  "complexity": {
+    "conditionals": 0,
+    "detailLevel": "low",
+    "edges": 10,
+    "level": "low",
+    "logicGates": {
+      "andGates": 0,
+      "orGates": 0,
+      "total": 0
+    },
+    "nodes": 9
+  },
+  "created": "2026-01-08",
+  "description": "Communication Signal Production in Animals. This process represents a higher-level biological mechanism distinct from molecular/biochemical processes covered in GLMP.",
+  "id": "behavior_communication-communication-signal-production",
+  "keywords": [
+    "animals",
+    "signal",
+    "behavior",
+    "production",
+    "communication"
+  ],
+  "lastUpdated": "2026-01-08",
+  "mermaid": "graph TD\n    A19[Information Source] --> B19[Signal Encoding]\n    B19 --> C19[Signal Modality Selection]\n    C19 --> D19[Vocal Production]\n    C19 --> E19[Chemical Release]\n    C19 --> F19[Visual Display]\n    D19 --> G19[Signal Transmission]\n    E19 --> G19\n    F19 --> G19\n    G19 --> H19[Receptor Detection]\n    H19 --> I19[Response Elicitation]\n    \n    style A19 fill:#ff6b6b,color:#fff\n    style B19 fill:#ffd43b,color:#000\n    style C19 fill:#51cf66,color:#fff\n    style D19 fill:#74c0fc,color:#fff\n    style E19 fill:#74c0fc,color:#fff\n    style F19 fill:#74c0fc,color:#fff\n    style G19 fill:#51cf66,color:#fff\n    style H19 fill:#74c0fc,color:#fff\n    style I19 fill:#b197fc,color:#fff",
+  "name": "Communication Signal Production",
+  "notes": "Higher-level biological process. GLMP covers biochemical/molecular processes; this database covers organismal/ecological processes.",
+  "organism": "Animals",
+  "relatedProcesses": [],
+  "sources": [
+    {
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "notes": "Higher-level biological process visualization: Communication Signal Production. Created using the Programming Framework methodology for organismal and ecological process analysis.",
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "year": "2025"
+    },
+    {
+      "authors": "Nottebohm, F.",
+      "doi": "10.1126/science.7313369",
+      "journal": "Science",
+      "pubmed": "7313369",
+      "title": "A brain for all seasons: cyclical anatomical changes in song control nuclei of the canary brain",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/7313369",
+      "year": "1981"
+    },
+    {
+      "authors": "Searcy, WA; Nowicki, S.",
+      "doi": "10.1146/annurev.ecolsys.36.102003.152641",
+      "journal": "Annu Rev Ecol Evol Syst",
+      "pubmed": "19532598",
+      "title": "The evolution of honest signaling",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/19532598",
+      "year": "2005"
+    },
+    {
+      "authors": "Bass, AH; Chagnaud, FP.",
+      "doi": "10.1038/s41583-020-00373-w",
+      "journal": "Nat Rev Neurosci",
+      "pubmed": "32913210",
+      "title": "Convergent evolution of neural circuits for vocal communication",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/32913210",
+      "year": "2020"
+    }
+  ],
+  "subcategory": "behavior_communication",
+  "subcategory_name": "Behavior & Communication",
+  "verified": false
+}

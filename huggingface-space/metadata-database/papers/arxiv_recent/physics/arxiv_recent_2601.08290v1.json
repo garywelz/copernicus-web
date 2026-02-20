@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2601.08290v1",
+  "arxiv_id": "2601.08290v1",
+  "title": "A Preparation Nonstationarity Loophole in Superconducting-Qubit Bell Tests",
+  "authors": [
+    "Prosanta Pal",
+    "Shubhanshu Karoliya",
+    "Gargee Sharma",
+    "Ramakrishna Podila"
+  ],
+  "author_string": "Prosanta Pal, Shubhanshu Karoliya, Gargee Sharma, Ramakrishna Podila",
+  "journal": "arXiv:2601.08290v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Bell or Clauser-Horne-Shimony-Holt (CHSH) tests on superconducting quantum processors are commonly interpreted under the assumption that repeated circuit executions sample a single, stationary preparation ensemble. Here we show that this assumption can be violated on contemporary hardware, with direct implications for the interpretation of observed Bell violations. We introduce an ensemble-divergence framework in which slow temporal drift of the preparation process induces context-dependent effective ensembles, even when measurement independence and locality are preserved. This leads to a relaxed Bell bound $|S| \\le 2 + 6δ_{\\mathrm{ens}}$, where $δ_{\\mathrm{ens}}$ quantifies preparation nonstationarity. Because $δ_{\\mathrm{ens}}$ is not directly observable, we develop an operational witness $δ_{\\mathrm{op}}$ based on bin-resolved outcome statistics for fixed measurement channels. Using Pauli-axis measurements on IBM superconducting processors, we observe statistically significant operational drift that persists after full two-qubit readout mitigation, ruling out measurement artifacts. In contrast, drift extracted from CHSH-optimal measurements is eliminated by mitigation, demonstrating that such settings are unsuitable for diagnosing preparation nonstationarity. We further show that the observed Bell violations imply only modest ensemble divergences, comparable in scale to those required in Hall-type measurement-dependence models, but arising here solely from preparation drift combined with experimental scheduling. Our results identify a preparation-dependent loophole relevant to Bell tests on noisy intermediate-scale quantum devices and highlight the necessity of drift-aware protocols for reliable quantum certification.",
+  "categories": [
+    "quant-ph",
+    "cond-mat.mes-hall",
+    "cond-mat.supr-con"
+  ],
+  "primary_category": "cond-mat.supr-con",
+  "comment": "10+pages, 4 figures",
+  "published_date": "2026-01-13T07:31:00Z",
+  "updated_date": "2026-01-13T07:31:00Z",
+  "url": "https://arxiv.org/abs/2601.08290v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.08290v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:14.422618",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph",
+    "cond-mat.mes-hall",
+    "cond-mat.supr-con"
+  ]
+}

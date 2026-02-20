@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2601.05850v1",
+  "arxiv_id": "2601.05850v1",
+  "title": "Rigorous Implications of the Low-Degree Heuristic",
+  "authors": [
+    "Jun-Ting Hsieh",
+    "Daniel M. Kane",
+    "Pravesh K. Kothari",
+    "Jerry Li",
+    "Sidhanth Mohanty",
+    "Stefan Tiegel"
+  ],
+  "author_string": "Jun-Ting Hsieh, Daniel M. Kane, Pravesh K. Kothari, Jerry Li, Sidhanth Mohanty et al.",
+  "journal": "arXiv:2601.05850v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Over the past decade, the low-degree heuristic has been used to estimate the algorithmic thresholds for a wide range of average-case planted vs null distinguishing problems. Such results rely on the hypothesis that if the low-degree moments of the planted and null distributions are sufficiently close, then no efficient (noise-tolerant) algorithm can distinguish between them. This hypothesis is appealing due to the simplicity of calculating the low-degree likelihood ratio (LDLR) -- a quantity that measures the similarity between low-degree moments. However, despite sustained interest in the area, it remains unclear whether low-degree indistinguishability actually rules out any interesting class of algorithms.   In this work, we initiate the study and develop technical tools for translating LDLR upper bounds to rigorous lower bounds against concrete algorithms. As a consequence, we prove: for any permutation-invariant distribution $\\mathsf{P}$,   1. If $\\mathsf{P}$ is over $\\{0,1\\}^n$ and is low-degree indistinguishable from $U = \\mathrm{Unif}(\\{0,1\\}^n)$, then a noisy version of $\\mathsf{P}$ is statistically indistinguishable from $U$.   2. If $\\mathsf{P}$ is over $\\mathbb{R}^n$ and is low-degree indistinguishable from the standard Gaussian ${N}(0, 1)^n$, then no statistic based on symmetric polynomials of degree at most $O(\\log n/\\log \\log n)$ can distinguish between a noisy version of $\\mathsf{P}$ from ${N}(0, 1)^n$.   3. If $\\mathsf{P}$ is over $\\mathbb{R}^{n\\times n}$ and is low-degree indistinguishable from ${N}(0,1)^{n\\times n}$, then no constant-sized subgraph statistic can distinguish between a noisy version of $\\mathsf{P}$ and ${N}(0, 1)^{n\\times n}$.",
+  "categories": [
+    "cs.CC",
+    "math.PR"
+  ],
+  "primary_category": "math.PR",
+  "comment": "49 pages",
+  "published_date": "2026-01-09T15:26:16Z",
+  "updated_date": "2026-01-09T15:26:16Z",
+  "url": "https://arxiv.org/abs/2601.05850v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.05850v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:22.684244",
+  "category": "mathematics",
+  "subcategories": [
+    "cs.CC",
+    "math.PR"
+  ]
+}

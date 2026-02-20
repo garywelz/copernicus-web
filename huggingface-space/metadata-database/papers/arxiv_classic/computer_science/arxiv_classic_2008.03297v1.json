@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2008.03297v1",
+  "arxiv_id": "2008.03297v1",
+  "title": "Multi-Stage Optimized Machine Learning Framework for Network Intrusion Detection",
+  "authors": [
+    "MohammadNoor Injadat",
+    "Abdallah Moubayed",
+    "Ali Bou Nassif",
+    "Abdallah Shami"
+  ],
+  "author_string": "MohammadNoor Injadat, Abdallah Moubayed, Ali Bou Nassif, Abdallah Shami",
+  "journal": "Electronic ISSN: 1932-4537",
+  "journal_ref": "Electronic ISSN: 1932-4537",
+  "year": "2020",
+  "doi": "10.1109/TNSM.2020.3014929",
+  "abstract": "Cyber-security garnered significant attention due to the increased dependency of individuals and organizations on the Internet and their concern about the security and privacy of their online activities. Several previous machine learning (ML)-based network intrusion detection systems (NIDSs) have been developed to protect against malicious online behavior. This paper proposes a novel multi-stage optimized ML-based NIDS framework that reduces computational complexity while maintaining its detection performance. This work studies the impact of oversampling techniques on the models' training sample size and determines the minimal suitable training sample size. Furthermore, it compares between two feature selection techniques, information gain and correlation-based, and explores their effect on detection performance and time complexity. Moreover, different ML hyper-parameter optimization techniques are investigated to enhance the NIDS's performance. The performance of the proposed framework is evaluated using two recent intrusion detection datasets, the CICIDS 2017 and the UNSW-NB 2015 datasets. Experimental results show that the proposed model significantly reduces the required training sample size (up to 74%) and feature set size (up to 50%). Moreover, the model performance is enhanced with hyper-parameter optimization with detection accuracies over 99% for both datasets, outperforming recent literature works by 1-2% higher accuracy and 1-2% lower false alarm rate.",
+  "categories": [
+    "cs.CR",
+    "cs.LG",
+    "cs.NI"
+  ],
+  "primary_category": "cs.NI",
+  "comment": "14 Pages, 13 Figures, 4 tables, Published IEEE Transactions on Network and Service Management ( Early Access )",
+  "published_date": "2020-08-09T03:18:00Z",
+  "updated_date": "2020-08-09T03:18:00Z",
+  "url": "https://arxiv.org/abs/2008.03297v1",
+  "pdf_url": "https://arxiv.org/pdf/2008.03297v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:27.422540",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CR",
+    "cs.LG",
+    "cs.NI"
+  ]
+}

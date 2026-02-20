@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2601.11029v1",
+  "arxiv_id": "2601.11029v1",
+  "title": "A Quantum-Driven Evolutionary Framework for Solving High-Dimensional Sharpe Ratio Portfolio Optimization",
+  "authors": [
+    "Mingyang Yu",
+    "Jiaqi Zhang",
+    "Haorui Yang",
+    "Adam Slowik",
+    "Huiling Chen",
+    "Jing Xu"
+  ],
+  "author_string": "Mingyang Yu, Jiaqi Zhang, Haorui Yang, Adam Slowik, Huiling Chen et al.",
+  "journal": "arXiv:2601.11029v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "High-dimensional portfolio optimization faces significant computational challenges under complex constraints, with traditional optimization methods struggling to balance convergence speed and global exploration capability. To address this, firstly, we introduce an enhanced Sharpe ratio-based model that incorporates all constraints into the objective function using adaptive penalty terms, transforming the original constrained problem into an unconstrained single-objective formulation. This approach preserves financial interpretability while simplifying algorithmic implementation. To efficiently solve the resulting high-dimensional optimization problem, we propose a Quantum Hybrid Differential Evolution (QHDE) algorithm, which integrates Quantum-inspired probabilistic behavior into the standard DE framework. QHDE employs a Schrodinger-inspired probabilistic mechanism for population evolution, enabling more flexible and diversified solution updates. To further enhance performance, a good point set-chaos reverse learning strategy is adopted to generate a well-dispersed initial population, and a dynamic elite pool combined with Cauchy-Gaussian hybrid perturbations strengthens global exploration and mitigates premature convergence. Experimental validation on CEC benchmarks and real-world portfolios involving 20 to 80 assets demonstrates that QHDE's performance improves by up to 73.4%. It attains faster convergence, higher solution precision, and greater robustness than seven state-of-the-art counterparts, thereby confirming its suitability for complex, high-dimensional portfolio optimization and advancing quantum-inspired evolutionary research in computational finance.",
+  "categories": [
+    "cs.NE"
+  ],
+  "primary_category": "cs.NE",
+  "comment": "Mingyang Yu and Jiaqi Zhang contributed equally",
+  "published_date": "2026-01-16T06:50:28Z",
+  "updated_date": "2026-01-16T06:50:28Z",
+  "url": "https://arxiv.org/abs/2601.11029v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11029v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:37.509948",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.NE"
+  ]
+}

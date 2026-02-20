@@ -1,0 +1,23 @@
+{
+  "id": "pubmed_41028523",
+  "pmid": "41028523",
+  "title": "Single-cell foundation models: bringing artificial intelligence into cell biology.",
+  "authors": [
+    "Baek, Seungbyn",
+    "Song, Kyungwoo",
+    "Lee, Insuk"
+  ],
+  "author_string": "Baek, Seungbyn, Song, Kyungwoo, Lee, Insuk",
+  "journal": "Exp Mol Med",
+  "journal_full": "Experimental & molecular medicine",
+  "year": "",
+  "doi": "10.1038/s12276-025-01547-5",
+  "abstract": "A foundation model, a large-scale deep learning model pretrained on vast datasets, has revolutionized data interpretation through self-supervised learning with capacity for various downstream tasks. Concurrently, single-cell genomics is in urgent need of unified frameworks capable of integrating and comprehensively analyzing the rapidly expanding data repositories. Inspired by advances in foundation models, researchers have extended these techniques to single-cell analysis, giving rise to single-cell foundation models (scFMs). Typically, these models use transformer architectures to incorporate diverse omics data and extract latent patterns at both cell and gene/feature levels for the analysis of cellular heterogeneity and complex regulatory networks. Despite their promise, scFMs face challenges including the nonsequential nature of omics data, inconsistency in data quality and the computational intensity required for training and fine-tuning. Furthermore, interpreting the biological relevance of latent embeddings and model representations remains nontrivial. Here we provide an overview of scFMs, highlighting their key concepts and applications across downstream tasks. We critically assess the current limitations and propose future directions aimed at enhancing the robustness, interpretability and scalability of scFMs. Ultimately, addressing these challenges will be crucial for establishing scFMs as pivotal tools in advancing single-cell genomics and unlocking deeper insights into cellular function and disease mechanisms.",
+  "keywords": [],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/41028523",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T16:59:27.701618",
+  "category": "biology",
+  "subcategories": []
+}

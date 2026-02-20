@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2601.07824v2",
+  "arxiv_id": "2601.07824v2",
+  "title": "Computing quantum magic of state vectors",
+  "authors": [
+    "Piotr Sierant",
+    "Jofre Vallès-Muns",
+    "Artur Garcia-Saez"
+  ],
+  "author_string": "Piotr Sierant, Jofre Vallès-Muns, Artur Garcia-Saez",
+  "journal": "arXiv:2601.07824v2",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Non-stabilizerness, also known as ``magic,'' quantifies how far a quantum state departs from the stabilizer set. It is a central resource behind quantum advantage and a useful probe of the complexity of quantum many-body states. Yet standard magic quantifiers, such as the stabilizer Rényi entropy (SRE) for qubits and the mana for qutrits, are costly to evaluate numerically, with the computational complexity growing rapidly with the number $N$ of qudits. Here we introduce efficient, numerically exact algorithms that exploit the fast Hadamard transform to compute the SRE for qubits ($d=2$) and the mana for qutrits ($d=3$) for pure states given as state vectors. Our methods compute SRE and mana at cost $O(N d^{2N})$, providing an exponential improvement over the naive $O(d^{3N})$ scaling, with substantial parallelism and straightforward GPU acceleration. We further show how to combine the fast Hadamard transform with Monte Carlo sampling to estimate the SRE of state vectors, and we extend the approach to compute the mana of mixed states. All algorithms are implemented in the open-source Julia package HadaMAG ( https://github.com/bsc-quantic/HadaMAG.jl/ ), which provides a high-performance toolbox for computing SRE and mana with built-in support for multithreading, MPI-based distributed parallelism, and GPU acceleration. The package, together with the methods developed in this work, offers a practical route to large-scale numerical studies of magic in quantum many-body systems.",
+  "categories": [
+    "quant-ph",
+    "cond-mat.dis-nn",
+    "cond-mat.stat-mech"
+  ],
+  "primary_category": "cond-mat.stat-mech",
+  "comment": "Several typos fixed, 28 pages, 1 figure. Comments welcome!",
+  "published_date": "2026-01-12T18:58:06Z",
+  "updated_date": "2026-01-13T18:54:47Z",
+  "url": "https://arxiv.org/abs/2601.07824v2",
+  "pdf_url": "https://arxiv.org/pdf/2601.07824v2.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:19.626336",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph",
+    "cond-mat.dis-nn",
+    "cond-mat.stat-mech"
+  ]
+}

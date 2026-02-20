@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2601.11354v1",
+  "arxiv_id": "2601.11354v1",
+  "title": "AstroReason-Bench: Evaluating Unified Agentic Planning across Heterogeneous Space Planning Problems",
+  "authors": [
+    "Weiyi Wang",
+    "Xinchi Chen",
+    "Jingjing Gong",
+    "Xuanjing Huang",
+    "Xipeng Qiu"
+  ],
+  "author_string": "Weiyi Wang, Xinchi Chen, Jingjing Gong, Xuanjing Huang, Xipeng Qiu",
+  "journal": "arXiv:2601.11354v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Recent advances in agentic Large Language Models (LLMs) have positioned them as generalist planners capable of reasoning and acting across diverse tasks. However, existing agent benchmarks largely focus on symbolic or weakly grounded environments, leaving their performance in physics-constrained real-world domains underexplored. We introduce AstroReason-Bench, a comprehensive benchmark for evaluating agentic planning in Space Planning Problems (SPP), a family of high-stakes problems with heterogeneous objectives, strict physical constraints, and long-horizon decision-making. AstroReason-Bench integrates multiple scheduling regimes, including ground station communication and agile Earth observation, and provides a unified agent-oriented interaction protocol. Evaluating on a range of state-of-the-art open- and closed-source agentic LLM systems, we find that current agents substantially underperform specialized solvers, highlighting key limitations of generalist planning under realistic constraints. AstroReason-Bench offers a challenging and diagnostic testbed for future agentic research.",
+  "categories": [
+    "cs.AI",
+    "cs.CL"
+  ],
+  "primary_category": "cs.CL",
+  "comment": null,
+  "published_date": "2026-01-16T15:02:41Z",
+  "updated_date": "2026-01-16T15:02:41Z",
+  "url": "https://arxiv.org/abs/2601.11354v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11354v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:30.214370",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.AI",
+    "cs.CL"
+  ]
+}

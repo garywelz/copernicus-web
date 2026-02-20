@@ -1,0 +1,88 @@
+{
+  "category": "chemistry",
+  "colorScheme": {
+    "blue": {
+      "category": "Intermediates & States",
+      "hex": "#74c0fc"
+    },
+    "green": {
+      "category": "Processing & Operations",
+      "hex": "#51cf66"
+    },
+    "red": {
+      "category": "Triggers & Inputs",
+      "hex": "#ff6b6b"
+    },
+    "violet": {
+      "category": "Products & Outputs",
+      "hex": "#b197fc"
+    },
+    "yellow": {
+      "category": "Structures & Objects",
+      "hex": "#ffd43b"
+    }
+  },
+  "complexity": {
+    "conditionals": 0,
+    "detailLevel": "medium",
+    "edges": 25,
+    "level": "medium",
+    "logicGates": {
+      "andGates": 0,
+      "orGates": 33,
+      "total": 33
+    },
+    "nodes": 26
+  },
+  "created": "2026-01-08",
+  "description": "Polymorphism process illustrating phase transitions, polymorphic transformation, and phase characterization.",
+  "id": "surface_chemistry-polymorphism",
+  "keywords": [
+    "polymorphism"
+  ],
+  "lastUpdated": "2026-01-08",
+  "mermaid": "graph TD\nA2[Molecular Compound] --> B2[Polymorphism Method]\nC2[Crystallization Conditions] --> D2[Phase Analysis]\nE2[Temperature Control] --> F2[Phase Transition]\nB2 --> G2[Phase Preparation]\nD2 --> H2[Phase Characterization]\nF2 --> I2[Transition Control]\nG2 --> J2[Initial Phase]\nH2 --> K2[Phase Properties]\nI2 --> L2[Transition Conditions]\nJ2 --> M2[Phase Formation]\nK2 --> L2\nL2 --> N2[Phase Transition]\nM2 --> O2[Crystal Growth]\nN2 --> P2[Polymorphic Transformation]\nO2 --> Q2[Phase Analysis]\nP2 --> R2[New Phase]\nQ2 --> S2[Transition Analysis]\nR2 --> T2[Phase Properties]\nS2 --> U2[Transition Parameters]\nT2 --> V2[Property Comparison]\nU2 --> W2[Polymorphic Efficiency]\nV2 --> X2[Phase Characterization]\nW2 --> Y2[Process Optimization]\nX2 --> Z2[Final Polymorphic Form]\nY2 --> Z2\n\n    style A2 fill:#ff6b6b,color:#fff\n    style C2 fill:#ff6b6b,color:#fff\n    style E2 fill:#ff6b6b,color:#fff\n    style B2 fill:#ffd43b,color:#000\n    style D2 fill:#ffd43b,color:#000\n    style F2 fill:#ffd43b,color:#000\n    style G2 fill:#ffd43b,color:#000\n    style H2 fill:#ffd43b,color:#000\n    style I2 fill:#ffd43b,color:#000\n    style J2 fill:#ffd43b,color:#000\n    style K2 fill:#ffd43b,color:#000\n    style L2 fill:#ffd43b,color:#000\n    style M2 fill:#51cf66,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style O2 fill:#51cf66,color:#fff\n    style P2 fill:#51cf66,color:#fff\n    style Q2 fill:#51cf66,color:#fff\n    style R2 fill:#51cf66,color:#fff\n    style S2 fill:#51cf66,color:#fff\n    style T2 fill:#51cf66,color:#fff\n    style U2 fill:#51cf66,color:#fff\n    style V2 fill:#51cf66,color:#fff\n    style W2 fill:#51cf66,color:#fff\n    style X2 fill:#51cf66,color:#fff\n    style Y2 fill:#51cf66,color:#fff\n    style Z2 fill:#b197fc,color:#fff",
+  "name": "Polymorphism",
+  "notes": "Converted from chemistry batch HTML. Process number: 2.",
+  "relatedProcesses": [],
+  "sources": [
+    {
+      "authors": "Welz, G.",
+      "doi": null,
+      "journal": "CopernicusAI Knowledge Engine",
+      "notes": "Chemistry process visualization: Polymorphism. Created using the Programming Framework methodology for process analysis and visualization.",
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "year": "2025"
+    },
+    {
+      "authors": "St. Jean, S. M.; Dalal, N. S.",
+      "doi": "10.1021/cr050162a",
+      "journal": "Chem. Rev.",
+      "pubmed": null,
+      "title": "Phase Transitions and Polymorphism in Organic Compounds",
+      "url": "https://doi.org/10.1021/cr050162a",
+      "year": "2007"
+    },
+    {
+      "authors": "Desiraju, G. R.",
+      "doi": "10.1021/ja402010c",
+      "journal": "J. Am. Chem. Soc.",
+      "pubmed": null,
+      "title": "Polymorphism and Cocrystals: Structure and Energetics",
+      "url": "https://doi.org/10.1021/ja402010c",
+      "year": "2013"
+    },
+    {
+      "authors": "van der Noll, P. E. G.; Meier, R. J.; W\u00f6ltgens, P. J. M.; Feil, D.",
+      "doi": "10.1002/anie.200501170",
+      "journal": "Angew. Chem. Int. Ed.",
+      "pubmed": null,
+      "title": "Understanding and Predicting Polymorphism",
+      "url": "https://doi.org/10.1002/anie.200501170",
+      "year": "2005"
+    }
+  ],
+  "subcategory": "surface_chemistry",
+  "verified": false
+}

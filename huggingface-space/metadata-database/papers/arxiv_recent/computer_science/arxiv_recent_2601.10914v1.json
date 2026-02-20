@@ -1,0 +1,30 @@
+{
+  "id": "arxiv_2601.10914v1",
+  "arxiv_id": "2601.10914v1",
+  "title": "FAConvLSTM: Factorized-Attention ConvLSTM for Efficient Feature Extraction in Multivariate Climate Data",
+  "authors": [
+    "Francis Ndikum Nji",
+    "Jianwu Wang"
+  ],
+  "author_string": "Francis Ndikum Nji, Jianwu Wang",
+  "journal": "arXiv:2601.10914v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Learning physically meaningful spatiotemporal representations from high-resolution multivariate Earth observation data is challenging due to strong local dynamics, long-range teleconnections, multi-scale interactions, and nonstationarity. While ConvLSTM2D is a commonly used baseline, its dense convolutional gating incurs high computational cost and its strictly local receptive fields limit the modeling of long-range spatial structure and disentangled climate dynamics. To address these limitations, we propose FAConvLSTM, a Factorized-Attention ConvLSTM layer designed as a drop-in replacement for ConvLSTM2D that simultaneously improves efficiency, spatial expressiveness, and physical interpretability. FAConvLSTM factorizes recurrent gate computations using lightweight [1 times 1] bottlenecks and shared depthwise spatial mixing, substantially reducing channel complexity while preserving recurrent dynamics. Multi-scale dilated depthwise branches and squeeze-and-excitation recalibration enable efficient modeling of interacting physical processes across spatial scales, while peephole connections enhance temporal precision. To capture teleconnection-scale dependencies without incurring global attention cost, FAConvLSTM incorporates a lightweight axial spatial attention mechanism applied sparsely in time. A dedicated subspace head further produces compact per timestep embeddings refined through temporal self-attention with fixed seasonal positional encoding. Experiments on multivariate spatiotemporal climate data shows superiority demonstrating that FAConvLSTM yields more stable, interpretable, and robust latent representations than standard ConvLSTM, while significantly reducing computational overhead.",
+  "categories": [
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": null,
+  "published_date": "2026-01-16T00:07:46Z",
+  "updated_date": "2026-01-16T00:07:46Z",
+  "url": "https://arxiv.org/abs/2601.10914v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.10914v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:37.518846",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.LG"
+  ]
+}

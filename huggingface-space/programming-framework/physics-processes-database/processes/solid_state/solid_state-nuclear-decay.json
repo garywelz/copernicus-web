@@ -1,0 +1,66 @@
+{
+  "id": "solid_state-nuclear-decay",
+  "name": "Nuclear Decay",
+  "category": "physics",
+  "subcategory": "solid_state",
+  "subcategory_name": "Solid State Physics",
+  "description": "Nuclear Decay Process. This nuclear physics process visualization demonstrates nuclear decay and radioactivity. The flowchart shows unstable inputs and decay energy, nuclear decay methods and decay modes, nuclear decay operations and decay products, intermediate results, and final nuclear decay outputs.",
+  "complexity": {
+    "nodes": 26,
+    "edges": 24,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nA1[Unstable Nucleus] --> B1[Nuclear Decay Method]\nC1[Decay Energy] --> D1[Decay Mode]\nE1[Decay Products] --> F1[Nuclear Decay Analysis]\nB1 --> G1[Alpha Decay]\nD1 --> H1[Beta Decay]\nF1 --> I1[Gamma Decay]\nG1 --> J1[Alpha Particle]\nH1 --> K1[Beta Particle]\nI1 --> L1[Gamma Ray]\nJ1 --> M1[Decay Constant]\nK1 --> L1\nL1 --> N1[Half Life]\nM1 --> O1[Decay Rate]\nN1 --> P1[Decay Chain]\nO1 --> Q1[Nuclear Decay Process]\nP1 --> R1[Nuclear Decay Validation]\nQ1 --> S1[Nuclear Decay Verification]\nR1 --> T1[Nuclear Decay Result]\nS1 --> U1[Nuclear Decay Analysis]\nT1 --> V1[Nuclear Decay Parameters]\nU1 --> W1[Nuclear Decay Output]\nV1 --> X1[Nuclear Decay Analysis]\nW1 --> Y1[Nuclear Decay Final Result]\nX1 --> Z1[Nuclear Decay Complete]\n\n    style A1 fill:#ff6b6b,color:#fff\n    style C1 fill:#ff6b6b,color:#fff\n    style E1 fill:#ff6b6b,color:#fff\n    style B1 fill:#ffd43b,color:#000\n    style D1 fill:#ffd43b,color:#000\n    style F1 fill:#ffd43b,color:#000\n    style G1 fill:#ffd43b,color:#000\n    style H1 fill:#ffd43b,color:#000\n    style I1 fill:#ffd43b,color:#000\n    style J1 fill:#ffd43b,color:#000\n    style K1 fill:#ffd43b,color:#000\n    style L1 fill:#ffd43b,color:#000\n    style M1 fill:#51cf66,color:#fff\n    style N1 fill:#51cf66,color:#fff\n    style O1 fill:#51cf66,color:#fff\n    style P1 fill:#51cf66,color:#fff\n    style Q1 fill:#51cf66,color:#fff\n    style R1 fill:#51cf66,color:#fff\n    style S1 fill:#51cf66,color:#fff\n    style T1 fill:#51cf66,color:#fff\n    style U1 fill:#51cf66,color:#fff\n    style V1 fill:#51cf66,color:#fff\n    style W1 fill:#51cf66,color:#fff\n    style X1 fill:#51cf66,color:#fff\n    style Y1 fill:#51cf66,color:#fff\n    style Z1 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "notes": "Chemistry process visualization: Nuclear Decay. Created using the Programming Framework methodology for process analysis and visualization."
+    }
+  ],
+  "keywords": [
+    "decay",
+    "nuclear",
+    "physics",
+    "state",
+    "solid"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-08",
+  "verified": false,
+  "notes": "Converted from physics batch HTML. Process number: 1."
+}

@@ -1,0 +1,29 @@
+{
+  "id": "arxiv_2601.08132v1",
+  "arxiv_id": "2601.08132v1",
+  "title": "Cost scaling of MPS and TTNS simulations for 2D and 3D systems with area-law entanglement",
+  "authors": [
+    "Thomas Barthel"
+  ],
+  "author_string": "Thomas Barthel",
+  "journal": "arXiv:2601.08132v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Tensor network states are an indispensable tool for the simulation of strongly correlated quantum many-body systems. In recent years, tree tensor network states (TTNS) have been successfully used for two-dimensional systems and to benchmark quantum simulation approaches for condensed matter, nuclear, and particle physics. In comparison to the more traditional approach based on matrix product states (MPS), the graph distance of physical degrees of freedom can be drastically reduced in TTNS. Surprisingly, it turns out that, for large systems in $D>1$ spatial dimensions, MPS simulations of low-energy states are nevertheless more efficient than TTNS simulations. With a focus on $D=2$ and 3, the scaling of computational costs for different boundary conditions is determined under the assumption that the system obeys an entanglement (log-)area law, implying that bond dimensions scale exponentially in the surface area of the associated subsystems.",
+  "categories": [
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": "8.5 pages, 5 figures, 3 tables",
+  "published_date": "2026-01-13T01:53:01Z",
+  "updated_date": "2026-01-13T01:53:01Z",
+  "url": "https://arxiv.org/abs/2601.08132v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.08132v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:14.425135",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph"
+  ]
+}

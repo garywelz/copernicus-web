@@ -1,0 +1,91 @@
+{
+  "id": "defense_immune-mimicry-process",
+  "name": "Mimicry Process",
+  "category": "biology",
+  "subcategory": "defense_immune",
+  "subcategory_name": "Defense & Immune Response",
+  "description": "Mimicry Process process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 10,
+    "edges": 9,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 1,
+      "andGates": 1,
+      "total": 2
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\n    A27[Model Species] --> B27[Appearance Observation]\n    C27[Mimic Species] --> B27\n    B27 --> D27[Evolutionary Pressure]\n    D27 --> E27[Phenotypic Variation]\n    E27 --> F27{Successful Mimicry?}\n    F27 -->|Yes| G27[Selection Advantage]\n    F27 -->|No| H27[Predation Risk]\n    G27 --> I27[Mimicry Refinement]\n    H27 --> J27[Continued Selection]\n    I27 --> K27[Final Mimicry Pattern]\n    J27 --> E27\n    \n    style A27 fill:#ff6b6b,color:#fff\n    style C27 fill:#ff6b6b,color:#fff\n    style B27 fill:#ffd43b,color:#000\n    style D27 fill:#ff6b6b,color:#fff\n    style E27 fill:#ffd43b,color:#000\n    style F27 fill:#74c0fc,color:#fff\n    style G27 fill:#51cf66,color:#fff\n    style H27 fill:#51cf66,color:#fff\n    style I27 fill:#51cf66,color:#fff\n    style J27 fill:#74c0fc,color:#fff\n    style K27 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Mimicry Process. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "Identification of Malware Mimicry Attacks Using Process Escalating Visualization",
+      "authors": "Amer, Eslam",
+      "journal": "2023 Intelligent Methods, Systems, and Applications (IMSA)",
+      "year": "2023",
+      "pubmed": null,
+      "doi": "10.1109/imsa58542.2023.10217436",
+      "url": "https://doi.org/10.1109/imsa58542.2023.10217436"
+    },
+    {
+      "title": "Mediated chameleons: An integration of nonconscious behavioral mimicry and the parallel process model of nonverbal communication.",
+      "authors": "Beatty, Keturi D.",
+      "journal": "",
+      "year": "None",
+      "pubmed": null,
+      "doi": "10.12794/metadc9934",
+      "url": "https://doi.org/10.12794/metadc9934"
+    },
+    {
+      "title": "Semiotics of Mimicry",
+      "authors": "Maran, Timo",
+      "journal": "Biosemiotics",
+      "year": "2017",
+      "pubmed": null,
+      "doi": "10.1007/978-3-319-50317-2_4",
+      "url": "https://doi.org/10.1007/978-3-319-50317-2_4"
+    }
+  ],
+  "keywords": [
+    "mimicry",
+    "process"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+}

@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2602.04375v1",
+  "arxiv_id": "2602.04375v1",
+  "title": "Angle dependent dose transformer algorithm for fast proton therapy dose calculations",
+  "authors": [
+    "Mikołaj Stryja",
+    "Danny Lathouwers",
+    "Zoltán Perkó"
+  ],
+  "author_string": "Mikołaj Stryja, Danny Lathouwers, Zoltán Perkó",
+  "journal": "arXiv:2602.04375v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Accurate 3D dose calculation for Pencil Beam Scanning Proton Therapy (PBSPT) is typically performed with Monte Carlo (MC) engines, but their runtimes limit adaptive workflows and repeated evaluations. Current deep-learning proton dose engines often require orthogonality between proton rays and the CT grid, forcing computationally expensive beamlet-wise 3D reinterpolation. We propose the Angle-dependent Dose Transformer Algorithm (ADoTA), which eliminates grid rotation by augmenting the model input with a fast analytical beamlet-shape projection that explicitly encodes beam direction. The model was trained on CT data from 108 patients to predict beamlet dose distributions for initial energies of $70$--$270\\,\\mathrm{MeV}$ over an $80\\times110\\,\\mathrm{mm}^2$ field, and tested on an independent cohort of 50 patients. On the test set, gamma pass rates $(1\\%,3\\,\\mathrm{mm})$ were $99.40\\pm0.86\\%$ (thorax) and $99.87\\pm0.23\\%$ (abdomen/pelvis). Single-beamlet inference took $1.72\\pm0.8\\,\\mathrm{ms}$. By avoiding reinterpolation, end-to-end 3D dose computation was reduced by $\\approx86\\%$ relative to the fastest published reinterpolation-based methods. For full treatment plans, gamma pass rates $Γ(2\\%,2\\,\\mathrm{mm})$ with a 10\\% dose cut-off reached $98.4\\%$ (lung) and $98.9\\%$ (prostate). ADoTA provides an angle-aware deep-learning proton dose engine that preserves MC-level accuracy across heterogeneous anatomies while substantially reducing computational overhead.",
+  "categories": [
+    "physics.med-ph"
+  ],
+  "primary_category": "physics.med-ph",
+  "comment": "27 pages, 22 figures",
+  "published_date": "2026-02-04T09:52:00Z",
+  "updated_date": "2026-02-04T09:52:00Z",
+  "url": "https://arxiv.org/abs/2602.04375v1",
+  "pdf_url": "https://arxiv.org/pdf/2602.04375v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-02-05T07:00:33.003487",
+  "category": "physics",
+  "subcategories": [
+    "physics.med-ph"
+  ]
+}

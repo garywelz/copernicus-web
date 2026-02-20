@@ -1,0 +1,84 @@
+{
+  "category": "biology",
+  "colorScheme": {
+    "blue": {
+      "category": "Intermediates & States",
+      "hex": "#74c0fc"
+    },
+    "green": {
+      "category": "Processing & Operations",
+      "hex": "#51cf66"
+    },
+    "red": {
+      "category": "Triggers & Inputs",
+      "hex": "#ff6b6b"
+    },
+    "violet": {
+      "category": "Products & Outputs",
+      "hex": "#b197fc"
+    },
+    "yellow": {
+      "category": "Structures & Objects",
+      "hex": "#ffd43b"
+    }
+  },
+  "complexity": {
+    "conditionals": 0,
+    "detailLevel": "low",
+    "edges": 7,
+    "level": "low",
+    "logicGates": {
+      "andGates": 0,
+      "orGates": 0,
+      "total": 0
+    },
+    "nodes": 8
+  },
+  "created": "2026-01-08",
+  "description": "Xylem Transport Process in Plants. This process represents a higher-level biological mechanism distinct from molecular/biochemical processes covered in GLMP.",
+  "id": "transport_circulation-xylem-transport-process",
+  "keywords": [
+    "xylem",
+    "process",
+    "plants",
+    "circulation",
+    "transport"
+  ],
+  "lastUpdated": "2026-01-08",
+  "mermaid": "graph TD\n    A43[Root Water Uptake] --> B43[Osmotic Pressure]\n    B43 --> C43[Transpiration Pull]\n    C43 --> D43[Xylem Vessels]\n    D43 --> E43[Cohesion-Tension]\n    E43 --> F43[Upward Movement]\n    F43 --> G43[Leaf Delivery]\n    G43 --> H43[Transpiration]\n    \n    style A43 fill:#ff6b6b,color:#fff\n    style C43 fill:#ff6b6b,color:#fff\n    style B43 fill:#ffd43b,color:#000\n    style D43 fill:#ffd43b,color:#000\n    style E43 fill:#51cf66,color:#fff\n    style F43 fill:#51cf66,color:#fff\n    style G43 fill:#74c0fc,color:#fff\n    style H43 fill:#b197fc,color:#fff",
+  "name": "Xylem Transport Process",
+  "notes": "Higher-level biological process. GLMP covers biochemical/molecular processes; this database covers organismal/ecological processes.",
+  "organism": "Plants",
+  "relatedProcesses": [],
+  "sources": [
+    {
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "notes": "Higher-level biological process visualization: Xylem Transport Process. Created using the Programming Framework methodology for organismal and ecological process analysis.",
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "year": "2025"
+    },
+    {
+      "authors": "Tyree MT, Zimmermann MH.",
+      "doi": "10.1146/annurev.pp.43.060192.002543",
+      "journal": "Annu Rev Plant Physiol Plant Mol Biol.",
+      "pubmed": "11538356",
+      "title": "Transpiration and the ascent of sap: new insights into the cohesion-tension theory",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/11538356",
+      "year": "1992"
+    },
+    {
+      "authors": "Holbrook NM, Zwieniecki MA.",
+      "doi": "10.1126/science.1160334",
+      "journal": "Science.",
+      "pubmed": "18635790",
+      "title": "Water transport in plants: The journey from soil to atmosphere",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/18635790",
+      "year": "2008"
+    }
+  ],
+  "subcategory": "transport_circulation",
+  "subcategory_name": "Transport & Circulation",
+  "verified": false
+}

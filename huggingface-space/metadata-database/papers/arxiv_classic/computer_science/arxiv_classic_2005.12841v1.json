@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2005.12841v1",
+  "arxiv_id": "2005.12841v1",
+  "title": "Applying Evolutionary Metaheuristics for Parameter Estimation of Individual-Based Models",
+  "authors": [
+    "Antonio Prestes García",
+    "Alfonso Rodríguez-Patón"
+  ],
+  "author_string": "Antonio Prestes García, Alfonso Rodríguez-Patón",
+  "journal": "arXiv:2005.12841v1",
+  "journal_ref": null,
+  "year": "2020",
+  "doi": null,
+  "abstract": "Individual-based models are complex and they have usually an elevated number of input parameters which must be tuned for reproducing the observed population data or the experimental results as accurately as possible. Thus, one of the weakest points of this modelling approach lies on the fact that rarely the modeler has the enough information about the correct values or even the acceptable range for the input parameters. Consequently, several parameter combinations must be tried to find an acceptable set of input factors minimizing the deviations of simulated and the reference dataset. In practice, most of times, it is computationally unfeasible to traverse the complete search space trying all every possible combination to find the best of set of parameters. That is precisely an instance of a combinatorial problem which is suitable for being solved by metaheuristics and evolutionary computation techniques. In this work, we introduce EvoPER, an R package for simplifying the parameter estimation using evolutionary computation methods.",
+  "categories": [
+    "cs.NE",
+    "cs.AI"
+  ],
+  "primary_category": "cs.AI",
+  "comment": null,
+  "published_date": "2020-05-24T07:48:27Z",
+  "updated_date": "2020-05-24T07:48:27Z",
+  "url": "https://arxiv.org/abs/2005.12841v1",
+  "pdf_url": "https://arxiv.org/pdf/2005.12841v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:23.487203",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.NE",
+    "cs.AI"
+  ]
+}

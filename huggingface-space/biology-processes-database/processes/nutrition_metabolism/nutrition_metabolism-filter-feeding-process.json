@@ -1,0 +1,92 @@
+{
+  "id": "nutrition_metabolism-filter-feeding-process",
+  "name": "Filter Feeding Process",
+  "category": "biology",
+  "subcategory": "nutrition_metabolism",
+  "subcategory_name": "Nutrition & Metabolism",
+  "description": "Filter Feeding Process process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 9,
+    "edges": 7,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\n    A34[Water Current] --> B34[Particle Suspension]\n    B34 --> C34[Filter Structure]\n    C34 --> D34[Particle Capture]\n    D34 --> E34[Retention]\n    E34 --> F34[Cilia/Mucus Action]\n    F34 --> G34[Transport to Mouth]\n    G34 --> H34[Ingestion]\n    H34 --> I34[Nutrient Extraction]\n    \n    style A34 fill:#ff6b6b,color:#fff\n    style B34 fill:#ffd43b,color:#000\n    style C34 fill:#ffd43b,color:#000\n    style D34 fill:#51cf66,color:#fff\n    style E34 fill:#74c0fc,color:#fff\n    style F34 fill:#51cf66,color:#fff\n    style G34 fill:#74c0fc,color:#fff\n    style H34 fill:#51cf66,color:#fff\n    style I34 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Filter Feeding Process. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "Filter Feeding",
+      "authors": "Gerking, Shelby D.",
+      "journal": "Feeding Ecology of Fish",
+      "year": "1994",
+      "pubmed": null,
+      "doi": "10.1016/b978-0-12-280780-0.50013-x",
+      "url": "https://doi.org/10.1016/b978-0-12-280780-0.50013-x"
+    },
+    {
+      "title": "filter feeding, n.",
+      "authors": "",
+      "journal": "Oxford English Dictionary",
+      "year": "2023",
+      "pubmed": null,
+      "doi": "10.1093/oed/8301279145",
+      "url": "https://doi.org/10.1093/oed/8301279145"
+    },
+    {
+      "title": "filter-feeding, adj.",
+      "authors": "",
+      "journal": "Oxford English Dictionary",
+      "year": "2023",
+      "pubmed": null,
+      "doi": "10.1093/oed/1168585056",
+      "url": "https://doi.org/10.1093/oed/1168585056"
+    }
+  ],
+  "keywords": [
+    "filter",
+    "feeding",
+    "process"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+}

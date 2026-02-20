@@ -1,0 +1,29 @@
+flowchart TD
+    A[Alkene Substrate] --> B[Catalyst: Pd/C]
+    C[H2 Gas] --> B
+    B --> D{Catalyst Activation}
+    D -->|Active| E[H2 Adsorption]
+    D -->|Inactive| F[No Reaction]
+    E --> G[Substrate Binding]
+    G --> H[Hydrogen Addition]
+    H --> I[Intermediate Complex]
+    I --> J[Product Release]
+    J --> K[Alkane Product]
+    K --> L[Catalyst Regeneration]
+    
+    style A fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style B fill:#ffd43b,color:#000
+    style D fill:#74c0fc,color:#fff
+    style E fill:#51cf66,color:#fff
+    style F fill:#b197fc,color:#fff
+    style G fill:#51cf66,color:#fff
+    style H fill:#51cf66,color:#fff
+    style I fill:#74c0fc,color:#fff
+    style J fill:#51cf66,color:#fff
+    style K fill:#b197fc,color:#fff
+    style L fill:#51cf66,color:#fff
+
+
+
+

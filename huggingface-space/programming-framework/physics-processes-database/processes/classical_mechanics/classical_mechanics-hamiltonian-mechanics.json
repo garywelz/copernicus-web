@@ -1,0 +1,64 @@
+{
+  "id": "classical_mechanics-hamiltonian-mechanics",
+  "name": "Hamiltonian Mechanics",
+  "category": "physics",
+  "subcategory": "classical_mechanics",
+  "subcategory_name": "Classical Mechanics",
+  "description": "Hamiltonian Mechanics Process. This classical mechanics process visualization demonstrates phase space dynamics and canonical transformations. The flowchart shows phase space and canonical variables, Hamiltonian methods and transformations, canonical operations and perturbation theory, intermediate results, and final Hamiltonian mechanics outputs.",
+  "complexity": {
+    "nodes": 26,
+    "edges": 24,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nA3[Phase Space] --> B3[Canonical Variables]\nC3[Legendre Transform] --> D3[Hamiltonian Function]\nE3[Poisson Brackets] --> F3[Canonical Equations]\nB3 --> G3[Position Momentum Pairs]\nD3 --> H3[H equals T plus V]\nF3 --> I3[Hamilton Equations]\nG3 --> J3[Canonical Transformations]\nH3 --> K3[Energy Conservation]\nI3 --> L3[Phase Space Evolution]\nJ3 --> M3[Action Angle Variables]\nK3 --> L3\nL3 --> N3[Liouville Theorem]\nM3 --> O3[Integrable Systems]\nN3 --> P3[Phase Space Volume]\nO3 --> Q3[Hamiltonian Mechanics Process]\nP3 --> R3[Chaotic Dynamics]\nQ3 --> S3[Canonical Perturbation Theory]\nR3 --> T3[Hamiltonian Mechanics Result]\nS3 --> U3[Adiabatic Invariants]\nT3 --> V3[Canonical Quantization]\nU3 --> W3[Hamiltonian Mechanics Output]\nV3 --> X3[Hamiltonian Mechanics Analysis]\nW3 --> Y3[Hamiltonian Mechanics Final Result]\nX3 --> Z3[Hamiltonian Mechanics Analysis Complete]\n\n    style A3 fill:#ff6b6b,color:#fff\n    style C3 fill:#ff6b6b,color:#fff\n    style E3 fill:#ff6b6b,color:#fff\n    style B3 fill:#ffd43b,color:#000\n    style D3 fill:#ffd43b,color:#000\n    style F3 fill:#ffd43b,color:#000\n    style G3 fill:#ffd43b,color:#000\n    style H3 fill:#ffd43b,color:#000\n    style I3 fill:#ffd43b,color:#000\n    style J3 fill:#ffd43b,color:#000\n    style K3 fill:#ffd43b,color:#000\n    style L3 fill:#ffd43b,color:#000\n    style M3 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style O3 fill:#51cf66,color:#fff\n    style P3 fill:#51cf66,color:#fff\n    style Q3 fill:#51cf66,color:#fff\n    style R3 fill:#51cf66,color:#fff\n    style S3 fill:#51cf66,color:#fff\n    style T3 fill:#51cf66,color:#fff\n    style U3 fill:#51cf66,color:#fff\n    style V3 fill:#51cf66,color:#fff\n    style W3 fill:#51cf66,color:#fff\n    style X3 fill:#51cf66,color:#fff\n    style Y3 fill:#51cf66,color:#fff\n    style Z3 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "notes": "Chemistry process visualization: Hamiltonian Mechanics. Created using the Programming Framework methodology for process analysis and visualization."
+    }
+  ],
+  "keywords": [
+    "hamiltonian",
+    "mechanics",
+    "classical"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-08",
+  "verified": false,
+  "notes": "Converted from physics batch HTML. Process number: 3."
+}

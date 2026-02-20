@@ -1,0 +1,91 @@
+{
+  "id": "organic_chemistry-grignard-reaction",
+  "name": "Grignard Reaction",
+  "category": "chemistry",
+  "subcategory": "organic_chemistry",
+  "subcategory_name": "Organic Chemistry",
+  "description": "Grignard Reaction process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 10,
+    "edges": 10,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 1,
+      "andGates": 1,
+      "total": 2
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nN1[\"Alkyl Halide + Mg\"]\nN2[\"Dry Ether Solvent\"]\nN3[\"Grignard Reagent (RMgX)\"]\nN4[\"Choose Path\"]\nN5[\"Carbonyl Electrophile\"]\nN6[\"Nucleophilic Addition\"]\nN7[\"Alkoxide Intermediate\"]\nN8[\"Acid Workup\"]\nN9[\"Integrate\"]\nN10[\"Alcohol Product\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\nN4 --> N7\nN5 --> N6\nN7 --> N8\nN6 --> N9\nN8 --> N9\nN9 --> N10\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ff6b6b,color:#fff\n    style N3 fill:#74c0fc,color:#fff\n    style N4 fill:#ffd43b,color:#000\n    style N5 fill:#ffd43b,color:#000\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#74c0fc,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#74c0fc,color:#fff\n    style N10 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Grignard Reaction. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "Grignard reaction",
+      "authors": "",
+      "journal": "AccessScience",
+      "year": "None",
+      "pubmed": null,
+      "doi": "10.1036/1097-8542.300200",
+      "url": "https://doi.org/10.1036/1097-8542.300200"
+    },
+    {
+      "title": "Grignard reaction",
+      "authors": "",
+      "journal": "Name Reactions",
+      "year": "None",
+      "pubmed": null,
+      "doi": "10.1007/3-540-30031-7_120",
+      "url": "https://doi.org/10.1007/3-540-30031-7_120"
+    },
+    {
+      "title": "Mixed Carboxylic Anhydrides in the Grignard Reaction.",
+      "authors": "Kammann, Karl",
+      "journal": "",
+      "year": "None",
+      "pubmed": null,
+      "doi": "10.31390/gradschool_disstheses.753",
+      "url": "https://doi.org/10.31390/gradschool_disstheses.753"
+    }
+  ],
+  "keywords": [
+    "grignard",
+    "reaction"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-15",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+}

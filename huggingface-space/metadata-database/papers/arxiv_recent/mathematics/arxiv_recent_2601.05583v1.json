@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2601.05583v1",
+  "arxiv_id": "2601.05583v1",
+  "title": "Learn to Evolve: Self-supervised Neural JKO Operator for Wasserstein Gradient Flow",
+  "authors": [
+    "Xue Feng",
+    "Li Wang",
+    "Deanna Needell",
+    "Rongjie Lai"
+  ],
+  "author_string": "Xue Feng, Li Wang, Deanna Needell, Rongjie Lai",
+  "journal": "arXiv:2601.05583v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "The Jordan-Kinderlehrer-Otto (JKO) scheme provides a stable variational framework for computing Wasserstein gradient flows, but its practical use is often limited by the high computational cost of repeatedly solving the JKO subproblems. We propose a self-supervised approach for learning a JKO solution operator without requiring numerical solutions of any JKO trajectories. The learned operator maps an input density directly to the minimizer of the corresponding JKO subproblem, and can be iteratively applied to efficiently generate the gradient-flow evolution. A key challenge is that only a number of initial densities are typically available for training. To address this, we introduce a Learn-to-Evolve algorithm that jointly learns the JKO operator and its induced trajectories by alternating between trajectory generation and operator updates. As training progresses, the generated data increasingly approximates true JKO trajectories. Meanwhile, this Learn-to-Evolve strategy serves as a natural form of data augmentation, significantly enhancing the generalization ability of the learned operator. Numerical experiments demonstrate the accuracy, stability, and robustness of the proposed method across various choices of energies and initial conditions.",
+  "categories": [
+    "cs.LG",
+    "math.NA"
+  ],
+  "primary_category": "math.NA",
+  "comment": null,
+  "published_date": "2026-01-09T07:12:21Z",
+  "updated_date": "2026-01-09T07:12:21Z",
+  "url": "https://arxiv.org/abs/2601.05583v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.05583v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:22.689094",
+  "category": "mathematics",
+  "subcategories": [
+    "cs.LG",
+    "math.NA"
+  ]
+}

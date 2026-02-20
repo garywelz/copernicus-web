@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2601.09423v1",
+  "arxiv_id": "2601.09423v1",
+  "title": "Machine-learning enabled characterization of individual ring resonators in integrated photonic lattices",
+  "authors": [
+    "Elizabeth Louis Pereira",
+    "Amin Hashemi",
+    "Faluke Aikebaier",
+    "Hongwei Li",
+    "Jose L. Lado",
+    "Andrea Blanco-Redondo"
+  ],
+  "author_string": "Elizabeth Louis Pereira, Amin Hashemi, Faluke Aikebaier, Hongwei Li, Jose L. Lado et al.",
+  "journal": "arXiv:2601.09423v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Accurately determining the underlying physical parameters of individual elements in integrated photonics is increasingly difficult as device architectures become more complex. Inferring these parameters directly from spectral measurements of the system as a whole provides a practical alternative to traditional calibration, allowing characterization of photonic systems without relying on detailed device-specific models. Here, we introduce a supervised machine-learning strategy to learn the onsite losses and resonant frequency shifts of each individual ring in an array of coupled ring resonators from measured spectral power distributions of the whole array. The neural network infers these parameters with high accuracy across multiple experimental configurations. Our methodology provides a scalable and non-invasive method for extracting intrinsic parameters in coupled photonic platforms, paving the way for future development of automated calibration and control methods.",
+  "categories": [
+    "physics.optics",
+    "cond-mat.dis-nn"
+  ],
+  "primary_category": "cond-mat.dis-nn",
+  "comment": null,
+  "published_date": "2026-01-14T12:15:31Z",
+  "updated_date": "2026-01-14T12:15:31Z",
+  "url": "https://arxiv.org/abs/2601.09423v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.09423v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:18:58.574761",
+  "category": "physics",
+  "subcategories": [
+    "physics.optics",
+    "cond-mat.dis-nn"
+  ]
+}

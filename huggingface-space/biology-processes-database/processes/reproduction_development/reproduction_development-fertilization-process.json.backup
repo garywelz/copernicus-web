@@ -1,0 +1,93 @@
+{
+  "category": "biology",
+  "colorScheme": {
+    "blue": {
+      "category": "Intermediates & States",
+      "hex": "#74c0fc"
+    },
+    "green": {
+      "category": "Processing & Operations",
+      "hex": "#51cf66"
+    },
+    "red": {
+      "category": "Triggers & Inputs",
+      "hex": "#ff6b6b"
+    },
+    "violet": {
+      "category": "Products & Outputs",
+      "hex": "#b197fc"
+    },
+    "yellow": {
+      "category": "Structures & Objects",
+      "hex": "#ffd43b"
+    }
+  },
+  "complexity": {
+    "conditionals": 0,
+    "detailLevel": "low",
+    "edges": 12,
+    "level": "low",
+    "logicGates": {
+      "andGates": 0,
+      "orGates": 0,
+      "total": 0
+    },
+    "nodes": 13
+  },
+  "created": "2026-01-08",
+  "description": "Fertilization Process in Animals. This process represents a higher-level biological mechanism distinct from molecular/biochemical processes covered in GLMP.",
+  "id": "reproduction_development-fertilization-process",
+  "keywords": [
+    "reproduction",
+    "animals",
+    "fertilization",
+    "process",
+    "development"
+  ],
+  "lastUpdated": "2026-01-08",
+  "mermaid": "graph TD\n    A2[Sperm Release] --> B2[Sperm Migration]\n    C2[Ovum Maturation] --> D2[Ovulation]\n    B2 --> E2[Zona Pellucida Binding]\n    D2 --> E2\n    E2 --> F2[Acrosome Reaction]\n    F2 --> G2[Enzyme Release]\n    G2 --> H2[Zona Penetration]\n    H2 --> I2[Membrane Fusion]\n    I2 --> J2[Cortical Reaction]\n    J2 --> K2[Polyspermy Block]\n    K2 --> L2[Pronuclei Formation]\n    L2 --> M2[Zygote Formation]\n    \n    style A2 fill:#ff6b6b,color:#fff\n    style C2 fill:#ff6b6b,color:#fff\n    style B2 fill:#ffd43b,color:#000\n    style D2 fill:#ffd43b,color:#000\n    style E2 fill:#51cf66,color:#fff\n    style F2 fill:#51cf66,color:#fff\n    style G2 fill:#51cf66,color:#fff\n    style H2 fill:#74c0fc,color:#fff\n    style I2 fill:#74c0fc,color:#fff\n    style J2 fill:#51cf66,color:#fff\n    style K2 fill:#74c0fc,color:#fff\n    style L2 fill:#74c0fc,color:#fff\n    style M2 fill:#b197fc,color:#fff",
+  "name": "Fertilization Process",
+  "notes": "Higher-level biological process. GLMP covers biochemical/molecular processes; this database covers organismal/ecological processes.",
+  "organism": "Animals",
+  "relatedProcesses": [],
+  "sources": [
+    {
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "notes": "Higher-level biological process visualization: Fertilization Process. Created using the Programming Framework methodology for organismal and ecological process analysis.",
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "year": "2025"
+    },
+    {
+      "authors": "Han, J.H.; Kim, Y.H.",
+      "doi": "10.1016/j.devcel.2021.08.016",
+      "journal": "Dev Cell",
+      "pubmed": "34506821",
+      "title": "The dynamic interplay between sperm and egg for successful fertilization",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/34506821",
+      "year": "2021"
+    },
+    {
+      "authors": "van Duin, D.M.L.; van Duin, W.S.M.",
+      "doi": "10.1146/annurev-cellbio-100617-014523",
+      "journal": "Annu Rev Cell Dev Biol",
+      "pubmed": "30199793",
+      "title": "The Molecular Mechanisms of Mammalian Fertilization",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/30199793",
+      "year": "2018"
+    },
+    {
+      "authors": "Wassarman, P.M.",
+      "doi": "10.1016/0092-8674(87)90045-8",
+      "journal": "Cell",
+      "pubmed": "3607736",
+      "title": "Mammalian fertilization: molecular aspects of gamete adhesion, penetration, and fusion",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/3607736",
+      "year": "1987"
+    }
+  ],
+  "subcategory": "reproduction_development",
+  "subcategory_name": "Reproduction & Development",
+  "verified": false
+}

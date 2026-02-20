@@ -1,0 +1,39 @@
+{
+  "id": "arxiv_2601.11451v1",
+  "arxiv_id": "2601.11451v1",
+  "title": "PRISM-CAFO: Prior-conditioned Remote-sensing Infrastructure Segmentation and Mapping for CAFOs",
+  "authors": [
+    "Oishee Bintey Hoque",
+    "Nibir Chandra Mandal",
+    "Kyle Luong",
+    "Amanda Wilson",
+    "Samarth Swarup",
+    "Madhav Marathe",
+    "Abhijin Adiga"
+  ],
+  "author_string": "Oishee Bintey Hoque, Nibir Chandra Mandal, Kyle Luong, Amanda Wilson, Samarth Swarup et al.",
+  "journal": "arXiv:2601.11451v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Large-scale livestock operations pose significant risks to human health and the environment, while also being vulnerable to threats such as infectious diseases and extreme weather events. As the number of such operations continues to grow, accurate and scalable mapping has become increasingly important. In this work, we present an infrastructure-first, explainable pipeline for identifying and characterizing Concentrated Animal Feeding Operations (CAFOs) from aerial and satellite imagery. Our method (1) detects candidate infrastructure (e.g., barns, feedlots, manure lagoons, silos) with a domain-tuned YOLOv8 detector, then derives SAM2 masks from these boxes and filters component-specific criteria, (2) extracts structured descriptors (e.g., counts, areas, orientations, and spatial relations) and fuses them with deep visual features using a lightweight spatial cross-attention classifier, and (3) outputs both CAFO type predictions and mask-level attributions that link decisions to visible infrastructure. Through comprehensive evaluation, we show that our approach achieves state-of-the-art performance, with Swin-B+PRISM-CAFO surpassing the best performing baseline by up to 15\\%. Beyond strong predictive performance across diverse U.S. regions, we run systematic gradient--activation analyses that quantify the impact of domain priors and show ho",
+  "categories": [
+    "cs.CV",
+    "cs.AI",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": null,
+  "published_date": "2026-01-16T17:16:26Z",
+  "updated_date": "2026-01-16T17:16:26Z",
+  "url": "https://arxiv.org/abs/2601.11451v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11451v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:30.211192",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV",
+    "cs.AI",
+    "cs.LG"
+  ]
+}

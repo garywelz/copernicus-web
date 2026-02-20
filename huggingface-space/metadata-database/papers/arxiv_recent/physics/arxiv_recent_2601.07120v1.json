@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2601.07120v1",
+  "arxiv_id": "2601.07120v1",
+  "title": "Physics-Informed Neural Network for Solving the Diffusion Equation in the Expanding QCD Medium",
+  "authors": [
+    "Wenhua Fan",
+    "Jiamin Liu",
+    "Huansang Yang",
+    "Baoyi Chen"
+  ],
+  "author_string": "Wenhua Fan, Jiamin Liu, Huansang Yang, Baoyi Chen",
+  "journal": "arXiv:2601.07120v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We employ Physics-Informed Neural Networks (PINNs) to solve the diffusion of heavy quarks within the expanding hot QCD medium generated in relativistic heavy-ion collisions. Due to the strong coupling between heavy quarks and the bulk medium, the evolution of heavy quarks can be effectively characterized by a diffusion equation. This approach assumes the instantaneous kinetic thermalization of heavy quarks following their production in nuclear collisions. The local density of heavy quarks is intrinsically coupled to the velocity profile of the hot QCD medium. By incorporating the fluid velocity profiles provided by a hydrodynamic model directly into the diffusion equation, we utilize the deep neural network (DNN) to efficiently determine the heavy-quark evolution. Furthermore, this work provides a valuable reference for the application of deep learning techniques to the treatment of non-thermalized heavy-quark dynamics. The rapid calculation of heavy-quark diffusion using DNNs further facilitates the study of heavy-quark coalescence within a large ensemble of fluctuating hot media.",
+  "categories": [
+    "nucl-th"
+  ],
+  "primary_category": "nucl-th",
+  "comment": "6 figures, 1 table, 7 pages",
+  "published_date": "2026-01-12T01:20:10Z",
+  "updated_date": "2026-01-12T01:20:10Z",
+  "url": "https://arxiv.org/abs/2601.07120v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.07120v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:35.459493",
+  "category": "physics",
+  "subcategories": [
+    "nucl-th"
+  ]
+}

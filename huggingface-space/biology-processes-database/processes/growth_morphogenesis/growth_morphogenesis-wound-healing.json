@@ -1,0 +1,91 @@
+{
+  "id": "growth_morphogenesis-wound-healing",
+  "name": "Wound Healing",
+  "category": "biology",
+  "subcategory": "growth_morphogenesis",
+  "subcategory_name": "Growth & Morphogenesis",
+  "description": "Wound Healing process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 6,
+    "edges": 5,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nN1[\"Growth Signal\"]\nN2[\"Stem/Progenitor Cells\"]\nN3[\"Proliferation\"]\nN4[\"Differentiation\"]\nN5[\"Morphogenesis/Remodeling\"]\nN6[\"Formed Tissue/Structure\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\nN5 --> N6\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ffd43b,color:#000\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#74c0fc,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Wound Healing. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "WOUND HEALING",
+      "authors": "",
+      "journal": "Wound Healing",
+      "year": "2005",
+      "pubmed": null,
+      "doi": "10.1201/b14164-189",
+      "url": "https://doi.org/10.1201/b14164-189"
+    },
+    {
+      "title": "LYMPHEDEMA AND WOUND HEALING",
+      "authors": "",
+      "journal": "Wound Healing",
+      "year": "2005",
+      "pubmed": null,
+      "doi": "10.1201/b14164-119",
+      "url": "https://doi.org/10.1201/b14164-119"
+    },
+    {
+      "title": "Glutamine and Wound Healing",
+      "authors": "",
+      "journal": "Nutrition and Wound Healing",
+      "year": "2006",
+      "pubmed": null,
+      "doi": "10.1201/9780203500231-10",
+      "url": "https://doi.org/10.1201/9780203500231-10"
+    }
+  ],
+  "keywords": [
+    "wound",
+    "healing"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-15",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+}

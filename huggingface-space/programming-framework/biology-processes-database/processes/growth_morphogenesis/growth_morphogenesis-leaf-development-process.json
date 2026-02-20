@@ -1,0 +1,85 @@
+{
+  "id": "growth_morphogenesis-leaf-development-process",
+  "name": "Leaf Development Process",
+  "category": "biology",
+  "subcategory": "growth_morphogenesis",
+  "subcategory_name": "Growth & Morphogenesis",
+  "organism": "Plants",
+  "description": "Leaf Development Process in Plants. This process represents a higher-level biological mechanism distinct from molecular/biochemical processes covered in GLMP.",
+  "complexity": {
+    "nodes": 9,
+    "edges": 8,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "low",
+    "detailLevel": "low"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\n    A13[Shoot Apical Meristem] --> B13[Leaf Primordium Initiation]\n    B13 --> C13[Adaxial-Abaxial Patterning]\n    C13 --> D13[Lamina Outgrowth]\n    D13 --> E13[Vein Formation]\n    E13 --> F13[Cell Expansion]\n    F13 --> G13[Differentiation]\n    G13 --> H13[Mature Leaf]\n    H13 --> I13[Senescence]\n    \n    style A13 fill:#ff6b6b,color:#fff\n    style B13 fill:#ffd43b,color:#000\n    style C13 fill:#51cf66,color:#fff\n    style D13 fill:#51cf66,color:#fff\n    style E13 fill:#74c0fc,color:#fff\n    style F13 fill:#74c0fc,color:#fff\n    style G13 fill:#51cf66,color:#fff\n    style H13 fill:#b197fc,color:#fff\n    style I13 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "notes": "Higher-level biological process visualization: Leaf Development Process. Created using the Programming Framework methodology for organismal and ecological process analysis."
+    },
+    {
+      "title": "Leaf development: a paradigm for plant organogenesis",
+      "authors": "Tsukaya, H.",
+      "journal": "Annu Rev Plant Biol",
+      "year": "2013",
+      "pubmed": "23451790",
+      "doi": "10.1146/annurev-arplant-050312-120154",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/23451790"
+    },
+    {
+      "title": "Adaxial-abaxial polarity specifies leaf dorsal-ventral identity in Arabidopsis",
+      "authors": "Eshed, Y., Baum, S.F., Bowman, J.L.",
+      "journal": "Cell",
+      "year": "2001",
+      "pubmed": "11440790",
+      "doi": "10.1016/s0092-8674(01)00378-0",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/11440790"
+    }
+  ],
+  "keywords": [
+    "growth",
+    "leaf",
+    "process",
+    "plants",
+    "development",
+    "morphogenesis"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-08",
+  "verified": false,
+  "notes": "Higher-level biological process. GLMP covers biochemical/molecular processes; this database covers organismal/ecological processes."
+}

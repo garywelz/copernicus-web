@@ -1,0 +1,30 @@
+{
+  "id": "crossref_10.1063_1.5133405",
+  "doi": "10.1063/1.5133405",
+  "title": "Sequence-to-sequence prediction of spatiotemporal systems",
+  "authors": [
+    "Shen, Guorui",
+    "Kurths, Jürgen",
+    "Yuan, Ye"
+  ],
+  "author_string": "Shen, Guorui, Kurths, Jürgen, Yuan, Ye",
+  "journal": "Chaos: An Interdisciplinary Journal of Nonlinear Science",
+  "issn": "1054-1500",
+  "issn_type": "print",
+  "volume": "30",
+  "issue": "2",
+  "page": "",
+  "year": "2020",
+  "publisher": "AIP Publishing",
+  "language": "en",
+  "abstract": "We propose a novel type of neural networks known as “attention-based sequence-to-sequence architecture” for a model-free prediction of spatiotemporal systems. This architecture is composed of an encoder and a decoder in which the encoder acts upon a given input sequence and then the decoder yields another output sequence to make a multistep prediction at a time. In order to demonstrate the potential of this approach, we train the neural network using data numerically sampled from the Korteweg–de Vries equation—which describes the interaction between solitary waves—and then predict its future evolution. Furthermore, we validate the applicability of the approach on datasets sampled from the chaotic Lorenz system and three other partial differential equations. The results show that the proposed method can achieve good performance in predicting the evolutionary behavior of studied spatiotemporal dynamics. To the best of our knowledge, this work is the first attempt at applying attention-based sequence-to-sequence architecture to the prediction task of solitary waves.",
+  "subjects": [],
+  "keywords": [],
+  "article_type": "journal-article",
+  "citation_count": 10,
+  "url": "https://doi.org/10.1063/1.5133405",
+  "source": "crossref",
+  "acquired_date": "2026-02-03T13:07:15.521140",
+  "category": "interdisciplinary",
+  "subcategories": []
+}

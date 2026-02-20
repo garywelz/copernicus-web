@@ -1,0 +1,92 @@
+{
+  "id": "behavior_communication-foraging-behavior-process",
+  "name": "Foraging Behavior Process",
+  "category": "biology",
+  "subcategory": "behavior_communication",
+  "subcategory_name": "Behavior & Communication",
+  "description": "Foraging Behavior Process process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 9,
+    "edges": 9,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 1,
+      "andGates": 1,
+      "total": 2
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\n    A17[Food Deprivation] --> B17[Search Initiation]\n    B17 --> C17[Resource Detection]\n    C17 --> D17[Quality Assessment]\n    D17 --> E17{Profitable?}\n    E17 -->|Yes| F17[Capture Attempt]\n    E17 -->|No| G17[Continue Search]\n    F17 --> H17[Handling]\n    H17 --> I17[Consumption]\n    G17 --> C17\n    I17 --> J17[Energy Gain]\n    \n    style A17 fill:#ff6b6b,color:#fff\n    style B17 fill:#ffd43b,color:#000\n    style C17 fill:#51cf66,color:#fff\n    style D17 fill:#51cf66,color:#fff\n    style E17 fill:#74c0fc,color:#fff\n    style F17 fill:#51cf66,color:#fff\n    style G17 fill:#74c0fc,color:#fff\n    style H17 fill:#51cf66,color:#fff\n    style I17 fill:#51cf66,color:#fff\n    style J17 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Foraging Behavior Process. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "Foraging as an evidence accumulation process",
+      "authors": "Davidson, Jacob D.; Hady, Ahmed El",
+      "journal": "",
+      "year": "2018",
+      "pubmed": null,
+      "doi": "10.1101/416602",
+      "url": "https://doi.org/10.1101/416602"
+    },
+    {
+      "title": "Foraging Behavior",
+      "authors": "Nordell, Shawn E.; Valone, Thomas J.",
+      "journal": "Animal Behavior",
+      "year": "2024",
+      "pubmed": null,
+      "doi": "10.1093/hesc/9780197666913.003.0008",
+      "url": "https://doi.org/10.1093/hesc/9780197666913.003.0008"
+    },
+    {
+      "title": "Implications of Foraging Behavior",
+      "authors": "Ydenberg, Ronald C.",
+      "journal": "Ecology",
+      "year": "2013",
+      "pubmed": null,
+      "doi": "10.1093/obo/9780199830060-0005",
+      "url": "https://doi.org/10.1093/obo/9780199830060-0005"
+    }
+  ],
+  "keywords": [
+    "foraging",
+    "behavior",
+    "process"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+}

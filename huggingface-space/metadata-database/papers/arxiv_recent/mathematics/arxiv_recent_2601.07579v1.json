@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2601.07579v1",
+  "arxiv_id": "2601.07579v1",
+  "title": "An adjoint method for training data-driven reduced-order models",
+  "authors": [
+    "Donglin Liu",
+    "Francisco García Atienza",
+    "Mengwu Guo"
+  ],
+  "author_string": "Donglin Liu, Francisco García Atienza, Mengwu Guo",
+  "journal": "arXiv:2601.07579v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Reduced-order modeling lies at the interface of numerical analysis and data-driven scientific computing, providing principled ways to compress high-fidelity simulations in science and engineering. We propose a training framework that couples a continuous-time form of operator inference with the adjoint-state method to obtain robust data-driven reduced-order models. This method minimizes a trajectory-based loss between reduced-order solutions and projected snapshot data, which removes the need to estimate time derivatives from noisy measurements and provides intrinsic temporal regularization through time integration. We derive the corresponding continuous adjoint equations to compute gradients efficiently and implement a gradient based optimizer to update the reduced model parameters. Each iteration only requires one forward reduced order solve and one adjoint solve, followed by inexpensive gradient assembly, making the method attractive for large-scale simulations. We validate the proposed method on three partial differential equations: viscous Burgers' equation, the two-dimensional Fisher-KPP equation, and an advection-diffusion equation. We perform systematic comparisons against standard operator inference under two perturbation regimes, namely reduced temporal snapshot density and additive Gaussian noise. For clean data, both approaches deliver similar accuracy, but in situations with sparse sampling and noise, the proposed adjoint-based training provides better accuracy and enhanced roll-out stability.",
+  "categories": [
+    "cs.CE",
+    "cs.LG",
+    "math.NA"
+  ],
+  "primary_category": "math.NA",
+  "comment": null,
+  "published_date": "2026-01-12T14:30:50Z",
+  "updated_date": "2026-01-12T14:30:50Z",
+  "url": "https://arxiv.org/abs/2601.07579v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.07579v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:11.149120",
+  "category": "mathematics",
+  "subcategories": [
+    "cs.CE",
+    "cs.LG",
+    "math.NA"
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "id": "pubmed_40294103",
+  "pmid": "40294103",
+  "title": "Integrated population clustering and genomic epidemiology with PopPIPE.",
+  "authors": [
+    "McHugh, Martin P",
+    "Horsfield, Samuel T",
+    "von Wachsmann, Johanna",
+    "Toussaint, Jacqueline",
+    "Pettigrew, Kerry A",
+    "Czarniak, Elzbieta",
+    "Evans, Thomas J",
+    "Leanord, Alistair",
+    "Tysall, Luke",
+    "Gillespie, Stephen H",
+    "Templeton, Kate E",
+    "Holden, Matthew T G",
+    "Croucher, Nicholas J",
+    "Lees, John A"
+  ],
+  "author_string": "McHugh, Martin P, Horsfield, Samuel T, von Wachsmann, Johanna, Toussaint, Jacqueline, Pettigrew, Kerry A et al.",
+  "journal": "Microb Genom",
+  "journal_full": "Microbial genomics",
+  "year": "",
+  "doi": "10.1099/mgen.0.001404",
+  "abstract": "Genetic distances between bacterial DNA sequences can be used to cluster populations into closely related subpopulations and as an additional source of information when detecting possible transmission events. Due to their variable gene content and order, reference-free methods offer more sensitive detection of genetic differences, especially among closely related samples found in outbreaks. However, across longer genetic distances, frequent recombination can make calculation and interpretation of these differences more challenging, requiring significant bioinformatic expertise and manual intervention during the analysis process. Here, we present a <b>Pop</b>ulation analysis <b>PIPE</b>line (PopPIPE) which combines rapid reference-free genome analysis methods to analyse bacterial genomes across these two scales, splitting whole populations into subclusters and detecting plausible transmission events within closely related clusters. We use k-mer sketching to split populations into strains, followed by split k-mer analysis and recombination removal to create alignments and subclusters within these strains. We first show that this approach creates high-quality subclusters on a population-wide dataset of <i>Streptococcus pneumoniae</i>. When applied to nosocomial vancomycin-resistant <i>Enterococcus faecium</i> samples, PopPIPE finds transmission clusters that are more epidemiologically plausible than core genome or multilocus sequence typing (MLST) approaches. Our pipeline is rapid and reproducible, creates interactive visualizations and can easily be reconfigured and re-run on new datasets. Therefore, PopPIPE provides a user-friendly pipeline for analyses spanning species-wide clustering to outbreak investigations.",
+  "keywords": [
+    "clustering",
+    "genomic epidemiology",
+    "pipelines",
+    "transmission"
+  ],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/40294103",
+  "source": "pubmed",
+  "acquired_date": "2026-02-05T07:00:06.418071",
+  "category": "biology",
+  "subcategories": []
+}

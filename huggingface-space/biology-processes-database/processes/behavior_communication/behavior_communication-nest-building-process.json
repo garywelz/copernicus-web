@@ -1,0 +1,92 @@
+{
+  "id": "behavior_communication-nest-building-process",
+  "name": "Nest Building Process",
+  "category": "biology",
+  "subcategory": "behavior_communication",
+  "subcategory_name": "Behavior & Communication",
+  "description": "Nest Building Process process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 9,
+    "edges": 7,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\n    A20[Reproductive Season] --> B20[Site Selection]\n    B20 --> C20[Material Collection]\n    C20 --> D20[Construction Initiation]\n    D20 --> E20[Structure Assembly]\n    E20 --> F20[Shape Formation]\n    F20 --> G20[Lining Addition]\n    G20 --> H20[Completion]\n    H20 --> I20[Nest Maintenance]\n    \n    style A20 fill:#ff6b6b,color:#fff\n    style B20 fill:#ffd43b,color:#000\n    style C20 fill:#51cf66,color:#fff\n    style D20 fill:#51cf66,color:#fff\n    style E20 fill:#51cf66,color:#fff\n    style F20 fill:#74c0fc,color:#fff\n    style G20 fill:#74c0fc,color:#fff\n    style H20 fill:#b197fc,color:#fff\n    style I20 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Nest Building Process. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "CHAPTER THREE. Speciation and Nest Building",
+      "authors": "",
+      "journal": "Nest Building and Bird Behavior",
+      "year": "1984",
+      "pubmed": null,
+      "doi": "10.1515/9781400853625.41",
+      "url": "https://doi.org/10.1515/9781400853625.41"
+    },
+    {
+      "title": "CHAPTER FOUR. Mate Selection and Nest Building",
+      "authors": "",
+      "journal": "Nest Building and Bird Behavior",
+      "year": "1984",
+      "pubmed": null,
+      "doi": "10.1515/9781400853625.57",
+      "url": "https://doi.org/10.1515/9781400853625.57"
+    },
+    {
+      "title": "CHAPTER TWELVE. The Development of Nest-building Ability",
+      "authors": "",
+      "journal": "Nest Building and Bird Behavior",
+      "year": "1984",
+      "pubmed": null,
+      "doi": "10.1515/9781400853625.211",
+      "url": "https://doi.org/10.1515/9781400853625.211"
+    }
+  ],
+  "keywords": [
+    "nest",
+    "building",
+    "process"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+}

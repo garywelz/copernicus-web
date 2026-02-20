@@ -1,0 +1,29 @@
+{
+  "id": "arxiv_2601.11487v1",
+  "arxiv_id": "2601.11487v1",
+  "title": "Space-Optimal, Computation-Optimal, Topology-Agnostic, Throughput-Scalable Causal Delivery through Hybrid Buffering",
+  "authors": [
+    "Paulo Sérgio Almeida"
+  ],
+  "author_string": "Paulo Sérgio Almeida",
+  "journal": "arXiv:2601.11487v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Message delivery respecting causal ordering (causal delivery) is one of the most classic and widely useful abstraction for inter-process communication in a distributed system. Most approaches tag messages with causality information and buffer them at the receiver until they can be safely delivered. Except for specific approaches that exploit communication topology, therefore not generally applicable, they incur a metadata overhead which is prohibitive for a large number of processes. Much less used are the approaches that enforce causal order by buffering messages at the sender, until it is safe to release them to the network, as the classic algorithm has too many drawbacks. In this paper, first we discuss the limitations of sender-only buffering approaches and introduce the Sender Permission to Send (SPS) enforcement strategy, showing that SPS + FIFO implies Causal. We analyze a recent sender-buffering algorithm, Cykas, which follows SPS + FIFO, albeit very conservatively, pointing out throughput scalability and liveness issues. Then, we introduce a novel SPS + FIFO based algorithm, which adopts a new hybrid approach: enforcing causality by combining sender-buffering to enforce SPS and receiver-buffering to enforce FIFO. The algorithm overcomes limitations of sender-only buffering, and achieves effectively constant metadata size per message. By a careful choice of data-structures, the algorithm is also computationally-optimal, with amortized effectively constant processing overhead. As far as we know, there is no other topology-agnostic causal delivery algorithm with these properties.",
+  "categories": [
+    "cs.DC"
+  ],
+  "primary_category": "cs.DC",
+  "comment": "16 pages, 5 figures",
+  "published_date": "2026-01-16T18:08:09Z",
+  "updated_date": "2026-01-16T18:08:09Z",
+  "url": "https://arxiv.org/abs/2601.11487v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11487v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:30.209285",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.DC"
+  ]
+}

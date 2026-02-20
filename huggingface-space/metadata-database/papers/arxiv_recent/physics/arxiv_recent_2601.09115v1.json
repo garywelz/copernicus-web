@@ -1,0 +1,38 @@
+{
+  "id": "arxiv_2601.09115v1",
+  "arxiv_id": "2601.09115v1",
+  "title": "A saturation-absorption rubidium magnetometer with multilevel optical Bloch-equation modeling for intermediate-to-high fields",
+  "authors": [
+    "Mayand Dangi",
+    "Prateek Rajan Gupta",
+    "Joseph Kasti",
+    "Nivedan Vishwanath",
+    "Michael Zepp",
+    "David Smith",
+    "Benedikt Geiger",
+    "Jennifer T. Choy"
+  ],
+  "author_string": "Mayand Dangi, Prateek Rajan Gupta, Joseph Kasti, Nivedan Vishwanath, Michael Zepp et al.",
+  "journal": "arXiv:2601.09115v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We present SASHMAG (Saturated Absorption Spectroscopy High-field MAGnetometer), an atomic sensor designed for precision magnetic-field measurements in the intermediate-to-high field regime ($>0.2\\,\\text{T}$) using Rubidium-87 ($^{87}Rb$). The sensor operates in the hyperfine Paschen-Back regime, where the hyperfine and Zeeman interactions decouple, and utilizes counter-propagating pump-probe configuration in Faraday geometry to resolve isolated, Doppler-free Zeeman transitions. To interpret the resulting spectra in this strongly field-dependent regime, we developed a comprehensive multilevel optical Bloch-equation model solved explicitly in the uncoupled $\\ket{m_I, m_J}$ basis, capturing state mixing and nonlinear saturation dynamics. This model reproduces measured spectra at sub-Doppler resolution and is consistent with analytical expectations for power broadening and thermal Doppler scaling. Magnetic field estimation is performed using a physics-constrained optimization routine that infers the magnetic field by minimizing the residual between experimentally extracted line centers and calculated transition frequencies from the field-dependent Hamiltonian. We demonstrate magnetic field retrieval from $0.2\\,\\text{T}$ to $0.4\\,\\text{T}$ with a precision of $\\pm 0.0017 \\,\\text{T}$). Furthermore, the validated simulation establishes a foundation for generating synthetic training datasets, paving the way for autonomous, Machine Learning-enhanced magnetometry in applications ranging from MRI to fusion reactors.",
+  "categories": [
+    "quant-ph",
+    "physics.atom-ph"
+  ],
+  "primary_category": "physics.atom-ph",
+  "comment": null,
+  "published_date": "2026-01-14T03:29:40Z",
+  "updated_date": "2026-01-14T03:29:40Z",
+  "url": "https://arxiv.org/abs/2601.09115v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.09115v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:02.858957",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph",
+    "physics.atom-ph"
+  ]
+}

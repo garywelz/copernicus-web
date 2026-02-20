@@ -1,0 +1,35 @@
+{
+  "id": "pubmed_37584946",
+  "pmid": "37584946",
+  "title": "Phospho-Analyst: An Interactive, Easy-to-Use Web Platform To Analyze Quantitative Phosphoproteomics Data.",
+  "authors": [
+    "Zhang, Haijian",
+    "Steele, Joel R",
+    "Kahrood, Hossein Valipour",
+    "Lucas, Deanna Deveson",
+    "Shah, Anup D",
+    "Schittenhelm, Ralf B"
+  ],
+  "author_string": "Zhang, Haijian, Steele, Joel R, Kahrood, Hossein Valipour, Lucas, Deanna Deveson, Shah, Anup D et al.",
+  "journal": "J Proteome Res",
+  "journal_full": "Journal of proteome research",
+  "year": "",
+  "doi": "10.1021/acs.jproteome.3c00186",
+  "abstract": "Phosphoproteomics is nowadays the method of choice to comprehensively identify and quantify thousands of phosphorylated peptides and their associated proteins with the goal of interrogating changes in signal transduction pathways and other cellular processes. One of the most popular software suites to analyze phosphoproteomic data sets is MaxQuant, which converts mass spectrometric raw data into quantitative information on phosphopeptides and proteins. However, despite the increased utilization of phosphoproteomics in biomedical research, simple and user-friendly tools supporting downstream statistical analysis and interpretation of these highly complex outputs are still lacking. We have therefore developed Phospho-Analyst, which─similar to its sibling LFQ-Analyst─is an easy-to-use, interactive web application specifically designed to reproducibly perform differential expression analyses with \"one click\" and to visualize phosphoproteomic results in a meaningful and practical manner. Furthermore, if quantitative total proteomic information is available for the same samples, Phospho-Analyst automatically normalizes all phosphoproteomic results to underlying protein abundance levels, thereby ensuring that only genuine changes in phosphorylation events are considered. As such, Phospho-Analyst can not only be used by experienced proteomic veterans but also by researchers without any prior knowledge in (phospho)proteomics, statistics, or bioinformatics. Phospho-Analyst, including a detailed manual, is freely available at https://analyst-suites.org/apps/phospho-analyst/.",
+  "keywords": [
+    "R",
+    "ShinyApp",
+    "bioinformatics",
+    "data analysis",
+    "mass spectrometry",
+    "phosphoproteomics",
+    "statistical analysis",
+    "web-based software tool"
+  ],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/37584946",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T16:59:18.012925",
+  "category": "biology",
+  "subcategories": []
+}

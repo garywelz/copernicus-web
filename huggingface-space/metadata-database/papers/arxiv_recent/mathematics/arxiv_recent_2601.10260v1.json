@@ -1,0 +1,30 @@
+{
+  "id": "arxiv_2601.10260v1",
+  "arxiv_id": "2601.10260v1",
+  "title": "Controllability score for linear time-invariant systems on an infinite time horizon",
+  "authors": [
+    "Kota Umezu",
+    "Kazuhiro Sato"
+  ],
+  "author_string": "Kota Umezu, Kazuhiro Sato",
+  "journal": "arXiv:2601.10260v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We introduce a scaled controllability Gramian that can be computed reliably even for unstable systems. Using this scaled Gramian, we reformulate the controllability scoring problems into equivalent but numerically stable optimization problems. Their optimal solutions define dynamics-aware network centrality measures, referred to as the volumetric controllability score (VCS) and the average energy controllability score (AECS). We then formulate controllability scoring problems on an infinite time horizon. Under suitable assumptions, we prove that the resulting VCS and AECS are unique and that the finite-horizon scores converge to them. We further show that VCS and AECS can differ markedly in this limit, because VCS enforces controllability of the full system, whereas AECS accounts only for the stable modes. Finally, using Laplacian dynamics as a representative example, we present numerical experiments that illustrate this convergence.",
+  "categories": [
+    "math.OC"
+  ],
+  "primary_category": "math.OC",
+  "comment": null,
+  "published_date": "2026-01-15T10:32:42Z",
+  "updated_date": "2026-01-15T10:32:42Z",
+  "url": "https://arxiv.org/abs/2601.10260v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.10260v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:45.576625",
+  "category": "mathematics",
+  "subcategories": [
+    "math.OC"
+  ]
+}

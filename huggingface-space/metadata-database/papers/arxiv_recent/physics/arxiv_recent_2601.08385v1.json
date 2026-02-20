@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2601.08385v1",
+  "arxiv_id": "2601.08385v1",
+  "title": "ChemXDyn: Dynamics-informed species and reaction detection methodology from atomistic simulations",
+  "authors": [
+    "Raj Maddipati",
+    "Dhruthi Boddapati",
+    "Elangannan Arunan",
+    "Phani Motamarri",
+    "Konduri Aditya"
+  ],
+  "author_string": "Raj Maddipati, Dhruthi Boddapati, Elangannan Arunan, Phani Motamarri, Konduri Aditya",
+  "journal": "arXiv:2601.08385v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Accurate identification of chemical species and reaction pathways from molecular dynamics (MD) trajectories is a prerequisite for deriving predictive chemical-kinetic models and for mechanistic discovery in reactive systems. However, state-of-the-art trajectory analysis methods infer bonding from instantaneous distance thresholds, which can misclassify transient, nonreactive encounters as bonds and thereby introduce spurious intermediates, distorted reaction networks, and biased rate estimates. Here, we introduce ChemXDyn, a dynamics-aware computational methodology that leverages time-resolved interatomic distance signatures as a core principle to robustly identify chemically consistent bonded interactions and, consequently, extract meaningful reaction pathways. In particular, ChemXDyn propagates molecular connectivity through time while enforcing atomic valence and coordination constraints to distinguish genuine bond-breaking and bond-forming events from transient, nonreactive encounters. We evaluate ChemXDyn on ReaxFF MD simulations of hydrogen and ammonia oxidation and on neural-network potential MD simulations of methane oxidation, and benchmark its performance against widely used trajectory analysis methods. Across these cases, ChemXDyn suppresses unphysical species prevalent in static analyses, recovers experimentally consistent reaction pathways, and improves the fidelity of rate constant estimation. In ammonia oxidation, ChemXDyn removes unphysical intermediates and resolves key NOx- and N2O-forming and -consuming routes. In methane oxidation, it reconstructs the canonical progression from CH4 to CO2. By linking atomistic dynamics to chemically consistent reaction identification, ChemXDyn provides a transferable foundation for MD-derived reaction networks and kinetics, with potential utility spanning combustion, catalysis, plasma chemistry, and electrochemical environments.",
+  "categories": [
+    "physics.comp-ph",
+    "physics.chem-ph"
+  ],
+  "primary_category": "physics.chem-ph",
+  "comment": null,
+  "published_date": "2026-01-13T09:49:56Z",
+  "updated_date": "2026-01-13T09:49:56Z",
+  "url": "https://arxiv.org/abs/2601.08385v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.08385v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:14.417683",
+  "category": "physics",
+  "subcategories": [
+    "physics.comp-ph",
+    "physics.chem-ph"
+  ]
+}

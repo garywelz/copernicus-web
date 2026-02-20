@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2005.11780v1",
+  "arxiv_id": "2005.11780v1",
+  "title": "Deep Convolutional Neural Network-based Bernoulli Heatmap for Head Pose Estimation",
+  "authors": [
+    "Zhongxu Hu",
+    "Yang Xing",
+    "Chen Lv",
+    "Peng Hang",
+    "Jie Liu"
+  ],
+  "author_string": "Zhongxu Hu, Yang Xing, Chen Lv, Peng Hang, Jie Liu",
+  "journal": "arXiv:2005.11780v1",
+  "journal_ref": null,
+  "year": "2020",
+  "doi": null,
+  "abstract": "Head pose estimation is a crucial problem for many tasks, such as driver attention, fatigue detection, and human behaviour analysis. It is well known that neural networks are better at handling classification problems than regression problems. It is an extremely nonlinear process to let the network output the angle value directly for optimization learning, and the weight constraint of the loss function will be relatively weak. This paper proposes a novel Bernoulli heatmap for head pose estimation from a single RGB image. Our method can achieve the positioning of the head area while estimating the angles of the head. The Bernoulli heatmap makes it possible to construct fully convolutional neural networks without fully connected layers and provides a new idea for the output form of head pose estimation. A deep convolutional neural network (CNN) structure with multiscale representations is adopted to maintain high-resolution information and low-resolution information in parallel. This kind of structure can maintain rich, high-resolution representations. In addition, channelwise fusion is adopted to make the fusion weights learnable instead of simple addition with equal weights. As a result, the estimation is spatially more precise and potentially more accurate. The effectiveness of the proposed method is empirically demonstrated by comparing it with other state-of-the-art methods on public datasets.",
+  "categories": [
+    "cs.CV",
+    "cs.MM"
+  ],
+  "primary_category": "cs.MM",
+  "comment": null,
+  "published_date": "2020-05-24T15:36:29Z",
+  "updated_date": "2020-05-24T15:36:29Z",
+  "url": "https://arxiv.org/abs/2005.11780v1",
+  "pdf_url": "https://arxiv.org/pdf/2005.11780v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:27.413460",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV",
+    "cs.MM"
+  ]
+}

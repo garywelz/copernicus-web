@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_1905.01998v1",
+  "arxiv_id": "1905.01998v1",
+  "title": "A Persona-based Multi-turn Conversation Model in an Adversarial Learning Framework",
+  "authors": [
+    "Oluwatobi O. Olabiyi",
+    "Anish Khazane",
+    "Erik T. Mueller"
+  ],
+  "author_string": "Oluwatobi O. Olabiyi, Anish Khazane, Erik T. Mueller",
+  "journal": "arXiv:1905.01998v1",
+  "journal_ref": null,
+  "year": "2019",
+  "doi": null,
+  "abstract": "In this paper, we extend the persona-based sequence-to-sequence (Seq2Seq) neural network conversation model to multi-turn dialogue by modifying the state-of-the-art hredGAN architecture. To achieve this, we introduce an additional input modality into the encoder and decoder of hredGAN to capture other attributes such as speaker identity, location, sub-topics, and other external attributes that might be available from the corpus of human-to-human interactions. The resulting persona hredGAN ($phredGAN$) shows better performance than both the existing persona-based Seq2Seq and hredGAN models when those external attributes are available in a multi-turn dialogue corpus. This superiority is demonstrated on TV drama series with character consistency (such as Big Bang Theory and Friends) and customer service interaction datasets such as Ubuntu dialogue corpus in terms of perplexity, BLEU, ROUGE, and Distinct n-gram scores.",
+  "categories": [
+    "cs.CL",
+    "cs.LG",
+    "stat.ML"
+  ],
+  "primary_category": "stat.ML",
+  "comment": "2018 17th IEEE International Conference on Machine Learning and Applications (ICMLA). arXiv admin note: substantial text overlap with arXiv:1905.01992",
+  "published_date": "2019-04-29T15:09:34Z",
+  "updated_date": "2019-04-29T15:09:34Z",
+  "url": "https://arxiv.org/abs/1905.01998v1",
+  "pdf_url": "https://arxiv.org/pdf/1905.01998v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:19.478955",
+  "category": "mathematics",
+  "subcategories": [
+    "cs.CL",
+    "cs.LG",
+    "stat.ML"
+  ]
+}

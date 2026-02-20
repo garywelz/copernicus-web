@@ -1,0 +1,27 @@
+{
+  "id": "differentiation-using-chain-rule",
+  "title": "Differentiation Using Chain Rule",
+  "description": "Process for finding derivatives of composite functions",
+  "category": "mathematics",
+  "subcategory": "calculus",
+  "mermaid": "graph TD A1[Start: Identify Composite Function] style A1 fill:#ff6b6b,color:#ffffff B1[Define Outer Function f(u) and<br>Inner Function g(x)] style B1 fill:#ffd43b,color:#000000 C1[\"Calculate Derivative of<br>Outer Function f'(u)\"] style C1 fill:#51cf66,color:#ffffff D1[\"Calculate Derivative of<br>Inner Function g'(x)\"] style D1 fill:#51cf66,color:#ffffff E1[Substitute g(x) back into f'(u)<br>to get f'(g(x))] style E1 fill:#74c0fc,color:#ffffff F1[\"Apply Chain Rule Formula:<br>f'(g(x)) * g'(x)\"] style F1 fill:#51cf66,color:#ffffff G1[Simplify the Resulting<br>Expression] style G1 fill:#51cf66,color:#ffffff H1[Final Derivative:<br>dy/dx = f'(g(x)) * g'(x)] style H1 fill:#b197fc,color:#ffffff I1[\"End\"] style I1 fill:#b197fc,color:#ffffff A1 --> B1 B1 --> C1 B1 --> D1 C1 --> E1 D1 --> F1 E1 --> F1 F1 --> G1 G1 --> H1 H1 --> I1",
+  "entities": [
+    "/\"Start: Identify Composite Function\"<br>f(g(x))\"/",
+    "Define Outer Function f(u) and<br>Inner Function g(x)",
+    "\"Calculate Derivative of<br>Outer Function f'(u)\"",
+    "\"Calculate Derivative of<br>Inner Function g'(x)\"",
+    "Substitute g(x) back into f'(u)<br>to get f'(g(x))",
+    "\"Apply Chain Rule Formula:<br>f'(g(x)) * g'(x)\"",
+    "Simplify the Resulting<br>Expression",
+    "Final Derivative:<br>dy/dx = f'(g(x)) * g'(x)",
+    "\"End\""
+  ],
+  "metadata": {
+    "source": "programming_framework",
+    "color_scheme": "discipline_based",
+    "node_count": 9,
+    "complexity": "low"
+  },
+  "sources": [],
+  "source_text": "Source information to be added - please specify the book, paper, or reference material used by the LLM to generate this flowchart."
+}

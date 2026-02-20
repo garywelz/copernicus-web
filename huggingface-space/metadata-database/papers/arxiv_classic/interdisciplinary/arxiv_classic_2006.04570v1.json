@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2006.04570v1",
+  "arxiv_id": "2006.04570v1",
+  "title": "Incorporating Image Gradients as Secondary Input Associated with Input Image to Improve the Performance of the CNN Model",
+  "authors": [
+    "Vijay Pandey",
+    "Shashi Bhushan Jha"
+  ],
+  "author_string": "Vijay Pandey, Shashi Bhushan Jha",
+  "journal": "arXiv:2006.04570v1",
+  "journal_ref": null,
+  "year": "2020",
+  "doi": null,
+  "abstract": "CNN is very popular neural network architecture in modern days. It is primarily most used tool for vision related task to extract the important features from the given image. Moreover, CNN works as a filter to extract the important features using convolutional operation in distinct layers. In existing CNN architectures, to train the network on given input, only single form of given input is fed to the network. In this paper, new architecture has been proposed where given input is passed in more than one form to the network simultaneously by sharing the layers with both forms of input. We incorporate image gradient as second form of the input associated with the original input image and allowing both inputs to flow in the network using same number of parameters to improve the performance of the model for better generalization. The results of the proposed CNN architecture, applying on diverse set of datasets such as MNIST, CIFAR10 and CIFAR100 show superior result compared to the benchmark CNN architecture considering inputs in single form.",
+  "categories": [
+    "cs.CV",
+    "cs.LG",
+    "eess.IV"
+  ],
+  "primary_category": "eess.IV",
+  "comment": null,
+  "published_date": "2020-06-05T14:01:52Z",
+  "updated_date": "2020-06-05T14:01:52Z",
+  "url": "https://arxiv.org/abs/2006.04570v1",
+  "pdf_url": "https://arxiv.org/pdf/2006.04570v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:23.481440",
+  "category": "interdisciplinary",
+  "subcategories": [
+    "cs.CV",
+    "cs.LG",
+    "eess.IV"
+  ]
+}

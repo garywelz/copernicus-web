@@ -1,0 +1,36 @@
+{
+  "id": "pubmed_36266999",
+  "pmid": "36266999",
+  "title": "Hierarchical time-series analysis of dynamic bioprocess systems.",
+  "authors": [
+    "Alinaghi, Masoumeh",
+    "Surowiec, Izabella",
+    "Scholze, Steffi",
+    "McCready, Chris",
+    "Zehe, Christoph",
+    "Johansson, Erik",
+    "Trygg, Johan",
+    "Cloarec, Olivier"
+  ],
+  "author_string": "Alinaghi, Masoumeh, Surowiec, Izabella, Scholze, Steffi, McCready, Chris, Zehe, Christoph et al.",
+  "journal": "Biotechnol J",
+  "journal_full": "Biotechnology journal",
+  "year": "",
+  "doi": "10.1002/biot.202200237",
+  "abstract": "Monoclonal antibodies (mAbs) are leading types of 'blockbuster' biotherapeutics worldwide; they have been successfully used to treat various cancers and chronic inflammatory and autoimmune diseases. Biotherapeutics process development and manufacturing are complicated due to lack of understanding the factors that impact cell productivity and product quality attributes. Understanding complex interactions between cells, media, and process parameters on the molecular level is essential to bring biomanufacturing to the next level. This can be achieved by analyzing cell culture metabolic levels connected to vital process parameters like viable cell density (VCD). However, VCD and metabolic profiles are dynamic parameters and inherently correlated with time, leading to a significant correlation without actual causality. Many time-series methods deal with such issues. However, with metabolic profiling, the number of measured variables vastly exceeds the number of experiments, making most of existing methods ill-suited and hard to interpret. Here we propose an alternative workflow using hierarchical dimension reduction to visualize and interpret the relation between evolution of metabolic profiles and dynamic process parameters. The first step of proposed method is focused on finding predictive relation between metabolic profiles and process parameter at all time points using OPLS regression. For each time point, the p(corr) obtained from OPLS model is considered as a differential metabogram and is further assessed using principal components analysis (PCA). Compared to traditional batch modeling, applying proposed methodology on metabolic data from Chinese Hamster Ovary (CHO) antibody production characterized the dynamic relation between metabolic profiles and critical process parameters.",
+  "keywords": [
+    "bioprocess data",
+    "dynamic system",
+    "hierarchical analysis",
+    "meta-analysis",
+    "metabolomics data",
+    "time-series analysis",
+    "viable cell density (VCD)"
+  ],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/36266999",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T16:59:25.457609",
+  "category": "biology",
+  "subcategories": []
+}

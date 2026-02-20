@@ -1,0 +1,95 @@
+{
+  "id": "coordination_control-nervous-system-signaling-process",
+  "name": "Nervous System Signaling Process",
+  "category": "biology",
+  "subcategory": "coordination_control",
+  "subcategory_name": "Coordination & Control",
+  "organism": "Animals",
+  "description": "Nervous System Signaling Process in Animals. This process represents a higher-level biological mechanism distinct from molecular/biochemical processes covered in GLMP.",
+  "complexity": {
+    "nodes": 8,
+    "edges": 7,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "low",
+    "detailLevel": "low"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\n    A48[Neuron Stimulation] --> B48[Action Potential]\n    B48 --> C48[Axon Propagation]\n    C48 --> D48[Synaptic Terminal]\n    D48 --> E48[Neurotransmitter Release]\n    E48 --> F48[Receptor Binding]\n    F48 --> G48[Post-Synaptic Response]\n    G48 --> H48[Signal Transmission]\n    \n    style A48 fill:#ff6b6b,color:#fff\n    style B48 fill:#ffd43b,color:#000\n    style C48 fill:#51cf66,color:#fff\n    style D48 fill:#74c0fc,color:#fff\n    style E48 fill:#51cf66,color:#fff\n    style F48 fill:#51cf66,color:#fff\n    style G48 fill:#74c0fc,color:#fff\n    style H48 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "notes": "Higher-level biological process visualization: Nervous System Signaling Process. Created using the Programming Framework methodology for organismal and ecological process analysis."
+    },
+    {
+      "title": "Ionic channels of excitable membranes",
+      "authors": "Hille B.",
+      "journal": "Annu Rev Neurosci.",
+      "year": "1984",
+      "pubmed": "6088265",
+      "doi": "10.1146/annurev.ne.07.030184.002025",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/6088265"
+    },
+    {
+      "title": "Long-term potentiation--a decade of progress",
+      "authors": "Malenka RC, Nicoll RA.",
+      "journal": "Science.",
+      "year": "1999",
+      "pubmed": "10567254",
+      "doi": "10.1126/science.285.5434.1870",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/10567254"
+    },
+    {
+      "title": "From Molecules to Networks: An Overview of Brain Dynamics",
+      "authors": "Marder E.",
+      "journal": "Annu Rev Neurosci.",
+      "year": "2012",
+      "pubmed": "22440182",
+      "doi": "10.1146/annurev-neuro-062111-150539",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/22440182"
+    }
+  ],
+  "keywords": [
+    "system",
+    "control",
+    "animals",
+    "process",
+    "signaling",
+    "nervous",
+    "coordination"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-08",
+  "verified": false,
+  "notes": "Higher-level biological process. GLMP covers biochemical/molecular processes; this database covers organismal/ecological processes."
+}

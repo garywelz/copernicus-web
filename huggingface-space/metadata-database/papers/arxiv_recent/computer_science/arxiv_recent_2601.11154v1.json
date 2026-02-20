@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2601.11154v1",
+  "arxiv_id": "2601.11154v1",
+  "title": "Assesing the Viability of Unsupervised Learning with Autoencoders for Predictive Maintenance in Helicopter Engines",
+  "authors": [
+    "P. Sánchez",
+    "K. Reyes",
+    "B. Radu",
+    "E. Fernández"
+  ],
+  "author_string": "P. Sánchez, K. Reyes, B. Radu, E. Fernández",
+  "journal": "arXiv:2601.11154v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Unplanned engine failures in helicopters can lead to severe operational disruptions, safety hazards, and costly repairs. To mitigate these risks, this study compares two predictive maintenance strategies for helicopter engines: a supervised classification pipeline and an unsupervised anomaly detection approach based on autoencoders (AEs). The supervised method relies on labelled examples of both normal and faulty behaviour, while the unsupervised approach learns a model of normal operation using only healthy engine data, flagging deviations as potential faults. Both methods are evaluated on a real-world dataset comprising labelled snapshots of helicopter engine telemetry. While supervised models demonstrate strong performance when annotated failures are available, the AE achieves effective detection without requiring fault labels, making it particularly well suited for settings where failure data are scarce or incomplete. The comparison highlights the practical trade-offs between accuracy, data availability, and deployment feasibility, and underscores the potential of unsupervised learning as a viable solution for early fault detection in aerospace applications.",
+  "categories": [
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": null,
+  "published_date": "2026-01-16T10:11:28Z",
+  "updated_date": "2026-01-16T10:11:28Z",
+  "url": "https://arxiv.org/abs/2601.11154v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11154v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:33.862146",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.LG"
+  ]
+}

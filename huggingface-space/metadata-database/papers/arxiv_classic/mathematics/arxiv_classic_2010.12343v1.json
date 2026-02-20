@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2010.12343v1",
+  "arxiv_id": "2010.12343v1",
+  "title": "Probabilistic Zero Forcing on Grid, Regular, and Hypercube Graphs",
+  "authors": [
+    "David Hu",
+    "Alec Sun"
+  ],
+  "author_string": "David Hu, Alec Sun",
+  "journal": "arXiv:2010.12343v1",
+  "journal_ref": null,
+  "year": "2020",
+  "doi": null,
+  "abstract": "Probabilistic zero-forcing is a coloring process on a graph. In this process, an initial set of vertices is colored blue, and the remaining vertices are colored white. At each time step, blue vertices have a non-zero probability of forcing white neighbors to blue. The expected propagation time is the expected amount of time needed for every vertex to be colored blue. We derive asymptotic bounds for the expected propagation time of several families of graphs. We prove the optimal asymptotic bound of $Θ(m+n)$ for $m\\times n$ grid graphs. We prove an upper bound of $O \\left(\\frac{\\log d}{d} \\cdot n \\right)$ for $d$-regular graphs on $n$ vertices and provide a graph construction that exhibits a lower bound of $Ω\\left(\\frac{\\log \\log d}{d} \\cdot n \\right)$. Finally, we prove an asymptotic upper bound of $O(n \\log n)$ for hypercube graphs on $2^n$ vertices.",
+  "categories": [
+    "math.CO",
+    "math.PR"
+  ],
+  "primary_category": "math.PR",
+  "comment": "11 pages, 2 figures",
+  "published_date": "2020-10-22T03:27:05Z",
+  "updated_date": "2020-10-22T03:27:05Z",
+  "url": "https://arxiv.org/abs/2010.12343v1",
+  "pdf_url": "https://arxiv.org/pdf/2010.12343v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:30:41.238329",
+  "category": "mathematics",
+  "subcategories": [
+    "math.CO",
+    "math.PR"
+  ]
+}

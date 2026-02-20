@@ -1,0 +1,37 @@
+{
+  "id": "arxiv_2601.11076v1",
+  "arxiv_id": "2601.11076v1",
+  "title": "A3D: Adaptive Affordance Assembly with Dual-Arm Manipulation",
+  "authors": [
+    "Jiaqi Liang",
+    "Yue Chen",
+    "Qize Yu",
+    "Yan Shen",
+    "Haipeng Zhang",
+    "Hao Dong",
+    "Ruihai Wu"
+  ],
+  "author_string": "Jiaqi Liang, Yue Chen, Qize Yu, Yan Shen, Haipeng Zhang et al.",
+  "journal": "arXiv:2601.11076v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Furniture assembly is a crucial yet challenging task for robots, requiring precise dual-arm coordination where one arm manipulates parts while the other provides collaborative support and stabilization. To accomplish this task more effectively, robots need to actively adapt support strategies throughout the long-horizon assembly process, while also generalizing across diverse part geometries. We propose A3D, a framework which learns adaptive affordances to identify optimal support and stabilization locations on furniture parts. The method employs dense point-level geometric representations to model part interaction patterns, enabling generalization across varied geometries. To handle evolving assembly states, we introduce an adaptive module that uses interaction feedback to dynamically adjust support strategies during assembly based on previous interactions. We establish a simulation environment featuring 50 diverse parts across 8 furniture types, designed for dual-arm collaboration evaluation. Experiments demonstrate that our framework generalizes effectively to diverse part geometries and furniture categories in both simulation and real-world settings.",
+  "categories": [
+    "cs.RO",
+    "cs.AI"
+  ],
+  "primary_category": "cs.AI",
+  "comment": "AAAI2026 oral",
+  "published_date": "2026-01-16T08:21:42Z",
+  "updated_date": "2026-01-16T08:21:42Z",
+  "url": "https://arxiv.org/abs/2601.11076v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11076v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:37.503344",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.RO",
+    "cs.AI"
+  ]
+}

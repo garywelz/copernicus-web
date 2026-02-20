@@ -1,0 +1,94 @@
+{
+  "id": "nutrition_metabolism-filter-feeding-process",
+  "name": "Filter Feeding Process",
+  "category": "biology",
+  "subcategory": "nutrition_metabolism",
+  "subcategory_name": "Nutrition & Metabolism",
+  "organism": "Animals",
+  "description": "Filter Feeding Process in Animals. This process represents a higher-level biological mechanism distinct from molecular/biochemical processes covered in GLMP.",
+  "complexity": {
+    "nodes": 9,
+    "edges": 8,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "low",
+    "detailLevel": "low"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\n    A34[Water Current] --> B34[Particle Suspension]\n    B34 --> C34[Filter Structure]\n    C34 --> D34[Particle Capture]\n    D34 --> E34[Retention]\n    E34 --> F34[Cilia/Mucus Action]\n    F34 --> G34[Transport to Mouth]\n    G34 --> H34[Ingestion]\n    H34 --> I34[Nutrient Extraction]\n    \n    style A34 fill:#ff6b6b,color:#fff\n    style B34 fill:#ffd43b,color:#000\n    style C34 fill:#ffd43b,color:#000\n    style D34 fill:#51cf66,color:#fff\n    style E34 fill:#74c0fc,color:#fff\n    style F34 fill:#51cf66,color:#fff\n    style G34 fill:#74c0fc,color:#fff\n    style H34 fill:#51cf66,color:#fff\n    style I34 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "notes": "Higher-level biological process visualization: Filter Feeding Process. Created using the Programming Framework methodology for organismal and ecological process analysis."
+    },
+    {
+      "title": "Suspension-feeding bivalves and water-quality control",
+      "authors": "Matthis FJS.",
+      "journal": "Annu Rev Mar Sci.",
+      "year": "2009",
+      "pubmed": "24707833",
+      "doi": "10.1146/annurev.marine.010908.163712",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/24707833"
+    },
+    {
+      "title": "Filter feeding in bivalves: from fluid mechanics to whole organism physiology",
+      "authors": "Riisgård HU, Larsen PS.",
+      "journal": "Biol Rev.",
+      "year": "2007",
+      "pubmed": "17298642",
+      "doi": "10.1111/j.1469-185X.2006.00008.x",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/17298642"
+    },
+    {
+      "title": "Fluid dynamics of filter feeding in the planktonic copepod Acartia hudsonica",
+      "authors": "Tiselius P, Jonsson PR.",
+      "journal": "Proc Natl Acad Sci U S A.",
+      "year": "1990",
+      "pubmed": "16345100",
+      "doi": "10.1073/pnas.87.9.3493",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/16345100"
+    }
+  ],
+  "keywords": [
+    "animals",
+    "filter",
+    "process",
+    "nutrition",
+    "feeding",
+    "metabolism"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-08",
+  "verified": false,
+  "notes": "Higher-level biological process. GLMP covers biochemical/molecular processes; this database covers organismal/ecological processes."
+}

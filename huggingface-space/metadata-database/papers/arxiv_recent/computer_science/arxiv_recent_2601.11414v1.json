@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2601.11414v1",
+  "arxiv_id": "2601.11414v1",
+  "title": "New Adaptive Mechanism for Large Neighborhood Search using Dual Actor-Critic",
+  "authors": [
+    "Shaohua Yu",
+    "Wenhao Mao",
+    "Zigao Wu",
+    "Jakob Puchinger"
+  ],
+  "author_string": "Shaohua Yu, Wenhao Mao, Zigao Wu, Jakob Puchinger",
+  "journal": "arXiv:2601.11414v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Adaptive Large Neighborhood Search (ALNS) is a widely used heuristic method for solving combinatorial optimization problems. ALNS explores the solution space by iteratively using destroy and repair operators with probabilities, which are adjusted by an adaptive mechanism to find optimal solutions. However, the classic ALNS adaptive mechanism does not consider the interaction between destroy and repair operators when selecting them. To overcome this limitation, this study proposes a novel adaptive mechanism. This mechanism enhances the adaptability of the algorithm through a Dual Actor-Critic (DAC) model, which fully considers the fact that the quality of new solutions is jointly determined by the destroy and repair operators. It effectively utilizes the interaction between these operators during the weight adjustment process, greatly improving the adaptability of the ALNS algorithm. In this mechanism, the destroy and repair processes are modeled as independent Markov Decision Processes to guide the selection of operators more accurately. Furthermore, we use Graph Neural Networks to extract key features from problem instances and perform effective aggregation and normalization to enhance the algorithm's transferability to different sizes and characteristics of problems. Through a series of experiments, we demonstrate that the proposed DAC-ALNS algorithm significantly improves solution efficiency and exhibits excellent transferability.",
+  "categories": [
+    "cs.GT",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": null,
+  "published_date": "2026-01-16T16:33:52Z",
+  "updated_date": "2026-01-16T16:33:52Z",
+  "url": "https://arxiv.org/abs/2601.11414v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11414v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:30.212850",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.GT",
+    "cs.LG"
+  ]
+}

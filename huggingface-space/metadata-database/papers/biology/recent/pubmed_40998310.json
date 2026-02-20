@@ -1,0 +1,25 @@
+{
+  "id": "pubmed_40998310",
+  "pmid": "40998310",
+  "title": "DigDig: A Software for In-Depth Analysis and Comparison of Proteolytic Digestion.",
+  "authors": [
+    "Kalaninová, Zuzana",
+    "Portašiková, Jasmína Mária",
+    "Kavan, Daniel",
+    "Novák, Petr",
+    "Man, Petr"
+  ],
+  "author_string": "Kalaninová, Zuzana, Portašiková, Jasmína Mária, Kavan, Daniel, Novák, Petr, Man, Petr",
+  "journal": "Anal Chem",
+  "journal_full": "Analytical chemistry",
+  "year": "",
+  "doi": "10.1021/acs.analchem.5c04217",
+  "abstract": "Proteolysis is a crucial step in both bottom-up and structural proteomics workflows, directly influencing peptide identification and sequence coverage in mass spectrometry-based analyses. While classical proteomics typically relies on highly specific enzymes with well-defined cleavage patterns, structural MS approaches such as hydrogen/deuterium exchange mass spectrometry (HDX-MS) often employ nonspecific or semispecific proteases, producing complex peptide mixtures that require more detailed digestion analysis. To address these needs and streamline the entire process, we developed DigDig, a standalone, Java-based software tool for evaluating and comparing proteolytic digestion across diverse experimental conditions. DigDig processes output files from common search engines and provides customizable visualizations of key digestion metrics, including sequence coverage, reproducibility, peptide redundancy, cleavage site preferences, and peptide length distributions. A distinguishing feature is its ability to detect and report repetitive peptide sequences, which are frequently missed by standard tools. We demonstrate its capabilities using data sets from both specific and nonspecific digestions, highlighting its utility in digestion quality control, protease characterization, and method development, particularly in HDX-MS workflows. DigDig is freely available at https://peterslab.org/DigDig/.",
+  "keywords": [],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/40998310",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T16:58:31.875385",
+  "category": "biology",
+  "subcategories": []
+}

@@ -1,0 +1,41 @@
+{
+  "id": "arxiv_2601.11039v1",
+  "arxiv_id": "2601.11039v1",
+  "title": "SonicBench: Dissecting the Physical Perception Bottleneck in Large Audio Language Models",
+  "authors": [
+    "Yirong Sun",
+    "Yanjun Chen",
+    "Xin Qiu",
+    "Gang Zhang",
+    "Hongyu Chen",
+    "Daokuan Wu",
+    "Chengming Li",
+    "Min Yang",
+    "Dawei Zhu",
+    "Wei Zhang",
+    "Xiaoyu Shen"
+  ],
+  "author_string": "Yirong Sun, Yanjun Chen, Xin Qiu, Gang Zhang, Hongyu Chen et al.",
+  "journal": "arXiv:2601.11039v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Large Audio Language Models (LALMs) excel at semantic and paralinguistic tasks, yet their ability to perceive the fundamental physical attributes of audio such as pitch, loudness, and spatial location remains under-explored. To bridge this gap, we introduce SonicBench, a psychophysically grounded benchmark that systematically evaluates 12 core physical attributes across five perceptual dimensions. Unlike previous datasets, SonicBench uses a controllable generation toolbox to construct stimuli for two complementary paradigms: recognition (absolute judgment) and comparison (relative judgment). This design allows us to probe not only sensory precision but also relational reasoning capabilities, a domain where humans typically exhibit greater proficiency. Our evaluation reveals a substantial deficiency in LALMs' foundational auditory understanding; most models perform near random guessing and, contrary to human patterns, fail to show the expected advantage on comparison tasks. Furthermore, explicit reasoning yields minimal gains. However, our linear probing analysis demonstrates crucially that frozen audio encoders do successfully capture these physical cues (accuracy at least 60%), suggesting that the primary bottleneck lies in the alignment and decoding stages, where models fail to leverage the sensory signals they have already captured.",
+  "categories": [
+    "cs.SD",
+    "cs.CL"
+  ],
+  "primary_category": "cs.CL",
+  "comment": null,
+  "published_date": "2026-01-16T07:10:57Z",
+  "updated_date": "2026-01-16T07:10:57Z",
+  "url": "https://arxiv.org/abs/2601.11039v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11039v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:37.505243",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.SD",
+    "cs.CL"
+  ]
+}

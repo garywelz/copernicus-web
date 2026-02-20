@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2601.07592v1",
+  "arxiv_id": "2601.07592v1",
+  "title": "Timing Gamma-ray Pulsars using Gibbs Sampling",
+  "authors": [
+    "Colin J. Clark",
+    "Serena Valtolina",
+    "Lars Nieder",
+    "Rutger van Haasteren"
+  ],
+  "author_string": "Colin J. Clark, Serena Valtolina, Lars Nieder, Rutger van Haasteren",
+  "journal": "arXiv:2601.07592v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Timing analyses of gamma-ray pulsars in the Fermi Large Area Telescope data set can provide sensitive probes of many astrophysical processes, including timing noise in young pulsars, orbital period variations in redback binaries, and the stochastic gravitational wave background (GWB). These goals can require careful accounting of stochastic noise processes, but existing methods developed to achieve this in radio pulsar timing analyses cannot be immediately applied to the discrete gamma-ray arrival time data. To address this, we have developed a new method for timing gamma-ray pulsars, in which the timing model fit is transformed into a weighted least squares problem by randomly assigning each photon to an individual Gaussian component of a template pulse profile. These random assignments are then numerically marginalised over through a Gibbs sampling scheme. This method allows for efficient estimation of timing and noise model parameters, while taking into account uncertainties in the pulse profile shape. We simulated Fermi-LAT data sets for gamma-ray pulsars with power-law timing noise processes, showing that this method provides robust estimates of timing noise parameters. We also describe a Gaussian-process model for orbital period variations in black-widow and redback binary systems that can be fit using this new timing method. We demonstrate this method on the black-widow binary millisecond pulsar B1957+20, where the orbital period varies significantly over the LAT data, but which provides one of the most stringent gamma-ray upper limits on the GWB.",
+  "categories": [
+    "astro-ph.HE"
+  ],
+  "primary_category": "astro-ph.HE",
+  "comment": "14 pages, 5 figures",
+  "published_date": "2026-01-12T14:40:34Z",
+  "updated_date": "2026-01-12T14:40:34Z",
+  "url": "https://arxiv.org/abs/2601.07592v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.07592v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:23.641857",
+  "category": "physics",
+  "subcategories": [
+    "astro-ph.HE"
+  ]
+}

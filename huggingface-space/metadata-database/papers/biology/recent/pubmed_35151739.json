@@ -1,0 +1,33 @@
+{
+  "id": "pubmed_35151739",
+  "pmid": "35151739",
+  "title": "Reconstructing the data gap between GRACE and GRACE follow-on at the basin scale using artificial neural network.",
+  "authors": [
+    "Lai, Yu",
+    "Zhang, Bao",
+    "Yao, Yibin",
+    "Liu, Lin",
+    "Yan, Xiao",
+    "He, Yulin",
+    "Ou, Shuyuan"
+  ],
+  "author_string": "Lai, Yu, Zhang, Bao, Yao, Yibin, Liu, Lin, Yan, Xiao et al.",
+  "journal": "Sci Total Environ",
+  "journal_full": "The Science of the total environment",
+  "year": "",
+  "doi": "10.1016/j.scitotenv.2022.153770",
+  "abstract": "The Gravity Recovery and Climate Experiment (GRACE) and GRACE Follow-On (GRACE-FO) observations, have been used to monitor the terrestrial water storage (TWS) change for almost 20 years. But the nearly 1-year gap between GRACE and GRACE-FO breaks the continuity of the observations, which influences the study on short-term TWS change and may introduce biases in GRACE (FO)-based data analysis. In this study, we propose to combine multichannel singular spectrum analysis (MSSA) and back propagation neural network (BPNN) to reconstruct this data gap. We use the MSSA first to initially interpolate the missing GRACE TWS data and second to decompose the hydroclimatic driving data and the target GRACE TWS data into partially reconstructed components (RC) and then use the BPNN to establish the relationships between each target RC and driving RCs. To reasonably test the model performance, we customize a sliding window test method that uses a 1-year window to determine the training and testing data so that we can approximate the real case. Using the proposed methods, we reconstruct the TWS data gaps in 28 hot areas that suffered severe TWS changes with a mean root mean square error (RMSE) of 2.7 cm and in 26 major river basins with a mean RMSE of 2.2 cm. This combined method outperforms the MSSA-based methods and most artificial neural network-based methods. Given the fact that the nominal accuracy of GRACE is ~2 cm and the TWS changes were large in the hot areas, the reconstruction accuracy is impressive. This study is expected to provide an advanced method for gap filling, data reconstruction, and data fusion as well as provide high-quality continuous TWS data for hydrological and climatic studies, especially in the 28 hot areas where no reconstructed data are available.",
+  "keywords": [
+    "Back propagation neural network",
+    "Data gap",
+    "GRACE",
+    "GRACE Follow-On",
+    "Multichannel singular spectrum analysis"
+  ],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/35151739",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T17:02:33.037427",
+  "category": "biology",
+  "subcategories": []
+}

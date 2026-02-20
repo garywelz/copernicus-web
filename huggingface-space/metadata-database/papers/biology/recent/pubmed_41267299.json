@@ -1,0 +1,33 @@
+{
+  "id": "pubmed_41267299",
+  "pmid": "41267299",
+  "title": "Multi-target prediction in volatolomics with deep neural networks: Modeling volatile organic compounds produced by Brochothrix thermosphacta under modified atmospheres.",
+  "authors": [
+    "Chen, Linyun",
+    "Kuuliala, Lotta",
+    "Walgraeve, Christophe",
+    "Demeestere, Kristof",
+    "Devlieghere, Frank",
+    "De Baets, Bernard"
+  ],
+  "author_string": "Chen, Linyun, Kuuliala, Lotta, Walgraeve, Christophe, Demeestere, Kristof, Devlieghere, Frank et al.",
+  "journal": "Food Res Int",
+  "journal_full": "Food research international (Ottawa, Ont.)",
+  "year": "",
+  "doi": "10.1016/j.foodres.2025.117731",
+  "abstract": "The microbial spoilage of meat is associated with the generation of volatile organic compounds (VOCs) and off-odors. While predictive modeling benefits shelf-life determination, predicting the volatolome is very complex as the related microbial metabolism is easily affected by the packaging O<sub>2</sub>/CO<sub>2</sub> composition. Whereas traditional supervised learning mostly focuses on predicting one single target, this study introduces the concept of multi-target prediction (MTP) by presenting a study on predicting multiple VOCs produced by Brochothrix thermosphacta under different packaging atmospheres. The used dataset comprises the total plate counts (TPC), volumetric O<sub>2</sub>/CO<sub>2</sub> ratios, and VOC concentrations of 840 individual pork simulation medium samples inoculated with B. thermosphacta which are stored under 20 different atmospheres (O<sub>2</sub>: 0%-70%, CO<sub>2</sub>: 0%-60%, N<sub>2</sub> as a filler gas: 0%-100%) for different time periods (0-10 days). Since certain VOCs can be linked via pathways, a two-branch neural network is introduced as the first attempt in the food domain to predict the interactions between paired inputs, namely (1) microbial counts and gas ratios in each medium sample and (2) metabolism information of each VOC. MTP-based regression and classification models are able to predict VOC levels under a given atmosphere after training and validating on data from the 19 other atmospheres. Overall, these outcomes indicate the promising potential of MTP in volatolomics. When handling a more complex dataset based on real meat matrices, it is essential to gain more data to represent instances (e.g., microbiota or foodomics for meat/microbial samples) and targets (e.g., chemical information for VOCs).",
+  "keywords": [
+    "Microbial spoilage",
+    "Multi-target prediction",
+    "Packaging atmosphere",
+    "Pairwise learning",
+    "Two-branch neural network",
+    "Volatolome"
+  ],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/41267299",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T17:02:55.132222",
+  "category": "biology",
+  "subcategories": []
+}

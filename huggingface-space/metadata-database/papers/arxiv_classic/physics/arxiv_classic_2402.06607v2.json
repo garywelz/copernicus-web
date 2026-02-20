@@ -1,0 +1,38 @@
+{
+  "id": "arxiv_2402.06607v2",
+  "arxiv_id": "2402.06607v2",
+  "title": "Real-time Dynamics of the Schwinger Model as an Open Quantum System with Neural Density Operators",
+  "authors": [
+    "Joshua Lin",
+    "Di Luo",
+    "Xiaojun Yao",
+    "Phiala E. Shanahan"
+  ],
+  "author_string": "Joshua Lin, Di Luo, Xiaojun Yao, Phiala E. Shanahan",
+  "journal": "JHEP06(2024)211",
+  "journal_ref": "JHEP06(2024)211",
+  "year": "2024",
+  "doi": "10.1007/JHEP06(2024)211",
+  "abstract": "Ab-initio simulations of multiple heavy quarks propagating in a Quark-Gluon Plasma are computationally difficult to perform due to the large dimension of the space of density matrices. This work develops machine learning algorithms to overcome this difficulty by approximating exact quantum states with neural network parametrisations, specifically Neural Density Operators. As a proof of principle demonstration in a QCD-like theory, the approach is applied to solve the Lindblad master equation in the 1+1d lattice Schwinger Model as an open quantum system. Neural Density Operators enable the study of in-medium dynamics on large lattice volumes, where multiple-string interactions and their effects on string-breaking and recombination phenomena can be studied. Thermal properties of the system at equilibrium can also be probed with these methods by variationally constructing the steady state of the Lindblad master equation. Scaling of this approach with system size is studied, and numerical demonstrations on up to 32 spatial lattice sites and with up to 3 interacting strings are performed.",
+  "categories": [
+    "hep-ph",
+    "hep-lat",
+    "nucl-th",
+    "physics.comp-ph",
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": "24 pages, 12 figures. v2: Updated to journal version",
+  "published_date": "2024-02-09T18:36:17Z",
+  "updated_date": "2024-07-18T17:30:28Z",
+  "url": "https://arxiv.org/abs/2402.06607v2",
+  "pdf_url": "https://arxiv.org/pdf/2402.06607v2.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-02-03T13:20:58.608437",
+  "category": "physics",
+  "subcategories": [
+    "hep-ph",
+    "hep-lat",
+    "nucl-th"
+  ]
+}

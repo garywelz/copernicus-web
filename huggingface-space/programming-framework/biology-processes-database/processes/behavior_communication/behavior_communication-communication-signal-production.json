@@ -1,0 +1,93 @@
+{
+  "id": "behavior_communication-communication-signal-production",
+  "name": "Communication Signal Production",
+  "category": "biology",
+  "subcategory": "behavior_communication",
+  "subcategory_name": "Behavior & Communication",
+  "organism": "Animals",
+  "description": "Communication Signal Production in Animals. This process represents a higher-level biological mechanism distinct from molecular/biochemical processes covered in GLMP.",
+  "complexity": {
+    "nodes": 9,
+    "edges": 10,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "low",
+    "detailLevel": "low"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\n    A19[Information Source] --> B19[Signal Encoding]\n    B19 --> C19[Signal Modality Selection]\n    C19 --> D19[Vocal Production]\n    C19 --> E19[Chemical Release]\n    C19 --> F19[Visual Display]\n    D19 --> G19[Signal Transmission]\n    E19 --> G19\n    F19 --> G19\n    G19 --> H19[Receptor Detection]\n    H19 --> I19[Response Elicitation]\n    \n    style A19 fill:#ff6b6b,color:#fff\n    style B19 fill:#ffd43b,color:#000\n    style C19 fill:#51cf66,color:#fff\n    style D19 fill:#74c0fc,color:#fff\n    style E19 fill:#74c0fc,color:#fff\n    style F19 fill:#74c0fc,color:#fff\n    style G19 fill:#51cf66,color:#fff\n    style H19 fill:#74c0fc,color:#fff\n    style I19 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "notes": "Higher-level biological process visualization: Communication Signal Production. Created using the Programming Framework methodology for organismal and ecological process analysis."
+    },
+    {
+      "title": "Pheromonal communication in mammals.",
+      "authors": "Brennan PA, Zufall F.",
+      "journal": "Annu Rev Physiol.",
+      "year": "2006",
+      "pubmed": "16460286",
+      "doi": "10.1146/annurev.physiol.68.031505.102713",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/16460286"
+    },
+    {
+      "title": "Evolution of vocal production learning in mammals.",
+      "authors": "Knornschild M, Denzinger A.",
+      "journal": "Science",
+      "year": "2023",
+      "pubmed": "36928815",
+      "doi": "10.1126/science.ade3040",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/36928815"
+    },
+    {
+      "title": "Behavioral neurobiology in the 21st century: a neuroethological perspective.",
+      "authors": "Zupanc GKH.",
+      "journal": "Proc Natl Acad Sci U S A.",
+      "year": "2010",
+      "pubmed": "20080645",
+      "doi": "10.1073/pnas.0909986107",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/20080645"
+    }
+  ],
+  "keywords": [
+    "animals",
+    "signal",
+    "behavior",
+    "production",
+    "communication"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-08",
+  "verified": false,
+  "notes": "Higher-level biological process. GLMP covers biochemical/molecular processes; this database covers organismal/ecological processes."
+}

@@ -1,0 +1,92 @@
+{
+  "id": "thermodynamics-chemical-potential-determination",
+  "name": "Chemical Potential Determination",
+  "category": "chemistry",
+  "subcategory": "thermodynamics",
+  "subcategory_name": "Thermodynamic Processes",
+  "description": "Chemical Potential Determination process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 5,
+    "edges": 4,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nN1[\"System Composition\"]\nN2[\"T,P Conditions\"]\nN3[\"Equation of State/Model\"]\nN4[\"Compute μ (chemical potential)\"]\nN5[\"μ Values/Activities\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ff6b6b,color:#fff\n    style N3 fill:#ffd43b,color:#000\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Chemical Potential Determination. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "Leather. Chemical tests. Determination of chromium (VI) and the reductive potential for chromium tanning agents",
+      "authors": "",
+      "journal": "",
+      "year": "None",
+      "pubmed": null,
+      "doi": "10.3403/30283359",
+      "url": "https://doi.org/10.3403/30283359"
+    },
+    {
+      "title": "Leather. Chemical tests. Determination of chromium (VI) and the reductive potential for chromium tanning agents",
+      "authors": "",
+      "journal": "",
+      "year": "None",
+      "pubmed": null,
+      "doi": "10.3403/30283359u",
+      "url": "https://doi.org/10.3403/30283359u"
+    },
+    {
+      "title": "The determination of Kihara potential parameters from gas hydrate data.",
+      "authors": "",
+      "journal": "Chemical Engineering Science",
+      "year": "1994",
+      "pubmed": null,
+      "doi": "10.1016/0009-2509(74)85072-4",
+      "url": "https://doi.org/10.1016/0009-2509(74)85072-4"
+    }
+  ],
+  "keywords": [
+    "chemical",
+    "potential",
+    "determination"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-15",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+}

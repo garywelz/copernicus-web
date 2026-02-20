@@ -1,0 +1,35 @@
+{
+  "id": "pubmed_41268558",
+  "pmid": "41268558",
+  "title": "Serum proteomics and machine learning identify PSMD11 as a prognostic biomarker in severe fever with thrombocytopenia syndrome.",
+  "authors": [
+    "Zhao, Chenxi",
+    "Ge, Ziruo",
+    "Wang, Ranran",
+    "Xu, Yanli",
+    "Zhang, Tingyu",
+    "Jiang, Zhouling",
+    "Liu, Lu",
+    "Lin, Ling",
+    "Chen, Zhihai"
+  ],
+  "author_string": "Zhao, Chenxi, Ge, Ziruo, Wang, Ranran, Xu, Yanli, Zhang, Tingyu et al.",
+  "journal": "Front Immunol",
+  "journal_full": "Frontiers in immunology",
+  "year": "",
+  "doi": "10.3389/fimmu.2025.1693946",
+  "abstract": "Severe fever with thrombocytopenia syndrome (SFTS) is an emerging tick-borne viral disease associated with high mortality. This study aimed to characterize serum proteomic signatures linked to adverse outcomes and to identify prognostic biomarkers with potential translational value for patient management. Serum samples from 55 survivors, 32 non-survivors, and 10 healthy controls were analyzed by data-independent acquisition-based proteomics. Differential abundance analysis, Gene Ontology (GO) enrichment, Kyoto Encyclopedia of Genes and Genomes (KEGG) pathway analysis, and protein-protein interaction (PPI) network analyses with Markov clustering were conducted to characterize disease-associated proteins. XGBoost and Random Forest machine learning models were applied to prioritize candidate biomarkers, and discriminative performance was evaluated by the receiver operating characteristic (ROC) curve. Spearman correlation analyses were further used to examine associations between candidate proteins, clinical laboratory indicators, and viral load. Non-survivors exhibited 642 differentially abundant proteins (DAPs) compared with survivors. Functional enrichment and PPI network analyses revealed a proteasome-centered module overrepresented in non-survivors. XGBoost and Random Forest consistently prioritized four candidate biomarkers (PSMD11, IL1RL1, PSMC4, and IFIH1) with areas under the ROC curve of 0.847, 0.847, 0.843, and 0.791, respectively. PSMD11 emerged as the strongest predictor of adverse outcome and showed strong correlations with markers of organ injury and dysfunction such as lactate dehydrogenase (<i>r</i> = 0.77), thrombin time (<i>r</i> = 0.76), aspartate aminotransferase (<i>r</i> = 0.75), hydroxybutyrate dehydrogenase (<i>r</i> = 0.74), viral load (<i>r</i> = 0.63), and platelet count (<i>r</i> = -0.57) (all <i>p</i> < 0.001). This study identified a proteasome-centered signature associated with adverse outcomes in SFTS, with PSMD11 emerging as a key prognostic biomarker. Its strong correlations with viral load and multi-organ injury support potential utility for early risk stratification and prognostic prediction, while also providing mechanistic insights into disease progression and a foundation for future translational research and therapeutic development.",
+  "keywords": [
+    "PSMD11",
+    "SHAP",
+    "machine learning",
+    "proteomics",
+    "severe fever with thrombocytopenia syndrome"
+  ],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/41268558",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T16:58:25.003294",
+  "category": "biology",
+  "subcategories": []
+}

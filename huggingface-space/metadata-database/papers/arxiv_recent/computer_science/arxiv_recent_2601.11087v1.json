@@ -1,0 +1,38 @@
+{
+  "id": "arxiv_2601.11087v1",
+  "arxiv_id": "2601.11087v1",
+  "title": "PhysRVG: Physics-Aware Unified Reinforcement Learning for Video Generative Models",
+  "authors": [
+    "Qiyuan Zhang",
+    "Biao Gong",
+    "Shuai Tan",
+    "Zheng Zhang",
+    "Yujun Shen",
+    "Xing Zhu",
+    "Yuyuan Li",
+    "Kelu Yao",
+    "Chunhua Shen",
+    "Changqing Zou"
+  ],
+  "author_string": "Qiyuan Zhang, Biao Gong, Shuai Tan, Zheng Zhang, Yujun Shen et al.",
+  "journal": "arXiv:2601.11087v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Physical principles are fundamental to realistic visual simulation, but remain a significant oversight in transformer-based video generation. This gap highlights a critical limitation in rendering rigid body motion, a core tenet of classical mechanics. While computer graphics and physics-based simulators can easily model such collisions using Newton formulas, modern pretrain-finetune paradigms discard the concept of object rigidity during pixel-level global denoising. Even perfectly correct mathematical constraints are treated as suboptimal solutions (i.e., conditions) during model optimization in post-training, fundamentally limiting the physical realism of generated videos. Motivated by these considerations, we introduce, for the first time, a physics-aware reinforcement learning paradigm for video generation models that enforces physical collision rules directly in high-dimensional spaces, ensuring the physics knowledge is strictly applied rather than treated as conditions. Subsequently, we extend this paradigm to a unified framework, termed Mimicry-Discovery Cycle (MDcycle), which allows substantial fine-tuning while fully preserving the model's ability to leverage physics-grounded feedback. To validate our approach, we construct new benchmark PhysRVGBench and perform extensive qualitative and quantitative experiments to thoroughly assess its effectiveness.",
+  "categories": [
+    "cs.CV"
+  ],
+  "primary_category": "cs.CV",
+  "comment": null,
+  "published_date": "2026-01-16T08:40:10Z",
+  "updated_date": "2026-01-16T08:40:10Z",
+  "url": "https://arxiv.org/abs/2601.11087v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11087v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:33.863825",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV"
+  ]
+}

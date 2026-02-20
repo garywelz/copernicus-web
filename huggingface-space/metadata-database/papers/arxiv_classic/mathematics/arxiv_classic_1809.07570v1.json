@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_1809.07570v1",
+  "arxiv_id": "1809.07570v1",
+  "title": "Analysis of boundary effects on PDE-based sampling of Whittle-Matérn random fields",
+  "authors": [
+    "Ustim Khristenko",
+    "Laura Scarabosio",
+    "Piotr Swierczynski",
+    "Elisabeth Ullmann",
+    "Barbara Wohlmuth"
+  ],
+  "author_string": "Ustim Khristenko, Laura Scarabosio, Piotr Swierczynski, Elisabeth Ullmann, Barbara Wohlmuth",
+  "journal": "arXiv:1809.07570v1",
+  "journal_ref": null,
+  "year": "2018",
+  "doi": null,
+  "abstract": "We consider the generation of samples of a mean-zero Gaussian random field with Matérn covariance function. Every sample requires the solution of a differential equation with Gaussian white noise forcing, formulated on a bounded computational domain. This introduces unwanted boundary effects since the stochastic partial differential equation is originally posed on the whole $\\mathbb{R}^d$, without boundary conditions. We use a window technique, whereby one embeds the computational domain into a larger domain, and postulates convenient boundary conditions on the extended domain. To mitigate the pollution from the artificial boundary it has been suggested in numerical studies to choose a window size that is at least as large as the correlation length of the Matérn field. We provide a rigorous analysis for the error in the covariance introduced by the window technique, for homogeneous Dirichlet, homogeneous Neumann, and periodic boundary conditions. We show that the error decays exponentially in the window size, independently of the type of boundary condition. We conduct numerical experiments in 1D and 2D space, confirming our theoretical results.",
+  "categories": [
+    "math.NA",
+    "math.ST"
+  ],
+  "primary_category": "math.ST",
+  "comment": null,
+  "published_date": "2018-09-20T11:11:28Z",
+  "updated_date": "2018-09-20T11:11:28Z",
+  "url": "https://arxiv.org/abs/1809.07570v1",
+  "pdf_url": "https://arxiv.org/pdf/1809.07570v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:30:52.383596",
+  "category": "mathematics",
+  "subcategories": [
+    "math.NA",
+    "math.ST"
+  ]
+}

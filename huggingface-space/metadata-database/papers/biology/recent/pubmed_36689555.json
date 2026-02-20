@@ -1,0 +1,22 @@
+{
+  "id": "pubmed_36689555",
+  "pmid": "36689555",
+  "title": "Improving the validity of neuroimaging decoding tests of invariant and configural neural representation.",
+  "authors": [
+    "Soto, Fabian A",
+    "Narasiwodeyar, Sanjay"
+  ],
+  "author_string": "Soto, Fabian A, Narasiwodeyar, Sanjay",
+  "journal": "PLoS Comput Biol",
+  "journal_full": "PLoS computational biology",
+  "year": "",
+  "doi": "10.1371/journal.pcbi.1010819",
+  "abstract": "Many research questions in sensory neuroscience involve determining whether the neural representation of a stimulus property is invariant or specific to a particular stimulus context (e.g., Is object representation invariant to translation? Is the representation of a face feature specific to the context of other face features?). Between these two extremes, representations may also be context-tolerant or context-sensitive. Most neuroimaging studies have used operational tests in which a target property is inferred from a significant test against the null hypothesis of the opposite property. For example, the popular cross-classification test concludes that representations are invariant or tolerant when the null hypothesis of specificity is rejected. A recently developed neurocomputational theory suggests two insights regarding such tests. First, tests against the null of context-specificity, and for the alternative of context-invariance, are prone to false positives due to the way in which the underlying neural representations are transformed into indirect measurements in neuroimaging studies. Second, jointly performing tests against the nulls of invariance and specificity allows one to reach more precise and valid conclusions about the underlying representations, particularly when the null of invariance is tested using the fine-grained information from classifier decision variables rather than only accuracies (i.e., using the decoding separability test). Here, we provide empirical and computational evidence supporting both of these theoretical insights. In our empirical study, we use encoding of orientation and spatial position in primary visual cortex as a case study, as previous research has established that these properties are encoded in a context-sensitive way. Using fMRI decoding, we show that the cross-classification test produces false-positive conclusions of invariance, but that more valid conclusions can be reached by jointly performing tests against the null of invariance. The results of two simulations further support both of these conclusions. We conclude that more valid inferences about invariance or specificity of neural representations can be reached by jointly testing against both hypotheses, and using neurocomputational theory to guide the interpretation of results.",
+  "keywords": [],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/36689555",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T17:01:40.698427",
+  "category": "biology",
+  "subcategories": []
+}

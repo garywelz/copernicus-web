@@ -1,0 +1,29 @@
+{
+  "id": "pubmed_30096632",
+  "pmid": "30096632",
+  "title": "A study about color normalization methods for histopathology images.",
+  "authors": [
+    "Roy, Santanu",
+    "Kumar Jain, Alok",
+    "Lal, Shyam",
+    "Kini, Jyoti"
+  ],
+  "author_string": "Roy, Santanu, Kumar Jain, Alok, Lal, Shyam, Kini, Jyoti",
+  "journal": "Micron",
+  "journal_full": "Micron (Oxford, England : 1993)",
+  "year": "",
+  "doi": "10.1016/j.micron.2018.07.005",
+  "abstract": "Histopathology images are used for the diagnosis of the cancerous disease by the examination of tissue with the help of Whole Slide Imaging (WSI) scanner. A decision support system works well by the analysis of the histopathology images but a lot of problems arise in its decision. Color variation in the histopathology images is occurring due to use of the different scanner, use of various equipments, different stain coloring and reactivity from a different manufacturer. In this paper, detailed study and performance evaluation of color normalization methods on histopathology image datasets are presented. Color normalization of the source image by transferring the mean color of the target image in the source image and also to separate stain present in the source image. Stain separation and color normalization of the histopathology images can be helped for both pathology and computerized decision support system. Quality performances of different color normalization methods are evaluated and compared in terms of quaternion structure similarity index matrix (QSSIM), structure similarity index matrix (SSIM) and Pearson correlation coefficient (PCC) on various histopathology image datasets. Our experimental analysis suggests that structure-preserving color normalization (SPCN) provides better qualitatively and qualitatively results in comparison to the all the presented methods for breast and colorectal cancer histopathology image datasets.",
+  "keywords": [
+    "Color variation",
+    "Histopathology images",
+    "Quality metrics",
+    "Spectral normalization"
+  ],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/30096632",
+  "source": "pubmed",
+  "acquired_date": "2026-01-13T20:29:23.776606",
+  "category": "biology",
+  "subcategories": []
+}

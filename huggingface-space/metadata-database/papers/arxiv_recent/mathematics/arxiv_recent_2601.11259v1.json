@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2601.11259v1",
+  "arxiv_id": "2601.11259v1",
+  "title": "Latent Dynamics Graph Convolutional Networks for model order reduction of parameterized time-dependent PDEs",
+  "authors": [
+    "Lorenzo Tomada",
+    "Federico Pichi",
+    "Gianluigi Rozza"
+  ],
+  "author_string": "Lorenzo Tomada, Federico Pichi, Gianluigi Rozza",
+  "journal": "arXiv:2601.11259v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Graph Neural Networks (GNNs) are emerging as powerful tools for nonlinear Model Order Reduction (MOR) of time-dependent parameterized Partial Differential Equations (PDEs). However, existing methodologies struggle to combine geometric inductive biases with interpretable latent behavior, overlooking dynamics-driven features or disregarding spatial information. In this work, we address this gap by introducing Latent Dynamics Graph Convolutional Network (LD-GCN), a purely data-driven, encoder-free architecture that learns a global, low-dimensional representation of dynamical systems conditioned on external inputs and parameters. The temporal evolution is modeled in the latent space and advanced through time-stepping, allowing for time-extrapolation, and the trajectories are consistently decoded onto geometrically parameterized domains using a GNN. Our framework enhances interpretability by enabling the analysis of the reduced dynamics and supporting zero-shot prediction through latent interpolation. The methodology is mathematically validated via a universal approximation theorem for encoder-free architectures, and numerically tested on complex computational mechanics problems involving physical and geometric parameters, including the detection of bifurcating phenomena for Navier-Stokes equations. Code availability: https://github.com/lorenzotomada/ld-gcn-rom",
+  "categories": [
+    "cs.LG",
+    "math.NA"
+  ],
+  "primary_category": "math.NA",
+  "comment": null,
+  "published_date": "2026-01-16T13:10:00Z",
+  "updated_date": "2026-01-16T13:10:00Z",
+  "url": "https://arxiv.org/abs/2601.11259v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11259v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:33.859743",
+  "category": "mathematics",
+  "subcategories": [
+    "cs.LG",
+    "math.NA"
+  ]
+}

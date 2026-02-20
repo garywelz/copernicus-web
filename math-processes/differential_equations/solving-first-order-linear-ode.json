@@ -1,0 +1,38 @@
+{
+  "id": "solving-first-order-linear-ode",
+  "title": "Solving First-Order Linear ODE",
+  "description": "Method for solving first-order linear ordinary differential equations",
+  "category": "mathematics",
+  "subcategory": "differential_equations",
+  "mermaid": "graph TD A1[Start: Identify First-Order Linear ODE] --> B1[\"Form: dy/dx + P(x)y = Q(x)\"] style A1 fill:#ff6b6b,color:#fff style B1 fill:#ffd43b,color:#000 B1 --> C1{{\"Is the equation in the form dy/dx + P(x)y = Q(x)?\"}} style C1 fill:#ffd43b,color:#000 C1 -- Yes --> D1[\"Identify P(x) and Q(x)\"] style D1 fill:#51cf66,color:#fff C1 -- No --> E1[\"Rearrange the equation to the standard form\"] style E1 fill:#51cf66,color:#fff E1 --> B1 D1 --> F1[\"Calculate the Integrating Factor: μ(x) = exp(∫P(x) dx)\"] style F1 fill:#51cf66,color:#fff F1 --> G1[\"μ(x) = exp(∫P(x) dx)\"] style G1 fill:#74c0fc,color:#fff G1 --> H1[\"Multiply both sides of the equation by μ(x): μ(x) * (dy/dx + P(x)y) = μ(x) * Q(x)\"] style H1 fill:#51cf66,color:#fff H1 --> I1[\"d/dx [μ(x)y] = μ(x) Q(x)\"] style I1 fill:#74c0fc,color:#fff I1 --> J1[\"Integrate both sides with respect to x: ∫d/dx [μ(x)y] dx = ∫μ(x) Q(x) dx\"] style J1 fill:#51cf66,color:#fff J1 --> K1[\"μ(x)y = ∫μ(x) Q(x) dx + C\"] style K1 fill:#74c0fc,color:#fff K1 --> L1[\"Solve for y: y = (1/μ(x)) * (∫μ(x) Q(x) dx + C)\"] style L1 fill:#51cf66,color:#fff L1 --> M1[\"y = (1/μ(x)) * (∫μ(x) Q(x) dx + C)\"] style M1 fill:#b197fc,color:#fff M1 --> N1{{\"Are initial conditions provided?\"}} style N1 fill:#ffd43b,color:#000 N1 -- Yes --> O1[\"Substitute initial conditions into the solution and solve for C\"] style O1 fill:#51cf66,color:#fff O1 --> P1[\"Find the value of C\"] style P1 fill:#74c0fc,color:#fff P1 --> Q1[\"Substitute the value of C into the general solution\"] style Q1 fill:#51cf66,color:#fff Q1 --> R1[\"Particular solution with C value\"] style R1 fill:#b197fc,color:#fff R1 --> S1[End: Particular solution] style S1 fill:#b197fc,color:#fff N1 -- No --> T1[End: General Solution] style T1 fill:#b197fc,color:#fff M1 --> T1 R1 --> S1",
+  "entities": [
+    "/\"Start: Identify First-Order Linear ODE\" /",
+    "\"Form: dy/dx + P(x)y = Q(x)\"",
+    "{\"Is the equation in the form dy/dx + P(x)y = Q(x)?\"}}style C1 fill:#ffd43b,color:#000 C1 -- Yes --> D1[\"Identify P(x) and Q(x)\"",
+    "\"Rearrange the equation to the standard form\"",
+    "\"Calculate the Integrating Factor: μ(x) = exp(∫P(x) dx)\"",
+    "\"μ(x) = exp(∫P(x) dx)\"",
+    "\"Multiply both sides of the equation by μ(x): μ(x) * (dy/dx + P(x)y) = μ(x) * Q(x)\"",
+    "\"d/dx [μ(x)y",
+    "x)\"",
+    "\"Integrate both sides with respect to x: ∫d/dx [μ(x)y",
+    "x) dx\"",
+    "\"μ(x)y = ∫μ(x)Q(x) dx + C\"",
+    "\"Solve for y: y = (1/μ(x)) * (∫μ(x)Q(x) dx + C)\"",
+    "\"y = (1/μ(x)) * (∫μ(x)Q(x) dx + C)\"",
+    "{\"Are initial conditions provided?\"}}style N1 fill:#ffd43b,color:#000 N1 -- Yes --> O1[\"Substitute initial conditions into the solution and solve for C\"",
+    "\"Find the value of C\"",
+    "\"Substitute the value of C into the general solution\"",
+    "\"Particular solution with C value\"",
+    "End: Particular solution",
+    "End: General Solution"
+  ],
+  "metadata": {
+    "source": "programming_framework",
+    "color_scheme": "discipline_based",
+    "node_count": 18,
+    "complexity": "low"
+  },
+  "sources": [],
+  "source_text": "Source information to be added - please specify the book, paper, or reference material used by the LLM to generate this flowchart."
+}

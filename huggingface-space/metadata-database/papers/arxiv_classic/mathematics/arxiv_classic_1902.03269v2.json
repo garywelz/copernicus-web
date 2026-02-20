@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_1902.03269v2",
+  "arxiv_id": "1902.03269v2",
+  "title": "Dynamically Defined Sequences with Small Discrepancy",
+  "authors": [
+    "Stefan Steinerberger"
+  ],
+  "author_string": "Stefan Steinerberger",
+  "journal": "arXiv:1902.03269v2",
+  "journal_ref": null,
+  "year": "2019",
+  "doi": null,
+  "abstract": "We study the problem of constructing sequences $(x_n)_{n=1}^{\\infty}$ on $[0,1]$ in such a way that $$ D_N^* = \\sup_{0 \\leq x \\leq 1} \\left| \\frac{ \\left\\{1 \\leq i \\leq N: x_i \\leq x \\right\\}}{N} - x \\right|$$ is uniformly small. A result of Schmidt shows that necessarily $D_N^* \\gtrsim (\\log{N}) N^{-1}$ for infinitely many $N$ and there are several classical constructions attaining this growth. We describe a type of uniformly distributed sequence that seems to be completely novel: given $\\left\\{x_1, \\dots, x_{N-1} \\right\\}$, we construct $x_N$ in a greedy manner $$ x_N = \\arg\\min_{\\min_k |x-x_k| \\geq N^{-10}} \\sum_{k=1}^{N-1}{1-\\log{(2\\sin{(π|x-x_k|)})}}.$$ We prove that $D_N \\lesssim (\\log{N}) N^{-1/2}$ and conjecture that $D_N \\lesssim (\\log{N}) N^{-1}$. Numerical examples illustrate this conjecture in a very impressive manner. We also establish a discrepancy bound $D_N \\lesssim (\\log{N})^d N^{-1/2}$ for an analogous construction in higher dimensions and conjecture it to be $D_N \\lesssim (\\log{N})^d N^{-1}$.",
+  "categories": [
+    "math.CO",
+    "math.CA",
+    "math.NT"
+  ],
+  "primary_category": "math.NT",
+  "comment": null,
+  "published_date": "2019-02-08T19:43:15Z",
+  "updated_date": "2019-07-14T17:32:40Z",
+  "url": "https://arxiv.org/abs/1902.03269v2",
+  "pdf_url": "https://arxiv.org/pdf/1902.03269v2.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:15.349281",
+  "category": "mathematics",
+  "subcategories": [
+    "math.CO",
+    "math.CA",
+    "math.NT"
+  ]
+}

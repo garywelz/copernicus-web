@@ -1,0 +1,91 @@
+{
+  "id": "systems-network-security",
+  "name": "Network Security",
+  "category": "computer_science",
+  "subcategory": "systems",
+  "subcategory_name": "Systems & Architecture",
+  "description": "Network Security process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 26,
+    "edges": 21,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 1,
+      "total": 1
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nA2[Security Threat] --> B2[Network Security Method]\nC2[Authentication Process] --> D2[Encryption System]\nE2[Access Control] --> F2[Network Security Analysis]\nB2 --> G2[Firewall Protection]\nD2 --> H2[SSL TLS Protocol]\nF2 --> I2[Intrusion Detection]\nG2 --> J2[Packet Filtering]\nH2 --> K2[Digital Certificates]\nI2 --> L2[Anomaly Detection]\nJ2 --> M2[Security Policy]\nK2 --> L2\nL2 --> N2[Threat Response]\nM2 --> O2[Vulnerability Assessment]\nN2 --> P2[Incident Response]\nO2 --> Q2[Network Security Process]\nP2 --> R2[Network Security Validation]\nQ2 --> S2[Network Security Verification]\nR2 --> T2[Network Security Result]\nS2 --> U2[Network Security Analysis]\nT2 --> V2[Network Security Parameters]\nU2 --> W2[Network Security Output]\nV2 --> X2[Network Security Analysis]\nW2 --> Y2[Network Security Final Result]\nX2 --> Z2[Network Security Complete]\n\n    style A2 fill:#ff6b6b,color:#fff\n    style C2 fill:#ff6b6b,color:#fff\n    style E2 fill:#ff6b6b,color:#fff\n    style B2 fill:#ffd43b,color:#000\n    style D2 fill:#ffd43b,color:#000\n    style F2 fill:#ffd43b,color:#000\n    style G2 fill:#ffd43b,color:#000\n    style H2 fill:#ffd43b,color:#000\n    style I2 fill:#ffd43b,color:#000\n    style J2 fill:#ffd43b,color:#000\n    style K2 fill:#ffd43b,color:#000\n    style L2 fill:#ffd43b,color:#000\n    style M2 fill:#51cf66,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style O2 fill:#51cf66,color:#fff\n    style P2 fill:#51cf66,color:#fff\n    style Q2 fill:#51cf66,color:#fff\n    style R2 fill:#51cf66,color:#fff\n    style S2 fill:#51cf66,color:#fff\n    style T2 fill:#51cf66,color:#fff\n    style U2 fill:#51cf66,color:#fff\n    style V2 fill:#51cf66,color:#fff\n    style W2 fill:#51cf66,color:#fff\n    style X2 fill:#51cf66,color:#fff\n    style Y2 fill:#51cf66,color:#fff\n    style Z2 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Network Security. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "Managing network security: Simulating network security",
+      "authors": "Cohen, Fred",
+      "journal": "Network Security",
+      "year": "1999",
+      "pubmed": null,
+      "doi": "10.1016/s1353-4858(00)80009-4",
+      "url": "https://doi.org/10.1016/s1353-4858(00)80009-4"
+    },
+    {
+      "title": "Virus security combined with network security",
+      "authors": "",
+      "journal": "Network Security",
+      "year": "1998",
+      "pubmed": null,
+      "doi": "10.1016/s1353-4858(98)90109-x",
+      "url": "https://doi.org/10.1016/s1353-4858(98)90109-x"
+    },
+    {
+      "title": "Unix network security",
+      "authors": "",
+      "journal": "Network Security",
+      "year": "1995",
+      "pubmed": null,
+      "doi": "10.1016/1353-4858(95)90168-x",
+      "url": "https://doi.org/10.1016/1353-4858(95)90168-x"
+    }
+  ],
+  "keywords": [
+    "network",
+    "security"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+}

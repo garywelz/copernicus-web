@@ -1,0 +1,36 @@
+{
+  "id": "graph-isomorphism-testing",
+  "title": "Graph Isomorphism Testing",
+  "description": "Determine if two graphs are isomorphic",
+  "category": "mathematics",
+  "subcategory": "topology",
+  "mermaid": "graph TD A1[Input: Graph G1(V1, E1) and Graph G2(V2, E2)] --> B1[Check: |V1| == |V2| and |E1| == |E2|] style A1 fill:#ff6b6b,color:#fff style B1 fill:#ffd43b,color:#000 B1 -- \"False\" --> C1[Output: Not Isomorphic] style C1 fill:#b197fc,color:#fff B1 -- \"True\" --> D1[Compute Node Degree Sequences for G1 and G2] style D1 fill:#51cf66,color:#fff D1 --> E1[Sort Degree Sequences (G1_degrees, G2_degrees)] style E1 fill:#51cf66,color:#fff E1 --> F1[Check: G1_degrees == G2_degrees] style F1 fill:#ffd43b,color:#000 F1 -- \"False\" --> C1 F1 -- \"True\" --> G1[Initialize: Mapping Dictionary (M) - Empty] style G1 fill:#ffd43b,color:#000 G1 --> H1[Select a Vertex v1 from G1 (Unmapped)] style H1 fill:#51cf66,color:#fff H1 --> I1[Select a Vertex v2 from G2 (Unmapped)] style I1 fill:#51cf66,color:#fff I1 --> J1[Check: Degree(v1) == Degree(v2)] style J1 fill:#ffd43b,color:#000 J1 -- \"False\" --> K1[Select Next Vertex v2 from G2] style K1 fill:#51cf66,color:#fff K1 --> L1[Check: All Vertices in G2 Tried?] style L1 fill:#ffd43b,color:#000 L1 -- \"True\" --> M1[Backtrack: Remove last mapping from M & select next v1] style M1 fill:#51cf66,color:#fff L1 -- \"False\" --> I1 J1 -- \"True\" --> N1[Add Mapping: M[v1] = v2] style N1 fill:#ffd43b,color:#000 N1 --> O1[Check: M creates edge-preserving mapping between G1 and G2] style O1 fill:#51cf66,color:#fff O1 -- \"False\" --> K1 O1 -- \"True\" --> P1[Check: All Vertices in G1 Mapped?] style P1 fill:#ffd43b,color:#000 P1 -- \"True\" --> Q1[Output: Isomorphic (M is the isomorphism)] style Q1 fill:#b197fc,color:#fff P1 -- \"False\" --> H1 M1 --> R1[Check: All Vertices in G1 Tried as First Vertex?] style R1 fill:#ffd43b,color:#000 R1 -- \"True\" --> C1 R1 -- \"False\" --> H1",
+  "entities": [
+    "Input: Graph G1(V1, E1) and Graph G2(V2, E2)",
+    "Check: |V1| == |V2| and |E1| == |E2|",
+    "Output: Not Isomorphic",
+    "Compute Node Degree Sequences for G1 and G2",
+    "Sort Degree Sequences (G1_degrees, G2_degrees)",
+    "Check: G1_degrees == G2_degrees",
+    "Initialize: Mapping Dictionary (M) - Empty",
+    "Select a Vertex v1 from G1 (Unmapped)",
+    "Select a Vertex v2 from G2 (Unmapped)",
+    "Check: Degree(v1) == Degree(v2)",
+    "Select Next Vertex v2 from G2",
+    "Check: All Vertices in G2 Tried?",
+    "Backtrack: Remove last mapping from M & select next v1",
+    "Add Mapping: M[v1",
+    "Check: M creates edge-preserving mapping between G1 and G2",
+    "Check: All Vertices in G1 Mapped?",
+    "Output: Isomorphic (M is the isomorphism)",
+    "Check: All Vertices in G1 Tried as First Vertex?"
+  ],
+  "metadata": {
+    "source": "programming_framework",
+    "color_scheme": "discipline_based",
+    "node_count": 18,
+    "complexity": "low"
+  },
+  "sources": [],
+  "source_text": "Source information to be added - please specify the book, paper, or reference material used by the LLM to generate this flowchart."
+}

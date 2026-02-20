@@ -1,0 +1,27 @@
+{
+  "id": "pubmed_32453790",
+  "pmid": "32453790",
+  "title": "Benchmarking predictions of MHC class I restricted T cell epitopes in a comprehensively studied model system.",
+  "authors": [
+    "Paul, Sinu",
+    "Croft, Nathan P",
+    "Purcell, Anthony W",
+    "Tscharke, David C",
+    "Sette, Alessandro",
+    "Nielsen, Morten",
+    "Peters, Bjoern"
+  ],
+  "author_string": "Paul, Sinu, Croft, Nathan P, Purcell, Anthony W, Tscharke, David C, Sette, Alessandro et al.",
+  "journal": "PLoS Comput Biol",
+  "journal_full": "PLoS computational biology",
+  "year": "",
+  "doi": "10.1371/journal.pcbi.1007757",
+  "abstract": "T cell epitope candidates are commonly identified using computational prediction tools in order to enable applications such as vaccine design, cancer neoantigen identification, development of diagnostics and removal of unwanted immune responses against protein therapeutics. Most T cell epitope prediction tools are based on machine learning algorithms trained on MHC binding or naturally processed MHC ligand elution data. The ability of currently available tools to predict T cell epitopes has not been comprehensively evaluated. In this study, we used a recently published dataset that systematically defined T cell epitopes recognized in vaccinia virus (VACV) infected C57BL/6 mice (expressing H-2Db and H-2Kb), considering both peptides predicted to bind MHC or experimentally eluted from infected cells, making this the most comprehensive dataset of T cell epitopes mapped in a complex pathogen. We evaluated the performance of all currently publicly available computational T cell epitope prediction tools to identify these major epitopes from all peptides encoded in the VACV proteome. We found that all methods were able to improve epitope identification above random, with the best performance achieved by neural network-based predictions trained on both MHC binding and MHC ligand elution data (NetMHCPan-4.0 and MHCFlurry). Impressively, these methods were able to capture more than half of the major epitopes in the top N = 277 predictions within the N = 767,788 predictions made for distinct peptides of relevant lengths that can theoretically be encoded in the VACV proteome. These performance metrics provide guidance for immunologists as to which prediction methods to use, and what success rates are possible for epitope predictions when considering a highly controlled system of administered immunizations to inbred mice. In addition, this benchmark was implemented in an open and easy to reproduce format, providing developers with a framework for future comparisons against new tools.",
+  "keywords": [],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/32453790",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T17:00:02.901434",
+  "category": "biology",
+  "subcategories": []
+}

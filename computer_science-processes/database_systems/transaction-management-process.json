@@ -1,0 +1,43 @@
+{
+  "id": "transaction-management-process",
+  "title": "Transaction Management Process",
+  "description": "Computer Science process: Transaction Management Process",
+  "category": "computer_science",
+  "subcategory": "database_systems",
+  "mermaid": "graph TD\n    A3[Transaction Initiation] --> B3[Transaction Management Method]\n    C3[Concurrency Control] --> D3[Lock Management]\n    E3[Recovery Process] --> F3[Transaction Management Analysis]\n    \n    B3 --> G3[ACID Properties]\n    D3 --> H3[Two Phase Locking]\n    F3 --> I3[Deadlock Detection]\n    \n    G3 --> J3[Atomicity Enforcement]\n    H3 --> K3[Consistency Checking]\n    I3 --> L3[Isolation Management]\n    \n    J3 --> M3[Durability Guarantee]\n    K3 --> L3\n    L3 --> N3[Serializability]\n    \n    M3 --> O3[Checkpoint Process]\n    N3 --> P3[Log Management]\n    O3 --> Q3[Transaction Management Process]\n    \n    P3 --> R3[Transaction Management Validation]\n    Q3 --> S3[Transaction Management Verification]\n    R3 --> T3[Transaction Management Result]\n    \n    S3 --> U3[Transaction Management Analysis]\n    T3 --> V3[Transaction Management Parameters]\n    U3 --> W3[Transaction Management Output]\n    \n    V3 --> X3[Transaction Management Analysis]\n    W3 --> Y3[Transaction Management Final Result]\n    X3 --> Z3[Transaction Management Complete]\n    \n    style A3 fill:#ff6b6b,color:#fff\n    style C3 fill:#ff6b6b,color:#fff\n    style E3 fill:#ff6b6b,color:#fff\n    \n    style B3 fill:#ffd43b,color:#000\n    style D3 fill:#ffd43b,color:#000\n    style F3 fill:#ffd43b,color:#000\n    style G3 fill:#ffd43b,color:#000\n    style H3 fill:#ffd43b,color:#000\n    style I3 fill:#ffd43b,color:#000\n    style J3 fill:#ffd43b,color:#000\n    style K3 fill:#ffd43b,color:#000\n    style L3 fill:#ffd43b,color:#000\n    style M3 fill:#ffd43b,color:#000\n    style N3 fill:#ffd43b,color:#000\n    style O3 fill:#ffd43b,color:#000\n    style P3 fill:#ffd43b,color:#000\n    style Q3 fill:#ffd43b,color:#000\n    style R3 fill:#ffd43b,color:#000\n    style S3 fill:#ffd43b,color:#000\n    style T3 fill:#ffd43b,color:#000\n    style U3 fill:#ffd43b,color:#000\n    style V3 fill:#ffd43b,color:#000\n    style W3 fill:#ffd43b,color:#000\n    style X3 fill:#ffd43b,color:#000\n    style Y3 fill:#ffd43b,color:#000\n    style Z3 fill:#ffd43b,color:#000\n    \n    style M3 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style O3 fill:#51cf66,color:#fff\n    style P3 fill:#51cf66,color:#fff\n    style Q3 fill:#51cf66,color:#fff\n    style R3 fill:#51cf66,color:#fff\n    style S3 fill:#51cf66,color:#fff\n    style T3 fill:#51cf66,color:#fff\n    style U3 fill:#51cf66,color:#fff\n    style V3 fill:#51cf66,color:#fff\n    style W3 fill:#51cf66,color:#fff\n    style X3 fill:#51cf66,color:#fff\n    style Y3 fill:#51cf66,color:#fff\n    style Z3 fill:#51cf66,color:#fff\n    \n    style Z3 fill:#b197fc,color:#fff",
+  "entities": [
+    "Transaction Initiation",
+    "Transaction Management Method",
+    "Concurrency Control",
+    "Lock Management",
+    "Recovery Process",
+    "Transaction Management Analysis",
+    "ACID Properties",
+    "Two Phase Locking",
+    "Deadlock Detection",
+    "Atomicity Enforcement",
+    "Consistency Checking",
+    "Isolation Management",
+    "Durability Guarantee",
+    "Serializability",
+    "Checkpoint Process",
+    "Log Management",
+    "Transaction Management Process",
+    "Transaction Management Validation",
+    "Transaction Management Verification",
+    "Transaction Management Result",
+    "Transaction Management Parameters",
+    "Transaction Management Output",
+    "Transaction Management Final Result",
+    "Transaction Management Complete"
+  ],
+  "metadata": {
+    "source": "programming_framework",
+    "batch": "batch_03",
+    "batch_number": 3,
+    "batch_title": "Computer Science Batch 03 - Database Systems - Programming Framework Analysis",
+    "color_scheme": "discipline_based",
+    "node_count": 24,
+    "complexity": "medium"
+  }
+}

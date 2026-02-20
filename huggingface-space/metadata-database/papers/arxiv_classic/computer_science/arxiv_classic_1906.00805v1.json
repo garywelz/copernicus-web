@@ -1,0 +1,37 @@
+{
+  "id": "arxiv_1906.00805v1",
+  "arxiv_id": "1906.00805v1",
+  "title": "GazeCorrection:Self-Guided Eye Manipulation in the wild using Self-Supervised Generative Adversarial Networks",
+  "authors": [
+    "Jichao Zhang",
+    "Meng Sun",
+    "Jingjing Chen",
+    "Hao Tang",
+    "Yan Yan",
+    "Xueying Qin",
+    "Nicu Sebe"
+  ],
+  "author_string": "Jichao Zhang, Meng Sun, Jingjing Chen, Hao Tang, Yan Yan et al.",
+  "journal": "arXiv:1906.00805v1",
+  "journal_ref": null,
+  "year": "2019",
+  "doi": null,
+  "abstract": "Gaze correction aims to redirect the person's gaze into the camera by manipulating the eye region, and it can be considered as a specific image resynthesis problem. Gaze correction has a wide range of applications in real life, such as taking a picture with staring at the camera. In this paper, we propose a novel method that is based on the inpainting model to learn from the face image to fill in the missing eye regions with new contents representing corrected eye gaze. Moreover, our model does not require the training dataset labeled with the specific head pose and eye angle information, thus, the training data is easy to collect. To retain the identity information of the eye region in the original input, we propose a self-guided pretrained model to learn the angle-invariance feature. Experiments show our model achieves very compelling gaze-corrected results in the wild dataset which is collected from the website and will be introduced in details. Code is available at https://github.com/zhangqianhui/GazeCorrection.",
+  "categories": [
+    "cs.CV",
+    "cs.AI"
+  ],
+  "primary_category": "cs.AI",
+  "comment": null,
+  "published_date": "2019-06-03T13:43:01Z",
+  "updated_date": "2019-06-03T13:43:01Z",
+  "url": "https://arxiv.org/abs/1906.00805v1",
+  "pdf_url": "https://arxiv.org/pdf/1906.00805v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:23.478607",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV",
+    "cs.AI"
+  ]
+}

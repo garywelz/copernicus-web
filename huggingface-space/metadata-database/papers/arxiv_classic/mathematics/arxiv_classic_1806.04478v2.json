@@ -1,0 +1,37 @@
+{
+  "id": "arxiv_1806.04478v2",
+  "arxiv_id": "1806.04478v2",
+  "title": "On the $t$-adic Littlewood Conjecture",
+  "authors": [
+    "Faustin Adiceam",
+    "Erez Nesharim",
+    "Fred Lunnon"
+  ],
+  "author_string": "Faustin Adiceam, Erez Nesharim, Fred Lunnon",
+  "journal": "arXiv:1806.04478v2",
+  "journal_ref": null,
+  "year": "2018",
+  "doi": null,
+  "abstract": "The $p$-adic Littlewood Conjecture due to De Mathan and Teulié asserts that for any prime number $p$ and any real number $α$, the equation $$\\inf_{|m|\\ge 1} |m|\\cdot |m|_p\\cdot |\\langle mα\\rangle|\\, =\\, 0 $$ holds. Here, $|m|$ is the usual absolute value of the integer $m$, $|m|_p$ its $p$-adic absolute value and $ |\\langle x\\rangle|$ denotes the distance from a real number $x$ to the set of integers. This still open conjecture stands as a variant of the well-known Littlewood Conjecture. In the same way as the latter, it admits a natural counterpart over the field of formal Laurent series $\\mathbb{K}\\left(\\left(t^{-1}\\right)\\right)$ of a ground field $\\mathbb{K}$. This is the so-called \\emph{$t$-adic Littlewood Conjecture} ($t$-LC).   It is known that $t$--LC fails when the ground field $\\mathbb{K}$ is infinite. This article is concerned with the much more difficult case when the latter field is finite. More precisely, a \\emph{fully explicit} counterexample is provided to show that $t$-LC does not hold in the case that $\\mathbb{K}$ is a finite field with characteristic 3. Generalizations to fields with characteristics different from 3 are also discussed.   The proof is computer assisted. It reduces to showing that an infinite matrix encoding Hankel determinants of the Paper-Folding sequence over $\\mathbb{F}_3$, the so-called Number Wall of this sequence, can be obtained as a two-dimensional automatic tiling satisfying a finite number of suitable local constraints.",
+  "categories": [
+    "math.NT",
+    "cs.DM",
+    "cs.FL",
+    "math.CO",
+    "math.DS"
+  ],
+  "primary_category": "math.DS",
+  "comment": "36 pages",
+  "published_date": "2018-06-12T13:01:26Z",
+  "updated_date": "2020-10-11T08:11:07Z",
+  "url": "https://arxiv.org/abs/1806.04478v2",
+  "pdf_url": "https://arxiv.org/pdf/1806.04478v2.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:30:52.378426",
+  "category": "mathematics",
+  "subcategories": [
+    "math.NT",
+    "cs.DM",
+    "cs.FL"
+  ]
+}

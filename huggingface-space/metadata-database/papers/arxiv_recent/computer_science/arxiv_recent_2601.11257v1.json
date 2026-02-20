@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2601.11257v1",
+  "arxiv_id": "2601.11257v1",
+  "title": "Rate-Distortion-Perception Tradeoff for the Gray-Wyner Problem",
+  "authors": [
+    "Yu Yang",
+    "Yingxin Zhang",
+    "Weijie Yuan",
+    "Lin Zhou"
+  ],
+  "author_string": "Yu Yang, Yingxin Zhang, Weijie Yuan, Lin Zhou",
+  "journal": "arXiv:2601.11257v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We revisit the Gray-Wyner lossy source coding problem and derive the first-order asymptotic optimal rate-distortion-perception region when additional perception constraints are imposed on reproduced source sequences. The optimal trade-off is shown to be governed by a mutual information term involving common information and two conditional rate-distortion-perception functions. The perception constraint requires that the distribution of each reproduced sequence is close to that of the original source sequence, which is motivated by practical applications in image and video compression. Prior studies usually focus on the compression and reconstruction of a single source sequence. In this paper, we generalize the prior results for point-to-point systems to the representative multi-terminal setting of the Gray-Wyner problem with two correlated source sequences. In particular, we integrate the analyses of the distortion and the perception constraints by including the random circular shift operator in the encoding and decoding process directly.",
+  "categories": [
+    "cs.IT"
+  ],
+  "primary_category": "cs.IT",
+  "comment": "Submitted to IEEE International Symposium on Information Theory (ISIT) 2026. Contains detailed proofs and appendices not included in the conference version",
+  "published_date": "2026-01-16T13:03:05Z",
+  "updated_date": "2026-01-16T13:03:05Z",
+  "url": "https://arxiv.org/abs/2601.11257v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11257v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:33.859834",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.IT"
+  ]
+}

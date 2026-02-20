@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2601.10684v1",
+  "arxiv_id": "2601.10684v1",
+  "title": "On the origin of neural scaling laws: from random graphs to natural language",
+  "authors": [
+    "Maissam Barkeshli",
+    "Alberto Alfarano",
+    "Andrey Gromov"
+  ],
+  "author_string": "Maissam Barkeshli, Alberto Alfarano, Andrey Gromov",
+  "journal": "arXiv:2601.10684v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Scaling laws have played a major role in the modern AI revolution, providing practitioners predictive power over how the model performance will improve with increasing data, compute, and number of model parameters. This has spurred an intense interest in the origin of neural scaling laws, with a common suggestion being that they arise from power law structure already present in the data. In this paper we study scaling laws for transformers trained to predict random walks (bigrams) on graphs with tunable complexity. We demonstrate that this simplified setting already gives rise to neural scaling laws even in the absence of power law structure in the data correlations. We further consider dialing down the complexity of natural language systematically, by training on sequences sampled from increasingly simplified generative language models, from 4,2,1-layer transformer language models down to language bigrams, revealing a monotonic evolution of the scaling exponents. Our results also include scaling laws obtained from training on random walks on random graphs drawn from Erdös-Renyi and scale-free Barabási-Albert ensembles. Finally, we revisit conventional scaling laws for language modeling, demonstrating that several essential results can be reproduced using 2 layer transformers with context length of 50, provide a critical analysis of various fits used in prior literature, demonstrate an alternative method for obtaining compute optimal curves as compared with current practice in published literature, and provide preliminary evidence that maximal update parameterization may be more parameter efficient than standard parameterization.",
+  "categories": [
+    "cs.LG",
+    "cond-mat.dis-nn",
+    "cs.AI",
+    "stat.ML"
+  ],
+  "primary_category": "stat.ML",
+  "comment": "33 pages",
+  "published_date": "2026-01-15T18:46:09Z",
+  "updated_date": "2026-01-15T18:46:09Z",
+  "url": "https://arxiv.org/abs/2601.10684v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.10684v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:18:40.158253",
+  "category": "mathematics",
+  "subcategories": [
+    "cs.LG",
+    "cond-mat.dis-nn",
+    "cs.AI"
+  ]
+}

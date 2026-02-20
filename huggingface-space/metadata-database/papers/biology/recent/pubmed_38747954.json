@@ -1,0 +1,28 @@
+{
+  "id": "pubmed_38747954",
+  "pmid": "38747954",
+  "title": "Enhancing short-term streamflow prediction in the Haihe River Basin through integrated machine learning with Lasso.",
+  "authors": [
+    "Song, Yongyu",
+    "Zhang, Jing"
+  ],
+  "author_string": "Song, Yongyu, Zhang, Jing",
+  "journal": "Water Sci Technol",
+  "journal_full": "Water science and technology : a journal of the International Association on Water Pollution Research",
+  "year": "",
+  "doi": "10.2166/wst.2024.142",
+  "abstract": "With the widespread application of machine learning in various fields, enhancing its accuracy in hydrological forecasting has become a focal point of interest for hydrologists. This study, set against the backdrop of the Haihe River Basin, focuses on daily-scale streamflow and explores the application of the Lasso feature selection method alongside three machine learning models (long short-term memory, LSTM; transformer for time series, TTS; random forest, RF) in short-term streamflow prediction. Through comparative experiments, we found that the Lasso method significantly enhances the model's performance, with a respective increase in the generalization capabilities of the three models by 21, 12, and 14%. Among the selected features, lagged streamflow and precipitation play dominant roles, with streamflow closest to the prediction date consistently being the most crucial feature. In comparison to the TTS and RF models, the LSTM model demonstrates superior performance and generalization capabilities in streamflow prediction for 1-7 days, making it more suitable for practical applications in hydrological forecasting in the Haihe River Basin and similar regions. Overall, this study deepens our understanding of feature selection and machine learning models in hydrology, providing valuable insights for hydrological simulations under the influence of complex human activities.",
+  "keywords": [
+    "Lasso",
+    "long short-term memory",
+    "random forest",
+    "streamflow prediction",
+    "transformer for time series"
+  ],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/38747954",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T17:02:14.271947",
+  "category": "biology",
+  "subcategories": []
+}

@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2601.05763v1",
+  "arxiv_id": "2601.05763v1",
+  "title": "A semi-implicit DLN Galerkin finite element method for coupled Ginzburg-Landau equations with general nonlinearity",
+  "authors": [
+    "Zhen Guan",
+    "Xianxian Cao",
+    "Junjun Wang"
+  ],
+  "author_string": "Zhen Guan, Xianxian Cao, Junjun Wang",
+  "journal": "arXiv:2601.05763v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "In this paper, based on the two-step discretization scheme proposed by Dahlquist, Liniger and Nevanlinna (DLN), we develop a semi-implicit Galerkin finite element method for solving the coupled generalized Ginzburg-Landau equations. By virtue of a novel analytical technique, the boundedness of the numerical solution in the infinity norm is established, upon which the unconditionally optimal error estimates in the $L^2$ and $H^1$-norms are further derived. Compared with the space-time error splitting technique commonly adopted in the literature, the analytical method proposed in this paper does not require the introduction of an additional temporal discretization system, thus greatly simplifying the theoretical argument. The core point of the argument lies in the skillful application of the inverse inequality and discrete Agmon inequality to analyze the two cases, namely $τ\\leq h$ and $τ>h$, respectively. Three numerical examples covering both two- and three-dimensional scenarios are eventually provided for the validation of the theoretical findings.",
+  "categories": [
+    "math.NA"
+  ],
+  "primary_category": "math.NA",
+  "comment": null,
+  "published_date": "2026-01-09T12:32:12Z",
+  "updated_date": "2026-01-09T12:32:12Z",
+  "url": "https://arxiv.org/abs/2601.05763v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.05763v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:22.684836",
+  "category": "mathematics",
+  "subcategories": [
+    "math.NA"
+  ]
+}

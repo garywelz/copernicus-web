@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2601.09660v1",
+  "arxiv_id": "2601.09660v1",
+  "title": "Constitutive parameter inference using physics-based data-driven modeling in full volume datasets of intact and torn rotator cuff tendons",
+  "authors": [
+    "Carla Nathaly Villacís Núñez",
+    "Siddhartha Srivastava",
+    "Ulrich Scheven",
+    "Asheesh Bedi",
+    "Krishna Garikipati",
+    "Ellen M. Arruda"
+  ],
+  "author_string": "Carla Nathaly Villacís Núñez, Siddhartha Srivastava, Ulrich Scheven, Asheesh Bedi, Krishna Garikipati et al.",
+  "journal": "arXiv:2601.09660v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "In this work, we characterized the material properties of an animal model of the rotator cuff tendon using full volume datasets of both its intact and injured states by capturing internal strain behavior throughout the tendon. Our experimental setup, involving tension along the fiber direction, activated volumetric, tensile, and shear mechanisms due to the tendon's complex geometry. We implemented an approach to model inference that we refer to as variational system identification (VSI) to solve the weak form of the stress equilibrium equation using these full volume displacements. Three constitutive models were used for parameter inference: a neo-Hookean model, a modified Holzapfel-Gasser-Ogden (HGO) model with higher-order terms in the first and second invariants, and a reduced polynomial model consisting of terms based on the first, second, and fiber-related invariants. Inferred parameters were further refined using an adjoint-based partial differential equation (PDE)-constrained optimization framework. Our results show that the modified HGO model captures the tendon's deformation mechanisms with reasonable accuracy, while the neo-Hookean model fails to reproduce key internal features, particularly the shear behavior in the injured tendon. Surprisingly, the simplified polynomial model performed comparably to the modified HGO formulation using only three terms. These findings suggest that while current constitutive models do not fully replicate the complex internal mechanics of the tendon, they are capable of capturing key trends in both intact and damaged tissue, using a homogeneous modeling approach. Continued model development is needed to bridge this gap and enable clinical-grade, predictive simulations of tendon injury and repair.",
+  "categories": [
+    "physics.bio-ph",
+    "q-bio.TO"
+  ],
+  "primary_category": "q-bio.TO",
+  "comment": null,
+  "published_date": "2026-01-14T17:51:44Z",
+  "updated_date": "2026-01-14T17:51:44Z",
+  "url": "https://arxiv.org/abs/2601.09660v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.09660v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:18:58.565403",
+  "category": "biology",
+  "subcategories": [
+    "physics.bio-ph",
+    "q-bio.TO"
+  ]
+}

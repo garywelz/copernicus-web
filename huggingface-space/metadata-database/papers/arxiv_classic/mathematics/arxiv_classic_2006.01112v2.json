@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2006.01112v2",
+  "arxiv_id": "2006.01112v2",
+  "title": "Cascaded Text Generation with Markov Transformers",
+  "authors": [
+    "Yuntian Deng",
+    "Alexander M. Rush"
+  ],
+  "author_string": "Yuntian Deng, Alexander M. Rush",
+  "journal": "arXiv:2006.01112v2",
+  "journal_ref": null,
+  "year": "2020",
+  "doi": null,
+  "abstract": "The two dominant approaches to neural text generation are fully autoregressive models, using serial beam search decoding, and non-autoregressive models, using parallel decoding with no output dependencies. This work proposes an autoregressive model with sub-linear parallel time generation. Noting that conditional random fields with bounded context can be decoded in parallel, we propose an efficient cascaded decoding approach for generating high-quality output. To parameterize this cascade, we introduce a Markov transformer, a variant of the popular fully autoregressive model that allows us to simultaneously decode with specific autoregressive context cutoffs. This approach requires only a small modification from standard autoregressive training, while showing competitive accuracy/speed tradeoff compared to existing methods on five machine translation datasets.",
+  "categories": [
+    "cs.CL",
+    "cs.LG",
+    "cs.NE",
+    "stat.ML"
+  ],
+  "primary_category": "stat.ML",
+  "comment": "NeurIPS 2020",
+  "published_date": "2020-06-01T17:52:15Z",
+  "updated_date": "2020-12-05T05:26:19Z",
+  "url": "https://arxiv.org/abs/2006.01112v2",
+  "pdf_url": "https://arxiv.org/pdf/2006.01112v2.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:27.419989",
+  "category": "mathematics",
+  "subcategories": [
+    "cs.CL",
+    "cs.LG",
+    "cs.NE"
+  ]
+}

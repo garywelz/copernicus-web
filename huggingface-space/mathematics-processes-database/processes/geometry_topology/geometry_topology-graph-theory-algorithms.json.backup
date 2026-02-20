@@ -1,0 +1,93 @@
+{
+  "category": "mathematics",
+  "colorScheme": {
+    "blue": {
+      "category": "Intermediates & States",
+      "hex": "#74c0fc"
+    },
+    "green": {
+      "category": "Processing & Operations",
+      "hex": "#51cf66"
+    },
+    "red": {
+      "category": "Triggers & Inputs",
+      "hex": "#ff6b6b"
+    },
+    "violet": {
+      "category": "Products & Outputs",
+      "hex": "#b197fc"
+    },
+    "yellow": {
+      "category": "Structures & Objects",
+      "hex": "#ffd43b"
+    }
+  },
+  "complexity": {
+    "conditionals": 0,
+    "detailLevel": "medium",
+    "edges": 27,
+    "level": "medium",
+    "logicGates": {
+      "andGates": 0,
+      "orGates": 0,
+      "total": 0
+    },
+    "nodes": 29
+  },
+  "created": "2026-01-08",
+  "description": "Graph Theory Algorithms Process. This discrete mathematics process visualization demonstrates shortest path, minimum spanning tree, and network flow algorithms. The flowchart shows graph inputs and properties, graph theory methods and algorithms, graph operations and calculations, intermediate results, and final graph theory outputs.",
+  "id": "geometry_topology-graph-theory-algorithms",
+  "keywords": [
+    "graph",
+    "geometry",
+    "theory",
+    "algorithms",
+    "topology"
+  ],
+  "lastUpdated": "2026-01-08",
+  "mermaid": "graph TD\nA1[Graph G V E] --> B1[Graph Representation]\nC1[Algorithm Selection] --> D1[Method Choice]\nE1[Graph Properties] --> F1[Property Analysis]\nB1 --> G1[Adjacency Matrix]\nD1 --> H1[Shortest Path Algorithm]\nF1 --> I1[Graph Connectivity]\nG1 --> J1[Adjacency List]\nH1 --> K1[Dijkstra Algorithm]\nI1 --> L1[Graph Traversal]\nJ1 --> M1[Graph Structure]\nK1 --> N1[Bellman Ford Algorithm]\nL1 --> O1[Depth First Search]\nM1 --> P1[Vertex Analysis]\nN1 --> O1\nO1 --> Q1[Breadth First Search]\nP1 --> R1[Edge Analysis]\nQ1 --> S1[Minimum Spanning Tree]\nR1 --> T1[Graph Coloring]\nS1 --> U1[Kruskal Algorithm]\nT1 --> V1[Network Flow]\nU1 --> W1[Graph Algorithm Result]\nV1 --> X1[Ford Fulkerson Algorithm]\nW1 --> Y1[Graph Analysis]\nX1 --> Z1[Graph Theory Output]\nY1 --> AA1[Graph Theory Analysis]\nZ1 --> BB1[Graph Theory Final Result]\nAA1 --> CC1[Graph Theory Analysis Complete]\n\n    style A1 fill:#ff6b6b,color:#fff\n    style C1 fill:#ff6b6b,color:#fff\n    style E1 fill:#ff6b6b,color:#fff\n    style B1 fill:#ffd43b,color:#000\n    style D1 fill:#ffd43b,color:#000\n    style F1 fill:#ffd43b,color:#000\n    style G1 fill:#ffd43b,color:#000\n    style H1 fill:#ffd43b,color:#000\n    style I1 fill:#ffd43b,color:#000\n    style J1 fill:#ffd43b,color:#000\n    style K1 fill:#ffd43b,color:#000\n    style L1 fill:#ffd43b,color:#000\n    style M1 fill:#51cf66,color:#fff\n    style N1 fill:#51cf66,color:#fff\n    style O1 fill:#51cf66,color:#fff\n    style P1 fill:#51cf66,color:#fff\n    style Q1 fill:#51cf66,color:#fff\n    style R1 fill:#51cf66,color:#fff\n    style S1 fill:#51cf66,color:#fff\n    style T1 fill:#51cf66,color:#fff\n    style U1 fill:#51cf66,color:#fff\n    style V1 fill:#51cf66,color:#fff\n    style W1 fill:#51cf66,color:#fff\n    style X1 fill:#51cf66,color:#fff\n    style Y1 fill:#51cf66,color:#fff\n    style Z1 fill:#51cf66,color:#fff\n    style AA1 fill:#51cf66,color:#fff\n    style BB1 fill:#51cf66,color:#fff\n    style CC1 fill:#b197fc,color:#fff",
+  "name": "Graph Theory Algorithms",
+  "notes": "Converted from mathematics batch HTML. Process number: 1.",
+  "relatedProcesses": [],
+  "sources": [
+    {
+      "authors": "Welz, G.",
+      "doi": null,
+      "journal": "CopernicusAI Knowledge Engine",
+      "notes": "Chemistry process visualization: Graph Theory Algorithms. Created using the Programming Framework methodology for process analysis and visualization.",
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "year": "2025"
+    },
+    {
+      "authors": "Dijkstra EW.",
+      "doi": "10.1007/BF01386390",
+      "journal": "Numerische Math.",
+      "pubmed": null,
+      "title": "A note on two problems in connexion with graphs",
+      "url": "https://doi.org/10.1007/BF01386390",
+      "year": "1959"
+    },
+    {
+      "authors": "Ford LR Jr; Fulkerson DR.",
+      "doi": "10.4153/CJM-1956-045-5",
+      "journal": "Can J Math",
+      "pubmed": null,
+      "title": "Maximal flow through a network",
+      "url": "https://doi.org/10.4153/CJM-1956-045-5",
+      "year": "1956"
+    },
+    {
+      "authors": "Ullman JD.",
+      "doi": "10.1145/360064.360098",
+      "journal": "Commun ACM",
+      "pubmed": null,
+      "title": "A survey of parallel graph algorithms",
+      "url": "https://doi.org/10.1145/360064.360098",
+      "year": "1976"
+    }
+  ],
+  "subcategory": "geometry_topology",
+  "subcategory_name": "Geometry & Topology",
+  "verified": false
+}

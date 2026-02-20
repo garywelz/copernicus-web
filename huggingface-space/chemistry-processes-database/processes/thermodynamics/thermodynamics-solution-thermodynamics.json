@@ -1,0 +1,91 @@
+{
+  "id": "thermodynamics-solution-thermodynamics",
+  "name": "Solution Thermodynamics",
+  "category": "chemistry",
+  "subcategory": "thermodynamics",
+  "subcategory_name": "Thermodynamics",
+  "description": "Solution Thermodynamics process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 26,
+    "edges": 22,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 1,
+      "total": 1
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nA2[Solvent Molecules] --> B2[Solution Thermodynamics Method]\nC2[Solute Particles] --> D2[Concentration Control]\nE2[Temperature System] --> F2[Pressure Environment]\nB2 --> G2[Solution Preparation]\nD2 --> H2[Concentration Analysis]\nF2 --> I2[Environmental Control]\nG2 --> J2[Mixing Process]\nH2 --> K2[Concentration Measurement]\nI2 --> L2[Pressure Monitoring]\nJ2 --> M2[Solvation Process]\nK2 --> L2\nL2 --> N2[Solution Formation]\nM2 --> O2[Intermolecular Interactions]\nN2 --> P2[Solution Thermodynamics]\nO2 --> Q2[Colligative Properties]\nP2 --> R2[Thermodynamic Properties]\nQ2 --> S2[Property Measurement]\nR2 --> T2[Solution Behavior]\nS2 --> U2[Property Analysis]\nT2 --> V2[Behavior Prediction]\nU2 --> W2[Thermodynamic Efficiency]\nV2 --> X2[Solution Characterization]\nW2 --> Y2[Process Optimization]\nX2 --> Z2[Final Solution State]\nY2 --> Z2\n\n    style A2 fill:#ff6b6b,color:#fff\n    style C2 fill:#ff6b6b,color:#fff\n    style E2 fill:#ff6b6b,color:#fff\n    style B2 fill:#ffd43b,color:#000\n    style D2 fill:#ffd43b,color:#000\n    style F2 fill:#ffd43b,color:#000\n    style G2 fill:#ffd43b,color:#000\n    style H2 fill:#ffd43b,color:#000\n    style I2 fill:#ffd43b,color:#000\n    style J2 fill:#ffd43b,color:#000\n    style K2 fill:#ffd43b,color:#000\n    style L2 fill:#ffd43b,color:#000\n    style M2 fill:#51cf66,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style O2 fill:#51cf66,color:#fff\n    style P2 fill:#51cf66,color:#fff\n    style Q2 fill:#51cf66,color:#fff\n    style R2 fill:#51cf66,color:#fff\n    style S2 fill:#51cf66,color:#fff\n    style T2 fill:#51cf66,color:#fff\n    style U2 fill:#51cf66,color:#fff\n    style V2 fill:#51cf66,color:#fff\n    style W2 fill:#51cf66,color:#fff\n    style X2 fill:#51cf66,color:#fff\n    style Y2 fill:#51cf66,color:#fff\n    style Z2 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Solution Thermodynamics. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "Fundamentals of Polymer Solution Thermodynamics",
+      "authors": "",
+      "journal": "Handbook of Polymer Solution Thermodynamics",
+      "year": "1993",
+      "pubmed": null,
+      "doi": "10.1002/9780470938232.ch2",
+      "url": "https://doi.org/10.1002/9780470938232.ch2"
+    },
+    {
+      "title": "2. Thermodynamics of Solid Solution- Aqueous Solution Systems",
+      "authors": "Prieto, Manuel",
+      "journal": "Thermodynamics and Kinetics of Water-Rock Interaction",
+      "year": "2009",
+      "pubmed": null,
+      "doi": "10.1515/9781501508462-004",
+      "url": "https://doi.org/10.1515/9781501508462-004"
+    },
+    {
+      "title": "SOLUTION THERMODYNAMICS",
+      "authors": "Lee, Lloyd L.",
+      "journal": "Molecular Thermodynamics of Nonideal Fluids",
+      "year": "1988",
+      "pubmed": null,
+      "doi": "10.1016/b978-0-409-90088-0.50014-x",
+      "url": "https://doi.org/10.1016/b978-0-409-90088-0.50014-x"
+    }
+  ],
+  "keywords": [
+    "solution",
+    "thermodynamics"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+}

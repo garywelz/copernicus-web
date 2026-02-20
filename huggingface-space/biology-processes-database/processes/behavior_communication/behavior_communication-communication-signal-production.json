@@ -1,0 +1,92 @@
+{
+  "id": "behavior_communication-communication-signal-production",
+  "name": "Communication Signal Production",
+  "category": "biology",
+  "subcategory": "behavior_communication",
+  "subcategory_name": "Behavior & Communication",
+  "description": "Communication Signal Production process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 9,
+    "edges": 9,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 1,
+      "andGates": 1,
+      "total": 2
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\n    A19[Information Source] --> B19[Signal Encoding]\n    B19 --> C19[Signal Modality Selection]\n    C19 --> D19[Vocal Production]\n    C19 --> E19[Chemical Release]\n    C19 --> F19[Visual Display]\n    D19 --> G19[Signal Transmission]\n    E19 --> G19\n    F19 --> G19\n    G19 --> H19[Receptor Detection]\n    H19 --> I19[Response Elicitation]\n    \n    style A19 fill:#ff6b6b,color:#fff\n    style B19 fill:#ffd43b,color:#000\n    style C19 fill:#51cf66,color:#fff\n    style D19 fill:#74c0fc,color:#fff\n    style E19 fill:#74c0fc,color:#fff\n    style F19 fill:#74c0fc,color:#fff\n    style G19 fill:#51cf66,color:#fff\n    style H19 fill:#74c0fc,color:#fff\n    style I19 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Communication Signal Production. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "Objective quality assessment in free-viewpoint video production",
+      "authors": "Kilner, J.; Starck, J.; Guillemaut, J.Y.; Hilton, A.",
+      "journal": "Signal Processing: Image Communication",
+      "year": "2009",
+      "pubmed": null,
+      "doi": "10.1016/j.image.2008.10.004",
+      "url": "https://doi.org/10.1016/j.image.2008.10.004"
+    },
+    {
+      "title": "Vision-based production of personalized video",
+      "authors": "Kosmopoulos, D.I.; Doulamis, A.; Makris, A.; Doulamis, N.; Chatzis, S.; Middleton, S.E.",
+      "journal": "Signal Processing: Image Communication",
+      "year": "2009",
+      "pubmed": null,
+      "doi": "10.1016/j.image.2008.12.010",
+      "url": "https://doi.org/10.1016/j.image.2008.12.010"
+    },
+    {
+      "title": "Gender identification from speech signal by examining the speech production characteristics",
+      "authors": "Ramdinmawii, Esther; Mittal, V. K.",
+      "journal": "2016 International Conference on Signal Processing and Communication (ICSC)",
+      "year": "2016",
+      "pubmed": null,
+      "doi": "10.1109/icspcom.2016.7980584",
+      "url": "https://doi.org/10.1109/icspcom.2016.7980584"
+    }
+  ],
+  "keywords": [
+    "communication",
+    "signal",
+    "production"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+}

@@ -1,0 +1,28 @@
+{
+  "id": "pubmed_35610276",
+  "pmid": "35610276",
+  "title": "Resolving complex cartilage structures in developmental biology via deep learning-based automatic segmentation of X-ray computed microtomography images.",
+  "authors": [
+    "Matula, Jan",
+    "Polakova, Veronika",
+    "Salplachta, Jakub",
+    "Tesarova, Marketa",
+    "Zikmund, Tomas",
+    "Kaucka, Marketa",
+    "Adameyko, Igor",
+    "Kaiser, Jozef"
+  ],
+  "author_string": "Matula, Jan, Polakova, Veronika, Salplachta, Jakub, Tesarova, Marketa, Zikmund, Tomas et al.",
+  "journal": "Sci Rep",
+  "journal_full": "Scientific reports",
+  "year": "",
+  "doi": "10.1038/s41598-022-12329-8",
+  "abstract": "The complex shape of embryonic cartilage represents a true challenge for phenotyping and basic understanding of skeletal development. X-ray computed microtomography (μCT) enables inspecting relevant tissues in all three dimensions; however, most 3D models are still created by manual segmentation, which is a time-consuming and tedious task. In this work, we utilised a convolutional neural network (CNN) to automatically segment the most complex cartilaginous system represented by the developing nasal capsule. The main challenges of this task stem from the large size of the image data (over a thousand pixels in each dimension) and a relatively small training database, including genetically modified mouse embryos, where the phenotype of the analysed structures differs from the norm. We propose a CNN-based segmentation model optimised for the large image size that we trained using a unique manually annotated database. The segmentation model was able to segment the cartilaginous nasal capsule with a median accuracy of 84.44% (Dice coefficient). The time necessary for segmentation of new samples shortened from approximately 8 h needed for manual segmentation to mere 130 s per sample. This will greatly accelerate the throughput of μCT analysis of cartilaginous skeletal elements in animal models of developmental diseases.",
+  "keywords": [],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/35610276",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T16:59:43.447208",
+  "category": "biology",
+  "subcategories": []
+}

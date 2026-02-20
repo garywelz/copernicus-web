@@ -1,0 +1,23 @@
+{
+  "id": "pubmed_37794121",
+  "pmid": "37794121",
+  "title": "Reconstructing computational system dynamics from neural data with recurrent neural networks.",
+  "authors": [
+    "Durstewitz, Daniel",
+    "Koppe, Georgia",
+    "Thurm, Max Ingo"
+  ],
+  "author_string": "Durstewitz, Daniel, Koppe, Georgia, Thurm, Max Ingo",
+  "journal": "Nat Rev Neurosci",
+  "journal_full": "Nature reviews. Neuroscience",
+  "year": "",
+  "doi": "10.1038/s41583-023-00740-7",
+  "abstract": "Computational models in neuroscience usually take the form of systems of differential equations. The behaviour of such systems is the subject of dynamical systems theory. Dynamical systems theory provides a powerful mathematical toolbox for analysing neurobiological processes and has been a mainstay of computational neuroscience for decades. Recently, recurrent neural networks (RNNs) have become a popular machine learning tool for studying the non-linear dynamics of neural and behavioural processes by emulating an underlying system of differential equations. RNNs have been routinely trained on similar behavioural tasks to those used for animal subjects to generate hypotheses about the underlying computational mechanisms. By contrast, RNNs can also be trained on the measured physiological and behavioural data, thereby directly inheriting their temporal and geometrical properties. In this way they become a formal surrogate for the experimentally probed system that can be further analysed, perturbed and simulated. This powerful approach is called dynamical system reconstruction. In this Perspective, we focus on recent trends in artificial intelligence and machine learning in this exciting and rapidly expanding field, which may be less well known in neuroscience. We discuss formal prerequisites, different model architectures and training approaches for RNN-based dynamical system reconstructions, ways to evaluate and validate model performance, how to interpret trained models in a neuroscience context, and current challenges.",
+  "keywords": [],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/37794121",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T17:01:20.672883",
+  "category": "biology",
+  "subcategories": []
+}

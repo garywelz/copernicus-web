@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2601.11024v1",
+  "arxiv_id": "2601.11024v1",
+  "title": "PruneRAG: Confidence-Guided Query Decomposition Trees for Efficient Retrieval-Augmented Generation",
+  "authors": [
+    "Shuguang Jiao",
+    "Xinyu Xiao",
+    "Yunfan Wei",
+    "Shuhan Qi",
+    "Chengkai Huang",
+    "Quan Z. Michael Sheng",
+    "Lina Yao"
+  ],
+  "author_string": "Shuguang Jiao, Xinyu Xiao, Yunfan Wei, Shuhan Qi, Chengkai Huang et al.",
+  "journal": "arXiv:2601.11024v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Retrieval-augmented generation (RAG) has become a powerful framework for enhancing large language models in knowledge-intensive and reasoning tasks. However, as reasoning chains deepen or search trees expand, RAG systems often face two persistent failures: evidence forgetting, where retrieved knowledge is not effectively used, and inefficiency, caused by uncontrolled query expansions and redundant retrieval. These issues reveal a critical gap between retrieval and evidence utilization in current RAG architectures. We propose PruneRAG, a confidence-guided query decomposition framework that builds a structured query decomposition tree to perform stable and efficient reasoning. PruneRAG introduces three key mechanisms: adaptive node expansion that regulates tree width and depth, confidence-guided decisions that accept reliable answers and prune uncertain branches, and fine-grained retrieval that extracts entity-level anchors to improve retrieval precision. Together, these components preserve salient evidence throughout multi-hop reasoning while significantly reducing retrieval overhead. To better analyze evidence misuse, we define the Evidence Forgetting Rate as a metric to quantify cases where golden evidence is retrieved but not correctly used. Extensive experiments across various multi-hop QA benchmarks show that PruneRAG achieves superior accuracy and efficiency over state-of-the-art baselines.",
+  "categories": [
+    "cs.IR"
+  ],
+  "primary_category": "cs.IR",
+  "comment": null,
+  "published_date": "2026-01-16T06:38:17Z",
+  "updated_date": "2026-01-16T06:38:17Z",
+  "url": "https://arxiv.org/abs/2601.11024v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11024v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:37.510947",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.IR"
+  ]
+}

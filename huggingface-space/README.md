@@ -1,5 +1,5 @@
 ---
-title: Copernicus AI - Research-Driven Podcast Generation Platform
+title: CopernicusAI - Knowledge Engine for Scientific Discovery
 emoji: 🔬
 colorFrom: purple
 colorTo: blue
@@ -8,15 +8,15 @@ pinned: false
 license: mit
 ---
 
-# 🔬 Copernicus AI - Knowledge Engine for Scientific Discovery
+# 🔬 CopernicusAI - Knowledge Engine for Scientific Discovery
 
-A collaborative research platform that transforms cutting-edge scientific research into accessible, multi-format tools for collective knowledge exploration. These are research instruments—like microscopes for observing the collective knowledge of humanity—enabling hypothesis formation, testing, and discovery across scientific disciplines.
+Tools and Resources for Scientific Research
 
 ## Summary
 
 **CopernicusAI** is an operational research platform that synthesizes scientific literature from 250+ million papers into AI-generated podcasts, integrates with a knowledge graph of 12,000+ indexed papers, and provides collaborative tools for research discovery. The system demonstrates production-ready multi-source research synthesis with full citation tracking and evidence-based content generation requiring minimum 3 research sources per episode.
 
-The platform includes a fully operational Knowledge Engine Dashboard (deployed December 2025) with interactive knowledge graph visualization, vector search, and RAG capabilities, enabling researchers to explore, query, and synthesize scientific knowledge across disciplines.
+The platform includes a fully operational Research Tools Dashboard (deployed December 2025) with interactive knowledge graph visualization, vector search, and RAG capabilities, enabling researchers to explore, query, and synthesize scientific knowledge across disciplines.
 
 ## Prior Work: CopernicusAI Research Interface
 
@@ -33,13 +33,13 @@ This work demonstrates technical feasibility for:
 
 ### Current Implementation (December 2025)
 
-The Knowledge Engine Dashboard is **fully operational** and deployed to Google Cloud Run, providing unified access to all components with interactive knowledge graph visualization, vector search, RAG queries, and content browsing.
+The Research Tools Dashboard is **fully operational** and deployed to Google Cloud Run, providing unified access to all components with interactive knowledge graph visualization, vector search, RAG queries, and content browsing.
 
 ## 🎯 Mission & Vision
 
-Inspired by Nicolaus Copernicus who challenged accepted knowledge with evidence and rigorous analysis, **Copernicus AI** creates collaborative research tools that enable collective participation in scientific discovery. These platforms are instruments for exploring humanity's collective knowledge—tools for hypothesis formation, testing, and collaborative research, not just educational content.
+Inspired by Nicolaus Copernicus who challenged accepted knowledge with evidence and rigorous analysis, **CopernicusAI** creates collaborative research tools that enable collective participation in scientific discovery. These platforms are instruments for exploring humanity's collective knowledge—tools for hypothesis formation, testing, and collaborative research, not just educational content.
 
-Just as a microscope enables observation of the microscopic world, Copernicus AI tools enable observation and exploration of humanity's collective knowledge. Subscribers collaborate to prompt, generate, and refine research content—sharing discoveries publicly or keeping them private. As large language models (LLMs) and AI systems gain unprecedented knowledge, Copernicus AI provides the infrastructure for human-AI collaborative knowledge exploration, with evidence-based truth-seeking as our guiding principle.
+Just as a microscope enables observation of the microscopic world, CopernicusAI tools enable observation and exploration of humanity's collective knowledge. Subscribers collaborate to prompt, generate, and refine research content—sharing discoveries publicly or keeping them private. As large language models (LLMs) and AI systems gain unprecedented knowledge, CopernicusAI provides the infrastructure for human-AI collaborative knowledge exploration, with evidence-based truth-seeking as our guiding principle.
 
 ---
 
@@ -281,8 +281,9 @@ The CopernicusAI Knowledge Engine is an integrated ecosystem of research and col
 ### 🎯 Knowledge Engine Implementation (December 2025)
 
 **Fully Operational System:**
-- **Live Dashboard:** https://copernicus-frontend-phzp4ie2sq-uc.a.run.app/knowledge-engine
-- **Knowledge Graph:** Interactive visualization with 12,000+ indexed mathematics papers, relationship extraction (citations, semantic similarity, categories), and graph query capabilities
+- **Public Project Interface:** https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/copernicusai-public-reviewer.html
+- **Research Tools Dashboard:** https://copernicus-frontend-phzp4ie2sq-uc.a.run.app/knowledge-engine
+- **Knowledge Graph:** Interactive visualization with 23,246 indexed papers, relationship extraction (citations, semantic similarity, categories), and graph query capabilities
 - **Vector Search:** Semantic search using Vertex AI embeddings across papers, podcasts, and processes
 - **RAG System:** Retrieval-augmented generation with citation support, context retrieval, and multi-modal content integration
 - **Unified Web Dashboard:** Production-ready interface with knowledge map visualization, search, RAG queries, content browsing, and statistics
@@ -291,7 +292,7 @@ The CopernicusAI Knowledge Engine is an integrated ecosystem of research and col
 
 ### Core Components
 
-1. **🔬 Copernicus AI (This Platform)** - Core synthesis and distribution component
+1. **🔬 CopernicusAI (This Platform)** - Core synthesis and distribution component
    - AI-powered research synthesis and podcast generation
    - Multi-API research integration (250+ million papers)
    - Subscriber-driven content creation and sharing
@@ -378,7 +379,8 @@ The Knowledge Engine is designed to grow and evolve. Additional tools, databases
 - **RAG System:** Retrieval-augmented generation with citations operational
 - **Cross-Disciplinary Pattern Discovery:** Relationship extraction across papers, concepts, and categories
 - **AI-Powered Content Recommendations:** Integrated into unified web dashboard
-- **Live System:** https://copernicus-frontend-phzp4ie2sq-uc.a.run.app/knowledge-engine
+- **Public Project Interface:** https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/copernicusai-public-reviewer.html
+- **Research Tools Dashboard:** https://copernicus-frontend-phzp4ie2sq-uc.a.run.app/knowledge-engine
 
 ---
 
@@ -445,7 +447,7 @@ This platform represents **prior work** that demonstrates foundational research 
 **Research Infrastructure:**
 - 250+ million research papers accessible via integrated APIs
 - 8+ academic database integrations (PubMed, arXiv, NASA ADS, Zenodo, bioRxiv, CORE, Google Scholar, News API)
-- **12,000+ mathematics papers indexed** with full metadata and vector embeddings in Knowledge Engine
+- **23,246 papers indexed** with full metadata and vector embeddings in Knowledge Engine
 - Automated citation extraction and formatting
 - Quality scoring and relevance ranking systems
 - **Knowledge Graph:** Fully operational with relationship extraction and interactive visualization
@@ -463,12 +465,13 @@ This platform represents **prior work** that demonstrates foundational research 
 This platform serves as the **core synthesis and distribution component** of the CopernicusAI Knowledge Engine. The Knowledge Engine is an integrated ecosystem of research and collaboration tools that work together to assist scientists in their workflow, from research discovery through knowledge synthesis to multi-format content generation.
 
 **Current Components:**
-1. **Copernicus AI** (This platform) - Core synthesis and distribution component for AI-powered research synthesis and podcast generation
-2. **Knowledge Engine Dashboard** (✅ Implemented December 2025) - Fully operational web interface with knowledge graph visualization, vector search, RAG queries, content browsing, and statistics. Live at: https://copernicus-frontend-phzp4ie2sq-uc.a.run.app/knowledge-engine
-3. **Programming Framework** - Foundational meta-tool providing universal process analysis methodology
-4. **GLMP (Genome Logic Modeling Project)** - Specialized biological application demonstrating domain-specific use of the Programming Framework
-5. **Research Paper Metadata Database** - Core data infrastructure providing structured metadata and citation networks
-6. **Science Video Database** - Multi-modal content component enabling video-based learning and research discovery
+1. **CopernicusAI** (This platform) - Core synthesis and distribution component for AI-powered research synthesis and podcast generation
+2. **Research Tools Dashboard** (✅ Implemented December 2025) - Fully operational web interface with knowledge graph visualization, vector search, RAG queries, content browsing, and statistics. Live at: https://copernicus-frontend-phzp4ie2sq-uc.a.run.app/knowledge-engine
+3. **Public Project Interface** (✅ Implemented January 2025) - Comprehensive public-facing page providing access to all CopernicusAI Knowledge Engine components. Live at: https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/copernicusai-public-reviewer.html
+4. **Programming Framework** - Foundational meta-tool providing universal process analysis methodology
+5. **GLMP (Genome Logic Modeling Project)** - Specialized biological application demonstrating domain-specific use of the Programming Framework
+6. **Research Paper Metadata Database** - Core data infrastructure providing structured metadata and citation networks
+7. **Science Video Database** - Multi-modal content component enabling video-based learning and research discovery
 
 **Future Development:**
 The Knowledge Engine is designed to grow and evolve. Additional tools, databases, and collaboration components will be added as the project develops, expanding capabilities for AI-assisted scientific research and knowledge discovery.
@@ -497,7 +500,7 @@ The Knowledge Engine is designed to grow and evolve. Additional tools, databases
 **For Grant Proposals:**
 When citing this work as prior research, please reference:
 
-- **Platform Name:** Copernicus AI - Knowledge Engine for Scientific Discovery
+- **Platform Name:** CopernicusAI - Knowledge Engine for Scientific Discovery
 - **URL:** https://huggingface.co/spaces/garywelz/copernicusai
 - **Live Platform:** https://www.copernicusai.fyi
 - **Primary Developer:** Gary Welz
@@ -506,7 +509,7 @@ When citing this work as prior research, please reference:
 
 **Suggested Citation Format:**
 ```
-Welz, G. (2025). Copernicus AI: Knowledge Engine for Scientific Discovery. 
+Welz, G. (2025). CopernicusAI: Knowledge Engine for Scientific Discovery. 
 Hugging Face Space. https://huggingface.co/spaces/garywelz/copernicusai
 ```
 
@@ -558,6 +561,6 @@ For questions, collaboration inquiries, or grant application support:
 
 ---
 
-**© 2025 Copernicus AI. All rights reserved.**
+**© 2025 CopernicusAI. All rights reserved.**
 
 *Advancing scientific knowledge through AI-powered research communication and discovery.*

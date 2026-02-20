@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2601.07240v1",
+  "arxiv_id": "2601.07240v1",
+  "title": "Bias-Aware BP Decoding of Quantum Codes via Directional Degeneracy",
+  "authors": [
+    "Mohammad Rowshan"
+  ],
+  "author_string": "Mohammad Rowshan",
+  "journal": "arXiv:2601.07240v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We study directionally informed belief propagation (BP) decoding for quantum CSS codes, where anisotropic Tanner-graph structure and biased noise concentrate degeneracy along preferred directions. We formalize this by placing orientation weights on Tanner-graph edges, aggregating them into per-qubit directional weights, and defining a \\emph{directional degeneracy enumerator} that summarizes how degeneracy concentrates along those directions. A single bias parameter~$β$ maps these weights into site-dependent log-likelihood ratios (LLRs), yielding anisotropic priors that plug directly into standard BP$\\rightarrow$OSD decoders without changing the code construction. We derive bounds relating directional and Hamming distances, upper bound the number of degenerate error classes per syndrome as a function of distance, rate, and directional bias, and give a MacWilliams-type expression for the directional enumerator. Finite-length simulations under code-capacity noise show significant logical error-rate reductions -- often an order of magnitude at moderate physical error rates -- confirming that modest anisotropy is a simple and effective route to hardware-aware decoding gains.",
+  "categories": [
+    "cs.IT",
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": null,
+  "published_date": "2026-01-12T06:20:40Z",
+  "updated_date": "2026-01-12T06:20:40Z",
+  "url": "https://arxiv.org/abs/2601.07240v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.07240v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:28.437241",
+  "category": "physics",
+  "subcategories": [
+    "cs.IT",
+    "quant-ph"
+  ]
+}

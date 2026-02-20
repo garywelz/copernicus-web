@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_1905.02576v1",
+  "arxiv_id": "1905.02576v1",
+  "title": "Regression Equilibrium",
+  "authors": [
+    "Omer Ben-Porat",
+    "Moshe Tennenholtz"
+  ],
+  "author_string": "Omer Ben-Porat, Moshe Tennenholtz",
+  "journal": "arXiv:1905.02576v1",
+  "journal_ref": null,
+  "year": "2019",
+  "doi": null,
+  "abstract": "Prediction is a well-studied machine learning task, and prediction algorithms are core ingredients in online products and services. Despite their centrality in the competition between online companies who offer prediction-based products, the \\textit{strategic} use of prediction algorithms remains unexplored. The goal of this paper is to examine strategic use of prediction algorithms. We introduce a novel game-theoretic setting that is based on the PAC learning framework, where each player (aka a prediction algorithm aimed at competition) seeks to maximize the sum of points for which it produces an accurate prediction and the others do not. We show that algorithms aiming at generalization may wittingly mispredict some points to perform better than others on expectation. We analyze the empirical game, i.e., the game induced on a given sample, prove that it always possesses a pure Nash equilibrium, and show that every better-response learning process converges. Moreover, our learning-theoretic analysis suggests that players can, with high probability, learn an approximate pure Nash equilibrium for the whole population using a small number of samples.",
+  "categories": [
+    "cs.GT",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": "This paper was published in the twentieth ACM conference on Economics and Computation (ACM EC 19). arXiv admin note: substantial text overlap with arXiv:1806.01703",
+  "published_date": "2019-05-04T13:00:42Z",
+  "updated_date": "2019-05-04T13:00:42Z",
+  "url": "https://arxiv.org/abs/1905.02576v1",
+  "pdf_url": "https://arxiv.org/pdf/1905.02576v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:19.479462",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.GT",
+    "cs.LG"
+  ]
+}

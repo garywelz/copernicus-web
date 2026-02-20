@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supported Catalysts - Chemistry Process</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            padding: 30px;
+        }
+        
+        .header h1 {
+            margin: 0 0 10px 0;
+            font-size: 2em;
+            font-weight: 300;
+        }
+        
+        .header-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 15px;
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        
+        .meta-item {
+            background: rgba(255,255,255,0.2);
+            padding: 5px 12px;
+            border-radius: 20px;
+        }
+        
+        .nav-links {
+            padding: 15px 30px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        
+        .nav-links a {
+            color: #e74c3c;
+            text-decoration: none;
+            margin-right: 20px;
+            font-weight: 500;
+        }
+        
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .description {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            color: #2c3e50;
+        }
+        
+        .flowchart-container {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 30px 0;
+            overflow-x: auto;
+        }
+        
+        .flowchart-container h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        
+        .mermaid {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .color-legend {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 30px 0;
+        }
+        
+        .color-legend h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .color-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            background: white;
+            border-radius: 5px;
+        }
+        
+        .color-box {
+            width: 30px;
+            height: 30px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+        
+        .info-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .info-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        
+        .info-card h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .info-card ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .info-card li {
+            padding: 5px 0;
+            color: #555;
+        }
+        
+        .complexity-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin: 5px 5px 5px 0;
+        }
+        
+        .complexity-low {
+            background: #d5f4e6;
+            color: #27ae60;
+        }
+        
+        .complexity-medium {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .complexity-detailed, .complexity-high {
+            background: #fadbd8;
+            color: #e74c3c;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 50px;
+            color: #7f8c8d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>⚗️ Supported Catalysts</h1>
+            <div class="header-meta">
+                <span class="meta-item">Category: Chemistry</span>
+                <span class="meta-item">Subcategory: Theoretical Chemistry</span>
+                <span class="meta-item">Complexity: <span class="complexity-badge complexity-medium">medium</span></span>
+            </div>
+        </div>
+        
+        <div class="nav-links">
+            <a id="back-link" href="#">← Back to Chemistry Database</a>
+            <a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank">Programming Framework</a>
+        </div>
+        <script>
+            // Dynamically set back link based on current location
+            (function() {
+                const hostname = window.location.hostname;
+                const pathname = window.location.pathname;
+                const backLink = document.getElementById('back-link');
+                
+                if (hostname.includes('storage.googleapis.com')) {
+                    // GCS hosted
+                    backLink.href = 'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/chemistry-processes-database/chemistry-database-table.html';
+                } else if (hostname.includes('huggingface.co') || pathname.includes('huggingface')) {
+                    // Hugging Face hosted
+                    backLink.href = './chemistry-database-table.html';
+                } else {
+                    // Local or relative
+                    backLink.href = '../chemistry-database-table.html';
+                }
+            })();
+        </script>
+        
+        <div class="content">
+            <div class="description">
+                <h2>Description</h2>
+                <p>Supported catalyst process showing metal deposition, surface reactions, and catalytic performance optimization.</p>
+            </div>
+            
+            <div class="flowchart-container">
+                <h2>Process Flowchart</h2>
+                <div class="mermaid">
+graph TD
+A5[Metal Precursors] --> B5[Supported Catalyst Method]
+C5[Support Material] --> D5[Surface Area Analysis]
+E5[Reaction Conditions] --> F5[Temperature Control]
+B5 --> G5[Support Preparation]
+D5 --> H5[Pore Volume]
+F5 --> I5[Pressure Regulation]
+G5 --> J5[Surface Modification]
+H5 --> K5[Active Site Density]
+I5 --> L5[Reaction Pressure]
+J5 --> M5[Metal Deposition]
+K5 --> L5
+L5 --> N5[Catalyst Activation]
+M5 --> O5[Particle Formation]
+N5 --> P5[Surface Reaction]
+O5 --> Q5[Catalytic Activity]
+P5 --> R5[Product Formation]
+Q5 --> S5[Reaction Rate]
+R5 --> T5[Product Desorption]
+S5 --> U5[Turnover Frequency]
+T5 --> V5[Product Analysis]
+U5 --> W5[Catalyst Performance]
+V5 --> X5[Conversion Yield]
+W5 --> Y5[Stability Testing]
+X5 --> Z5[Supported Catalyst Efficiency]
+Y5 --> Z5
+
+    style A5 fill:#ff6b6b,color:#fff
+    style C5 fill:#ff6b6b,color:#fff
+    style E5 fill:#ff6b6b,color:#fff
+    style B5 fill:#ffd43b,color:#000
+    style D5 fill:#ffd43b,color:#000
+    style F5 fill:#ffd43b,color:#000
+    style G5 fill:#ffd43b,color:#000
+    style H5 fill:#ffd43b,color:#000
+    style I5 fill:#ffd43b,color:#000
+    style J5 fill:#ffd43b,color:#000
+    style K5 fill:#ffd43b,color:#000
+    style L5 fill:#ffd43b,color:#000
+    style M5 fill:#51cf66,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style O5 fill:#51cf66,color:#fff
+    style P5 fill:#51cf66,color:#fff
+    style Q5 fill:#51cf66,color:#fff
+    style R5 fill:#51cf66,color:#fff
+    style S5 fill:#51cf66,color:#fff
+    style T5 fill:#51cf66,color:#fff
+    style U5 fill:#51cf66,color:#fff
+    style V5 fill:#51cf66,color:#fff
+    style W5 fill:#51cf66,color:#fff
+    style X5 fill:#51cf66,color:#fff
+    style Y5 fill:#51cf66,color:#fff
+    style Z5 fill:#b197fc,color:#fff
+                </div>
+            </div>
+            
+            <div class="color-legend">
+                <h3>🎨 Color Scheme (5-Color System)</h3>
+                <div class="color-grid">
+                    <div class="color-item">
+                        <div class="color-box" style="background: #ff6b6b;"></div>
+                        <div>
+                            <strong>Red</strong><br>
+                            <small>Triggers & Inputs</small>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-box" style="background: #ffd43b;"></div>
+                        <div>
+                            <strong>Yellow</strong><br>
+                            <small>Structures & Objects</small>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-box" style="background: #51cf66;"></div>
+                        <div>
+                            <strong>Green</strong><br>
+                            <small>Processing & Operations</small>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-box" style="background: #74c0fc;"></div>
+                        <div>
+                            <strong>Blue</strong><br>
+                            <small>Intermediates & States</small>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-box" style="background: #b197fc;"></div>
+                        <div>
+                            <strong>Violet</strong><br>
+                            <small>Products & Outputs</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="info-section">
+                <div class="info-card">
+                    <h3>Process Statistics</h3>
+                    <ul>
+                        <li><strong>Nodes:</strong> 26</li>
+                        <li><strong>Edges:</strong> 25</li>
+                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>AND Gates:</strong> 0</li>
+                        <li><strong>OR Gates:</strong> 36</li>
+                        <li><strong>Total Gates:</strong> 36</li>
+                    </ul>
+                </div>
+                
+                
+                <div class="info-card">
+                    <h3>Keywords</h3>
+                    <ul>
+                        <li>catalyst</li><li>catalysts</li><li>reaction</li><li>surface</li><li>supported</li>
+                    </ul>
+                </div>
+                
+                
+                <div class="info-card">
+                    <h3>Sources & References</h3>
+                    
+                    <ul style="list-style: none; padding: 0;">
+                        
+                        <li style="margin-bottom: 12px; padding: 8px; background: #f8f9fa; border-radius: 4px;">
+                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
+                            , CopernicusAI Knowledge Engine
+                             (2025)
+                            </span>
+                            
+                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
+                        </li>
+                        
+                    </ul>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: false,
+                htmlLabels: true,
+                curve: 'linear',
+                nodeSpacing: 30,
+                rankSpacing: 30,
+                padding: 10
+            },
+            themeVariables: {
+                fontFamily: 'Arial Unicode MS, Arial, sans-serif'
+            }
+        });
+    </script>
+</body>
+</html>

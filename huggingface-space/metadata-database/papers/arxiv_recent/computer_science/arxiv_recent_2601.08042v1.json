@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2601.08042v1",
+  "arxiv_id": "2601.08042v1",
+  "title": "μDopplerTag: CNN-Based Drone Recognition via Cooperative Micro-Doppler Tagging",
+  "authors": [
+    "O. Yerushalimov",
+    "D. Vovchuk",
+    "A. Glam",
+    "P. Ginzburg"
+  ],
+  "author_string": "O. Yerushalimov, D. Vovchuk, A. Glam, P. Ginzburg",
+  "journal": "arXiv:2601.08042v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "The rapid deployment of drones poses significant challenges for airspace management, security, and surveillance. Current detection and classification technologies, including cameras, LiDAR, and conventional radar systems, often struggle to reliably identify and differentiate drones, especially those of similar models, under diverse environmental conditions and at extended ranges. Moreover, low radar cross sections and clutter further complicate accurate drone identification. To address these limitations, we propose a novel drone classification method based on artificial micro-Doppler signatures encoded by resonant electromagnetic stickers attached to drone blades. These tags generate distinctive, configuration-specific radar returns, enabling robust identification. We develop a tailored convolutional neural network (CNN) capable of processing raw radar signals, achieving high classification accuracy. Extensive experiments were conducted both in anechoic chambers with 43 tag configurations and outdoors under realistic flight trajectories and noise conditions. Dimensionality reduction techniques, including Principal Component Analysis (PCA) and Uniform Manifold Approximation and Projection (UMAP), provided insight into code separability and robustness. Our results demonstrate reliable drone classification performance at signal-to-noise ratios as low as 7 dB, indicating the feasibility of long-range detection with advanced surveillance radar systems. Preliminary range estimations indicate potential operational distances of several kilometers, suitable for critical applications such as airport airspace monitoring. The integration of electromagnetic tagging with machine learning enables scalable and efficient drone identification, paving the way for enhanced aerial traffic management and security in increasingly congested airspaces.",
+  "categories": [
+    "physics.app-ph",
+    "cs.RO"
+  ],
+  "primary_category": "cs.RO",
+  "comment": null,
+  "published_date": "2026-01-12T22:23:57Z",
+  "updated_date": "2026-01-12T22:23:57Z",
+  "url": "https://arxiv.org/abs/2601.08042v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.08042v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:19.622592",
+  "category": "computer_science",
+  "subcategories": [
+    "physics.app-ph",
+    "cs.RO"
+  ]
+}

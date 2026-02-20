@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2601.10981v1",
+  "arxiv_id": "2601.10981v1",
+  "title": "A model order reduction based adaptive parareal method for time-dependent partial differential equations",
+  "authors": [
+    "Xiaoying Dai",
+    "Miao Hu",
+    "Shuwei Shen"
+  ],
+  "author_string": "Xiaoying Dai, Miao Hu, Shuwei Shen",
+  "journal": "arXiv:2601.10981v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "In this paper, we propose a model order reduction based adaptive parareal method for time-dependent partial differential equations. By using the data obtained by the fine propagator in each iteration of the plain parareal method together with some model order reduction technique, we construct the coarse propagator adaptively in each parareal iteration, and then obtain our adaptive parareal method. We apply this new method to solve some 3D time-dependent advection-diffusion equations with the Kolmogorov flow and the ABC flow. Numerical results show the good performance of our method in simulating long-term evolution problems.",
+  "categories": [
+    "math.NA",
+    "math-ph"
+  ],
+  "primary_category": "math-ph",
+  "comment": null,
+  "published_date": "2026-01-16T04:00:16Z",
+  "updated_date": "2026-01-16T04:00:16Z",
+  "url": "https://arxiv.org/abs/2601.10981v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.10981v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:41.979197",
+  "category": "physics",
+  "subcategories": [
+    "math.NA",
+    "math-ph"
+  ]
+}

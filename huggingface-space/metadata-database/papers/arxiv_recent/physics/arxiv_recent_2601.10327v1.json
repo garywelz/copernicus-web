@@ -1,0 +1,38 @@
+{
+  "id": "arxiv_2601.10327v1",
+  "arxiv_id": "2601.10327v1",
+  "title": "Neural-network-based high-speed and high-definition full-field dynamic optical coherence tomography",
+  "authors": [
+    "Suzuyo Komeda",
+    "Nobuhisa Tateno",
+    "Yusong Liu",
+    "Rion Morishita",
+    "Xibo Wang",
+    "Ibrahim Abd El-Sadek",
+    "Atsuko Furukawa",
+    "Satoshi Matsusaka",
+    "Shuichi Makita",
+    "Yoshiaki Yasuno"
+  ],
+  "author_string": "Suzuyo Komeda, Nobuhisa Tateno, Yusong Liu, Rion Morishita, Xibo Wang et al.",
+  "journal": "arXiv:2601.10327v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "A neural-network (NN)-based method for high-speed, high-definition dynamic optical coherence tomography (DOCT) using full-field swept-source optical coherence microscopy (FF-SS-OCM) is demonstrated. FF-SS-OCM provides high-definition OCT images, but, particularly in DOCT imaging, it results in a significant enlargement of the data size and subsequently long data streaming and processing time, which prevents high-throughput imaging. We address this issue by introducing an NN-based DOCT method that generates high-definition logarithmic intensity variance (LIV) -based DOCT images from only four OCT volumes, whereas the conventional method required 32 volumes. The NN model successfully generates an LIV image that is qualitatively and quantitatively similar to the LIV image computed from 32 volumes. This approach significantly reduces data size, transfer time, and processing time for DOCT imaging by a factor of eight. Specifically, these were reduced from 42 GB to 5.3 GB, 7 min to 55 s, and 4 hours to 30 min, respectively.",
+  "categories": [
+    "physics.optics"
+  ],
+  "primary_category": "physics.optics",
+  "comment": null,
+  "published_date": "2026-01-15T12:14:30Z",
+  "updated_date": "2026-01-15T12:14:30Z",
+  "url": "https://arxiv.org/abs/2601.10327v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.10327v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:18:50.675909",
+  "category": "physics",
+  "subcategories": [
+    "physics.optics"
+  ]
+}

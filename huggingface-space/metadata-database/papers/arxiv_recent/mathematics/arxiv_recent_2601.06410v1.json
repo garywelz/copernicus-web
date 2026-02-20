@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2601.06410v1",
+  "arxiv_id": "2601.06410v1",
+  "title": "An NPDo Approach for Principal Joint Block Diagonalization",
+  "authors": [
+    "Ren-Cang Li",
+    "Ding Lu",
+    "Li Wang",
+    "Lei-Hong Zhang"
+  ],
+  "author_string": "Ren-Cang Li, Ding Lu, Li Wang, Lei-Hong Zhang",
+  "journal": "arXiv:2601.06410v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Matrix joint block-diagonalization (JBD) frequently arises from diverse applications such as independent component analysis, blind source separation, and common principal component analysis (CPCA), among others. Particularly, CPCA aims at joint diagonalization, i.e., each block size being $1$-by-$1$. This paper is concerned with {\\em principal joint block-diagonalization\\/} (\\pjbd), which aim to achieve two goals: 1)~partial joint block-diagonalization, and 2)~identification of dominant common block-diagonal parts for all involved matrices. This is in contrast to most existing methods, especially the popular ones based on Givens rotation, which focus on full joint diagonalization and quickly become impractical for matrices of even moderate size ($300$-by-$300$ or larger). An NPDo approach is proposed and it is built on a {\\em nonlinear polar decomposition with orthogonal polar factor dependency} that characterizes the solutions of the optimization problem designed to achieve \\pjbd, and it is shown the associated SCF iteration is globally convergent to a stationary point while the objective function increases monotonically during the iterative process. Numerical experiments are presented to illustrate the effectiveness of the NPDo approach and its superiority to Givens rotation-based methods.",
+  "categories": [
+    "math.NA"
+  ],
+  "primary_category": "math.NA",
+  "comment": null,
+  "published_date": "2026-01-10T03:13:16Z",
+  "updated_date": "2026-01-10T03:13:16Z",
+  "url": "https://arxiv.org/abs/2601.06410v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.06410v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:18.738354",
+  "category": "mathematics",
+  "subcategories": [
+    "math.NA"
+  ]
+}

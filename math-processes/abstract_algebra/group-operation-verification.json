@@ -1,0 +1,30 @@
+{
+  "id": "group-operation-verification",
+  "title": "Group Operation Verification",
+  "description": "Verify that a binary operation forms a group by checking closure, associativity, identity, and inverse properties",
+  "category": "mathematics",
+  "subcategory": "abstract_algebra",
+  "mermaid": "graph TD A1[Input: Set S, Binary Operation *] -->B1(Closure Set Validation) style A1 fill:#ff6b6b,color:#fff B1{Is S Closed under *?}-->|Yes|C1[Associativity Verification] B1-->|No|D1[NOT A GROUP - Closure Failed] style B1 fill:#ffd43b,color:#000 style D1 fill:#b197fc,color:#fff C1[Associativity Verification] -->E1{Is * Associative in S?} style C1 fill:#51cf66,color:#fff E1-->|Yes|F1[Identity Element Identification] E1-->|No|G1[NOT A GROUP - Associativity Failed] style E1 fill:#ffd43b,color:#000 style G1 fill:#b197fc,color:#fff F1[Identity Element Identification] -->H1{Does an Identity Element e Exist in S such that a*e = e*a = a for all a in S?} style F1 fill:#51cf66,color:#fff H1-->|Yes|I1[Inverse Element Verification] H1-->|No|J1[NOT A GROUP - Identity Failed] style H1 fill:#ffd43b,color:#000 style J1 fill:#b197fc,color:#fff I1[Inverse Element Verification] -->K1{Does every element a in S have an inverse a' in S such that a*a' = a'*a = e?} style I1 fill:#51cf66,color:#fff K1-->|Yes|L1[IS A GROUP - All Properties Satisfied] K1-->|No|M1[NOT A GROUP - Inverse Failed] style K1 fill:#ffd43b,color:#000 style L1 fill:#b197fc,color:#fff style M1 fill:#b197fc,color:#fff",
+  "entities": [
+    "/Input: Set S, Binary Operation *#/ style A1 fill:#ff6b6b,color:#fff",
+    "/Closure Set Validation/) style A1 fill:#ff6b6b,color:#fff B1{/Is S Closed under *?/}-->|Yes|C1[/Associativity Verification#/",
+    "/NOT A GROUP - Closure Failed#/",
+    "/Associativity Verification#/",
+    "/Is * Associative in S?/} style C1 fill:#51cf66,color:#fff E1-->|Yes|F1[/Identity Element Identification#/",
+    "/NOT A GROUP - Associativity Failed#/",
+    "/Identity Element Identification#/",
+    "/Does an Identity Element e Exist in S such that a*e = e*a = a for all a in S?/} style F1 fill:#51cf66,color:#fff H1-->|Yes|I1[/Inverse Element Verification#/",
+    "/NOT A GROUP - Identity Failed#/",
+    "/Inverse Element Verification#/",
+    "/Does every element a in S have an inverse a' in S such that a*a' = a'*a = e?/} style I1 fill:#51cf66,color:#fff K1-->|Yes|L1[/IS A GROUP - All Properties Satisfied#/",
+    "/NOT A GROUP - Inverse Failed#/"
+  ],
+  "metadata": {
+    "source": "programming_framework",
+    "color_scheme": "discipline_based",
+    "node_count": 9,
+    "complexity": "low"
+  },
+  "sources": [],
+  "source_text": "Source information to be added - please specify the book, paper, or reference material used by the LLM to generate this flowchart."
+}

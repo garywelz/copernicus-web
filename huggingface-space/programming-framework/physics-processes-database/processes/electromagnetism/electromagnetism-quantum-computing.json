@@ -1,0 +1,64 @@
+{
+  "id": "electromagnetism-quantum-computing",
+  "name": "Quantum Computing",
+  "category": "physics",
+  "subcategory": "electromagnetism",
+  "subcategory_name": "Electromagnetism",
+  "description": "Quantum Computing Process. This quantum mechanics process visualization demonstrates quantum computing algorithms and qubit operations. The flowchart shows algorithm inputs and qubit initialization, quantum computing methods and gate operations, quantum computing operations and measurement, intermediate results, and final quantum computing outputs.",
+  "complexity": {
+    "nodes": 26,
+    "edges": 24,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nA3[Quantum Algorithm] --> B3[Quantum Computing Method]\nC3[Qubit Initialization] --> D3[Quantum Gate Operation]\nE3[Quantum Measurement] --> F3[Quantum Computing Analysis]\nB3 --> G3[Quantum Circuit]\nD3 --> H3[Quantum Fourier Transform]\nF3 --> I3[Quantum Error Correction]\nG3 --> J3[Quantum Gates]\nH3 --> K3[Quantum Parallelism]\nI3 --> L3[Decoherence Control]\nJ3 --> M3[Quantum Superposition]\nK3 --> L3\nL3 --> N3[Quantum Interference]\nM3 --> O3[Quantum Algorithm Execution]\nN3 --> P3[Quantum State Readout]\nO3 --> Q3[Quantum Computing Process]\nP3 --> R3[Quantum Computing Validation]\nQ3 --> S3[Quantum Computing Verification]\nR3 --> T3[Quantum Computing Result]\nS3 --> U3[Quantum Computing Analysis]\nT3 --> V3[Quantum Computing Parameters]\nU3 --> W3[Quantum Computing Output]\nV3 --> X3[Quantum Computing Analysis]\nW3 --> Y3[Quantum Computing Final Result]\nX3 --> Z3[Quantum Computing Complete]\n\n    style A3 fill:#ff6b6b,color:#fff\n    style C3 fill:#ff6b6b,color:#fff\n    style E3 fill:#ff6b6b,color:#fff\n    style B3 fill:#ffd43b,color:#000\n    style D3 fill:#ffd43b,color:#000\n    style F3 fill:#ffd43b,color:#000\n    style G3 fill:#ffd43b,color:#000\n    style H3 fill:#ffd43b,color:#000\n    style I3 fill:#ffd43b,color:#000\n    style J3 fill:#ffd43b,color:#000\n    style K3 fill:#ffd43b,color:#000\n    style L3 fill:#ffd43b,color:#000\n    style M3 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style O3 fill:#51cf66,color:#fff\n    style P3 fill:#51cf66,color:#fff\n    style Q3 fill:#51cf66,color:#fff\n    style R3 fill:#51cf66,color:#fff\n    style S3 fill:#51cf66,color:#fff\n    style T3 fill:#51cf66,color:#fff\n    style U3 fill:#51cf66,color:#fff\n    style V3 fill:#51cf66,color:#fff\n    style W3 fill:#51cf66,color:#fff\n    style X3 fill:#51cf66,color:#fff\n    style Y3 fill:#51cf66,color:#fff\n    style Z3 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "notes": "Chemistry process visualization: Quantum Computing. Created using the Programming Framework methodology for process analysis and visualization."
+    }
+  ],
+  "keywords": [
+    "electromagnetism",
+    "quantum",
+    "computing"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-08",
+  "verified": false,
+  "notes": "Converted from physics batch HTML. Process number: 3."
+}

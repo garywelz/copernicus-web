@@ -1,0 +1,93 @@
+{
+  "id": "thermodynamics-gibbs-free-energy-calculation",
+  "name": "Gibbs Free Energy Calculation",
+  "category": "chemistry",
+  "subcategory": "thermodynamics",
+  "subcategory_name": "Thermodynamic Processes",
+  "description": "Gibbs Free Energy Calculation process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 5,
+    "edges": 4,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nN1[\"Reaction/Process Definition\"]\nN2[\"T,P Conditions\"]\nN3[\"ΔH, ΔS Data\"]\nN4[\"Compute ΔG = ΔH − TΔS\"]\nN5[\"Spontaneity/Equilibrium Insight\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ff6b6b,color:#fff\n    style N3 fill:#ffd43b,color:#000\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Gibbs Free Energy Calculation. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "A Generalized Solid Solution Framework for the Gibbs Free Energy Calculation",
+      "authors": "",
+      "journal": "",
+      "year": "None",
+      "pubmed": null,
+      "doi": "10.1021/acs.jctc.5c00524.s001",
+      "url": "https://doi.org/10.1021/acs.jctc.5c00524.s001"
+    },
+    {
+      "title": "Gibbs Sampler-Based Dynamics and RaoBlackwell Estimator for Alchemical Free Energy Calculation",
+      "authors": "",
+      "journal": "",
+      "year": "None",
+      "pubmed": null,
+      "doi": "10.1021/acs.jctc.7b00204.s001",
+      "url": "https://doi.org/10.1021/acs.jctc.7b00204.s001"
+    },
+    {
+      "title": "Calculation of Gibbs Free Energy of Iron Based Alloys Using Miedema's Model and Comparison with Experiment",
+      "authors": "Kadhim, Ali K.",
+      "journal": "Materials Science Forum",
+      "year": "2024",
+      "pubmed": null,
+      "doi": "10.4028/p-6ykus2",
+      "url": "https://doi.org/10.4028/p-6ykus2"
+    }
+  ],
+  "keywords": [
+    "gibbs",
+    "free",
+    "energy",
+    "calculation"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-15",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+}

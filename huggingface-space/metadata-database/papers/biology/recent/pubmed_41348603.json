@@ -1,0 +1,26 @@
+{
+  "id": "pubmed_41348603",
+  "pmid": "41348603",
+  "title": "Finding coexisting combinations of posttranslational modifications with HomMTM spectra.",
+  "authors": [
+    "Li, Kunyi",
+    "Wang, Lusheng"
+  ],
+  "author_string": "Li, Kunyi, Wang, Lusheng",
+  "journal": "Brief Bioinform",
+  "journal_full": "Briefings in bioinformatics",
+  "year": "",
+  "doi": "10.1093/bib/bbaf653",
+  "abstract": "Posttranslational modifications (PTMs) are common biochemical processes that occur after protein synthesis, playing a pivotal role in regulating the activity, localization, stability, and interaction of proteins. Phosphorylation is one of the most crucial and widely studied PTMs, which is widely implicated in cell signal pathways and regulates many cellular processes. For peptide identification with PTMs, tools based on tandem mass spectrum have been developed. However, the existing tools report only one peptide isoform for a given query spectrum, ignoring the probability that multiple isoforms coexist in one single spectrum, which is important for analyzing how different combinations of modifications coexist and compete in cells, leading to diverse functional outcomes. In this paper, we present a workflow to find coexisting combinations of PTMs, aiming at exploring the possibility of simultaneously identifying multiple isoforms from the query spectrum. An algorithm is designed for the identification of at most two isoforms coexisting in a query spectrum. Applying our method to two real phosphopeptide datasets, U2OS and UCEC, we found that coexisting phosphopeptide isoforms occur in 2.16% of the U2OS dataset and 7.19% of the UCEE dataset. To further evaluate the performance of our algorithm for isoform identification, we develop a simulator for generating simulated spectrum with the corresponding ground-truth isoforms. Experiments on the simulated datasets show that our algorithm can achieve an isoform identification accuracy of 85.4%.",
+  "keywords": [
+    "coexisting combinations of post-translational modifications",
+    "peak error correction alignment",
+    "phosphopeptide isoforms identification and quantification"
+  ],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/41348603",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T16:58:19.837310",
+  "category": "biology",
+  "subcategories": []
+}

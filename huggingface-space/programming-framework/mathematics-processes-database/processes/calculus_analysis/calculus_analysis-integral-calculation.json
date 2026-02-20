@@ -1,0 +1,65 @@
+{
+  "id": "calculus_analysis-integral-calculation",
+  "name": "Integral Calculation",
+  "category": "mathematics",
+  "subcategory": "calculus_analysis",
+  "subcategory_name": "Calculus & Analysis",
+  "description": "Integral Calculation Process. This analysis process visualization demonstrates integration techniques and area calculation. The flowchart shows function inputs and integration methods, integration methods and techniques, integral operations and calculations, intermediate results, and final integral calculation outputs.",
+  "complexity": {
+    "nodes": 26,
+    "edges": 24,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nA3[Function f of x] --> B3[Integration Method]\nC3[Integration Limits] --> D3[Integral Analysis]\nE3[Substitution Method] --> F3[Integration by Parts]\nB3 --> G3[Power Rule Integration]\nD3 --> H3[Trigonometric Integration]\nF3 --> I3[Partial Fractions]\nG3 --> J3[Exponential Integration]\nH3 --> I3\nI3 --> K3[Logarithmic Integration]\nJ3 --> L3[Definite Integral]\nK3 --> M3[Indefinite Integral]\nL3 --> N3[Area Calculation]\nM3 --> O3[Antiderivative]\nN3 --> P3[Fundamental Theorem]\nO3 --> Q3[Integral Calculation Process]\nP3 --> R3[Integral Validation]\nQ3 --> S3[Integral Verification]\nR3 --> T3[Integral Calculation Result]\nS3 --> U3[Integral Calculation Validation]\nT3 --> V3[Integral Calculation Parameters]\nU3 --> W3[Integral Calculation Output]\nV3 --> X3[Integral Calculation Analysis]\nW3 --> Y3[Integral Calculation Final Result]\nX3 --> Z3[Integral Calculation Analysis Complete]\n\n    style A3 fill:#ff6b6b,color:#fff\n    style C3 fill:#ff6b6b,color:#fff\n    style E3 fill:#ff6b6b,color:#fff\n    style B3 fill:#ffd43b,color:#000\n    style D3 fill:#ffd43b,color:#000\n    style F3 fill:#ffd43b,color:#000\n    style G3 fill:#ffd43b,color:#000\n    style H3 fill:#ffd43b,color:#000\n    style I3 fill:#ffd43b,color:#000\n    style J3 fill:#ffd43b,color:#000\n    style K3 fill:#ffd43b,color:#000\n    style L3 fill:#ffd43b,color:#000\n    style M3 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style O3 fill:#51cf66,color:#fff\n    style P3 fill:#51cf66,color:#fff\n    style Q3 fill:#51cf66,color:#fff\n    style R3 fill:#51cf66,color:#fff\n    style S3 fill:#51cf66,color:#fff\n    style T3 fill:#51cf66,color:#fff\n    style U3 fill:#51cf66,color:#fff\n    style V3 fill:#51cf66,color:#fff\n    style W3 fill:#51cf66,color:#fff\n    style X3 fill:#51cf66,color:#fff\n    style Y3 fill:#51cf66,color:#fff\n    style Z3 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "notes": "Chemistry process visualization: Integral Calculation. Created using the Programming Framework methodology for process analysis and visualization."
+    }
+  ],
+  "keywords": [
+    "calculus",
+    "calculation",
+    "integral",
+    "analysis"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-08",
+  "verified": false,
+  "notes": "Converted from mathematics batch HTML. Process number: 3."
+}

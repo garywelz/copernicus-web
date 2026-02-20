@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2601.07586v1",
+  "arxiv_id": "2601.07586v1",
+  "title": "A higher order polytopal method for contact mechanics with Tresca friction",
+  "authors": [
+    "Jerome Droniou",
+    "Raman Kumar",
+    "Roland Masson",
+    "Ritesh Singla"
+  ],
+  "author_string": "Jerome Droniou, Raman Kumar, Roland Masson, Ritesh Singla",
+  "journal": "arXiv:2601.07586v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "In this work, we design and analyze a Discrete de Rham (DDR) scheme for a contact mechanics problem involving fractures along which a model of Tresca friction is considered. Our approach is based on a mixed formulation involving a displacement field and a Lagrange multiplier, enforcing the contact conditions, representing tractions at fractures. The approximation space for the displacement is made of vectors values attached to each vertex, edge, face, and element, while the Lagrange multiplier space is approximated by piecewise constant vectors on each fracture face. The displacement degrees of freedom allow reconstruct piecewise quadratic approximations of this field. We prove a discrete Korn inequality that account for the fractures, as well as an inf-sup condition (in a non-standard $H^{-1/2}$-norm) between the discrete Lagrange multiplier space and the discrete displacement space. We provide an in-depth error analysis of the scheme and show that, contrary to usual low-order nodal-based schemes, our method is robust in the quasi-incompressible limit for the primal variable~(displacement). An extensive set of numerical experiments confirms the theoretical analysis and demonstrate the practical accuracy and robustness of the scheme.",
+  "categories": [
+    "math.NA"
+  ],
+  "primary_category": "math.NA",
+  "comment": null,
+  "published_date": "2026-01-12T14:35:54Z",
+  "updated_date": "2026-01-12T14:35:54Z",
+  "url": "https://arxiv.org/abs/2601.07586v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.07586v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:11.149040",
+  "category": "mathematics",
+  "subcategories": [
+    "math.NA"
+  ]
+}

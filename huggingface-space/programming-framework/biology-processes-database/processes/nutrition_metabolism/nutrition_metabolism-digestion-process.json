@@ -1,0 +1,93 @@
+{
+  "id": "nutrition_metabolism-digestion-process",
+  "name": "Digestion Process",
+  "category": "biology",
+  "subcategory": "nutrition_metabolism",
+  "subcategory_name": "Nutrition & Metabolism",
+  "organism": "Animals",
+  "description": "Digestion Process in Animals. This process represents a higher-level biological mechanism distinct from molecular/biochemical processes covered in GLMP.",
+  "complexity": {
+    "nodes": 10,
+    "edges": 11,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "low",
+    "detailLevel": "low"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\n    A29[Food Ingestion] --> B29[Mechanical Breakdown]\n    B29 --> C29[Enzyme Secretion]\n    C29 --> D29[Chemical Breakdown]\n    D29 --> E29[Carbohydrate Digestion]\n    D29 --> F29[Protein Digestion]\n    D29 --> G29[Lipid Digestion]\n    E29 --> H29[Absorption]\n    F29 --> H29\n    G29 --> H29\n    H29 --> I29[Transport to Cells]\n    I29 --> J29[Metabolic Utilization]\n    \n    style A29 fill:#ff6b6b,color:#fff\n    style B29 fill:#ffd43b,color:#000\n    style C29 fill:#51cf66,color:#fff\n    style D29 fill:#51cf66,color:#fff\n    style E29 fill:#74c0fc,color:#fff\n    style F29 fill:#74c0fc,color:#fff\n    style G29 fill:#74c0fc,color:#fff\n    style H29 fill:#51cf66,color:#fff\n    style I29 fill:#74c0fc,color:#fff\n    style J29 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "notes": "Higher-level biological process visualization: Digestion Process. Created using the Programming Framework methodology for organismal and ecological process analysis."
+    },
+    {
+      "title": "The digestive system: An evolutionary perspective.",
+      "authors": "Karasov, WH; Suarez, RK.",
+      "journal": "Annu Rev Physiol",
+      "year": "2012",
+      "pubmed": "22224806",
+      "doi": "10.1146/annurev-physiol-020911-153303",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/22224806"
+    },
+    {
+      "title": "Regulation of nutrient absorption.",
+      "authors": "Adibi, SA.",
+      "journal": "Annu Rev Nutr",
+      "year": "1995",
+      "pubmed": "7578201",
+      "doi": "10.1146/annurev.nu.15.070195.000301",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/7578201"
+    },
+    {
+      "title": "Gastrointestinal hormones: their regulation and roles.",
+      "authors": "Gardner, JD.",
+      "journal": "Annu Rev Physiol",
+      "year": "1986",
+      "pubmed": "3006616",
+      "doi": "10.1146/annurev.ph.48.030186.002231",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/3006616"
+    }
+  ],
+  "keywords": [
+    "animals",
+    "process",
+    "nutrition",
+    "digestion",
+    "metabolism"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-08",
+  "verified": false,
+  "notes": "Higher-level biological process. GLMP covers biochemical/molecular processes; this database covers organismal/ecological processes."
+}

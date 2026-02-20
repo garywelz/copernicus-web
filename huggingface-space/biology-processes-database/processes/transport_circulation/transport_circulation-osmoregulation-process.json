@@ -1,0 +1,91 @@
+{
+  "id": "transport_circulation-osmoregulation-process",
+  "name": "Osmoregulation Process",
+  "category": "biology",
+  "subcategory": "transport_circulation",
+  "subcategory_name": "Transport & Circulation",
+  "description": "Osmoregulation Process process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 8,
+    "edges": 6,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\n    A46[Water Intake] --> B46[Ion Balance Detection]\n    C46[Salt Intake] --> B46\n    B46 --> D46{Kidney Function}\n    D46 --> E46[Filtration]\n    E46 --> F46[Reabsorption]\n    F46 --> G46[Secretion]\n    G46 --> H46[Urine Formation]\n    H46 --> I46[Water Balance]\n    \n    style A46 fill:#ff6b6b,color:#fff\n    style C46 fill:#ff6b6b,color:#fff\n    style B46 fill:#ffd43b,color:#000\n    style D46 fill:#74c0fc,color:#fff\n    style E46 fill:#51cf66,color:#fff\n    style F46 fill:#51cf66,color:#fff\n    style G46 fill:#51cf66,color:#fff\n    style H46 fill:#74c0fc,color:#fff\n    style I46 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Osmoregulation Process. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "Intestinal Transport Processes in Marine Fish Osmoregulation",
+      "authors": "Grosell, Martin",
+      "journal": "Fish Osmoregulation",
+      "year": "2019",
+      "pubmed": null,
+      "doi": "10.1201/9780429063909-12",
+      "url": "https://doi.org/10.1201/9780429063909-12"
+    },
+    {
+      "title": "Diet and Osmoregulation",
+      "authors": "Ferreira, Francesca W.; Baldisserotto, Bernardo",
+      "journal": "Fish Osmoregulation",
+      "year": "2019",
+      "pubmed": null,
+      "doi": "10.1201/9780429063909-3",
+      "url": "https://doi.org/10.1201/9780429063909-3"
+    },
+    {
+      "title": "Arginine Vasotocin and Isotocin: Towards their Role in Fish Osmoregulation",
+      "authors": "Kulczykowska, Ewa",
+      "journal": "Fish Osmoregulation",
+      "year": "2019",
+      "pubmed": null,
+      "doi": "10.1201/9780429063909-6",
+      "url": "https://doi.org/10.1201/9780429063909-6"
+    }
+  ],
+  "keywords": [
+    "osmoregulation",
+    "process"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+}

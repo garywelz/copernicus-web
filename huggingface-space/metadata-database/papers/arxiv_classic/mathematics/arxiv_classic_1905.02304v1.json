@@ -1,0 +1,37 @@
+{
+  "id": "arxiv_1905.02304v1",
+  "arxiv_id": "1905.02304v1",
+  "title": "CrossTrainer: Practical Domain Adaptation with Loss Reweighting",
+  "authors": [
+    "Justin Chen",
+    "Edward Gan",
+    "Kexin Rong",
+    "Sahaana Suri",
+    "Peter Bailis"
+  ],
+  "author_string": "Justin Chen, Edward Gan, Kexin Rong, Sahaana Suri, Peter Bailis",
+  "journal": "arXiv:1905.02304v1",
+  "journal_ref": null,
+  "year": "2019",
+  "doi": "10.1145/3329486.3329491",
+  "abstract": "Domain adaptation provides a powerful set of model training techniques given domain-specific training data and supplemental data with unknown relevance. The techniques are useful when users need to develop models with data from varying sources, of varying quality, or from different time ranges. We build CrossTrainer, a system for practical domain adaptation. CrossTrainer utilizes loss reweighting, which provides consistently high model accuracy across a variety of datasets in our empirical analysis. However, loss reweighting is sensitive to the choice of a weight hyperparameter that is expensive to tune. We develop optimizations leveraging unique properties of loss reweighting that allow CrossTrainer to output accurate models while improving training time compared to naive hyperparameter search.",
+  "categories": [
+    "cs.LG",
+    "cs.DB",
+    "stat.ML"
+  ],
+  "primary_category": "stat.ML",
+  "comment": null,
+  "published_date": "2019-05-07T00:48:48Z",
+  "updated_date": "2019-05-07T00:48:48Z",
+  "url": "https://arxiv.org/abs/1905.02304v1",
+  "pdf_url": "https://arxiv.org/pdf/1905.02304v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:19.479655",
+  "category": "mathematics",
+  "subcategories": [
+    "cs.LG",
+    "cs.DB",
+    "stat.ML"
+  ]
+}

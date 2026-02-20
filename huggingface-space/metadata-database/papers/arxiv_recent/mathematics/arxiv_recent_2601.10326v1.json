@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2601.10326v1",
+  "arxiv_id": "2601.10326v1",
+  "title": "On gradient stability in nonlinear PDE models and inference in interacting particle systems",
+  "authors": [
+    "Aurélien Castre",
+    "Richard Nickl"
+  ],
+  "author_string": "Aurélien Castre, Richard Nickl",
+  "journal": "arXiv:2601.10326v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We consider general parameter to solution maps $θ\\mapsto \\mathcal G(θ)$ of non-linear partial differential equations and describe an approach based on a Banach space version of the implicit function theorem to verify the gradient stability condition of Nickl&Wang (JEMS 2024) for the underlying non-linear inverse problem, providing also injectivity estimates and corresponding statistical identifiability results. We illustrate our methods in two examples involving a non-linear reaction diffusion system as well as a McKean--Vlasov interacting particle model, both with periodic boundary conditions. We apply our results to prove the polynomial time convergence of a Langevin-type algorithm sampling the posterior measure of the interaction potential arising from a discrete aggregate measurement of the interacting particle system.",
+  "categories": [
+    "math.ST",
+    "math.AP",
+    "math.NA",
+    "math.PR"
+  ],
+  "primary_category": "math.PR",
+  "comment": "36 pages",
+  "published_date": "2026-01-15T12:10:20Z",
+  "updated_date": "2026-01-15T12:10:20Z",
+  "url": "https://arxiv.org/abs/2601.10326v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.10326v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:45.575785",
+  "category": "mathematics",
+  "subcategories": [
+    "math.ST",
+    "math.AP",
+    "math.NA"
+  ]
+}

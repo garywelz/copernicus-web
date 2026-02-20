@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2601.11293v1",
+  "arxiv_id": "2601.11293v1",
+  "title": "One LLM to Train Them All: Multi-Task Learning Framework for Fact-Checking",
+  "authors": [
+    "Malin Astrid Larsson",
+    "Harald Fosen Grunnaleite",
+    "Vinay Setty"
+  ],
+  "author_string": "Malin Astrid Larsson, Harald Fosen Grunnaleite, Vinay Setty",
+  "journal": "arXiv:2601.11293v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Large language models (LLMs) are reshaping automated fact-checking (AFC) by enabling unified, end-to-end verification pipelines rather than isolated components. While large proprietary models achieve strong performance, their closed weights, complexity, and high costs limit sustainability. Fine-tuning smaller open weight models for individual AFC tasks can help but requires multiple specialized models resulting in high costs. We propose \\textbf{multi-task learning (MTL)} as a more efficient alternative that fine-tunes a single model to perform claim detection, evidence ranking, and stance detection jointly. Using small decoder-only LLMs (e.g., Qwen3-4b), we explore three MTL strategies: classification heads, causal language modeling heads, and instruction-tuning, and evaluate them across model sizes, task orders, and standard non-LLM baselines. While multitask models do not universally surpass single-task baselines, they yield substantial improvements, achieving up to \\textbf{44\\%}, \\textbf{54\\%}, and \\textbf{31\\%} relative gains for claim detection, evidence re-ranking, and stance detection, respectively, over zero-/few-shot settings. Finally, we also provide practical, empirically grounded guidelines to help practitioners apply MTL with LLMs for automated fact-checking.",
+  "categories": [
+    "cs.CL"
+  ],
+  "primary_category": "cs.CL",
+  "comment": "Accepted version in ECIR 2026",
+  "published_date": "2026-01-16T13:44:25Z",
+  "updated_date": "2026-01-16T13:44:25Z",
+  "url": "https://arxiv.org/abs/2601.11293v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11293v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:33.858581",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CL"
+  ]
+}

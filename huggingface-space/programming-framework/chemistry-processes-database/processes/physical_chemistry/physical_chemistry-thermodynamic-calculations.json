@@ -1,0 +1,63 @@
+{
+  "id": "physical_chemistry-thermodynamic-calculations",
+  "name": "Thermodynamic Calculations",
+  "category": "chemistry",
+  "subcategory": "physical_chemistry",
+  "description": "Thermodynamic Calculations Process. This physical chemistry process visualization demonstrates thermodynamic state functions and equilibrium calculations. The flowchart shows system inputs and energy conservation, thermodynamic methods and laws, thermodynamic operations and calculations, intermediate results, and final thermodynamic analysis outputs.",
+  "complexity": {
+    "nodes": 26,
+    "edges": 24,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 27,
+      "andGates": 0,
+      "total": 27
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nA1[System Definition] --> B1[State Variables Analysis]\nC1[Energy Conservation] --> D1[First Law Application]\nE1[Entropy Analysis] --> F1[Second Law Application]\nB1 --> G1[Temperature Pressure Volume]\nD1 --> H1[Internal Energy Change]\nF1 --> I1[Entropy Change Calculation]\nG1 --> J1[State Function Determination]\nH1 --> K1[Heat Work Calculation]\nI1 --> L1[Reversible Process Analysis]\nJ1 --> M1[Enthalpy Calculation]\nK1 --> L1\nL1 --> N1[Gibbs Free Energy]\nM1 --> O1[Helmholtz Free Energy]\nN1 --> P1[Chemical Potential]\nO1 --> Q1[Thermodynamic Equilibrium]\nP1 --> R1[Phase Equilibrium]\nQ1 --> S1[Reaction Equilibrium]\nR1 --> T1[Thermodynamic Result]\nS1 --> U1[Equilibrium Constant]\nT1 --> V1[Thermodynamic Validation]\nU1 --> W1[Thermodynamic Output]\nV1 --> X1[Thermodynamic Analysis]\nW1 --> Y1[Thermodynamic Final Result]\nX1 --> Z1[Thermodynamic Analysis Complete]\n\n    style A1 fill:#ff6b6b,color:#fff\n    style C1 fill:#ff6b6b,color:#fff\n    style E1 fill:#ff6b6b,color:#fff\n    style B1 fill:#ffd43b,color:#000\n    style D1 fill:#ffd43b,color:#000\n    style F1 fill:#ffd43b,color:#000\n    style G1 fill:#ffd43b,color:#000\n    style H1 fill:#ffd43b,color:#000\n    style I1 fill:#ffd43b,color:#000\n    style J1 fill:#ffd43b,color:#000\n    style K1 fill:#ffd43b,color:#000\n    style L1 fill:#ffd43b,color:#000\n    style M1 fill:#51cf66,color:#fff\n    style N1 fill:#51cf66,color:#fff\n    style O1 fill:#51cf66,color:#fff\n    style P1 fill:#51cf66,color:#fff\n    style Q1 fill:#51cf66,color:#fff\n    style R1 fill:#51cf66,color:#fff\n    style S1 fill:#51cf66,color:#fff\n    style T1 fill:#51cf66,color:#fff\n    style U1 fill:#51cf66,color:#fff\n    style V1 fill:#51cf66,color:#fff\n    style W1 fill:#51cf66,color:#fff\n    style X1 fill:#51cf66,color:#fff\n    style Y1 fill:#51cf66,color:#fff\n    style Z1 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "notes": "Chemistry process visualization: Thermodynamic Calculations. Created using the Programming Framework methodology for process analysis and visualization."
+    }
+  ],
+  "keywords": [
+    "physical",
+    "calculations",
+    "thermodynamic"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-08",
+  "verified": false,
+  "notes": "Converted from chemistry batch HTML. Process number: 1."
+}

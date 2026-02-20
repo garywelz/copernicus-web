@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2602.04470v1",
+  "arxiv_id": "2602.04470v1",
+  "title": "Unified MPI Parallelization of Wave Function Methods: iCIPT2 as a Showcase",
+  "authors": [
+    "Qingpeng Wang",
+    "Ning Zhang",
+    "Wenjian Liu"
+  ],
+  "author_string": "Qingpeng Wang, Ning Zhang, Wenjian Liu",
+  "journal": "arXiv:2602.04470v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "The integration of quantum chemical methods with high-performance computing is indispensable for handling large systems with modest accuracy or even small systems but with high accuracy. Continuing with the unified implementation of non-relativistic and relativistic wave functions methods within the MetaWave platform (J. Phys. Chem. A. 2025, 129, 5170), we present here a unified MPI parallelization of the methods by abstracting ever computational step of a method as a dynamically-scheduled loop via ghost process, followed by a global reduction of local results from each node. The algorithmic abstraction enables the use of a single MPI template in various steps of different methods. Taking iCIPT2 [J. Chem. Theory Comput. 2021, 17, 949] as a showcase, the parallel efficiencies achieve 94% and 89% on 16 nodes (1024 cores) for the perturbation and whole calculations, respectively. Further combined with an improved algorithm for the matrix-vector product in the matrix diagonalization and an orbital-configuration-based semi-stochastic estimator for the perturbation correction, this renders large active space calculations possible, so as to obtain benchmarks for the automerization of cyclobutadiene, ground state energy of benzene and potential energy profile of ozone. It is also shown that the error of iCIPT2 follows a power law with respect to the number of configuration state functions.",
+  "categories": [
+    "physics.chem-ph"
+  ],
+  "primary_category": "physics.chem-ph",
+  "comment": null,
+  "published_date": "2026-02-04T11:57:07Z",
+  "updated_date": "2026-02-04T11:57:07Z",
+  "url": "https://arxiv.org/abs/2602.04470v1",
+  "pdf_url": "https://arxiv.org/pdf/2602.04470v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-02-05T07:00:33.002735",
+  "category": "physics",
+  "subcategories": [
+    "physics.chem-ph"
+  ]
+}

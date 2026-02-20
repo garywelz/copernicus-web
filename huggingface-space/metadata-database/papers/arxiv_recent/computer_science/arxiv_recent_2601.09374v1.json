@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2601.09374v1",
+  "arxiv_id": "2601.09374v1",
+  "title": "Network-Based Quantum Computing: an efficient design framework for many-small-node distributed fault-tolerant quantum computing",
+  "authors": [
+    "Soshun Naito",
+    "Yasunari Suzuki",
+    "Yuuki Tokunaga"
+  ],
+  "author_string": "Soshun Naito, Yasunari Suzuki, Yuuki Tokunaga",
+  "journal": "arXiv:2601.09374v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "In fault-tolerant quantum computing, a large number of physical qubits are required to construct a single logical qubit, and a single quantum node may be able to hold only a small number of logical qubits. In such a case, the idea of distributed fault-tolerant quantum computing (DFTQC) is important to demonstrate large-scale quantum computation using small-scale nodes. However, the design of distributed systems on small-scale nodes, where each node can store only one or a few logical qubits for computation, has not been explored well yet. In this paper, we propose network-based quantum computation (NBQC) to efficiently realize distributed fault-tolerant quantum computation using many small-scale nodes. A key idea of NBQC is to let computational data continuously move throughout the network while maintaining the connectivity to other nodes. We numerically show that, for practical benchmark tasks, our method achieves shorter execution times than circuit-based strategies and more node-efficient constructions than measurement-based quantum computing. Also, if we are allowed to specialize the network to the structure of quantum programs, such as peak access frequencies, the number of nodes can be significantly reduced. Thus, our methods provide a foundation in designing DFTQC architecture exploiting the redundancy of many small fault-tolerant nodes.",
+  "categories": [
+    "quant-ph",
+    "cs.DC"
+  ],
+  "primary_category": "cs.DC",
+  "comment": "29 pages, 17 figures",
+  "published_date": "2026-01-14T10:58:31Z",
+  "updated_date": "2026-01-14T10:58:31Z",
+  "url": "https://arxiv.org/abs/2601.09374v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.09374v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:02.854520",
+  "category": "computer_science",
+  "subcategories": [
+    "quant-ph",
+    "cs.DC"
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "id": "algorithms_data_structures-sorting-algorithms",
+  "name": "Sorting Algorithms",
+  "category": "computer_science",
+  "subcategory": "algorithms_data_structures",
+  "subcategory_name": "Algorithms & Data Structures",
+  "description": "Sorting Algorithms Process. This computer science process visualization demonstrates comparison-based sorting algorithms. The flowchart shows input array and complexity analysis, algorithm methods and selection, sorting operations and comparisons, intermediate results, and final sorted array outputs.",
+  "complexity": {
+    "nodes": 26,
+    "edges": 24,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nA1[Input Array] --> B1[Algorithm Selection]\nC1[Array Analysis] --> D1[Complexity Analysis]\nE1[Memory Constraints] --> F1[Optimization Strategy]\nB1 --> G1[Comparison Based Sorting]\nD1 --> H1[Time Complexity O n squared]\nF1 --> I1[Space Complexity Analysis]\nG1 --> J1[Bubble Sort Algorithm]\nH1 --> K1[Quick Sort Algorithm]\nI1 --> L1[Merge Sort Algorithm]\nJ1 --> M1[Adjacent Element Comparison]\nK1 --> L1\nL1 --> N1[Divide and Conquer]\nM1 --> O1[Element Swapping]\nN1 --> P1[Pivot Selection]\nO1 --> Q1[Sorting Process]\nP1 --> R1[Partitioning Strategy]\nQ1 --> S1[Recursive Sorting]\nR1 --> T1[Sorting Algorithm Result]\nS1 --> U1[Algorithm Validation]\nT1 --> V1[Sorted Array Output]\nU1 --> W1[Sorting Algorithm Output]\nV1 --> X1[Sorting Algorithm Analysis]\nW1 --> Y1[Sorting Algorithm Final Result]\nX1 --> Z1[Sorting Algorithm Analysis Complete]\n\n    style A1 fill:#ff6b6b,color:#fff\n    style C1 fill:#ff6b6b,color:#fff\n    style E1 fill:#ff6b6b,color:#fff\n    style B1 fill:#ffd43b,color:#000\n    style D1 fill:#ffd43b,color:#000\n    style F1 fill:#ffd43b,color:#000\n    style G1 fill:#ffd43b,color:#000\n    style H1 fill:#ffd43b,color:#000\n    style I1 fill:#ffd43b,color:#000\n    style J1 fill:#ffd43b,color:#000\n    style K1 fill:#ffd43b,color:#000\n    style L1 fill:#ffd43b,color:#000\n    style M1 fill:#51cf66,color:#fff\n    style N1 fill:#51cf66,color:#fff\n    style O1 fill:#51cf66,color:#fff\n    style P1 fill:#51cf66,color:#fff\n    style Q1 fill:#51cf66,color:#fff\n    style R1 fill:#51cf66,color:#fff\n    style S1 fill:#51cf66,color:#fff\n    style T1 fill:#51cf66,color:#fff\n    style U1 fill:#51cf66,color:#fff\n    style V1 fill:#51cf66,color:#fff\n    style W1 fill:#51cf66,color:#fff\n    style X1 fill:#51cf66,color:#fff\n    style Y1 fill:#51cf66,color:#fff\n    style Z1 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "notes": "Chemistry process visualization: Sorting Algorithms. Created using the Programming Framework methodology for process analysis and visualization."
+    }
+  ],
+  "keywords": [
+    "algorithms",
+    "structures",
+    "sorting",
+    "data"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-08",
+  "verified": false,
+  "notes": "Converted from computer science batch HTML. Process number: 1."
+}

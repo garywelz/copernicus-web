@@ -1,0 +1,89 @@
+{
+  "category": "chemistry",
+  "colorScheme": {
+    "blue": {
+      "category": "Intermediates & States",
+      "hex": "#74c0fc"
+    },
+    "green": {
+      "category": "Processing & Operations",
+      "hex": "#51cf66"
+    },
+    "red": {
+      "category": "Triggers & Inputs",
+      "hex": "#ff6b6b"
+    },
+    "violet": {
+      "category": "Products & Outputs",
+      "hex": "#b197fc"
+    },
+    "yellow": {
+      "category": "Structures & Objects",
+      "hex": "#ffd43b"
+    }
+  },
+  "complexity": {
+    "conditionals": 0,
+    "detailLevel": "medium",
+    "edges": 25,
+    "level": "medium",
+    "logicGates": {
+      "andGates": 0,
+      "orGates": 29,
+      "total": 29
+    },
+    "nodes": 26
+  },
+  "created": "2026-01-08",
+  "description": "Concentration effects process showing collision theory, rate laws, and concentration optimization.",
+  "id": "medicinal_chemistry-concentration-effects",
+  "keywords": [
+    "effects",
+    "concentration"
+  ],
+  "lastUpdated": "2026-01-08",
+  "mermaid": "graph TD\nA3[Reactant Concentrations] --> B3[Concentration Effect Method]\nC3[Reaction Vessel] --> D3[Concentration Control]\nE3[Rate Measurement] --> F3[Kinetic Analysis]\nB3 --> G3[Concentration Setup]\nD3 --> H3[Concentration Monitoring]\nF3 --> I3[Rate Determination]\nG3 --> J3[Initial Concentrations]\nH3 --> K3[Concentration Changes]\nI3 --> L3[Rate Law Analysis]\nJ3 --> M3[Concentration Dependence]\nK3 --> L3\nL3 --> N3[Reaction Order]\nM3 --> O3[Molecular Collisions]\nN3 --> P3[Concentration Kinetics]\nO3 --> Q3[Collision Theory]\nP3 --> R3[Rate Changes]\nQ3 --> S3[Collision Analysis]\nR3 --> T3[Concentration Optimization]\nS3 --> U3[Rate Law Parameters]\nT3 --> V3[Optimal Concentrations]\nU3 --> W3[Concentration Efficiency]\nV3 --> X3[Concentration Characterization]\nW3 --> Y3[Process Optimization]\nX3 --> Z3[Final Concentration Conditions]\nY3 --> Z3\n\n    style A3 fill:#ff6b6b,color:#fff\n    style C3 fill:#ff6b6b,color:#fff\n    style E3 fill:#ff6b6b,color:#fff\n    style B3 fill:#ffd43b,color:#000\n    style D3 fill:#ffd43b,color:#000\n    style F3 fill:#ffd43b,color:#000\n    style G3 fill:#ffd43b,color:#000\n    style H3 fill:#ffd43b,color:#000\n    style I3 fill:#ffd43b,color:#000\n    style J3 fill:#ffd43b,color:#000\n    style K3 fill:#ffd43b,color:#000\n    style L3 fill:#ffd43b,color:#000\n    style M3 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style O3 fill:#51cf66,color:#fff\n    style P3 fill:#51cf66,color:#fff\n    style Q3 fill:#51cf66,color:#fff\n    style R3 fill:#51cf66,color:#fff\n    style S3 fill:#51cf66,color:#fff\n    style T3 fill:#51cf66,color:#fff\n    style U3 fill:#51cf66,color:#fff\n    style V3 fill:#51cf66,color:#fff\n    style W3 fill:#51cf66,color:#fff\n    style X3 fill:#51cf66,color:#fff\n    style Y3 fill:#51cf66,color:#fff\n    style Z3 fill:#b197fc,color:#fff",
+  "name": "Concentration Effects",
+  "notes": "Converted from chemistry batch HTML. Process number: 3.",
+  "relatedProcesses": [],
+  "sources": [
+    {
+      "authors": "Welz, G.",
+      "doi": null,
+      "journal": "CopernicusAI Knowledge Engine",
+      "notes": "Chemistry process visualization: Concentration Effects. Created using the Programming Framework methodology for process analysis and visualization.",
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "year": "2025"
+    },
+    {
+      "authors": "Truhlar, D. G.; Garrett, B. C.",
+      "doi": "10.1021/cr9800609",
+      "journal": "Chem. Rev.",
+      "pubmed": null,
+      "title": "Computational Approaches to Chemical Reaction Rates",
+      "url": "https://doi.org/10.1021/cr9800609",
+      "year": "2000"
+    },
+    {
+      "authors": "Eyring, H.",
+      "doi": "10.1021/cr60056a006",
+      "journal": "Chem. Rev.",
+      "pubmed": null,
+      "title": "The Transition State Theory of Chemical Reactions",
+      "url": "https://doi.org/10.1021/cr60056a006",
+      "year": "1935"
+    },
+    {
+      "authors": "Welch, C. J.; Chirik, P. J.; Toste, F. D.",
+      "doi": "10.1002/anie.201104111",
+      "journal": "Angew. Chem. Int. Ed.",
+      "pubmed": null,
+      "title": "High-Throughput Experimentation in Catalysis: From Discovery to Optimization",
+      "url": "https://doi.org/10.1002/anie.201104111",
+      "year": "2011"
+    }
+  ],
+  "subcategory": "medicinal_chemistry",
+  "verified": false
+}

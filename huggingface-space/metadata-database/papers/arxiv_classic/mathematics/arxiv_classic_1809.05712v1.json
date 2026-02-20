@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_1809.05712v1",
+  "arxiv_id": "1809.05712v1",
+  "title": "Dirichlet problem for supercritical nonlocal operators",
+  "authors": [
+    "Xicheng Zhang",
+    "Guohuan Zhao"
+  ],
+  "author_string": "Xicheng Zhang, Guohuan Zhao",
+  "journal": "arXiv:1809.05712v1",
+  "journal_ref": null,
+  "year": "2018",
+  "doi": null,
+  "abstract": "Let $D$ be a bounded $C^2$-domain. Consider the following Dirichlet initial-boundary problem of nonlocal operators with a drift: $$ \\partial_t u={\\mathscr L}^{(α)}_κu+b\\cdot \\nabla u+f\\ \\mathrm{in}\\ \\mathbb R_+\\times D,\\ \\ u|_{\\mathbb R_+\\times D^c}=0,\\ u(0,\\cdot)|_{D}=\\varphi, $$ where $α\\in(0,2)$ and $\\mathscr L^{(α)}_κ$ is an $α$-stable-like nonlocal operator with kernel function $κ(x,z)$ bounded from above and below by positive constants, and $b:\\mathbb R^d\\to\\mathbb R^d$ is a bounded $C^β$-function with $α+β>1$, $f: \\mathbb R_+\\times D\\to\\mathbb R$ is a $C^γ$-function in $D$ uniformly in $t$ with $γ\\in((1-α)\\vee 0,β]$, $\\varphi\\in C^{α+γ}(D)$. Under some Hölder assumptions on $κ$, we show the existence of a unique classical solution $u\\in L^\\infty_{loc}(\\mathbb R_+; C^{α+γ}_{loc}(D))\\times C(\\mathbb R_+; C_b(D))$ to the above problem. Moreover, we establish the following probabilistic representation for $u$ $$ u(t,x)=\\mathbb E_x \\Big(\\varphi(X_{t}){\\bf 1}_{τ_{D}>t}\\Big)+\\mathbb E_x\\left(\\int^{t\\wedgeτ_{D}}_0f(t-s,X_s){\\rm d} s\\right),\\ t\\geq 0,\\ x\\in D, $$ where $((X_t)_{t\\geq 0},\\mathbb P_x; x\\in\\mathbb R^d)$ is the Markov process associated with the operator $\\mathscr L^{(α)}_κ+b\\cdot \\nabla$, and $τ_D$ is the first exit time of $X$ from $D$. In the sub and critical case $α\\in[1,2)$, the kernel function $κ$ can be rough in $z$. In the supercritical case $α\\in(0,1)$, we classify the boundary points according to the sign of $b(z)\\cdot\\vec{n}(z)$, where $z\\in\\partial D$ and $\\vec{n}(z)$ is the unit outward normal vector. Finally, we provide an example and simulate it by Monte-Carlo method to show our results.",
+  "categories": [
+    "math.AP",
+    "math.PR"
+  ],
+  "primary_category": "math.PR",
+  "comment": "50 pages, 6 figures",
+  "published_date": "2018-09-15T13:20:49Z",
+  "updated_date": "2018-09-15T13:20:49Z",
+  "url": "https://arxiv.org/abs/1809.05712v1",
+  "pdf_url": "https://arxiv.org/pdf/1809.05712v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:30:56.117844",
+  "category": "mathematics",
+  "subcategories": [
+    "math.AP",
+    "math.PR"
+  ]
+}

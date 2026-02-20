@@ -1,0 +1,94 @@
+{
+  "id": "analytical_chemistry-quality-control-and-method-validation",
+  "name": "Quality Control and Method Validation",
+  "category": "chemistry",
+  "subcategory": "analytical_chemistry",
+  "subcategory_name": "Analytical Chemistry",
+  "description": "Quality Control and Method Validation process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 6,
+    "edges": 5,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nN1[\"Candidate Method\"]\nN2[\"QC Samples\"]\nN3[\"Acceptance Criteria\"]\nN4[\"Accuracy/Precision\"]\nN5[\"Robustness/Linearity\"]\nN6[\"Validated Method\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\nN5 --> N6\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ff6b6b,color:#fff\n    style N3 fill:#ffd43b,color:#000\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Quality Control and Method Validation. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "Analytical Method Validation as the First Step in Drug Quality Control",
+      "authors": "Mennickent, Sigrid; de Diego, Marta",
+      "journal": "Quality Management and Quality Control - New Trends and Developments",
+      "year": "2019",
+      "pubmed": null,
+      "doi": "10.5772/intechopen.82826",
+      "url": "https://doi.org/10.5772/intechopen.82826"
+    },
+    {
+      "title": "Method Validation",
+      "authors": "Konieczka, Piotr",
+      "journal": "Quality Assurance and Quality Control in the Analytical Chemical Laboratory",
+      "year": "2025",
+      "pubmed": null,
+      "doi": "10.1201/9781003504627-9",
+      "url": "https://doi.org/10.1201/9781003504627-9"
+    },
+    {
+      "title": "Quantitative Analysis—Method Validation-Quality Control",
+      "authors": "",
+      "journal": "High Performance Liquid Chromatography in Phytochemical Analysis",
+      "year": "2010",
+      "pubmed": null,
+      "doi": "10.1201/b10320-19",
+      "url": "https://doi.org/10.1201/b10320-19"
+    }
+  ],
+  "keywords": [
+    "quality",
+    "control",
+    "and",
+    "method",
+    "validation"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-15",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+}

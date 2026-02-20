@@ -1,0 +1,29 @@
+{
+  "id": "arxiv_2602.03522v1",
+  "arxiv_id": "2602.03522v1",
+  "title": "QRC-Lab: An Educational Toolbox for Quantum Reservoir Computing",
+  "authors": [
+    "Anderson Fernandes Pereira dos Santos"
+  ],
+  "author_string": "Anderson Fernandes Pereira dos Santos",
+  "journal": "arXiv:2602.03522v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Quantum Reservoir Computing (QRC) has emerged as a strong pa- radigm for Noisy Intermediate-Scale Quantum (NISQ) machine learning, ena- bling the processing of temporal data with minimal training overhead by exploi- ting the high-dimensional dynamics of quantum states. This paper introduces QRC-Lab, an open-source, modular Python framework designed to bridge the gap between theoretical quantum dynamics and applied machine learning work- flows. We provide a rigorous definition of QRC, contrast physical and gate- based approaches, and formalize the reservoir mapping used in the toolbox. QRC-Lab instantiates a configurable gate-based laboratory for studying in- put encoding, reservoir connectivity, and measurement strategies, and validates these concepts through three educational case studies: short-term memory re- construction, temporal parity (XOR), and NARMA10 forecasting as a deliberate stress test. In addition, we include a learning-theory motivated generalization- gap scan to build intuition about capacity control in quantum feature maps. The full source code, experiment scripts, and reproducibility assets are publicly available at: https://doi.org/10.5281/zenodo.18469026.",
+  "categories": [
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": null,
+  "published_date": "2026-02-03T13:38:56Z",
+  "updated_date": "2026-02-03T13:38:56Z",
+  "url": "https://arxiv.org/abs/2602.03522v1",
+  "pdf_url": "https://arxiv.org/pdf/2602.03522v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-02-04T07:47:26.392516",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph"
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "id": "arxiv_2601.06514v1",
+  "arxiv_id": "2601.06514v1",
+  "title": "Inference-Time Alignment for Diffusion Models via Doob's Matching",
+  "authors": [
+    "Jinyuan Chang",
+    "Chenguang Duan",
+    "Yuling Jiao",
+    "Yi Xu",
+    "Jerry Zhijian Yang"
+  ],
+  "author_string": "Jinyuan Chang, Chenguang Duan, Yuling Jiao, Yi Xu, Jerry Zhijian Yang",
+  "journal": "arXiv:2601.06514v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Inference-time alignment for diffusion models aims to adapt a pre-trained diffusion model toward a target distribution without retraining the base score network, thereby preserving the generative capacity of the base model while enforcing desired properties at the inference time. A central mechanism for achieving such alignment is guidance, which modifies the sampling dynamics through an additional drift term. In this work, we introduce Doob's matching, a novel framework for guidance estimation grounded in Doob's $h$-transform. Our approach formulates guidance as the gradient of logarithm of an underlying Doob's $h$-function and employs gradient-penalized regression to simultaneously estimate both the $h$-function and its gradient, resulting in a consistent estimator of the guidance. Theoretically, we establish non-asymptotic convergence rates for the estimated guidance. Moreover, we analyze the resulting controllable diffusion processes and prove non-asymptotic convergence guarantees for the generated distributions in the 2-Wasserstein distance.",
+  "categories": [
+    "stat.ML",
+    "cs.LG",
+    "math.NA",
+    "math.OC",
+    "math.ST"
+  ],
+  "primary_category": "math.ST",
+  "comment": null,
+  "published_date": "2026-01-10T10:28:06Z",
+  "updated_date": "2026-01-10T10:28:06Z",
+  "url": "https://arxiv.org/abs/2601.06514v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.06514v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:18.737832",
+  "category": "mathematics",
+  "subcategories": [
+    "stat.ML",
+    "cs.LG",
+    "math.NA"
+  ]
+}

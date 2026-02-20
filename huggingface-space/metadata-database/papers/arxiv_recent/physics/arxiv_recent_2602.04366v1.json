@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2602.04366v1",
+  "arxiv_id": "2602.04366v1",
+  "title": "Low resource entanglement classification from neural network interpretability",
+  "authors": [
+    "A. García-Velo",
+    "R. Puebla",
+    "Y. Ban",
+    "E. Torrontegui",
+    "M. Paraschiv"
+  ],
+  "author_string": "A. García-Velo, R. Puebla, Y. Ban, E. Torrontegui, M. Paraschiv",
+  "journal": "arXiv:2602.04366v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Entanglement is a central resource in quantum information and quantum technologies, yet its characterization remains challenging due to both theoretical complexity and measurement requirements. Machine learning has emerged as a promising alternative, enabling entanglement characterization from incomplete measurement data, however model interpretability remains a challenge. In this work, we introduce a unified and interpretable framework for SLOCC entanglement classification of two- and three-qubit states, encompassing both pure and mixed states. We train dense and convolutional neural networks on Pauli-measurement outcomes, provide design guidelines for each architecture, and systematically compare their performance across types of states. To interpret the models, we compute Shapley values to quantify the contribution of each measurement, analyze measurement-importance patterns across different systems, and use these insights to guide a measurement-reduction scheme. Accuracy-versus-measurement curves and comparisons with analytical entanglement criteria demonstrate the minimal resources required for reliable classification and highlight both the capabilities and limitations of Shapley-based interpretability when using machine learning models for entanglement detection and classification.",
+  "categories": [
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": "12 pages, 10 figures + 4 appendices (13 pages, 17 figures, 6 tables)",
+  "published_date": "2026-02-04T09:42:45Z",
+  "updated_date": "2026-02-04T09:42:45Z",
+  "url": "https://arxiv.org/abs/2602.04366v1",
+  "pdf_url": "https://arxiv.org/pdf/2602.04366v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-02-05T07:00:33.003662",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph"
+  ]
+}

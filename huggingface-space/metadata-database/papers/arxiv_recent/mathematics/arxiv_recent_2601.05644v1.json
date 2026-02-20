@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2601.05644v1",
+  "arxiv_id": "2601.05644v1",
+  "title": "The Maximum Clique Problem under Adversarial Uncertainty: a min-max approach",
+  "authors": [
+    "Immanuel Bomze",
+    "Chiara Faccio",
+    "Francesco Rinaldi",
+    "Giovanni Spisso"
+  ],
+  "author_string": "Immanuel Bomze, Chiara Faccio, Francesco Rinaldi, Giovanni Spisso",
+  "journal": "arXiv:2601.05644v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We analyze the problem of identifying large cliques in graphs that are affected by adversarial uncertainty. More specifically, we consider a new formulation, namely the adversarial maximum clique problem, which extends the classical maximum-clique problem to graphs with edges strategically perturbed by an adversary. The proposed mathematical model is thus formulated as a two-player zero-sum game between a clique seeker and an opposing agent. Inspired by regularized continuous reformulations of the maximum-clique problem, we derive a penalized continuous formulation leading to a nonconvex and nonsmooth optimization problem. We further introduce the notion of stable global solutions, namely points remaining optimal under small perturbations of the penalty parameters, and prove an equivalence between stable global solutions of the continuous reformulation and largest cliques that are common to all the adversarially perturbed graphs. In order to solve the given nonsmooth problem, we develop a first-order and projection-free algorithm based on generalized subdifferential calculus in the sense of Clarke and Goldstein, and establish global sublinear convergence rates for it. Finally, we report numerical experiments on benchmark instances showing that the proposed method efficiently detects large common cliques.",
+  "categories": [
+    "math.OC"
+  ],
+  "primary_category": "math.OC",
+  "comment": "34 pages, 1 figure",
+  "published_date": "2026-01-09T09:02:19Z",
+  "updated_date": "2026-01-09T09:02:19Z",
+  "url": "https://arxiv.org/abs/2601.05644v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.05644v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:22.688442",
+  "category": "mathematics",
+  "subcategories": [
+    "math.OC"
+  ]
+}

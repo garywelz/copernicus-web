@@ -1,0 +1,39 @@
+{
+  "id": "arxiv_2601.11516v1",
+  "arxiv_id": "2601.11516v1",
+  "title": "Building Production-Ready Probes For Gemini",
+  "authors": [
+    "János Kramár",
+    "Joshua Engels",
+    "Zheng Wang",
+    "Bilal Chughtai",
+    "Rohin Shah",
+    "Neel Nanda",
+    "Arthur Conmy"
+  ],
+  "author_string": "János Kramár, Joshua Engels, Zheng Wang, Bilal Chughtai, Rohin Shah et al.",
+  "journal": "arXiv:2601.11516v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Frontier language model capabilities are improving rapidly. We thus need stronger mitigations against bad actors misusing increasingly powerful systems. Prior work has shown that activation probes may be a promising misuse mitigation technique, but we identify a key remaining challenge: probes fail to generalize under important production distribution shifts. In particular, we find that the shift from short-context to long-context inputs is difficult for existing probe architectures. We propose several new probe architecture that handle this long-context distribution shift.   We evaluate these probes in the cyber-offensive domain, testing their robustness against various production-relevant shifts, including multi-turn conversations, static jailbreaks, and adaptive red teaming. Our results demonstrate that while multimax addresses context length, a combination of architecture choice and training on diverse distributions is required for broad generalization. Additionally, we show that pairing probes with prompted classifiers achieves optimal accuracy at a low cost due to the computational efficiency of probes.   These findings have informed the successful deployment of misuse mitigation probes in user-facing instances of Gemini, Google's frontier language model. Finally, we find early positive results using AlphaEvolve to automate improvements in both probe architecture search and adaptive red teaming, showing that automating some AI safety research is already possible.",
+  "categories": [
+    "cs.LG",
+    "cs.AI",
+    "cs.CL"
+  ],
+  "primary_category": "cs.CL",
+  "comment": null,
+  "published_date": "2026-01-16T18:54:29Z",
+  "updated_date": "2026-01-16T18:54:29Z",
+  "url": "https://arxiv.org/abs/2601.11516v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11516v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:30.207353",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.LG",
+    "cs.AI",
+    "cs.CL"
+  ]
+}

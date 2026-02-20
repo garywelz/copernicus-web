@@ -1,0 +1,37 @@
+{
+  "id": "arxiv_1809.07131v3",
+  "arxiv_id": "1809.07131v3",
+  "title": "Twisty Takens: A Geometric Characterization of Good Observations on Dense Trajectories",
+  "authors": [
+    "Boyan Xu",
+    "Christopher J. Tralie",
+    "Alice Antia",
+    "Michael Lin",
+    "Jose A. Perea"
+  ],
+  "author_string": "Boyan Xu, Christopher J. Tralie, Alice Antia, Michael Lin, Jose A. Perea",
+  "journal": "arXiv:1809.07131v3",
+  "journal_ref": null,
+  "year": "2018",
+  "doi": null,
+  "abstract": "In nonlinear time series analysis and dynamical systems theory, Takens' embedding theorem states that the sliding window embedding of a generic observation along trajectories in a state space, recovers the region traversed by the dynamics. This can be used, for instance, to show that sliding window embeddings of periodic signals recover topological loops, and that sliding window embeddings of quasiperiodic signals recover high-dimensional torii. However, in spite of these motivating examples, Takens' theorem does not in general prescribe how to choose such an observation function given particular dynamics in a state space. In this work, we state conditions on observation functions defined on compact Riemannian manifolds, that lead to successful reconstructions for particular dynamics. We apply our theory and construct families of time series whose sliding window embeddings trace tori, Klein bottles, spheres, and projective planes. This greatly enriches the set of examples of time series known to concentrate on various shapes via sliding window embeddings, and will hopefully help other researchers in identifying them in naturally occurring phenomena. We also present numerical experiments showing how to recover low dimensional representations of the underlying dynamics on state space, by using the persistent cohomology of sliding window embeddings and Eilenberg-MacLane (i.e., circular and real projective) coordinates.",
+  "categories": [
+    "math.DS",
+    "cs.CG",
+    "math.AT"
+  ],
+  "primary_category": "math.AT",
+  "comment": "25 pages, 12 figures",
+  "published_date": "2018-09-19T11:47:49Z",
+  "updated_date": "2019-05-05T22:33:36Z",
+  "url": "https://arxiv.org/abs/1809.07131v3",
+  "pdf_url": "https://arxiv.org/pdf/1809.07131v3.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:30:56.127154",
+  "category": "mathematics",
+  "subcategories": [
+    "math.DS",
+    "cs.CG",
+    "math.AT"
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2601.10473v1",
+  "arxiv_id": "2601.10473v1",
+  "title": "Analysis and Experimental Demonstration of Amplitude Amplification for Combinatorial Optimization",
+  "authors": [
+    "Daniel Koch",
+    "Brian Pardo",
+    "Kip Nieman"
+  ],
+  "author_string": "Daniel Koch, Brian Pardo, Kip Nieman",
+  "journal": "arXiv:2601.10473v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Quantum Amplitude Amplification (QAA), the generalization of Grover's algorithm, is capable of yielding optimal solutions to combinatorial optimization problems with high probabilities. In this work we extend the conventional 2-dimensional representation of Grover's (orthogonal collective states) to oracles which encode cost functions such as QUBO, and show that linear cost functions are a special case whereby an exact formula exists for determining optimal oracle parameter settings. Using simulations of problem sizes up to 40 qubits we demonstrate QAA's algorithmic performance across all possible solutions, with an emphasis on the closeness in Grover-like performance for solutions near the global optimum. We conclude with experimental demonstrations of generalized QAA on both IBMQ (superconducting) and IonQ (trapped ion) qubits, showing that the observed probabilities of each basis state match our equations as a function of varying the free parameters in the oracle and diffusion operators.",
+  "categories": [
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": null,
+  "published_date": "2026-01-15T14:58:26Z",
+  "updated_date": "2026-01-15T14:58:26Z",
+  "url": "https://arxiv.org/abs/2601.10473v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.10473v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:18:46.727864",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph"
+  ]
+}

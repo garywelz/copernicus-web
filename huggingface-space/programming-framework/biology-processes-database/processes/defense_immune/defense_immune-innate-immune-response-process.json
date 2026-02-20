@@ -1,0 +1,94 @@
+{
+  "id": "defense_immune-innate-immune-response-process",
+  "name": "Innate Immune Response Process",
+  "category": "biology",
+  "subcategory": "defense_immune",
+  "subcategory_name": "Defense & Immune Response",
+  "organism": "Animals",
+  "description": "Innate Immune Response Process in Animals. This process represents a higher-level biological mechanism distinct from molecular/biochemical processes covered in GLMP.",
+  "complexity": {
+    "nodes": 8,
+    "edges": 7,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "low",
+    "detailLevel": "low"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\n    A23[Pathogen Detection] --> B23[Pattern Recognition]\n    B23 --> C23[Inflammation Initiation]\n    C23 --> D23[Cytokine Release]\n    D23 --> E23[Neutrophil Recruitment]\n    E23 --> F23[Phagocytosis]\n    F23 --> G23[Complement Activation]\n    G23 --> H23[Pathogen Elimination]\n    \n    style A23 fill:#ff6b6b,color:#fff\n    style B23 fill:#ffd43b,color:#000\n    style C23 fill:#51cf66,color:#fff\n    style D23 fill:#51cf66,color:#fff\n    style E23 fill:#74c0fc,color:#fff\n    style F23 fill:#51cf66,color:#fff\n    style G23 fill:#51cf66,color:#fff\n    style H23 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "notes": "Higher-level biological process visualization: Innate Immune Response Process. Created using the Programming Framework methodology for organismal and ecological process analysis."
+    },
+    {
+      "title": "Innate immunity: the virtues of a host defense.",
+      "authors": "Medzhitov R, Janeway CA Jr.",
+      "journal": "Cell.",
+      "year": "1997",
+      "pubmed": "9150138",
+      "doi": "10.1016/s0092-8674(00)80213-9",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/9150138"
+    },
+    {
+      "title": "Innate Immune Recognition.",
+      "authors": "Janeway CA Jr, Medzhitov R.",
+      "journal": "Annu Rev Immunol.",
+      "year": "2002",
+      "pubmed": "11861608",
+      "doi": "10.1146/annurev.immunol.20.083001.084359",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/11861608"
+    },
+    {
+      "title": "Recognition of microorganisms and activation of the immune response.",
+      "authors": "Medzhitov R.",
+      "journal": "Nature.",
+      "year": "2007",
+      "pubmed": "17713495",
+      "doi": "10.1038/nature06246",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/17713495"
+    }
+  ],
+  "keywords": [
+    "defense",
+    "response",
+    "animals",
+    "immune",
+    "process",
+    "innate"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-08",
+  "verified": false,
+  "notes": "Higher-level biological process. GLMP covers biochemical/molecular processes; this database covers organismal/ecological processes."
+}

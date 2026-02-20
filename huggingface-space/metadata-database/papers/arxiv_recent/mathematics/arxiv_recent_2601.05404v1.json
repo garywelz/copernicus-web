@@ -1,0 +1,30 @@
+{
+  "id": "arxiv_2601.05404v1",
+  "arxiv_id": "2601.05404v1",
+  "title": "Fast Algorithms for Optimal Damping in Mechanical Systems",
+  "authors": [
+    "Qingna Li",
+    "Françoise Tisseur"
+  ],
+  "author_string": "Qingna Li, Françoise Tisseur",
+  "journal": "arXiv:2601.05404v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Optimal damping aims at determining a vector of damping coefficients $ν$ that maximizes the decay rate of a mechanical system's response. This problem can be formulated as the minimization of the trace of the solution of a Lyapunov equation whose coefficient matrix depends on $ν$. For physical relevance, the damping coefficients must be nonnegative and the resulting system must be asymptotically stable. We identify conditions under which the system is never stable or may lose stability for certain choices of $ν$. In the latter case, we propose replacing the constraint $ν\\ge 0$ with $ν\\ge d$, where $d$ is a nonzero nonnegative vector chosen to ensure stability.   We derive explicit expressions for the gradient and Hessian of the objective function and show that the Karush--Kuhn--Tucker conditions are equivalent to the vanishing of a nonlinear residual function at an optimal solution. To compute such a solution, we propose a Barzilai--Borwein residual minimization algorithm (BBRMA), which is simple and efficient but not globally convergent, and a spectral projected gradient (SPG) method, which is globally convergent. By exploiting the structure of the problem, we show how to efficiently compute the objective function and its gradient, with eigenvalue decompositions constituting the dominant cost in terms of execution time. Numerical experiments show that both methods require fewer eigenvalue decompositions than the fast optimal damping algorithm (FODA), and that, although SPG may incur additional decompositions due to line search, it often converges faster than BBRMA, leading to a lower overall computational effort.",
+  "categories": [
+    "math.NA"
+  ],
+  "primary_category": "math.NA",
+  "comment": "21 pages",
+  "published_date": "2026-01-08T22:01:16Z",
+  "updated_date": "2026-01-08T22:01:16Z",
+  "url": "https://arxiv.org/abs/2601.05404v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.05404v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:22.690838",
+  "category": "mathematics",
+  "subcategories": [
+    "math.NA"
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_1808.09379v1",
+  "arxiv_id": "1808.09379v1",
+  "title": "A transport-based multifidelity preconditioner for Markov chain Monte Carlo",
+  "authors": [
+    "Benjamin Peherstorfer",
+    "Youssef Marzouk"
+  ],
+  "author_string": "Benjamin Peherstorfer, Youssef Marzouk",
+  "journal": "arXiv:1808.09379v1",
+  "journal_ref": null,
+  "year": "2018",
+  "doi": null,
+  "abstract": "Markov chain Monte Carlo (MCMC) sampling of posterior distributions arising in Bayesian inverse problems is challenging when evaluations of the forward model are computationally expensive. Replacing the forward model with a low-cost, low-fidelity model often significantly reduces computational cost; however, employing a low-fidelity model alone means that the stationary distribution of the MCMC chain is the posterior distribution corresponding to the low-fidelity model, rather than the original posterior distribution corresponding to the high-fidelity model. We propose a multifidelity approach that combines, rather than replaces, the high-fidelity model with a low-fidelity model. First, the low-fidelity model is used to construct a transport map that deterministically couples a reference Gaussian distribution with an approximation of the low-fidelity posterior. Then, the high-fidelity posterior distribution is explored using a non-Gaussian proposal distribution derived from the transport map. This multifidelity \"preconditioned\" MCMC approach seeks efficient sampling via a proposal that is explicitly tailored to the posterior at hand and that is constructed efficiently with the low-fidelity model. By relying on the low-fidelity model only to construct the proposal distribution, our approach guarantees that the stationary distribution of the MCMC chain is the high-fidelity posterior. In our numerical examples, our multifidelity approach achieves significant speedups compared to single-fidelity MCMC sampling methods.",
+  "categories": [
+    "math.NA",
+    "math.PR",
+    "stat.ME"
+  ],
+  "primary_category": "stat.ME",
+  "comment": null,
+  "published_date": "2018-08-28T16:04:08Z",
+  "updated_date": "2018-08-28T16:04:08Z",
+  "url": "https://arxiv.org/abs/1808.09379v1",
+  "pdf_url": "https://arxiv.org/pdf/1808.09379v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:00.035439",
+  "category": "mathematics",
+  "subcategories": [
+    "math.NA",
+    "math.PR",
+    "stat.ME"
+  ]
+}

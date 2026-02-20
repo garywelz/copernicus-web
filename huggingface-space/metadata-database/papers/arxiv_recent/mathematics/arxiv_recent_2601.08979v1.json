@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2601.08979v1",
+  "arxiv_id": "2601.08979v1",
+  "title": "Space-time spectral element method for topology optimization of transient heat conduction",
+  "authors": [
+    "Sarah Nataj",
+    "Magnus Appel",
+    "Joe Alexandersen"
+  ],
+  "author_string": "Sarah Nataj, Magnus Appel, Joe Alexandersen",
+  "journal": "arXiv:2601.08979v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We develop a space-time spectral element method for topology optimization of transient heat conduction. The forward problem is discretized with summation-by-parts (SBP) operators, and interface/boundary and initial/terminal conditions are imposed weakly via simultaneous approximation terms (SAT), yielding a stable monolithic space-time scheme on heterogeneous domains. Stability is proven under specific conditions on the SAT parameters, scaled with the spatial mesh resolution and material properties. We compute design sensitivities using a discrete space-time adjoint scheme that is dual-consistent with the primal SBP-SAT scheme. Dual consistency ensures that the discrete adjoint consistently approximates the continuous dual problem and, under standard smoothness assumptions, yields superconvergent functional estimates. We validate the resulting optimal designs by comparison with an independently computed reference optimal design and report time-to-solution and cost-of-accuracy curves, comparing against low-order time-marching and all-at-once solvers for the forward and adjoint systems. The proposed scheme attains high accuracy with fewer space-time degrees of freedom and remains stable, reducing time-to-solution and memory compared with an alternative all-at-once solver. This makes it a future candidate for large-scale topology optimization of time-dependent thermal systems.",
+  "categories": [
+    "math.NA"
+  ],
+  "primary_category": "math.NA",
+  "comment": null,
+  "published_date": "2026-01-13T20:59:38Z",
+  "updated_date": "2026-01-13T20:59:38Z",
+  "url": "https://arxiv.org/abs/2601.08979v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.08979v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:52.507314",
+  "category": "mathematics",
+  "subcategories": [
+    "math.NA"
+  ]
+}

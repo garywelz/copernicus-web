@@ -1,0 +1,31 @@
+{
+  "id": "dijkstras-shortest-path-algorithm",
+  "title": "Dijkstra's Shortest Path Algorithm",
+  "description": "Find shortest path between nodes in weighted graph",
+  "category": "mathematics",
+  "subcategory": "graph_theory",
+  "mermaid": "graph TD A1[Initialize graph and start node] style A1 fill:#ff6b6b,color:#fff B1[Distances: infinity for all nodes, 0 for start node] style B1 fill:#ff6b6b,color:#fff C1[Unvisited set: all nodes] style C1 fill:#ff6b6b,color:#fff D1[Current Node = Start Node] style D1 fill:#74c0fc,color:#fff E1[While Unvisited set is not empty] style E1 fill:#ffd43b,color:#000 E1 --> F1{Is Unvisited set empty?} style F1 fill:#ffd43b,color:#000 F1 -- Yes --> G1[Shortest paths are calculated] style G1 fill:#b197fc,color:#fff F1 -- No --> H1[Get node with smallest distance from unvisited set as Current Node] style H1 fill:#51cf66,color:#fff H1 --> I1{Is Current Node null?} style I1 fill:#ffd43b,color:#000 I1 -- Yes --> G1 style I1 fill:#ffd43b,color:#000 I1 -- No --> J1[Remove Current Node from Unvisited set] style J1 fill:#51cf66,color:#fff J1 --> K1[For each neighbor of Current Node] style K1 fill:#ffd43b,color:#000 K1 --> L1{Is neighbor in Unvisited set?} style L1 fill:#ffd43b,color:#000 L1 -- No --> K1 style L1 fill:#ffd43b,color:#000 L1 -- Yes --> M1[Calculate tentative distance to neighbor: distance[Current Node] + edge weight] style M1 fill:#51cf66,color:#fff M1 --> N1{Is tentative distance < distance[neighbor]?} style N1 fill:#ffd43b,color:#000 N1 -- Yes --> O1[Update distance[neighbor] = tentative distance] style O1 fill:#51cf66,color:#fff O1 --> P1[Update previous[neighbor] = Current Node] style P1 fill:#51cf66,color:#fff P1 --> K1 N1 -- No --> K1 K1 --> H1",
+  "entities": [
+    "Initialize graph and start node",
+    "Distances: infinity for all nodes, 0 for start node",
+    "Unvisited set: all nodes",
+    "Current Node = Start Node",
+    "While Unvisited set is not empty",
+    "Is Unvisited set empty?} style F1 fill:#ffd43b,color:#000 F1 -- Yes --> G1[Shortest paths are calculated",
+    "Get node with smallest distance from unvisited set as Current Node",
+    "Is Current Node null?} style I1 fill:#ffd43b,color:#000 I1 -- Yes --> G1 style I1 fill:#ffd43b,color:#000 I1 -- No --> J1[Remove Current Node from Unvisited set",
+    "For each neighbor of Current Node",
+    "Is neighbor in Unvisited set?} style L1 fill:#ffd43b,color:#000 L1 -- No --> K1 style L1 fill:#ffd43b,color:#000 L1 -- Yes --> M1[Calculate tentative distance to neighbor: distance[Current Node",
+    "Is tentative distance < distance[neighbor",
+    "Update distance[neighbor",
+    "Update previous[neighbor"
+  ],
+  "metadata": {
+    "source": "programming_framework",
+    "color_scheme": "discipline_based",
+    "node_count": 12,
+    "complexity": "low"
+  },
+  "sources": [],
+  "source_text": "Source information to be added - please specify the book, paper, or reference material used by the LLM to generate this flowchart."
+}

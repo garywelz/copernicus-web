@@ -1,0 +1,90 @@
+{
+  "id": "surface_chemistry-polymorphism",
+  "name": "Polymorphism",
+  "category": "chemistry",
+  "subcategory": "surface_chemistry",
+  "subcategory_name": "Surface Chemistry",
+  "description": "Polymorphism process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 26,
+    "edges": 22,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 1,
+      "total": 1
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nA2[Molecular Compound] --> B2[Polymorphism Method]\nC2[Crystallization Conditions] --> D2[Phase Analysis]\nE2[Temperature Control] --> F2[Phase Transition]\nB2 --> G2[Phase Preparation]\nD2 --> H2[Phase Characterization]\nF2 --> I2[Transition Control]\nG2 --> J2[Initial Phase]\nH2 --> K2[Phase Properties]\nI2 --> L2[Transition Conditions]\nJ2 --> M2[Phase Formation]\nK2 --> L2\nL2 --> N2[Phase Transition]\nM2 --> O2[Crystal Growth]\nN2 --> P2[Polymorphic Transformation]\nO2 --> Q2[Phase Analysis]\nP2 --> R2[New Phase]\nQ2 --> S2[Transition Analysis]\nR2 --> T2[Phase Properties]\nS2 --> U2[Transition Parameters]\nT2 --> V2[Property Comparison]\nU2 --> W2[Polymorphic Efficiency]\nV2 --> X2[Phase Characterization]\nW2 --> Y2[Process Optimization]\nX2 --> Z2[Final Polymorphic Form]\nY2 --> Z2\n\n    style A2 fill:#ff6b6b,color:#fff\n    style C2 fill:#ff6b6b,color:#fff\n    style E2 fill:#ff6b6b,color:#fff\n    style B2 fill:#ffd43b,color:#000\n    style D2 fill:#ffd43b,color:#000\n    style F2 fill:#ffd43b,color:#000\n    style G2 fill:#ffd43b,color:#000\n    style H2 fill:#ffd43b,color:#000\n    style I2 fill:#ffd43b,color:#000\n    style J2 fill:#ffd43b,color:#000\n    style K2 fill:#ffd43b,color:#000\n    style L2 fill:#ffd43b,color:#000\n    style M2 fill:#51cf66,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style O2 fill:#51cf66,color:#fff\n    style P2 fill:#51cf66,color:#fff\n    style Q2 fill:#51cf66,color:#fff\n    style R2 fill:#51cf66,color:#fff\n    style S2 fill:#51cf66,color:#fff\n    style T2 fill:#51cf66,color:#fff\n    style U2 fill:#51cf66,color:#fff\n    style V2 fill:#51cf66,color:#fff\n    style W2 fill:#51cf66,color:#fff\n    style X2 fill:#51cf66,color:#fff\n    style Y2 fill:#51cf66,color:#fff\n    style Z2 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Polymorphism. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "Polymorphism of pharmaceuticals",
+      "authors": "Bernstein, Joel",
+      "journal": "Polymorphism in Molecular Crystals",
+      "year": "2020",
+      "pubmed": null,
+      "doi": "10.1093/oso/9780199655441.003.0007",
+      "url": "https://doi.org/10.1093/oso/9780199655441.003.0007"
+    },
+    {
+      "title": "Polymorphism and patents",
+      "authors": "Bernstein, Joel",
+      "journal": "Polymorphism in Molecular Crystals",
+      "year": "2020",
+      "pubmed": null,
+      "doi": "10.1093/oso/9780199655441.003.0010",
+      "url": "https://doi.org/10.1093/oso/9780199655441.003.0010"
+    },
+    {
+      "title": "Computational aspects of polymorphism",
+      "authors": "Bernstein, Joel",
+      "journal": "Polymorphism in Molecular Crystals",
+      "year": "2020",
+      "pubmed": null,
+      "doi": "10.1093/oso/9780199655441.003.0005",
+      "url": "https://doi.org/10.1093/oso/9780199655441.003.0005"
+    }
+  ],
+  "keywords": [
+    "polymorphism"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+}

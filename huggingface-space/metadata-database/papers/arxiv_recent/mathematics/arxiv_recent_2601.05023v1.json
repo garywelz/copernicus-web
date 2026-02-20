@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2601.05023v1",
+  "arxiv_id": "2601.05023v1",
+  "title": "Finite-time blow-up in a quasilinear two-species chemotaxis system with two chemicals",
+  "authors": [
+    "Mingzhang Cai",
+    "Yuxiang Li",
+    "Ziyue Zeng"
+  ],
+  "author_string": "Mingzhang Cai, Yuxiang Li, Ziyue Zeng",
+  "journal": "arXiv:2601.05023v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "This paper investigates the finite-time blow-up phenomena to a quasilinear two-species chemotaxis system with two chemicals \\begin{align}\\tag{$\\star$}   \\begin{cases}   u_t = \\nabla \\cdot \\left(D_1(u) \\nabla u\\right) - \\nabla \\cdot \\left(u \\nabla v\\right), & x \\in Ω, \\ t > 0,   0 = Δv - μ_2 + w, \\quad μ_2=\\fint_Ωw, & x \\in Ω, \\ t > 0,   w_t = \\nabla \\cdot \\left(D_2(w) \\nabla w\\right) - \\nabla \\cdot \\left(w \\nabla z\\right), & x \\in Ω, \\ t > 0,   0 = Δz - μ_1 + u, \\quad μ_1=\\fint_Ωu, & x \\in Ω, \\ t > 0,   \\frac{\\partial u}{\\partial ν} = \\frac{\\partial v}{\\partial ν} = \\frac{\\partial w}{\\partial ν} = \\frac{\\partial z}{\\partial ν} = 0, & x \\in \\partial Ω, \\ t > 0,   u(x, 0) = u_0(x), \\quad w(x, 0) = w_0(x), & x \\in Ω,   \\end{cases} \\end{align} where $Ω\\subset \\mathbb{R}^n$ $(n \\geqslant 3)$ is a smoothly bounded domain. The nonlinear diffusion functions \\( D_1(s) \\) and \\( D_2(s) \\) are of the following forms: \\begin{align*}   D_1(s)\\simeq s^{m_1-1} \\quad \\text{and}\\quad D_2(s) \\simeq s^{m_2-1}, \\quad m_1,m_2> 1 \\end{align*} for $s\\geqslant 1$.   For the classical two-species chemotaxis system with two chemicals (i.e. the second and fourth equations are replaced by $0 = Δv - v + w$ and $0 = Δz - z + u$ ), Zhong [J. Math. Anal. Appl., 500 (2021), Paper No. 125130, pp. 22.] showed that the system possesses a globally bounded classical solution in the case that \\[ m_1 + m_2 < \\max\\left\\{m_1m_2 + \\frac{2m_1}{ n},\\ m_1m_2 + \\frac{2m_2 }{ n}\\right\\}. \\]   Complementing the boundedness result, we prove that the system ($\\star$) admits solutions that blow up in finite time, if \\[ m_1 + m_2 > \\max\\left\\{ m_1m_2 + \\frac{2m_1}{ n},\\ m_1m_2 + \\frac{2m_2}{ n}\\right\\} \\] with $n\\geqslant 3$.",
+  "categories": [
+    "math.AP"
+  ],
+  "primary_category": "math.AP",
+  "comment": null,
+  "published_date": "2026-01-08T15:32:07Z",
+  "updated_date": "2026-01-08T15:32:07Z",
+  "url": "https://arxiv.org/abs/2601.05023v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.05023v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:26.898507",
+  "category": "mathematics",
+  "subcategories": [
+    "math.AP"
+  ]
+}

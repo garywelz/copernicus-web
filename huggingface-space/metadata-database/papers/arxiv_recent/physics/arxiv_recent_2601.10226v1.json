@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2601.10226v1",
+  "arxiv_id": "2601.10226v1",
+  "title": "Integral Variable Range Hopping for Modeling Electrical Transport in Disordered Systems",
+  "authors": [
+    "Chenxin Qin",
+    "Chenyan Wang",
+    "Mouyang Cheng",
+    "Ji Chen"
+  ],
+  "author_string": "Chenxin Qin, Chenyan Wang, Mouyang Cheng, Ji Chen",
+  "journal": "arXiv:2601.10226v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "The variable range hopping (VRH) model has been widely applied to describe electrical transport in disordered systems, providing theoretical formulas to fit temperature-dependent electric conductivity. These models rely on oversimplified assumptions that restrict their applicability and result in problematic fitting behaviors, yet their overusing situation is becoming increasingly serious. In this work we formulate an integral variable range hopping (IVRH) model, which replaces the empirical temperature power-law dependence in standard VRH theories with a physics-inspired integral formulation. The model builds upon the standard hopping probability $ω(R)$ w.r.t. hopping distance $R$ and incorporates the density of accessible electronic states through an effective volume function $V(R)$, which reflects the influence of system geometry. The IVRH formulation inherently reproduces both the Mott behavior at low temperatures and the Arrhenius behavior at high temperatures, respectively, and enables a smooth transition between the two regimes. We apply the IVRH model to two-dimensional, three-dimensional, and multi-layered systems. Monte Carlo simulations validate the model's predictions and yield consistent values for the fitting parameters, with substantially reduced variances compared to fitting using the standard VRH model. Furthermore, the improved robustness of IVRH also extends to the transport measurements in monolayer MoS$_2$ system and monolayer WS$_2$ system, enabling more physically meaningful interpretation.IVRH model offers a more stable and physically sound framework for interpreting hopping transport in low-dimensional amorphous materials, providing deeper insights into the universal geometric scaling factors that govern charge transport in disordered systems.",
+  "categories": [
+    "cond-mat.dis-nn"
+  ],
+  "primary_category": "cond-mat.dis-nn",
+  "comment": "7 pages, 4 figures",
+  "published_date": "2026-01-15T09:39:47Z",
+  "updated_date": "2026-01-15T09:39:47Z",
+  "url": "https://arxiv.org/abs/2601.10226v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.10226v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:18:50.681071",
+  "category": "physics",
+  "subcategories": [
+    "cond-mat.dis-nn"
+  ]
+}

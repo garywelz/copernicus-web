@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2601.10942v1",
+  "arxiv_id": "2601.10942v1",
+  "title": "Change And Cover: Last-Mile, Pull Request-Based Regression Test Augmentation",
+  "authors": [
+    "Zitong Zhou",
+    "Matteo Paltenghi",
+    "Miryung Kim",
+    "Michael Pradel"
+  ],
+  "author_string": "Zitong Zhou, Matteo Paltenghi, Miryung Kim, Michael Pradel",
+  "journal": "arXiv:2601.10942v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Software is in constant evolution, with developers frequently submitting pull requests (PRs) to introduce new features or fix bugs. Testing PRs is critical to maintaining software quality. Yet, even in projects with extensive test suites, some PR-modified lines remain untested, leaving a \"last-mile\" regression test gap. Existing test generators typically aim to improve overall coverage, but do not specifically target the uncovered lines in PRs. We present Change And Cover (ChaCo), an LLM-based test augmentation technique that addresses this gap. It makes three contributions: (i) ChaCo considers the PR-specific patch coverage, offering developers augmented tests for code just when it is on the developers' mind. (ii) We identify providing suitable test context as a crucial challenge for an LLM to generate useful tests, and present two techniques to extract relevant test content, such as existing test functions, fixtures, and data generators. (iii) To make augmented tests acceptable for developers, ChaCo carefully integrates them into the existing test suite, e.g., by matching the test's structure and style with the existing tests, and generates a summary of the test addition for developer review. We evaluate ChaCo on 145 PRs from three popular and complex open-source projects - SciPy, Qiskit, and Pandas. The approach successfully helps 30% of PRs achieve full patch coverage, at the cost of $0.11, showing its effectiveness and practicality. Human reviewers find the tests to be worth adding (4.53/5.0), well integrated (4.2/5.0), and relevant to the PR (4.7/5.0). Ablations show test context is crucial for context-aware test generation, leading to 2x coverage. We submitted 12 tests, of which 8 have already been merged, and two previously unknown bugs were exposed and fixed. We envision our approach to be integrated into CI workflows, automating the last mile of regression test augmentation.",
+  "categories": [
+    "cs.SE"
+  ],
+  "primary_category": "cs.SE",
+  "comment": null,
+  "published_date": "2026-01-16T02:08:16Z",
+  "updated_date": "2026-01-16T02:08:16Z",
+  "url": "https://arxiv.org/abs/2601.10942v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.10942v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:37.516678",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.SE"
+  ]
+}

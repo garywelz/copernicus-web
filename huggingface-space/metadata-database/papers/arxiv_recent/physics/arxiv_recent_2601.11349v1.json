@@ -1,0 +1,30 @@
+{
+  "id": "arxiv_2601.11349v1",
+  "arxiv_id": "2601.11349v1",
+  "title": "Analytical Solutions of the Minimal Nonlinear Equation for the Yaw Response of Tail Fins and Wind Vanes",
+  "authors": [
+    "Mohamed M. Hammam",
+    "David H. Wood"
+  ],
+  "author_string": "Mohamed M. Hammam, David H. Wood",
+  "journal": "arXiv:2601.11349v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Analytical solutions for the yaw response of tail fins for small wind turbines, and wind vanes for wind direction measurement, are derived for any planform and any release angle $γ_0$. This extends current linear models limited to small $|γ_0|$ and low aspect ratio planforms. The equation studied here is the minimal form of the general second order equation for the yaw angle, $γ$, derived by Hammam and Wood (2023). The nonlinear damping is controlled by a small parameter that depends on the vortex flow coefficient, $K_v$, which is absent from all linear models. The minimal equation is analysed using perturbation techniques. A truncated series solution from the Krylov-Bogoliubov-Mitropolskii averaging method compares favourably with a numerical solution apart from some small deviations at large time. Another form of averaging due to Beecham and Titchener (1971) yields a compact solution in terms of the rate of amplitude decay, and the rate of change of phase angle. This allows the identification of an equivalent linear system with equivalent frequency and damping ratio. Two limiting analytic solutions for small and large $|γ_0|$ are obtained. The former is used to identify the model parameters from experimental data. Both approximate solutions showed that high $K_v$ is important for fast decay of yaw amplitude for tail fins at high $|γ_0|$. High aspect ratios for wind vanes would reduce the nonlinearity to minimize yaw error. Linear response that is independent of $K_v$ occurs whenever $\\sin{(πγ_0)\\approx πγ_0}$. Further, the low angle analytical solution allows an exact identification of the nonlinearity which could be used to extend the modelling of wind vanes to high $γ$.",
+  "categories": [
+    "physics.flu-dyn"
+  ],
+  "primary_category": "physics.flu-dyn",
+  "comment": null,
+  "published_date": "2026-01-16T14:55:16Z",
+  "updated_date": "2026-01-16T14:55:16Z",
+  "url": "https://arxiv.org/abs/2601.11349v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11349v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:18:31.290118",
+  "category": "physics",
+  "subcategories": [
+    "physics.flu-dyn"
+  ]
+}

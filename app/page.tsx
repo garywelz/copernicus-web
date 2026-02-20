@@ -125,12 +125,20 @@ export default function Home() {
                 <p className="text-blue-800">
                   Welcome back, <strong>{user.name}</strong>! You can now create podcasts and access your dashboard.
                 </p>
-                <button
-                  onClick={() => router.push('/dashboard')}
-                  className="mt-2 text-blue-600 hover:text-blue-800 underline font-medium"
-                >
-                  Go to Dashboard →
-                </button>
+                <div className="flex space-x-4 mt-2">
+                  <button
+                    onClick={() => router.push('/dashboard')}
+                    className="text-blue-600 hover:text-blue-800 underline font-medium"
+                  >
+                    Go to Dashboard →
+                  </button>
+                  <button
+                    onClick={() => router.push('/knowledge-engine')}
+                    className="text-blue-600 hover:text-blue-800 underline font-medium"
+                  >
+                    Explore Knowledge Engine →
+                  </button>
+                </div>
               </div>
             )}
           </div>

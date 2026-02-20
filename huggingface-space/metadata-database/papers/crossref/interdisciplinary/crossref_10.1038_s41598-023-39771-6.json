@@ -1,0 +1,29 @@
+{
+  "id": "crossref_10.1038_s41598-023-39771-6",
+  "doi": "10.1038/s41598-023-39771-6",
+  "title": "Variational quantum and quantum-inspired clustering",
+  "authors": [
+    "Bermejo, Pablo",
+    "Orús, Román"
+  ],
+  "author_string": "Bermejo, Pablo, Orús, Román",
+  "journal": "Scientific Reports",
+  "issn": "2045-2322",
+  "issn_type": "electronic",
+  "volume": "13",
+  "issue": "1",
+  "page": "",
+  "year": "2023",
+  "publisher": "Springer Science and Business Media LLC",
+  "language": "en",
+  "abstract": "AbstractHere we present a quantum algorithm for clustering data based on a variational quantum circuit. The algorithm allows to classify data into many clusters, and can easily be implemented in few-qubit Noisy Intermediate-Scale Quantum devices. The idea of the algorithm relies on reducing the clustering problem to an optimization, and then solving it via a Variational Quantum Eigensolver combined with non-orthogonal qubit states. In practice, the method uses maximally-orthogonal states of the target Hilbert space instead of the usual computational basis, allowing for a large number of clusters to be considered even with few qubits. We benchmark the algorithm with numerical simulations using real datasets, showing excellent performance even with one single qubit. Moreover, a tensor network simulation of the algorithm implements, by construction, a quantum-inspired clustering algorithm that can run on current classical hardware.",
+  "subjects": [],
+  "keywords": [],
+  "article_type": "journal-article",
+  "citation_count": 14,
+  "url": "https://doi.org/10.1038/s41598-023-39771-6",
+  "source": "crossref",
+  "acquired_date": "2026-01-19T10:54:16.506818",
+  "category": "interdisciplinary",
+  "subcategories": []
+}

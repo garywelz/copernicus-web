@@ -1,0 +1,24 @@
+{
+  "id": "pubmed_39014074",
+  "pmid": "39014074",
+  "title": "A cortical surface template for human neuroscience.",
+  "authors": [
+    "Feilong, Ma",
+    "Jiahui, Guo",
+    "Gobbini, Maria Ida",
+    "Haxby, James V"
+  ],
+  "author_string": "Feilong, Ma, Jiahui, Guo, Gobbini, Maria Ida, Haxby, James V",
+  "journal": "Nat Methods",
+  "journal_full": "Nature methods",
+  "year": "",
+  "doi": "10.1038/s41592-024-02346-y",
+  "abstract": "Neuroimaging data analysis relies on normalization to standard anatomical templates to resolve macroanatomical differences across brains. Existing human cortical surface templates sample locations unevenly because of distortions introduced by inflation of the folded cortex into a standard shape. Here we present the onavg template, which affords uniform sampling of the cortex. We created the onavg template based on openly available high-quality structural scans of 1,031 brains-25 times more than existing cortical templates. We optimized the vertex locations based on cortical anatomy, achieving an even distribution. We observed consistently higher multivariate pattern classification accuracies and representational geometry inter-participant correlations based on onavg than on other templates, and onavg only needs three-quarters as much data to achieve the same performance compared with other templates. The optimized sampling also reduces CPU time across algorithms by 1.3-22.4% due to less variation in the number of vertices in each searchlight.",
+  "keywords": [],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/39014074",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T17:01:17.459477",
+  "category": "biology",
+  "subcategories": []
+}

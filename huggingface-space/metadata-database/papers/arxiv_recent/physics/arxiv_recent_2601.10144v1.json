@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2601.10144v1",
+  "arxiv_id": "2601.10144v1",
+  "title": "Bridging Superconducting and Neutral-Atom Platforms for Efficient Fault-Tolerant Quantum Architectures",
+  "authors": [
+    "Xiang Fang",
+    "Jixuan Ruan",
+    "Sharanya Prabhu",
+    "Ang Li",
+    "Travis Humble",
+    "Dean Tullsen",
+    "Yufei Ding"
+  ],
+  "author_string": "Xiang Fang, Jixuan Ruan, Sharanya Prabhu, Ang Li, Travis Humble et al.",
+  "journal": "arXiv:2601.10144v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "The transition to the fault-tolerant era exposes the limitations of homogeneous quantum systems, where no single qubit modality simultaneously offers optimal operation speed, connectivity, and scalability. In this work, we propose a strategic approach to Heterogeneous Quantum Architectures (HQA) that synthesizes the distinct advantages of the superconducting (SC) and neutral atom (NA) platforms. We explore two architectural role assignment strategies based on hardware characteristics: (1) We offload the latency-critical Magic State Factory (MSF) to fast SC devices while performing computation on scalable NA arrays, a design we term MagicAcc, which effectively mitigates the resource-preparation bottleneck. (2) We explore a Memory-Compute Separation (MCSep) paradigm that utilizes NA arrays for high-density qLDPC memory storage and SC devices for fast surface-code processing. Our evaluation, based on a comprehensive end-to-end cost model, demonstrates that principled heterogeneity yields significant performance gains. Specifically, our designs achieve $752\\times$ speedup over NA-only baselines on average and reduce the physical qubit footprint by over $10\\times$ compared to SC-only systems. These results chart a clear pathway for leveraging cross-modality interconnects to optimize the space-time efficiency of future fault-tolerant quantum computers.",
+  "categories": [
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": "15 pages, 7 figures",
+  "published_date": "2026-01-15T07:39:05Z",
+  "updated_date": "2026-01-15T07:39:05Z",
+  "url": "https://arxiv.org/abs/2601.10144v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.10144v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:18:50.686389",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph"
+  ]
+}

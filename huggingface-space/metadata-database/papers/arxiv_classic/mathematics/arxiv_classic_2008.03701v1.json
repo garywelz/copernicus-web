@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2008.03701v1",
+  "arxiv_id": "2008.03701v1",
+  "title": "Stability analysis for the Implicit-Explicit discretization of the Cahn-Hilliard equation",
+  "authors": [
+    "Dong Li",
+    "Tao Tang"
+  ],
+  "author_string": "Dong Li, Tao Tang",
+  "journal": "arXiv:2008.03701v1",
+  "journal_ref": null,
+  "year": "2020",
+  "doi": null,
+  "abstract": "Implicit-Explicit methods have been widely used for the efficient numerical simulation of phase field problems such as the Cahn-Hilliard equation or thin film type equations. Due to the lack of maximum principle and stiffness caused by the effect of small dissipation coefficient, most existing theoretical analysis relies on adding additional stabilization terms, mollifying the nonlinearity or introducing auxiliary variables which implicitly either changes the structure of the problem or trades accuracy for stability in a subtle way. In this work we introduce a robust theoretical framework to analyze directly the stability of the standard implicit-explicit approach without stabilization or any other modification. We take   the Cahn-Hilliard equation as a model case and prove energy stability under natural time step constraints which are optimal with respect to energy scaling. These settle several questions which have been open since the work of Chen and Shen \\cite{CS98}.",
+  "categories": [
+    "math.AP",
+    "math.NA"
+  ],
+  "primary_category": "math.NA",
+  "comment": "37 pages",
+  "published_date": "2020-08-09T09:55:59Z",
+  "updated_date": "2020-08-09T09:55:59Z",
+  "url": "https://arxiv.org/abs/2008.03701v1",
+  "pdf_url": "https://arxiv.org/pdf/2008.03701v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:30:37.487295",
+  "category": "mathematics",
+  "subcategories": [
+    "math.AP",
+    "math.NA"
+  ]
+}

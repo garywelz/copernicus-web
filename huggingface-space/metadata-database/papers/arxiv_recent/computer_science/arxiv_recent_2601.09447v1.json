@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2601.09447v1",
+  "arxiv_id": "2601.09447v1",
+  "title": "Exact number of flips required to sort a burnt stack of pancakes",
+  "authors": [
+    "Gerold Jäger",
+    "Nacim Oijid"
+  ],
+  "author_string": "Gerold Jäger, Nacim Oijid",
+  "journal": "arXiv:2601.09447v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "For the buffet, the waiter of a restaurant gets a large stack of pancakes from the overworked cook. As usual, one side is burnt, and as the level of batter decreases, the pancakes became smaller and smaller. Hence, the waiter ends up with a stack of one-sided burnt pancakes sorted by size, with the larger at the bottom and burnt side up. However, the waiter cannot serve them this way. He needs to turn all the burnt sides down, without changing the order. Having only a spatula, he can only perform flips to the top of the stack. How can he perform this transformation in a minimum number of flips? Having n pancakes, this problem can be modeled in the burnt pancake graph, having 2^n*n! vertices, where each possible stack of pancakes corresponds to a vertex expressed by a permutation of size n, where the pancakes are ordered by size, and the pancake numbers are multiplied by -1, if the corresponding pancake has the burnt side side up. An edge exists in this graph, if the corresponding stacks can be reached from each other by one flip. Let T(n) be the minimum number of flips to sort the stack of n pancakes (-1,...,-n). General burnt pancake sorting has been introduced by Bill Gates and Papadimitriou. The instance (-1,...,-n) has strong relevance because of its easy structure and as it has been shown to be a worst-case instance for several small n. Heydari and Sudborough gave the currently best upper bound of T(n), namely (3n+3)/2 for n = 3 mod 4, which later has been shown to be exact by a work of Cibulka. Except these two works, no progress regarding lower and upper bounds has been made until now. In our work, we present that (3n+3)/2 is also an upper bound of T(n) for n = 1 mod 4, which again matches the lower bound of Cibulka and thus is exact. The case of even n keeps an open problem, where two possible values for T(n) are possible, namely (3/2)n + 1 or (3/2)n + 2.",
+  "categories": [
+    "math.CO",
+    "cs.DM"
+  ],
+  "primary_category": "cs.DM",
+  "comment": null,
+  "published_date": "2026-01-14T12:49:26Z",
+  "updated_date": "2026-01-14T12:49:26Z",
+  "url": "https://arxiv.org/abs/2601.09447v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.09447v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:49.126402",
+  "category": "computer_science",
+  "subcategories": [
+    "math.CO",
+    "cs.DM"
+  ]
+}

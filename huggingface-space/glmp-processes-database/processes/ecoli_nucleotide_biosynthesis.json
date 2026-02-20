@@ -1,0 +1,125 @@
+{
+  "acquired_date": "2025-10-15T00:00:00Z",
+  "category": "Metabolic Pathway",
+  "colorScheme": {
+    "amber": {
+      "category": "Enzymes & Proteins",
+      "description": "Catalysts, regulatory proteins, molecular machines, receptors",
+      "hex": "#ffa726"
+    },
+    "black": {
+      "category": "Final Products & Outcomes",
+      "description": "Terminal products, cellular outcomes, equilibrium states, system endpoints",
+      "hex": "#000000"
+    },
+    "darkSkyBlue": {
+      "category": "Processing & Operations",
+      "description": "Biochemical reactions, transport, modifications, transcription, translation",
+      "hex": "#42a5f5"
+    },
+    "green": {
+      "category": "Environmental Triggers",
+      "description": "External signals, nutrient availability, environmental conditions, initial states",
+      "hex": "#51cf66"
+    },
+    "lightCyan": {
+      "category": "Intermediates & States",
+      "description": "Metabolites, molecular complexes, cellular states, compounds",
+      "hex": "#b3e5fc"
+    },
+    "purple": {
+      "category": "AND Logic Gates",
+      "description": "Multi-component requirements, signal integration, convergence points",
+      "hex": "#7950f2"
+    },
+    "red": {
+      "category": "NOT Logic Gates",
+      "description": "Repression, inhibition, blocking, negative regulation",
+      "hex": "#e74c3c"
+    },
+    "yellow": {
+      "category": "OR Logic Gates",
+      "description": "Decision points with alternative pathways (yes/no branching)",
+      "hex": "#ffd600"
+    }
+  },
+  "complexity": {
+    "colorCoded": true,
+    "detailLevel": "detailed",
+    "logicGates": {
+      "andGates": 3,
+      "orGates": 9,
+      "total": 12
+    },
+    "nodes": 72,
+    "uniqueIdentifiers": true
+  },
+  "conditionals": 57,
+  "created": "2025-10-15",
+  "description": "E. coli synthesizes purine and pyrimidine nucleotides de novo for DNA and RNA. Purine synthesis (10 steps) builds the ring on ribose-5-phosphate starting from PRPP, using amino acids (Gly, Gln, Asp) and one-carbon units from folate. Pyrimidine synthesis builds the ring first (UMP pathway, 6 steps), then attaches to ribose. Both pathways are regulated by feedback inhibition and transcriptional control. Salvage pathways recover preformed bases.",
+  "id": "process_Metabolic Pathway_nucleotide-biosynthesis-(purine-and-pyrimidine-synthesis)",
+  "keywords": [
+    "nucleotide biosynthesis",
+    "purine synthesis",
+    "pyrimidine synthesis",
+    "PRPP",
+    "IMP",
+    "UMP"
+  ],
+  "lastUpdated": "2026-01-08",
+  "logicGates": {
+    "and": 4,
+    "not": 2,
+    "or": 3
+  },
+  "mermaid": "graph TD\n    %% Entry Point\n    A[Ribose-5-Phosphate] --> B[\"PrsA: R5P + ATP → PRPP\"]\n    B --> C[PRPP Phosphoribosyl Pyrophosphate]\n    \n    %% OR Gate 1: Purine vs Pyrimidine\n    C --> D{OR: Which<br/>Nucleotide?}\n    D -->|Purines| E[Purine Biosynthesis]\n    D -->|Pyrimidines| F[Pyrimidine Biosynthesis]\n    \n    %% Purine Pathway Step-by-Step\n    E --> G[\"PurF: PRPP + Gln → 5-Phosphoribosylamine\"]\n    G --> H[\"PurD: + Gly\"]\n    H --> I[GAR Glycinamide Ribotide]\n    I --> J[\"PurN: + Formyl-THF\"]\n    J --> K(\\1)\n    K --> L[\"PurL: + Gln\"]\n    L --> M(\\1)\n    M --> N[\"PurM: Cyclization\"]\n    N --> O[AIR 5-Aminoimidazole Ribotide]\n    O --> P[\"PurK: + CO2\"]\n    P --> Q(\\1)\n    Q --> R[\"PurE: + Asp\"]\n    R --> S(\\1)\n    S --> T[\"PurB: Release Fumarate\"]\n    T --> U(\\1)\n    U --> V[\"PurH: + Formyl-THF\"]\n    V --> W(\\1)\n    W --> X[\"PurH: Cyclization\"]\n    X --> Y[IMP Inosine Monophosphate]\n    \n    %% IMP Branch Point\n    Y --> Z{OR: AMP<br/>or GMP?}\n    Z -->|PurA| AA[IMP + Asp + GTP → AMP]\n    Z -->|PurB+GuaA| AB[IMP + NAD → GMP]\n    \n    AA --> AC[AMP Adenosine Monophosphate]\n    AB --> AD[GMP Guanosine Monophosphate]\n    \n    %% Pyrimidine Pathway\n    F --> AE[\"CarAB: Gln + CO2 + ATP → Carbamoyl-P\"]\n    AE --> AF[\"PyrB: Carbamoyl-P + Asp\"]\n    AF --> AG[Carbamoyl Aspartate]\n    AG --> AH[\"PyrC: Cyclization\"]\n    AH --> AI[Dihydroorotate DHO]\n    AI --> AJ[\"PyrD: DHO + NAD → Orotate\"]\n    AJ --> AK(\\1)\n    AK --> AL[\"PyrE: Orotate + PRPP → Orotidine-5-P\"]\n    AL --> AM[Orotidine Monophosphate]\n    AM --> AN[\"PyrF: Decarboxylation\"]\n    AN --> AO[UMP Uridine Monophosphate]\n    \n    %% UMP to CTP\n    AO --> AP[\"PyrH: UMP + ATP → UDP\"]\n    AP --> AQ(\\1)\n    AQ --> AR[\"Ndk: UDP + ATP → UTP\"]\n    AR --> AS(\\1)\n    AS --> AT[\"PyrG: UTP + Gln + ATP → CTP\"]\n    AT --> AU[CTP Cytidine Triphosphate]\n    \n    %% Nucleoside Diphosphate Kinase\n    AC --> AV[AMP → ADP → ATP]\n    AD --> AW[GMP → GDP → GTP]\n    \n    AV --> AX{AND: ATP<br/>Levels?}\n    AW --> AY{AND: GTP<br/>Levels?}\n    AS --> AZ{AND: UTP<br/>Levels?}\n    AU --> BA{AND: CTP<br/>Levels?}\n    \n    %% Ribonucleotide Reductase\n    AX -->|Sufficient| BB[\"RNR: ATP → dATP\"]\n    AY -->|Sufficient| BC[\"RNR: GTP → dGTP\"]\n    AZ -->|Sufficient| BD[\"RNR: UTP → dUTP\"]\n    BA -->|Sufficient| BE[\"RNR: CTP → dCTP\"]\n    \n    BD --> BF[\"Dut: dUTP → dUMP\"]\n    BF --> BG[\"ThyA: dUMP + CH2-THF → dTMP\"]\n    BG --> BH[dTMP → dTDP → dTTP]\n    \n    %% DNA/RNA Synthesis\n    BB --> BI(\\1)\n    BC --> BJ(\\1)\n    BE --> BK(\\1)\n    BH --> BL(\\1)\n    \n    BI --> BM{OR: DNA<br/>or RNA?}\n    BJ --> BM\n    BK --> BM\n    BL --> BM\n    AV --> BM\n    AW --> BM\n    AS --> BM\n    AU --> BM\n    \n    BM -->|DNA| BN[DNA Polymerase]\n    BM -->|RNA| BO[RNA Polymerase]\n    \n    BN --> BP([DNA Replication])\n    BO --> BQ([Transcription])\n    \n    %% Feedback Regulation\n    AC --> BR[/PurR Repressor/]\n    BR --> BS[/pur Operon Repression/]\n    \n    AO --> BT[PyrR Attenuation]\n    BT --> BU[pyr Operon Control]\n    \n    %% Salvage Pathways\n    BV(\\1) --> BW[\"Apt: + PRPP → AMP\"]\n    BW --> AC\n    BX(\\1) --> BY[\"Gpt: + PRPP → GMP\"]\n    BY --> AD\n    BZ(\\1) --> CA[\"Upp: + PRPP → UMP\"]\n    CA --> AO\n    \n    %% Styling\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n    style A fill:#51cf66,color:#fff\n    style B fill:#51cf66,color:#fff\n    style C fill:#51cf66,color:#fff\n    style D fill:#ffd600,color:#fff\n    style E fill:#42a5f5,color:#fff\n    style F fill:#42a5f5,color:#fff\n    style G fill:#b3e5fc,color:#000\n    style H fill:#b3e5fc,color:#000\n    style I fill:#b3e5fc,color:#000\n    style J fill:#b3e5fc,color:#000\n    style K fill:#b3e5fc,color:#000\n    style L fill:#b3e5fc,color:#000\n    style M fill:#b3e5fc,color:#000\n    style N fill:#b3e5fc,color:#000\n    style O fill:#b3e5fc,color:#000\n    style P fill:#b3e5fc,color:#000\n    style Q fill:#b3e5fc,color:#000\n    style R fill:#b3e5fc,color:#000\n    style S fill:#b3e5fc,color:#000\n    style T fill:#b3e5fc,color:#000\n    style U fill:#b3e5fc,color:#000\n    style V fill:#b3e5fc,color:#000\n    style W fill:#b3e5fc,color:#000\n    style X fill:#b3e5fc,color:#000\n    style Y fill:#b3e5fc,color:#000\n    style Z fill:#ffd600,color:#fff\n    style AA fill:#b3e5fc,color:#000\n    style AB fill:#b3e5fc,color:#000\n    style AC fill:#b3e5fc,color:#000\n    style AD fill:#b3e5fc,color:#000\n    style AE fill:#b3e5fc,color:#000\n    style AF fill:#b3e5fc,color:#000\n    style AG fill:#b3e5fc,color:#000\n    style AH fill:#b3e5fc,color:#000\n    style AI fill:#b3e5fc,color:#000\n    style AJ fill:#b3e5fc,color:#000\n    style AK fill:#b3e5fc,color:#000\n    style AL fill:#b3e5fc,color:#000\n    style AM fill:#b3e5fc,color:#000\n    style AN fill:#b3e5fc,color:#000\n    style AO fill:#b3e5fc,color:#000\n    style AP fill:#b3e5fc,color:#000\n    style AQ fill:#b3e5fc,color:#000\n    style AR fill:#b3e5fc,color:#000\n    style AS fill:#b3e5fc,color:#000\n    style AT fill:#b3e5fc,color:#000\n    style AU fill:#b3e5fc,color:#000\n    style AV fill:#b3e5fc,color:#000\n    style AW fill:#b3e5fc,color:#000\n    style AX fill:#7950f2,color:#fff\n    style AY fill:#7950f2,color:#fff\n    style AZ fill:#7950f2,color:#fff\n    style BA fill:#7950f2,color:#fff\n    style BB fill:#b3e5fc,color:#000\n    style BC fill:#b3e5fc,color:#000\n    style BD fill:#b3e5fc,color:#000\n    style BE fill:#b3e5fc,color:#000\n    style BF fill:#b3e5fc,color:#000\n    style BG fill:#b3e5fc,color:#000\n    style BH fill:#b3e5fc,color:#000\n    style BI fill:#b3e5fc,color:#000\n    style BJ fill:#b3e5fc,color:#000\n    style BK fill:#b3e5fc,color:#000\n    style BL fill:#b3e5fc,color:#000\n    style BM fill:#ffd600,color:#fff\n    style BN fill:#42a5f5,color:#fff\n    style BO fill:#42a5f5,color:#fff\n    style BP fill:#42a5f5,color:#fff\n    style BQ fill:#42a5f5,color:#fff\n    style BR fill:#e74c3c,color:#fff\n    style BS fill:#e74c3c,color:#fff\n    style BT fill:#b3e5fc,color:#000\n    style BU fill:#b3e5fc,color:#000\n    style BV fill:#b3e5fc,color:#000\n    style BW fill:#b3e5fc,color:#000\n    style BX fill:#b3e5fc,color:#000\n    style BY fill:#b3e5fc,color:#000\n    style BZ fill:#b3e5fc,color:#000\n    style CA fill:#b3e5fc,color:#000",
+  "name": "Nucleotide Biosynthesis (Purine and Pyrimidine Synthesis)",
+  "notGates": 2,
+  "notes": "Shows high OR gates (9) for purine/pyrimidine choice and AMP/GMP branch.",
+  "organism": "E. coli",
+  "relatedProcesses": [
+    "ecoli_pentose_phosphate_pathway"
+  ],
+  "related_papers": [
+    "crossref_10_1016_s0079-6603(08)60364-4"
+  ],
+  "related_podcasts": [],
+  "related_processes": [
+    "ecoli_pentose_phosphate_pathway"
+  ],
+  "related_videos": [],
+  "scientificAccuracy": "Based on comprehensive biochemical characterization of E. coli nucleotide metabolism.",
+  "source": "programming_framework",
+  "sources": [
+    {
+      "title": "Purine and Pyrimidine Nucleotide Biosynthesis and Its Control",
+      "authors": "Greenberg, G. R.",
+      "journal": "Annu Rev Biochem",
+      "year": "1969",
+      "pubmed": "4894379",
+      "doi": "10.1146/annurev.bi.38.070169.000635",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/4894379"
+    },
+    {
+      "title": "Genetics and regulation of purine and pyrimidine biosynthesis in bacteria",
+      "authors": "Switzer, R. L.",
+      "journal": "Annu Rev Microbiol",
+      "year": "1989",
+      "pubmed": "2686737",
+      "doi": "10.1146/annurev.mi.43.100189.000431",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/2686737"
+    },
+    {
+      "title": "Aspartate transcarbamylase of Escherichia coli: molecular weights and dissociation into catalytic and regulatory subunits",
+      "authors": "Gerhart, J. C., Schachman, H. K.",
+      "journal": "Biochemistry",
+      "year": "1965",
+      "pubmed": "14324200",
+      "doi": "10.1021/bi00882a019",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/14324200"
+    }
+  ],
+  "totalNodes": 79,
+  "verified": true,
+  "verifiedBy": "Claude-4-Sonnet"
+}

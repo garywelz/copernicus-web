@@ -1,0 +1,108 @@
+{
+  "acquired_date": "2026-01-08T00:00:00Z",
+  "category": "mathematics",
+  "colorScheme": {
+    "blue": {
+      "category": "Intermediates & States",
+      "hex": "#74c0fc"
+    },
+    "green": {
+      "category": "Processing & Operations",
+      "hex": "#51cf66"
+    },
+    "red": {
+      "category": "Triggers & Inputs",
+      "hex": "#ff6b6b"
+    },
+    "violet": {
+      "category": "Products & Outputs",
+      "hex": "#b197fc"
+    },
+    "yellow": {
+      "category": "Structures & Objects",
+      "hex": "#ffd43b"
+    }
+  },
+  "complexity": {
+    "conditionals": 0,
+    "detailLevel": "medium",
+    "edges": 24,
+    "level": "medium",
+    "logicGates": {
+      "andGates": 1,
+      "orGates": 0,
+      "total": 1
+    },
+    "nodes": 26
+  },
+  "created": "2026-01-08",
+  "description": "Field Theory Process. This abstract algebra process visualization demonstrates field structure analysis and verification. The flowchart shows set inputs and field axioms, field methods and properties, field operations and extensions, intermediate results, and final field theory outputs.",
+  "id": "process_mathematics_field-theory",
+  "keywords": [
+    "algebra",
+    "theory",
+    "field",
+    "abstract"
+  ],
+  "lastUpdated": "2026-01-08",
+  "mermaid": "graph TD\nA3[Set F] --> B3[Field Axioms]\nC3[Additive Group] --> D3[Multiplicative Group]\nE3[Distributive Laws] --> F3[Field Verification]\nB3 --> G3[Commutative Field]\nD3 --> H3[Field Extensions]\nF3 --> I3[Algebraic Extensions]\nG3 --> J3[Transcendental Extensions]\nH3 --> K3[Finite Fields]\nI3 --> L3[Galois Theory]\nJ3 --> M3[Field Homomorphisms]\nK3 --> L3\nL3 --> N3[Field Isomorphisms]\nM3 --> O3[Field Theory Analysis]\nN3 --> P3[Field Theory Validation]\nO3 --> Q3[Field Theory Process]\nP3 --> R3[Field Theory Verification]\nQ3 --> S3[Field Theory Result]\nR3 --> T3[Field Theory Output]\nS3 --> U3[Field Theory Analysis]\nT3 --> V3[Field Theory Parameters]\nU3 --> W3[Field Theory Final Result]\nV3 --> X3[Field Theory Analysis]\nW3 --> Y3[Field Theory Analysis Complete]\nX3 --> Z3[Field Theory Analysis Complete]\n\n    style A3 fill:#ff6b6b,color:#fff\n    style C3 fill:#ff6b6b,color:#fff\n    style E3 fill:#ff6b6b,color:#fff\n    style B3 fill:#ffd43b,color:#000\n    style D3 fill:#ffd43b,color:#000\n    style F3 fill:#ffd43b,color:#000\n    style G3 fill:#ffd43b,color:#000\n    style H3 fill:#ffd43b,color:#000\n    style I3 fill:#ffd43b,color:#000\n    style J3 fill:#ffd43b,color:#000\n    style K3 fill:#ffd43b,color:#000\n    style L3 fill:#ffd43b,color:#000\n    style M3 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style O3 fill:#51cf66,color:#fff\n    style P3 fill:#51cf66,color:#fff\n    style Q3 fill:#51cf66,color:#fff\n    style R3 fill:#51cf66,color:#fff\n    style S3 fill:#51cf66,color:#fff\n    style T3 fill:#51cf66,color:#fff\n    style U3 fill:#51cf66,color:#fff\n    style V3 fill:#51cf66,color:#fff\n    style W3 fill:#51cf66,color:#fff\n    style X3 fill:#51cf66,color:#fff\n    style Y3 fill:#51cf66,color:#fff\n    style Z3 fill:#b197fc,color:#fff",
+  "name": "Field Theory",
+  "notes": "Converted from mathematics batch HTML. Process number: 3.",
+  "relatedProcesses": [],
+  "related_papers": [
+    "crossref_10_2307_1969013",
+    "crossref_10_2307_1969792",
+    "crossref_10_2307_1970054"
+  ],
+  "related_podcasts": [],
+  "related_processes": [],
+  "related_videos": [],
+  "source": "programming_framework",
+  "sources": [
+    {
+      "authors": "Welz, G.",
+      "doi": null,
+      "journal": "CopernicusAI Knowledge Engine",
+      "notes": "Chemistry process visualization: Field Theory. Created using the Programming Framework methodology for process analysis and visualization.",
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "year": "2025"
+    },
+    {
+      "authors": "Chevalley, C.",
+      "doi": "10.2307/1969013",
+      "journal": "Annals of Mathematics",
+      "paper_id": "crossref_10_2307_1969013",
+      "pubmed": null,
+      "title": "La th\u00e9orie du corps de classes",
+      "url": "https://doi.org/10.2307/1969013",
+      "year": "1940"
+    },
+    {
+      "authors": "Lang, S.",
+      "doi": "10.2307/1969792",
+      "journal": "Annals of Mathematics",
+      "paper_id": "crossref_10_2307_1969792",
+      "pubmed": null,
+      "title": "On quasi-algebraic closure",
+      "url": "https://doi.org/10.2307/1969792",
+      "year": "1952"
+    },
+    {
+      "authors": "Serre, J.-P.",
+      "doi": "10.2307/1970054",
+      "journal": "Annals of Mathematics",
+      "paper_id": "crossref_10_2307_1970054",
+      "pubmed": null,
+      "title": "Groupes alg\u00e9briques et corps de classes",
+      "url": "https://doi.org/10.2307/1970054",
+      "year": "1958"
+    }
+  ],
+  "subcategories": [
+    "abstract_algebra"
+  ],
+  "subcategory": "abstract_algebra",
+  "subcategory_name": "Abstract Algebra",
+  "verified": false
+}

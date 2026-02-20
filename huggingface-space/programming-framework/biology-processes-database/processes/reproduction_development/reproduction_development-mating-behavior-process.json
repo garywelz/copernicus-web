@@ -1,0 +1,94 @@
+{
+  "id": "reproduction_development-mating-behavior-process",
+  "name": "Mating Behavior Process",
+  "category": "biology",
+  "subcategory": "reproduction_development",
+  "subcategory_name": "Reproduction & Development",
+  "organism": "Animals",
+  "description": "Mating Behavior Process in Animals. This process represents a higher-level biological mechanism distinct from molecular/biochemical processes covered in GLMP.",
+  "complexity": {
+    "nodes": 11,
+    "edges": 10,
+    "conditionals": 1,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "low",
+    "detailLevel": "low"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\n    A1[Environmental Cues] --> B1[Reproductive Readiness Assessment]\n    C1[Mate Availability] --> D1[Signaling & Display]\n    B1 --> E1[Courtship Initiation]\n    D1 --> E1\n    E1 --> F1[Behavioral Response]\n    F1 --> G1{Mate Acceptance?}\n    G1 -->|Yes| H1[Copulation]\n    G1 -->|No| I1[Rejection Response]\n    H1 --> J1[Reproductive Success]\n    I1 --> K1[Search for Alternative]\n    \n    style A1 fill:#ff6b6b,color:#fff\n    style C1 fill:#ff6b6b,color:#fff\n    style B1 fill:#ffd43b,color:#000\n    style D1 fill:#ffd43b,color:#000\n    style E1 fill:#51cf66,color:#fff\n    style F1 fill:#51cf66,color:#fff\n    style G1 fill:#74c0fc,color:#fff\n    style H1 fill:#51cf66,color:#fff\n    style I1 fill:#74c0fc,color:#fff\n    style J1 fill:#b197fc,color:#fff\n    style K1 fill:#74c0fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "notes": "Higher-level biological process visualization: Mating Behavior Process. Created using the Programming Framework methodology for organismal and ecological process analysis."
+    },
+    {
+      "title": "Sexual Selection: New Perspectives and Paradigms",
+      "authors": "Andersson M, Iwasa Y.",
+      "journal": "Annu Rev Ecol Evol Syst.",
+      "year": "2010",
+      "pubmed": "28400492",
+      "doi": "10.1146/annurev-ecolsys-102209-144645",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/28400492"
+    },
+    {
+      "title": "The evolution of social monogamy in mammals",
+      "authors": "Lukas D, Clutton-Brock TH.",
+      "journal": "Science.",
+      "year": "2013",
+      "pubmed": "23990497",
+      "doi": "10.1126/science.1238637",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/23990497"
+    },
+    {
+      "title": "Sexual Conflict",
+      "authors": "Lessells CM.",
+      "journal": "Annu Rev Ecol Evol Syst.",
+      "year": "2006",
+      "pubmed": "28400424",
+      "doi": "10.1146/annurev.ecolsys.37.091305.110255",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/28400424"
+    }
+  ],
+  "keywords": [
+    "reproduction",
+    "animals",
+    "process",
+    "behavior",
+    "development",
+    "mating"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-08",
+  "verified": false,
+  "notes": "Higher-level biological process. GLMP covers biochemical/molecular processes; this database covers organismal/ecological processes."
+}

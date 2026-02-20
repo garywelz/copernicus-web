@@ -1,0 +1,95 @@
+{
+  "id": "nutrition_metabolism-root-nutrient-uptake-process",
+  "name": "Root Nutrient Uptake Process",
+  "category": "biology",
+  "subcategory": "nutrition_metabolism",
+  "subcategory_name": "Nutrition & Metabolism",
+  "organism": "Plants",
+  "description": "Root Nutrient Uptake Process in Plants. This process represents a higher-level biological mechanism distinct from molecular/biochemical processes covered in GLMP.",
+  "complexity": {
+    "nodes": 8,
+    "edges": 8,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "low",
+    "detailLevel": "low"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\n    A32[Soil Nutrients] --> B32[Root Hair Contact]\n    B32 --> C32[Ion Exchange]\n    C32 --> D32[Active Transport]\n    D32 --> E32[Symplastic Pathway]\n    D32 --> F32[Apoplastic Pathway]\n    E32 --> G32[Xylem Loading]\n    F32 --> G32\n    G32 --> H32[Upward Transport]\n    \n    style A32 fill:#ff6b6b,color:#fff\n    style B32 fill:#ffd43b,color:#000\n    style C32 fill:#51cf66,color:#fff\n    style D32 fill:#51cf66,color:#fff\n    style E32 fill:#74c0fc,color:#fff\n    style F32 fill:#74c0fc,color:#fff\n    style G32 fill:#51cf66,color:#fff\n    style H32 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "notes": "Higher-level biological process visualization: Root Nutrient Uptake Process. Created using the Programming Framework methodology for organismal and ecological process analysis."
+    },
+    {
+      "title": "Root nutrient acquisition and metabolism",
+      "authors": "Giehl, R.F.; von Wirén, N.",
+      "journal": "Annu Rev Plant Biol.",
+      "year": "2014",
+      "pubmed": "24708709",
+      "doi": "10.1146/annurev-arplant-050213-035928",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/24708709"
+    },
+    {
+      "title": "Nutrient uptake by plants: a root's perspective",
+      "authors": "Maathuis, F.J.M.",
+      "journal": "Science",
+      "year": "2009",
+      "pubmed": "19890098",
+      "doi": "10.1126/science.1174653",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/19890098"
+    },
+    {
+      "title": "Mycorrhizal symbioses and nutrient acquisition",
+      "authors": "Smith, S.E.; Smith, F.A.",
+      "journal": "Annu Rev Plant Biol.",
+      "year": "2011",
+      "pubmed": "21370977",
+      "doi": "10.1146/annurev-arplant-042110-103848",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/21370977"
+    }
+  ],
+  "keywords": [
+    "uptake",
+    "process",
+    "plants",
+    "nutrient",
+    "nutrition",
+    "root",
+    "metabolism"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-08",
+  "verified": false,
+  "notes": "Higher-level biological process. GLMP covers biochemical/molecular processes; this database covers organismal/ecological processes."
+}

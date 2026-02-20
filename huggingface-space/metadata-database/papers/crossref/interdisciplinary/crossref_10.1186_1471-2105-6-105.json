@@ -1,0 +1,32 @@
+{
+  "id": "crossref_10.1186_1471-2105-6-105",
+  "doi": "10.1186/1471-2105-6-105",
+  "title": "Detailed protein sequence alignment based on Spectral Similarity Score (SSS)",
+  "authors": [
+    "Gupta, Kshitiz",
+    "Thomas, Dina",
+    "Vidya, SV",
+    "Venkatesh, KV",
+    "Ramakumar, S"
+  ],
+  "author_string": "Gupta, Kshitiz, Thomas, Dina, Vidya, SV, Venkatesh, KV, Ramakumar, S",
+  "journal": "BMC Bioinformatics",
+  "issn": "1471-2105",
+  "issn_type": "electronic",
+  "volume": "6",
+  "issue": "1",
+  "page": "",
+  "year": "2005",
+  "publisher": "Springer Science and Business Media LLC",
+  "language": "en",
+  "abstract": "Abstract\n                Background\n                The chemical property and biological function of a protein is a direct consequence of its primary structure. Several algorithms have been developed which determine alignment and similarity of primary protein sequences. However, character based similarity cannot provide insight into the structural aspects of a protein. We present a method based on spectral similarity to compare subsequences of amino acids that behave similarly but are not aligned well by considering amino acids as mere characters. This approach finds a similarity score between sequences based on any given attribute, like hydrophobicity of amino acids, on the basis of spectral information after partial conversion to the frequency domain.\n              \n                Results\n                Distance matrices of various branches of the human kinome, that is the full complement of human kinases, were developed that matched the phylogenetic tree of the human kinome establishing the efficacy of the global alignment of the algorithm. PKCd and PKCe kinases share close biological properties and structural similarities but do not give high scores with character based alignments. Detailed comparison established close similarities between subsequences that do not have any significant character identity. We compared their known 3D structures to establish that the algorithm is able to pick subsequences that are not considered similar by character based matching algorithms but share structural similarities. Similarly many subsequences with low character identity were picked between xyna-theau and xyna-clotm F/10 xylanases. Comparison of 3D structures of the subsequences confirmed the claim of similarity in structure.\n              \n                Conclusion\n                An algorithm is developed which is inspired by successful application of spectral similarity applied to music sequences. The method captures subsequences that do not align by traditional character based alignment tools but give rise to similar secondary and tertiary structures. The Spectral Similarity Score (SSS) is an extension to the conventional similarity methods and results indicate that it holds a strong potential for analysis of various biological sequences and structural variations in proteins.",
+  "subjects": [],
+  "keywords": [],
+  "article_type": "journal-article",
+  "citation_count": 7,
+  "url": "https://doi.org/10.1186/1471-2105-6-105",
+  "source": "crossref",
+  "acquired_date": "2026-02-03T13:06:59.691126",
+  "category": "interdisciplinary",
+  "subcategories": []
+}

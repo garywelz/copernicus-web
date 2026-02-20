@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2601.07709v1",
+  "arxiv_id": "2601.07709v1",
+  "title": "Single-Chip 1.024 Tb/s Optical Receiver for High-Speed Optical links",
+  "authors": [
+    "Ali Pirmoradi",
+    "Zhehao Yu",
+    "Amirreza Shoobi",
+    "Geun Ho Ahn",
+    "Jelena Vučković",
+    "Firooz Aflatouni"
+  ],
+  "author_string": "Ali Pirmoradi, Zhehao Yu, Amirreza Shoobi, Geun Ho Ahn, Jelena Vučković et al.",
+  "journal": "arXiv:2601.07709v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Integrated optical transceivers, utilizing wavelength-division-multiplexing, offer a path forward for implementation of compact, high-bandwidth and energy-efficient interconnects for future data centers. Here we report the demonstration of a monolithically integrated optical receiver in 45nm CMOS, where efficient multi-layer optical demultiplexing with capacitive tuning, energy efficient electronics and wideband inverse designed grating couplers enable implementation of a 32-channel receiver chip based on wavelength-division multiplexing. The chip operates at an aggregate data-rate of 1.024 Tb/s with all channels operating simultaneously at a data-rate of 32 Gb/s/channel achieving a record energy efficiency of 71 fJ/b, including the power consumption of both the electronic circuitry and the tuning and control of photonic devices, and a record bandwidth density of 4 Tb/s/mm2. The receiver achieves a bit-error-rate below 1E-12 without requiring equalization, error correction or digital processing. Inverse-designed broadband grating couplers provide efficient, low-loss optical coupling into the chip. An on-chip demultiplexer, composed of Mach-Zehnder interferometers (MZIs) and ring resonators, offers a large channel-to-channel isolation sufficient for error-free operation. Capacitive phase shifters embedded within the ring resonators of the demultiplexer are used for wavelength alignment at a zero static power consumption. MZIs and ring-resonators are periodically selected and autonomously locked to the wavelength of the corresponding optical carrier. The implemented monolithic receiver offers a scalable, energy-efficient and reliable solution for the beyond Tb/s optical interconnects.",
+  "categories": [
+    "physics.optics",
+    "physics.app-ph"
+  ],
+  "primary_category": "physics.app-ph",
+  "comment": null,
+  "published_date": "2026-01-12T16:42:56Z",
+  "updated_date": "2026-01-12T16:42:56Z",
+  "url": "https://arxiv.org/abs/2601.07709v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.07709v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:23.630942",
+  "category": "physics",
+  "subcategories": [
+    "physics.optics",
+    "physics.app-ph"
+  ]
+}

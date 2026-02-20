@@ -1,0 +1,38 @@
+{
+  "id": "arxiv_2007.03635v4",
+  "arxiv_id": "2007.03635v4",
+  "title": "Efficient emulators for scattering using eigenvector continuation",
+  "authors": [
+    "R. J. Furnstahl",
+    "A. J. Garcia",
+    "P. J. Millican",
+    "Xilin Zhang"
+  ],
+  "author_string": "R. J. Furnstahl, A. J. Garcia, P. J. Millican, Xilin Zhang",
+  "journal": "Phys.Lett.B 809 (2020) 135719",
+  "journal_ref": "Phys.Lett.B 809 (2020) 135719",
+  "year": "2020",
+  "doi": "10.1016/j.physletb.2020.135719",
+  "abstract": "Eigenvector continuation EC has been shown to accurately and efficiently reproduce ground states for targeted sets of Hamiltonian parameters. It uses as variational basis vectors the corresponding ground-state eigensolutions from selected other sets of parameters. Here we extend the EC approach to scattering using the Kohn variational principle. We first test it using a model for S-wave nucleon-nucleon scattering and then demonstrate that it also works to give accurate predictions for non-local potentials, charged-particle scattering, complex optical potentials, and higher partial waves. These proofs-of-principle validate EC as an accurate emulator for applying Bayesian inference to parameter estimation constrained by scattering observables. The efficiency of such emulators is because the accuracy is achieved with a small number of variational basis elements and the central computations are just linear algebra calculations in the space spanned by this basis.",
+  "categories": [
+    "nucl-th",
+    "cond-mat.mtrl-sci",
+    "hep-lat",
+    "hep-ph",
+    "nucl-ex"
+  ],
+  "primary_category": "nucl-ex",
+  "comment": "Typos in Eqs~(7) and (8) are corrected. Erratum will be submitted",
+  "published_date": "2020-07-07T17:13:47Z",
+  "updated_date": "2021-01-27T00:33:34Z",
+  "url": "https://arxiv.org/abs/2007.03635v4",
+  "pdf_url": "https://arxiv.org/pdf/2007.03635v4.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-02-03T13:20:50.568982",
+  "category": "physics",
+  "subcategories": [
+    "nucl-th",
+    "cond-mat.mtrl-sci",
+    "hep-lat"
+  ]
+}

@@ -1,0 +1,94 @@
+{
+  "id": "coordination_control-tropism-response-process",
+  "name": "Tropism Response Process",
+  "category": "biology",
+  "subcategory": "coordination_control",
+  "subcategory_name": "Coordination & Control",
+  "organism": "Plants",
+  "description": "Tropism Response Process in Plants. This process represents a higher-level biological mechanism distinct from molecular/biochemical processes covered in GLMP.",
+  "complexity": {
+    "nodes": 8,
+    "edges": 9,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "low",
+    "detailLevel": "low"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\n    A50[Environmental Stimulus] --> B50[Directional Cue]\n    B50 --> C50[Phototropism]\n    B50 --> D50[Gravitropism]\n    B50 --> E50[Thigmotropism]\n    C50 --> F50[Hormone Redistribution]\n    D50 --> F50\n    E50 --> F50\n    F50 --> G50[Asymmetric Growth]\n    G50 --> H50[Orientation Change]\n    \n    style A50 fill:#ff6b6b,color:#fff\n    style B50 fill:#ffd43b,color:#000\n    style C50 fill:#74c0fc,color:#fff\n    style D50 fill:#74c0fc,color:#fff\n    style E50 fill:#74c0fc,color:#fff\n    style F50 fill:#51cf66,color:#fff\n    style G50 fill:#74c0fc,color:#fff\n    style H50 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "notes": "Higher-level biological process visualization: Tropism Response Process. Created using the Programming Framework methodology for organismal and ecological process analysis."
+    },
+    {
+      "title": "Plant Tropisms: A Multiscale Integration of Environmental Cues, Hormones, and Genes",
+      "authors": "Su, S.H.; Liu, C.; Su, J.; Ma, L.; Huang, B.; Zhang, H.",
+      "journal": "Annu Rev Plant Biol",
+      "year": "2017",
+      "pubmed": "28248554",
+      "doi": "10.1146/annurev-arplant-042916-041042",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/28248554"
+    },
+    {
+      "title": "GRAVITROPISM: Mechanism and Signaling Pathway of Gravitropism in Plants",
+      "authors": "Morita, M.T.",
+      "journal": "Annu Rev Plant Biol",
+      "year": "2010",
+      "pubmed": "20192735",
+      "doi": "10.1146/annurev-arplant-042809-112258",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/20192735"
+    },
+    {
+      "title": "Phototropism in Higher Plants",
+      "authors": "Liscum, E.; Stowe-Evans, E.L.",
+      "journal": "Annu Rev Plant Physiol Plant Mol Biol",
+      "year": "2000",
+      "pubmed": "10850302",
+      "doi": "10.1146/annurev.arplant.51.1.267",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/10850302"
+    }
+  ],
+  "keywords": [
+    "response",
+    "control",
+    "process",
+    "plants",
+    "coordination",
+    "tropism"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-08",
+  "verified": false,
+  "notes": "Higher-level biological process. GLMP covers biochemical/molecular processes; this database covers organismal/ecological processes."
+}

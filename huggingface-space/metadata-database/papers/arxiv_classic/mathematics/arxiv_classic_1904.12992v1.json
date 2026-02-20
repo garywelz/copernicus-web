@@ -1,0 +1,37 @@
+{
+  "id": "arxiv_1904.12992v1",
+  "arxiv_id": "1904.12992v1",
+  "title": "Fast Mesh Refinement in Pseudospectral Optimal Control",
+  "authors": [
+    "N. Koeppen",
+    "I. M. Ross",
+    "L. C. Wilcox",
+    "R. J. Proulx"
+  ],
+  "author_string": "N. Koeppen, I. M. Ross, L. C. Wilcox, R. J. Proulx",
+  "journal": "J. Guidance, Control and Dynamics, April 2019",
+  "journal_ref": "J. Guidance, Control and Dynamics, April 2019",
+  "year": "2019",
+  "doi": null,
+  "abstract": "Mesh refinement in pseudospectral (PS) optimal control is embarrassingly easy --- simply increase the order $N$ of the Lagrange interpolating polynomial and the mathematics of convergence automates the distribution of the grid points. Unfortunately, as $N$ increases, the condition number of the resulting linear algebra increases as $N^2$; hence, spectral efficiency and accuracy are lost in practice. In this paper, we advance Birkhoff interpolation concepts over an arbitrary grid to generate well-conditioned PS optimal control discretizations. We show that the condition number increases only as $\\sqrt{N}$ in general, but is independent of $N$ for the special case of one of the boundary points being fixed. Hence, spectral accuracy and efficiency are maintained as $N$ increases. The effectiveness of the resulting fast mesh refinement strategy is demonstrated by using \\underline{polynomials of over a thousandth order} to solve a low-thrust, long-duration orbit transfer problem.",
+  "categories": [
+    "math.OC",
+    "cs.CE",
+    "econ.EM",
+    "math.NA"
+  ],
+  "primary_category": "math.NA",
+  "comment": "27 pages, 12 figures, JGCD April 2019",
+  "published_date": "2019-04-29T23:50:07Z",
+  "updated_date": "2019-04-29T23:50:07Z",
+  "url": "https://arxiv.org/abs/1904.12992v1",
+  "pdf_url": "https://arxiv.org/pdf/1904.12992v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:30:33.422250",
+  "category": "mathematics",
+  "subcategories": [
+    "math.OC",
+    "cs.CE",
+    "econ.EM"
+  ]
+}

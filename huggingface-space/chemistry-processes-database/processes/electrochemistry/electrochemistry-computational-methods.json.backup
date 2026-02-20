@@ -1,0 +1,89 @@
+{
+  "category": "chemistry",
+  "colorScheme": {
+    "blue": {
+      "category": "Intermediates & States",
+      "hex": "#74c0fc"
+    },
+    "green": {
+      "category": "Processing & Operations",
+      "hex": "#51cf66"
+    },
+    "red": {
+      "category": "Triggers & Inputs",
+      "hex": "#ff6b6b"
+    },
+    "violet": {
+      "category": "Products & Outputs",
+      "hex": "#b197fc"
+    },
+    "yellow": {
+      "category": "Structures & Objects",
+      "hex": "#ffd43b"
+    }
+  },
+  "complexity": {
+    "conditionals": 0,
+    "detailLevel": "medium",
+    "edges": 25,
+    "level": "medium",
+    "logicGates": {
+      "andGates": 0,
+      "orGates": 29,
+      "total": 29
+    },
+    "nodes": 26
+  },
+  "created": "2026-01-08",
+  "description": "Computational methods process showing algorithm implementation, quantum calculation, and computational efficiency.",
+  "id": "electrochemistry-computational-methods",
+  "keywords": [
+    "methods",
+    "computational"
+  ],
+  "lastUpdated": "2026-01-08",
+  "mermaid": "graph TD\nA3[Molecular System] --> B3[Computational Method Selection]\nC3[Quantum Theory] --> D3[Algorithm Implementation]\nE3[Computational Resources] --> F3[Calculation Setup]\nB3 --> G3[Method Selection]\nD3 --> H3[Algorithm Development]\nF3 --> I3[Resource Allocation]\nG3 --> J3[DFT Selection]\nH3 --> K3[Code Implementation]\nI3 --> L3[Computational Parameters]\nJ3 --> M3[Functional Selection]\nK3 --> L3\nL3 --> N3[Calculation Execution]\nM3 --> O3[Electronic Structure]\nN3 --> P3[Quantum Calculation]\nO3 --> Q3[Computational Analysis]\nP3 --> R3[Energy Calculation]\nQ3 --> S3[Property Analysis]\nR3 --> T3[Molecular Properties]\nS3 --> U3[Accuracy Assessment]\nT3 --> V3[Property Validation]\nU3 --> W3[Computational Efficiency]\nV3 --> X3[Result Characterization]\nW3 --> Y3[Process Optimization]\nX3 --> Z3[Final Computational Results]\nY3 --> Z3\n\n    style A3 fill:#ff6b6b,color:#fff\n    style C3 fill:#ff6b6b,color:#fff\n    style E3 fill:#ff6b6b,color:#fff\n    style B3 fill:#ffd43b,color:#000\n    style D3 fill:#ffd43b,color:#000\n    style F3 fill:#ffd43b,color:#000\n    style G3 fill:#ffd43b,color:#000\n    style H3 fill:#ffd43b,color:#000\n    style I3 fill:#ffd43b,color:#000\n    style J3 fill:#ffd43b,color:#000\n    style K3 fill:#ffd43b,color:#000\n    style L3 fill:#ffd43b,color:#000\n    style M3 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style O3 fill:#51cf66,color:#fff\n    style P3 fill:#51cf66,color:#fff\n    style Q3 fill:#51cf66,color:#fff\n    style R3 fill:#51cf66,color:#fff\n    style S3 fill:#51cf66,color:#fff\n    style T3 fill:#51cf66,color:#fff\n    style U3 fill:#51cf66,color:#fff\n    style V3 fill:#51cf66,color:#fff\n    style W3 fill:#51cf66,color:#fff\n    style X3 fill:#51cf66,color:#fff\n    style Y3 fill:#51cf66,color:#fff\n    style Z3 fill:#b197fc,color:#fff",
+  "name": "Computational Methods",
+  "notes": "Converted from chemistry batch HTML. Process number: 3.",
+  "relatedProcesses": [],
+  "sources": [
+    {
+      "authors": "Welz, G.",
+      "doi": null,
+      "journal": "CopernicusAI Knowledge Engine",
+      "notes": "Chemistry process visualization: Computational Methods. Created using the Programming Framework methodology for process analysis and visualization.",
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "year": "2025"
+    },
+    {
+      "authors": "Becke, AD.",
+      "doi": "10.1063/1.464913",
+      "journal": "J Chem Phys",
+      "pubmed": null,
+      "title": "Density-functional thermochemistry. III. The role of exact exchange",
+      "url": "https://doi.org/10.1063/1.464913",
+      "year": "1993"
+    },
+    {
+      "authors": "Warshel, A.; Levitt, M.",
+      "doi": "10.1016/S0022-2836(76)80044-X",
+      "journal": "J Mol Biol",
+      "pubmed": "1297780",
+      "title": "Theoretical studies of enzyme reactions: dielectric, electrostatic and steric stabilization of the transition state",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/1297780",
+      "year": "1976"
+    },
+    {
+      "authors": "Head-Gordon, M.",
+      "doi": "10.1021/cr200382v",
+      "journal": "Chem Rev",
+      "pubmed": "22003883",
+      "title": "Perspective: The Future of Electronic Structure Theory",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/22003883",
+      "year": "2012"
+    }
+  ],
+  "subcategory": "electrochemistry",
+  "verified": false
+}

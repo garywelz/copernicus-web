@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2601.08115v1",
+  "arxiv_id": "2601.08115v1",
+  "title": "Symmetry-aware Conditional Generation of Crystal Structures Using Diffusion Models",
+  "authors": [
+    "Takanori Ishii",
+    "Kaoru Hisama",
+    "Kohei Shinohara"
+  ],
+  "author_string": "Takanori Ishii, Kaoru Hisama, Kohei Shinohara",
+  "journal": "arXiv:2601.08115v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "The application of generative models in crystal structure prediction (CSP) has gained significant attention. Conditional generation--particularly the generation of crystal structures with specified stability or other physical properties has been actively researched for material discovery purposes. Meanwhile, the generative models capable of symmetry-aware generation are also under active development, because space group symmetry has a strong relationship with the physical properties of materials. In this study, we demonstrate that the symmetry control in the previous conditional crystal generation model may not be sufficiently effective when space group constraints are applied as a condition. To address this problem, we propose the WyckoffDiff-Adaptor, which embeds conditional generation within a WyckoffDiff architecture that effectively diffuses Wyckoff positions to achieve precise symmetry control. We successfully generated formation energy phase diagrams while specifying stable structures of particular combination of elements, such as Li--O and Ti--O systems, while simultaneously preserving the symmetry of the input conditions. The proposed method with symmetry-aware conditional generation demonstrates promising results as an effective approach to achieving the discovery of novel materials with targeted physical properties.",
+  "categories": [
+    "cond-mat.mtrl-sci"
+  ],
+  "primary_category": "cond-mat.mtrl-sci",
+  "comment": null,
+  "published_date": "2026-01-13T01:08:04Z",
+  "updated_date": "2026-01-13T01:08:04Z",
+  "url": "https://arxiv.org/abs/2601.08115v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.08115v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:14.425302",
+  "category": "physics",
+  "subcategories": [
+    "cond-mat.mtrl-sci"
+  ]
+}

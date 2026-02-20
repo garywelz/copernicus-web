@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2008.03115v1",
+  "arxiv_id": "2008.03115v1",
+  "title": "Approximating Constraint Satisfaction Problems Symmetrically",
+  "authors": [
+    "Jamie Tucker-Foltz"
+  ],
+  "author_string": "Jamie Tucker-Foltz",
+  "journal": "arXiv:2008.03115v1",
+  "journal_ref": null,
+  "year": "2020",
+  "doi": null,
+  "abstract": "This thesis investigates the extent to which the optimal value of a constraint satisfaction problem (CSP) can be approximated by some sentence of fixed point logic with counting (FPC). It is known that, assuming $\\mathsf{P} \\neq \\mathsf{NP}$ and the Unique Games Conjecture, the best polynomial time approximation algorithm for any CSP is given by solving and rounding a specific semidefinite programming relaxation. We prove an analogue of this result for algorithms that are definable as FPC-interpretations, which holds without the assumption that $\\mathsf{P} \\neq \\mathsf{NP}$. While we are not able to drop (an FPC-version of) the Unique Games Conjecture as an assumption, we do present some partial results toward proving it. Specifically, we give a novel construction which shows that, for all $α> 0$, there exists a positive integer $q = \\text{poly}(\\frac{1}α)$ such that no there is no FPC-interpretation giving an $α$-approximation of Unique Games on a label set of size $q$.",
+  "categories": [
+    "cs.LO",
+    "cs.CC"
+  ],
+  "primary_category": "cs.CC",
+  "comment": "91 pages, 6 figures, master's thesis",
+  "published_date": "2020-08-03T19:48:25Z",
+  "updated_date": "2020-08-03T19:48:25Z",
+  "url": "https://arxiv.org/abs/2008.03115v1",
+  "pdf_url": "https://arxiv.org/pdf/2008.03115v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:27.421420",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.LO",
+    "cs.CC"
+  ]
+}

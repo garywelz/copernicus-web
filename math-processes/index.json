@@ -1,0 +1,42 @@
+{
+  "total_processes": 5,
+  "categories": {
+    "proof_methods": 1,
+    "algorithms": 1,
+    "linear_algebra": 1,
+    "calculus": 1,
+    "probability": 1
+  },
+  "processes": [
+    {
+      "id": "mathematical-induction-proof-process",
+      "title": "Mathematical Induction Proof Process",
+      "category": "mathematics",
+      "subcategory": "proof_methods"
+    },
+    {
+      "id": "euclidean-algorithm-process",
+      "title": "Euclidean Algorithm Process",
+      "category": "mathematics",
+      "subcategory": "algorithms"
+    },
+    {
+      "id": "linear-algebra-matrix-operations-process",
+      "title": "Linear Algebra Matrix Operations Process",
+      "category": "mathematics",
+      "subcategory": "linear_algebra"
+    },
+    {
+      "id": "calculus-integration-process",
+      "title": "Calculus Integration Process",
+      "category": "mathematics",
+      "subcategory": "calculus"
+    },
+    {
+      "id": "probability-theory-process",
+      "title": "Probability Theory Process",
+      "category": "mathematics",
+      "subcategory": "probability"
+    }
+  ]
+}

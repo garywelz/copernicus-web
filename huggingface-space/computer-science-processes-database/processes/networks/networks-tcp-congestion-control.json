@@ -1,0 +1,92 @@
+{
+  "id": "networks-tcp-congestion-control",
+  "name": "TCP Congestion Control",
+  "category": "computer_science",
+  "subcategory": "networks",
+  "subcategory_name": "Computer Networks",
+  "description": "TCP Congestion Control process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 11,
+    "edges": 11,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 1,
+      "andGates": 1,
+      "total": 2
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nN1[\"TCP Connection\"]\nN2[\"ACK/Loss Signals\"]\nN3[\"cwnd + ssthresh\"]\nN4[\"Choose Approach\"]\nN5[\"RTT Estimator\"]\nN6[\"Slow Start\"]\nN7[\"Congestion Avoidance\"]\nN8[\"Fast Recovery\"]\nN9[\"Integrate Results\"]\nN10[\"Stable Throughput\"]\nN11[\"Adaptive Send Rate\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\nN4 --> N7\nN5 --> N6\nN7 --> N8\nN6 --> N9\nN8 --> N9\nN9 --> N10\nN10 --> N11\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ff6b6b,color:#fff\n    style N3 fill:#ffd43b,color:#000\n    style N4 fill:#ffd43b,color:#000\n    style N5 fill:#ffd43b,color:#000\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#74c0fc,color:#fff\n    style N10 fill:#74c0fc,color:#fff\n    style N11 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: TCP Congestion Control. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "Profile for Datagram Congestion Control Protocol (DCCP) Congestion Control ID 2: TCP-like Congestion Control",
+      "authors": "Floyd, S.; Kohler, E.",
+      "journal": "",
+      "year": "2006",
+      "pubmed": null,
+      "doi": "10.17487/rfc4341",
+      "url": "https://doi.org/10.17487/rfc4341"
+    },
+    {
+      "title": "Enhanced TCP Friendly Congestion Control Protocol",
+      "authors": "A., Jennifer Cecilia Rana",
+      "journal": "International Journal of Computer Theory and Engineering",
+      "year": "2014",
+      "pubmed": null,
+      "doi": "10.7763/ijcte.2014.v6.833",
+      "url": "https://doi.org/10.7763/ijcte.2014.v6.833"
+    },
+    {
+      "title": "Congestion Issues and TCP",
+      "authors": "Houmkozlis, Christos N.; Rovithakis, George A.",
+      "journal": "End-to-End Adaptive Congestion Control in TCP/IP Networks",
+      "year": "2017",
+      "pubmed": null,
+      "doi": "10.1201/b11870-4",
+      "url": "https://doi.org/10.1201/b11870-4"
+    }
+  ],
+  "keywords": [
+    "tcp",
+    "congestion",
+    "control"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-15",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+}

@@ -1,0 +1,37 @@
+{
+  "id": "pubmed_39779744",
+  "pmid": "39779744",
+  "title": "Task relevant autoencoding enhances machine learning for human neuroscience.",
+  "authors": [
+    "Orouji, Seyedmehdi",
+    "Taschereau-Dumouchel, Vincent",
+    "Cortese, Aurelio",
+    "Odegaard, Brian",
+    "Cushing, Cody",
+    "Cherkaoui, Mouslim",
+    "Kawato, Mitsuo",
+    "Lau, Hakwan",
+    "Peters, Megan A K"
+  ],
+  "author_string": "Orouji, Seyedmehdi, Taschereau-Dumouchel, Vincent, Cortese, Aurelio, Odegaard, Brian, Cushing, Cody et al.",
+  "journal": "Sci Rep",
+  "journal_full": "Scientific reports",
+  "year": "",
+  "doi": "10.1038/s41598-024-83867-6",
+  "abstract": "In human neuroscience, machine learning can help reveal lower-dimensional neural representations relevant to subjects' behavior. However, state-of-the-art models typically require large datasets to train, and so are prone to overfitting on human neuroimaging data that often possess few samples but many input dimensions. Here, we capitalized on the fact that the features we seek in human neuroscience are precisely those relevant to subjects' behavior rather than noise or other irrelevant factors. We thus developed a Task-Relevant Autoencoder via Classifier Enhancement (TRACE) designed to identify behaviorally-relevant target neural patterns. We benchmarked TRACE against a standard autoencoder and other models for two severely truncated machine learning datasets (to match the data typically available in functional magnetic resonance imaging [fMRI] data for an individual subject), then evaluated all models on fMRI data from 59 subjects who observed animals and objects. TRACE outperformed alternative models nearly unilaterally, showing up to 12% increased classification accuracy and up to 56% improvement in discovering \"cleaner\", task-relevant representations. These results showcase TRACE's potential for a wide variety of data related to human behavior.",
+  "keywords": [
+    "Autoencoder",
+    "Dimensionality reduction",
+    "Human neuroscience",
+    "MVPA",
+    "Machine learning",
+    "Task-relevant representation",
+    "fMRI"
+  ],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/39779744",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T17:01:11.460576",
+  "category": "biology",
+  "subcategories": []
+}

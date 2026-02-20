@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2601.08088v1",
+  "arxiv_id": "2601.08088v1",
+  "title": "Multi-level charge fluctuations in a Si/SiGe double quantum dot device",
+  "authors": [
+    "Dylan Albrecht",
+    "Feiyang Ye",
+    "N. Tobias Jacobson",
+    "John M. Nichol"
+  ],
+  "author_string": "Dylan Albrecht, Feiyang Ye, N. Tobias Jacobson, John M. Nichol",
+  "journal": "arXiv:2601.08088v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Discrete charge fluctuations, routinely observed in semiconductor quantum dot devices, may contribute significantly to device drift and errors resulting from qubit miscalibration. Understanding the nature and origins of these discrete charge fluctuations may provide insights into material improvements or means of mitigating charge noise in semiconductor quantum dot devices. In this work, we measure multi-level charge fluctuations present in a Si/SiGe double quantum dot device over a range of device operating voltages and temperatures. To characterize the parameter-dependent dynamics of the underlying fluctuating degrees of freedom, we perform a detailed analysis of the measured noise timeseries. We perform algorithmically assisted drift detection and change point detection to detrend the data and remove a slow fluctuator component, as a preprocessing step. We perform model comparison on the post-processed time series between different $n$-level fluctuator ($n$LF) factorial hidden Markov models (FHMMs), finding that although at most sweep values the independent pair of 2LFs model would be preferred, in a particular region of voltage space the 4LF model outperforms the other models, indicating a conditional rate dependence between the two fluctuators. By tracking fluctuator transition rates, biases, and weights over a range of different device configurations, we estimate gate voltage and conductivity sensitivity. In particular, we fit a phenomenological, detailed balance model to the extracted independent 2LFs rate data, yielding lever arm estimates in the range of $-2 μ$eV/mV up to $4 μ$eV/mV between the two 2LFs and nearby gate electrodes. We expect that these characterization results may aid in subsequent spatial triangulation of the charge fluctuators.",
+  "categories": [
+    "cond-mat.mes-hall",
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": "15 pages, 13 figures",
+  "published_date": "2026-01-13T00:06:26Z",
+  "updated_date": "2026-01-13T00:06:26Z",
+  "url": "https://arxiv.org/abs/2601.08088v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.08088v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:19.621011",
+  "category": "physics",
+  "subcategories": [
+    "cond-mat.mes-hall",
+    "quant-ph"
+  ]
+}

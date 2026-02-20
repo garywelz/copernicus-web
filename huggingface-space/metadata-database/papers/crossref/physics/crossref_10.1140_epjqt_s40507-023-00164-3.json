@@ -1,0 +1,29 @@
+{
+  "id": "crossref_10.1140_epjqt_s40507-023-00164-3",
+  "doi": "10.1140/epjqt/s40507-023-00164-3",
+  "title": "Quantum encryption of superposition states with quantum permutation pad in IBM quantum computers",
+  "authors": [
+    "Perepechaenko, Maria",
+    "Kuang, Randy"
+  ],
+  "author_string": "Perepechaenko, Maria, Kuang, Randy",
+  "journal": "EPJ Quantum Technology",
+  "issn": "2662-4400",
+  "issn_type": "print",
+  "volume": "10",
+  "issue": "1",
+  "page": "",
+  "year": "2023",
+  "publisher": "Springer Science and Business Media LLC",
+  "language": "en",
+  "abstract": "AbstractWe present an implementation of Kuang and Bettenburg’s Quantum Permutation Pad (QPP) used to encrypt superposition states. The project was conducted on currently available IBM quantum systems using the Qiskit development kit. This work extends previously reported implementation of QPP used to encrypt basis states and demonstrates that application of the QPP scheme is not limited to the encryption of basis states. For this implementation, a pad of 56 2-qubit Permutation matrices was used, providing 256 bits of entropy for the QPP algorithm. An image of a cat was used as the plaintext for this experiment. The plaintext was randomized using a classical XOR function prior to the state preparation procedure. To create corresponding superposition states, we applied a novel operator defined in this paper. These superposition states were then encrypted using QPP, with 2-qubit Permutation Operators, producing superposition ciphertext states. Due to the lack of a quantum channel, we omitted the transmission and executed the decryption procedure on the same IBM quantum system. If a quantum channel existed, the superposition ciphertext states could be transmitted as qubits, and be directly decrypted on a different quantum system. We provide a brief discussion of the security, although the focus of the paper remains on the implementation. Previously we have demonstrated QPP operating in both classical and quantum computers, offering an interesting opportunity to bridge the security gap between classical and quantum systems. This work broadens the applicability of QPP for the encryption of basis states as well as superposition states. We believe that quantum encryption schemes that are not limited to basis states will be integral to a secure quantum internet, to reduce vulnerabilities introduced by using two separate algorithms for secure communication between a quantum and a classical computer.",
+  "subjects": [],
+  "keywords": [],
+  "article_type": "journal-article",
+  "citation_count": 29,
+  "url": "https://doi.org/10.1140/epjqt/s40507-023-00164-3",
+  "source": "crossref",
+  "acquired_date": "2026-01-19T10:54:44.459446",
+  "category": "physics",
+  "subcategories": []
+}

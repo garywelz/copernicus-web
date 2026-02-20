@@ -1,0 +1,31 @@
+{
+  "id": "pubmed_35051464",
+  "pmid": "35051464",
+  "title": "Improved forest dynamics leads to better hydrological predictions in watershed modeling.",
+  "authors": [
+    "Haas, Henrique",
+    "Kalin, Latif",
+    "Srivastava, Puneet"
+  ],
+  "author_string": "Haas, Henrique, Kalin, Latif, Srivastava, Puneet",
+  "journal": "Sci Total Environ",
+  "journal_full": "The Science of the total environment",
+  "year": "",
+  "doi": "10.1016/j.scitotenv.2022.153180",
+  "abstract": "This study explored how the characterization of forest processes in hydrologic models affects watershed hydrological responses. To that end, we applied the widely used Soil and Water Assessment Tool (SWAT) model to two forested watersheds in the southeastern United States. Although forests can cover a large portion of watersheds, tree attributes such as leaf area index (LAI), biomass accumulation, and processes such as evapotranspiration (ET) are rarely calibrated in hydrological modeling studies. The advent of freely and readily available remote-sensing data, combined with field observations from forestry studies and published literature, allowed us to develop an improved forest parameterization for SWAT. We tested our proposed parameterization at the watershed scale in Florida and Georgia and compared simulated LAI, biomass, and ET with the default model settings. Our results showed major improvements in predicted monthly LAI and ET based on MODIS reference data (NSE > 0.6). Simulated forest biomass also showed better agreement with the USDA forest biomass gridded data. Through a series of modeling experiments, we isolated the benefits of LAI, biomass, and ET in predicting streamflow and baseflow at the watershed level. The combined benefits of improved LAI, biomass, and ET predictions yielded the most optimal model configuration where terrestrial and in-stream processes were simulated reasonably well. We performed automated model calibration using two calibration strategies. In the first calibration scheme (M<sub>0</sub>), SWAT was calibrated for daily streamflow without adjusting LAI, biomass, and ET. In the second calibration scheme (M<sub>LAI+BM+ET</sub>), previously calibrated parameters constraining LAI, biomass, and ET were incorporated into the model and daily streamflow was recalibrated. The M<sub>LAI+BM+ET</sub> model showed superior performance and reduced uncertainties in predicting daily streamflow, with NSE values ranging from 0.52 to 0.8. Our findings highlight the importance of accurately representing forest dynamics in hydrological models.",
+  "keywords": [
+    "Biomass",
+    "Evapotranspiration",
+    "Forest dynamics",
+    "Leaf area index",
+    "MODIS",
+    "SWAT",
+    "Watershed hydrologic modeling"
+  ],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/35051464",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T17:02:33.037691",
+  "category": "biology",
+  "subcategories": []
+}

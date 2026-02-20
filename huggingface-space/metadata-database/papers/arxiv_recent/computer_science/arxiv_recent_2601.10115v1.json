@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2601.10115v1",
+  "arxiv_id": "2601.10115v1",
+  "title": "Bayesian Model Selection for Complex Flows of Yield Stress Fluids",
+  "authors": [
+    "Aricia Rinkens",
+    "Clemens V. Verhoosel",
+    "Alexandra Alicke",
+    "Patrick D. Anderson",
+    "Nick O. Jaensson"
+  ],
+  "author_string": "Aricia Rinkens, Clemens V. Verhoosel, Alexandra Alicke, Patrick D. Anderson, Nick O. Jaensson",
+  "journal": "arXiv:2601.10115v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Modeling yield stress fluids in complex flow scenarios presents significant challenges, particularly because conventional rheological characterization methods often yield material parameters that are not fully representative of the intricate constitutive behavior observed in complex conditions. We propose a Bayesian uncertainty quantification framework for the calibration and selection of constitutive models for yield stress fluids, explicitly accounting for uncertainties in both modeling accuracy and experimental observations. The framework addresses the challenge of complex flow modeling by making discrepancies that emanate from rheological measurements explicit and quantifiable. We apply the Bayesian framework to rheological measurements and squeeze flow experiments on Carbopol 980. Our analysis demonstrates that Bayesian model selection yields robust probabilistic predictions and provides an objective assessment of model suitability through evaluated plausibilities. The framework naturally penalizes unnecessary complexity and shows that the optimal model choice depends on the incorporated physics, the prior information, and the availability of data. In rheological settings, the Herschel-Bulkley and biviscous power law models perform well. However, when these rheological outcomes are used as prior information for a rheo-informed squeeze flow analysis, a significant mismatch with the experimental data is observed. This is due to the yield stress inferred from rheological measurements not being representative of the complex squeeze flow case. In contrast, an expert-informed squeeze flow analysis, based on broader priors, yields accurate predictions. These findings highlight the limitations of translating rheological measurements to complex flows and underscore the value of Bayesian approaches in quantifying model bias and guiding model selection under uncertainty.",
+  "categories": [
+    "physics.flu-dyn",
+    "cs.CE"
+  ],
+  "primary_category": "cs.CE",
+  "comment": null,
+  "published_date": "2026-01-15T06:49:20Z",
+  "updated_date": "2026-01-15T06:49:20Z",
+  "url": "https://arxiv.org/abs/2601.10115v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.10115v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:18:50.687620",
+  "category": "computer_science",
+  "subcategories": [
+    "physics.flu-dyn",
+    "cs.CE"
+  ]
+}

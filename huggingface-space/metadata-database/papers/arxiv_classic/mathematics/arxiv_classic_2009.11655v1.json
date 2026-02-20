@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2009.11655v1",
+  "arxiv_id": "2009.11655v1",
+  "title": "Apriori and aposteriori error estimation of Subgrid multiscale stabilized finite element method for fully coupled Navier-Stokes Transport model",
+  "authors": [
+    "B. V. Rathish Kumar",
+    "Manisha Chowdhury"
+  ],
+  "author_string": "B. V. Rathish Kumar, Manisha Chowdhury",
+  "journal": "arXiv:2009.11655v1",
+  "journal_ref": null,
+  "year": "2020",
+  "doi": null,
+  "abstract": "In this paper a fully coupled system of transient $Navier$-$Stokes$ ($NS$) fluid flow model and variable coefficient unsteady Advection-Diffusion-Reaction ($VADR$) transport model has been studied through subgrid multiscale stabilized finite element method. In particular algebraic approach of approximating the subscales has been considered to arrive at stabilized variational formulation of the coupled system. This system is strongly coupled since viscosity of the fluid depends upon the concentration, whose transportation is modelled by $VADR$ equation. Fully implicit schemes have been considered for time discretisation. Further more elaborated derivations of both $apriori$ and $aposteriori$ error estimates for stabilized finite element scheme have been carried out. Credibility of the stabilized method is also established well through various numerical experiments, presented before concluding.",
+  "categories": [
+    "math.NA",
+    "math.AP"
+  ],
+  "primary_category": "math.AP",
+  "comment": "arXiv admin note: text overlap with arXiv:2004.01782",
+  "published_date": "2020-09-23T06:33:12Z",
+  "updated_date": "2020-09-23T06:33:12Z",
+  "url": "https://arxiv.org/abs/2009.11655v1",
+  "pdf_url": "https://arxiv.org/pdf/2009.11655v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:30:44.921943",
+  "category": "mathematics",
+  "subcategories": [
+    "math.NA",
+    "math.AP"
+  ]
+}

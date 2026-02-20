@@ -1,0 +1,24 @@
+{
+  "id": "pubmed_20218737",
+  "pmid": "20218737",
+  "title": "Relative expression analysis for molecular cancer diagnosis and prognosis.",
+  "authors": [
+    "Eddy, James A",
+    "Sung, Jaeyun",
+    "Geman, Donald",
+    "Price, Nathan D"
+  ],
+  "author_string": "Eddy, James A, Sung, Jaeyun, Geman, Donald, Price, Nathan D",
+  "journal": "Technol Cancer Res Treat",
+  "journal_full": "Technology in cancer research & treatment",
+  "year": "",
+  "doi": "10.1177/153303461000900204",
+  "abstract": "The enormous amount of biomolecule measurement data generated from high-throughput technologies has brought an increased need for computational tools in biological analyses. Such tools can enhance our understanding of human health and genetic diseases, such as cancer, by accurately classifying phenotypes, detecting the presence of disease, discriminating among cancer sub-types, predicting clinical outcomes, and characterizing disease progression. In the case of gene expression microarray data, standard statistical learning methods have been used to identify classifiers that can accurately distinguish disease phenotypes. However, these mathematical prediction rules are often highly complex, and they lack the convenience and simplicity desired for extracting underlying biological meaning or transitioning into the clinic. In this review, we survey a powerful collection of computational methods for analyzing transcriptomic microarray data that address these limitations. Relative Expression Analysis (RXA) is based only on the relative orderings among the expressions of a small number of genes. Specifically, we provide a description of the first and simplest example of RXA, the K-TSP classifier, which is based on _ pairs of genes; the case K = 1 is the TSP classifier. Given their simplicity and ease of biological interpretation, as well as their invariance to data normalization and parameter-fitting, these classifiers have been widely applied in aiding molecular diagnostics in a broad range of human cancers. We review several studies which demonstrate accurate classification of disease phenotypes (e.g., cancer vs. normal), cancer subclasses (e.g., AML vs. ALL, GIST vs. LMS), disease outcomes (e.g., metastasis, survival), and diverse human pathologies assayed through blood-borne leukocytes. The studies presented demonstrate that RXA-specifically the TSP and K-TSP classifiers-is a promising new class of computational methods for analyzing high-throughput data, and has the potential to significantly contribute to molecular cancer diagnosis and prognosis.",
+  "keywords": [],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/20218737",
+  "source": "pubmed",
+  "acquired_date": "2026-01-13T20:28:49.451492",
+  "category": "biology",
+  "subcategories": []
+}

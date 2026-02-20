@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2601.08765v1",
+  "arxiv_id": "2601.08765v1",
+  "title": "Majority-Logic Decoding of Binary Locally Recoverable Codes: A Probabilistic Analysis",
+  "authors": [
+    "Hoang Ly",
+    "Emina Soljanin",
+    "Philip Whiting"
+  ],
+  "author_string": "Hoang Ly, Emina Soljanin, Philip Whiting",
+  "journal": "arXiv:2601.08765v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Locally repairable codes (LRCs) were originally introduced to enable efficient recovery from erasures in distributed storage systems by accessing only a small number of other symbols. While their structural properties-such as bounds and constructions-have been extensively studied, the performance of LRCs under random erasures and errors has remained largely unexplored. In this work, we study the error- and erasure-correction performance of binary linear LRCs under majority-logic decoding (MLD). Focusing on LRCs with fixed locality and varying availability, we derive explicit upper bounds on the probability of decoding failure over the memoryless Binary Erasure Channel (BEC) and Binary Symmetric Channel (BSC). Our analysis characterizes the behavior of the bit-error rate (BER) and block-error rate (BLER) as functions of the locality and availability parameters. We show that, under mild growth conditions on the availability, the block decoding failure probability vanishes asymptotically, and that majority-logic decoding can successfully correct virtually all of error and erasure patterns of weight linear in the blocklength. The results reveal a substantial gap between worst-case guarantees and typical performance under stochastic channel models.",
+  "categories": [
+    "cs.IT",
+    "math.PR"
+  ],
+  "primary_category": "math.PR",
+  "comment": null,
+  "published_date": "2026-01-13T17:54:57Z",
+  "updated_date": "2026-01-13T17:54:57Z",
+  "url": "https://arxiv.org/abs/2601.08765v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.08765v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:03.407325",
+  "category": "mathematics",
+  "subcategories": [
+    "cs.IT",
+    "math.PR"
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "id": "environmental_chemistry-atmospheric-chemistry",
+  "name": "Atmospheric Chemistry",
+  "category": "chemistry",
+  "subcategory": "environmental_chemistry",
+  "description": "Atmospheric Chemistry Process. This environmental chemistry process visualization demonstrates atmospheric reactions and air quality analysis. The flowchart shows monitoring inputs and pollutant detection, atmospheric methods and reaction mechanisms, atmospheric operations and chemistry analysis, intermediate results, and final atmospheric chemistry outputs.",
+  "complexity": {
+    "nodes": 26,
+    "edges": 24,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 29,
+      "andGates": 0,
+      "total": 29
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nA1[Air Quality Monitoring] --> B1[Atmospheric Method]\nC1[Pollutant Detection] --> D1[Atmospheric Reaction]\nE1[Ozone Formation] --> F1[Atmospheric Chemistry Analysis]\nB1 --> G1[Photochemical Smog]\nD1 --> H1[Acid Rain Formation]\nF1 --> I1[Greenhouse Gas Chemistry]\nG1 --> J1[NOx Chemistry]\nH1 --> K1[SOx Chemistry]\nI1 --> L1[CO2 Chemistry]\nJ1 --> M1[Ozone Depletion]\nK1 --> L1\nL1 --> N1[Climate Change]\nM1 --> O1[Atmospheric Modeling]\nN1 --> P1[Air Quality Index]\nO1 --> Q1[Atmospheric Chemistry Process]\nP1 --> R1[Atmospheric Chemistry Validation]\nQ1 --> S1[Atmospheric Chemistry Verification]\nR1 --> T1[Atmospheric Chemistry Result]\nS1 --> U1[Atmospheric Chemistry Analysis]\nT1 --> V1[Atmospheric Chemistry Parameters]\nU1 --> W1[Atmospheric Chemistry Output]\nV1 --> X1[Atmospheric Chemistry Analysis]\nW1 --> Y1[Atmospheric Chemistry Final Result]\nX1 --> Z1[Atmospheric Chemistry Complete]\n\n    style A1 fill:#ff6b6b,color:#fff\n    style C1 fill:#ff6b6b,color:#fff\n    style E1 fill:#ff6b6b,color:#fff\n    style B1 fill:#ffd43b,color:#000\n    style D1 fill:#ffd43b,color:#000\n    style F1 fill:#ffd43b,color:#000\n    style G1 fill:#ffd43b,color:#000\n    style H1 fill:#ffd43b,color:#000\n    style I1 fill:#ffd43b,color:#000\n    style J1 fill:#ffd43b,color:#000\n    style K1 fill:#ffd43b,color:#000\n    style L1 fill:#ffd43b,color:#000\n    style M1 fill:#51cf66,color:#fff\n    style N1 fill:#51cf66,color:#fff\n    style O1 fill:#51cf66,color:#fff\n    style P1 fill:#51cf66,color:#fff\n    style Q1 fill:#51cf66,color:#fff\n    style R1 fill:#51cf66,color:#fff\n    style S1 fill:#51cf66,color:#fff\n    style T1 fill:#51cf66,color:#fff\n    style U1 fill:#51cf66,color:#fff\n    style V1 fill:#51cf66,color:#fff\n    style W1 fill:#51cf66,color:#fff\n    style X1 fill:#51cf66,color:#fff\n    style Y1 fill:#51cf66,color:#fff\n    style Z1 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "notes": "Chemistry process visualization: Atmospheric Chemistry. Created using the Programming Framework methodology for process analysis and visualization."
+    }
+  ],
+  "keywords": [
+    "mechanism",
+    "reaction",
+    "atmospheric",
+    "chemistry"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-08",
+  "verified": false,
+  "notes": "Converted from chemistry batch HTML. Process number: 1."
+}

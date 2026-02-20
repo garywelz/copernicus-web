@@ -1,0 +1,21 @@
+{
+  "mcpServers": {
+    "copernicusai": {
+      "command": "python3",
+      "args": [
+        "-m",
+        "mcp_server.server"
+      ],
+      "cwd": "/home/gdubs/copernicus-web-public/cloud-run-backend",
+      "env": {
+        "GCP_PROJECT_ID": "regal-scholar-453620-r7",
+        "FIRESTORE_DATABASE": "copernicusai",
+        "GCP_AUDIO_BUCKET": "regal-scholar-453620-r7-podcast-storage",
+        "GLMP_BUCKET_PATH": "glmp-v2/processes"
+      }
+    }
+  }
+}
+
+
+

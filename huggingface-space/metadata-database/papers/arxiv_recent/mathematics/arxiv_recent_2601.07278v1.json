@@ -1,0 +1,30 @@
+{
+  "id": "arxiv_2601.07278v1",
+  "arxiv_id": "2601.07278v1",
+  "title": "Parametric Probabilistic Manifold Decomposition for Nonlinear Model Reduction",
+  "authors": [
+    "Jiaming Guo",
+    "Dunhui Xiao"
+  ],
+  "author_string": "Jiaming Guo, Dunhui Xiao",
+  "journal": "arXiv:2601.07278v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Probabilistic Manifold Decomposition (PMD)\\cite{doi:10.1137/25M1738863}, developed in our earlier work, provides a nonlinear model reduction by embedding high-dimensional dynamics onto low-dimensional probabilistic manifolds. The PMD has demonstrated strong performance for time-dependent systems. However, its formulation is for temporal dynamics and does not directly accommodate parametric variability, which limits its applicability to tasks such as design optimization, control, and uncertainty quantification. In order to address the limitations, a \\emph{Parametric Probabilistic Manifold Decomposition} (PPMD) is presented to deal with parametric problems. The central advantage of PPMD is its ability to construct continuous, high-fidelity parametric surrogates while retaining the transparency and non-intrusive workflow of PMD. By integrating probabilistic-manifold embeddings with parameter-aware latent learning, PPMD enables smooth predictions across unseen parameter values (such as different boundary or initial conditions). To validate the proposed method, a comprehensive convergence analysis is established for PPMD, covering the approximation of the linear principal subspace, the geometric recovery of the nonlinear solution manifold, and the statistical consistency of the kernel ridge regression used for latent learning. The framework is then numerically demonstrated on two classic flow configurations: flow past a cylinder and backward-facing step flow. Results confirm that PPMD achieves superior accuracy and generalization beyond the training parameter range compared to the conventional proper orthogonal decomposition with Gaussian process regression (POD+GPR) method.",
+  "categories": [
+    "math.NA"
+  ],
+  "primary_category": "math.NA",
+  "comment": "26 pages",
+  "published_date": "2026-01-12T07:35:35Z",
+  "updated_date": "2026-01-12T07:35:35Z",
+  "url": "https://arxiv.org/abs/2601.07278v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.07278v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:11.152691",
+  "category": "mathematics",
+  "subcategories": [
+    "math.NA"
+  ]
+}

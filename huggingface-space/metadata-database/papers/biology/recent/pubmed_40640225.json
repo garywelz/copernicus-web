@@ -1,0 +1,32 @@
+{
+  "id": "pubmed_40640225",
+  "pmid": "40640225",
+  "title": "AI based natural inhibitor targeting RPS20 for colorectal cancer treatment using integrated computational approaches.",
+  "authors": [
+    "Ali, Nouman",
+    "Akbar, Roman",
+    "Saleem, Amna",
+    "Ali, Adeeba",
+    "Ali, Aamir"
+  ],
+  "author_string": "Ali, Nouman, Akbar, Roman, Saleem, Amna, Ali, Adeeba, Ali, Aamir",
+  "journal": "Sci Rep",
+  "journal_full": "Scientific reports",
+  "year": "",
+  "doi": "10.1038/s41598-025-07574-6",
+  "abstract": "The increasing global incidence of cancer emphasizes the vital role of machine learning algorithms and artificial intelligence (AI) in identifying novel anticancer targets and developing new drugs. Computational approaches can significantly quicken research on complex disorders, enabling the discovery of effective treatments. This study explores anticancer targets by assessing the potential of naturally occurring compounds derived from various plants to cure colorectal cancer. Twenty compounds were sourced from PubChem, and the RPS20 protein structure was obtained from AlphaFold, and mutation \"V50S\" was added. Validation of mutated RPS20 protein was performed using the Ramachandran plot and ERRAT. Binding sites on the mutated RPS20 protein were identified with DeepSite, followed by virtual screening to pinpoint the most promising natural lead drug candidate. Indirubin emerged as the lead drug candidate, fulfilling all ADMET criteria and exhibiting a good binding affinity. Further development included designing an AI-based drug using the WADDAICA server, which was validated through molecular docking, molecular dynamics (MD) simulation, and MMGBSA. The electronic properties of indirubin were studied using DFT calculations. The results show a moderate HOMO-LUMO gap, indicating its potential reactivity and the possible capability for biological target interactions. These findings indicate that indirubin could serve as a potent and effective cancer inhibitor, offering high efficacy with minimal side effects.",
+  "keywords": [
+    "RPS20",
+    "Artificial intelligence",
+    "Colorectal cancer",
+    "Indirubin",
+    "Molecular Docking",
+    "Molecular dynamics (MD) simulation"
+  ],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/40640225",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T17:00:11.753020",
+  "category": "biology",
+  "subcategories": []
+}

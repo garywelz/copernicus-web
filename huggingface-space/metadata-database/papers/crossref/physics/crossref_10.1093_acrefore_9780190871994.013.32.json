@@ -1,0 +1,29 @@
+{
+  "id": "crossref_10.1093_acrefore_9780190871994.013.32",
+  "doi": "10.1093/acrefore/9780190871994.013.32",
+  "title": "Adiabatic Quantum Computing and Quantum Annealing",
+  "authors": [
+    "Grant, Erica K.",
+    "Humble, Travis S."
+  ],
+  "author_string": "Grant, Erica K., Humble, Travis S.",
+  "journal": "Oxford Research Encyclopedia of Physics",
+  "issn": null,
+  "issn_type": "",
+  "volume": "",
+  "issue": "",
+  "page": "",
+  "year": "2020",
+  "publisher": "Oxford University Press",
+  "language": "en",
+  "abstract": "Adiabatic quantum computing (AQC) is a model of computation that uses quantum mechanical processes operating under adiabatic conditions. As a form of universal quantum computation, AQC employs the principles of superposition, tunneling, and entanglement that manifest in quantum physical systems. The AQC model of quantum computing is distinguished by the use of dynamical evolution that is slow with respect to the time and energy scales of the underlying physical systems. This adiabatic condition enforces the promise that the quantum computational state will remain well-defined and controllable thus enabling the development of new algorithmic approaches.\n               Several notable algorithms developed within the AQC model include methods for solving unstructured search and combinatorial optimization problems. In an idealized setting, the asymptotic complexity analyses of these algorithms indicate computational speed-ups may be possible relative to state-of-the-art conventional methods. However, the presence of non-ideal conditions, including non-adiabatic dynamics, residual thermal excitations, and physical noise complicate the assessment of the potential computational performance. A relaxation of the adiabatic condition is captured in the complementary computational heuristic of quantum annealing, which accommodates physical systems operating at finite temperature and in open environments. While quantum annealing (QA) provides a more accurate model for the behavior of actual quantum physical systems, the possibility of non-adiabatic effects obscures a clear separation with conventional computing complexity.\n               A series of technological advances in the control of quantum physical systems have enabled experimental AQC and QA. Prominent examples include demonstrations using superconducting electronics, which encode quantum information in the magnetic flux induced by a weak current operating at cryogenic temperatures. A family of devices developed specifically for unconstrained optimization problems has been applied to solve problems in specific domains including logistics, finance, material science, machine learning, and numerical analysis. An accompanying infrastructure has also developed to support these experimental demonstrations and to enable access of a broader community of users. Although AQC is most commonly applied in superconducting technologies, alternative approaches include optically trapped neutral atoms and ion-trap systems.\n               The significant progress in the understanding of AQC has revealed several open topics that continue to motivate research into this model of quantum computation. Foremost is the development of methods for fault-tolerant operation that will ensure the scalability of AQC for solving large-scale problems. In addition, unequivocal experimental demonstrations that differentiate the computational power of AQC and its variants from conventional computing approaches are needed. This will also require advances in the fabrication and control of quantum physical systems under the adiabatic restrictions.",
+  "subjects": [],
+  "keywords": [],
+  "article_type": "reference-entry",
+  "citation_count": 32,
+  "url": "https://doi.org/10.1093/acrefore/9780190871994.013.32",
+  "source": "crossref",
+  "acquired_date": "2026-01-19T10:54:13.898767",
+  "category": "physics",
+  "subcategories": []
+}

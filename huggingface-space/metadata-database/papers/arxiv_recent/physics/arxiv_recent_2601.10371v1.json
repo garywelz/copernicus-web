@@ -1,0 +1,30 @@
+{
+  "id": "arxiv_2601.10371v1",
+  "arxiv_id": "2601.10371v1",
+  "title": "The Direct-Product Decomposition Approach for Symmetry Exploitation in Many-Body Methods in Case of Non-Abelian Point Groups",
+  "authors": [
+    "Malte Hellmann",
+    "Jürgen Gauss"
+  ],
+  "author_string": "Malte Hellmann, Jürgen Gauss",
+  "journal": "arXiv:2601.10371v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We demonstrate for the specific case of $C_{3v}$ how the direct-product decomposition scheme for the treatment of symmetry in coupled-cluster (CC) calculations can be extended to non-Abelian point groups. We show that for the two-electron integrals and CC amplitudes a block structure can be obtained by resolving the reducible products of two irreducible representations into their irreducible representations. To deal with the necessary resorts of the ordering of the two-electron integrals and amplitudes, spin-adaptation, and the O(M$^5$) contractions (with M as the number of basis functions) of a CC calculation, we suggest a strategy that uses both the reduced and non-reduced representation of the corresponding quantities and switches back and forth between them. While the reduced representations are the ones used in the O(M$^6$) contractions, the other steps are better carried out in the non-reduced representation. Our pilot implementation of the CC singles and doubles method confirms in test calculations for NH$_3$ and PH$_3$ using different basis sets that significant savings (of more than 20 compared to treatments without symmetry and about 5 compared to treatments using $C_s$ symmetry) are possible and suggest that the exploitation of non-Abelian symmetry would render CC computations on large highly symmetric molecules possible",
+  "categories": [
+    "physics.chem-ph"
+  ],
+  "primary_category": "physics.chem-ph",
+  "comment": null,
+  "published_date": "2026-01-15T13:25:19Z",
+  "updated_date": "2026-01-15T13:25:19Z",
+  "url": "https://arxiv.org/abs/2601.10371v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.10371v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:18:46.731736",
+  "category": "physics",
+  "subcategories": [
+    "physics.chem-ph"
+  ]
+}

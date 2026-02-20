@@ -98,8 +98,21 @@ async def upload_research_paper(paper_request: PaperUploadRequest):
             if preprocess_func:
                 paper.preprocessing = await preprocess_func(paper)
         
+        # Generate embedding for vector search
+        paper_dict = paper.dict()
+        try:
+            from utils.auto_embedding import add_embedding_to_paper_data
+            paper_dict = add_embedding_to_paper_data(paper_dict)
+            structured_logger.info("Embedding generated for paper",
+                                  paper_id=paper_id)
+        except Exception as e:
+            structured_logger.warning("Failed to generate embedding for paper (non-blocking)",
+                                     paper_id=paper_id,
+                                     error=str(e))
+            # Continue without embedding - content creation should not fail
+        
         # Store in Firestore
-        db.collection('research_papers').document(paper_id).set(paper.dict())
+        db.collection('research_papers').document(paper_id).set(paper_dict)
         
         structured_logger.info("Paper uploaded",
                               paper_id=paper_id,

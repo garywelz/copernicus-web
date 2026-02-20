@@ -1,0 +1,31 @@
+{
+  "id": "miller-rabin-primality-test",
+  "title": "Miller-Rabin Primality Test",
+  "description": "Probabilistic test for determining if a number is prime",
+  "category": "mathematics",
+  "subcategory": "computational_number_theory",
+  "mermaid": "graph TD A1[Start|Triggers & Inputs] --> B1; style A1 fill:#ff6b6b,color:#fff B1[Input n (Odd integer > 2)|Triggers & Inputs] --> C1; style B1 fill:#ff6b6b,color:#fff C1[Compute s, r such that n-1 = 2^s * r (r is odd)|Structures & Objects] --> D1; style C1 fill:#ffd43b,color:#000 D1[Choose a random integer a where 1 < a < n-1|Triggers & Inputs] --> E1; style D1 fill:#ff6b6b,color:#fff E1[Set y = a^r mod n|Processing & Operations] --> F1; style E1 fill:#51cf66,color:#fff F1[Intermediary Value: y|Intermediates & States] --> G1; style F1 fill:#74c0fc,color:#fff G1{y == 1?|Structures & Objects} --> H1; style G1 fill:#ffd43b,color:#000 H1[Return \"composite\"|Products & Outputs]; style H1 fill:#b197fc,color:#fff G1 -- No --> I1; I1[Loop counter: i = 0|Structures & Objects] --> J1; style I1 fill:#ffd43b,color:#000 J1{i < s?|Structures & Objects} --> K1; style J1 fill:#ffd43b,color:#000 K1 -- Yes --> L1; L1{y == n-1?|Structures & Objects} --> M1; style L1 fill:#ffd43b,color:#000 M1[Return \"composite\"|Products & Outputs]; style M1 fill:#b197fc,color:#fff L1 -- No --> N1; N1[y = y^2 mod n|Processing & Operations] --> O1; style N1 fill:#51cf66,color:#fff O1[Intermediary Value: y|Intermediates & States] --> P1; style O1 fill:#74c0fc,color:#fff P1[i = i + 1|Processing & Operations] --> J1; style P1 fill:#51cf66,color:#fff K1 -- No --> Q1; Q1[Return \"prime\"|Products & Outputs]; style Q1 fill:#b197fc,color:#fff G1 -- Yes --> R1[\"(End)\"]; style R1 fill:#fff,color:#000 M1 --> R1; Q1 --> R1; H1 --> R1;",
+  "entities": [
+    "Start|Triggers & Inputs",
+    "Input n (Odd integer > 2)|Triggers & Inputs",
+    "Compute s, r such that n-1 = 2^s * r (r is odd)|Structures & Objects",
+    "Choose a random integer a where 1 < a < n-1|Triggers & Inputs",
+    "Set y = a^r mod n|Processing & Operations",
+    "Intermediary Value: y|Intermediates & States",
+    "y == 1?|Structures & Objects} --> H1; style G1 fill:#ffd43b,color:#000 H1[Return composite|Products & Outputs",
+    "Loop counter: i = 0|Structures & Objects",
+    "i < s?|Structures & Objects} --> K1; style J1 fill:#ffd43b,color:#000 K1 -- Yes --> L1; L1{y == n-1?|Structures & Objects} --> M1; style L1 fill:#ffd43b,color:#000 M1[Return composite|Products & Outputs",
+    "y = y^2 mod n|Processing & Operations",
+    "i = i + 1|Processing & Operations",
+    "Return prime|Products & Outputs",
+    "(End)"
+  ],
+  "metadata": {
+    "source": "programming_framework",
+    "color_scheme": "discipline_based",
+    "node_count": 13,
+    "complexity": "low"
+  },
+  "sources": [],
+  "source_text": "Source information to be added - please specify the book, paper, or reference material used by the LLM to generate this flowchart."
+}

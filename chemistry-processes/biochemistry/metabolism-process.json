@@ -1,0 +1,43 @@
+{
+  "id": "metabolism-process",
+  "title": "Metabolism Process",
+  "description": "Chemistry process: Metabolism Process",
+  "category": "chemistry",
+  "subcategory": "biochemistry",
+  "mermaid": "graph TD\n    A2[Metabolic Pathway] --> B2[Metabolism Method]\n    C2[Energy Source] --> D2[Metabolic Regulation]\n    E2[Biochemical Reaction] --> F2[Metabolism Analysis]\n    \n    B2 --> G2[Glycolysis]\n    D2 --> H2[Krebs Cycle]\n    F2 --> I2[Oxidative Phosphorylation]\n    \n    G2 --> J2[Glucose Breakdown]\n    H2 --> K2[Citric Acid Cycle]\n    I2 --> L2[Electron Transport]\n    \n    J2 --> M2[ATP Production]\n    K2 --> L2\n    L2 --> N2[NADH Formation]\n    \n    M2 --> O2[Energy Metabolism]\n    N2 --> P2[Metabolic Flux]\n    O2 --> Q2[Metabolism Process]\n    \n    P2 --> R2[Metabolism Validation]\n    Q2 --> S2[Metabolism Verification]\n    R2 --> T2[Metabolism Result]\n    \n    S2 --> U2[Metabolism Analysis]\n    T2 --> V2[Metabolism Parameters]\n    U2 --> W2[Metabolism Output]\n    \n    V2 --> X2[Metabolism Analysis]\n    W2 --> Y2[Metabolism Final Result]\n    X2 --> Z2[Metabolism Process Complete]\n    \n    style A2 fill:#ff6b6b,color:#fff\n    style C2 fill:#ff6b6b,color:#fff\n    style E2 fill:#ff6b6b,color:#fff\n    \n    style B2 fill:#ffd43b,color:#000\n    style D2 fill:#ffd43b,color:#000\n    style F2 fill:#ffd43b,color:#000\n    style G2 fill:#ffd43b,color:#000\n    style H2 fill:#ffd43b,color:#000\n    style I2 fill:#ffd43b,color:#000\n    style J2 fill:#ffd43b,color:#000\n    style K2 fill:#ffd43b,color:#000\n    style L2 fill:#ffd43b,color:#000\n    style M2 fill:#ffd43b,color:#000\n    style N2 fill:#ffd43b,color:#000\n    style O2 fill:#ffd43b,color:#000\n    style P2 fill:#ffd43b,color:#000\n    style Q2 fill:#ffd43b,color:#000\n    style R2 fill:#ffd43b,color:#000\n    style S2 fill:#ffd43b,color:#000\n    style T2 fill:#ffd43b,color:#000\n    style U2 fill:#ffd43b,color:#000\n    style V2 fill:#ffd43b,color:#000\n    style W2 fill:#ffd43b,color:#000\n    style X2 fill:#ffd43b,color:#000\n    style Y2 fill:#ffd43b,color:#000\n    style Z2 fill:#ffd43b,color:#000\n    \n    style M2 fill:#51cf66,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style O2 fill:#51cf66,color:#fff\n    style P2 fill:#51cf66,color:#fff\n    style Q2 fill:#51cf66,color:#fff\n    style R2 fill:#51cf66,color:#fff\n    style S2 fill:#51cf66,color:#fff\n    style T2 fill:#51cf66,color:#fff\n    style U2 fill:#51cf66,color:#fff\n    style V2 fill:#51cf66,color:#fff\n    style W2 fill:#51cf66,color:#fff\n    style X2 fill:#51cf66,color:#fff\n    style Y2 fill:#51cf66,color:#fff\n    style Z2 fill:#51cf66,color:#fff\n    \n    style Z2 fill:#b197fc,color:#fff",
+  "entities": [
+    "Metabolic Pathway",
+    "Metabolism Method",
+    "Energy Source",
+    "Metabolic Regulation",
+    "Biochemical Reaction",
+    "Metabolism Analysis",
+    "Glycolysis",
+    "Krebs Cycle",
+    "Oxidative Phosphorylation",
+    "Glucose Breakdown",
+    "Citric Acid Cycle",
+    "Electron Transport",
+    "ATP Production",
+    "NADH Formation",
+    "Energy Metabolism",
+    "Metabolic Flux",
+    "Metabolism Process",
+    "Metabolism Validation",
+    "Metabolism Verification",
+    "Metabolism Result",
+    "Metabolism Parameters",
+    "Metabolism Output",
+    "Metabolism Final Result",
+    "Metabolism Process Complete"
+  ],
+  "metadata": {
+    "source": "programming_framework",
+    "batch": "batch_05",
+    "batch_number": 5,
+    "batch_title": "Chemistry Batch 05 - Biochemistry - Programming Framework Analysis",
+    "color_scheme": "discipline_based",
+    "node_count": 24,
+    "complexity": "medium"
+  }
+}

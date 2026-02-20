@@ -1,0 +1,90 @@
+{
+  "id": "spectroscopy_advanced-chromatography",
+  "name": "Chromatography",
+  "category": "chemistry",
+  "subcategory": "spectroscopy_advanced",
+  "subcategory_name": "Spectroscopy Advanced",
+  "description": "Chromatography process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 26,
+    "edges": 22,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 1,
+      "total": 1
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nA5[Sample Mixture] --> B5[Chromatography Method]\nC5[Stationary Phase] --> D5[Mobile Phase]\nE5[Detector System] --> F5[Data Collection]\nB5 --> G5[Column Preparation]\nD5 --> H5[Flow Control]\nF5 --> I5[Signal Processing]\nG5 --> J5[Column Packing]\nH5 --> K5[Flow Rate]\nI5 --> L5[Retention Time]\nJ5 --> M5[Sample Injection]\nK5 --> L5\nL5 --> N5[Separation Process]\nM5 --> O5[Sample Loading]\nN5 --> P5[Chromatographic Separation]\nO5 --> Q5[Analytical Process]\nP5 --> R5[Chromatogram]\nQ5 --> S5[Peak Analysis]\nR5 --> T5[Component Separation]\nS5 --> U5[Retention Analysis]\nT5 --> V5[Component Identification]\nU5 --> W5[Chromatographic Efficiency]\nV5 --> X5[Sample Characterization]\nW5 --> Y5[Process Optimization]\nX5 --> Z5[Final Chromatogram]\nY5 --> Z5\n\n    style A5 fill:#ff6b6b,color:#fff\n    style C5 fill:#ff6b6b,color:#fff\n    style E5 fill:#ff6b6b,color:#fff\n    style B5 fill:#ffd43b,color:#000\n    style D5 fill:#ffd43b,color:#000\n    style F5 fill:#ffd43b,color:#000\n    style G5 fill:#ffd43b,color:#000\n    style H5 fill:#ffd43b,color:#000\n    style I5 fill:#ffd43b,color:#000\n    style J5 fill:#ffd43b,color:#000\n    style K5 fill:#ffd43b,color:#000\n    style L5 fill:#ffd43b,color:#000\n    style M5 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style O5 fill:#51cf66,color:#fff\n    style P5 fill:#51cf66,color:#fff\n    style Q5 fill:#51cf66,color:#fff\n    style R5 fill:#51cf66,color:#fff\n    style S5 fill:#51cf66,color:#fff\n    style T5 fill:#51cf66,color:#fff\n    style U5 fill:#51cf66,color:#fff\n    style V5 fill:#51cf66,color:#fff\n    style W5 fill:#51cf66,color:#fff\n    style X5 fill:#51cf66,color:#fff\n    style Y5 fill:#51cf66,color:#fff\n    style Z5 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Chromatography. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "Acknowledgement to Reviewers of Chromatography in 2014",
+      "authors": "Chromatography Editorial Office",
+      "journal": "Chromatography",
+      "year": "2015",
+      "pubmed": null,
+      "doi": "10.3390/chromatography2010019",
+      "url": "https://doi.org/10.3390/chromatography2010019"
+    },
+    {
+      "title": "Chromatography of Alkaloids - Part B: Gas-Liquid Chromatography and High-Performance Liquid Chromatography",
+      "authors": "",
+      "journal": "Journal of Chromatography Library",
+      "year": "1984",
+      "pubmed": null,
+      "doi": "10.1016/s0301-4770(08)x6062-2",
+      "url": "https://doi.org/10.1016/s0301-4770(08)x6062-2"
+    },
+    {
+      "title": "Chromatography of alkaloids, part a: Thin-layer chromatography (journal of chromatography library, vol. 23A)",
+      "authors": "",
+      "journal": "Journal of Chromatography A",
+      "year": "1983",
+      "pubmed": null,
+      "doi": "10.1016/s0021-9673(01)88026-2",
+      "url": "https://doi.org/10.1016/s0021-9673(01)88026-2"
+    }
+  ],
+  "keywords": [
+    "chromatography"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+}

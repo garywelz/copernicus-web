@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2601.14399v1",
+  "arxiv_id": "2601.14399v1",
+  "title": "Differentiable quantum-trajectory simulation of Lindblad dynamics for QGP transport-coefficient inference",
+  "authors": [
+    "Lukas Heinrich",
+    "Tom Magorsch"
+  ],
+  "author_string": "Lukas Heinrich, Tom Magorsch",
+  "journal": "arXiv:2601.14399v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We study parameter estimation for the transport coefficients of the quark-gluon plasma by differentiating open-quantum-system-based Monte Carlo simulations of quarkonium suppression. The underlying simulator requires solving a Lindblad equation in a large Hilbert space, which makes parameter estimation computationally expensive. We approach the problem using gradient-based optimization. Specifically, we apply the score-function gradient estimator to differentiate through discrete jump sampling in the Monte Carlo wave-function algorithm used to solve the Lindblad equation. The resulting stochastic gradient estimator exhibits sufficiently low variance and can still be estimated in an embarrassingly parallel manner, enabling efficient scaling of the simulations. We implement this gradient estimator in the existing open-source quarkonium suppression code QTraj. To demonstrate its utility for parameter estimation, we infer the two transport coefficients $\\hatκ$ and $\\hatγ$ using gradient-based optimization on synthetic nuclear modification factor data.",
+  "categories": [
+    "physics.comp-ph",
+    "hep-ex",
+    "hep-ph",
+    "nucl-ex",
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": "13 pages, 4 figures",
+  "published_date": "2026-01-20T19:03:37Z",
+  "updated_date": "2026-01-20T19:03:37Z",
+  "url": "https://arxiv.org/abs/2601.14399v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.14399v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-02-03T13:20:46.183804",
+  "category": "physics",
+  "subcategories": [
+    "physics.comp-ph",
+    "hep-ex",
+    "hep-ph"
+  ]
+}

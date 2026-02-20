@@ -1,0 +1,30 @@
+{
+  "id": "pubmed_40610881",
+  "pmid": "40610881",
+  "title": "Immunoinformatics-Based development of a Multi-Epitope vaccine candidate targeting coinfection by Klebsiella pneumoniae and Acinetobacter baumannii.",
+  "authors": [
+    "Afshan, Gul",
+    "Yaseen, Namrah",
+    "Ali, Syed H",
+    "Khan, Asad U"
+  ],
+  "author_string": "Afshan, Gul, Yaseen, Namrah, Ali, Syed H, Khan, Asad U",
+  "journal": "BMC Infect Dis",
+  "journal_full": "BMC infectious diseases",
+  "year": "",
+  "doi": "10.1186/s12879-025-11242-5",
+  "abstract": "The increasing prevalence of multidrug-resistant (MDR) pathogens in clinical settings underscores the urgent need for effective therapeutic strategies. Among these, ESKAPE pathogens such as Acinetobacter baumannii and Klebsiella pneumoniae are particularly concerning due to their ability to cause severe co-infections with high resistance profiles. This study utilized an immunoinformatics-driven approach to design a novel multi-epitope vaccine targeting surface proteins of these pathogens through reverse vaccinology. Computational analyses employed bioinformatics tools, including NetCTLpan 1.1, IEDB T-cell epitope prediction tool, BCPREDS, ExPASy ProtParam, Rosetta, GalaxyRefine, HADDOCK, Disulfide by Design 2, and JCAT. Six cytotoxic T lymphocyte (CTL), six helper T lymphocyte (HTL), and six B-cell epitopes were identified as non-allergenic, non-toxic, and highly antigenic. These epitopes were linked using GPGPG and EAAAK linkers to enhance structural flexibility and immunogenicity. The vaccine's tertiary structure was refined, and the most stable model, selected based on a Z-score of -4.11, was further analysed. Molecular docking revealed strong binding affinities between the vaccine construct and immune receptors, with binding free energies of -13.5 kcal/mol for Toll-like receptor 4 (TLR-4) and - 13.1 kcal/mol for HLA-A*11:01, confirming stable molecular interactions. Molecular dynamics (MD) simulations of the vaccine-TLR4 complex predicted a net binding energy of -508.0 kJ/mol, indicating high stability. Structural stabilization was enhanced by introducing four cysteine residues, forming two disulfide bonds to reduce conformational flexibility. Codon optimization (CAI: 0.58, GC content: 62.5%) indicated efficient expression in E. coli. Immune simulation demonstrated a strong Th1/Th2-skewed immune response, with significant secretion of cytokines IFN-γ, IL-2, and IL-4, supporting its efficacy in bacterial clearance. These computational findings highlight the vaccine's potential, though experimental validation remains necessary to confirm immunogenicity and therapeutic viability.",
+  "keywords": [
+    "Antimicrobial resistance",
+    "HADDOCK",
+    "Immuno-informatics",
+    "Multi-epitope vaccine",
+    "Reverse vaccinology"
+  ],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/40610881",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T17:00:04.191142",
+  "category": "biology",
+  "subcategories": []
+}

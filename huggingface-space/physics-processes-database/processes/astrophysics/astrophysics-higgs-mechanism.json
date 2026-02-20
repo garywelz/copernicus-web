@@ -1,0 +1,107 @@
+{
+  "acquired_date": "2026-01-08T00:00:00Z",
+  "category": "physics",
+  "colorScheme": {
+    "blue": {
+      "category": "Intermediates & States",
+      "hex": "#74c0fc"
+    },
+    "green": {
+      "category": "Processing & Operations",
+      "hex": "#51cf66"
+    },
+    "red": {
+      "category": "Triggers & Inputs",
+      "hex": "#ff6b6b"
+    },
+    "violet": {
+      "category": "Products & Outputs",
+      "hex": "#b197fc"
+    },
+    "yellow": {
+      "category": "Structures & Objects",
+      "hex": "#ffd43b"
+    }
+  },
+  "complexity": {
+    "conditionals": 0,
+    "detailLevel": "medium",
+    "edges": 24,
+    "level": "medium",
+    "logicGates": {
+      "andGates": 1,
+      "orGates": 0,
+      "total": 1
+    },
+    "nodes": 26
+  },
+  "created": "2026-01-08",
+  "description": "Higgs Mechanism Process. This particle physics process visualization demonstrates the Higgs mechanism and mass generation. The flowchart shows Higgs inputs and spontaneous symmetry breaking, Higgs mechanism methods and mass generation, Higgs mechanism operations and Higgs boson, intermediate results, and final Higgs mechanism outputs.",
+  "id": "process_physics_higgs-mechanism",
+  "keywords": [
+    "mechanism",
+    "astrophysics",
+    "higgs"
+  ],
+  "lastUpdated": "2026-01-08",
+  "mermaid": "graph TD\nA3[Higgs Field] --> B3[Higgs Mechanism Method]\nC3[Spontaneous Symmetry Breaking] --> D3[Mass Generation]\nE3[Higgs Boson] --> F3[Higgs Mechanism Analysis]\nB3 --> G3[Higgs Potential]\nD3 --> H3[Vacuum Expectation Value]\nF3 --> I3[Higgs Boson Detection]\nG3 --> J3[Higgs Mass]\nH3 --> K3[Higgs Coupling]\nI3 --> L3[Higgs Decay]\nJ3 --> M3[Higgs Production]\nK3 --> L3\nL3 --> N3[Higgs Branching Ratio]\nM3 --> O3[Higgs Cross Section]\nN3 --> P3[Higgs Width]\nO3 --> Q3[Higgs Mechanism Process]\nP3 --> R3[Higgs Mechanism Validation]\nQ3 --> S3[Higgs Mechanism Verification]\nR3 --> T3[Higgs Mechanism Result]\nS3 --> U3[Higgs Mechanism Analysis]\nT3 --> V3[Higgs Mechanism Parameters]\nU3 --> W3[Higgs Mechanism Output]\nV3 --> X3[Higgs Mechanism Analysis]\nW3 --> Y3[Higgs Mechanism Final Result]\nX3 --> Z3[Higgs Mechanism Complete]\n\n    style A3 fill:#ff6b6b,color:#fff\n    style C3 fill:#ff6b6b,color:#fff\n    style E3 fill:#ff6b6b,color:#fff\n    style B3 fill:#ffd43b,color:#000\n    style D3 fill:#ffd43b,color:#000\n    style F3 fill:#ffd43b,color:#000\n    style G3 fill:#ffd43b,color:#000\n    style H3 fill:#ffd43b,color:#000\n    style I3 fill:#ffd43b,color:#000\n    style J3 fill:#ffd43b,color:#000\n    style K3 fill:#ffd43b,color:#000\n    style L3 fill:#ffd43b,color:#000\n    style M3 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style O3 fill:#51cf66,color:#fff\n    style P3 fill:#51cf66,color:#fff\n    style Q3 fill:#51cf66,color:#fff\n    style R3 fill:#51cf66,color:#fff\n    style S3 fill:#51cf66,color:#fff\n    style T3 fill:#51cf66,color:#fff\n    style U3 fill:#51cf66,color:#fff\n    style V3 fill:#51cf66,color:#fff\n    style W3 fill:#51cf66,color:#fff\n    style X3 fill:#51cf66,color:#fff\n    style Y3 fill:#51cf66,color:#fff\n    style Z3 fill:#b197fc,color:#fff",
+  "name": "Higgs Mechanism",
+  "notes": "Converted from physics batch HTML. Process number: 3.",
+  "relatedProcesses": [],
+  "related_papers": [
+    "crossref_10_1103_PhysRevLett_13_321",
+    "crossref_10_1103_PhysRevLett_13_508",
+    "crossref_10_1103_RevModPhys_86_1475"
+  ],
+  "related_podcasts": [],
+  "related_processes": [],
+  "related_videos": [],
+  "source": "programming_framework",
+  "sources": [
+    {
+      "authors": "Welz, G.",
+      "doi": null,
+      "journal": "CopernicusAI Knowledge Engine",
+      "notes": "Chemistry process visualization: Higgs Mechanism. Created using the Programming Framework methodology for process analysis and visualization.",
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "year": "2025"
+    },
+    {
+      "authors": "Englert F., Brout R.",
+      "doi": "10.1103/PhysRevLett.13.321",
+      "journal": "Phys. Rev. Lett.",
+      "paper_id": "crossref_10_1103_PhysRevLett_13_321",
+      "pubmed": null,
+      "title": "Broken Symmetry and the Mass of Gauge Vector Mesons",
+      "url": "https://doi.org/10.1103/PhysRevLett.13.321",
+      "year": "1964"
+    },
+    {
+      "authors": "Higgs P.W.",
+      "doi": "10.1103/PhysRevLett.13.508",
+      "journal": "Phys. Rev. Lett.",
+      "paper_id": "crossref_10_1103_PhysRevLett_13_508",
+      "pubmed": null,
+      "title": "Broken Symmetries and the Masses of Gauge Bosons",
+      "url": "https://doi.org/10.1103/PhysRevLett.13.508",
+      "year": "1964"
+    },
+    {
+      "authors": "Tarem S., Oreglia H.S.",
+      "doi": "10.1103/RevModPhys.86.1475",
+      "journal": "Rev. Mod. Phys.",
+      "paper_id": "crossref_10_1103_RevModPhys_86_1475",
+      "pubmed": null,
+      "title": "The Discovery of the Higgs Boson",
+      "url": "https://doi.org/10.1103/RevModPhys.86.1475",
+      "year": "2014"
+    }
+  ],
+  "subcategories": [
+    "astrophysics"
+  ],
+  "subcategory": "astrophysics",
+  "subcategory_name": "Astrophysics",
+  "verified": false
+}

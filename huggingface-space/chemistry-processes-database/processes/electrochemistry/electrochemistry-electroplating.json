@@ -1,0 +1,90 @@
+{
+  "id": "electrochemistry-electroplating",
+  "name": "Electroplating",
+  "category": "chemistry",
+  "subcategory": "electrochemistry",
+  "subcategory_name": "Electrochemistry",
+  "description": "Electroplating process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 26,
+    "edges": 22,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 1,
+      "total": 1
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nA4[Metal Ions] --> B4[Electroplating Method]\nC4[Substrate Surface] --> D4[Electrolyte Bath]\nE4[Power Supply] --> F4[Current Control]\nB4 --> G4[Surface Preparation]\nD4 --> H4[Solution Composition]\nF4 --> I4[Voltage Regulation]\nG4 --> J4[Cleaning Process]\nH4 --> K4[Concentration Control]\nI4 --> L4[Current Density]\nJ4 --> M4[Surface Activation]\nK4 --> L4\nL4 --> N4[Ion Migration]\nM4 --> O4[Nucleation Sites]\nN4 --> P4[Electrodeposition]\nO4 --> Q4[Film Growth]\nP4 --> R4[Metal Deposition]\nQ4 --> S4[Thickness Control]\nR4 --> T4[Coating Formation]\nS4 --> U4[Quality Assessment]\nT4 --> V4[Adhesion Testing]\nU4 --> W4[Surface Analysis]\nV4 --> X4[Performance Evaluation]\nW4 --> Y4[Process Optimization]\nX4 --> Z4[Final Coating]\nY4 --> Z4\n\n    style A4 fill:#ff6b6b,color:#fff\n    style C4 fill:#ff6b6b,color:#fff\n    style E4 fill:#ff6b6b,color:#fff\n    style B4 fill:#ffd43b,color:#000\n    style D4 fill:#ffd43b,color:#000\n    style F4 fill:#ffd43b,color:#000\n    style G4 fill:#ffd43b,color:#000\n    style H4 fill:#ffd43b,color:#000\n    style I4 fill:#ffd43b,color:#000\n    style J4 fill:#ffd43b,color:#000\n    style K4 fill:#ffd43b,color:#000\n    style L4 fill:#ffd43b,color:#000\n    style M4 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style O4 fill:#51cf66,color:#fff\n    style P4 fill:#51cf66,color:#fff\n    style Q4 fill:#51cf66,color:#fff\n    style R4 fill:#51cf66,color:#fff\n    style S4 fill:#51cf66,color:#fff\n    style T4 fill:#51cf66,color:#fff\n    style U4 fill:#51cf66,color:#fff\n    style V4 fill:#51cf66,color:#fff\n    style W4 fill:#51cf66,color:#fff\n    style X4 fill:#51cf66,color:#fff\n    style Y4 fill:#51cf66,color:#fff\n    style Z4 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Electroplating. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "Electroplating",
+      "authors": "Craddock, P. T.",
+      "journal": "Oxford Art Online",
+      "year": "2003",
+      "pubmed": null,
+      "doi": "10.1093/gao/9781884446054.article.t025807",
+      "url": "https://doi.org/10.1093/gao/9781884446054.article.t025807"
+    },
+    {
+      "title": "Resistant Fungal Biodiversity of Electroplating Effluent and Their Metal Tolerance Index",
+      "authors": "Tahir, Arifa",
+      "journal": "Electroplating",
+      "year": "2012",
+      "pubmed": null,
+      "doi": "10.5772/34624",
+      "url": "https://doi.org/10.5772/34624"
+    },
+    {
+      "title": "High Speed Electroplating",
+      "authors": "Safranek, W. H.; Duva, Robert",
+      "journal": "Electroplating Engineering Handbook",
+      "year": "1996",
+      "pubmed": null,
+      "doi": "10.1007/978-1-4613-2547-5_39",
+      "url": "https://doi.org/10.1007/978-1-4613-2547-5_39"
+    }
+  ],
+  "keywords": [
+    "electroplating"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+}

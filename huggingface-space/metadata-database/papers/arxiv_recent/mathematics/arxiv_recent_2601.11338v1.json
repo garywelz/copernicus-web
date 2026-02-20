@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2601.11338v1",
+  "arxiv_id": "2601.11338v1",
+  "title": "Walk based Laplacians for Modeling Diffusion on Complex Networks",
+  "authors": [
+    "Francesca Arrigo",
+    "Fabio Durastante"
+  ],
+  "author_string": "Francesca Arrigo, Fabio Durastante",
+  "journal": "arXiv:2601.11338v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We develop a novel framework for modeling diffusion on complex networks by constructing Laplacian-like operators based on walks around a graph. Our approach introduces a parametric family of walk-based Laplacians that naturally incorporate memory effects by excluding or downweighting backtracking trajectories, where walkers immediately revisit nodes. The framework includes: (i) walk-based Laplacians that count all traversals in the network; (ii) nonbacktracking variants that eliminate immediate reversals; and (iii) backtrack-downweighted variants that provide a continuous interpolation between these two regimes. We establish that these operators extend the definition of the standard Laplacian and also preserve some of its properties. We present efficient algorithms using Krylov subspace methods for computing them, ensuring applicability of our proposed framework to large networks. Extensive numerical experiments on real-world networks validate the modeling flexibility of our approach and demonstrate the computational efficiency of the proposed algorithms, including GPU acceleration.",
+  "categories": [
+    "cs.SI",
+    "math.NA"
+  ],
+  "primary_category": "math.NA",
+  "comment": null,
+  "published_date": "2026-01-16T14:36:08Z",
+  "updated_date": "2026-01-16T14:36:08Z",
+  "url": "https://arxiv.org/abs/2601.11338v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11338v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:30.214674",
+  "category": "mathematics",
+  "subcategories": [
+    "cs.SI",
+    "math.NA"
+  ]
+}

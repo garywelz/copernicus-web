@@ -1,0 +1,93 @@
+{
+  "id": "nutrition_metabolism-predation-process",
+  "name": "Predation Process",
+  "category": "biology",
+  "subcategory": "nutrition_metabolism",
+  "subcategory_name": "Nutrition & Metabolism",
+  "organism": "Animals",
+  "description": "Predation Process in Animals. This process represents a higher-level biological mechanism distinct from molecular/biochemical processes covered in GLMP.",
+  "complexity": {
+    "nodes": 9,
+    "edges": 8,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "low",
+    "detailLevel": "low"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\n    A33[Prey Detection] --> B33[Stalking Approach]\n    B33 --> C33[Attack Initiation]\n    C33 --> D33[Capture]\n    D33 --> E33[Killing]\n    E33 --> F33[Handling]\n    F33 --> G33[Consumption]\n    G33 --> H33[Digestion]\n    H33 --> I33[Energy Assimilation]\n    \n    style A33 fill:#ff6b6b,color:#fff\n    style B33 fill:#ffd43b,color:#000\n    style C33 fill:#51cf66,color:#fff\n    style D33 fill:#74c0fc,color:#fff\n    style E33 fill:#51cf66,color:#fff\n    style F33 fill:#51cf66,color:#fff\n    style G33 fill:#51cf66,color:#fff\n    style H33 fill:#74c0fc,color:#fff\n    style I33 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "notes": "Higher-level biological process visualization: Predation Process. Created using the Programming Framework methodology for organismal and ecological process analysis."
+    },
+    {
+      "title": "The evolution of predator-prey interactions: theory and empiricism",
+      "authors": "Abrams, P. A.",
+      "journal": "Annu Rev Ecol Syst",
+      "year": "2000",
+      "pubmed": "11701768",
+      "doi": "10.1146/annurev.ecolsys.31.1.79",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/11701768"
+    },
+    {
+      "title": "Trophic Downgrading of Planet Earth",
+      "authors": "Estes, J. A., Terborgh, J., Brashares, J. S., Power, M. E., Berger, J., Bond, W. J., Carpenter, S. R., Essington, T. E., Holt, R. D., Jackson, J. B., Marquis, D. A., Oksanen, L., Oksanen, T., Paine, R. T., Ripple, W. J., Sandin, S. A., Scheffer, M., Schoener, T. W., Shurin, J. B., Sinclair, A. R. E., Soulé, M. E., Virtanen, R., Wardle, D. A.",
+      "journal": "Science",
+      "year": "2011",
+      "pubmed": "21750033",
+      "doi": "10.1126/science.1205106",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/21750033"
+    },
+    {
+      "title": "Predator–Prey Interactions",
+      "authors": "McPeek, M. A., Mittelbach, G. G.",
+      "journal": "Annu Rev Ecol Evol Syst",
+      "year": "2019",
+      "pubmed": "32904586",
+      "doi": "10.1146/annurev-ecolsys-110316-022602",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/32904586"
+    }
+  ],
+  "keywords": [
+    "animals",
+    "process",
+    "predation",
+    "nutrition",
+    "metabolism"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-08",
+  "verified": false,
+  "notes": "Higher-level biological process. GLMP covers biochemical/molecular processes; this database covers organismal/ecological processes."
+}

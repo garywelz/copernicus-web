@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2601.07752v2",
+  "arxiv_id": "2601.07752v2",
+  "title": "Riesz Representer Fitting under Bregman Divergence: A Unified Framework for Debiased Machine Learning",
+  "authors": [
+    "Masahiro Kato"
+  ],
+  "author_string": "Masahiro Kato",
+  "journal": "arXiv:2601.07752v2",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Estimating the Riesz representer is central to debiased machine learning for causal and structural parameter estimation. We propose generalized Riesz regression, a unified framework that estimates the Riesz representer by fitting a representer model via Bregman divergence minimization. This framework includes the squared loss and the Kullback--Leibler (KL) divergence as special cases: the former recovers Riesz regression, while the latter recovers tailored loss minimization. Under suitable model specifications, the dual problems correspond to covariate balancing, which we call automatic covariate balancing. Moreover, under the same specifications, outcome averages weighted by the estimated Riesz representer satisfy Neyman orthogonality even without estimating the regression function, a property we call automatic Neyman orthogonalization. This property not only reduces the estimation error of Neyman orthogonal scores but also clarifies a key distinction between debiased machine learning and targeted maximum likelihood estimation. Our framework can also be viewed as a generalization of density ratio fitting under Bregman divergences to Riesz representer estimation, and it applies beyond density ratio estimation. We provide convergence analyses for both reproducing kernel Hilbert space (RKHS) and neural network model classes. A Python package for generalized Riesz regression is available at https://github.com/MasaKat0/grr.",
+  "categories": [
+    "econ.EM",
+    "cs.LG",
+    "math.ST",
+    "stat.ME",
+    "stat.ML"
+  ],
+  "primary_category": "stat.ML",
+  "comment": null,
+  "published_date": "2026-01-12T17:36:33Z",
+  "updated_date": "2026-01-15T17:55:37Z",
+  "url": "https://arxiv.org/abs/2601.07752v2",
+  "pdf_url": "https://arxiv.org/pdf/2601.07752v2.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:07.233777",
+  "category": "mathematics",
+  "subcategories": [
+    "econ.EM",
+    "cs.LG",
+    "math.ST"
+  ]
+}

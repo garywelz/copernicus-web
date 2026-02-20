@@ -1,0 +1,37 @@
+{
+  "id": "pubmed_37836873",
+  "pmid": "37836873",
+  "title": "Effect of Tryptic Digestion on Sensitivity and Specificity in MALDI-TOF-Based Molecular Diagnostics through Machine Learning.",
+  "authors": [
+    "Sarkar, Sumon",
+    "Squire, Abigail",
+    "Diab, Hanin",
+    "Rahman, Md Kaisar",
+    "Perdomo, Angela",
+    "Awosile, Babafela",
+    "Calle, Alexandra",
+    "Thompson, Jonathan"
+  ],
+  "author_string": "Sarkar, Sumon, Squire, Abigail, Diab, Hanin, Rahman, Md Kaisar, Perdomo, Angela et al.",
+  "journal": "Sensors (Basel)",
+  "journal_full": "Sensors (Basel, Switzerland)",
+  "year": "",
+  "doi": "10.3390/s23198042",
+  "abstract": "The digestion of protein into peptide fragments reduces the size and complexity of protein molecules. Peptide fragments can be analyzed with higher sensitivity (often > 10<sup>2</sup> fold) and resolution using MALDI-TOF mass spectrometers, leading to improved pattern recognition by common machine learning algorithms. In turn, enhanced sensitivity and specificity for bacterial sorting and/or disease diagnosis may be obtained. To test this hypothesis, four exemplar case studies have been pursued in which samples are sorted into dichotomous groups by machine learning (ML) software based on MALDI-TOF spectra. Samples were analyzed in 'intact' mode in which the proteins present in the sample were not digested with protease prior to MALDI-TOF analysis and separately after the standard overnight tryptic digestion of the same samples. For each case, sensitivity (sens), specificity (spc), and the Youdin index (J) were used to assess the ML model performance. The proteolytic digestion of samples prior to MALDI-TOF analysis substantially enhanced the sensitivity and specificity of dichotomous sorting. Two exceptions were when substantial differences in chemical composition between the samples were present and, in such cases, both 'intact' and 'digested' protocols performed similarly. The results suggest proteolytic digestion prior to analysis can improve sorting in MALDI/ML-based workflows and may enable improved biomarker discovery. However, when samples are easily distinguishable protein digestion is not necessary to obtain useful diagnostic results.",
+  "keywords": [
+    "MALDI-TOF",
+    "artificial intelligence (AI)",
+    "biomarker",
+    "diagnostic",
+    "machine learning",
+    "molecular diagnostics",
+    "precision medicine",
+    "protein digest"
+  ],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/37836873",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T16:57:51.860929",
+  "category": "biology",
+  "subcategories": []
+}

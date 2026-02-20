@@ -1,0 +1,91 @@
+{
+  "id": "environmental_chemistry-water-chemistry",
+  "name": "Water Chemistry",
+  "category": "chemistry",
+  "subcategory": "environmental_chemistry",
+  "subcategory_name": "Environmental Chemistry",
+  "description": "Water Chemistry process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 26,
+    "edges": 21,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 1,
+      "total": 1
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nA2[Water Quality Assessment] --> B2[Water Chemistry Method]\nC2[Contaminant Analysis] --> D2[Water Treatment]\nE2[Purification Process] --> F2[Water Chemistry Analysis]\nB2 --> G2[Coagulation Flocculation]\nD2 --> H2[Disinfection Process]\nF2 --> I2[Filtration Process]\nG2 --> J2[Chemical Precipitation]\nH2 --> K2[Chlorination Process]\nI2 --> L2[Reverse Osmosis]\nJ2 --> M2[Heavy Metal Removal]\nK2 --> L2\nL2 --> N2[Organic Contaminant Removal]\nM2 --> O2[Water Quality Standards]\nN2 --> P2[Drinking Water Quality]\nO2 --> Q2[Water Chemistry Process]\nP2 --> R2[Water Chemistry Validation]\nQ2 --> S2[Water Chemistry Verification]\nR2 --> T2[Water Chemistry Result]\nS2 --> U2[Water Chemistry Analysis]\nT2 --> V2[Water Chemistry Parameters]\nU2 --> W2[Water Chemistry Output]\nV2 --> X2[Water Chemistry Analysis]\nW2 --> Y2[Water Chemistry Final Result]\nX2 --> Z2[Water Chemistry Process Complete]\n\n    style A2 fill:#ff6b6b,color:#fff\n    style C2 fill:#ff6b6b,color:#fff\n    style E2 fill:#ff6b6b,color:#fff\n    style B2 fill:#ffd43b,color:#000\n    style D2 fill:#ffd43b,color:#000\n    style F2 fill:#ffd43b,color:#000\n    style G2 fill:#ffd43b,color:#000\n    style H2 fill:#ffd43b,color:#000\n    style I2 fill:#ffd43b,color:#000\n    style J2 fill:#ffd43b,color:#000\n    style K2 fill:#ffd43b,color:#000\n    style L2 fill:#ffd43b,color:#000\n    style M2 fill:#51cf66,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style O2 fill:#51cf66,color:#fff\n    style P2 fill:#51cf66,color:#fff\n    style Q2 fill:#51cf66,color:#fff\n    style R2 fill:#51cf66,color:#fff\n    style S2 fill:#51cf66,color:#fff\n    style T2 fill:#51cf66,color:#fff\n    style U2 fill:#51cf66,color:#fff\n    style V2 fill:#51cf66,color:#fff\n    style W2 fill:#51cf66,color:#fff\n    style X2 fill:#51cf66,color:#fff\n    style Y2 fill:#51cf66,color:#fff\n    style Z2 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Water Chemistry. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "Water pollution and water treatment chemistry",
+      "authors": "VanLoon, Gary W.; Duffy, Stephen J.",
+      "journal": "Environmental Chemistry",
+      "year": "2017",
+      "pubmed": null,
+      "doi": "10.1093/hesc/9780198749974.003.0019",
+      "url": "https://doi.org/10.1093/hesc/9780198749974.003.0019"
+    },
+    {
+      "title": "Soil Water Chemistry",
+      "authors": "",
+      "journal": "Soil and Water Chemistry",
+      "year": "2003",
+      "pubmed": null,
+      "doi": "10.1201/b12397-10",
+      "url": "https://doi.org/10.1201/b12397-10"
+    },
+    {
+      "title": "Radiation chemistry of water and water solutions",
+      "authors": "",
+      "journal": "Radiation Chemistry of Biopolymers",
+      "year": "2006",
+      "pubmed": null,
+      "doi": "10.1201/b12143-6",
+      "url": "https://doi.org/10.1201/b12143-6"
+    }
+  ],
+  "keywords": [
+    "water",
+    "chemistry"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+}

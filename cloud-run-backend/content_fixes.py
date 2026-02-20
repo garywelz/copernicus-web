@@ -290,43 +290,110 @@ def validate_script_quality(script: str) -> Dict[str, any]:
 
 def generate_relevant_hashtags(topic: str, category: str, title: str = "", description: str = "") -> str:
     """
-    Generate 5+ relevant, concise hashtags that will attract the target audience
+    Generate 10-15 relevant, specific hashtags that will attract the target audience
     Based on topic, category, title, and description content
     
     Rules:
     - Max 20 characters per hashtag (excluding #)
     - Extract key concepts from topic/description
-    - Prioritize specific over generic terms
+    - Prioritize specific technical terms over generic terms
+    - Generate topic-specific compound hashtags (e.g., #SupramolecularChemistry, #SelfAssembly)
     """
-    # Base hashtags
-    base_hashtags = ["#CopernicusAI", "#SciencePodcast", "#AcademicDiscussion", "#ResearchInsights"]
+    # Base hashtags (reduced to allow more topic-specific ones)
+    base_hashtags = ["#CopernicusAI", "#SciencePodcast", "#ResearchInsights"]
     
-    # Topic-based hashtag - LIMIT LENGTH
-    # Extract key words from topic (max 3 words, max 20 chars)
-    topic_words = [w for w in topic.split() if len(w) > 2 and w.lower() not in ['the', 'and', 'for', 'with', 'from', 'about', 'research', 'recent', 'directions']]
-    if len(topic_words) > 0:
-        # Take first 1-2 significant words
-        if len(topic_words) == 1:
-            topic_hashtag = f"#{topic_words[0]}Research"
-        else:
-            # Combine first 2 words if total length < 20
-            combined = ''.join(topic_words[:2])
-            if len(combined) <= 15:
-                topic_hashtag = f"#{combined}Research"
-            else:
-                topic_hashtag = f"#{topic_words[0]}Research"
-    else:
-        topic_hashtag = "#Research"
+    # Generate topic-specific compound hashtags
+    topic_specific_hashtags = []
     
-    # Enforce max length
-    if len(topic_hashtag) > 21:  # 20 chars + #
-        topic_hashtag = f"#{topic_words[0][:15]}Research" if topic_words else "#Research"
+    # Extract key technical terms from topic
+    topic_lower = topic.lower()
+    topic_words = [w.strip() for w in topic.split() if len(w.strip()) > 2]
     
-    # Category-based hashtags
+    # Common compound terms in science that make good hashtags
+    compound_terms = {
+        # Chemistry terms
+        "supramolecular": "#SupramolecularChemistry",
+        "self-assembly": "#SelfAssembly",
+        "molecular": "#MolecularScience",
+        "metalloenzyme": "#Metalloenzymes",
+        "bioinspired": "#Bioinspired",
+        "catalysis": "#Catalysis",
+        "host-guest": "#HostGuest",
+        "nanotechnology": "#Nanotechnology",
+        "drug delivery": "#DrugDelivery",
+        "materials science": "#MaterialsScience",
+        
+        # Biology terms
+        "epigenetic": "#Epigenetics",
+        "immunotherapy": "#Immunotherapy",
+        "cancer": "#CancerResearch",
+        "car-t": "#CART",
+        "personalized": "#PersonalizedMedicine",
+        "vaccine": "#Vaccine",
+        "gene editing": "#GeneEditing",
+        "crispr": "#CRISPR",
+        
+        # Computer Science terms
+        "federated learning": "#FederatedLearning",
+        "graph neural": "#GraphNeuralNets",
+        "machine learning": "#MachineLearning",
+        "artificial intelligence": "#AI",
+        "deep learning": "#DeepLearning",
+        "neural network": "#NeuralNetworks",
+        "privacy": "#PrivacyPreserving",
+        
+        # Mathematics terms
+        "topological data": "#TopologicalData",
+        "persistent homology": "#PersistentHomology",
+        "optimization": "#Optimization",
+        "gradient-free": "#GradientFree",
+        "evolutionary": "#EvolutionaryAlgorithms",
+        
+        # Physics terms
+        "quantum sensing": "#QuantumSensing",
+        "topological phases": "#TopologicalPhases",
+        "majorana": "#MajoranaFermions",
+        "quantum": "#QuantumPhysics",
+        "condensed matter": "#CondensedMatter",
+    }
+    
+    # Check for compound terms in topic and description
+    all_text = f"{topic} {title} {description}".lower()
+    for term, hashtag in compound_terms.items():
+        if term.lower() in all_text and hashtag not in topic_specific_hashtags:
+            if len(hashtag) <= 21:  # 20 chars + #
+                topic_specific_hashtags.append(hashtag)
+    
+    # Generate hashtags from individual significant words in topic
+    significant_words = []
+    stop_words = {'the', 'and', 'for', 'with', 'from', 'about', 'research', 'recent', 'directions', 
+                  'how', 'what', 'why', 'recent', 'advances', 'breakthroughs', 'discoveries'}
+    
+    for word in topic_words:
+        word_lower = word.lower().strip('.,!?;:')
+        if len(word_lower) > 4 and word_lower not in stop_words:
+            # Create hashtag from word (capitalize appropriately)
+            hashtag = f"#{word.capitalize()}"
+            if len(hashtag) <= 21 and hashtag not in topic_specific_hashtags:
+                significant_words.append(hashtag)
+    
+    # Combine words into compound hashtags where appropriate
+    if len(topic_words) >= 2:
+        # Try to create 2-word compound hashtags
+        for i in range(len(topic_words) - 1):
+            word1 = topic_words[i].strip('.,!?;:')
+            word2 = topic_words[i + 1].strip('.,!?;:')
+            if len(word1) > 3 and len(word2) > 3:
+                compound = f"#{word1.capitalize()}{word2.capitalize()}"
+                if len(compound) <= 21 and compound not in topic_specific_hashtags:
+                    topic_specific_hashtags.append(compound)
+                    break  # Only add one compound from the topic
+    
+    # Category-based hashtags (select 1-2 most relevant)
     category_hashtags = {
         "Computer Science": ["#ComputerScience", "#TechResearch", "#AI", "#MachineLearning"],
         "Physics": ["#Physics", "#QuantumPhysics", "#TheoreticalPhysics", "#ExperimentalPhysics"],
-        "Biology": ["#Biology", "#Biotech", "#Genomics", "#Neuroscience"],
+        "Biology": ["#Biology", "#Biotech", "#Genomics", "#Biomedical"],
         "Chemistry": ["#Chemistry", "#Biochemistry", "#MaterialsScience", "#ChemicalEngineering"],
         "Mathematics": ["#Mathematics", "#AppliedMath", "#Statistics", "#DataScience"],
         "Engineering": ["#Engineering", "#BiomedicalEngineering", "#Robotics", "#Automation"],
@@ -336,94 +403,164 @@ def generate_relevant_hashtags(topic: str, category: str, title: str = "", descr
         "Environmental Science": ["#EnvironmentalScience", "#ClimateScience", "#Sustainability", "#Ecology"]
     }
     
-    # Get category-specific hashtags
-    cat_hashtags = category_hashtags.get(category, ["#Science", "#Research", "#Academic"])
+    # Get 1-2 most relevant category-specific hashtags
+    cat_hashtags = category_hashtags.get(category, ["#Science", "#Research"])[:2]
     
-    # Extract additional hashtags from title and description
+    # Extract additional specific technical terms from description
     additional_hashtags = []
-    all_text = f"{title} {description}".lower()
     
-    # Common research terms that make good hashtags - more specific and technical
-    research_terms = [
-        # AI/ML terms
-        "neural", "network", "algorithm", "machine learning", "artificial intelligence", "deep learning", "transformer",
-        "reinforcement learning", "computer vision", "natural language processing", "nlp",
+    # Extended list of technical terms that make good hashtags
+    technical_term_mapping = {
+        # Chemistry/Biochemistry specific
+        "supramolecular chemistry": "#SupramolecularChem",
+        "self-assembly": "#SelfAssembly",
+        "host-guest interactions": "#HostGuest",
+        "molecular self-assembly": "#MolecularAssembly",
+        "metalloenzymes": "#Metalloenzymes",
+        "bioinspired catalysis": "#Bioinspired",
+        "sustainable": "#SustainableChem",
+        "green chemistry": "#GreenChemistry",
+        "nanotechnology": "#Nanotechnology",
+        "nanomaterials": "#Nanomaterials",
+        "drug delivery": "#DrugDelivery",
+        "materials science": "#MaterialsScience",
+        "catalysis": "#Catalysis",
+        "synthetic": "#Synthetic",
+        "polymer": "#Polymer",
         
-    # Biology/Biotech terms
-    "immunity", "autophagy", "fungi", "microbiome", "pathogen", "vaccine", "antibody",
-    "quantum", "molecular", "genetic", "protein", "dna", "rna", "cell", "brain", "yeast", "fermentation",
-    "crispr", "gene editing", "genomics", "proteomics", "metabolomics", "synthetic biology",
-    "enzyme", "metabolism", "biochemistry", "biotechnology", "pharmacology",
+        # Biology specific
+        "epigenetic": "#Epigenetics",
+        "immunotherapy": "#Immunotherapy",
+        "car-t": "#CART",
+        "personalized medicine": "#PersonalizedMed",
+        "cancer research": "#CancerResearch",
+        "oncology": "#Oncology",
+        "regenerative": "#Regenerative",
+        "stem cell": "#StemCells",
+        "protein": "#Proteins",
+        "enzyme": "#Enzymes",
+        "metabolism": "#Metabolism",
         
-        # Physics/Chemistry terms
-        "quantum mechanics", "thermodynamics", "kinetics", "catalysis", "polymer", "nanotechnology",
-        "materials science", "crystallography", "spectroscopy", "electrochemistry",
+        # Computer Science specific
+        "federated learning": "#FederatedLearning",
+        "graph neural networks": "#GraphNeuralNets",
+        "privacy-preserving": "#PrivacyPreserving",
+        "differential privacy": "#DifferentialPrivacy",
+        "secure aggregation": "#SecureAggregation",
+        "machine learning": "#MachineLearning",
+        "deep learning": "#DeepLearning",
+        "neural networks": "#NeuralNetworks",
+        "artificial intelligence": "#AI",
         
-        # Other technical terms
-        "cognitive", "behavioral", "economic", "environmental", "climate", "sustainable",
-        "robotic", "automation", "biomedical", "pharmaceutical", "therapeutic",
-        "computational", "theoretical", "experimental", "analytical", "statistical", "bioinformatics"
-    ]
+        # Mathematics specific
+        "topological data analysis": "#TopologicalData",
+        "persistent homology": "#PersistentHomology",
+        "optimization": "#Optimization",
+        "evolutionary algorithms": "#EvolutionaryAlg",
+        "gradient-free": "#GradientFree",
+        
+        # Physics specific
+        "quantum sensing": "#QuantumSensing",
+        "quantum metrology": "#QuantumMetrology",
+        "topological phases": "#TopologicalPhases",
+        "majorana fermions": "#MajoranaFermions",
+        "topological insulators": "#TopologicalInsul",
+        "condensed matter": "#CondensedMatter",
+        "quantum computing": "#QuantumComputing",
+        
+        # General technical terms
+        "computational": "#Computational",
+        "theoretical": "#Theoretical",
+        "experimental": "#Experimental",
+        "analytical": "#Analytical",
+    }
     
-    # Prioritize specific technical terms first (single-word or short phrases)
-    priority_terms = [
-        "e. coli", "e.coli", "immunity", "autophagy", "fungi", "yeast", "fermentation", "microbiome", 
-        "crispr", "vaccine", "antibody", "pathogen", "salmonella", "bacteria",
-        "quantum", "neural", "protein", "dna", "rna", "enzyme",
-        "brain", "neurotechnology", "atlas", "particle", "collider"
-    ]
+    # PRIORITIZE title-specific hashtags - extract key terms directly from title
+    title_lower = title.lower() if title else ""
+    title_words = [w.strip('.,!?;:()[]') for w in title.split() if len(w.strip()) > 3]
     
-    # Also extract organism/species names from topic (common scientific names)
-    species_patterns = [
-        r"e\.?\s*coli", r"salmonella", r"yeast", r"bacteria", r"virus", 
-        r"covid", r"sars", r"influenza", r"candida", r"fungi"
-    ]
+    # Extract compound phrases from title
+    title_compound_hashtags = []
+    if len(title_words) >= 2:
+        # Look for 2-3 word phrases in title that make good hashtags
+        for i in range(len(title_words) - 1):
+            phrase = f"{title_words[i]} {title_words[i+1]}"
+            # Check if this phrase matches any technical term
+            if phrase.lower() in technical_term_mapping:
+                hashtag = technical_term_mapping[phrase.lower()]
+                if hashtag not in topic_specific_hashtags and len(hashtag) <= 21:
+                    title_compound_hashtags.append(hashtag)
+            # Also create compound hashtag from adjacent title words
+            elif i < len(title_words) - 1:
+                combined = f"#{title_words[i].capitalize()}{title_words[i+1].capitalize()}"
+                if len(combined) <= 21 and combined not in topic_specific_hashtags:
+                    # Only add if it's a meaningful scientific term (not generic)
+                    meaningful_words = {'supramolecular', 'molecular', 'quantum', 'neural', 'graph', 
+                                      'topological', 'federated', 'evolutionary', 'bioinspired',
+                                      'metalloenzyme', 'epigenetic', 'immunotherapy', 'persistent'}
+                    if any(word in combined.lower() for word in meaningful_words):
+                        title_compound_hashtags.append(combined)
     
-    for pattern in species_patterns:
-        match = re.search(pattern, topic.lower())
-        if match and len(additional_hashtags) < 4:
-            species_name = match.group(0).replace('.', '').replace(' ', '').capitalize()
-            if species_name.lower() == "ecoli":
-                species_name = "EColi"
-            hashtag = f"#{species_name}"
-            if hashtag not in additional_hashtags and len(hashtag) <= 16:
-                additional_hashtags.append(hashtag)
-    
-    # First, check for priority terms (LIMIT to 15 chars)
-    for term in priority_terms:
-        if term in all_text and len(additional_hashtags) < 4:
-            hashtag = f"#{term.capitalize()}"
-            # Enforce max length
-            if len(hashtag) <= 16 and hashtag not in additional_hashtags:
-                additional_hashtags.append(hashtag)
-    
-    # Add topic-specific hashtags based on the topic itself (LIMIT LENGTH)
-    topic_words = topic.lower().split()
-    for word in topic_words:
-        if len(word) > 3 and len(word) <= 15 and word not in ['the', 'and', 'for', 'with', 'from', 'about', 'research', 'recent', 'directions']:
+    # Extract individual significant words from title
+    title_specific_words = []
+    stop_words_title = {'the', 'and', 'for', 'with', 'from', 'about', 'research', 'recent', 
+                       'directions', 'how', 'what', 'why', 'advances', 'breakthroughs', 
+                       'discoveries', 'their', 'that', 'this', 'these', 'unlocking', 'building',
+                       'exploring', 'revolutionizing', 'understanding'}
+    for word in title_words:
+        word_clean = word.lower().strip('.,!?;:()[]')
+        if len(word_clean) > 4 and word_clean not in stop_words_title:
             hashtag = f"#{word.capitalize()}"
-            if hashtag not in additional_hashtags and len(additional_hashtags) < 6:
-                additional_hashtags.append(hashtag)
+            if len(hashtag) <= 21 and hashtag not in topic_specific_hashtags:
+                title_specific_words.append(hashtag)
     
-    # Then check other research terms (ENFORCE LENGTH LIMIT)
-    for term in research_terms:
-        if term in all_text and len(additional_hashtags) < 6:
-            hashtag_text = term.replace(' ', '').capitalize()
-            # Skip if too long (> 15 chars)
-            if len(hashtag_text) > 15:
-                continue
-            hashtag = f"#{hashtag_text}"
-            if hashtag not in additional_hashtags:
-                additional_hashtags.append(hashtag)
+    # Check for technical terms in text (prioritize title matches)
+    for term, hashtag in technical_term_mapping.items():
+        # Prioritize if found in title
+        found_in_title = term.lower() in title_lower
+        found_in_all = term.lower() in all_text
+        
+        if found_in_all and hashtag not in topic_specific_hashtags:
+            if len(hashtag) <= 21:  # 20 chars + #
+                # If found in title, add at the beginning
+                if found_in_title:
+                    additional_hashtags.insert(0, hashtag)
+                else:
+                    additional_hashtags.append(hashtag)
+                if len(additional_hashtags) >= 8:  # Limit additional hashtags
+                    break
     
-    # Combine all hashtags
-    all_hashtags = base_hashtags + [topic_hashtag] + cat_hashtags[:2] + additional_hashtags
+    # Add significant individual words that aren't already covered (prioritize title words)
+    for word in title_specific_words[:4]:  # Add up to 4 title-specific words first
+        if word not in topic_specific_hashtags and word not in additional_hashtags:
+            additional_hashtags.insert(0, word)  # Insert at beginning
     
-    # Ensure we have at least 5 hashtags
-    while len(all_hashtags) < 5:
-        all_hashtags.append("#Research")
+    for word in significant_words[:2]:  # Then add 2 topic words
+        if word not in topic_specific_hashtags and word not in additional_hashtags:
+            additional_hashtags.append(word)
     
-    return " ".join(all_hashtags[:8])  # Limit to 8 hashtags max
+    # Add title compound hashtags at the beginning
+    for hashtag in title_compound_hashtags[:3]:
+        if hashtag not in topic_specific_hashtags and hashtag not in additional_hashtags:
+            additional_hashtags.insert(0, hashtag)
+    
+    # Combine all hashtags: base + category + topic-specific + additional
+    all_hashtags = base_hashtags + cat_hashtags + topic_specific_hashtags[:5] + additional_hashtags
+    
+    # Remove duplicates while preserving order
+    seen = set()
+    unique_hashtags = []
+    for tag in all_hashtags:
+        if tag not in seen:
+            seen.add(tag)
+            unique_hashtags.append(tag)
+    
+    # Ensure we have at least 10 hashtags, up to 15 max
+    while len(unique_hashtags) < 10:
+        unique_hashtags.append("#Research")
+    
+    # Return 10-15 most relevant hashtags
+    return " ".join(unique_hashtags[:15])
 
 def validate_academic_references(references_text: str) -> str:
     """
@@ -545,36 +682,170 @@ def apply_content_fixes(script: str, topic: str) -> str:
     
     return script
 
-def limit_description_length(description: str, max_length: int = 4000) -> str:
+def clean_placeholder_text_from_description(description: str) -> str:
     """
-    Limit description length to specified character count
-    Ensures first paragraph works as iTunes summary and reserves space for hashtags/references
+    Remove repeated placeholder text from descriptions.
+    Detects and removes duplicate placeholder entries in Key Concepts sections.
     """
-    # Reserve space for hashtags and references (approximately 800 characters)
-    # This ensures we have enough space for technical hashtags and complete references
-    reserved_space = 800
-    available_space = max_length - reserved_space
-    
-    if len(description) <= available_space:
+    if not description:
         return description
     
-    # Split into paragraphs
-    paragraphs = description.split('\n\n')
+    # Placeholder texts to detect
+    placeholder_patterns = [
+        r"research findings require further analysis",
+        r"methodology analysis pending",
+        r"implications to be determined",
+        r"analysis pending",
+        r"further analysis required"
+    ]
     
-    # Start with the first paragraph (iTunes summary)
-    result = paragraphs[0]
+    # Find the Key Concepts section
+    if "## Key Concepts Explored" not in description:
+        return description
     
-    # Add subsequent paragraphs until we hit the available space limit
-    for paragraph in paragraphs[1:]:
-        if len(result + '\n\n' + paragraph) <= available_space:
-            result += '\n\n' + paragraph
-        else:
-            # Truncate this paragraph if it's too long
-            remaining_space = available_space - len(result) - 3  # 3 for '\n\n'
-            if remaining_space > 50:  # Only add if we have meaningful space
-                truncated_paragraph = paragraph[:remaining_space-3] + '...'
-                result += '\n\n' + truncated_paragraph
+    # Split by Key Concepts section
+    parts = description.split("## Key Concepts Explored")
+    if len(parts) < 2:
+        return description
+    
+    before_concepts = parts[0]
+    after_concepts = "## Key Concepts Explored".join(parts[1:])
+    
+    # Extract the concepts section (until next section or end)
+    next_section_markers = ["## Research Insights", "## Practical Applications", "## Future Directions", "## References", "## Episode Details", "## Hashtags"]
+    
+    concepts_section = after_concepts
+    rest_of_description = ""
+    
+    for marker in next_section_markers:
+        if marker in after_concepts:
+            split_parts = after_concepts.split(marker, 1)
+            concepts_section = split_parts[0]
+            rest_of_description = marker + split_parts[1]
             break
+    
+    # Split into individual concept lines
+    concept_lines = concepts_section.strip().split('\n')
+    unique_concepts = []
+    seen_texts = set()
+    
+    for line in concept_lines:
+        line_stripped = line.strip()
+        if not line_stripped or not line_stripped.startswith('-'):
+            # Keep non-concept lines (empty lines, etc.)
+            if line_stripped:
+                unique_concepts.append(line)
+            continue
+        
+        # Extract the concept text (everything after "- " or "- **")
+        concept_text = re.sub(r'^-\s*\*\*?', '', line_stripped).strip()
+        concept_text = re.sub(r'\*\*?:.*$', '', concept_text).strip()  # Remove ": explanation" part
+        
+        # Check if this is a placeholder
+        is_placeholder = any(re.search(pattern, concept_text, re.IGNORECASE) for pattern in placeholder_patterns)
+        
+        # Check if we've seen this exact concept text before (case-insensitive)
+        concept_key = concept_text.lower().strip()
+        
+        if is_placeholder or concept_key in seen_texts:
+            # Skip placeholder text or duplicates
+            continue
+        
+        seen_texts.add(concept_key)
+        unique_concepts.append(line)
+    
+    # If we removed all concepts and left it empty, add a default
+    if not any(line.strip().startswith('-') for line in unique_concepts):
+        unique_concepts.insert(0, "- **Recent research developments**: Current studies are revealing new insights into fundamental mechanisms and processes.")
+    
+    # Reconstruct the description
+    cleaned_concepts_section = '\n'.join(unique_concepts).strip()
+    
+    return before_concepts + "## Key Concepts Explored\n" + cleaned_concepts_section + "\n" + rest_of_description
+
+def limit_description_length(description: str, max_length: int = 4000) -> str:
+    """
+    Limit description length to specified character count while preserving References and Hashtags sections.
+    CRITICAL: References and Hashtags sections are ALWAYS preserved completely - never truncated.
+    """
+    if not description:
+        return description
+    
+    if len(description) <= max_length:
+        return description
+    
+    # Split description into main content and preserved sections
+    main_content = description
+    references_section = ""
+    hashtags_section = ""
+    episode_details_section = ""
+    
+    # Extract References section (MUST be preserved completely)
+    if '## References' in description:
+        parts = description.split('## References', 1)
+        main_content = parts[0].rstrip()
+        ref_content = '## References' + parts[1]
+        
+        # Extract until next major section
+        for marker in ['## Hashtags', '## Episode Details']:
+            if marker in ref_content:
+                split_parts = ref_content.split(marker, 1)
+                references_section = split_parts[0].rstrip()
+                ref_content = marker + split_parts[1]
+                break
+        else:
+            references_section = ref_content.rstrip()
+    
+    # Extract Hashtags section from remaining content
+    remaining_after_refs = description.split('## References', 1)[1] if '## References' in description else description
+    if '## Hashtags' in remaining_after_refs:
+        hashtags_parts = remaining_after_refs.split('## Hashtags', 1)
+        hashtags_content = '## Hashtags' + hashtags_parts[1]
+        if '## Episode Details' in hashtags_content:
+            split_parts = hashtags_content.split('## Episode Details', 1)
+            hashtags_section = split_parts[0].rstrip()
+            episode_details_section = '## Episode Details' + split_parts[1].rstrip()
+        else:
+            hashtags_section = hashtags_content.rstrip()
+    
+    # Calculate space needed for preserved sections
+    preserved_text = ""
+    if references_section:
+        preserved_text += '\n\n' + references_section if preserved_text else references_section
+    if hashtags_section:
+        preserved_text += '\n\n' + hashtags_section
+    if episode_details_section:
+        preserved_text += '\n\n' + episode_details_section
+    
+    preserved_length = len(preserved_text)
+    available_space = max_length - preserved_length - 20  # 20 char buffer
+    
+    # If main content fits, return original
+    if len(main_content) + preserved_length <= max_length:
+        return description
+    
+    # Truncate main content to fit
+    if len(main_content) > available_space:
+        # Truncate at word boundary
+        truncated = main_content[:available_space]
+        # Find last space to avoid cutting words
+        last_space = truncated.rfind(' ')
+        if last_space > available_space * 0.9:  # Only use last_space if it's reasonably close
+            truncated = truncated[:last_space]
+        main_content = truncated.rstrip() + '...'
+    
+    # Reconstruct with preserved sections
+    result = main_content + preserved_text
+    
+    # Final safety check
+    if len(result) > max_length:
+        # Last resort: truncate main content more aggressively, but STILL preserve references
+        max_main_space = max_length - preserved_length - 10
+        if max_main_space > 100:
+            result = main_content[:max_main_space].rstrip() + '...' + preserved_text
+        else:
+            # Extreme case: preserve references even if it means minimal main content
+            result = main_content[:100] + '...' + preserved_text
     
     return result
 
@@ -582,7 +853,11 @@ def extract_itunes_summary(description: str) -> str:
     """
     Extract the first paragraph as iTunes summary
     This should be engaging and under 255 characters
+    Clean of HTML entities and unwanted symbols for Spotify compatibility
     """
+    if not description:
+        return ""
+    
     # Get the first paragraph
     first_paragraph = description.split('\n\n')[0]
     
@@ -590,6 +865,19 @@ def extract_itunes_summary(description: str) -> str:
     first_paragraph = re.sub(r'#+\s*', '', first_paragraph)  # Remove headers
     first_paragraph = re.sub(r'\*\*(.*?)\*\*', r'\1', first_paragraph)  # Remove bold
     first_paragraph = re.sub(r'\*(.*?)\*', r'\1', first_paragraph)  # Remove italic
+    
+    # Remove HTML tags
+    first_paragraph = re.sub(r'<[^>]+>', '', first_paragraph)
+    
+    # Remove HTML entities and unwanted symbols (similar to RSS cleaning)
+    import html
+    first_paragraph = html.unescape(first_paragraph)
+    first_paragraph = first_paragraph.replace('&nbsp;', ' ')
+    first_paragraph = first_paragraph.replace('\u201c', '"').replace('\u201d', '"')
+    first_paragraph = first_paragraph.replace('\u2018', "'").replace('\u2019', "'")
+    
+    # Remove control characters
+    first_paragraph = ''.join(char for char in first_paragraph if ord(char) >= 32 or char in '\n\t')
     
     # Limit to 255 characters for iTunes
     if len(first_paragraph) > 255:

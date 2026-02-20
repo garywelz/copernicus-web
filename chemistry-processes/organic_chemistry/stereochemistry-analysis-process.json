@@ -1,0 +1,42 @@
+{
+  "id": "stereochemistry-analysis-process",
+  "title": "Stereochemistry Analysis Process",
+  "description": "Chemistry process: Stereochemistry Analysis Process",
+  "category": "chemistry",
+  "subcategory": "organic_chemistry",
+  "mermaid": "graph TD\n    A3[Molecular Structure] --> B3[Stereocenter Identification]\n    C3[Chirality Analysis] --> D3[Configuration Assignment]\n    E3[Optical Activity] --> F3[Stereoisomer Analysis]\n    \n    B3 --> G3[Chiral Centers]\n    D3 --> H3[R S Configuration]\n    F3 --> I3[Enantiomer Analysis]\n    \n    G3 --> J3[Diastereomer Analysis]\n    H3 --> K3[Absolute Configuration]\n    I3 --> L3[Optical Rotation]\n    \n    J3 --> M3[Conformational Analysis]\n    K3 --> L3\n    L3 --> N3[Racemic Mixtures]\n    \n    M3 --> O3[Conformational Isomers]\n    N3 --> P3[Resolution Methods]\n    O3 --> Q3[Stereochemistry Result]\n    \n    P3 --> R3[Chiral Resolution]\n    Q3 --> S3[Stereochemistry Validation]\n    R3 --> T3[Stereochemistry Output]\n    \n    S3 --> U3[Stereochemistry Analysis]\n    T3 --> V3[Stereochemistry Final Result]\n    U3 --> W3[Stereochemistry Analysis Complete]\n    \n    style A3 fill:#ff6b6b,color:#fff\n    style C3 fill:#ff6b6b,color:#fff\n    style E3 fill:#ff6b6b,color:#fff\n    \n    style B3 fill:#ffd43b,color:#000\n    style D3 fill:#ffd43b,color:#000\n    style F3 fill:#ffd43b,color:#000\n    style G3 fill:#ffd43b,color:#000\n    style H3 fill:#ffd43b,color:#000\n    style I3 fill:#ffd43b,color:#000\n    style J3 fill:#ffd43b,color:#000\n    style K3 fill:#ffd43b,color:#000\n    style L3 fill:#ffd43b,color:#000\n    style M3 fill:#ffd43b,color:#000\n    style N3 fill:#ffd43b,color:#000\n    style O3 fill:#ffd43b,color:#000\n    style P3 fill:#ffd43b,color:#000\n    style Q3 fill:#ffd43b,color:#000\n    style R3 fill:#ffd43b,color:#000\n    style S3 fill:#ffd43b,color:#000\n    style T3 fill:#ffd43b,color:#000\n    style U3 fill:#ffd43b,color:#000\n    style V3 fill:#ffd43b,color:#000\n    style W3 fill:#ffd43b,color:#000\n    \n    style M3 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style O3 fill:#51cf66,color:#fff\n    style P3 fill:#51cf66,color:#fff\n    style Q3 fill:#51cf66,color:#fff\n    style R3 fill:#51cf66,color:#fff\n    style S3 fill:#51cf66,color:#fff\n    style T3 fill:#51cf66,color:#fff\n    style U3 fill:#51cf66,color:#fff\n    style V3 fill:#51cf66,color:#fff\n    style W3 fill:#51cf66,color:#fff\n    \n    style W3 fill:#b197fc,color:#fff",
+  "entities": [
+    "Molecular Structure",
+    "Stereocenter Identification",
+    "Chirality Analysis",
+    "Configuration Assignment",
+    "Optical Activity",
+    "Stereoisomer Analysis",
+    "Chiral Centers",
+    "R S Configuration",
+    "Enantiomer Analysis",
+    "Diastereomer Analysis",
+    "Absolute Configuration",
+    "Optical Rotation",
+    "Conformational Analysis",
+    "Racemic Mixtures",
+    "Conformational Isomers",
+    "Resolution Methods",
+    "Stereochemistry Result",
+    "Chiral Resolution",
+    "Stereochemistry Validation",
+    "Stereochemistry Output",
+    "Stereochemistry Analysis",
+    "Stereochemistry Final Result",
+    "Stereochemistry Analysis Complete"
+  ],
+  "metadata": {
+    "source": "programming_framework",
+    "batch": "batch_01",
+    "batch_number": 1,
+    "batch_title": "Chemistry Batch 01 - Organic Chemistry - Programming Framework Analysis",
+    "color_scheme": "discipline_based",
+    "node_count": 23,
+    "complexity": "medium"
+  }
+}

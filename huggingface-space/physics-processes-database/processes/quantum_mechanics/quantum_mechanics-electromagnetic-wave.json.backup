@@ -1,0 +1,92 @@
+{
+  "category": "physics",
+  "colorScheme": {
+    "blue": {
+      "category": "Intermediates & States",
+      "hex": "#74c0fc"
+    },
+    "green": {
+      "category": "Processing & Operations",
+      "hex": "#51cf66"
+    },
+    "red": {
+      "category": "Triggers & Inputs",
+      "hex": "#ff6b6b"
+    },
+    "violet": {
+      "category": "Products & Outputs",
+      "hex": "#b197fc"
+    },
+    "yellow": {
+      "category": "Structures & Objects",
+      "hex": "#ffd43b"
+    }
+  },
+  "complexity": {
+    "conditionals": 0,
+    "detailLevel": "medium",
+    "edges": 24,
+    "level": "medium",
+    "logicGates": {
+      "andGates": 0,
+      "orGates": 0,
+      "total": 0
+    },
+    "nodes": 26
+  },
+  "created": "2026-01-08",
+  "description": "Electromagnetic Wave Process. This electromagnetism process visualization demonstrates electromagnetic wave propagation and interaction. The flowchart shows wave inputs and propagation, electromagnetic wave methods and field oscillations, electromagnetic wave operations and wave interactions, intermediate results, and final electromagnetic wave outputs.",
+  "id": "quantum_mechanics-electromagnetic-wave",
+  "keywords": [
+    "mechanics",
+    "quantum",
+    "wave",
+    "electromagnetic"
+  ],
+  "lastUpdated": "2026-01-08",
+  "mermaid": "graph TD\nA2[Wave Source] --> B2[Electromagnetic Wave Method]\nC2[Wave Propagation] --> D2[Field Oscillation]\nE2[Wave Interaction] --> F2[Electromagnetic Wave Analysis]\nB2 --> G2[Wave Equation]\nD2 --> H2[Polarization]\nF2 --> I2[Wave Interference]\nG2 --> J2[Wave Speed]\nH2 --> K2[Wave Amplitude]\nI2 --> L2[Wave Frequency]\nJ2 --> M2[Wave Energy]\nK2 --> L2\nL2 --> N2[Wave Momentum]\nM2 --> O2[Wave Transmission]\nN2 --> P2[Wave Reflection]\nO2 --> Q2[Electromagnetic Wave Process]\nP2 --> R2[Electromagnetic Wave Validation]\nQ2 --> S2[Electromagnetic Wave Verification]\nR2 --> T2[Electromagnetic Wave Result]\nS2 --> U2[Electromagnetic Wave Analysis]\nT2 --> V2[Electromagnetic Wave Parameters]\nU2 --> W2[Electromagnetic Wave Output]\nV2 --> X2[Electromagnetic Wave Analysis]\nW2 --> Y2[Electromagnetic Wave Final Result]\nX2 --> Z2[Electromagnetic Wave Complete]\n\n    style A2 fill:#ff6b6b,color:#fff\n    style C2 fill:#ff6b6b,color:#fff\n    style E2 fill:#ff6b6b,color:#fff\n    style B2 fill:#ffd43b,color:#000\n    style D2 fill:#ffd43b,color:#000\n    style F2 fill:#ffd43b,color:#000\n    style G2 fill:#ffd43b,color:#000\n    style H2 fill:#ffd43b,color:#000\n    style I2 fill:#ffd43b,color:#000\n    style J2 fill:#ffd43b,color:#000\n    style K2 fill:#ffd43b,color:#000\n    style L2 fill:#ffd43b,color:#000\n    style M2 fill:#51cf66,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style O2 fill:#51cf66,color:#fff\n    style P2 fill:#51cf66,color:#fff\n    style Q2 fill:#51cf66,color:#fff\n    style R2 fill:#51cf66,color:#fff\n    style S2 fill:#51cf66,color:#fff\n    style T2 fill:#51cf66,color:#fff\n    style U2 fill:#51cf66,color:#fff\n    style V2 fill:#51cf66,color:#fff\n    style W2 fill:#51cf66,color:#fff\n    style X2 fill:#51cf66,color:#fff\n    style Y2 fill:#51cf66,color:#fff\n    style Z2 fill:#b197fc,color:#fff",
+  "name": "Electromagnetic Wave",
+  "notes": "Converted from physics batch HTML. Process number: 2.",
+  "relatedProcesses": [],
+  "sources": [
+    {
+      "authors": "Welz, G.",
+      "doi": null,
+      "journal": "CopernicusAI Knowledge Engine",
+      "notes": "Chemistry process visualization: Electromagnetic Wave. Created using the Programming Framework methodology for process analysis and visualization.",
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "year": "2025"
+    },
+    {
+      "authors": "Taflove A, Hagness SC, O'Sullivan MJ",
+      "doi": "10.1103/RevModPhys.90.015004",
+      "journal": "Rev. Mod. Phys.",
+      "pubmed": null,
+      "title": "Maxwell's equations in the 21st century: The promise of computational electrodynamics",
+      "url": "https://doi.org/10.1103/RevModPhys.90.015004",
+      "year": "2018"
+    },
+    {
+      "authors": "Pendry JB",
+      "doi": "10.1103/PhysRevLett.85.3966",
+      "journal": "Phys. Rev. Lett.",
+      "pubmed": null,
+      "title": "Negative Refraction Makes a Perfect Lens",
+      "url": "https://doi.org/10.1103/PhysRevLett.85.3966",
+      "year": "2000"
+    },
+    {
+      "authors": "Everitt CWF",
+      "doi": "10.1103/RevModPhys.46.29",
+      "journal": "Rev. Mod. Phys.",
+      "pubmed": null,
+      "title": "Maxwell and the origins of modern field theory",
+      "url": "https://doi.org/10.1103/RevModPhys.46.29",
+      "year": "1974"
+    }
+  ],
+  "subcategory": "quantum_mechanics",
+  "subcategory_name": "Quantum Mechanics",
+  "verified": false
+}

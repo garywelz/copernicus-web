@@ -1,0 +1,53 @@
+{
+  "id": "arxiv_2601.11245v1",
+  "arxiv_id": "2601.11245v1",
+  "title": "Concatenated continuous driving of silicon qubit by amplitude and phase modulation",
+  "authors": [
+    "Takuma Kuno",
+    "Takeru Utsugi",
+    "Andrew J. Ramsay",
+    "Normann Mertig",
+    "Noriyuki Lee",
+    "Itaru Yanagi",
+    "Toshiyuki Mine",
+    "Nobuhiro Kusuno",
+    "Hideo Arimoto",
+    "Sofie Beyne",
+    "Julien Jussot",
+    "Stefan Kubicek",
+    "Yann Canvel",
+    "Clement Godfrin",
+    "Bart Raes",
+    "Yosuke Shimura",
+    "Roger Loo",
+    "Sylvain Baudot",
+    "Danny Wan",
+    "Kristiaan De Greve",
+    "Shinichi Saito",
+    "Digh Hisamoto",
+    "Ryuta Tsuchiya",
+    "Tetsuo Kodera",
+    "Hiroyuki Mizuno"
+  ],
+  "author_string": "Takuma Kuno, Takeru Utsugi, Andrew J. Ramsay, Normann Mertig, Noriyuki Lee et al.",
+  "journal": "arXiv:2601.11245v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "The rate of coherence loss is lower for a qubit under Rabi drive compared to a freely evolving qubit, $T_{2}^{\\rm{Rabi}}>T_{2}^*$.   Building on this principle, concatenated continuous driving (CCD) keeps the qubit under continuous drive to suppress noise and manipulate dressed states by either phase or amplitude modulation.   In this work, we propose a new variant of CCD which simultaneously modulates both the amplitude and phase of the driving field to generate a circularly-polarized field in the rotating frame of the carrier frequency.   This circular-modulated (CM)-CCD cancels the counter-rotating term in the second rotating frame, eliminating a systematic pulse-area error that arises from an imperfect rotating wave approximation for fast gates.   Numerical simulations demonstrate that the proposed CMCCD achieves higher gate fidelity than conventional CCD schemes.   We further implement and compare different CCD protocols using an electron spin-qubit in an isotopically purified $^{28}$Si-MOS quantum dot and evaluate its robustness by applying static detuning and Rabi frequency errors.   The robustness is significantly improved compared to standard Rabi-drive, showing the effectiveness of this scheme for qubit arrays with variation in qubit frequency, coupling to Rabi drive, and low frequency noise.   The proposed scheme can be applied to various physical systems, including trapped atoms, cold atoms, superconducting qubits, and NV-centers.",
+  "categories": [
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": "12 pages, 10 figures",
+  "published_date": "2026-01-16T12:45:50Z",
+  "updated_date": "2026-01-16T12:45:50Z",
+  "url": "https://arxiv.org/abs/2601.11245v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11245v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:18:31.294106",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph"
+  ]
+}

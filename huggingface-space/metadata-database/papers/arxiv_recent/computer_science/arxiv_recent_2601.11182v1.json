@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2601.11182v1",
+  "arxiv_id": "2601.11182v1",
+  "title": "From Knots to Knobs: Towards Steerable Collaborative Filtering Using Sparse Autoencoders",
+  "authors": [
+    "Martin Spišák",
+    "Ladislav Peška",
+    "Petr Škoda",
+    "Vojtěch Vančura",
+    "Rodrigo Alves"
+  ],
+  "author_string": "Martin Spišák, Ladislav Peška, Petr Škoda, Vojtěch Vančura, Rodrigo Alves",
+  "journal": "arXiv:2601.11182v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Sparse autoencoders (SAEs) have recently emerged as pivotal tools for introspection into large language models. SAEs can uncover high-quality, interpretable features at different levels of granularity and enable targeted steering of the generation process by selectively activating specific neurons in their latent activations. Our paper is the first to apply this approach to collaborative filtering, aiming to extract similarly interpretable features from representations learned purely from interaction signals. In particular, we focus on a widely adopted class of collaborative autoencoders (CFAEs) and augment them by inserting an SAE between their encoder and decoder networks. We demonstrate that such representation is largely monosemantic and propose suitable mapping functions between semantic concepts and individual neurons. We also evaluate a simple yet effective method that utilizes this representation to steer the recommendations in a desired direction.",
+  "categories": [
+    "cs.IR"
+  ],
+  "primary_category": "cs.IR",
+  "comment": null,
+  "published_date": "2026-01-16T10:58:21Z",
+  "updated_date": "2026-01-16T10:58:21Z",
+  "url": "https://arxiv.org/abs/2601.11182v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11182v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:33.861470",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.IR"
+  ]
+}

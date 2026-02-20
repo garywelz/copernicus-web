@@ -1,0 +1,29 @@
+{
+  "id": "crossref_10.1110_ps.9.8.1576",
+  "doi": "10.1110/ps.9.8.1576",
+  "title": "Use of residue pairs in protein sequence‐sequence and sequence‐structure alignments",
+  "authors": [
+    "Jung, Jongsun",
+    "Lee, Byungkook"
+  ],
+  "author_string": "Jung, Jongsun, Lee, Byungkook",
+  "journal": "Protein Science",
+  "issn": "0961-8368",
+  "issn_type": "print",
+  "volume": "9",
+  "issue": "8",
+  "page": "1576-1588",
+  "year": "2000",
+  "publisher": "Wiley",
+  "language": "en",
+  "abstract": "AbstractTwo new sets of scoring matrices are introduced: H2 for the protein sequence comparison and T2 for the protein sequence–structure correlation. Each element of H2 or T2 measures the frequency with which a pair of amino acid types in one protein, k‐residues apart in the sequence, is aligned with another pair of residues, of given amino acid types (for H2) or in given structural states (for T2), in other structurally homologous proteins. There are four types, corresponding to the k‐values of 1 to 4, for both H2 and T2. These matrices were set up using a large number of structurally homologous protein pairs, with little sequence homology between the pair, that were recently generated using the structure comparison program SHEBA.The two scoring matrices were incorporated into the main body of the sequence alignment program SSEARCH in the FASTA package and tested in a fold recognition setting in which a set of 107 test sequences were aligned to each of a panel of 3,539 domains that represent all known protein structures. Six procedures were tested; the straight Smith‐Waterman (SW) and FASTA procedures, which used the Blosum62 single residue type substitution matrix; BLAST and PSI‐BLAST procedures, which also used the Blosum62 matrix; PASH, which used Blosum62 and H2 matrices; and PASSC, which used Blosum62, H2, and T2 matrices. All procedures gave similar results when the probe and target sequences had greater than 30% sequence identity. However, when the sequence identity was below 30%, a similar structure could be found for more sequences using PASSC than using any other procedure. PASH and PSI‐BLAST gave the next best results.",
+  "subjects": [],
+  "keywords": [],
+  "article_type": "journal-article",
+  "citation_count": 10,
+  "url": "https://doi.org/10.1110/ps.9.8.1576",
+  "source": "crossref",
+  "acquired_date": "2026-02-03T13:07:13.340449",
+  "category": "interdisciplinary",
+  "subcategories": []
+}

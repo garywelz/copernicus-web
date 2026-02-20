@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2601.10983v1",
+  "arxiv_id": "2601.10983v1",
+  "title": "Evaluating 21st-Century Competencies in Postsecondary Curricula with Large Language Models: Performance Benchmarking and Reasoning-Based Prompting Strategies",
+  "authors": [
+    "Zhen Xu",
+    "Xin Guan",
+    "Chenxi Shi",
+    "Qinhao Chen",
+    "Renzhe Yu"
+  ],
+  "author_string": "Zhen Xu, Xin Guan, Chenxi Shi, Qinhao Chen, Renzhe Yu",
+  "journal": "arXiv:2601.10983v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "The growing emphasis on 21st-century competencies in postsecondary education, intensified by the transformative impact of generative AI, underscores the need to evaluate how these competencies are embedded in curricula and how effectively academic programs align with evolving workforce and societal demands. Curricular Analytics, particularly recent generative AI-powered approaches, offer a promising data-driven pathway. However, analyzing 21st-century competencies requires pedagogical reasoning beyond surface-level information retrieval, and the capabilities of large language models in this context remain underexplored. In this study, we extend prior curricular analytics research by examining a broader range of curriculum documents, competency frameworks, and models. Using 7,600 manually annotated curriculum-competency alignment scores, we assess the informativeness of different curriculum sources, benchmark general-purpose LLMs for curriculum-to-competency mapping, and analyze error patterns. We further introduce a reasoning-based prompting strategy, Curricular CoT, to strengthen LLMs' pedagogical reasoning. Our results show that detailed instructional activity descriptions are the most informative type of curriculum document for competency analytics. Open-weight LLMs achieve accuracy comparable to proprietary models on coarse-grained tasks, demonstrating their scalability and cost-effectiveness for institutional use. However, no model reaches human-level precision in fine-grained pedagogical reasoning. Our proposed Curricular CoT yields modest improvements by reducing bias in instructional keyword inference and improving the detection of nuanced pedagogical evidence in long text. Together, these findings highlight the untapped potential of institutional curriculum documents and provide an empirical foundation for advancing AI-driven curricular analytics.",
+  "categories": [
+    "cs.CY"
+  ],
+  "primary_category": "cs.CY",
+  "comment": null,
+  "published_date": "2026-01-16T04:07:23Z",
+  "updated_date": "2026-01-16T04:07:23Z",
+  "url": "https://arxiv.org/abs/2601.10983v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.10983v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:37.513950",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CY"
+  ]
+}

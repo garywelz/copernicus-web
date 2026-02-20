@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2601.07633v1",
+  "arxiv_id": "2601.07633v1",
+  "title": "Performance Benchmarks for 2-View and 3-View Fiber-Projection Fine-Grained Particle Detectors",
+  "authors": [
+    "Haohui Che",
+    "Guang Yang"
+  ],
+  "author_string": "Haohui Che, Guang Yang",
+  "journal": "arXiv:2601.07633v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Fine-grained scintillator detectors are critical for precision measurements in nuclear and particle physics, where accurate reconstruction of interaction vertices and secondary particle directions enables separation of signal from background events. A well-known design choice is the fiber readout geometry: traditional 2-View systems use orthogonal X and Y fibers, while next-generation 3-View designs add a third Z-fiber layer that provides unambiguous 3D voxel identification. The 2-View approach suffers from combinatorial ghost hits, that the false 3D candidates arising from fiber projection ambiguities, degrading reconstruction performance in high-multiplicity events. This paper presents comprehensive simulation benchmarks quantifying the performance difference between 2-View and 3-View geometries across key metrics. We find that the 3-View geometry reduces ghost hits by 30--90\\% depending on event topology, provides robust vertex resolution across complex topologies, and maintains superior angular resolution for shower direction reconstruction. These benchmarks inform the design optimization of future detectors and provide quantitative guidance for reconstruction algorithm development across a broad range of experiments including neutrino physics, rare kaon/pion decays, and collider calorimetry.",
+  "categories": [
+    "physics.ins-det",
+    "hep-ex",
+    "nucl-ex"
+  ],
+  "primary_category": "nucl-ex",
+  "comment": null,
+  "published_date": "2026-01-12T15:15:30Z",
+  "updated_date": "2026-01-12T15:15:30Z",
+  "url": "https://arxiv.org/abs/2601.07633v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.07633v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-14T13:33:25.124440",
+  "category": "interdisciplinary",
+  "subcategories": [
+    "physics.ins-det",
+    "hep-ex",
+    "nucl-ex"
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "id": "behavior_communication-parental-care-process",
+  "name": "Parental Care Process",
+  "category": "biology",
+  "subcategory": "behavior_communication",
+  "subcategory_name": "Behavior & Communication",
+  "organism": "Animals",
+  "description": "Parental Care Process in Animals. This process represents a higher-level biological mechanism distinct from molecular/biochemical processes covered in GLMP.",
+  "complexity": {
+    "nodes": 9,
+    "edges": 8,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "low",
+    "detailLevel": "low"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\n    A21[Offspring Birth] --> B21[Recognition]\n    B21 --> C21[Protection Initiation]\n    C21 --> D21[Thermoregulation]\n    D21 --> E21[Feeding]\n    E21 --> F21[Grooming]\n    F21 --> G21[Teaching Behaviors]\n    G21 --> H21[Independence Training]\n    H21 --> I21[Weaning]\n    \n    style A21 fill:#ff6b6b,color:#fff\n    style B21 fill:#ffd43b,color:#000\n    style C21 fill:#51cf66,color:#fff\n    style D21 fill:#51cf66,color:#fff\n    style E21 fill:#51cf66,color:#fff\n    style F21 fill:#51cf66,color:#fff\n    style G21 fill:#74c0fc,color:#fff\n    style H21 fill:#74c0fc,color:#fff\n    style I21 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "notes": "Higher-level biological process visualization: Parental Care Process. Created using the Programming Framework methodology for organismal and ecological process analysis."
+    },
+    {
+      "title": "The evolution of parental care",
+      "authors": "Clutton-Brock TH.",
+      "journal": "Nature",
+      "year": "1991",
+      "pubmed": "2000282",
+      "doi": "10.1038/349587a0",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/2000282"
+    },
+    {
+      "title": "Parental Care: A Synthesis of Life-History, Behavioral, and Molecular Perspectives",
+      "authors": "Bell AL, Richards CL.",
+      "journal": "Annu Rev Ecol Evol Syst",
+      "year": "2014",
+      "pubmed": "27076778",
+      "doi": "10.1146/annurev-ecolsys-120213-091629",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/27076778"
+    }
+  ],
+  "keywords": [
+    "animals",
+    "parental",
+    "process",
+    "behavior",
+    "care",
+    "communication"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-08",
+  "verified": false,
+  "notes": "Higher-level biological process. GLMP covers biochemical/molecular processes; this database covers organismal/ecological processes."
+}

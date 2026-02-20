@@ -1,0 +1,39 @@
+{
+  "id": "arxiv_2504.16025v2",
+  "arxiv_id": "2504.16025v2",
+  "title": "Modeling Tidal Disruptions with Dynamical Tides",
+  "authors": [
+    "Zihan Zhou",
+    "Giovanni Maria Tomaselli",
+    "Irvin Martínez-Rodríguez",
+    "Jingping Li"
+  ],
+  "author_string": "Zihan Zhou, Giovanni Maria Tomaselli, Irvin Martínez-Rodríguez, Jingping Li",
+  "journal": "arXiv:2504.16025v2",
+  "journal_ref": null,
+  "year": "2025",
+  "doi": null,
+  "abstract": "Tidal disruption events (TDEs) occur when stars pass close enough to supermassive black holes to be torn apart by tidal forces. Traditionally, these events are studied with computationally intensive hydrodynamical simulations. In this paper, we present a fast, physically motivated two-stage model for TDEs. In the first stage, we model the star's tidal deformation using linear stellar perturbation theory, treating the star as a collection of driven harmonic oscillators. When the tidal energy exceeds a fraction $γ$ of the star's gravitational binding energy (with $γ\\sim \\mathcal O(1)$), we transition to the second stage, where we model the disrupted material as free particles. The parameter $γ$ is determined with a one-time calibration to the critical impact parameter obtained in hydrodynamical simulations. This method enables fast computation of the energy distribution ${\\rm d} M/{\\rm d}E$ and fallback rate ${\\rm d} M/{\\rm d} T$, while offering physical insight into the disruption process. We apply our model to MESA-generated profiles of middle-age main-sequence stars. Our code is available on GitHub.",
+  "categories": [
+    "astro-ph.HE",
+    "astro-ph.GA",
+    "astro-ph.SR",
+    "gr-qc",
+    "hep-ph",
+    "hep-th"
+  ],
+  "primary_category": "hep-th",
+  "comment": "11 pages, 5 figures; v2: journal version",
+  "published_date": "2025-04-22T16:42:18Z",
+  "updated_date": "2025-10-08T18:30:19Z",
+  "url": "https://arxiv.org/abs/2504.16025v2",
+  "pdf_url": "https://arxiv.org/pdf/2504.16025v2.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-02-03T13:20:42.314677",
+  "category": "physics",
+  "subcategories": [
+    "astro-ph.HE",
+    "astro-ph.GA",
+    "astro-ph.SR"
+  ]
+}

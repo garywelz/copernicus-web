@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2601.11248v1",
+  "arxiv_id": "2601.11248v1",
+  "title": "Language-Agnostic Visual Embeddings for Cross-Script Handwriting Retrieval",
+  "authors": [
+    "Fangke Chen",
+    "Tianhao Dong",
+    "Sirry Chen",
+    "Guobin Zhang",
+    "Yishu Zhang",
+    "Yining Chen"
+  ],
+  "author_string": "Fangke Chen, Tianhao Dong, Sirry Chen, Guobin Zhang, Yishu Zhang et al.",
+  "journal": "arXiv:2601.11248v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Handwritten word retrieval is vital for digital archives but remains challenging due to large handwriting variability and cross-lingual semantic gaps. While large vision-language models offer potential solutions, their prohibitive computational costs hinder practical edge deployment. To address this, we propose a lightweight asymmetric dual-encoder framework that learns unified, style-invariant visual embeddings. By jointly optimizing instance-level alignment and class-level semantic consistency, our approach anchors visual embeddings to language-agnostic semantic prototypes, enforcing invariance across scripts and writing styles. Experiments show that our method outperforms 28 baselines and achieves state-of-the-art accuracy on within-language retrieval benchmarks. We further conduct explicit cross-lingual retrieval, where the query language differs from the target language, to validate the effectiveness of the learned cross-lingual representations. Achieving strong performance with only a fraction of the parameters required by existing models, our framework enables accurate and resource-efficient cross-script handwriting retrieval.",
+  "categories": [
+    "cs.CV"
+  ],
+  "primary_category": "cs.CV",
+  "comment": "9 pages,5 figures",
+  "published_date": "2026-01-16T12:55:41Z",
+  "updated_date": "2026-01-16T12:55:41Z",
+  "url": "https://arxiv.org/abs/2601.11248v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11248v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:33.860205",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV"
+  ]
+}

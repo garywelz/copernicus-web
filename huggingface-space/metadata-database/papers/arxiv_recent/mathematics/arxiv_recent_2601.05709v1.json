@@ -1,0 +1,30 @@
+{
+  "id": "arxiv_2601.05709v1",
+  "arxiv_id": "2601.05709v1",
+  "title": "FormOpt: A FEniCSx toolbox for level set-based shape optimization supporting parallel computing",
+  "authors": [
+    "Josué D. Díaz-Avalos",
+    "Antoine Laurain"
+  ],
+  "author_string": "Josué D. Díaz-Avalos, Antoine Laurain",
+  "journal": "arXiv:2601.05709v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "This article presents the toolbox FormOpt for two- and three-dimensional shape optimization with parallel computing capabilities, built on the FEniCSx software framework. We introduce fundamental concepts of shape sensitivity analysis and their numerical applications, mainly for educational purposes, while also emphasizing computational efficiency via parallelism for practitioners. We adopt an optimize-then-discretize strategy based on the distributed shape derivative and its tensor representation, following the approach of \\cite{MR3843884} and extending it in several directions. The numerical shape modeling relies on a level set method, whose evolution is driven by a descent direction computed from the shape derivative. Geometric constraints are treated accurately through a Proximal-Perturbed Lagrangian approach. FormOpt leverages the powerful features of FEniCSx, particularly its support for weak formulations of partial differential equations, diverse finite element types, and scalable parallelism. The implementation supports three different parallel computing modes: data parallelism, task parallelism, and a mixed mode. Data parallelism exploits FEniCSx's mesh partitioning features, and we implement a task parallelism mode which is useful for problems governed by a set of partial differential equations with varying parameters. The mixed mode conveniently combines both strategies to achieve efficient utilization of computational resources.",
+  "categories": [
+    "math.OC"
+  ],
+  "primary_category": "math.OC",
+  "comment": null,
+  "published_date": "2026-01-09T10:53:02Z",
+  "updated_date": "2026-01-09T10:53:02Z",
+  "url": "https://arxiv.org/abs/2601.05709v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.05709v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:22.685154",
+  "category": "mathematics",
+  "subcategories": [
+    "math.OC"
+  ]
+}

@@ -1,0 +1,92 @@
+{
+  "id": "surface_chemistry-adsorption-isotherm-analysis",
+  "name": "Adsorption Isotherm Analysis",
+  "category": "chemistry",
+  "subcategory": "surface_chemistry",
+  "subcategory_name": "Surface Chemistry & Catalysis",
+  "description": "Adsorption Isotherm Analysis process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 6,
+    "edges": 5,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nN1[\"Adsorbent Material\"]\nN2[\"Adsorbate/Pressure\"]\nN3[\"Surface Sites\"]\nN4[\"Measure Uptake\"]\nN5[\"Fit Isotherm Model\"]\nN6[\"Capacity/Parameters\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\nN5 --> N6\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ff6b6b,color:#fff\n    style N3 fill:#ffd43b,color:#000\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Adsorption Isotherm Analysis. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "Figure 8: Adsorption isotherm and adsorption rate of TC.",
+      "authors": "",
+      "journal": "",
+      "year": "None",
+      "pubmed": null,
+      "doi": "10.7717/peerj.13030/fig-8",
+      "url": "https://doi.org/10.7717/peerj.13030/fig-8"
+    },
+    {
+      "title": "Adsorption isotherm",
+      "authors": "",
+      "journal": "Physics Subject Headings (PhySH)",
+      "year": "None",
+      "pubmed": null,
+      "doi": "10.29172/020035d3-c88b-49ea-9d53-0df5782a9a28",
+      "url": "https://doi.org/10.29172/020035d3-c88b-49ea-9d53-0df5782a9a28"
+    },
+    {
+      "title": "Extended Short Cycle Time Analysis of Pressure Swing Adsorption with Nonlinear Adsorption Isotherm",
+      "authors": "Nakamura, Takuya; Kodama, Akio; Goto, Motonobu; Hirose, Tsutomu",
+      "journal": "Adsorption",
+      "year": "2005",
+      "pubmed": null,
+      "doi": "10.1007/s10450-005-5993-5",
+      "url": "https://doi.org/10.1007/s10450-005-5993-5"
+    }
+  ],
+  "keywords": [
+    "adsorption",
+    "isotherm",
+    "analysis"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-15",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+}

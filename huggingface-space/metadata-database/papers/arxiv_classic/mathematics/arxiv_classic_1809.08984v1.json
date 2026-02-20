@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_1809.08984v1",
+  "arxiv_id": "1809.08984v1",
+  "title": "A Bayesian Approach to Multivariate Adaptive Localization in Ensemble-Based Data Assimilation with Time-Dependent Extensions",
+  "authors": [
+    "Andrey A Popov",
+    "Adrian Sandu"
+  ],
+  "author_string": "Andrey A Popov, Adrian Sandu",
+  "journal": "arXiv:1809.08984v1",
+  "journal_ref": null,
+  "year": "2018",
+  "doi": "10.5194/npg-26-109-2019",
+  "abstract": "Ever since its inception, the Ensemble Kalman Filter has elicited many heuristic methods that sought to correct it. One such method is localization---the thought that `nearby' variables should be highly correlated with `far away' variable not. Recognizing that correlation is a time-dependent property, adaptive localization is a natural extension to these heuristics. We propose a Bayesian approach to adaptive Schur-product localization for the DEnKF, and extend it to support multiple radii of influence. We test both the empirical validity of (multivariate) adaptive localization, and of our approach. We test a simple toy problem (Lorenz'96), extending it to a multivariate model, and a more realistic geophysical problem (1.5 Layer Quasi-Geostrophic). We show that the multivariate approach has great promise on the toy problem, and that the univariate approach leads to improved filter performance for the realistic geophysical problem.",
+  "categories": [
+    "math.NA",
+    "cs.CE",
+    "math.OC"
+  ],
+  "primary_category": "math.OC",
+  "comment": null,
+  "published_date": "2018-09-24T15:04:24Z",
+  "updated_date": "2018-09-24T15:04:24Z",
+  "url": "https://arxiv.org/abs/1809.08984v1",
+  "pdf_url": "https://arxiv.org/pdf/1809.08984v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:30:52.383662",
+  "category": "mathematics",
+  "subcategories": [
+    "math.NA",
+    "cs.CE",
+    "math.OC"
+  ]
+}

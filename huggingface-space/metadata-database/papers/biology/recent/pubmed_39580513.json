@@ -1,0 +1,23 @@
+{
+  "id": "pubmed_39580513",
+  "pmid": "39580513",
+  "title": "Network structure and fluctuation data improve inference of metabolic interaction strengths with the inverse Jacobian.",
+  "authors": [
+    "Li, Jiahang",
+    "Weckwerth, Wolfram",
+    "Waldherr, Steffen"
+  ],
+  "author_string": "Li, Jiahang, Weckwerth, Wolfram, Waldherr, Steffen",
+  "journal": "NPJ Syst Biol Appl",
+  "journal_full": "NPJ systems biology and applications",
+  "year": "",
+  "doi": "10.1038/s41540-024-00457-y",
+  "abstract": "Based on high-throughput metabolomics data, the recently introduced inverse differential Jacobian algorithm can infer regulatory factors and molecular causality within metabolic networks close to steady-state. However, these studies assumed perturbations acting independently on each metabolite, corresponding to metabolic system fluctuations. In contrast, emerging evidence puts forward internal network fluctuations, particularly from gene expression fluctuations, leading to correlated perturbations on metabolites. Here, we propose a novel approach that exploits these correlations to quantify relevant metabolic interactions. By integrating enzyme-related fluctuations in the construction of an appropriate fluctuation matrix, we are able to exploit the underlying reaction network structure for the inverse Jacobian algorithm. We applied this approach to a model-based artificial dataset for validation, and to an experimental breast cancer dataset with two different cell lines. By highlighting metabolic interactions with significantly changed interaction strengths, the inverse Jacobian approach identified critical dynamic regulation points which are confirming previous breast cancer studies.",
+  "keywords": [],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/39580513",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T16:58:53.340017",
+  "category": "biology",
+  "subcategories": []
+}

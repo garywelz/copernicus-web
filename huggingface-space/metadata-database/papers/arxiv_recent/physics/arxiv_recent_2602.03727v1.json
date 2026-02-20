@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2602.03727v1",
+  "arxiv_id": "2602.03727v1",
+  "title": "Distributed Phase-Insensitive Displacement Sensing",
+  "authors": [
+    "Piotr T. Grochowski",
+    "Matteo Fadel",
+    "Radim Filip"
+  ],
+  "author_string": "Piotr T. Grochowski, Matteo Fadel, Radim Filip",
+  "journal": "arXiv:2602.03727v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Distributed quantum sensing leverages quantum correlations among multiple sensors to enhance the precision of parameter estimation beyond classical limits. Most existing approaches target phase estimation and rely on a shared phase reference between the signal and the probe, yet many relevant scenarios deal with regimes where such a reference is absent, making the estimation of force or field amplitudes the main task. We study this phase-insensitive regime for bosonic sensors that undergo identical displacements with common phases randomly varying between experimental runs. We derive analytical bounds on the achievable precision and show that it is determined by first-order normal correlations between modes in the probe state, constrained by their average excitations. These correlations yield a collective sensitivity enhancement over the standard quantum limit, with a gain that grows linearly in the total excitation number, revealing a distributed quantum advantage even without a global phase reference. We identify families of multimode states with definite joint parity that saturate this limit and can be probed efficiently via local parity measurements already demonstrated or emerging in several quantum platforms. We further demonstrate that experimentally relevant decoherence channels favor two distinct sensing strategies: splitting of a single-mode nonclassical state among the modes, which is robust to loss and heating, and separable probes, which are instead resilient to dephasing and phase jitter. Our results are relevant to multimode continuous platforms, including trapped-ion, solid-state mechanical, optomechanical, superconducting, and photonic systems.",
+  "categories": [
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": "8+16 pages, 1+2 figures",
+  "published_date": "2026-02-03T16:45:58Z",
+  "updated_date": "2026-02-03T16:45:58Z",
+  "url": "https://arxiv.org/abs/2602.03727v1",
+  "pdf_url": "https://arxiv.org/pdf/2602.03727v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-02-04T07:47:26.296999",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph"
+  ]
+}

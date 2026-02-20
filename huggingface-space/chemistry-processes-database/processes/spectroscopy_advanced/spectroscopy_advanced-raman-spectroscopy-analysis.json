@@ -1,0 +1,92 @@
+{
+  "id": "spectroscopy_advanced-raman-spectroscopy-analysis",
+  "name": "Raman Spectroscopy Analysis",
+  "category": "chemistry",
+  "subcategory": "spectroscopy_advanced",
+  "subcategory_name": "Advanced Spectroscopy & Analysis",
+  "description": "Raman Spectroscopy Analysis process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 9,
+    "edges": 10,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 1,
+      "andGates": 2,
+      "total": 3
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nN1[\"Sample\"]\nN2[\"Instrument Configuration\"]\nN3[\"Acquire Spectrum/Pattern\"]\nN4[\"Choose Path\"]\nN5[\"Preprocess (baseline/noise)\"]\nN6[\"Peak/Feature Extraction\"]\nN7[\"Assign/Interpret\"]\nN8[\"Spectroscopic Conclusion\"]\nN9[\"Integrate\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\nN4 --> N7\nN5 --> N6\nN7 --> N8\nN6 --> N9\nN8 --> N9\nN9 --> N6\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ffd43b,color:#000\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#ffd43b,color:#000\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#74c0fc,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#b197fc,color:#fff\n    style N9 fill:#74c0fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Raman Spectroscopy Analysis. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "Raman Spectroscopy of Surfaces",
+      "authors": "",
+      "journal": "Raman Spectroscopy for Chemical Analysis",
+      "year": "2000",
+      "pubmed": null,
+      "doi": "10.1002/0471721646.ch13",
+      "url": "https://doi.org/10.1002/0471721646.ch13"
+    },
+    {
+      "title": "Lasers for Raman Spectroscopy",
+      "authors": "",
+      "journal": "Raman Spectroscopy for Chemical Analysis",
+      "year": "2000",
+      "pubmed": null,
+      "doi": "10.1002/0471721646.ch7",
+      "url": "https://doi.org/10.1002/0471721646.ch7"
+    },
+    {
+      "title": "Sampling Modes in Raman Spectroscopy",
+      "authors": "",
+      "journal": "Raman Spectroscopy for Chemical Analysis",
+      "year": "2000",
+      "pubmed": null,
+      "doi": "10.1002/0471721646.ch6",
+      "url": "https://doi.org/10.1002/0471721646.ch6"
+    }
+  ],
+  "keywords": [
+    "raman",
+    "spectroscopy",
+    "analysis"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-15",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+}

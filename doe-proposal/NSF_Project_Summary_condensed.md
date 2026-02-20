@@ -1,0 +1,20 @@
+# Project Summary
+## CopernicusAI Knowledge Engine: Assisted Research via AI Briefings, Multi-Modal Metadata, and Process Visualization
+
+**Principal Investigator:** Gary Welz  
+**Program:** CISE Core Programs - Information and Intelligent Systems (IIS)  
+**Requested Amount:** $529,200 (3 years)
+
+---
+
+## Overview
+
+This project develops and studies an AI-enabled "assisted research" platform that helps researchers and advanced students rapidly orient to topics, iteratively deepen questions, and connect knowledge across scientific domains using traceable sources and structured metadata. The core research idea is to treat AI-generated briefings—especially interactive audio briefings—as a research interface rather than static science communication. The platform links text, audio, video, and diagrammatic representations through a unified metadata layer enabling provenance, visualization, and knowledge gap identification. The work builds on existing public prototypes: CopernicusAI (https://www.copernicusai.fyi), Programming Framework, Genome Logic Modeling Project (GLMP) (biological processes as interactive flowcharts), Science Video Database, and Research Paper Metadata Database. A fully operational Knowledge Engine has been implemented (December 2025) with knowledge graph visualization, vector search, and RAG capabilities (https://copernicus-frontend-phzp4ie2sq-uc.a.run.app/knowledge-engine).
+
+## Intellectual Merit
+
+The project contributes to CISE/IIS by advancing methods for human-centered AI-assisted research workflows grounded in multi-source evidence and structured representations. Key contributions include: (1) Research briefings as an interactive research interface: Design and evaluation of "prompt → briefing → refinement" loops supporting progressive question narrowing and deepening. (2) Unified metadata objects across modalities: Structured JSON representations capturing provenance, entities, methods, claims, and cross-references for papers, videos, briefings, diagrams, graphics, and audio data, enabling algorithmic analysis and gap detection. (3) Reliable AI output via multi-checker workflows and collaborative validation: Practical reliability strategy using multiple AI and human checkers, plus provenance enforcement, claim extraction, and citation verification. Collaborative validation enables multiple users (graduate and undergraduate students) to test, verify, and refine AI-generated content, creating collective intelligence that improves trustworthiness. (4) Process visualization as computable artifacts: Programming Framework converts textual process descriptions into Mermaid diagrams stored as JSON, demonstrated in GLMP with 50+ biological processes. These components create a research platform where knowledge is mapped, linked, and validated through computable metadata and reviewable provenance.
+
+## Broader Impacts
+
+The platform supports broader impacts in education and research infrastructure by providing a scalable system for research orientation and exploration, lowering barriers for students, educators, and interdisciplinary researchers. Users can generate and share research briefings and associated artifacts within their communities, enabling collective learning while remaining grounded in scientific sources. The system's focus on provenance, validation, and multi-checker review promotes responsible AI use in scientific contexts. Collaborative validation mechanisms enable student users to participate in alpha and beta testing, creating podcasts, verifying AI outputs, and contributing to collective knowledge building. The project includes comprehensive accessibility features (WCAG 2.1 AA compliance) and diversity, equity, and inclusion considerations. Public prototypes and documentation remain accessible, supporting reproducible methods and future community contributions. All research components will be open-sourced (MIT License) and disseminated through peer-reviewed publications, conference presentations, and open-source repositories.

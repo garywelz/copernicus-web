@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2005.12821v1",
+  "arxiv_id": "2005.12821v1",
+  "title": "Study of Firecracker MicroVM",
+  "authors": [
+    "Madhur Jain"
+  ],
+  "author_string": "Madhur Jain",
+  "journal": "arXiv:2005.12821v1",
+  "journal_ref": null,
+  "year": "2020",
+  "doi": null,
+  "abstract": "Firecracker is a virtualization technology that makes use of Kernel Virtual Machine (KVM). Firecracker belongs to a new virtualization class named the micro-virtual machines (MicroVMs). Using Firecracker, we can launch lightweight MicroVMs in non-virtualized environments in a fraction of a second, at the same time offering the security and workload isolation provided by traditional VMs and also the resource efficiency that comes along with containers \\cite{b1}. Firecracker aims to provide a slimmed-down MicroVM, comprised of approximately 50K lines of code in Rust and with a reduced attack surface for guest VMs. This report will examine the internals of Firecracker and understand why Firecracker is the next big thing going forward in virtualization and cloud computing.",
+  "categories": [
+    "cs.OS",
+    "cs.DC"
+  ],
+  "primary_category": "cs.DC",
+  "comment": "4 pages, 3 figures",
+  "published_date": "2020-05-26T15:56:06Z",
+  "updated_date": "2020-05-26T15:56:06Z",
+  "url": "https://arxiv.org/abs/2005.12821v1",
+  "pdf_url": "https://arxiv.org/pdf/2005.12821v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:23.487128",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.OS",
+    "cs.DC"
+  ]
+}

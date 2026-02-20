@@ -1,0 +1,65 @@
+{
+  "id": "theory-rendering",
+  "name": "Rendering",
+  "category": "computer_science",
+  "subcategory": "theory",
+  "subcategory_name": "Theoretical Computer Science",
+  "description": "Rendering Process. This computer graphics process visualization demonstrates rendering techniques and image generation. The flowchart shows scene inputs and geometry processing, rendering methods and lighting models, rendering operations and pixel processing, intermediate results, and final rendering outputs.",
+  "complexity": {
+    "nodes": 26,
+    "edges": 24,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nA1[Scene Input] --> B1[Rendering Method]\nC1[Geometry Processing] --> D1[Lighting Model]\nE1[Pixel Processing] --> F1[Rendering Analysis]\nB1 --> G1[Ray Tracing]\nD1 --> H1[Rasterization]\nF1 --> I1[Global Illumination]\nG1 --> J1[Ray Generation]\nH1 --> K1[Fragment Shading]\nI1 --> L1[Shadow Mapping]\nJ1 --> M1[Intersection Testing]\nK1 --> L1\nL1 --> N1[Texture Mapping]\nM1 --> O1[Color Calculation]\nN1 --> P1[Anti Aliasing]\nO1 --> Q1[Rendering Process]\nP1 --> R1[Rendering Validation]\nQ1 --> S1[Rendering Verification]\nR1 --> T1[Rendering Result]\nS1 --> U1[Rendering Analysis]\nT1 --> V1[Rendering Parameters]\nU1 --> W1[Rendering Output]\nV1 --> X1[Rendering Analysis]\nW1 --> Y1[Rendering Final Result]\nX1 --> Z1[Rendering Complete]\n\n    style A1 fill:#ff6b6b,color:#fff\n    style C1 fill:#ff6b6b,color:#fff\n    style E1 fill:#ff6b6b,color:#fff\n    style B1 fill:#ffd43b,color:#000\n    style D1 fill:#ffd43b,color:#000\n    style F1 fill:#ffd43b,color:#000\n    style G1 fill:#ffd43b,color:#000\n    style H1 fill:#ffd43b,color:#000\n    style I1 fill:#ffd43b,color:#000\n    style J1 fill:#ffd43b,color:#000\n    style K1 fill:#ffd43b,color:#000\n    style L1 fill:#ffd43b,color:#000\n    style M1 fill:#51cf66,color:#fff\n    style N1 fill:#51cf66,color:#fff\n    style O1 fill:#51cf66,color:#fff\n    style P1 fill:#51cf66,color:#fff\n    style Q1 fill:#51cf66,color:#fff\n    style R1 fill:#51cf66,color:#fff\n    style S1 fill:#51cf66,color:#fff\n    style T1 fill:#51cf66,color:#fff\n    style U1 fill:#51cf66,color:#fff\n    style V1 fill:#51cf66,color:#fff\n    style W1 fill:#51cf66,color:#fff\n    style X1 fill:#51cf66,color:#fff\n    style Y1 fill:#51cf66,color:#fff\n    style Z1 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "notes": "Chemistry process visualization: Rendering. Created using the Programming Framework methodology for process analysis and visualization."
+    }
+  ],
+  "keywords": [
+    "science",
+    "rendering",
+    "computer",
+    "theoretical"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-08",
+  "verified": false,
+  "notes": "Converted from computer science batch HTML. Process number: 1."
+}

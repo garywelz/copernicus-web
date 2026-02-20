@@ -1,0 +1,34 @@
+{
+  "id": "linear-regression-calculation",
+  "title": "Linear Regression Calculation",
+  "description": "Compute linear regression line from data points",
+  "category": "mathematics",
+  "subcategory": "statistics",
+  "mermaid": "graph TD A1[/'Start: Input Data'/] --> B1(/'Data Validation'/) style A1 fill:#ff6b6b,color:#fff style B1 fill:#ffd43b,color:#000 B1 -- \"Data OK?\" --> C1{/'Sufficient Data Points?'/} style C1 fill:#ffd43b,color:#000 C1 -- Yes --> D1[/'Calculate Means: x̄ and ȳ'/] style D1 fill:#51cf66,color:#fff C1 -- No --> X1[/'Error: Insufficient Data'/] style X1 fill:#b197fc,color:#fff B1 -- \"Data Invalid\" --> Y1[/'Error: Data Validation Failed'/] style Y1 fill:#b197fc,color:#fff D1 --> E1[/'Calculate Sum of Squares (SSxx)'/] style E1 fill:#51cf66,color:#fff E1 --> F1[/'Calculate Sum of Products (SPxy)'/] style F1 fill:#51cf66,color:#fff F1 --> G1[/'Calculate Slope (b = SPxy / SSxx)'/] style G1 fill:#51cf66,color:#fff G1 --> H1[/'Calculate Intercept (a = ȳ - b * x̄)'/] style H1 fill:#51cf66,color:#fff H1 --> I1[/'Linear Regression Equation: y = a + bx'/] style I1 fill:#74c0fc,color:#fff I1 --> J1[/'Calculate Predicted Values (ŷ)'/] style J1 fill:#51cf66,color:#fff J1 --> K1[/'Calculate Residuals (e = y - ŷ)'/] style K1 fill:#51cf66,color:#fff K1 --> L1[/'Calculate Residual Sum of Squares (SSres)'/] style L1 fill:#51cf66,color:#fff L1 --> M1[/'Calculate Total Sum of Squares (SStot)'/] style M1 fill:#51cf66,color:#fff M1 --> N1[/'Calculate R-squared (R² = 1 - SSres / SStot)'/] style N1 fill:#51cf66,color:#fff N1 --> O1[/'Output: Slope (b), Intercept (a), R-squared (R²)'/] style O1 fill:#b197fc,color:#fff O1 --> P1[/'End'/] style P1 fill:#b197fc,color:#fff",
+  "entities": [
+    "/'Start: Input Data'/",
+    "/'Data Validation'/)style A1 fill:#ff6b6b,color:#fff style B1 fill:#ffd43b,color:#000 B1 -- Data OK? --> C1{/'Sufficient Data Points?'/}style C1 fill:#ffd43b,color:#000 C1 -- Yes --> D1[/'Calculate Means: x̄ and ȳ'/",
+    "/'Error: Insufficient Data'/",
+    "/'Error: Data Validation Failed'/",
+    "/'Calculate Sum of Squares (SSxx)'/",
+    "/'Calculate Sum of Products (SPxy)'/",
+    "/'Calculate Slope (b = SPxy / SSxx)'/",
+    "/'Calculate Intercept (a = ȳ - b * x̄)'/",
+    "/'Linear Regression Equation: y = a + bx'/",
+    "/'Calculate Predicted Values (ŷ)'/",
+    "/'Calculate Residuals (e = y - ŷ)'/",
+    "/'Calculate Residual Sum of Squares (SSres)'/",
+    "/'Calculate Total Sum of Squares (SStot)'/",
+    "/'Calculate R-squared (R² = 1 - SSres / SStot)'/",
+    "/'Output: Slope (b), Intercept (a), R-squared (R²)'/",
+    "/'End'/"
+  ],
+  "metadata": {
+    "source": "programming_framework",
+    "color_scheme": "discipline_based",
+    "node_count": 16,
+    "complexity": "low"
+  },
+  "sources": [],
+  "source_text": "Source information to be added - please specify the book, paper, or reference material used by the LLM to generate this flowchart."
+}

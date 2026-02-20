@@ -1,0 +1,27 @@
+{
+  "id": "pubmed_33035220",
+  "pmid": "33035220",
+  "title": "A cautionary note on the use of unsupervised machine learning algorithms to characterise malaria parasite population structure from genetic distance matrices.",
+  "authors": [
+    "Watson, James A",
+    "Taylor, Aimee R",
+    "Ashley, Elizabeth A",
+    "Dondorp, Arjen",
+    "Buckee, Caroline O",
+    "White, Nicholas J",
+    "Holmes, Chris C"
+  ],
+  "author_string": "Watson, James A, Taylor, Aimee R, Ashley, Elizabeth A, Dondorp, Arjen, Buckee, Caroline O et al.",
+  "journal": "PLoS Genet",
+  "journal_full": "PLoS genetics",
+  "year": "",
+  "doi": "10.1371/journal.pgen.1009037",
+  "abstract": "Genetic surveillance of malaria parasites supports malaria control programmes, treatment guidelines and elimination strategies. Surveillance studies often pose questions about malaria parasite ancestry (e.g. how antimalarial resistance has spread) and employ statistical methods that characterise parasite population structure. Many of the methods used to characterise structure are unsupervised machine learning algorithms which depend on a genetic distance matrix, notably principal coordinates analysis (PCoA) and hierarchical agglomerative clustering (HAC). PCoA and HAC are sensitive to both the definition of genetic distance and algorithmic specification. Importantly, neither algorithm infers malaria parasite ancestry. As such, PCoA and HAC can inform (e.g. via exploratory data visualisation and hypothesis generation), but not answer comprehensively, key questions about malaria parasite ancestry. We illustrate the sensitivity of PCoA and HAC using 393 Plasmodium falciparum whole genome sequences collected from Cambodia and neighbouring regions (where antimalarial resistance has emerged and spread recently) and we provide tentative guidance for the use and interpretation of PCoA and HAC in malaria parasite genetic epidemiology. This guidance includes a call for fully transparent and reproducible analysis pipelines that feature (i) a clearly outlined scientific question; (ii) a clear justification of analytical methods used to answer the scientific question along with discussion of any inferential limitations; (iii) publicly available genetic distance matrices when downstream analyses depend on them; and (iv) sensitivity analyses. To bridge the inferential disconnect between the output of non-inferential unsupervised learning algorithms and the scientific questions of interest, tailor-made statistical models are needed to infer malaria parasite ancestry. In the absence of such models speculative reasoning should feature only as discussion but not as results.",
+  "keywords": [],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/33035220",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T16:58:05.707236",
+  "category": "biology",
+  "subcategories": []
+}

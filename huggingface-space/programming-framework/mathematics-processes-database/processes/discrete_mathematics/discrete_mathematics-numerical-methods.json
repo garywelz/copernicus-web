@@ -1,0 +1,65 @@
+{
+  "id": "discrete_mathematics-numerical-methods",
+  "name": "Numerical Methods",
+  "category": "mathematics",
+  "subcategory": "discrete_mathematics",
+  "subcategory_name": "Discrete Mathematics",
+  "description": "Numerical Methods Process. This applied mathematics process visualization demonstrates root finding and integration methods. The flowchart shows numerical problem inputs and error analysis, numerical methods and algorithms, numerical operations and calculations, intermediate results, and final numerical solutions.",
+  "complexity": {
+    "nodes": 30,
+    "edges": 27,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "high",
+    "detailLevel": "high"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nA1[Numerical Problem Input] --> B1[Method Selection]\nC1[Error Analysis] --> D1[Convergence Study]\nE1[Algorithm Design] --> F1[Implementation Strategy]\nB1 --> G1[Root Finding Methods]\nD1 --> H1[Convergence Criteria]\nF1 --> I1[Numerical Algorithm]\nG1 --> J1[Bisection Method]\nH1 --> K1[Tolerance Setting]\nI1 --> L1[Iterative Process]\nJ1 --> M1[Newton Raphson Method]\nK1 --> N1[Error Estimation]\nL1 --> O1[Convergence Check]\nM1 --> P1[Secant Method]\nN1 --> Q1[Stability Analysis]\nO1 --> R1[Solution Refinement]\nP1 --> S1[Fixed Point Iteration]\nQ1 --> T1[Error Bounds]\nR1 --> U1[Numerical Solution]\nS1 --> V1[Integration Methods]\nT1 --> W1[Accuracy Assessment]\nU1 --> X1[Solution Validation]\nV1 --> Y1[Trapezoidal Rule]\nW1 --> Z1[Numerical Result]\nX1 --> AA1[Numerical Output]\nY1 --> BB1[Simpson Rule]\nZ1 --> CC1[Numerical Analysis]\nAA1 --> DD1[Numerical Methods Output]\n\n    style A1 fill:#ff6b6b,color:#fff\n    style C1 fill:#ff6b6b,color:#fff\n    style E1 fill:#ff6b6b,color:#fff\n    style B1 fill:#ffd43b,color:#000\n    style D1 fill:#ffd43b,color:#000\n    style F1 fill:#ffd43b,color:#000\n    style G1 fill:#ffd43b,color:#000\n    style H1 fill:#ffd43b,color:#000\n    style I1 fill:#ffd43b,color:#000\n    style J1 fill:#ffd43b,color:#000\n    style K1 fill:#ffd43b,color:#000\n    style L1 fill:#ffd43b,color:#000\n    style M1 fill:#51cf66,color:#fff\n    style N1 fill:#51cf66,color:#fff\n    style O1 fill:#51cf66,color:#fff\n    style P1 fill:#51cf66,color:#fff\n    style Q1 fill:#51cf66,color:#fff\n    style R1 fill:#51cf66,color:#fff\n    style S1 fill:#51cf66,color:#fff\n    style T1 fill:#51cf66,color:#fff\n    style U1 fill:#51cf66,color:#fff\n    style V1 fill:#51cf66,color:#fff\n    style W1 fill:#51cf66,color:#fff\n    style X1 fill:#51cf66,color:#fff\n    style Y1 fill:#51cf66,color:#fff\n    style Z1 fill:#51cf66,color:#fff\n    style AA1 fill:#51cf66,color:#fff\n    style BB1 fill:#51cf66,color:#fff\n    style CC1 fill:#51cf66,color:#fff\n    style DD1 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "notes": "Chemistry process visualization: Numerical Methods. Created using the Programming Framework methodology for process analysis and visualization."
+    }
+  ],
+  "keywords": [
+    "discrete",
+    "numerical",
+    "methods",
+    "mathematics"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-08",
+  "verified": false,
+  "notes": "Converted from mathematics batch HTML. Process number: 1."
+}

@@ -1,0 +1,37 @@
+{
+  "id": "arxiv_1905.03229v3",
+  "arxiv_id": "1905.03229v3",
+  "title": "Image-based reconstruction for the impact problems by using DPNNs",
+  "authors": [
+    "Yu Li",
+    "Hu Wang",
+    "Wenquan Shuai",
+    "Honghao Zhang",
+    "Yong Peng"
+  ],
+  "author_string": "Yu Li, Hu Wang, Wenquan Shuai, Honghao Zhang, Yong Peng",
+  "journal": "arXiv:1905.03229v3",
+  "journal_ref": null,
+  "year": "2019",
+  "doi": null,
+  "abstract": "With the improvement of the pattern recognition and feature extraction of Deep Neural Networks (DPNNs), image-based design and optimization have been widely used in multidisciplinary researches. Recently, a Reconstructive Neural Network (ReConNN) has been proposed to obtain an image-based model from an analysis-based model [1, 2], and a steady-state heat transfer of a heat sink has been successfully reconstructed. Commonly, this method is suitable to handle stable-state problems. However, it has difficulties handling nonlinear transient impact problems, due to the bottlenecks of the Deep Neural Network (DPNN). For example, nonlinear transient problems make it difficult for the Generative Adversarial Network (GAN) to generate various reasonable images. Therefore, in this study, an improved ReConNN method is proposed to address the mentioned weaknesses. Time-dependent ordered images can be generated. Furthermore, the improved method is successfully applied in impact simulation case and engineering experiment. Through the experiments, comparisons and analyses, the improved method is demonstrated to outperform the former one in terms of its accuracy, efficiency and costs.",
+  "categories": [
+    "cs.OH",
+    "cs.CV",
+    "eess.IV"
+  ],
+  "primary_category": "eess.IV",
+  "comment": null,
+  "published_date": "2019-04-08T04:48:36Z",
+  "updated_date": "2019-06-03T05:43:12Z",
+  "url": "https://arxiv.org/abs/1905.03229v3",
+  "pdf_url": "https://arxiv.org/pdf/1905.03229v3.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:19.479364",
+  "category": "interdisciplinary",
+  "subcategories": [
+    "cs.OH",
+    "cs.CV",
+    "eess.IV"
+  ]
+}

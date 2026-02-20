@@ -1,0 +1,38 @@
+{
+  "id": "arxiv_2601.11075v1",
+  "arxiv_id": "2601.11075v1",
+  "title": "Visual question answering-based image-finding generation for pulmonary nodules on chest CT from structured annotations",
+  "authors": [
+    "Maiko Nagao",
+    "Kaito Urata",
+    "Atsushi Teramoto",
+    "Kazuyoshi Imaizumi",
+    "Masashi Kondo",
+    "Hiroshi Fujita"
+  ],
+  "author_string": "Maiko Nagao, Kaito Urata, Atsushi Teramoto, Kazuyoshi Imaizumi, Masashi Kondo et al.",
+  "journal": "arXiv:2601.11075v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Interpretation of imaging findings based on morphological characteristics is important for diagnosing pulmonary nodules on chest computed tomography (CT) images. In this study, we constructed a visual question answering (VQA) dataset from structured data in an open dataset and investigated an image-finding generation method for chest CT images, with the aim of enabling interactive diagnostic support that presents findings based on questions that reflect physicians' interests rather than fixed descriptions. In this study, chest CT images included in the Lung Image Database Consortium and Image Database Resource Initiative (LIDC-IDRI) datasets were used. Regions of interest surrounding the pulmonary nodules were extracted from these images, and image findings and questions were defined based on morphological characteristics recorded in the database. A dataset comprising pairs of cropped images, corresponding questions, and image findings was constructed, and the VQA model was fine-tuned on it. Language evaluation metrics such as BLEU were used to evaluate the generated image findings. The VQA dataset constructed using the proposed method contained image findings with natural expressions as radiological descriptions. In addition, the generated image findings showed a high CIDEr score of 3.896, and a high agreement with the reference findings was obtained through evaluation based on morphological characteristics. We constructed a VQA dataset for chest CT images using structured information on the morphological characteristics from the LIDC-IDRI dataset. Methods for generating image findings in response to these questions have also been investigated. Based on the generated results and evaluation metric scores, the proposed method was effective as an interactive diagnostic support system that can present image findings according to physicians' interests.",
+  "categories": [
+    "eess.IV",
+    "cs.CV",
+    "physics.med-ph"
+  ],
+  "primary_category": "physics.med-ph",
+  "comment": null,
+  "published_date": "2026-01-16T08:21:26Z",
+  "updated_date": "2026-01-16T08:21:26Z",
+  "url": "https://arxiv.org/abs/2601.11075v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11075v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:37.503385",
+  "category": "physics",
+  "subcategories": [
+    "eess.IV",
+    "cs.CV",
+    "physics.med-ph"
+  ]
+}

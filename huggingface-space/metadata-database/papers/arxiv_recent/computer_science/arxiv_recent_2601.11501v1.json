@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2601.11501v1",
+  "arxiv_id": "2601.11501v1",
+  "title": "Coding Schemes for the Noisy Torn Paper Channel",
+  "authors": [
+    "Frederik Walter",
+    "Maria Abu-Sini",
+    "Nils Weinhardt",
+    "Antonia Wachter-Zeh"
+  ],
+  "author_string": "Frederik Walter, Maria Abu-Sini, Nils Weinhardt, Antonia Wachter-Zeh",
+  "journal": "arXiv:2601.11501v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "To make DNA a suitable medium for archival data storage, it is essential to consider the decay process of the strands observed in DNA storage systems. This paper studies the decay process as a probabilistic noisy torn paper channel (TPC), which first corrupts the bits of the transmitted sequence in a probabilistic manner by substitutions, then breaks the sequence into a set of noisy unordered substrings. The present work devises coding schemes for the noisy TPC by embedding markers in the transmitted sequence. We investigate the use of static markers and markers connected to the data in the form of hash functions. These two tools have also been recently exploited to tackle the noiseless TPC. Simulations show that static markers excel at higher substitution probabilities, while data-dependent markers are superior at lower noise levels. Both approaches achieve reconstruction rates exceeding $99\\%$ with no false decodings observed, primarily limited by computational resources.",
+  "categories": [
+    "cs.IT"
+  ],
+  "primary_category": "cs.IT",
+  "comment": null,
+  "published_date": "2026-01-16T18:32:48Z",
+  "updated_date": "2026-01-16T18:32:48Z",
+  "url": "https://arxiv.org/abs/2601.11501v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11501v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:30.207664",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.IT"
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2601.11407v1",
+  "arxiv_id": "2601.11407v1",
+  "title": "Efficient Channel Autoencoders for Wideband Communications leveraging Walsh-Hadamard interleaving",
+  "authors": [
+    "Cel Thys",
+    "Rodney Martinez Alonso",
+    "Sofie Pollin"
+  ],
+  "author_string": "Cel Thys, Rodney Martinez Alonso, Sofie Pollin",
+  "journal": "arXiv:2601.11407v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "This paper investigates how end-to-end (E2E) channel autoencoders (AEs) can achieve energy-efficient wideband communications by leveraging Walsh-Hadamard (WH) interleaved converters. WH interleaving enables high sampling rate analog-digital conversion with reduced power consumption using an analog WH transformation. We demonstrate that E2E-trained neural coded modulation can transparently adapt to the WH-transceiver hardware without requiring algorithmic redesign. Focusing on the short block length regime, we train WH-domain AEs and benchmark them against standard neural and conventional baselines, including 5G Polar codes. We quantify the system-level energy tradeoffs among baseband compute, channel signal-to-noise ratio (SNR), and analog converter power. Our analysis shows that the proposed WH-AE system can approach conventional Polar code SNR performance within 0.14dB while consuming comparable or lower system power. Compared to the best neural baseline, WH-AE achieves, on average, 29% higher energy efficiency (in bit/J) for the same reliability. These findings establish WH-domain learning as a viable path to energy-efficient, high-throughput wideband communications by explicitly balancing compute complexity, SNR, and analog power consumption.",
+  "categories": [
+    "cs.IT",
+    "eess.SP"
+  ],
+  "primary_category": "eess.SP",
+  "comment": "16 pages, 17 figures",
+  "published_date": "2026-01-16T16:20:50Z",
+  "updated_date": "2026-01-16T16:20:50Z",
+  "url": "https://arxiv.org/abs/2601.11407v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11407v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:30.213058",
+  "category": "interdisciplinary",
+  "subcategories": [
+    "cs.IT",
+    "eess.SP"
+  ]
+}

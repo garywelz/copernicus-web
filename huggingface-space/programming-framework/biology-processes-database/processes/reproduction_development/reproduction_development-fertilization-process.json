@@ -1,0 +1,93 @@
+{
+  "id": "reproduction_development-fertilization-process",
+  "name": "Fertilization Process",
+  "category": "biology",
+  "subcategory": "reproduction_development",
+  "subcategory_name": "Reproduction & Development",
+  "organism": "Animals",
+  "description": "Fertilization Process in Animals. This process represents a higher-level biological mechanism distinct from molecular/biochemical processes covered in GLMP.",
+  "complexity": {
+    "nodes": 13,
+    "edges": 12,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "low",
+    "detailLevel": "low"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\n    A2[Sperm Release] --> B2[Sperm Migration]\n    C2[Ovum Maturation] --> D2[Ovulation]\n    B2 --> E2[Zona Pellucida Binding]\n    D2 --> E2\n    E2 --> F2[Acrosome Reaction]\n    F2 --> G2[Enzyme Release]\n    G2 --> H2[Zona Penetration]\n    H2 --> I2[Membrane Fusion]\n    I2 --> J2[Cortical Reaction]\n    J2 --> K2[Polyspermy Block]\n    K2 --> L2[Pronuclei Formation]\n    L2 --> M2[Zygote Formation]\n    \n    style A2 fill:#ff6b6b,color:#fff\n    style C2 fill:#ff6b6b,color:#fff\n    style B2 fill:#ffd43b,color:#000\n    style D2 fill:#ffd43b,color:#000\n    style E2 fill:#51cf66,color:#fff\n    style F2 fill:#51cf66,color:#fff\n    style G2 fill:#51cf66,color:#fff\n    style H2 fill:#74c0fc,color:#fff\n    style I2 fill:#74c0fc,color:#fff\n    style J2 fill:#51cf66,color:#fff\n    style K2 fill:#74c0fc,color:#fff\n    style L2 fill:#74c0fc,color:#fff\n    style M2 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "notes": "Higher-level biological process visualization: Fertilization Process. Created using the Programming Framework methodology for organismal and ecological process analysis."
+    },
+    {
+      "title": "The Mammalian Fertilization Cascade: From Sperm-Egg Recognition to Zygote Formation",
+      "authors": "Eisenbach, M., and Breitbart, H.",
+      "journal": "Annu Rev Biochem.",
+      "year": "2008",
+      "pubmed": "18505230",
+      "doi": "10.1146/annurev.biochem.77.060707.103203",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/18505230"
+    },
+    {
+      "title": "The molecular biology of mammalian fertilization",
+      "authors": "Wassarman, P.M., Liu, D.J., Qi, H., Wu, H., and Kligman, J.M.",
+      "journal": "Cell.",
+      "year": "2010",
+      "pubmed": "20074560",
+      "doi": "10.1016/j.cell.2009.12.013",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/20074560"
+    },
+    {
+      "title": "Local and global calcium signals during fertilization",
+      "authors": "Deguchi, R., Fukami, K., and Miyazaki, S.",
+      "journal": "Cold Spring Harb Perspect Biol.",
+      "year": "2012",
+      "pubmed": "22399245",
+      "doi": "10.1101/cshperspect.a005891",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/22399245"
+    }
+  ],
+  "keywords": [
+    "reproduction",
+    "animals",
+    "fertilization",
+    "process",
+    "development"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-08",
+  "verified": false,
+  "notes": "Higher-level biological process. GLMP covers biochemical/molecular processes; this database covers organismal/ecological processes."
+}

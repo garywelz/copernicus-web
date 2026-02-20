@@ -1,0 +1,33 @@
+{
+  "id": "pubmed_37177474",
+  "pmid": "37177474",
+  "title": "Using Brainwave Patterns Recorded from Plant Pathology Experts to Increase the Reliability of AI-Based Plant Disease Recognition System.",
+  "authors": [
+    "Meir, Yonatan",
+    "Barbedo, Jayme Garcia Arnal",
+    "Keren, Omri",
+    "Godoy, Cláudia Vieira",
+    "Amedi, Nofar",
+    "Shalom, Yaar",
+    "Geva, Amir B"
+  ],
+  "author_string": "Meir, Yonatan, Barbedo, Jayme Garcia Arnal, Keren, Omri, Godoy, Cláudia Vieira, Amedi, Nofar et al.",
+  "journal": "Sensors (Basel)",
+  "journal_full": "Sensors (Basel, Switzerland)",
+  "year": "",
+  "doi": "10.3390/s23094272",
+  "abstract": "One of the most challenging problems associated with the development of accurate and reliable application of computer vision and artificial intelligence in agriculture is that, not only are massive amounts of training data usually required, but also, in most cases, the images have to be properly labeled before models can be trained. Such a labeling process tends to be time consuming, tiresome, and expensive, often making the creation of large labeled datasets impractical. This problem is largely associated with the many steps involved in the labeling process, requiring the human expert rater to perform different cognitive and motor tasks in order to correctly label each image, thus diverting brain resources that should be focused on pattern recognition itself. One possible way to tackle this challenge is by exploring the phenomena in which highly trained experts can almost reflexively recognize and accurately classify objects of interest in a fraction of a second. As techniques for recording and decoding brain activity have evolved, it has become possible to directly tap into this ability and to accurately assess the expert's level of confidence and attention during the process. As a result, the labeling time can be reduced dramatically while effectively incorporating the expert's knowledge into artificial intelligence models. This study investigates how the use of electroencephalograms from plant pathology experts can improve the accuracy and robustness of image-based artificial intelligence models dedicated to plant disease recognition. Experiments have demonstrated the viability of the approach, with accuracies improving from 96% with the baseline model to 99% using brain generated labels and active learning approach.",
+  "keywords": [
+    "active learning",
+    "digital images",
+    "electroencephalogram",
+    "labeling",
+    "soybeans"
+  ],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/37177474",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T16:59:40.752951",
+  "category": "biology",
+  "subcategories": []
+}

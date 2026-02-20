@@ -1,0 +1,33 @@
+{
+  "id": "pubmed_40184266",
+  "pmid": "40184266",
+  "title": "metLinkR: Facilitating Metaanalysis of Human Metabolomics Data through Automated Linking of Metabolite Identifiers.",
+  "authors": [
+    "Patt, Andrew",
+    "Pang, Iris",
+    "Lee, Fred",
+    "Gohel, Chiraag",
+    "Fahy, Eoin",
+    "Stevens, Vicki",
+    "Ruggieri, David",
+    "Moore, Steven C",
+    "Mathé, Ewy A"
+  ],
+  "author_string": "Patt, Andrew, Pang, Iris, Lee, Fred, Gohel, Chiraag, Fahy, Eoin et al.",
+  "journal": "J Proteome Res",
+  "journal_full": "Journal of proteome research",
+  "year": "",
+  "doi": "10.1021/acs.jproteome.4c01051",
+  "abstract": "Metabolites are referenced in spectral, structural and pathway databases with a diverse array of schemas, including various internal database identifiers and large tables of common name synonyms. Cross-linking metabolite identifiers is a required step for meta-analysis of metabolomic results across studies but made difficult due to the lack of a consensus identifier system. We have implemented metLinkR, an R package that leverages RefMet and RaMP-DB to automate and simplify cross-linking metabolite identifiers across studies and generating common names. MetLinkR accepts as input metabolite common names and identifiers from five different databases (HMDB, KEGG, ChEBI, LIPIDMAPS and PubChem) to exhaustively search for possible overlap in supplied metabolites from input data sets. In an example of 13 metabolomic data sets totaling 10,400 metabolites, metLinkR identified and provided common names for 1377 metabolites in common between at least 2 data sets in less than 18 min and produced standardized names for 74.4% of the input metabolites. In another example comprising five data sets with 3512 metabolites, metLinkR identified 715 metabolites in common between at least two data sets in under 12 min and produced standardized names for 82.3% of the input metabolites. Outputs of MetLInR include output tables and metrics allowing users to readily double check the mappings and to get an overview of chemical classes represented. Overall, MetLinkR provides a streamlined solution for a common task in metabolomic epidemiology and other fields that meta-analyze metabolomic data. The R package, vignette and source code are freely downloadable at https://github.com/ncats/metLinkR.",
+  "keywords": [
+    "databases",
+    "lipidomics",
+    "metabolomics"
+  ],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/40184266",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T16:58:43.136416",
+  "category": "biology",
+  "subcategories": []
+}

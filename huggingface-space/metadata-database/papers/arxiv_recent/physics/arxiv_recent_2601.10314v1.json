@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2601.10314v1",
+  "arxiv_id": "2601.10314v1",
+  "title": "Extracting intrinsic alignments in the Dark Energy Survey's year 1 data, using the self-calibration method and LSST-DESC tools",
+  "authors": [
+    "Eske M. Pedersen",
+    "Leonel Medina-Varela",
+    "Emily Phillips Longley",
+    "Mustapha Ishak",
+    "Joe Zuntz",
+    "Chihway Chang",
+    "C. Danielle Leonard"
+  ],
+  "author_string": "Eske M. Pedersen, Leonel Medina-Varela, Emily Phillips Longley, Mustapha Ishak, Joe Zuntz et al.",
+  "journal": "arXiv:2601.10314v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We present the implementation of a Self-Calibration of Intrinsic Alignments of galaxies as an extension to the Vera C. Rubin Observatory's Legacy Survey of Space and Time (LSST) Dark Energy Science Collaboration (DESC)'s weak lensing 3x2pt pipeline (TXPipe). As a demonstration, we have run this pipeline on the Dark Energy Survey (DES) year one data set. We find indications of a non-zero intrinsic alignment signal in the higher redshift bins, while in the lower bins our results look more uncertain. We believe this is caused by known issues with the individual galaxies photo-z estimation. This effect is particularly harmful for the self-calibration method, since it has high requirements for reliable estimation of the photo-$z$s, and the need for individual galaxy point estimates and tomographic binning to match. We show how different methods of recreating the redshift probability distribution can affect the detection of intrinsic alignment.",
+  "categories": [
+    "astro-ph.CO"
+  ],
+  "primary_category": "astro-ph.CO",
+  "comment": null,
+  "published_date": "2026-01-15T11:46:15Z",
+  "updated_date": "2026-01-15T11:46:15Z",
+  "url": "https://arxiv.org/abs/2601.10314v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.10314v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:18:50.677378",
+  "category": "physics",
+  "subcategories": [
+    "astro-ph.CO"
+  ]
+}

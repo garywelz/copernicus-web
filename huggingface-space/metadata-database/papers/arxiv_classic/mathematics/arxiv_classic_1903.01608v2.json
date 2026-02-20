@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_1903.01608v2",
+  "arxiv_id": "1903.01608v2",
+  "title": "Theoretical guarantees for sampling and inference in generative models with latent diffusions",
+  "authors": [
+    "Belinda Tzen",
+    "Maxim Raginsky"
+  ],
+  "author_string": "Belinda Tzen, Maxim Raginsky",
+  "journal": "arXiv:1903.01608v2",
+  "journal_ref": null,
+  "year": "2019",
+  "doi": null,
+  "abstract": "We introduce and study a class of probabilistic generative models, where the latent object is a finite-dimensional diffusion process on a finite time interval and the observed variable is drawn conditionally on the terminal point of the diffusion. We make the following contributions:   We provide a unified viewpoint on both sampling and variational inference in such generative models through the lens of stochastic control.   We quantify the expressiveness of diffusion-based generative models. Specifically, we show that one can efficiently sample from a wide class of terminal target distributions by choosing the drift of the latent diffusion from the class of multilayer feedforward neural nets, with the accuracy of sampling measured by the Kullback-Leibler divergence to the target distribution.   Finally, we present and analyze a scheme for unbiased simulation of generative models with latent diffusions and provide bounds on the variance of the resulting estimators. This scheme can be implemented as a deep generative model with a random number of layers.",
+  "categories": [
+    "math.PR",
+    "cs.LG",
+    "math.OC",
+    "stat.ML"
+  ],
+  "primary_category": "stat.ML",
+  "comment": "To appear in COLT 2019",
+  "published_date": "2019-03-05T00:38:49Z",
+  "updated_date": "2019-05-31T15:23:24Z",
+  "url": "https://arxiv.org/abs/1903.01608v2",
+  "pdf_url": "https://arxiv.org/pdf/1903.01608v2.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:15.354942",
+  "category": "mathematics",
+  "subcategories": [
+    "math.PR",
+    "cs.LG",
+    "math.OC"
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "id": "network-performance-process",
+  "title": "Network Performance Process",
+  "description": "Computer Science process: Network Performance Process",
+  "category": "computer_science",
+  "subcategory": "computer_networks",
+  "mermaid": "graph TD\n    A3[Performance Monitoring] --> B3[Network Performance Method]\n    C3[Bandwidth Analysis] --> D3[Latency Measurement]\n    E3[Throughput Optimization] --> F3[Network Performance Analysis]\n    \n    B3 --> G3[Quality of Service]\n    D3 --> H3[Traffic Engineering]\n    F3 --> I3[Load Balancing]\n    \n    G3 --> J3[Priority Queuing]\n    H3 --> K3[Resource Allocation]\n    I3 --> L3[Traffic Distribution]\n    \n    J3 --> M3[Performance Metrics]\n    K3 --> L3\n    L3 --> N3[Bottleneck Detection]\n    \n    M3 --> O3[Capacity Planning]\n    N3 --> P3[Performance Tuning]\n    O3 --> Q3[Network Performance Process]\n    \n    P3 --> R3[Network Performance Validation]\n    Q3 --> S3[Network Performance Verification]\n    R3 --> T3[Network Performance Result]\n    \n    S3 --> U3[Network Performance Analysis]\n    T3 --> V3[Network Performance Parameters]\n    U3 --> W3[Network Performance Output]\n    \n    V3 --> X3[Network Performance Analysis]\n    W3 --> Y3[Network Performance Final Result]\n    X3 --> Z3[Network Performance Complete]\n    \n    style A3 fill:#ff6b6b,color:#fff\n    style C3 fill:#ff6b6b,color:#fff\n    style E3 fill:#ff6b6b,color:#fff\n    \n    style B3 fill:#ffd43b,color:#000\n    style D3 fill:#ffd43b,color:#000\n    style F3 fill:#ffd43b,color:#000\n    style G3 fill:#ffd43b,color:#000\n    style H3 fill:#ffd43b,color:#000\n    style I3 fill:#ffd43b,color:#000\n    style J3 fill:#ffd43b,color:#000\n    style K3 fill:#ffd43b,color:#000\n    style L3 fill:#ffd43b,color:#000\n    style M3 fill:#ffd43b,color:#000\n    style N3 fill:#ffd43b,color:#000\n    style O3 fill:#ffd43b,color:#000\n    style P3 fill:#ffd43b,color:#000\n    style Q3 fill:#ffd43b,color:#000\n    style R3 fill:#ffd43b,color:#000\n    style S3 fill:#ffd43b,color:#000\n    style T3 fill:#ffd43b,color:#000\n    style U3 fill:#ffd43b,color:#000\n    style V3 fill:#ffd43b,color:#000\n    style W3 fill:#ffd43b,color:#000\n    style X3 fill:#ffd43b,color:#000\n    style Y3 fill:#ffd43b,color:#000\n    style Z3 fill:#ffd43b,color:#000\n    \n    style M3 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style O3 fill:#51cf66,color:#fff\n    style P3 fill:#51cf66,color:#fff\n    style Q3 fill:#51cf66,color:#fff\n    style R3 fill:#51cf66,color:#fff\n    style S3 fill:#51cf66,color:#fff\n    style T3 fill:#51cf66,color:#fff\n    style U3 fill:#51cf66,color:#fff\n    style V3 fill:#51cf66,color:#fff\n    style W3 fill:#51cf66,color:#fff\n    style X3 fill:#51cf66,color:#fff\n    style Y3 fill:#51cf66,color:#fff\n    style Z3 fill:#51cf66,color:#fff\n    \n    style Z3 fill:#b197fc,color:#fff",
+  "entities": [
+    "Performance Monitoring",
+    "Network Performance Method",
+    "Bandwidth Analysis",
+    "Latency Measurement",
+    "Throughput Optimization",
+    "Network Performance Analysis",
+    "Quality of Service",
+    "Traffic Engineering",
+    "Load Balancing",
+    "Priority Queuing",
+    "Resource Allocation",
+    "Traffic Distribution",
+    "Performance Metrics",
+    "Bottleneck Detection",
+    "Capacity Planning",
+    "Performance Tuning",
+    "Network Performance Process",
+    "Network Performance Validation",
+    "Network Performance Verification",
+    "Network Performance Result",
+    "Network Performance Parameters",
+    "Network Performance Output",
+    "Network Performance Final Result",
+    "Network Performance Complete"
+  ],
+  "metadata": {
+    "source": "programming_framework",
+    "batch": "batch_04",
+    "batch_number": 4,
+    "batch_title": "Computer Science Batch 04 - Computer Networks - Programming Framework Analysis",
+    "color_scheme": "discipline_based",
+    "node_count": 24,
+    "complexity": "medium"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "id": "arxiv_1709.01223v2",
+  "arxiv_id": "1709.01223v2",
+  "title": "Machine Learning Spatial Geometry from Entanglement Features",
+  "authors": [
+    "Yi-Zhuang You",
+    "Zhao Yang",
+    "Xiao-Liang Qi"
+  ],
+  "author_string": "Yi-Zhuang You, Zhao Yang, Xiao-Liang Qi",
+  "journal": "Phys. Rev. B 97, 045153 (2018)",
+  "journal_ref": "Phys. Rev. B 97, 045153 (2018)",
+  "year": "2017",
+  "doi": "10.1103/PhysRevB.97.045153",
+  "abstract": "Motivated by the close relations of the renormalization group with both the holography duality and the deep learning, we propose that the holographic geometry can emerge from deep learning the entanglement feature of a quantum many-body state. We develop a concrete algorithm, call the entanglement feature learning (EFL), based on the random tensor network (RTN) model for the tensor network holography. We show that each RTN can be mapped to a Boltzmann machine, trained by the entanglement entropies over all subregions of a given quantum many-body state. The goal is to construct the optimal RTN that best reproduce the entanglement feature. The RTN geometry can then be interpreted as the emergent holographic geometry. We demonstrate the EFL algorithm on 1D free fermion system and observe the emergence of the hyperbolic geometry (AdS$_3$ spatial geometry) as we tune the fermion system towards the gapless critical point (CFT$_2$ point).",
+  "categories": [
+    "cond-mat.dis-nn",
+    "cond-mat.str-el",
+    "gr-qc",
+    "hep-th",
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": "14 pages, 14 figures",
+  "published_date": "2017-09-05T03:26:00Z",
+  "updated_date": "2018-01-31T15:22:57Z",
+  "url": "https://arxiv.org/abs/1709.01223v2",
+  "pdf_url": "https://arxiv.org/pdf/1709.01223v2.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:30:17.210508",
+  "category": "physics",
+  "subcategories": [
+    "cond-mat.dis-nn",
+    "cond-mat.str-el",
+    "gr-qc"
+  ]
+}

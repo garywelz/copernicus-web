@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2410.11909v1",
+  "arxiv_id": "2410.11909v1",
+  "title": "Stop using Landau gauge for Tight-binding Models",
+  "authors": [
+    "Seungwon Jung"
+  ],
+  "author_string": "Seungwon Jung",
+  "journal": "arXiv:2410.11909v1",
+  "journal_ref": null,
+  "year": "2024",
+  "doi": null,
+  "abstract": "To analyze the electronic band structure of a two-dimensional (2D) crystal under a commensurate perpendicular magnetic field, tight-binding (TB) Hamiltonians are typically constructed using a magnetic unit cell (MUC), which is composed of several unit cells (UC) to satisfy flux quantization. However, when the vector potential is constrained to the Landau gauge, an additional constraint is imposed on the hopping trajectories, further enlarging the TB Hamiltonian and preventing incommensurate atomic rearrangements. In this paper, we demonstrate that this constraint persists, albeit in a weaker form, for any linear vector potential ($\\mathbf{A}(\\mathbf{r})$ linear in $\\mathbf{r}$). This restriction can only be fully lifted by using a nonlinear vector potential. With a general nonlinear vector potential, a TB Hamiltonian can be constructed that matches the minimal size dictated by flux quantization, even when incommensurate atomic rearrangements occur within the MUC, such as moiré reconstructions. For example, as the twist angle $θ$ of twisted bilayer graphene (TBG) approaches zero, the size of the TB Hamiltonian scales as $1/θ^4$ when using linear vector potentials (including the Landau gauge). In contrast, with a nonlinear vector potential, the size scales more favorably, as $1/θ^2$, making small-angle TBG models more tractable with TB.",
+  "categories": [
+    "cond-mat.mes-hall",
+    "cond-mat.quant-gas",
+    "math-ph",
+    "physics.comp-ph",
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": null,
+  "published_date": "2024-10-15T02:48:23Z",
+  "updated_date": "2024-10-15T02:48:23Z",
+  "url": "https://arxiv.org/abs/2410.11909v1",
+  "pdf_url": "https://arxiv.org/pdf/2410.11909v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-02-03T13:20:58.608152",
+  "category": "physics",
+  "subcategories": [
+    "cond-mat.mes-hall",
+    "cond-mat.quant-gas",
+    "math-ph"
+  ]
+}

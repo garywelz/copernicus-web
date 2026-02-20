@@ -1,0 +1,24 @@
+{
+  "id": "pubmed_33626036",
+  "pmid": "33626036",
+  "title": "On the evolution and development of morphological complexity: A view from gene regulatory networks.",
+  "authors": [
+    "Hagolani, Pascal F",
+    "Zimm, Roland",
+    "Vroomans, Renske",
+    "Salazar-Ciudad, Isaac"
+  ],
+  "author_string": "Hagolani, Pascal F, Zimm, Roland, Vroomans, Renske, Salazar-Ciudad, Isaac",
+  "journal": "PLoS Comput Biol",
+  "journal_full": "PLoS computational biology",
+  "year": "",
+  "doi": "10.1371/journal.pcbi.1008570",
+  "abstract": "How does morphological complexity evolve? This study suggests that the likelihood of mutations increasing phenotypic complexity becomes smaller when the phenotype itself is complex. In addition, the complexity of the genotype-phenotype map (GPM) also increases with the phenotypic complexity. We show that complex GPMs and the above mutational asymmetry are inevitable consequences of how genes need to be wired in order to build complex and robust phenotypes during development. We randomly wired genes and cell behaviors into networks in EmbryoMaker. EmbryoMaker is a mathematical model of development that can simulate any gene network, all animal cell behaviors (division, adhesion, apoptosis, etc.), cell signaling, cell and tissues biophysics, and the regulation of those behaviors by gene products. Through EmbryoMaker we simulated how each random network regulates development and the resulting morphology (i.e. a specific distribution of cells and gene expression in 3D). This way we obtained a zoo of possible 3D morphologies. Real gene networks are not random, but a random search allows a relatively unbiased exploration of what is needed to develop complex robust morphologies. Compared to the networks leading to simple morphologies, the networks leading to complex morphologies have the following in common: 1) They are rarer; 2) They need to be finely tuned; 3) Mutations in them tend to decrease morphological complexity; 4) They are less robust to noise; and 5) They have more complex GPMs. These results imply that, when complexity evolves, it does so at a progressively decreasing rate over generations. This is because as morphological complexity increases, the likelihood of mutations increasing complexity decreases, morphologies become less robust to noise, and the GPM becomes more complex. We find some properties in common, but also some important differences, with non-developmental GPM models (e.g. RNA, protein and gene networks in single cells).",
+  "keywords": [],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/33626036",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T16:59:50.530605",
+  "category": "biology",
+  "subcategories": []
+}

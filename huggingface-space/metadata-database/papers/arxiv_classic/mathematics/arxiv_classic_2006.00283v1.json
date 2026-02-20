@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2006.00283v1",
+  "arxiv_id": "2006.00283v1",
+  "title": "Manipulating the Distributions of Experience used for Self-Play Learning in Expert Iteration",
+  "authors": [
+    "Dennis J. N. J. Soemers",
+    "Éric Piette",
+    "Matthew Stephenson",
+    "Cameron Browne"
+  ],
+  "author_string": "Dennis J. N. J. Soemers, Éric Piette, Matthew Stephenson, Cameron Browne",
+  "journal": "arXiv:2006.00283v1",
+  "journal_ref": null,
+  "year": "2020",
+  "doi": null,
+  "abstract": "Expert Iteration (ExIt) is an effective framework for learning game-playing policies from self-play. ExIt involves training a policy to mimic the search behaviour of a tree search algorithm - such as Monte-Carlo tree search - and using the trained policy to guide it. The policy and the tree search can then iteratively improve each other, through experience gathered in self-play between instances of the guided tree search algorithm. This paper outlines three different approaches for manipulating the distribution of data collected from self-play, and the procedure that samples batches for learning updates from the collected data. Firstly, samples in batches are weighted based on the durations of the episodes in which they were originally experienced. Secondly, Prioritized Experience Replay is applied within the ExIt framework, to prioritise sampling experience from which we expect to obtain valuable training signals. Thirdly, a trained exploratory policy is used to diversify the trajectories experienced in self-play. This paper summarises the effects of these manipulations on training performance evaluated in fourteen different board games. We find major improvements in early training performance in some games, and minor improvements averaged over fourteen games.",
+  "categories": [
+    "cs.LG",
+    "cs.AI",
+    "stat.ML"
+  ],
+  "primary_category": "stat.ML",
+  "comment": "Accepted at the IEEE Conference on Games (CoG) 2020",
+  "published_date": "2020-05-30T14:32:46Z",
+  "updated_date": "2020-05-30T14:32:46Z",
+  "url": "https://arxiv.org/abs/2006.00283v1",
+  "pdf_url": "https://arxiv.org/pdf/2006.00283v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:23.480870",
+  "category": "mathematics",
+  "subcategories": [
+    "cs.LG",
+    "cs.AI",
+    "stat.ML"
+  ]
+}

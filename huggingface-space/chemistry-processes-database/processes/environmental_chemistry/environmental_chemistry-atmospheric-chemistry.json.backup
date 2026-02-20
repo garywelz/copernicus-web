@@ -1,0 +1,91 @@
+{
+  "category": "chemistry",
+  "colorScheme": {
+    "blue": {
+      "category": "Intermediates & States",
+      "hex": "#74c0fc"
+    },
+    "green": {
+      "category": "Processing & Operations",
+      "hex": "#51cf66"
+    },
+    "red": {
+      "category": "Triggers & Inputs",
+      "hex": "#ff6b6b"
+    },
+    "violet": {
+      "category": "Products & Outputs",
+      "hex": "#b197fc"
+    },
+    "yellow": {
+      "category": "Structures & Objects",
+      "hex": "#ffd43b"
+    }
+  },
+  "complexity": {
+    "conditionals": 0,
+    "detailLevel": "medium",
+    "edges": 24,
+    "level": "medium",
+    "logicGates": {
+      "andGates": 0,
+      "orGates": 29,
+      "total": 29
+    },
+    "nodes": 26
+  },
+  "created": "2026-01-08",
+  "description": "Atmospheric Chemistry Process. This environmental chemistry process visualization demonstrates atmospheric reactions and air quality analysis. The flowchart shows monitoring inputs and pollutant detection, atmospheric methods and reaction mechanisms, atmospheric operations and chemistry analysis, intermediate results, and final atmospheric chemistry outputs.",
+  "id": "environmental_chemistry-atmospheric-chemistry",
+  "keywords": [
+    "mechanism",
+    "reaction",
+    "atmospheric",
+    "chemistry"
+  ],
+  "lastUpdated": "2026-01-08",
+  "mermaid": "graph TD\nA1[Air Quality Monitoring] --> B1[Atmospheric Method]\nC1[Pollutant Detection] --> D1[Atmospheric Reaction]\nE1[Ozone Formation] --> F1[Atmospheric Chemistry Analysis]\nB1 --> G1[Photochemical Smog]\nD1 --> H1[Acid Rain Formation]\nF1 --> I1[Greenhouse Gas Chemistry]\nG1 --> J1[NOx Chemistry]\nH1 --> K1[SOx Chemistry]\nI1 --> L1[CO2 Chemistry]\nJ1 --> M1[Ozone Depletion]\nK1 --> L1\nL1 --> N1[Climate Change]\nM1 --> O1[Atmospheric Modeling]\nN1 --> P1[Air Quality Index]\nO1 --> Q1[Atmospheric Chemistry Process]\nP1 --> R1[Atmospheric Chemistry Validation]\nQ1 --> S1[Atmospheric Chemistry Verification]\nR1 --> T1[Atmospheric Chemistry Result]\nS1 --> U1[Atmospheric Chemistry Analysis]\nT1 --> V1[Atmospheric Chemistry Parameters]\nU1 --> W1[Atmospheric Chemistry Output]\nV1 --> X1[Atmospheric Chemistry Analysis]\nW1 --> Y1[Atmospheric Chemistry Final Result]\nX1 --> Z1[Atmospheric Chemistry Complete]\n\n    style A1 fill:#ff6b6b,color:#fff\n    style C1 fill:#ff6b6b,color:#fff\n    style E1 fill:#ff6b6b,color:#fff\n    style B1 fill:#ffd43b,color:#000\n    style D1 fill:#ffd43b,color:#000\n    style F1 fill:#ffd43b,color:#000\n    style G1 fill:#ffd43b,color:#000\n    style H1 fill:#ffd43b,color:#000\n    style I1 fill:#ffd43b,color:#000\n    style J1 fill:#ffd43b,color:#000\n    style K1 fill:#ffd43b,color:#000\n    style L1 fill:#ffd43b,color:#000\n    style M1 fill:#51cf66,color:#fff\n    style N1 fill:#51cf66,color:#fff\n    style O1 fill:#51cf66,color:#fff\n    style P1 fill:#51cf66,color:#fff\n    style Q1 fill:#51cf66,color:#fff\n    style R1 fill:#51cf66,color:#fff\n    style S1 fill:#51cf66,color:#fff\n    style T1 fill:#51cf66,color:#fff\n    style U1 fill:#51cf66,color:#fff\n    style V1 fill:#51cf66,color:#fff\n    style W1 fill:#51cf66,color:#fff\n    style X1 fill:#51cf66,color:#fff\n    style Y1 fill:#51cf66,color:#fff\n    style Z1 fill:#b197fc,color:#fff",
+  "name": "Atmospheric Chemistry",
+  "notes": "Converted from chemistry batch HTML. Process number: 1.",
+  "relatedProcesses": [],
+  "sources": [
+    {
+      "authors": "Welz, G.",
+      "doi": null,
+      "journal": "CopernicusAI Knowledge Engine",
+      "notes": "Chemistry process visualization: Atmospheric Chemistry. Created using the Programming Framework methodology for process analysis and visualization.",
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "year": "2025"
+    },
+    {
+      "authors": "Atkinson, R.",
+      "doi": "10.1021/cr00004a002",
+      "journal": "Chem Rev.",
+      "pubmed": null,
+      "title": "Atmospheric oxidation of volatile organic compounds.",
+      "url": "https://doi.org/10.1021/cr00004a002",
+      "year": "1997"
+    },
+    {
+      "authors": "Orlando, J. J.; Tyndall, G. S.",
+      "doi": "10.1021/cr200371m",
+      "journal": "Chem Rev.",
+      "pubmed": null,
+      "title": "Organic Peroxy Radicals: Chemistry, Reactivity, and Effects in the Atmosphere.",
+      "url": "https://doi.org/10.1021/cr200371m",
+      "year": "2012"
+    },
+    {
+      "authors": "Jimenez, J. L.; Canagaratna, M. R.; Donahue, N. M.; Prevot, A. S. H.; Zhang, Q.; Kroll, J. H.; Docherty, D. J.; Ulbrich, I.; Grieshop, A. P.; Robinson, L. A.; Worsnop, D. R.",
+      "doi": "10.1126/science.1180373",
+      "journal": "Science.",
+      "pubmed": "20007897",
+      "title": "Atmospheric Organic Aerosols: A Review.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/20007897",
+      "year": "2009"
+    }
+  ],
+  "subcategory": "environmental_chemistry",
+  "verified": false
+}

@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2601.11119v1",
+  "arxiv_id": "2601.11119v1",
+  "title": "Bond Polytope under Vertex- and Edge-sums",
+  "authors": [
+    "Petr Kolman",
+    "Hans Raj Tiwary"
+  ],
+  "author_string": "Petr Kolman, Hans Raj Tiwary",
+  "journal": "arXiv:2601.11119v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "A cut in a graph $G$ is called a {\\em bond} if both parts of the cut induce connected subgraphs in $G$, and the {\\em bond polytope} is the convex hull of all bonds. Computing the maximum weight bond is an NP-hard problem even for planar graphs. However, the problem is solvable in linear time on $(K_5 \\setminus e)$-minor-free graphs, and in more general, on graphs of bounded treewidth, essentially due to clique-sum decomposition into simpler graphs.   We show how to obtain the bond polytope of graphs that are $1$- or $2$-sum of graphs $G_1$ and $ G_2$ from the bond polytopes of $G_1,G_2$. Using this we show that the extension complexity of the bond polytope of $(K_5 \\setminus e)$-minor-free graphs is linear. Prior to this work, a linear size description of the bond polytope was known only for $3$-connected planar $(K_5 \\setminus e)$-minor-free graphs, essentially only for wheel graphs.   We also describe an elementary linear time algorithm for the \\MaxBond problem on $(K_5\\setminus e)$-minor-free graphs. Prior to this work, a linear time algorithm in this setting was known. However, the hidden constant in the big-Oh notation was large because the algorithm relies on the heavy machinery of linear time algorithms for graphs of bounded treewidth, used as a black box.",
+  "categories": [
+    "math.CO",
+    "cs.DM",
+    "math.OC"
+  ],
+  "primary_category": "math.OC",
+  "comment": "14 pages",
+  "published_date": "2026-01-16T09:26:38Z",
+  "updated_date": "2026-01-16T09:26:38Z",
+  "url": "https://arxiv.org/abs/2601.11119v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11119v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:33.862946",
+  "category": "mathematics",
+  "subcategories": [
+    "math.CO",
+    "cs.DM",
+    "math.OC"
+  ]
+}

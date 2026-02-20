@@ -1,0 +1,43 @@
+{
+  "id": "natural-language-processing-process",
+  "title": "Natural Language Processing Process",
+  "description": "Computer Science process: Natural Language Processing Process",
+  "category": "computer_science",
+  "subcategory": "artificial_intelligence",
+  "mermaid": "graph TD\n    A3[Text Input] --> B3[NLP Method]\n    C3[Tokenization] --> D3[Language Model]\n    E3[Semantic Analysis] --> F3[NLP Analysis]\n    \n    B3 --> G3[Transformer Model]\n    D3 --> H3[Word Embeddings]\n    F3 --> I3[Sequence Model]\n    \n    G3 --> J3[Attention Mechanism]\n    H3 --> K3[Context Understanding]\n    I3 --> L3[Text Generation]\n    \n    J3 --> M3[Language Understanding]\n    K3 --> L3\n    L3 --> N3[Sentiment Analysis]\n    \n    M3 --> O3[Text Classification]\n    N3 --> P3[Entity Recognition]\n    O3 --> Q3[NLP Process]\n    \n    P3 --> R3[NLP Validation]\n    Q3 --> S3[NLP Verification]\n    R3 --> T3[NLP Result]\n    \n    S3 --> U3[NLP Analysis]\n    T3 --> V3[NLP Parameters]\n    U3 --> W3[NLP Output]\n    \n    V3 --> X3[NLP Analysis]\n    W3 --> Y3[NLP Final Result]\n    X3 --> Z3[NLP Complete]\n    \n    style A3 fill:#ff6b6b,color:#fff\n    style C3 fill:#ff6b6b,color:#fff\n    style E3 fill:#ff6b6b,color:#fff\n    \n    style B3 fill:#ffd43b,color:#000\n    style D3 fill:#ffd43b,color:#000\n    style F3 fill:#ffd43b,color:#000\n    style G3 fill:#ffd43b,color:#000\n    style H3 fill:#ffd43b,color:#000\n    style I3 fill:#ffd43b,color:#000\n    style J3 fill:#ffd43b,color:#000\n    style K3 fill:#ffd43b,color:#000\n    style L3 fill:#ffd43b,color:#000\n    style M3 fill:#ffd43b,color:#000\n    style N3 fill:#ffd43b,color:#000\n    style O3 fill:#ffd43b,color:#000\n    style P3 fill:#ffd43b,color:#000\n    style Q3 fill:#ffd43b,color:#000\n    style R3 fill:#ffd43b,color:#000\n    style S3 fill:#ffd43b,color:#000\n    style T3 fill:#ffd43b,color:#000\n    style U3 fill:#ffd43b,color:#000\n    style V3 fill:#ffd43b,color:#000\n    style W3 fill:#ffd43b,color:#000\n    style X3 fill:#ffd43b,color:#000\n    style Y3 fill:#ffd43b,color:#000\n    style Z3 fill:#ffd43b,color:#000\n    \n    style M3 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style O3 fill:#51cf66,color:#fff\n    style P3 fill:#51cf66,color:#fff\n    style Q3 fill:#51cf66,color:#fff\n    style R3 fill:#51cf66,color:#fff\n    style S3 fill:#51cf66,color:#fff\n    style T3 fill:#51cf66,color:#fff\n    style U3 fill:#51cf66,color:#fff\n    style V3 fill:#51cf66,color:#fff\n    style W3 fill:#51cf66,color:#fff\n    style X3 fill:#51cf66,color:#fff\n    style Y3 fill:#51cf66,color:#fff\n    style Z3 fill:#51cf66,color:#fff\n    \n    style Z3 fill:#b197fc,color:#fff",
+  "entities": [
+    "Text Input",
+    "NLP Method",
+    "Tokenization",
+    "Language Model",
+    "Semantic Analysis",
+    "NLP Analysis",
+    "Transformer Model",
+    "Word Embeddings",
+    "Sequence Model",
+    "Attention Mechanism",
+    "Context Understanding",
+    "Text Generation",
+    "Language Understanding",
+    "Sentiment Analysis",
+    "Text Classification",
+    "Entity Recognition",
+    "NLP Process",
+    "NLP Validation",
+    "NLP Verification",
+    "NLP Result",
+    "NLP Parameters",
+    "NLP Output",
+    "NLP Final Result",
+    "NLP Complete"
+  ],
+  "metadata": {
+    "source": "programming_framework",
+    "batch": "batch_06",
+    "batch_number": 6,
+    "batch_title": "Computer Science Batch 06 - Artificial Intelligence - Programming Framework Analysis",
+    "color_scheme": "discipline_based",
+    "node_count": 24,
+    "complexity": "medium"
+  }
+}

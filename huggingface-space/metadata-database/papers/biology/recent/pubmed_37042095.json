@@ -1,0 +1,23 @@
+{
+  "id": "pubmed_37042095",
+  "pmid": "37042095",
+  "title": "Encoding LC-MS-Based Untargeted Metabolomics Data into Images toward AI-Based Clinical Diagnosis.",
+  "authors": [
+    "Wang, Hongmiao",
+    "Yin, Yandong",
+    "Zhu, Zheng-Jiang"
+  ],
+  "author_string": "Wang, Hongmiao, Yin, Yandong, Zhu, Zheng-Jiang",
+  "journal": "Anal Chem",
+  "journal_full": "Analytical chemistry",
+  "year": "",
+  "doi": "10.1021/acs.analchem.2c05079",
+  "abstract": "Liquid chromatography-mass spectrometry (LC-MS)-based untargeted metabolomics provides comprehensive and quantitative profiling of metabolites in clinical investigations. The use of whole metabolome profiles is a promising strategy for disease diagnosis but technically challenging. Here, we developed an approach, namely MetImage, to encode LC-MS-based untargeted metabolomics data into multi-channel digital images. Then, the images that represent the comprehensive metabolome profiles can be employed for developing deep learning-based AI models toward clinical diagnosis. In this work, we demonstrated the application of MetImage for clinical screening of esophageal squamous cell carcinoma (ESCC) in a clinical cohort with 1104 participants. A convolutional neuronal network-based AI model was trained to distinguish ESCC screening positive and negative subjects using their serum metabolomics data. Superior performances such as sensitivity (85%), specificity (92%), and area under curve (0.95) were validated in an independent testing cohort (<i>N</i> = 442). Importantly, we demonstrated that our AI-based ESCC screening model is not a \"black box\". The encoded images reserved the characteristics of mass spectra from the raw LC-MS data; therefore, metabolite identifications in key image features were readily achieved. Altogether, MetImage is a unique approach that encodes raw LC-MS-based untargeted metabolomics data into images and facilitates the utilization of whole metabolome profiles for AI-based clinical applications with improved interpretability.",
+  "keywords": [],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/37042095",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T16:59:21.942179",
+  "category": "biology",
+  "subcategories": []
+}

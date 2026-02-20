@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2601.06688v1",
+  "arxiv_id": "2601.06688v1",
+  "title": "The Sample Complexity of Lossless Data Compression",
+  "authors": [
+    "Terence Viaud",
+    "Ioannis Kontoyiannis"
+  ],
+  "author_string": "Terence Viaud, Ioannis Kontoyiannis",
+  "journal": "arXiv:2601.06688v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "A new framework is introduced for examining and evaluating the fundamental limits of lossless data compression, that emphasizes genuinely non-asymptotic results. The {\\em sample complexity} of compressing a given source is defined as the smallest blocklength at which it is possible to compress that source at a specified rate and to within a specified excess-rate probability. This formulation parallels corresponding developments in statistics and computer science, and it facilitates the use of existing results on the sample complexity of various hypothesis testing problems. For arbitrary sources, the sample complexity of general variable-length compressors is shown to be tightly coupled with the sample complexity of prefix-free codes and fixed-length codes. For memoryless sources, it is shown that the sample complexity is characterized not by the source entropy, but by its Rényi entropy of order~$1/2$. Nonasymptotic bounds on the sample complexity are obtained, with explicit constants. Generalizations to Markov sources are established, showing that the sample complexity is determined by the source's Rényi entropy rate of order~$1/2$. Finally, bounds on the sample complexity of universal data compression are developed for arbitrary families of memoryless sources. There, the sample complexity is characterized by the minimum Rényi divergence of order~$1/2$ between elements of the family and the uniform distribution. The connection of this problem with identity testing and with the associated separation rates is explored and discussed.",
+  "categories": [
+    "cs.IT",
+    "math.ST"
+  ],
+  "primary_category": "math.ST",
+  "comment": null,
+  "published_date": "2026-01-10T21:24:43Z",
+  "updated_date": "2026-01-10T21:24:43Z",
+  "url": "https://arxiv.org/abs/2601.06688v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.06688v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:18.736423",
+  "category": "mathematics",
+  "subcategories": [
+    "cs.IT",
+    "math.ST"
+  ]
+}

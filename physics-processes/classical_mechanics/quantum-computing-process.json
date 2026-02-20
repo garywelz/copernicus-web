@@ -1,0 +1,43 @@
+{
+  "id": "quantum-computing-process",
+  "title": "Quantum Computing Process",
+  "description": "Physics process: Quantum Computing Process",
+  "category": "physics",
+  "subcategory": "classical_mechanics",
+  "mermaid": "graph TD\n    A3[Quantum Algorithm] --> B3[Quantum Computing Method]\n    C3[Qubit Initialization] --> D3[Quantum Gate Operation]\n    E3[Quantum Measurement] --> F3[Quantum Computing Analysis]\n    \n    B3 --> G3[Quantum Circuit]\n    D3 --> H3[Quantum Fourier Transform]\n    F3 --> I3[Quantum Error Correction]\n    \n    G3 --> J3[Quantum Gates]\n    H3 --> K3[Quantum Parallelism]\n    I3 --> L3[Decoherence Control]\n    \n    J3 --> M3[Quantum Superposition]\n    K3 --> L3\n    L3 --> N3[Quantum Interference]\n    \n    M3 --> O3[Quantum Algorithm Execution]\n    N3 --> P3[Quantum State Readout]\n    O3 --> Q3[Quantum Computing Process]\n    \n    P3 --> R3[Quantum Computing Validation]\n    Q3 --> S3[Quantum Computing Verification]\n    R3 --> T3[Quantum Computing Result]\n    \n    S3 --> U3[Quantum Computing Analysis]\n    T3 --> V3[Quantum Computing Parameters]\n    U3 --> W3[Quantum Computing Output]\n    \n    V3 --> X3[Quantum Computing Analysis]\n    W3 --> Y3[Quantum Computing Final Result]\n    X3 --> Z3[Quantum Computing Complete]\n    \n    style A3 fill:#ff6b6b,color:#fff\n    style C3 fill:#ff6b6b,color:#fff\n    style E3 fill:#ff6b6b,color:#fff\n    \n    style B3 fill:#ffd43b,color:#000\n    style D3 fill:#ffd43b,color:#000\n    style F3 fill:#ffd43b,color:#000\n    style G3 fill:#ffd43b,color:#000\n    style H3 fill:#ffd43b,color:#000\n    style I3 fill:#ffd43b,color:#000\n    style J3 fill:#ffd43b,color:#000\n    style K3 fill:#ffd43b,color:#000\n    style L3 fill:#ffd43b,color:#000\n    style M3 fill:#ffd43b,color:#000\n    style N3 fill:#ffd43b,color:#000\n    style O3 fill:#ffd43b,color:#000\n    style P3 fill:#ffd43b,color:#000\n    style Q3 fill:#ffd43b,color:#000\n    style R3 fill:#ffd43b,color:#000\n    style S3 fill:#ffd43b,color:#000\n    style T3 fill:#ffd43b,color:#000\n    style U3 fill:#ffd43b,color:#000\n    style V3 fill:#ffd43b,color:#000\n    style W3 fill:#ffd43b,color:#000\n    style X3 fill:#ffd43b,color:#000\n    style Y3 fill:#ffd43b,color:#000\n    style Z3 fill:#ffd43b,color:#000\n    \n    style M3 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style O3 fill:#51cf66,color:#fff\n    style P3 fill:#51cf66,color:#fff\n    style Q3 fill:#51cf66,color:#fff\n    style R3 fill:#51cf66,color:#fff\n    style S3 fill:#51cf66,color:#fff\n    style T3 fill:#51cf66,color:#fff\n    style U3 fill:#51cf66,color:#fff\n    style V3 fill:#51cf66,color:#fff\n    style W3 fill:#51cf66,color:#fff\n    style X3 fill:#51cf66,color:#fff\n    style Y3 fill:#51cf66,color:#fff\n    style Z3 fill:#51cf66,color:#fff\n    \n    style Z3 fill:#b197fc,color:#fff",
+  "entities": [
+    "Quantum Algorithm",
+    "Quantum Computing Method",
+    "Qubit Initialization",
+    "Quantum Gate Operation",
+    "Quantum Measurement",
+    "Quantum Computing Analysis",
+    "Quantum Circuit",
+    "Quantum Fourier Transform",
+    "Quantum Error Correction",
+    "Quantum Gates",
+    "Quantum Parallelism",
+    "Decoherence Control",
+    "Quantum Superposition",
+    "Quantum Interference",
+    "Quantum Algorithm Execution",
+    "Quantum State Readout",
+    "Quantum Computing Process",
+    "Quantum Computing Validation",
+    "Quantum Computing Verification",
+    "Quantum Computing Result",
+    "Quantum Computing Parameters",
+    "Quantum Computing Output",
+    "Quantum Computing Final Result",
+    "Quantum Computing Complete"
+  ],
+  "metadata": {
+    "source": "programming_framework",
+    "batch": "batch_02",
+    "batch_number": 2,
+    "batch_title": "Physics Batch 02 - Quantum Mechanics - Programming Framework Analysis",
+    "color_scheme": "discipline_based",
+    "node_count": 24,
+    "complexity": "medium"
+  }
+}

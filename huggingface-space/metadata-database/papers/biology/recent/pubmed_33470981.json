@@ -1,0 +1,33 @@
+{
+  "id": "pubmed_33470981",
+  "pmid": "33470981",
+  "title": "A sparse multiscale nonlinear autoregressive model for seizure prediction.",
+  "authors": [
+    "Yu, Pen-Ning",
+    "Liu, Charles Y",
+    "Heck, Christianne N",
+    "Berger, Theodore W",
+    "Song, Dong"
+  ],
+  "author_string": "Yu, Pen-Ning, Liu, Charles Y, Heck, Christianne N, Berger, Theodore W, Song, Dong",
+  "journal": "J Neural Eng",
+  "journal_full": "Journal of neural engineering",
+  "year": "",
+  "doi": "10.1088/1741-2552/abdd43",
+  "abstract": "<i>Objectives.</i>Accurate seizure prediction is highly desirable for medical interventions such as responsive electrical stimulation. We aim to develop a classification model that can predict seizures by identifying preictal states, i.e. the precursor of a seizure, based on multi-channel intracranial electroencephalography (iEEG) signals.<i>Approach.</i>A two-level sparse multiscale classification model was developed to classify interictal and preictal states from iEEG data. In the first level, short time-scale linear dynamical features were extracted as autoregressive (AR) model coefficients; arbitrary (usually long) time-scale linear and nonlinear dynamical features were extracted as Laguerre-Volterra AR model coefficients; root-mean-square error of model prediction was used as a feature representing model unpredictability. In the second level, all features were fed into a sparse classifier to discriminate the iEEG data between interictal and preictal states.<i>Main results</i>. The two-level model can accurately classify seizure states using iEEG data recorded from ten canine and human subjects. Adding arbitrary (usually long) time-scale and nonlinear features significantly improves model performance compared with the conventional AR modeling approach. There is a high degree of variability in the types of features contributing to seizure prediction across different subjects.<i>Significance</i>. This study suggests that seizure generation may involve distinct linear/nonlinear dynamical processes caused by different underlying neurobiological mechanisms. It is necessary to build patient-specific classification models with a wide range of dynamical features.",
+  "keywords": [
+    "Laguerre expansion",
+    "Volterra model",
+    "autoregressive model",
+    "epilepsy",
+    "multi-scale model",
+    "nonlinear dynamical model",
+    "seizure prediction"
+  ],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/33470981",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T17:01:07.664959",
+  "category": "biology",
+  "subcategories": []
+}

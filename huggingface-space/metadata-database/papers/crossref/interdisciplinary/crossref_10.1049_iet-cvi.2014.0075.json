@@ -1,0 +1,30 @@
+{
+  "id": "crossref_10.1049_iet-cvi.2014.0075",
+  "doi": "10.1049/iet-cvi.2014.0075",
+  "title": "Sequence‐to‐sequence alignment using a pendulum",
+  "authors": [
+    "Pribanic, Tomislav",
+    "Lelas, Marko",
+    "Krois, Igor"
+  ],
+  "author_string": "Pribanic, Tomislav, Lelas, Marko, Krois, Igor",
+  "journal": "IET Computer Vision",
+  "issn": "1751-9632",
+  "issn_type": "print",
+  "volume": "9",
+  "issue": "4",
+  "page": "570-575",
+  "year": "2015",
+  "publisher": "Institution of Engineering and Technology (IET)",
+  "language": "en",
+  "abstract": "Analysing two or more video sequences of dynamic scenes typically requires time synchronisation between sequences, where this alignment is not always possible using hardware. A particular method will most likely process the entire, frequently lengthy, imaged material, requiring additional processing which normally serves for synchronisation only. Software‐based synchronisation methods impose, in basically all cases, certain assumptions about an imaged three‐dimensional (3D) scene and are suited for the already imaged video material in the past. The authors argue that there are applications where the unsynchronised video sequences have not yet been taken. The time‐efficient solution uses a pendulum consisting of a small ball, attached to a 50 cm string and suspended from a pivot so that it can swing freely. The authors estimate the time instant when the ball swings through the equilibrium position. The difference in these times for two cameras yields a subframe time difference between cameras. The proposed method yields subframe differences, statistically no different from ground truth data. 3D reconstruction results for synchronised data clearly outperform those which are unsynchronised. The proposed method relaxes any restrictions and assumptions about the 3D scene that will be imaged later on, yet it allows accurate subframe synchronisation in less than a second.",
+  "subjects": [],
+  "keywords": [],
+  "article_type": "journal-article",
+  "citation_count": 3,
+  "url": "https://doi.org/10.1049/iet-cvi.2014.0075",
+  "source": "crossref",
+  "acquired_date": "2026-02-03T13:07:15.520220",
+  "category": "interdisciplinary",
+  "subcategories": []
+}

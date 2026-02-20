@@ -1,0 +1,91 @@
+{
+  "id": "defense_immune-antibody-production",
+  "name": "Antibody Production",
+  "category": "biology",
+  "subcategory": "defense_immune",
+  "subcategory_name": "Defense & Immune Response",
+  "description": "Antibody Production process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 6,
+    "edges": 5,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nN1[\"Threat/Pathogen Exposure\"]\nN2[\"Recognition (innate sensors)\"]\nN3[\"Signal Amplification\"]\nN4[\"Effector Response\"]\nN5[\"Resolution/Memory (if any)\"]\nN6[\"Protection/Recovery\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\nN5 --> N6\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ffd43b,color:#000\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#74c0fc,color:#fff\n    style N6 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Antibody Production. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "Monoclonal Antibody Production",
+      "authors": "",
+      "journal": "Basic Methods in Antibody Production and Characterization",
+      "year": "2000",
+      "pubmed": null,
+      "doi": "10.1201/9781420036534-10",
+      "url": "https://doi.org/10.1201/9781420036534-10"
+    },
+    {
+      "title": "Antibody Production by Ascites Growth",
+      "authors": "",
+      "journal": "Basic Methods in Antibody Production and Characterization",
+      "year": "2000",
+      "pubmed": null,
+      "doi": "10.1201/9781420036534-12",
+      "url": "https://doi.org/10.1201/9781420036534-12"
+    },
+    {
+      "title": "Monoclonal Antibody Production",
+      "authors": "Stewart, Sandy",
+      "journal": "Basic Methods in Antibody Production and Characterization",
+      "year": "2000",
+      "pubmed": null,
+      "doi": "10.1201/9781420036534.ch6",
+      "url": "https://doi.org/10.1201/9781420036534.ch6"
+    }
+  ],
+  "keywords": [
+    "antibody",
+    "production"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-15",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+}

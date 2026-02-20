@@ -1,0 +1,15 @@
+graph TD
+    A[Lactose in Environment] --> B[Lactose Transport]
+    C[Glucose in Environment] --> D[Glucose Transport]
+    B --> G[Lactose Permease LacY]
+    G --> H[Lactose Inside Cell]
+    H --> I[Lactose Availability]
+    I --> M{Is Lactose Present}
+    M -->|No| P[Lac Repressor Active]
+    M -->|Yes| Q[Lac Repressor Inactive]
+    P --> R[Repressor Binds Operator]
+    R --> S[Transcription Blocked]
+    Q --> T[Repressor Released]
+    T --> U[Operator Free]
+    U --> W[Strong Transcription]
+    W --> X[cAMP-CAP Complex]

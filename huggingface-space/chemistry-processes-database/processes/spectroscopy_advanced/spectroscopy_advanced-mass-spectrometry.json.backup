@@ -1,0 +1,89 @@
+{
+  "category": "chemistry",
+  "colorScheme": {
+    "blue": {
+      "category": "Intermediates & States",
+      "hex": "#74c0fc"
+    },
+    "green": {
+      "category": "Processing & Operations",
+      "hex": "#51cf66"
+    },
+    "red": {
+      "category": "Triggers & Inputs",
+      "hex": "#ff6b6b"
+    },
+    "violet": {
+      "category": "Products & Outputs",
+      "hex": "#b197fc"
+    },
+    "yellow": {
+      "category": "Structures & Objects",
+      "hex": "#ffd43b"
+    }
+  },
+  "complexity": {
+    "conditionals": 0,
+    "detailLevel": "medium",
+    "edges": 25,
+    "level": "medium",
+    "logicGates": {
+      "andGates": 0,
+      "orGates": 29,
+      "total": 29
+    },
+    "nodes": 26
+  },
+  "created": "2026-01-08",
+  "description": "Mass spectrometry process showing ionization, fragmentation, and molecular weight determination.",
+  "id": "spectroscopy_advanced-mass-spectrometry",
+  "keywords": [
+    "spectrometry",
+    "mass"
+  ],
+  "lastUpdated": "2026-01-08",
+  "mermaid": "graph TD\nA4[Sample Molecules] --> B4[Mass Spectrometry Method]\nC4[Ionization Source] --> D4[Mass Analyzer]\nE4[Detector System] --> F4[Data Collection]\nB4 --> G4[Sample Introduction]\nD4 --> H4[Mass Separation]\nF4 --> I4[Signal Processing]\nG4 --> J4[Sample Vaporization]\nH4 --> K4[Mass-to-Charge Ratio]\nI4 --> L4[Ion Detection]\nJ4 --> M4[Molecular Ionization]\nK4 --> L4\nL4 --> N4[Ion Separation]\nM4 --> O4[Ion Formation]\nN4 --> P4[Mass Analysis]\nO4 --> Q4[Spectroscopic Analysis]\nP4 --> R4[Mass Spectrum]\nQ4 --> S4[Fragmentation Analysis]\nR4 --> T4[Molecular Weight]\nS4 --> U4[Fragmentation Pattern]\nT4 --> V4[Molecular Identification]\nU4 --> W4[Spectroscopic Efficiency]\nV4 --> X4[Molecular Characterization]\nW4 --> Y4[Process Optimization]\nX4 --> Z4[Final Mass Spectrum]\nY4 --> Z4\n\n    style A4 fill:#ff6b6b,color:#fff\n    style C4 fill:#ff6b6b,color:#fff\n    style E4 fill:#ff6b6b,color:#fff\n    style B4 fill:#ffd43b,color:#000\n    style D4 fill:#ffd43b,color:#000\n    style F4 fill:#ffd43b,color:#000\n    style G4 fill:#ffd43b,color:#000\n    style H4 fill:#ffd43b,color:#000\n    style I4 fill:#ffd43b,color:#000\n    style J4 fill:#ffd43b,color:#000\n    style K4 fill:#ffd43b,color:#000\n    style L4 fill:#ffd43b,color:#000\n    style M4 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style O4 fill:#51cf66,color:#fff\n    style P4 fill:#51cf66,color:#fff\n    style Q4 fill:#51cf66,color:#fff\n    style R4 fill:#51cf66,color:#fff\n    style S4 fill:#51cf66,color:#fff\n    style T4 fill:#51cf66,color:#fff\n    style U4 fill:#51cf66,color:#fff\n    style V4 fill:#51cf66,color:#fff\n    style W4 fill:#51cf66,color:#fff\n    style X4 fill:#51cf66,color:#fff\n    style Y4 fill:#51cf66,color:#fff\n    style Z4 fill:#b197fc,color:#fff",
+  "name": "Mass Spectrometry",
+  "notes": "Converted from chemistry batch HTML. Process number: 4.",
+  "relatedProcesses": [],
+  "sources": [
+    {
+      "authors": "Welz, G.",
+      "doi": null,
+      "journal": "CopernicusAI Knowledge Engine",
+      "notes": "Chemistry process visualization: Mass Spectrometry. Created using the Programming Framework methodology for process analysis and visualization.",
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "year": "2025"
+    },
+    {
+      "authors": "Fenn, J. B., Mann, M., Meng, C. K., Wong, S. F., Whitehouse, C. M.",
+      "doi": "10.1126/science.2661571",
+      "journal": "Science",
+      "pubmed": "2661571",
+      "title": "Electrospray ionization for mass spectrometry of large biomolecules",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/2661571",
+      "year": "1989"
+    },
+    {
+      "authors": "Karas, M., Hillenkamp, F.",
+      "doi": "10.1021/ac00171a028",
+      "journal": "Anal. Chem.",
+      "pubmed": "3202517",
+      "title": "Matrix-assisted ultraviolet laser desorption of biomolecules",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/3202517",
+      "year": "1988"
+    },
+    {
+      "authors": "McLuckey, G. G., Cooks, R. G.",
+      "doi": "10.1021/ar020082c",
+      "journal": "Acc. Chem. Res.",
+      "pubmed": "12868997",
+      "title": "Dissociation of Protonated Peptides and Proteins in the Gas Phase: Mechanisms and Applications",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/12868997",
+      "year": "2003"
+    }
+  ],
+  "subcategory": "spectroscopy_advanced",
+  "verified": false
+}

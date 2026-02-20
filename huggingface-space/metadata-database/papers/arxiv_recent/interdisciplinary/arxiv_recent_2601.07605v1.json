@@ -1,0 +1,39 @@
+{
+  "id": "arxiv_2601.07605v1",
+  "arxiv_id": "2601.07605v1",
+  "title": "Coordinate Systems and Transforms in Space Physics: Terms, Definitions, Implementations, and Recommendations for Reproducibility",
+  "authors": [
+    "R. S. Weigel",
+    "A. Y. Shih",
+    "R. Ringuette",
+    "I. Christopher",
+    "S. M. Petrinec",
+    "S. Turner",
+    "R. M. Candey",
+    "G. K. Stephens",
+    "B. Cecconi"
+  ],
+  "author_string": "R. S. Weigel, A. Y. Shih, R. Ringuette, I. Christopher, S. M. Petrinec et al.",
+  "journal": "arXiv:2601.07605v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "In space physics, acronyms for coordinate systems (e.g., \\texttt{GEI}, \\texttt{GSM}) are commonly used; however, differences in their definitions and implementations can prevent reproducibility. In this work, we compare definitions in online resources, software packages, and frequently cited journal articles and show that implementation differences can lead to transformations between same-named coordinate systems and ephemerides values from different data providers to differ significantly. Based on these comparisons and results, and to enable reproducibility, we recommend that (a) a standard for acronyms and definitions for coordinate systems is developed; (b) a standards body develops a citable database of reference data needed for these transforms; (c) a central authority maintains the SPICE (Spacecraft, Planet, Instrument, C-matrix, Events) kernels used by space physics spacecraft missions to generate data products in different coordinate systems; and (d) software developers provide explicit comparisons of their implementations with the results of (b) and documentation on implementation choices. Additionally, we provide recommendations for scientists and metadata developers to ensure that sufficient information is provided to enable reproducibility if these recommendations are not implemented.",
+  "categories": [
+    "physics.space-ph",
+    "astro-ph.IM"
+  ],
+  "primary_category": "astro-ph.IM",
+  "comment": null,
+  "published_date": "2026-01-12T14:55:34Z",
+  "updated_date": "2026-01-12T14:55:34Z",
+  "url": "https://arxiv.org/abs/2601.07605v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.07605v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-14T13:33:28.417673",
+  "category": "interdisciplinary",
+  "subcategories": [
+    "physics.space-ph",
+    "astro-ph.IM"
+  ]
+}

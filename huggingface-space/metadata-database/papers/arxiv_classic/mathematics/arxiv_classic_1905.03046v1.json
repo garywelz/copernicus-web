@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_1905.03046v1",
+  "arxiv_id": "1905.03046v1",
+  "title": "PiNet: A Permutation Invariant Graph Neural Network for Graph Classification",
+  "authors": [
+    "Peter Meltzer",
+    "Marcelo Daniel Gutierrez Mallea",
+    "Peter J. Bentley"
+  ],
+  "author_string": "Peter Meltzer, Marcelo Daniel Gutierrez Mallea, Peter J. Bentley",
+  "journal": "arXiv:1905.03046v1",
+  "journal_ref": null,
+  "year": "2019",
+  "doi": null,
+  "abstract": "We propose an end-to-end deep learning learning model for graph classification and representation learning that is invariant to permutation of the nodes of the input graphs. We address the challenge of learning a fixed size graph representation for graphs of varying dimensions through a differentiable node attention pooling mechanism. In addition to a theoretical proof of its invariance to permutation, we provide empirical evidence demonstrating the statistically significant gain in accuracy when faced with an isomorphic graph classification task given only a small number of training examples. We analyse the effect of four different matrices to facilitate the local message passing mechanism by which graph convolutions are performed vs. a matrix parametrised by a learned parameter pair able to transition smoothly between the former. Finally, we show that our model achieves competitive classification performance with existing techniques on a set of molecule datasets.",
+  "categories": [
+    "cs.LG",
+    "cs.CV",
+    "cs.NE",
+    "stat.ML"
+  ],
+  "primary_category": "stat.ML",
+  "comment": "7 pages, 4 figures",
+  "published_date": "2019-05-08T12:51:52Z",
+  "updated_date": "2019-05-08T12:51:52Z",
+  "url": "https://arxiv.org/abs/1905.03046v1",
+  "pdf_url": "https://arxiv.org/pdf/1905.03046v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:19.479235",
+  "category": "mathematics",
+  "subcategories": [
+    "cs.LG",
+    "cs.CV",
+    "cs.NE"
+  ]
+}

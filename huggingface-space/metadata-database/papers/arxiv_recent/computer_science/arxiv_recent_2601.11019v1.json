@@ -1,0 +1,39 @@
+{
+  "id": "arxiv_2601.11019v1",
+  "arxiv_id": "2601.11019v1",
+  "title": "Finding the Translation Switch: Discovering and Exploiting the Task-Initiation Features in LLMs",
+  "authors": [
+    "Xinwei Wu",
+    "Heng Liu",
+    "Xiaohu Zhao",
+    "Yuqi Ren",
+    "Linlong Xu",
+    "Longyue Wang",
+    "Deyi Xiong",
+    "Weihua Luo",
+    "Kaifu Zhang"
+  ],
+  "author_string": "Xinwei Wu, Heng Liu, Xiaohu Zhao, Yuqi Ren, Linlong Xu et al.",
+  "journal": "arXiv:2601.11019v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Large Language Models (LLMs) frequently exhibit strong translation abilities, even without task-specific fine-tuning. However, the internal mechanisms governing this innate capability remain largely opaque. To demystify this process, we leverage Sparse Autoencoders (SAEs) and introduce a novel framework for identifying task-specific features. Our method first recalls features that are frequently co-activated on translation inputs and then filters them for functional coherence using a PCA-based consistency metric. This framework successfully isolates a small set of **translation initiation** features. Causal interventions demonstrate that amplifying these features steers the model towards correct translation, while ablating them induces hallucinations and off-task outputs, confirming they represent a core component of the model's innate translation competency. Moving from analysis to application, we leverage this mechanistic insight to propose a new data selection strategy for efficient fine-tuning. Specifically, we prioritize training on **mechanistically hard** samples-those that fail to naturally activate the translation initiation features. Experiments show this approach significantly improves data efficiency and suppresses hallucinations. Furthermore, we find these mechanisms are transferable to larger models of the same family. Our work not only decodes a core component of the translation mechanism in LLMs but also provides a blueprint for using internal model mechanism to create more robust and efficient models. The codes are available at https://github.com/flamewei123/AAAI26-translation-Initiation-Features.",
+  "categories": [
+    "cs.CL",
+    "cs.AI"
+  ],
+  "primary_category": "cs.AI",
+  "comment": "Accepted by AAAI 2026",
+  "published_date": "2026-01-16T06:29:07Z",
+  "updated_date": "2026-01-16T06:29:07Z",
+  "url": "https://arxiv.org/abs/2601.11019v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11019v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:37.511742",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CL",
+    "cs.AI"
+  ]
+}

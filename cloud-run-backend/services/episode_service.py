@@ -72,6 +72,69 @@ class EpisodeService:
         return path
     
     @staticmethod
+    def _make_reference_links_clickable(text: str) -> str:
+        """Convert reference URLs to clickable markdown links"""
+        import re
+        
+        if not text or '## References' not in text:
+            return text
+        
+        # Split into parts before and including References
+        parts = text.split('## References', 1)
+        if len(parts) < 2:
+            return text
+        
+        before_refs = parts[0]
+        refs_section = '## References' + parts[1]
+        
+        # Extract references section content (until next section)
+        next_section_markers = ['## Hashtags', '## Episode Details']
+        refs_content = refs_section
+        after_refs = ""
+        
+        for marker in next_section_markers:
+            if marker in refs_content:
+                split_parts = refs_content.split(marker, 1)
+                refs_content = split_parts[0]
+                after_refs = marker + split_parts[1]
+                break
+        
+        # Find URLs in references and convert to markdown links
+        url_pattern = r'(https?://[^\s\n\)]+)'
+        doi_pattern = r'(10\.\d{4}/[^\s\n\)]+)'
+        
+        # Replace "Available: URL" with "Available: [URL](URL)"
+        def replace_available_url(match):
+            url = match.group(1)
+            return f"Available: [{url}]({url})"
+        
+        refs_content = re.sub(r'Available:\s*' + url_pattern, replace_available_url, refs_content)
+        
+        # Replace "DOI: 10.xxxx/xxxx" with "DOI: [10.xxxx/xxxx](https://doi.org/10.xxxx/xxxx)"
+        def replace_doi(match):
+            doi = match.group(1)
+            doi_url = f"https://doi.org/{doi}"
+            return f"DOI: [{doi}]({doi_url})"
+        
+        refs_content = re.sub(r'DOI:\s*' + doi_pattern, replace_doi, refs_content)
+        
+        # Replace standalone URLs at end of lines
+        def replace_standalone_url(match):
+            url = match.group(1)
+            start_pos = match.start()
+            context_before = refs_content[max(0, start_pos-20):start_pos]
+            
+            # Skip if already in markdown link or after Available:/DOI:
+            if '](' in context_before or 'Available:' in context_before or 'DOI:' in context_before:
+                return url
+            
+            return f"[{url}]({url})"
+        
+        refs_content = re.sub(url_pattern + r'(?=\s*\n|$|\.)', replace_standalone_url, refs_content)
+        
+        return before_refs + refs_content + after_refs
+    
+    @staticmethod
     def _markdown_to_html(markdown_text: str) -> str:
         """Convert markdown to HTML, fallback to paragraph-wrapped text on error."""
         if not markdown_text:
@@ -150,6 +213,17 @@ class EpisodeService:
         metadata_extended = metadata_extended or {}
         engagement_metrics = engagement_metrics or {}
         description_markdown = result_data.get("description", "") or ""
+        
+        # Limit description length to 4000 chars while preserving references (already done in generation service)
+        # But ensure it's applied here too as a safety measure
+        from content_fixes import limit_description_length
+        description_markdown = limit_description_length(description_markdown, 4000)
+        
+        # Convert reference URLs to clickable markdown links BEFORE HTML conversion
+        # Use RSS service function (shared utility)
+        from services.rss_service import RSSService
+        description_markdown = RSSService._make_reference_links_clickable(description_markdown)
+        
         description_html = cls._markdown_to_html(description_markdown)
         summary_text = result_data.get("itunes_summary") or extract_itunes_summary(description_markdown)
         canonical = result_data.get("canonical_filename")
@@ -179,6 +253,7 @@ class EpisodeService:
             "duration": result_data.get("duration"),
             "audio_url": result_data.get("audio_url"),
             "thumbnail_url": result_data.get("thumbnail_url") or DEFAULT_ARTWORK_URL,
+            "episode_images": result_data.get("episode_images", []),  # Array of 1-2 image URLs
             "transcript_url": result_data.get("transcript_url"),
             "description_url": result_data.get("description_url"),
             "episode_link": f"{EPISODE_BASE_URL}/{slug}",

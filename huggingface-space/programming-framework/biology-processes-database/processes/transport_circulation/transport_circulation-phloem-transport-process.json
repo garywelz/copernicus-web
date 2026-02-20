@@ -1,0 +1,84 @@
+{
+  "id": "transport_circulation-phloem-transport-process",
+  "name": "Phloem Transport Process",
+  "category": "biology",
+  "subcategory": "transport_circulation",
+  "subcategory_name": "Transport & Circulation",
+  "organism": "Plants",
+  "description": "Phloem Transport Process in Plants. This process represents a higher-level biological mechanism distinct from molecular/biochemical processes covered in GLMP.",
+  "complexity": {
+    "nodes": 8,
+    "edges": 7,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "low",
+    "detailLevel": "low"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\n    A44[Source Tissue] --> B44[Sugar Loading]\n    B44 --> C44[Sieve Elements]\n    C44 --> D44[Pressure Flow]\n    D44 --> E44[Bulk Flow]\n    E44 --> F44[Sink Tissue]\n    F44 --> G44[Sugar Unloading]\n    G44 --> H44[Utilization/Storage]\n    \n    style A44 fill:#ff6b6b,color:#fff\n    style F44 fill:#ff6b6b,color:#fff\n    style B44 fill:#ffd43b,color:#000\n    style C44 fill:#ffd43b,color:#000\n    style D44 fill:#51cf66,color:#fff\n    style E44 fill:#51cf66,color:#fff\n    style G44 fill:#51cf66,color:#fff\n    style H44 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "notes": "Higher-level biological process visualization: Phloem Transport Process. Created using the Programming Framework methodology for organismal and ecological process analysis."
+    },
+    {
+      "title": "Phloem Transport: New Insights and Controversies",
+      "authors": "Patrick JW, Turgeon R.",
+      "journal": "Annu Rev Plant Biol",
+      "year": "2010",
+      "pubmed": "20192809",
+      "doi": "10.1146/annurev-arplant-042809-112330",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/20192809"
+    },
+    {
+      "title": "Phloem loading and unloading mechanisms and their significance in plant development and agriculture",
+      "authors": "Lalonde S, Wipf D, Frommer WB.",
+      "journal": "Nat Plants",
+      "year": "2019",
+      "pubmed": "30886470",
+      "doi": "10.1038/s41477-019-0382-3",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/30886470"
+    }
+  ],
+  "keywords": [
+    "phloem",
+    "process",
+    "plants",
+    "circulation",
+    "transport"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-08",
+  "verified": false,
+  "notes": "Higher-level biological process. GLMP covers biochemical/molecular processes; this database covers organismal/ecological processes."
+}

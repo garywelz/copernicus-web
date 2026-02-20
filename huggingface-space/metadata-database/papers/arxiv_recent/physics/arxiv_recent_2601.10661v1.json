@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2601.10661v1",
+  "arxiv_id": "2601.10661v1",
+  "title": "Boundary treatment algorithms for meshfree RANS turbulence modeling",
+  "authors": [
+    "Mohan Padmanabha",
+    "Jörg Kuhnert",
+    "Nicolas R. Gauger",
+    "Pratik Suchde"
+  ],
+  "author_string": "Mohan Padmanabha, Jörg Kuhnert, Nicolas R. Gauger, Pratik Suchde",
+  "journal": "arXiv:2601.10661v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "In this paper, we propose improved wall-treatment strategies for meshfree methods applied to turbulent flows. The goal is to improve wall-function handling in simulations of high-Reynolds-number turbulent flows, and to better understand the performance of turbulence models when used with meshfree methods. While wall-function techniques are well established for mesh-based methods, their inclusion in meshfree methods faces unique challenges that have not been fully explored. The main difficulties arise from the lack of connectivity between points and from point movement in Lagrangian frameworks, which can complicate consistent wall treatment. To address these issues, we explore three wall-treatment techniques. We highlight the drawbacks of the standard closest neighbor approach. We then introduce two novel approaches: the nearest-band neighbor method and the shifted boundary method. We evaluate these methods using first-order turbulence closures: Spalart--Allmaras, $k-\\varepsilon$, and $k-ω$. These methods are tested numerically on 1D Couette flow, turbulent flow over a flat plate, and flow around a NACA 0012 airfoil in 3D. The results show that both novel methods outperform the closest neighbor approach. The shifted boundary method achieves higher accuracy, but is more computationally expensive than the nearest-band neighbor method. However, by using smaller shift distances, we can achieve lower $y^+$ values with the same resolution. All turbulence models work well with the shifted boundary method, with only minor differences between them. In contrast, the nearest-band method shows variation in the behavior of the turbulence models, where the Spalart--Allmaras model yields better results, especially further downstream along the plate. This work establishes a robust foundation for simulating wall-bounded turbulent flows at high Reynolds numbers using meshfree collocation methods.",
+  "categories": [
+    "physics.flu-dyn"
+  ],
+  "primary_category": "physics.flu-dyn",
+  "comment": null,
+  "published_date": "2026-01-15T18:30:30Z",
+  "updated_date": "2026-01-15T18:30:30Z",
+  "url": "https://arxiv.org/abs/2601.10661v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.10661v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:18:40.158692",
+  "category": "physics",
+  "subcategories": [
+    "physics.flu-dyn"
+  ]
+}

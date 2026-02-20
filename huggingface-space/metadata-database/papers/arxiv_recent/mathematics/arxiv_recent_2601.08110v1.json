@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2601.08110v1",
+  "arxiv_id": "2601.08110v1",
+  "title": "Efficient Incremental SLAM via Information-Guided and Selective Optimization",
+  "authors": [
+    "Reza Arablouei"
+  ],
+  "author_string": "Reza Arablouei",
+  "journal": "arXiv:2601.08110v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We present an efficient incremental SLAM back-end that achieves the accuracy of full batch optimization while substantially reducing computational cost. The proposed approach combines two complementary ideas: information-guided gating (IGG) and selective partial optimization (SPO). IGG employs an information-theoretic criterion based on the log-determinant of the information matrix to quantify the contribution of new measurements, triggering global optimization only when a significant information gain is observed. This avoids unnecessary relinearization and factorization when incoming data provide little additional information. SPO executes multi-iteration Gauss-Newton (GN) updates but restricts each iteration to the subset of variables most affected by the new measurements, dynamically refining this active set until convergence. Together, these mechanisms retain all measurements to preserve global consistency while focusing computation on parts of the graph where it yields the greatest benefit. We provide theoretical analysis showing that the proposed approach maintains the convergence guarantees of full GN. Extensive experiments on benchmark SLAM datasets show that our approach consistently matches the estimation accuracy of batch solvers, while achieving significant computational savings compared to conventional incremental approaches. The results indicate that the proposed approach offers a principled balance between accuracy and efficiency, making it a robust and scalable solution for real-time operation in dynamic data-rich environments.",
+  "categories": [
+    "cs.RO",
+    "cs.IT",
+    "eess.SP",
+    "eess.SY",
+    "math.OC"
+  ],
+  "primary_category": "math.OC",
+  "comment": null,
+  "published_date": "2026-01-13T01:01:36Z",
+  "updated_date": "2026-01-13T01:01:36Z",
+  "url": "https://arxiv.org/abs/2601.08110v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.08110v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:07.228070",
+  "category": "mathematics",
+  "subcategories": [
+    "cs.RO",
+    "cs.IT",
+    "eess.SP"
+  ]
+}

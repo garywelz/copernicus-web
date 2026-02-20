@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2601.07744v1",
+  "arxiv_id": "2601.07744v1",
+  "title": "Predefined-time One-Shot Cooperative Estimation, Guidance, and Control for Simultaneous Target Interception",
+  "authors": [
+    "Lohitvel Gopikannan",
+    "Shashi Ranjan Kumar",
+    "Abhinav Sinha"
+  ],
+  "author_string": "Lohitvel Gopikannan, Shashi Ranjan Kumar, Abhinav Sinha",
+  "journal": "arXiv:2601.07744v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "This work develops a unified nonlinear estimation-guidance-control framework for cooperative simultaneous interception of a stationary target under a heterogeneous sensing topology, where sensing capabilities are non-uniform across interceptors. Specifically, only a subset of agents is instrumented with onboard seekers (informed/seeker-equipped agents), whereas the rest of them (seeker-less agents) acquire the information about the target indirectly via the informed agents and execute a distributed cooperative guidance for simultaneous target interception. To address the resulting partial observability, a predefined-time distributed observer is leveraged, guaranteeing convergence of the target state estimates for seeker-less agents through information exchange with seeker-equipped neighbors over a directed communication graph. Thereafter, an improved time-to-go estimate accounting for wide launch envelopes is utilized to design the distributed cooperative guidance commands. This estimate is coupled with a predefined-time consensus protocol, ensuring consensus in the agents' time-to-go values. The temporal upper bounds within which both observer error and time-to-go consensus error converge to zero can be prescribed as design parameters. Furthermore, the cooperative guidance commands are realized by means of an autopilot, wherein the interceptor is steered by canard actuation. The corresponding fin deflection commands are generated using a predefined-time convergent sliding mode control law. This enables the autopilot to precisely track the commanded lateral acceleration within a design-specified time, while maintaining non-singularity of the overall design. Theoretical guarantees are supported by numerical simulations across diverse engagement geometries, verifying the estimation accuracy, the cooperative interception performance, and the autopilot response using the proposed scheme.",
+  "categories": [
+    "eess.SY",
+    "cs.MA",
+    "cs.RO",
+    "math.DS"
+  ],
+  "primary_category": "math.DS",
+  "comment": null,
+  "published_date": "2026-01-12T17:22:57Z",
+  "updated_date": "2026-01-12T17:22:57Z",
+  "url": "https://arxiv.org/abs/2601.07744v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.07744v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:11.147104",
+  "category": "mathematics",
+  "subcategories": [
+    "eess.SY",
+    "cs.MA",
+    "cs.RO"
+  ]
+}

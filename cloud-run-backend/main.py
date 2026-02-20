@@ -261,6 +261,9 @@ except ImportError as e:
                              install_command="pip install google-cloud-aiplatform google-cloud-secret-manager google-cloud-firestore")
     VERTEX_AI_AVAILABLE = False
 
+# Copyright (c) 2025 Gary Welz / CopernicusAI
+# Licensed under MIT License
+
 app = FastAPI(title="Copernicus Podcast API - Google AI")
 
 app.add_middleware(
@@ -281,6 +284,10 @@ from endpoints.subscriber.routes import router as subscriber_router
 from endpoints.podcast.routes import router as podcast_router
 from endpoints.papers.routes import router as papers_router
 from endpoints.glmp.routes import router as glmp_router
+from endpoints.knowledge_map.routes import router as knowledge_map_router
+from endpoints.rag.routes import router as rag_router
+from endpoints.content.routes import router as content_router
+from endpoints.vector_search.routes import router as vector_search_router
 
 app.include_router(health_router)
 app.include_router(debug_router)
@@ -291,6 +298,10 @@ app.include_router(subscriber_router)
 app.include_router(podcast_router)
 app.include_router(papers_router)
 app.include_router(glmp_router)
+app.include_router(knowledge_map_router)
+app.include_router(rag_router)
+app.include_router(content_router)
+app.include_router(vector_search_router)
 
 # PodcastRequest model moved to models/podcast.py
 from models.podcast import PodcastRequest
@@ -322,6 +333,12 @@ def get_service_account_credentials_from_secret_manager(project_id: str, secret_
 def initialize_vertex_ai():
     """Initialize Vertex AI with credentials from Secret Manager"""
     try:
+        if (os.getenv("DISABLE_VERTEX_AI", "0") or "").strip().lower() in {"1", "true", "yes", "y", "on"} or (
+            (os.getenv("COPERNICUS_DISABLE_VERTEX_AI", "0") or "").strip().lower() in {"1", "true", "yes", "y", "on"}
+        ):
+            structured_logger.warning("Vertex AI initialization skipped (disabled via environment flag)")
+            return None
+
         # Credentials should be picked up automatically by the library from the environment.
         # The gcloud auth application-default login or service account on Cloud Run handles this.
         client = google_genai_client.Client(vertexai=True, project=GCP_PROJECT_ID, location=VERTEX_AI_REGION)
@@ -354,6 +371,9 @@ def load_all_api_keys_from_secret_manager():
             # LLM APIs
             "GOOGLE_API_KEY": "GOOGLE_AI_API_KEY",
             "GOOGLE_AI_API_KEY": "GOOGLE_AI_API_KEY",
+            "OPENAI_API_KEY": "openai-api-key",  # OpenAI for embeddings/RAG (87% cheaper than Vertex AI)
+            "ANTHROPIC_API_KEY": "anthropic-api-key",  # Anthropic Claude for RAG (50% cheaper than Vertex AI)
+            "VOYAGE_API_KEY": "voyage-api-key",  # Voyage for embeddings (optional, 33% cheaper than Vertex AI)
             # Admin API
             "ADMIN_API_KEY": "admin-api-key",
         }

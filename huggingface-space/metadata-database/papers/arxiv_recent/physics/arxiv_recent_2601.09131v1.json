@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2601.09131v1",
+  "arxiv_id": "2601.09131v1",
+  "title": "Bidirectional Decoding for Concatenated Quantum Hamming Codes",
+  "authors": [
+    "Chao Zhang",
+    "Zipeng Wu",
+    "Jiahui Wu",
+    "Shilin Huang"
+  ],
+  "author_string": "Chao Zhang, Zipeng Wu, Jiahui Wu, Shilin Huang",
+  "journal": "arXiv:2601.09131v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "High-rate concatenated quantum codes offer a promising pathway toward fault-tolerant quantum computation, yet designing efficient decoders that fully exploit their error-correction capability remains a significant challenge. In this work, we introduce a hard-decision decoder for concatenated quantum Hamming codes with time complexity polynomial in the block length. This decoder overcomes the limitations of conventional local decoding by leveraging higher-level syndrome information to revise lower-level recovery decisions -- a strategy we refer to as bidirectional decoding. For the concatenated $[[15,7,3]]$ quantum Hamming code under independent bit-flip noise, the bidirectional decoder improves the threshold from approximately $1.56\\%$ to $4.35\\%$ compared with standard local decoding. Moreover, the decoder empirically preserves the full $3^{L}$ code-distance scaling for at least three levels of concatenation, resulting in substantially faster logical-error suppression than the $2^{L+1}$ scaling offered by local decoders. Our results can enhance the competitiveness of concatenated-code architectures for low-overhead fault-tolerant quantum computation.",
+  "categories": [
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": null,
+  "published_date": "2026-01-14T04:09:37Z",
+  "updated_date": "2026-01-14T04:09:37Z",
+  "url": "https://arxiv.org/abs/2601.09131v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.09131v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:02.858774",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph"
+  ]
+}

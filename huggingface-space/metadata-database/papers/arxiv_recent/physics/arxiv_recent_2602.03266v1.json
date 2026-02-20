@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2602.03266v1",
+  "arxiv_id": "2602.03266v1",
+  "title": "Link Fraction Mixed Membership Reveals Community Diversity in Aggregated Social Networks",
+  "authors": [
+    "Gamal Adel",
+    "Eszter Bokányi",
+    "Eelke M. Heemskerk",
+    "Frank W. Takes"
+  ],
+  "author_string": "Gamal Adel, Eszter Bokányi, Eelke M. Heemskerk, Frank W. Takes",
+  "journal": "arXiv:2602.03266v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Community detection is a critical tool for understanding the mesoscopic structure of large-scale networks. However, when applied to aggregated or coarse-grained social networks, disjoint community partitions cannot capture the diverse composition of community memberships within aggregated nodes. While existing mixed membership methods alleviate this issue, they may detected communities that are highly sensitive to the aggregation resolution, not reliably reflecting the underlying community structure of the underlying individual-level network. This paper presents the Link Fraction Mixed Membership (LFMM) method, which computes the mixed memberships of nodes in aggregated networks. Unlike existing mixed membership methods, LFMM is consistent under aggregation. Specifically, we show that it conserves community membership sums at different scales. The method is utilized to study a population-scale social network of the Netherlands, aggregated at different resolutions. Experiments reveal variation in community membership across different geographical regions and evolution over the last decade. In particular, we show how our method identifies large urban hubs that act as the melting pots of diverse, spatially remote communities.",
+  "categories": [
+    "cs.SI",
+    "physics.soc-ph"
+  ],
+  "primary_category": "physics.soc-ph",
+  "comment": "21 pages, 6 figures",
+  "published_date": "2026-02-03T08:53:38Z",
+  "updated_date": "2026-02-03T08:53:38Z",
+  "url": "https://arxiv.org/abs/2602.03266v1",
+  "pdf_url": "https://arxiv.org/pdf/2602.03266v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-02-04T07:47:31.264987",
+  "category": "physics",
+  "subcategories": [
+    "cs.SI",
+    "physics.soc-ph"
+  ]
+}

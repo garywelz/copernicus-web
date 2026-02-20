@@ -1,0 +1,29 @@
+{
+  "id": "hypothesis-testing-procedure",
+  "title": "Hypothesis Testing Procedure",
+  "description": "Statistical test for hypothesis validation",
+  "category": "mathematics",
+  "subcategory": "statistics",
+  "mermaid": "graph TD A1[State Hypothesis: Null (H0) & Alternative (H1)] style A1 fill:#ff6b6b,color:#fff A2[Define Significance Level (α)] style A2 fill:#ff6b6b,color:#fff B1[\"Choose Appropriate Test Statistic\"] style B1 fill:#ffd43b,color:#000 C1[\"Gather Sample Data\"] style C1 fill:#51cf66,color:#fff C2[\"Calculate Test Statistic Value\"] style C2 fill:#51cf66,color:#fff C3[\"Determine p-value OR Critical Value(s)\"] style C3 fill:#51cf66,color:#fff D1[\"p-value ≤ α ?\"] style D1 fill:#74c0fc,color:#fff E1[Reject Null Hypothesis (H0)] style E1 fill:#b197fc,color:#fff E2[Fail to Reject Null Hypothesis (H0)] style E2 fill:#b197fc,color:#fff F1[Draw Conclusion: Interpret Results in Context] style F1 fill:#b197fc,color:#fff D2[\"Test Statistic in Rejection Region?\"] style D2 fill:#74c0fc,color:#fff A1 --> A2 A2 --> B1 B1 --> C1 C1 --> C2 C2 --> C3 C3 --> D1 D1 -- Yes --> E1 D1 -- No --> E2 E1 --> F1 E2 --> F1",
+  "entities": [
+    "State Hypothesis: Null (H0) & Alternative (H1)",
+    "Define Significance Level (α)",
+    "\"Choose Appropriate Test Statistic\"",
+    "\"Gather Sample Data\"",
+    "\"Calculate Test Statistic Value\"",
+    "\"Determine p-value OR Critical Value(s)\"",
+    "\"p-value ≤ α ?\"",
+    "Reject Null Hypothesis (H0)",
+    "Fail to Reject Null Hypothesis (H0)",
+    "/\"Draw Conclusion: Interpret Results in Context\" /",
+    "\"Test Statistic in Rejection Region?\""
+  ],
+  "metadata": {
+    "source": "programming_framework",
+    "color_scheme": "discipline_based",
+    "node_count": 11,
+    "complexity": "low"
+  },
+  "sources": [],
+  "source_text": "Source information to be added - please specify the book, paper, or reference material used by the LLM to generate this flowchart."
+}

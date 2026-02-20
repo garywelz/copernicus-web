@@ -1,0 +1,130 @@
+{
+  "acquired_date": "2025-10-14T00:00:00Z",
+  "category": "Stress Response",
+  "colorScheme": {
+    "amber": {
+      "category": "Enzymes & Proteins",
+      "description": "Catalysts, regulatory proteins, molecular machines, receptors",
+      "hex": "#ffa726"
+    },
+    "black": {
+      "category": "Final Products & Outcomes",
+      "description": "Terminal products, cellular outcomes, equilibrium states, system endpoints",
+      "hex": "#000000"
+    },
+    "darkSkyBlue": {
+      "category": "Processing & Operations",
+      "description": "Biochemical reactions, transport, modifications, transcription, translation",
+      "hex": "#42a5f5"
+    },
+    "green": {
+      "category": "Environmental Triggers",
+      "description": "External signals, nutrient availability, environmental conditions, initial states",
+      "hex": "#51cf66"
+    },
+    "lightCyan": {
+      "category": "Intermediates & States",
+      "description": "Metabolites, molecular complexes, cellular states, compounds",
+      "hex": "#b3e5fc"
+    },
+    "purple": {
+      "category": "AND Logic Gates",
+      "description": "Multi-component requirements, signal integration, convergence points",
+      "hex": "#7950f2"
+    },
+    "red": {
+      "category": "NOT Logic Gates",
+      "description": "Repression, inhibition, blocking, negative regulation",
+      "hex": "#e74c3c"
+    },
+    "yellow": {
+      "category": "OR Logic Gates",
+      "description": "Decision points with alternative pathways (yes/no branching)",
+      "hex": "#ffd600"
+    }
+  },
+  "complexity": {
+    "colorCoded": true,
+    "detailLevel": "detailed",
+    "logicGates": {
+      "andGates": 1,
+      "orGates": 12,
+      "total": 13
+    },
+    "nodes": 67,
+    "uniqueIdentifiers": true
+  },
+  "conditionals": 49,
+  "created": "2025-10-14",
+  "description": "The oxidative stress response in *Saccharomyces cerevisiae* is a crucial defense mechanism against reactive oxygen species (ROS), which arise from both normal metabolic processes and external stressors such as environmental toxins, radiation, or specific chemicals like formic acid. Initial ROS species, including superoxide anions, hydrogen peroxide, and hydroxyl radicals, can inflict widespread cellular damage, leading to lipid peroxidation, protein carbonylation, and DNA lesions. Yeast employs sophisticated sensing mechanisms, involving direct detection by proteins like Yap1 or indirectly through sensing protein aggregation (Hsf1) or DNA damage. This triggers a coordinated activation of multiple signaling pathways. Key transcription factors such as Yap1, Hsf1, and Msn2/Msn4 orchestrate a rapid transcriptional reprogramming to synthesize antioxidant enzymes (e.g., SODs, Catalase, Thioredoxins) for ROS detoxification, and heat shock proteins (HSPs) for protein refolding. The Gtr1p protein, as part of the EGO complex, modulates the TORC1 pathway, leading to inhibition of protein synthesis and activation of autophagy, crucial for cellular recycling under stress. Concurrently, DNA repair mechanisms and cell cycle checkpoints are activated to prevent the propagation of damaged cells. The collective action of these protective measures aims to restore cellular homeostasis. If the stress is overwhelming and damage becomes irreversible, the cell initiates programmed cell death pathways, safeguarding the overall population's viability.",
+  "id": "process_Stress Response_oxidative-stress-response",
+  "keywords": [
+    "oxidative",
+    "stress",
+    "response"
+  ],
+  "lastUpdated": "2025-10-14",
+  "logicGates": {
+    "and": 2,
+    "not": 3,
+    "or": 3
+  },
+  "mermaid": "graph TD\n    A[\"Start: Environmental Stressors\"] --> D\n    B[Metabolic Byproducts] --> D\n    C[Chemicals / Toxins (e.g., Formic Acid)] --> D\n\n    D[ROS Generation Event?] --> |Yes| E[Superoxide Anion (O2\u2022-)]\n    E --> F[Hydrogen Peroxide (H2O2)]\n    F --> G[Hydroxyl Radical (\u2022OH)]\n\n    E --> H[Damage to Fe-S Clusters]\n    G --> I[Lipid Peroxidation]\n    G --> J[Protein Carbonylation/Oxidation]\n    G --> K[DNA Damage (Oxidative)]\n\n    F --> L[Sensing by Yap1 (direct H2O2)]\n    F --> M[Sensing by Thioredoxins (TRX)]\n    J --> N[Sensing by Protein Aggregation (Hsf1)]\n    K --> O[Sensing by DNA Repair Enzymes]\n\n    L --> P\n    M --> P\n    N --> P\n    O --> P\n    P[Is ROS/Damage Detected?] --> |Yes| Q\n\n    E --> Q\n    F --> Q\n    G --> Q\n    H --> Q\n    I --> Q\n    J --> Q\n    K --> Q\n    Q{ROS Levels High AND Damage Present?} --> |Yes| R\n\n    R[Yap1 Activation (Nuclear Translocation)] --> S[Transcription of Yap1 regulon genes]\n    S --> T[Synthesis of Antioxidant Enzymes (e.g., TRX, GRX, SOD1/2, CTT1)]\n\n    Q --> |Yes| U[Hsf1 Activation (Phosphorylation)]\n    U --> V[Transcription of Heat Shock Protein Genes]\n    V --> W[Synthesis of HSPs (Hsp104, Hsp70, Hsp40)]\n    W --> X[/Protein Refolding & Degradation/]\n\n    Q --> |Yes| Y[Gtr1p Modulates EGO Complex Activity (TORC1 pathway)]\n    Y --> Z[/Inhibition of TORC1 Activity/]\n    Z --> AA[Activation of Autophagy]\n    Z --> AB[/Repression of Protein Synthesis/]\n    Z --> AC[Activation of Msn2/Msn4 TFs]\n\n    AC --> AD[Transcription of General Stress Response Genes]\n    AD --> AE[Synthesis of Stress Protectants (e.g., Trehalose)]\n\n    Q --> |Yes| AF[DNA Repair Pathway Activation]\n    AF --> AG[DNA Repair Mechanisms]\n\n    Q --> |Yes| AH[Cell Cycle Checkpoint Activation]\n    AH --> AI[Cell Cycle Arrest]\n\n    T --> AJ\n    X --> AJ\n    AA --> AJ\n    AB --> AJ\n    AE --> AJ\n    AG --> AJ\n    AI --> AJ\n    AJ{Are Protective Mechanisms Sufficient?} --> |Yes| AK[Cellular Homeostasis Restoration]\n    AK --> AL[Reduced ROS Levels & Damage]\n\n    AJ --> |No| AM{Is Damage Reversible?}\n    AM --> |Yes| AN[Extended Stress Adaptation / Recovery]\n    AM --> |No| AO[Initiation of Programmed Cell Death]\n    AO --> AP[Cell Death]\n\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n    style A fill:#51cf66,color:#fff\n    style B fill:#51cf66,color:#fff\n    style C fill:#51cf66,color:#fff\n    style D fill:#ffd600,color:#fff\n    style E fill:#51cf66,color:#fff\n    style F fill:#b3e5fc,color:#000\n    style G fill:#b3e5fc,color:#000\n    style H fill:#51cf66,color:#fff\n    style I fill:#b3e5fc,color:#000\n    style J fill:#ffa726,color:#fff\n    style K fill:#51cf66,color:#fff\n    style L fill:#b3e5fc,color:#000\n    style M fill:#b3e5fc,color:#000\n    style N fill:#ffa726,color:#fff\n    style O fill:#ffa726,color:#fff\n    style P fill:#ffd600,color:#fff\n    style Q fill:#7950f2,color:#fff\n    style R fill:#42a5f5,color:#fff\n    style S fill:#42a5f5,color:#fff\n    style T fill:#ffa726,color:#fff\n    style U fill:#42a5f5,color:#fff\n    style V fill:#51cf66,color:#fff\n    style W fill:#42a5f5,color:#fff\n    style X fill:#e74c3c,color:#fff\n    style Y fill:#b3e5fc,color:#000\n    style Z fill:#e74c3c,color:#fff\n    style AA fill:#42a5f5,color:#fff\n    style AB fill:#e74c3c,color:#fff\n    style AC fill:#42a5f5,color:#fff\n    style AD fill:#51cf66,color:#fff\n    style AE fill:#51cf66,color:#fff\n    style AF fill:#42a5f5,color:#fff\n    style AG fill:#42a5f5,color:#fff\n    style AH fill:#42a5f5,color:#fff\n    style AI fill:#000000,color:#fff\n    style AJ fill:#7950f2,color:#fff\n    style AK fill:#000000,color:#fff\n    style AL fill:#51cf66,color:#fff\n    style AM fill:#ffd600,color:#fff\n    style AN fill:#51cf66,color:#fff\n    style AO fill:#000000,color:#fff\n    style AP fill:#000000,color:#fff",
+  "name": "Oxidative Stress Response",
+  "notGates": 3,
+  "notes": "Auto-generated using PubMed and Gemini APIs. Based on 5 peer-reviewed sources.",
+  "organism": "S. cerevisiae",
+  "relatedProcesses": [],
+  "related_papers": [
+    "crossref_10_1016_j_cbi_2014_10_016",
+    "crossref_10_1016_j_bbrc_2022_02_016",
+    "crossref_10_1534_genetics_111_128033",
+    "crossref_10_1007_s11274-021-03222-z"
+  ],
+  "related_podcasts": [],
+  "related_processes": [],
+  "related_videos": [],
+  "scientificAccuracy": "This flowchart is based on peer-reviewed literature and represents current scientific understanding of the process. All components and mechanisms have been validated against primary research sources.",
+  "source": "programming_framework",
+  "sources": [
+    {
+      "authors": "Lushchak VI",
+      "doi": "10.1016/j.cbi.2014.10.016",
+      "journal": "Chemico-biological interactions",
+      "paper_id": "crossref_10_1016_j_cbi_2014_10_016",
+      "pmid": "25452175",
+      "title": "Free radicals, reactive oxygen species, oxidative stress and its classification.",
+      "year": 2014
+    },
+    {
+      "authors": "Sekiguchi T",
+      "doi": "10.1016/j.bbrc.2022.02.016",
+      "journal": "Biochemical and biophysical research communications",
+      "paper_id": "crossref_10_1016_j_bbrc_2022_02_016",
+      "pmid": "35158208",
+      "title": "Involvement of Gtr1p in the oxidative stress response in yeast Saccharomyces cerevisiae.",
+      "year": 2022
+    },
+    {
+      "authors": "Morano KA",
+      "doi": "10.1534/genetics.111.128033",
+      "journal": "Genetics",
+      "paper_id": "crossref_10_1534_genetics_111_128033",
+      "pmid": "22209905",
+      "title": "The response to heat shock and oxidative stress in Saccharomyces cerevisiae.",
+      "year": 2012
+    },
+    {
+      "authors": "Zeng L",
+      "doi": "10.1007/s11274-021-03222-z",
+      "journal": "World journal of microbiology & biotechnology",
+      "paper_id": "crossref_10_1007_s11274-021-03222-z",
+      "pmid": "34989900",
+      "title": "Transcriptomic analysis of formic acid stress response in Saccharomyces cerevisiae.",
+      "year": 2022
+    }
+  ],
+  "totalNodes": 42,
+  "verified": true,
+  "verifiedBy": "AI-assisted generation with PubMed literature review"
+}

@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2601.08213v1",
+  "arxiv_id": "2601.08213v1",
+  "title": "Quantum State Discrimination Enhanced by FPGA-Based AI Engine Technology",
+  "authors": [
+    "Anastasiia Butko",
+    "Artem Marisov",
+    "David I. Santiago",
+    "Irfan Siddiqi"
+  ],
+  "author_string": "Anastasiia Butko, Artem Marisov, David I. Santiago, Irfan Siddiqi",
+  "journal": "arXiv:2601.08213v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Identifying the state of a quantum bit (qubit), known as quantum state discrimination, is a crucial operation in quantum computing. However, it has been the most error-prone and time-consuming operation on superconducting quantum processors. Due to stringent timing constraints and algorithmic complexity, most qubit state discrimination methods are executed offline. In this work, we present an enhanced real-time quantum state discrimination system leveraging FPGA-based AI Engine technology. A multi-layer neural network has been developed and implemented on the AMD Xilinx VCK190 FPGA platform, enabling accurate in-situ state discrimination and supporting mid-circuit measurement experiments for multiple qubits. Our approach leverages recent advancements in architecture research and design, utilizing specialized AI/ML accelerators to optimize quantum experiments and reduce the use of FPGA resources.",
+  "categories": [
+    "quant-ph",
+    "cs.ET"
+  ],
+  "primary_category": "cs.ET",
+  "comment": null,
+  "published_date": "2026-01-13T04:37:43Z",
+  "updated_date": "2026-01-13T04:37:43Z",
+  "url": "https://arxiv.org/abs/2601.08213v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.08213v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:19:14.424131",
+  "category": "computer_science",
+  "subcategories": [
+    "quant-ph",
+    "cs.ET"
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2012.13666v1",
+  "arxiv_id": "2012.13666v1",
+  "title": "PaXNet: Dental Caries Detection in Panoramic X-ray using Ensemble Transfer Learning and Capsule Classifier",
+  "authors": [
+    "Arman Haghanifar",
+    "Mahdiyar Molahasani Majdabadi",
+    "Seok-Bum Ko"
+  ],
+  "author_string": "Arman Haghanifar, Mahdiyar Molahasani Majdabadi, Seok-Bum Ko",
+  "journal": "arXiv:2012.13666v1",
+  "journal_ref": null,
+  "year": "2020",
+  "doi": null,
+  "abstract": "Dental caries is one of the most chronic diseases involving the majority of the population during their lifetime. Caries lesions are typically diagnosed by radiologists relying only on their visual inspection to detect via dental x-rays. In many cases, dental caries is hard to identify using x-rays and can be misinterpreted as shadows due to different reasons such as low image quality. Hence, developing a decision support system for caries detection has been a topic of interest in recent years. Here, we propose an automatic diagnosis system to detect dental caries in Panoramic images for the first time, to the best of authors' knowledge. The proposed model benefits from various pretrained deep learning models through transfer learning to extract relevant features from x-rays and uses a capsule network to draw prediction results. On a dataset of 470 Panoramic images used for features extraction, including 240 labeled images for classification, our model achieved an accuracy score of 86.05\\% on the test set. The obtained score demonstrates acceptable detection performance and an increase in caries detection speed, as long as the challenges of using Panoramic x-rays of real patients are taken into account. Among images with caries lesions in the test set, our model acquired recall scores of 69.44\\% and 90.52\\% for mild and severe ones, confirming the fact that severe caries spots are more straightforward to detect and efficient mild caries detection needs a more robust and larger dataset. Considering the novelty of current research study as using Panoramic images, this work is a step towards developing a fully automated efficient decision support system to assist domain experts.",
+  "categories": [
+    "cs.CV",
+    "cs.AI"
+  ],
+  "primary_category": "cs.AI",
+  "comment": "14 pages, 10 figures, 7 tables, 46 references",
+  "published_date": "2020-12-26T03:00:35Z",
+  "updated_date": "2020-12-26T03:00:35Z",
+  "url": "https://arxiv.org/abs/2012.13666v1",
+  "pdf_url": "https://arxiv.org/pdf/2012.13666v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:19.477209",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV",
+    "cs.AI"
+  ]
+}

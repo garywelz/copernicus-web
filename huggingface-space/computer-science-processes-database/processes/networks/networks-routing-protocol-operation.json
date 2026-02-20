@@ -1,0 +1,92 @@
+{
+  "id": "networks-routing-protocol-operation",
+  "name": "Routing Protocol Operation",
+  "category": "computer_science",
+  "subcategory": "networks",
+  "subcategory_name": "Computer Networks",
+  "description": "Routing Protocol Operation process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "complexity": {
+    "nodes": 10,
+    "edges": 10,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 1,
+      "andGates": 1,
+      "total": 2
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nN1[\"Network Topology\"]\nN2[\"Link Updates\"]\nN3[\"Neighbors\"]\nN4[\"Choose Approach\"]\nN5[\"Routing Table\"]\nN6[\"Exchange Updates\"]\nN7[\"Compute Best Paths\"]\nN8[\"Converged Routes\"]\nN9[\"Integrate Results\"]\nN10[\"Forwarding Decisions\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\nN4 --> N7\nN5 --> N6\nN7 --> N8\nN6 --> N9\nN8 --> N9\nN9 --> N10\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ff6b6b,color:#fff\n    style N3 fill:#ffd43b,color:#000\n    style N4 fill:#ffd43b,color:#000\n    style N5 fill:#ffd43b,color:#000\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#74c0fc,color:#fff\n    style N9 fill:#74c0fc,color:#fff\n    style N10 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "pubmed": null,
+      "notes": "Process visualization: Routing Protocol Operation. Created using the Programming Framework methodology."
+    },
+    {
+      "title": "SLEEP MODE OPERATION OF A ROUTING PROTOCOL IN MOBILE AD HOC NETWORKS",
+      "authors": "QAYYUM, A.; TOOR, Y.; JACQUET, P.; MÜHLETHALER, P.; CLAUSEN, T.",
+      "journal": "Networks",
+      "year": "2002",
+      "pubmed": null,
+      "doi": "10.1142/9789812776730_0020",
+      "url": "https://doi.org/10.1142/9789812776730_0020"
+    },
+    {
+      "title": "EEMOR: Energy Efficient Metaheuristic Opportunistic Routing Protocol for WSNs",
+      "authors": "",
+      "journal": "",
+      "year": "None",
+      "pubmed": null,
+      "doi": "10.32908/ahswn.v55.9265",
+      "url": "https://doi.org/10.32908/ahswn.v55.9265"
+    },
+    {
+      "title": "Developing Secure Multipath Routing (AODV-SMR) Protocol Framework Based Multipath Network Routing Protocol",
+      "authors": "Albeladi, Marwah Yahya",
+      "journal": "Engineering and Technology Journal",
+      "year": "2022",
+      "pubmed": null,
+      "doi": "10.47191/etj/v7i1.05",
+      "url": "https://doi.org/10.47191/etj/v7i1.05"
+    }
+  ],
+  "keywords": [
+    "routing",
+    "protocol",
+    "operation"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-15",
+  "lastUpdated": "2026-01-15",
+  "verified": false,
+  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+}

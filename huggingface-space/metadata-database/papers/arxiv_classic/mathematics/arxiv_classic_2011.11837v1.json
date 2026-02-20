@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2011.11837v1",
+  "arxiv_id": "2011.11837v1",
+  "title": "Adaptive Observation-Based Efficient Reinforcement Learning for Uncertain Systems",
+  "authors": [
+    "Maopeng Ran",
+    "Lihua Xie"
+  ],
+  "author_string": "Maopeng Ran, Lihua Xie",
+  "journal": "arXiv:2011.11837v1",
+  "journal_ref": null,
+  "year": "2020",
+  "doi": null,
+  "abstract": "This paper develops an adaptive observation-based efficient reinforcement learning (RL) approach for systems with uncertain drift dynamics. A novel concurrent learning adaptive extended observer (CL-AEO) is first designed to jointly estimate the system state and parameter. This observer has a two-timescale structure and doesn't require any additional numerical techniques to calculate the state derivative information. The idea of concurrent learning (CL) is leveraged to use the recorded data, which leads to a relaxed verifiable excitation condition for the convergence of parameter estimation. Based on the estimated state and parameter provided by the CL-AEO, a simulation of experience based RL scheme is developed to online approximate the optimal control policy. Rigorous theoretical analysis is given to show that the practical convergence of the system state to the origin and the developed policy to the ideal optimal policy can be achieved without the persistence of excitation (PE) condition. Finally, the effectiveness and superiority of the developed methodology are demonstrated via comparative simulations.",
+  "categories": [
+    "math.DS",
+    "math.OC"
+  ],
+  "primary_category": "math.OC",
+  "comment": null,
+  "published_date": "2020-11-24T02:10:29Z",
+  "updated_date": "2020-11-24T02:10:29Z",
+  "url": "https://arxiv.org/abs/2011.11837v1",
+  "pdf_url": "https://arxiv.org/pdf/2011.11837v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:30:44.924796",
+  "category": "mathematics",
+  "subcategories": [
+    "math.DS",
+    "math.OC"
+  ]
+}

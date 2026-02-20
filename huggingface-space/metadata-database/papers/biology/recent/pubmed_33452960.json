@@ -1,0 +1,30 @@
+{
+  "id": "pubmed_33452960",
+  "pmid": "33452960",
+  "title": "Topological Data Analysis Approaches to Uncovering the Timing of Ring Structure Onset in Filamentous Networks.",
+  "authors": [
+    "Ciocanel, Maria-Veronica",
+    "Juenemann, Riley",
+    "Dawes, Adriana T",
+    "McKinley, Scott A"
+  ],
+  "author_string": "Ciocanel, Maria-Veronica, Juenemann, Riley, Dawes, Adriana T, McKinley, Scott A",
+  "journal": "Bull Math Biol",
+  "journal_full": "Bulletin of mathematical biology",
+  "year": "",
+  "doi": "10.1007/s11538-020-00847-3",
+  "abstract": "In developmental biology as well as in other biological systems, emerging structure and organization can be captured using time-series data of protein locations. In analyzing this time-dependent data, it is a common challenge not only to determine whether topological features emerge, but also to identify the timing of their formation. For instance, in most cells, actin filaments interact with myosin motor proteins and organize into polymer networks and higher-order structures. Ring channels are examples of such structures that maintain constant diameters over time and play key roles in processes such as cell division, development, and wound healing. Given the limitations in studying interactions of actin with myosin in vivo, we generate time-series data of protein polymer interactions in cells using complex agent-based models. Since the data has a filamentous structure, we propose sampling along the actin filaments and analyzing the topological structure of the resulting point cloud at each time. Building on existing tools from persistent homology, we develop a topological data analysis (TDA) method that assesses effective ring generation in this dynamic data. This method connects topological features through time in a path that corresponds to emergence of organization in the data. In this work, we also propose methods for assessing whether the topological features of interest are significant and thus whether they contribute to the formation of an emerging hole (ring channel) in the simulated protein interactions. In particular, we use the MEDYAN simulation platform to show that this technique can distinguish between the actin cytoskeleton organization resulting from distinct motor protein binding parameters.",
+  "keywords": [
+    "Actin filament networks",
+    "Intracellular transport",
+    "Myosin",
+    "Ring channels",
+    "Topological data analysis"
+  ],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/33452960",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T16:59:40.751335",
+  "category": "biology",
+  "subcategories": []
+}

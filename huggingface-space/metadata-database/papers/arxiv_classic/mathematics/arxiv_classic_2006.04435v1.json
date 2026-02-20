@@ -1,0 +1,37 @@
+{
+  "id": "arxiv_2006.04435v1",
+  "arxiv_id": "2006.04435v1",
+  "title": "CAST: A Correlation-based Adaptive Spectral Clustering Algorithm on Multi-scale Data",
+  "authors": [
+    "Xiang Li",
+    "Ben Kao",
+    "Caihua Shan",
+    "Dawei Yin",
+    "Martin Ester"
+  ],
+  "author_string": "Xiang Li, Ben Kao, Caihua Shan, Dawei Yin, Martin Ester",
+  "journal": "arXiv:2006.04435v1",
+  "journal_ref": null,
+  "year": "2020",
+  "doi": null,
+  "abstract": "We study the problem of applying spectral clustering to cluster multi-scale data, which is data whose clusters are of various sizes and densities. Traditional spectral clustering techniques discover clusters by processing a similarity matrix that reflects the proximity of objects. For multi-scale data, distance-based similarity is not effective because objects of a sparse cluster could be far apart while those of a dense cluster have to be sufficiently close. Following [16], we solve the problem of spectral clustering on multi-scale data by integrating the concept of objects' \"reachability similarity\" with a given distance-based similarity to derive an objects' coefficient matrix. We propose the algorithm CAST that applies trace Lasso to regularize the coefficient matrix. We prove that the resulting coefficient matrix has the \"grouping effect\" and that it exhibits \"sparsity\". We show that these two characteristics imply very effective spectral clustering. We evaluate CAST and 10 other clustering methods on a wide range of datasets w.r.t. various measures. Experimental results show that CAST provides excellent performance and is highly robust across test cases of multi-scale data.",
+  "categories": [
+    "cs.LG",
+    "cs.AI",
+    "stat.ML"
+  ],
+  "primary_category": "stat.ML",
+  "comment": null,
+  "published_date": "2020-06-08T09:46:35Z",
+  "updated_date": "2020-06-08T09:46:35Z",
+  "url": "https://arxiv.org/abs/2006.04435v1",
+  "pdf_url": "https://arxiv.org/pdf/2006.04435v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:23.481321",
+  "category": "mathematics",
+  "subcategories": [
+    "cs.LG",
+    "cs.AI",
+    "stat.ML"
+  ]
+}

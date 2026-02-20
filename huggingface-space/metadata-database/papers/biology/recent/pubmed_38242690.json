@@ -1,0 +1,27 @@
+{
+  "id": "pubmed_38242690",
+  "pmid": "38242690",
+  "title": "A Semi-supervised Pipeline for Accurate Neuron Segmentation with Fewer Ground Truth Labels.",
+  "authors": [
+    "Baker, Casey M",
+    "Gong, Yiyang"
+  ],
+  "author_string": "Baker, Casey M, Gong, Yiyang",
+  "journal": "eNeuro",
+  "journal_full": "eNeuro",
+  "year": "",
+  "doi": "10.1523/ENEURO.0352-23.2024",
+  "abstract": "Recent advancements in two-photon calcium imaging have enabled scientists to record the activity of thousands of neurons with cellular resolution. This scope of data collection is crucial to understanding the next generation of neuroscience questions, but analyzing these large recordings requires automated methods for neuron segmentation. Supervised methods for neuron segmentation achieve state of-the-art accuracy and speed but currently require large amounts of manually generated ground truth training labels. We reduced the required number of training labels by designing a semi-supervised pipeline. Our pipeline used neural network ensembling to generate pseudolabels to train a single shallow U-Net. We tested our method on three publicly available datasets and compared our performance to three widely used segmentation methods. Our method outperformed other methods when trained on a small number of ground truth labels and could achieve state-of-the-art accuracy after training on approximately a quarter of the number of ground truth labels as supervised methods. When trained on many ground truth labels, our pipeline attained higher accuracy than that of state-of-the-art methods. Overall, our work will help researchers accurately process large neural recordings while minimizing the time and effort needed to generate manual labels.",
+  "keywords": [
+    "calcium imaging",
+    "deep learning",
+    "neuron segmentation",
+    "semi-supervised"
+  ],
+  "citation_count": null,
+  "url": "https://pubmed.ncbi.nlm.nih.gov/38242690",
+  "source": "pubmed",
+  "acquired_date": "2026-01-10T17:01:11.460112",
+  "category": "biology",
+  "subcategories": []
+}

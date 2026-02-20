@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2601.11190v1",
+  "arxiv_id": "2601.11190v1",
+  "title": "DOREMI: Optimizing Long Tail Predictions in Document-Level Relation Extraction",
+  "authors": [
+    "Laura Menotti",
+    "Stefano Marchesin",
+    "Gianmaria Silvello"
+  ],
+  "author_string": "Laura Menotti, Stefano Marchesin, Gianmaria Silvello",
+  "journal": "arXiv:2601.11190v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Document-Level Relation Extraction (DocRE) presents significant challenges due to its reliance on cross-sentence context and the long-tail distribution of relation types, where many relations have scarce training examples. In this work, we introduce DOcument-level Relation Extraction optiMizing the long taIl (DOREMI), an iterative framework that enhances underrepresented relations through minimal yet targeted manual annotations. Unlike previous approaches that rely on large-scale noisy data or heuristic denoising, DOREMI actively selects the most informative examples to improve training efficiency and robustness. DOREMI can be applied to any existing DocRE model and is effective at mitigating long-tail biases, offering a scalable solution to improve generalization on rare relations.",
+  "categories": [
+    "cs.CL"
+  ],
+  "primary_category": "cs.CL",
+  "comment": "Accepted for publication in Knowledge-Based Systems",
+  "published_date": "2026-01-16T11:04:18Z",
+  "updated_date": "2026-01-16T11:04:18Z",
+  "url": "https://arxiv.org/abs/2601.11190v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11190v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:33.861258",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CL"
+  ]
+}

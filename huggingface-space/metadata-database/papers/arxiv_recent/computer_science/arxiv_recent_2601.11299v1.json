@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2601.11299v1",
+  "arxiv_id": "2601.11299v1",
+  "title": "Automation and Reuse Practices in GitHub Actions Workflows: A Practitioner's Perspective",
+  "authors": [
+    "Hassan Onsori Delicheh",
+    "Guillaume Cardoen",
+    "Alexandre Decan",
+    "Tom Mens"
+  ],
+  "author_string": "Hassan Onsori Delicheh, Guillaume Cardoen, Alexandre Decan, Tom Mens",
+  "journal": "arXiv:2601.11299v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "GitHub natively supports workflow automation through GitHub Actions. Yet, workflow maintenance is often considered a burden for software developers, who frequently face difficulties in writing, testing, debugging, and maintaining workflows. Little knowledge exists concerning the automation and reuse practices favoured by workflow practitioners. We therefore surveyed 419 practitioners to elucidate good and bad workflow development practices and to identify opportunities for supporting workflow maintenance. Specifically, we investigate the tasks that practitioners tend to automate using GitHub Actions, their preferred workflow creation mechanisms, and the non-functional characteristics they prioritise. We also examine the practices and challenges associated with GitHub's workflow reuse mechanisms. We observe a tendency to focus automation efforts on core CI/CD tasks, with less emphasis on crucial areas like security analysis and performance monitoring. Practitioners strongly rely on reusable Actions, but reusable workflows see less frequent adoption. Furthermore, we observed challenges with Action versioning and maintenance. Copy-pasting remains a common practice to have more control and avoid the complexity of depending on reusable components. These insights suggest the need for improved tooling, enhanced support for a wide range of automation tasks, and better mechanisms for discovering, managing, and trusting reusable workflow components.",
+  "categories": [
+    "cs.SE"
+  ],
+  "primary_category": "cs.SE",
+  "comment": "38 pages. Preprint submitted to ACM Transactions on Software Engineering Methodology. Under review. Exact publication details will be provided upon acceptance",
+  "published_date": "2026-01-16T13:54:54Z",
+  "updated_date": "2026-01-16T13:54:54Z",
+  "url": "https://arxiv.org/abs/2601.11299v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.11299v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:33.858487",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.SE"
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "id": "astrophysics-higgs-mechanism",
+  "name": "Higgs Mechanism",
+  "category": "physics",
+  "subcategory": "astrophysics",
+  "subcategory_name": "Astrophysics",
+  "description": "Higgs Mechanism Process. This particle physics process visualization demonstrates the Higgs mechanism and mass generation. The flowchart shows Higgs inputs and spontaneous symmetry breaking, Higgs mechanism methods and mass generation, Higgs mechanism operations and Higgs boson, intermediate results, and final Higgs mechanism outputs.",
+  "complexity": {
+    "nodes": 26,
+    "edges": 24,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    },
+    "level": "medium",
+    "detailLevel": "medium"
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\nA3[Higgs Field] --> B3[Higgs Mechanism Method]\nC3[Spontaneous Symmetry Breaking] --> D3[Mass Generation]\nE3[Higgs Boson] --> F3[Higgs Mechanism Analysis]\nB3 --> G3[Higgs Potential]\nD3 --> H3[Vacuum Expectation Value]\nF3 --> I3[Higgs Boson Detection]\nG3 --> J3[Higgs Mass]\nH3 --> K3[Higgs Coupling]\nI3 --> L3[Higgs Decay]\nJ3 --> M3[Higgs Production]\nK3 --> L3\nL3 --> N3[Higgs Branching Ratio]\nM3 --> O3[Higgs Cross Section]\nN3 --> P3[Higgs Width]\nO3 --> Q3[Higgs Mechanism Process]\nP3 --> R3[Higgs Mechanism Validation]\nQ3 --> S3[Higgs Mechanism Verification]\nR3 --> T3[Higgs Mechanism Result]\nS3 --> U3[Higgs Mechanism Analysis]\nT3 --> V3[Higgs Mechanism Parameters]\nU3 --> W3[Higgs Mechanism Output]\nV3 --> X3[Higgs Mechanism Analysis]\nW3 --> Y3[Higgs Mechanism Final Result]\nX3 --> Z3[Higgs Mechanism Complete]\n\n    style A3 fill:#ff6b6b,color:#fff\n    style C3 fill:#ff6b6b,color:#fff\n    style E3 fill:#ff6b6b,color:#fff\n    style B3 fill:#ffd43b,color:#000\n    style D3 fill:#ffd43b,color:#000\n    style F3 fill:#ffd43b,color:#000\n    style G3 fill:#ffd43b,color:#000\n    style H3 fill:#ffd43b,color:#000\n    style I3 fill:#ffd43b,color:#000\n    style J3 fill:#ffd43b,color:#000\n    style K3 fill:#ffd43b,color:#000\n    style L3 fill:#ffd43b,color:#000\n    style M3 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style O3 fill:#51cf66,color:#fff\n    style P3 fill:#51cf66,color:#fff\n    style Q3 fill:#51cf66,color:#fff\n    style R3 fill:#51cf66,color:#fff\n    style S3 fill:#51cf66,color:#fff\n    style T3 fill:#51cf66,color:#fff\n    style U3 fill:#51cf66,color:#fff\n    style V3 fill:#51cf66,color:#fff\n    style W3 fill:#51cf66,color:#fff\n    style X3 fill:#51cf66,color:#fff\n    style Y3 fill:#51cf66,color:#fff\n    style Z3 fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "authors": "Welz, G.",
+      "journal": "CopernicusAI Knowledge Engine",
+      "year": "2025",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "doi": null,
+      "notes": "Chemistry process visualization: Higgs Mechanism. Created using the Programming Framework methodology for process analysis and visualization."
+    }
+  ],
+  "keywords": [
+    "mechanism",
+    "astrophysics",
+    "higgs"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-01-08",
+  "lastUpdated": "2026-01-08",
+  "verified": false,
+  "notes": "Converted from physics batch HTML. Process number: 3."
+}

@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2602.03605v1",
+  "arxiv_id": "2602.03605v1",
+  "title": "Lee-Yang tensors and Hamiltonian complexity",
+  "authors": [
+    "Benjamin Wong",
+    "Sergey Bravyi",
+    "David Gosset",
+    "Yinchen Liu"
+  ],
+  "author_string": "Benjamin Wong, Sergey Bravyi, David Gosset, Yinchen Liu",
+  "journal": "arXiv:2602.03605v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "A complex tensor with $n$ binary indices can be identified with a multilinear polynomial in $n$ complex variables. We say it is a Lee-Yang tensor with radius $r$ if the polynomial is nonzero whenever all variables lie in the open disk of radius $r$. In this work we study quantum states and observables which are Lee-Yang tensors when expressed in the computational basis. We first review their basic properties, including closure under tensor contraction and certain quantum operations. We show that quantum states with Lee-Yang radius $r > 1$ can be prepared by quasipolynomial-sized circuits. We also show that every Hermitian operator with Lee-Yang radius $r > 1$ has a unique principal eigenvector. These results suggest that $r = 1$ is a key threshold for quantum states and observables. Finally, we consider a family of two-local Hamiltonians where every interaction term energetically favors a deformed EPR state $|00\\rangle + s|11\\rangle$ for some $0 \\leq s \\leq 1$. We numerically investigate this model and find that on all graphs considered the Lee-Yang radius of the ground state is at least $r = 1/\\sqrt{s}$ while the spectral gap between the two smallest eigenvalues is at least $1-s^2$. We conjecture that these lower bounds hold more generally; in particular, this would provide an efficient quantum adiabatic algorithm for the quantum Max-Cut problem on uniformly weighted bipartite graphs.",
+  "categories": [
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": "37 pages, 6 figures",
+  "published_date": "2026-02-03T14:57:04Z",
+  "updated_date": "2026-02-03T14:57:04Z",
+  "url": "https://arxiv.org/abs/2602.03605v1",
+  "pdf_url": "https://arxiv.org/pdf/2602.03605v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-02-04T07:47:26.360195",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph"
+  ]
+}

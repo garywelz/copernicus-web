@@ -1,0 +1,28 @@
+{
+  "id": "triangle-area-calculation",
+  "title": "Triangle Area Calculation",
+  "description": "Calculate area of triangle using various formulas",
+  "category": "mathematics",
+  "subcategory": "euclidean_geometry",
+  "mermaid": "graph TD A1[Start] --> B1[Input Triangle Data] style A1 fill:#ff6b6b,color:#fff style B1 fill:#ff6b6b,color:#fff B1 --> C1{\"Base & Height Provided?\"} style C1 fill:#ffd43b,color:#000 C1 -- Yes --> D1[Area = 0.5 * Base * Height] style D1 fill:#51cf66,color:#fff D1 --> E1[Calculate Area] style E1 fill:#51cf66,color:#fff E1 --> J1[Area] style J1 fill:#b197fc,color:#fff C1 -- No --> F1{\"Three Sides (a, b, c) Provided?\"} style F1 fill:#ffd43b,color:#000 F1 -- Yes --> G1[Calculate Semi-perimeter s = (a + b + c) / 2] style G1 fill:#51cf66,color:#fff G1 --> H1[Area = sqrt(s * (s - a) * (s - b) * (s - c))] style H1 fill:#51cf66,color:#fff H1 --> J1 F1 -- No --> I1{\"Two Sides (a, b) & Included Angle (C) Provided?\"} style I1 fill:#ffd43b,color:#000 I1 -- Yes --> K1[Area = 0.5 * a * b * sin(C)] style K1 fill:#51cf66,color:#fff K1 --> J1 I1 -- No --> L1[Insufficient Information] style L1 fill:#b197fc,color:#fff L1 --> J1 J1 --> M1[End] style M1 fill:#ff6b6b,color:#fff",
+  "entities": [
+    "Start",
+    "Input Triangle Data",
+    "\"Base & Height Provided?\"} style C1 fill:#ffd43b,color:#000 C1 -- Yes --> D1[Area = 0.5 * Base * Height",
+    "Calculate Area",
+    "Area",
+    "\"Three Sides (a, b, c) Provided?\"} style F1 fill:#ffd43b,color:#000 F1 -- Yes --> G1[Calculate Semi-perimeter s = (a + b + c) / 2",
+    "Area = sqrt(s * (s - a) * (s - b) * (s - c))",
+    "\"Two Sides (a, b) & Included Angle (C) Provided?\"} style I1 fill:#ffd43b,color:#000 I1 -- Yes --> K1[Area = 0.5 * a * b * sin(C)",
+    "Insufficient Information",
+    "End"
+  ],
+  "metadata": {
+    "source": "programming_framework",
+    "color_scheme": "discipline_based",
+    "node_count": 10,
+    "complexity": "low"
+  },
+  "sources": [],
+  "source_text": "Source information to be added - please specify the book, paper, or reference material used by the LLM to generate this flowchart."
+}

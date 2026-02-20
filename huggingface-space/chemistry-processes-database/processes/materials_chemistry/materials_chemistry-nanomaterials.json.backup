@@ -1,0 +1,90 @@
+{
+  "category": "chemistry",
+  "colorScheme": {
+    "blue": {
+      "category": "Intermediates & States",
+      "hex": "#74c0fc"
+    },
+    "green": {
+      "category": "Processing & Operations",
+      "hex": "#51cf66"
+    },
+    "red": {
+      "category": "Triggers & Inputs",
+      "hex": "#ff6b6b"
+    },
+    "violet": {
+      "category": "Products & Outputs",
+      "hex": "#b197fc"
+    },
+    "yellow": {
+      "category": "Structures & Objects",
+      "hex": "#ffd43b"
+    }
+  },
+  "complexity": {
+    "conditionals": 0,
+    "detailLevel": "medium",
+    "edges": 24,
+    "level": "medium",
+    "logicGates": {
+      "andGates": 0,
+      "orGates": 28,
+      "total": 28
+    },
+    "nodes": 26
+  },
+  "created": "2026-01-08",
+  "description": "Nanomaterials Process. This materials chemistry process visualization demonstrates nanoparticle synthesis and assembly. The flowchart shows synthesis inputs and size control, nanomaterials methods and surface modification, nanomaterials operations and assembly analysis, intermediate results, and final nanomaterials outputs.",
+  "id": "materials_chemistry-nanomaterials",
+  "keywords": [
+    "surface",
+    "synthesis",
+    "nanomaterials"
+  ],
+  "lastUpdated": "2026-01-08",
+  "mermaid": "graph TD\nA2[Nanoparticle Synthesis] --> B2[Nanomaterials Method]\nC2[Size Control] --> D2[Surface Modification]\nE2[Assembly Process] --> F2[Nanomaterials Analysis]\nB2 --> G2[Bottom Up Synthesis]\nD2 --> H2[Top Down Synthesis]\nF2 --> I2[Self Assembly]\nG2 --> J2[Chemical Vapor Deposition]\nH2 --> K2[Physical Vapor Deposition]\nI2 --> L2[Template Synthesis]\nJ2 --> M2[Nucleation Growth]\nK2 --> L2\nL2 --> N2[Size Distribution]\nM2 --> O2[Surface Chemistry]\nN2 --> P2[Optical Properties]\nO2 --> Q2[Nanomaterials Process]\nP2 --> R2[Nanomaterials Validation]\nQ2 --> S2[Nanomaterials Verification]\nR2 --> T2[Nanomaterials Result]\nS2 --> U2[Nanomaterials Analysis]\nT2 --> V2[Nanomaterials Parameters]\nU2 --> W2[Nanomaterials Output]\nV2 --> X2[Nanomaterials Analysis]\nW2 --> Y2[Nanomaterials Final Result]\nX2 --> Z2[Nanomaterials Process Complete]\n\n    style A2 fill:#ff6b6b,color:#fff\n    style C2 fill:#ff6b6b,color:#fff\n    style E2 fill:#ff6b6b,color:#fff\n    style B2 fill:#ffd43b,color:#000\n    style D2 fill:#ffd43b,color:#000\n    style F2 fill:#ffd43b,color:#000\n    style G2 fill:#ffd43b,color:#000\n    style H2 fill:#ffd43b,color:#000\n    style I2 fill:#ffd43b,color:#000\n    style J2 fill:#ffd43b,color:#000\n    style K2 fill:#ffd43b,color:#000\n    style L2 fill:#ffd43b,color:#000\n    style M2 fill:#51cf66,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style O2 fill:#51cf66,color:#fff\n    style P2 fill:#51cf66,color:#fff\n    style Q2 fill:#51cf66,color:#fff\n    style R2 fill:#51cf66,color:#fff\n    style S2 fill:#51cf66,color:#fff\n    style T2 fill:#51cf66,color:#fff\n    style U2 fill:#51cf66,color:#fff\n    style V2 fill:#51cf66,color:#fff\n    style W2 fill:#51cf66,color:#fff\n    style X2 fill:#51cf66,color:#fff\n    style Y2 fill:#51cf66,color:#fff\n    style Z2 fill:#b197fc,color:#fff",
+  "name": "Nanomaterials",
+  "notes": "Converted from chemistry batch HTML. Process number: 2.",
+  "relatedProcesses": [],
+  "sources": [
+    {
+      "authors": "Welz, G.",
+      "doi": null,
+      "journal": "CopernicusAI Knowledge Engine",
+      "notes": "Chemistry process visualization: Nanomaterials. Created using the Programming Framework methodology for process analysis and visualization.",
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "year": "2025"
+    },
+    {
+      "authors": "Daniel, M.-C.; Astruc, D.",
+      "doi": "10.1021/cr030069a",
+      "journal": "Chem. Rev.",
+      "pubmed": null,
+      "title": "Gold Nanoparticles: Assembly, Supramolecular Chemistry, Quantum-Size-Related Properties, and Applications toward Biology, Catalysis, and Nanotechnology",
+      "url": "https://doi.org/10.1021/cr030069a",
+      "year": "2004"
+    },
+    {
+      "authors": "Whitesides, G. M.; Grzybowski, B.",
+      "doi": "10.1126/science.1070821",
+      "journal": "Science",
+      "pubmed": "11923447",
+      "title": "Self-Assembly at All Scales",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/11923447",
+      "year": "2002"
+    },
+    {
+      "authors": "Murray, C. B.; Norris, D. J.; Bawendi, M. G.",
+      "doi": "10.1021/ja00072a025",
+      "journal": "J. Am. Chem. Soc.",
+      "pubmed": null,
+      "title": "Synthesis and Characterization of Nearly Monodisperse CdE (E = S, Se, Te) Semiconductor Nanocrystallites",
+      "url": "https://doi.org/10.1021/ja00072a025",
+      "year": "1993"
+    }
+  ],
+  "subcategory": "materials_chemistry",
+  "verified": false
+}

@@ -1,0 +1,37 @@
+{
+  "id": "arxiv_2005.13884v1",
+  "arxiv_id": "2005.13884v1",
+  "title": "CGGAN: A Context Guided Generative Adversarial Network For Single Image Dehazing",
+  "authors": [
+    "Zhaorun Zhou",
+    "Zhenghao Shi",
+    "Mingtao Guo",
+    "Yaning Feng",
+    "Minghua Zhao"
+  ],
+  "author_string": "Zhaorun Zhou, Zhenghao Shi, Mingtao Guo, Yaning Feng, Minghua Zhao",
+  "journal": "arXiv:2005.13884v1",
+  "journal_ref": null,
+  "year": "2020",
+  "doi": null,
+  "abstract": "Image haze removal is highly desired for the application of computer vision. This paper proposes a novel Context Guided Generative Adversarial Network (CGGAN) for single image dehazing. Of which, an novel new encoder-decoder is employed as the generator. And it consists of a feature-extraction-net, a context-extractionnet, and a fusion-net in sequence. The feature extraction-net acts as a encoder, and is used for extracting haze features. The context-extraction net is a multi-scale parallel pyramid decoder, and is used for extracting the deep features of the encoder and generating coarse dehazing image. The fusion-net is a decoder, and is used for obtaining the final haze-free image. To obtain more better results, multi-scale information obtained during the decoding process of the context extraction decoder is used for guiding the fusion decoder. By introducing an extra coarse decoder to the original encoder-decoder, the CGGAN can make better use of the deep feature information extracted by the encoder. To ensure our CGGAN work effectively for different haze scenarios, different loss functions are employed for the two decoders. Experiments results show the advantage and the effectiveness of our proposed CGGAN, evidential improvements over existing state-of-the-art methods are obtained.",
+  "categories": [
+    "cs.CV",
+    "cs.MM",
+    "eess.IV"
+  ],
+  "primary_category": "eess.IV",
+  "comment": "12 pages, 7 figures, 3 tables",
+  "published_date": "2020-05-28T10:14:30Z",
+  "updated_date": "2020-05-28T10:14:30Z",
+  "url": "https://arxiv.org/abs/2005.13884v1",
+  "pdf_url": "https://arxiv.org/pdf/2005.13884v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:31:27.417231",
+  "category": "interdisciplinary",
+  "subcategories": [
+    "cs.CV",
+    "cs.MM",
+    "eess.IV"
+  ]
+}

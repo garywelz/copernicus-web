@@ -1,0 +1,29 @@
+{
+  "id": "arxiv_2601.06731v1",
+  "arxiv_id": "2601.06731v1",
+  "title": "Reconfiguration of Hamiltonian Cycles in Rectangular Grid Graphs",
+  "authors": [
+    "Albi Kazazi"
+  ],
+  "author_string": "Albi Kazazi",
+  "journal": "arXiv:2601.06731v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "An \\textit{\\(m \\times n\\) grid graph} is the induced subgraph of the square lattice whose vertex set consists of all integer grid points \\(\\{(i,j) : 0 \\leq i < m,\\ 0 \\leq j < n\\}\\). Let $H$ and $K$ be Hamiltonian cycles in an $m \\times n$ grid graph $G$. We study the problem of reconfiguring $H$ into $K$, \\textcolor{blue}{\\textbullet} where the Hamiltonian cycles are viewed as vertices of a reconfiguration graph \\textcolor{blue}{\\textbullet}, using a sequence of local transformations called \\textit{moves}. A \\textit{box} of $G$ is a unit square face. A box with vertices $a, b, c, d$ is \\textit{switchable} in $H$ if exactly two of its edges belong to $H$, and these edges are parallel. Given such a box with edges $ab$ and $cd$ in $H$, a \\textit{switch move} removes $ab$ and $cd$, and adds $bc$ and $ad$. A \\textit{double-switch move} consists of performing two consecutive switch moves. If, after a double-switch move, we obtain a Hamiltonian cycle, we say that the double-switch move is \\textit{valid}.   We prove that any Hamiltonian cycle $H$ can be transformed into any other Hamiltonian cycle $K$ via a sequence of valid double-switch moves, such that every intermediate graph remains a Hamiltonian cycle. Moreover, assuming $n \\geq m$, the number of required moves is bounded by $mn^2$.",
+  "categories": [
+    "math.CO"
+  ],
+  "primary_category": "math.CO",
+  "comment": "This paper is part of the author's dissertation \"Reconfiguration of Hamiltonian Cycles and Paths in Rectangular Grid Graphs\", York University, Toronto, 2025",
+  "published_date": "2026-01-11T00:48:53Z",
+  "updated_date": "2026-01-11T00:48:53Z",
+  "url": "https://arxiv.org/abs/2601.06731v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.06731v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:18.736189",
+  "category": "mathematics",
+  "subcategories": [
+    "math.CO"
+  ]
+}

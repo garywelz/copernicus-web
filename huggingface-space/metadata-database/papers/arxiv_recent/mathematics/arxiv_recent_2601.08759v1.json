@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2601.08759v1",
+  "arxiv_id": "2601.08759v1",
+  "title": "Convergence analysis and adaptive computation of a Banach-space mixed finite element method for generalized bioconvective flows",
+  "authors": [
+    "Eligio Colmenares",
+    "Ricardo Ruiz-Baier",
+    "Dalidet Sanhueza"
+  ],
+  "author_string": "Eligio Colmenares, Ricardo Ruiz-Baier, Dalidet Sanhueza",
+  "journal": "arXiv:2601.08759v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We develop and analyse an adaptive fully mixed finite element method for stationary generalized bioconvective flows, where the Navier--Stokes equations with concentration-dependent viscosity are coupled with a conservation law for swimming microorganisms. The formulation introduces auxiliary variables including the trace-free velocity gradient, a symmetric pseudo-stress tensor, the concentration gradient, and a semi-advective microorganism flux, which also allows for a consistent treatment of Robin-type boundary condition. The variational problem is posed within a Banach space framework and reformulated as a fixed-point operator. Existence of solutions follows from Schauder's theorem, while uniqueness is obtained under suitable data assumptions. The discrete problem is constructed using Raviart--Thomas finite element spaces together with piecewise polynomial approximations on macroelement-structured meshes, and existence of discrete solutions is established via Brouwer's theorem. An a priori error analysis yields optimal convergence rates. We further derive a residual-based a posteriori error estimator and prove its reliability using global inf-sup conditions, Helmholtz decompositions, and suitable projection operators, while efficiency is ensured through localization techniques and bubble functions. Numerical experiments in two and three dimensions confirm the theoretical results, demonstrate the effectiveness of adaptive refinement for singular solutions and complex geometries with inclusions, and illustrate the robustness of the method for a bioconvective benchmark with plume formation governed by an Einstein--Batchelor-type viscosity law.",
+  "categories": [
+    "math.NA"
+  ],
+  "primary_category": "math.NA",
+  "comment": null,
+  "published_date": "2026-01-13T17:42:49Z",
+  "updated_date": "2026-01-13T17:42:49Z",
+  "url": "https://arxiv.org/abs/2601.08759v1",
+  "pdf_url": "https://arxiv.org/pdf/2601.08759v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-01-18T21:20:03.407388",
+  "category": "mathematics",
+  "subcategories": [
+    "math.NA"
+  ]
+}
