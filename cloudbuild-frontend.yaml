@@ -1,0 +1,53 @@
+# Google Cloud Build configuration for Frontend Cloud Run deployment
+steps:
+  # Build the container image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [
+      'build', 
+      '--build-arg', 'NEXT_PUBLIC_API_URL=https://copernicus-podcast-api-phzp4ie2sq-uc.a.run.app',
+      '-t', 'gcr.io/$PROJECT_ID/copernicus-frontend:$BUILD_ID',
+      '-t', 'gcr.io/$PROJECT_ID/copernicus-frontend:latest',
+      '.'
+    ]
+    env:
+      - 'NEXT_PUBLIC_API_URL=https://copernicus-podcast-api-phzp4ie2sq-uc.a.run.app'
+
+  # Push the container image to Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/copernicus-frontend:$BUILD_ID']
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/copernicus-frontend:latest']
+
+  # Deploy to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args: [
+      'run', 'deploy', 'copernicus-frontend',
+      '--image', 'gcr.io/$PROJECT_ID/copernicus-frontend:$BUILD_ID',
+      '--region', 'us-central1',
+      '--platform', 'managed',
+      '--allow-unauthenticated',
+      '--memory', '1Gi',
+      '--cpu', '1',
+      '--timeout', '300',
+      '--concurrency', '80',
+      '--max-instances', '10',
+      '--port', '3000',
+      '--set-env-vars', 'NEXT_PUBLIC_API_URL=https://copernicus-podcast-api-phzp4ie2sq-uc.a.run.app'
+    ]
+
+# Store images in Container Registry
+images:
+  - 'gcr.io/$PROJECT_ID/copernicus-frontend:$BUILD_ID'
+  - 'gcr.io/$PROJECT_ID/copernicus-frontend:latest'
+
+# Build options
+options:
+  machineType: 'E2_HIGHCPU_8'
+  diskSizeGb: 100
+  logging: CLOUD_LOGGING_ONLY
+
+# Timeout for the entire build
+timeout: '1800s'
+
