@@ -1,0 +1,28 @@
+**/.git/**
+**/.venv/**
+**/node_modules/**
+**/build/**
+**/dist/**
+**/.next/**
+**/.cache/**
+**/coverage/**
+ 
+# big/binary
+**/*.pdf
+**/*.png
+**/*.jpg
+**/*.jpeg
+**/*.gif
+**/*.webp
+**/*.zip
+**/*.tar
+**/*.gz
+ 
+# latex outputs
+**/*.aux
+**/*.bbl
+**/*.blg
+**/*.log
+**/*.synctex.gz
+**/*.fdb_latexmk
+**/*.fls
