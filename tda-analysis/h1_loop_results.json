@@ -1,0 +1,184 @@
+[
+  {
+    "rank": 1,
+    "birth": 1.0956487655639648,
+    "death": 1.6585628986358643,
+    "persistence": 0.5629141330718994,
+    "n_processes": 10,
+    "process_names": [
+      "Base Excision Repair (BER)",
+      "E. coli Biofilm Formation",
+      "Outer Membrane Protein Assembly via BAM Complex",
+      "E. coli Quorum Sensing",
+      "Ribosome Assembly and Maturation",
+      "RNA Polymerase Recycling and Reinitiation",
+      "E. coli SOS Response",
+      "E. coli Type III Secretion System",
+      "Ubiquitin-Proteasome System and Protein Degradation",
+      "Yeast Unfolded Protein Response (UPR)"
+    ],
+    "process_ids": [
+      "ecoli_base_excision_repair",
+      "ecoli_biofilm_formation",
+      "ecoli_outer_membrane_assembly",
+      "ecoli_quorum_sensing",
+      "ecoli_ribosome_assembly",
+      "ecoli_rna_polymerase_recycling",
+      "ecoli_sos_response",
+      "ecoli_type_iii_secretion",
+      "yeast_ubiquitin_proteasome",
+      "yeast_unfolded_protein_response"
+    ],
+    "organisms": [
+      "E. coli",
+      "S. cerevisiae"
+    ],
+    "categories": [
+      "Protein Quality Control",
+      "Translation Machinery",
+      "Protein Transport",
+      "Signal Transduction",
+      "Stress Response",
+      "Gene Expression",
+      "DNA Repair"
+    ],
+    "n_feedback": 2
+  },
+  {
+    "rank": 2,
+    "birth": 1.1502716541290283,
+    "death": 1.5933409929275513,
+    "persistence": 0.44306933879852295,
+    "n_processes": 6,
+    "process_names": [
+      "Antibiotic Efflux Pumps",
+      "Arginine Biosynthesis and Regulation",
+      "E. coli Osmotic Stress Response",
+      "Tryptophan Biosynthesis via Anthranilate",
+      "Yeast Peroxisome Biogenesis",
+      "Yeast Vacuolar Protein Sorting"
+    ],
+    "process_ids": [
+      "ecoli_antibiotic_efflux_pumps",
+      "ecoli_arginine_biosynthesis",
+      "ecoli_e._coli_osmotic_stress_response",
+      "ecoli_tryptophan_biosynthesis",
+      "yeast_yeast_peroxisome_biogenesis",
+      "yeast_yeast_vacuolar_protein_sorting"
+    ],
+    "organisms": [
+      "E. coli",
+      "S. cerevisiae"
+    ],
+    "categories": [
+      "Metabolic Regulation",
+      "Metabolic Pathway",
+      "Stress Response",
+      "Biological Process"
+    ],
+    "n_feedback": 1
+  },
+  {
+    "rank": 3,
+    "birth": 1.3252794742584229,
+    "death": 1.631438970565796,
+    "persistence": 0.30615949630737305,
+    "n_processes": 6,
+    "process_names": [
+      "E. coli Biofilm Formation",
+      "DNA Replication Elongation",
+      "E. coli Flagellar Assembly",
+      "E. coli Osmotic Stress Response",
+      "Sigma Factor Competition and Global Transcriptional Control",
+      "Yeast Peroxisome Biogenesis"
+    ],
+    "process_ids": [
+      "ecoli_biofilm_formation",
+      "ecoli_dna_replication_elongation",
+      "ecoli_e._coli_flagellar_assembly",
+      "ecoli_e._coli_osmotic_stress_response",
+      "ecoli_sigma_factor_competition",
+      "yeast_yeast_peroxisome_biogenesis"
+    ],
+    "organisms": [
+      "E. coli",
+      "S. cerevisiae"
+    ],
+    "categories": [
+      "Gene Regulation",
+      "DNA Replication",
+      "Biological Process",
+      "Signal Transduction",
+      "Stress Response"
+    ],
+    "n_feedback": 2
+  },
+  {
+    "rank": 4,
+    "birth": 1.1491798162460327,
+    "death": 1.4278504848480225,
+    "persistence": 0.27867066860198975,
+    "n_processes": 6,
+    "process_names": [
+      "Phosphate Regulation",
+      "Translation Elongation",
+      "Translation Termination and Ribosome Recycling",
+      "Tryptophan Biosynthesis via Anthranilate",
+      "Osmotic Stress Response",
+      "Sporulation Initiation and Spo0A Phosphorelay"
+    ],
+    "process_ids": [
+      "ecoli_phosphate_regulation",
+      "ecoli_translation_elongation",
+      "ecoli_translation_termination",
+      "ecoli_tryptophan_biosynthesis",
+      "yeast_osmotic_stress_response",
+      "bacillus_sporulation_initiation"
+    ],
+    "organisms": [
+      "Bacillus subtilis",
+      "E. coli",
+      "S. cerevisiae"
+    ],
+    "categories": [
+      "Gene Regulation",
+      "Metabolic Pathway",
+      "Stress Response",
+      "Protein Synthesis",
+      "Developmental Decision"
+    ],
+    "n_feedback": 1
+  },
+  {
+    "rank": 5,
+    "birth": 0.9002270698547363,
+    "death": 1.0985857248306274,
+    "persistence": 0.1983586549758911,
+    "n_processes": 5,
+    "process_names": [
+      "Arabinose Operon and AraC Dual Regulation",
+      "Maltose Regulon and Multi-Operon Coordination",
+      "Phosphate Starvation Response (Pho Regulon)",
+      "Nitrogen Catabolite Repression (NCR) and TORC1 Signaling",
+      "Competence Development and DNA Uptake"
+    ],
+    "process_ids": [
+      "ecoli_ara_operon",
+      "ecoli_mal_regulon",
+      "ecoli_pho_regulon",
+      "yeast_nitrogen_metabolism",
+      "bacillus_competence_development"
+    ],
+    "organisms": [
+      "Bacillus subtilis",
+      "E. coli",
+      "S. cerevisiae"
+    ],
+    "categories": [
+      "Metabolic Regulation",
+      "Developmental Decision",
+      "Gene Regulation"
+    ],
+    "n_feedback": 1
+  }
+]
