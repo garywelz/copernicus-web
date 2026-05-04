@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fundamental Theorem of Arithmetic - Proof Graph Pilot</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #0f172a;
+      --panel: #111827;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --accent: #60a5fa;
+      --border: #334155;
+      --code-bg: #020617;
+    }
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #f8fafc;
+        --panel: #ffffff;
+        --text: #111827;
+        --muted: #4b5563;
+        --accent: #2563eb;
+        --border: #d1d5db;
+        --code-bg: #f1f5f9;
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    main {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 36px 20px 64px;
+    }
+    article {
+      border: 1px solid var(--border);
+      background: var(--panel);
+      border-radius: 14px;
+      padding: 28px;
+    }
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 18px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+    nav a, a { color: var(--accent); }
+    h1 { margin-top: 0; font-size: 2rem; line-height: 1.2; }
+    h2 { margin-top: 2rem; border-top: 1px solid var(--border); padding-top: 1.2rem; }
+    h3 { margin-top: 1.6rem; }
+    p, li { color: var(--text); }
+    ul, ol { padding-left: 1.35rem; }
+    code {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.05rem 0.25rem;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 0.92em;
+    }
+    pre {
+      overflow-x: auto;
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+    }
+    pre code { background: transparent; border: 0; padding: 0; }
+    .mermaid {
+      background: #ffffff;
+      color: #111827;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin: 18px 0;
+      padding: 18px;
+      overflow-x: auto;
+    }
+    .mermaid svg { max-width: 100%; height: auto; }
+    .proof-legend {
+      margin-top: 28px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      background: color-mix(in srgb, var(--panel) 88%, var(--accent));
+    }
+    .proof-legend h2 {
+      border-top: 0;
+      margin: 0 0 12px;
+      padding-top: 0;
+      font-size: 1.05rem;
+    }
+    .proof-legend-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 10px 14px;
+    }
+    .proof-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text);
+      font-size: 0.92rem;
+    }
+    .proof-legend-swatch {
+      width: 18px;
+      height: 18px;
+      border-radius: 5px;
+      border: 2px solid currentColor;
+      flex: 0 0 auto;
+    }
+    .legend-source { background: #e0f2fe; color: #0369a1; }
+    .legend-assumption { background: #fef3c7; color: #b45309; }
+    .legend-construction { background: #dcfce7; color: #15803d; }
+    .legend-assertion { background: #ede9fe; color: #7c3aed; }
+    .legend-inference { background: #fce7f3; color: #be185d; }
+    .legend-algorithm { background: #e0e7ff; color: #4338ca; }
+    .legend-contradiction { background: #fee2e2; color: #dc2626; }
+    .legend-conclusion { background: #ccfbf1; color: #0f766e; }
+    .source-note {
+      margin-top: 32px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+</style>
+</head>
+<body>
+  <main>
+    <nav>
+      <a href="index.html">Proof Graph Pilot</a>
+      <span>/</span>
+      <a href="../mathematics-database-table.html">Mathematics Database</a>
+      <span>/</span>
+      <a href="fundamental-theorem-arithmetic.md">View Markdown source</a>
+    </nav>
+    <article>
+<h1>Fundamental Theorem of Arithmetic</h1>
+<p>This is the pilot&#x27;s final, more complicated theorem. It tests whether proof graphs can show nested structure without becoming unreadable: existence, uniqueness, induction, Euclid&#x27;s lemma, and a factorization procedure all appear in one theorem.</p>
+<h2>Theorem</h2>
+<p>Every integer greater than 1 can be expressed as a product of primes, and this expression is unique up to the order of the factors.</p>
+<p>Metadata:</p>
+<ul>
+<li><code>id</code>: <code>fundamental-theorem-arithmetic</code></li>
+<li><code>graph_kind</code>: <code>hybrid</code></li>
+<li><code>granularity</code>: <code>medium</code></li>
+<li><code>temporary_assumptions</code>: induction and contradiction</li>
+<li><code>algorithm_capsules</code>: recursive factorization search</li>
+<li><code>complexity</code>: 27 nodes, 34 edges, depth 9</li>
+</ul>
+<p>Source note: a standard elementary proof. Existence is proved by strong induction or descent. Uniqueness is proved using Euclid&#x27;s lemma: if a prime divides a product, it divides one of the factors.</p>
+<h2>Main Proof Graph</h2>
+<pre class="mermaid">flowchart TD
+  theorem[&quot;Target: every integer greater than 1 has a unique prime factorization&quot;] --&gt; split[&quot;Branch: prove existence and uniqueness&quot;]
+
+  subgraph existenceBranch [Existence Branch]
+    nGreaterOne[&quot;Given: n greater than 1&quot;] --&gt; primeCase{&quot;Is n prime?&quot;}
+    defPrime[&quot;Definition: prime number&quot;] --&gt; primeCase
+    primeCase --&gt;|&quot;yes&quot;| nItself[&quot;Assertion: n is a one-factor prime product&quot;]
+    primeCase --&gt;|&quot;no&quot;| composite[&quot;Assertion: n is composite&quot;]
+    defComposite[&quot;Definition: composite number&quot;] --&gt; composite
+    composite --&gt; factorsAB[&quot;Construction: n equals a times b with 1 less than a,b less than n&quot;]
+    strongInduction[&quot;Strong induction hypothesis: smaller integers have prime factorizations&quot;] --&gt; factorA[&quot;Assertion: a has a prime factorization&quot;]
+    strongInduction --&gt; factorB[&quot;Assertion: b has a prime factorization&quot;]
+    factorsAB --&gt; factorA
+    factorsAB --&gt; factorB
+    factorA --&gt; combineFactors[&quot;Inference: combine prime factors of a and b&quot;]
+    factorB --&gt; combineFactors
+    combineFactors --&gt; existenceConclusion[&quot;Conclusion: n has a prime factorization&quot;]
+    nItself --&gt; existenceConclusion
+  end
+
+  subgraph uniquenessBranch [Uniqueness Branch]
+    twoFacts[&quot;Assume: n has two prime factorizations&quot;] --&gt; equation[&quot;Assertion: p1...pk equals q1...qm&quot;]
+    equation --&gt; p1DividesProduct[&quot;Assertion: p1 divides q1...qm&quot;]
+    euclidLemma[&quot;Euclid&#x27;s lemma: prime dividing product divides some factor&quot;] --&gt; p1DividesSomeQ[&quot;Assertion: p1 divides qj for some j&quot;]
+    p1DividesProduct --&gt; p1DividesSomeQ
+    p1Prime[&quot;Definition: qj is prime&quot;] --&gt; p1EqualsQj[&quot;Assertion: p1 equals qj&quot;]
+    p1DividesSomeQ --&gt; p1EqualsQj
+    p1EqualsQj --&gt; cancelEqualPrime[&quot;Inference: cancel matching prime factor&quot;]
+    cancellation[&quot;Cancellation law for integers&quot;] --&gt; cancelEqualPrime
+    cancelEqualPrime --&gt; reduceEquation[&quot;Assertion: remaining products are equal&quot;]
+    reduceEquation --&gt; repeatArgument[&quot;Inference: repeat by induction on number of factors&quot;]
+    repeatArgument --&gt; sameMultiset[&quot;Conclusion: the two lists contain the same primes up to order&quot;]
+  end
+
+  split --&gt; nGreaterOne
+  split --&gt; twoFacts
+  existenceConclusion --&gt; theoremConclusion[&quot;Conclusion: existence and uniqueness both hold&quot;]
+  sameMultiset --&gt; theoremConclusion</pre>
+<h2>Algorithm Capsule: Recursive Factorization Search</h2>
+<p>This procedure is not the theorem itself, but it is naturally called by the constructive part of the existence proof.</p>
+<pre class="mermaid">flowchart LR
+  inputN[&quot;Input: integer n greater than 1&quot;] --&gt; testPrime{&quot;Is n prime?&quot;}
+  testPrime --&gt;|&quot;yes&quot;| outputN[&quot;Output: list containing n&quot;]
+  testPrime --&gt;|&quot;no&quot;| findDivisor[&quot;Find divisor d with 1 less than d less than n&quot;]
+  findDivisor --&gt; quotient[&quot;Set e equal to n divided by d&quot;]
+  quotient --&gt; recurseD[&quot;Factor d recursively&quot;]
+  quotient --&gt; recurseE[&quot;Factor e recursively&quot;]
+  recurseD --&gt; concatenate[&quot;Concatenate the two factor lists&quot;]
+  recurseE --&gt; concatenate
+  concatenate --&gt; outputFactors[&quot;Output: prime factor list for n&quot;]</pre>
+<h2>Dependency Capsule: Euclid&#x27;s Lemma</h2>
+<p>The uniqueness branch depends heavily on Euclid&#x27;s lemma. If the database later supports expandable lemma nodes, this proof should be expandable.</p>
+<pre class="mermaid">flowchart TD
+  primeP[&quot;Given: p is prime&quot;] --&gt; dividesAB[&quot;Given: p divides a times b&quot;]
+  notDividesA[&quot;Assume: p does not divide a&quot;] --&gt; coprimePA[&quot;Assertion: gcd of p and a equals 1&quot;]
+  primeP --&gt; coprimePA
+  bezout[&quot;Bezout identity or Euclidean lemma precursor&quot;] --&gt; linearCombo[&quot;Assertion: xp plus ya equals 1&quot;]
+  coprimePA --&gt; linearCombo
+  linearCombo --&gt; multiplyByB[&quot;Inference: multiply equation by b&quot;]
+  dividesAB --&gt; pDividesYAB[&quot;Assertion: p divides y times a times b&quot;]
+  multiplyByB --&gt; pDividesB[&quot;Assertion: p divides b&quot;]
+  pDividesYAB --&gt; pDividesB
+  pDividesB --&gt; lemmaConclusion[&quot;Conclusion: p divides a or p divides b&quot;]</pre>
+<h2>Structural Notes</h2>
+<p>The theorem should remain a hybrid graph. The proof dependencies are the main object, but the existence branch naturally invokes a procedure that can be displayed as a flowchart. The uniqueness branch should not be flowcharted; it is a logical dependency chain governed by Euclid&#x27;s lemma and induction on factor lists.</p>
+<p>This example also suggests a future database feature: expandable dependency nodes. <code>Euclid&#x27;s lemma</code>, <code>strong induction</code>, and <code>cancellation law</code> can be leaf nodes in the top-level graph, but each can also open into its own proof graph.</p>
+      <section class="proof-legend" aria-label="Proof graph color legend">
+        <h2>Proof Graph Color Legend</h2>
+        <div class="proof-legend-grid">
+          <div class="proof-legend-item"><span class="proof-legend-swatch legend-source"></span><span>Source / given / definition / lemma</span></div>
+          <div class="proof-legend-item"><span class="proof-legend-swatch legend-assumption"></span><span>Assumption or temporary hypothesis</span></div>
+          <div class="proof-legend-item"><span class="proof-legend-swatch legend-construction"></span><span>Construction or introduced object</span></div>
+          <div class="proof-legend-item"><span class="proof-legend-swatch legend-assertion"></span><span>Assertion established in the proof</span></div>
+          <div class="proof-legend-item"><span class="proof-legend-swatch legend-inference"></span><span>Inference, branch, or proof move</span></div>
+          <div class="proof-legend-item"><span class="proof-legend-swatch legend-algorithm"></span><span>Algorithm or procedural step</span></div>
+          <div class="proof-legend-item"><span class="proof-legend-swatch legend-contradiction"></span><span>Contradiction</span></div>
+          <div class="proof-legend-item"><span class="proof-legend-swatch legend-conclusion"></span><span>Discharge or final conclusion</span></div>
+        </div>
+      </section>
+      <p class="source-note">Rendered from <code>fundamental-theorem-arithmetic.md</code>. Mermaid diagrams are rendered in the browser from the source graph blocks.</p>
+    </article>
+  </main>
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+
+    const roleStyles = `
+classDef proofSource fill:#e0f2fe,stroke:#0369a1,color:#0f172a,stroke-width:2px;
+classDef proofAssumption fill:#fef3c7,stroke:#b45309,color:#0f172a,stroke-width:2px;
+classDef proofConstruction fill:#dcfce7,stroke:#15803d,color:#0f172a,stroke-width:2px;
+classDef proofAssertion fill:#ede9fe,stroke:#7c3aed,color:#0f172a,stroke-width:2px;
+classDef proofInference fill:#fce7f3,stroke:#be185d,color:#0f172a,stroke-width:2px;
+classDef proofAlgorithm fill:#e0e7ff,stroke:#4338ca,color:#0f172a,stroke-width:2px;
+classDef proofContradiction fill:#fee2e2,stroke:#dc2626,color:#0f172a,stroke-width:3px;
+classDef proofConclusion fill:#ccfbf1,stroke:#0f766e,color:#0f172a,stroke-width:3px;
+classDef proofNeutral fill:#f8fafc,stroke:#64748b,color:#0f172a,stroke-width:1.5px;
+`;
+
+    const roleRules = [
+      ['proofConclusion', /^(Conclusion:|Discharge assumption:|Discharge:)/i],
+      ['proofContradiction', /^Contradiction:/i],
+      ['proofAssumption', /^(Assumption:|Assume:|Methodological assumption:)/i],
+      ['proofAlgorithm', /^(Algorithm capsule:|Input:|Output:|Start |Set |For each |Read |Choose output|Put |List |Skip |Increase |Arrange |Make |Find |Factor |Concatenate|Multiply )/i],
+      ['proofConstruction', /^Construction:/i],
+      ['proofAssertion', /^Assertion:/i],
+      ['proofInference', /^(Inference:|Branch:)/i],
+      ['proofSource', /^(Given:|Definition|Postulate|Common Notion|Euclid |Lemma:|Arithmetic fact:|Strong induction|Cancellation law|Bezout)/i]
+    ];
+
+    function classify(label, shape) {
+      const normalized = label.trim().replace(/\s+/g, ' ');
+      if (shape === '{') return 'proofInference';
+      if (/^Target:/i.test(normalized)) return 'proofConclusion';
+      for (const [role, pattern] of roleRules) {
+        if (pattern.test(normalized)) return role;
+      }
+      return 'proofNeutral';
+    }
+
+    function addRoleClasses(source) {
+      if (source.includes('classDef proofSource')) return source;
+      const assignments = new Map();
+      const nodePattern = /(?:^|\s)([A-Za-z][\w-]*)\s*([\[{])"([^"]+)"/gm;
+      let match;
+      while ((match = nodePattern.exec(source)) !== null) {
+        const [, nodeId, shape, label] = match;
+        assignments.set(nodeId, classify(label, shape));
+      }
+      const classLines = Array.from(assignments.entries()).map(([nodeId, role]) => `class ${nodeId} ${role};`);
+      if (classLines.length === 0) return `${source}\n${roleStyles}`;
+      return `${source}\n${roleStyles}\n${classLines.join('\n')}`;
+    }
+
+    document.querySelectorAll('pre.mermaid').forEach((block) => {
+      block.textContent = addRoleClasses(block.textContent);
+    });
+
+    mermaid.initialize({
+      startOnLoad: false,
+      securityLevel: 'loose',
+      theme: 'base',
+      themeVariables: {
+        background: '#ffffff',
+        primaryColor: '#f8fafc',
+        primaryTextColor: '#0f172a',
+        primaryBorderColor: '#64748b',
+        lineColor: '#475569',
+        fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif'
+      },
+      flowchart: {
+        htmlLabels: true,
+        curve: 'basis',
+        nodeSpacing: 42,
+        rankSpacing: 58
+      }
+    });
+    await mermaid.run({ querySelector: 'pre.mermaid' });
+  </script>
+</body>
+</html>

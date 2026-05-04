@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pythagorean Theorem Proof Graph Comparison - Proof Graph Pilot</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #0f172a;
+      --panel: #111827;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --accent: #60a5fa;
+      --border: #334155;
+      --code-bg: #020617;
+    }
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #f8fafc;
+        --panel: #ffffff;
+        --text: #111827;
+        --muted: #4b5563;
+        --accent: #2563eb;
+        --border: #d1d5db;
+        --code-bg: #f1f5f9;
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    main {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 36px 20px 64px;
+    }
+    article {
+      border: 1px solid var(--border);
+      background: var(--panel);
+      border-radius: 14px;
+      padding: 28px;
+    }
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 18px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+    nav a, a { color: var(--accent); }
+    h1 { margin-top: 0; font-size: 2rem; line-height: 1.2; }
+    h2 { margin-top: 2rem; border-top: 1px solid var(--border); padding-top: 1.2rem; }
+    h3 { margin-top: 1.6rem; }
+    p, li { color: var(--text); }
+    ul, ol { padding-left: 1.35rem; }
+    code {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.05rem 0.25rem;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 0.92em;
+    }
+    pre {
+      overflow-x: auto;
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+    }
+    pre code { background: transparent; border: 0; padding: 0; }
+    .mermaid {
+      background: #ffffff;
+      color: #111827;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin: 18px 0;
+      padding: 18px;
+      overflow-x: auto;
+    }
+    .mermaid svg { max-width: 100%; height: auto; }
+    .proof-legend {
+      margin-top: 28px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      background: color-mix(in srgb, var(--panel) 88%, var(--accent));
+    }
+    .proof-legend h2 {
+      border-top: 0;
+      margin: 0 0 12px;
+      padding-top: 0;
+      font-size: 1.05rem;
+    }
+    .proof-legend-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 10px 14px;
+    }
+    .proof-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text);
+      font-size: 0.92rem;
+    }
+    .proof-legend-swatch {
+      width: 18px;
+      height: 18px;
+      border-radius: 5px;
+      border: 2px solid currentColor;
+      flex: 0 0 auto;
+    }
+    .legend-source { background: #e0f2fe; color: #0369a1; }
+    .legend-assumption { background: #fef3c7; color: #b45309; }
+    .legend-construction { background: #dcfce7; color: #15803d; }
+    .legend-assertion { background: #ede9fe; color: #7c3aed; }
+    .legend-inference { background: #fce7f3; color: #be185d; }
+    .legend-algorithm { background: #e0e7ff; color: #4338ca; }
+    .legend-contradiction { background: #fee2e2; color: #dc2626; }
+    .legend-conclusion { background: #ccfbf1; color: #0f766e; }
+    .source-note {
+      margin-top: 32px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+</style>
+</head>
+<body>
+  <main>
+    <nav>
+      <a href="index.html">Proof Graph Pilot</a>
+      <span>/</span>
+      <a href="../mathematics-database-table.html">Mathematics Database</a>
+      <span>/</span>
+      <a href="pythagorean-comparison.md">View Markdown source</a>
+    </nav>
+    <article>
+<h1>Pythagorean Theorem Proof Graph Comparison</h1>
+<p>This pilot includes two proofs of the same theorem to test whether proof graphs reveal structural differences that are hidden by the final theorem statement.</p>
+<h2>Shared Theorem</h2>
+<p>For a right triangle with legs <code>a</code> and <code>b</code> and hypotenuse <code>c</code>, the square on the hypotenuse has area equal to the sum of the areas of the squares on the legs: <code>a^2 + b^2 = c^2</code>.</p>
+<h2>Proof A: Euclid Book I, Proposition 47</h2>
+<p>Metadata:</p>
+<ul>
+<li><code>id</code>: <code>pythagorean-euclid-i-47</code></li>
+<li><code>graph_kind</code>: <code>dependency</code></li>
+<li><code>granularity</code>: <code>coarse-to-medium</code></li>
+<li><code>temporary_assumptions</code>: none</li>
+<li><code>algorithm_capsules</code>: none</li>
+<li><code>complexity</code>: 18 nodes, 22 edges, depth 8</li>
+</ul>
+<p>Source note: Euclid Book I, Proposition 47, paraphrased at dependency level. The graph emphasizes the theorem dependencies and area-equality transfers rather than every diagram line in Euclid&#x27;s construction.</p>
+<pre class="mermaid">flowchart TD
+  rightTriangle[&quot;Given: right triangle ABC with right angle at A&quot;] --&gt; constructSquares[&quot;Construction: squares on AB, AC, and BC&quot;]
+  prop46[&quot;Euclid I.46: construct a square on a given straight line&quot;] --&gt; constructSquares
+  constructSquares --&gt; drawAuxiliary[&quot;Construction: draw auxiliary lines through A and to square vertices&quot;]
+  post1[&quot;Postulate 1: draw straight line between points&quot;] --&gt; drawAuxiliary
+  rightTriangle --&gt; angleRelations[&quot;Assertion: required angles are equal or supplementary&quot;]
+  constructSquares --&gt; angleRelations
+  common2[&quot;Common notions: add equals to equals&quot;] --&gt; angleRelations
+  angleRelations --&gt; triangleCongruenceLeft[&quot;Inference: triangle on leg AB congruent to triangle linked to rectangle under hypotenuse&quot;]
+  prop4[&quot;Euclid I.4: SAS congruence&quot;] --&gt; triangleCongruenceLeft
+  constructSquares --&gt; triangleCongruenceLeft
+  angleRelations --&gt; triangleCongruenceRight[&quot;Inference: triangle on leg AC congruent to triangle linked to other rectangle under hypotenuse&quot;]
+  prop4 --&gt; triangleCongruenceRight
+  constructSquares --&gt; triangleCongruenceRight
+  triangleCongruenceLeft --&gt; areaLeft[&quot;Assertion: square on AB equals corresponding rectangle in square on BC&quot;]
+  prop41[&quot;Euclid I.41: triangle is half parallelogram on same base and parallels&quot;] --&gt; areaLeft
+  triangleCongruenceRight --&gt; areaRight[&quot;Assertion: square on AC equals corresponding rectangle in square on BC&quot;]
+  prop41 --&gt; areaRight
+  areaLeft --&gt; sumAreas[&quot;Assertion: sum of leg-square areas equals sum of two hypotenuse rectangles&quot;]
+  areaRight --&gt; sumAreas
+  constructSquares --&gt; hypSquarePartition[&quot;Assertion: two rectangles partition square on BC&quot;]
+  hypSquarePartition --&gt; sumAreas
+  commonWhole[&quot;Common notion: whole equals sum of its parts&quot;] --&gt; conclusion[&quot;Conclusion: square on BC equals squares on AB and AC&quot;]
+  sumAreas --&gt; conclusion</pre>
+<p>Design note: this graph is dependency-heavy. Its value is that it shows the Pythagorean theorem as the endpoint of a chain of earlier Euclidean construction, congruence, parallel, and area propositions.</p>
+<h2>Proof B: Rearrangement Area Proof</h2>
+<p>Metadata:</p>
+<ul>
+<li><code>id</code>: <code>pythagorean-area-rearrangement</code></li>
+<li><code>graph_kind</code>: <code>hybrid</code></li>
+<li><code>granularity</code>: <code>medium</code></li>
+<li><code>temporary_assumptions</code>: none</li>
+<li><code>algorithm_capsules</code>: geometric rearrangement routine</li>
+<li><code>complexity</code>: 15 nodes, 17 edges, depth 6</li>
+</ul>
+<p>Source note: a standard dissection proof using four congruent right triangles arranged inside a square of side <code>a + b</code>. Two arrangements leave different central regions whose equal total areas imply <code>a^2 + b^2 = c^2</code>.</p>
+<pre class="mermaid">flowchart TD
+  rightTriangle[&quot;Given: right triangle with legs a and b, hypotenuse c&quot;] --&gt; fourCopies[&quot;Construction: four congruent copies of the triangle&quot;]
+  congruence[&quot;Definition: congruent figures have equal area&quot;] --&gt; fourCopies
+  fourCopies --&gt; outerSquare[&quot;Construction: arrange copies in square of side a plus b&quot;]
+  areaSquare[&quot;Area formula: square side s has area s squared&quot;] --&gt; outerArea[&quot;Assertion: outer square area is (a plus b)^2&quot;]
+  outerSquare --&gt; outerArea
+  fourCopies --&gt; arrangementOne[&quot;Construction: arrangement leaves central square of side c&quot;]
+  arrangementOne --&gt; centralC[&quot;Assertion: remaining central area is c squared&quot;]
+  areaSquare --&gt; centralC
+  fourCopies --&gt; arrangementTwo[&quot;Construction: rearrangement leaves two squares of sides a and b&quot;]
+  arrangementTwo --&gt; centralAB[&quot;Assertion: remaining central area is a squared plus b squared&quot;]
+  areaSquare --&gt; centralAB
+  samePieces[&quot;Principle: rearranging same pieces preserves total area&quot;] --&gt; equalRemainders[&quot;Assertion: the two remaining central areas are equal&quot;]
+  outerArea --&gt; equalRemainders
+  fourCopies --&gt; equalRemainders
+  centralC --&gt; equalRemainders
+  centralAB --&gt; equalRemainders
+  equalRemainders --&gt; conclusion[&quot;Conclusion: c squared equals a squared plus b squared&quot;]</pre>
+<h2>Algorithm Capsule: Rearrangement Procedure</h2>
+<pre class="mermaid">flowchart LR
+  inputTriangle[&quot;Input: right triangle a, b, c&quot;] --&gt; makeCopies[&quot;Make four congruent copies&quot;]
+  makeCopies --&gt; arrangeC[&quot;Arrange with hypotenuses forming central c-square&quot;]
+  arrangeC --&gt; recordC[&quot;Record leftover area c squared&quot;]
+  makeCopies --&gt; arrangeAB[&quot;Rearrange with legs forming a-square and b-square&quot;]
+  arrangeAB --&gt; recordAB[&quot;Record leftover area a squared plus b squared&quot;]
+  recordC --&gt; compare[&quot;Compare equal outer area minus same four triangles&quot;]
+  recordAB --&gt; compare
+  compare --&gt; output[&quot;Output: a squared plus b squared equals c squared&quot;]</pre>
+<h2>Structural Comparison</h2>
+<ul>
+<li>Euclid I.47 is dependency-rich: the graph points backward into the Euclidean proposition network.</li>
+<li>The rearrangement proof is invariant-rich: the graph centers on conservation of area under rearrangement.</li>
+<li>Euclid I.47 has more theorem dependencies; the rearrangement proof has a clearer algorithmic capsule.</li>
+<li>Both prove the same conclusion, but their graph signatures are different enough to justify storing proof graphs separately from theorem nodes.</li>
+</ul>
+<h2>Optional Third Graph</h2>
+<p>A similar-triangles proof should be considered for a later pass. It would use altitude to the hypotenuse, triangle similarity, proportionality, and algebraic combination. It is an excellent third comparison because it is neither a Euclidean square-area proof nor a pure rearrangement proof.</p>
+      <section class="proof-legend" aria-label="Proof graph color legend">
+        <h2>Proof Graph Color Legend</h2>
+        <div class="proof-legend-grid">
+          <div class="proof-legend-item"><span class="proof-legend-swatch legend-source"></span><span>Source / given / definition / lemma</span></div>
+          <div class="proof-legend-item"><span class="proof-legend-swatch legend-assumption"></span><span>Assumption or temporary hypothesis</span></div>
+          <div class="proof-legend-item"><span class="proof-legend-swatch legend-construction"></span><span>Construction or introduced object</span></div>
+          <div class="proof-legend-item"><span class="proof-legend-swatch legend-assertion"></span><span>Assertion established in the proof</span></div>
+          <div class="proof-legend-item"><span class="proof-legend-swatch legend-inference"></span><span>Inference, branch, or proof move</span></div>
+          <div class="proof-legend-item"><span class="proof-legend-swatch legend-algorithm"></span><span>Algorithm or procedural step</span></div>
+          <div class="proof-legend-item"><span class="proof-legend-swatch legend-contradiction"></span><span>Contradiction</span></div>
+          <div class="proof-legend-item"><span class="proof-legend-swatch legend-conclusion"></span><span>Discharge or final conclusion</span></div>
+        </div>
+      </section>
+      <p class="source-note">Rendered from <code>pythagorean-comparison.md</code>. Mermaid diagrams are rendered in the browser from the source graph blocks.</p>
+    </article>
+  </main>
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+
+    const roleStyles = `
+classDef proofSource fill:#e0f2fe,stroke:#0369a1,color:#0f172a,stroke-width:2px;
+classDef proofAssumption fill:#fef3c7,stroke:#b45309,color:#0f172a,stroke-width:2px;
+classDef proofConstruction fill:#dcfce7,stroke:#15803d,color:#0f172a,stroke-width:2px;
+classDef proofAssertion fill:#ede9fe,stroke:#7c3aed,color:#0f172a,stroke-width:2px;
+classDef proofInference fill:#fce7f3,stroke:#be185d,color:#0f172a,stroke-width:2px;
+classDef proofAlgorithm fill:#e0e7ff,stroke:#4338ca,color:#0f172a,stroke-width:2px;
+classDef proofContradiction fill:#fee2e2,stroke:#dc2626,color:#0f172a,stroke-width:3px;
+classDef proofConclusion fill:#ccfbf1,stroke:#0f766e,color:#0f172a,stroke-width:3px;
+classDef proofNeutral fill:#f8fafc,stroke:#64748b,color:#0f172a,stroke-width:1.5px;
+`;
+
+    const roleRules = [
+      ['proofConclusion', /^(Conclusion:|Discharge assumption:|Discharge:)/i],
+      ['proofContradiction', /^Contradiction:/i],
+      ['proofAssumption', /^(Assumption:|Assume:|Methodological assumption:)/i],
+      ['proofAlgorithm', /^(Algorithm capsule:|Input:|Output:|Start |Set |For each |Read |Choose output|Put |List |Skip |Increase |Arrange |Make |Find |Factor |Concatenate|Multiply )/i],
+      ['proofConstruction', /^Construction:/i],
+      ['proofAssertion', /^Assertion:/i],
+      ['proofInference', /^(Inference:|Branch:)/i],
+      ['proofSource', /^(Given:|Definition|Postulate|Common Notion|Euclid |Lemma:|Arithmetic fact:|Strong induction|Cancellation law|Bezout)/i]
+    ];
+
+    function classify(label, shape) {
+      const normalized = label.trim().replace(/\s+/g, ' ');
+      if (shape === '{') return 'proofInference';
+      if (/^Target:/i.test(normalized)) return 'proofConclusion';
+      for (const [role, pattern] of roleRules) {
+        if (pattern.test(normalized)) return role;
+      }
+      return 'proofNeutral';
+    }
+
+    function addRoleClasses(source) {
+      if (source.includes('classDef proofSource')) return source;
+      const assignments = new Map();
+      const nodePattern = /(?:^|\s)([A-Za-z][\w-]*)\s*([\[{])"([^"]+)"/gm;
+      let match;
+      while ((match = nodePattern.exec(source)) !== null) {
+        const [, nodeId, shape, label] = match;
+        assignments.set(nodeId, classify(label, shape));
+      }
+      const classLines = Array.from(assignments.entries()).map(([nodeId, role]) => `class ${nodeId} ${role};`);
+      if (classLines.length === 0) return `${source}\n${roleStyles}`;
+      return `${source}\n${roleStyles}\n${classLines.join('\n')}`;
+    }
+
+    document.querySelectorAll('pre.mermaid').forEach((block) => {
+      block.textContent = addRoleClasses(block.textContent);
+    });
+
+    mermaid.initialize({
+      startOnLoad: false,
+      securityLevel: 'loose',
+      theme: 'base',
+      themeVariables: {
+        background: '#ffffff',
+        primaryColor: '#f8fafc',
+        primaryTextColor: '#0f172a',
+        primaryBorderColor: '#64748b',
+        lineColor: '#475569',
+        fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif'
+      },
+      flowchart: {
+        htmlLabels: true,
+        curve: 'basis',
+        nodeSpacing: 42,
+        rankSpacing: 58
+      }
+    });
+    await mermaid.run({ querySelector: 'pre.mermaid' });
+  </script>
+</body>
+</html>

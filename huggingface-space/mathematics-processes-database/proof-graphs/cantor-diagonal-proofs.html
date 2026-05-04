@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cantor Diagonal Proofs - Proof Graph Pilot</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #0f172a;
+      --panel: #111827;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --accent: #60a5fa;
+      --border: #334155;
+      --code-bg: #020617;
+    }
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #f8fafc;
+        --panel: #ffffff;
+        --text: #111827;
+        --muted: #4b5563;
+        --accent: #2563eb;
+        --border: #d1d5db;
+        --code-bg: #f1f5f9;
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    main {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 36px 20px 64px;
+    }
+    article {
+      border: 1px solid var(--border);
+      background: var(--panel);
+      border-radius: 14px;
+      padding: 28px;
+    }
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 18px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+    nav a, a { color: var(--accent); }
+    h1 { margin-top: 0; font-size: 2rem; line-height: 1.2; }
+    h2 { margin-top: 2rem; border-top: 1px solid var(--border); padding-top: 1.2rem; }
+    h3 { margin-top: 1.6rem; }
+    p, li { color: var(--text); }
+    ul, ol { padding-left: 1.35rem; }
+    code {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.05rem 0.25rem;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 0.92em;
+    }
+    pre {
+      overflow-x: auto;
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+    }
+    pre code { background: transparent; border: 0; padding: 0; }
+    .mermaid {
+      background: #ffffff;
+      color: #111827;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin: 18px 0;
+      padding: 18px;
+      overflow-x: auto;
+    }
+    .mermaid svg { max-width: 100%; height: auto; }
+    .proof-legend {
+      margin-top: 28px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      background: color-mix(in srgb, var(--panel) 88%, var(--accent));
+    }
+    .proof-legend h2 {
+      border-top: 0;
+      margin: 0 0 12px;
+      padding-top: 0;
+      font-size: 1.05rem;
+    }
+    .proof-legend-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 10px 14px;
+    }
+    .proof-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text);
+      font-size: 0.92rem;
+    }
+    .proof-legend-swatch {
+      width: 18px;
+      height: 18px;
+      border-radius: 5px;
+      border: 2px solid currentColor;
+      flex: 0 0 auto;
+    }
+    .legend-source { background: #e0f2fe; color: #0369a1; }
+    .legend-assumption { background: #fef3c7; color: #b45309; }
+    .legend-construction { background: #dcfce7; color: #15803d; }
+    .legend-assertion { background: #ede9fe; color: #7c3aed; }
+    .legend-inference { background: #fce7f3; color: #be185d; }
+    .legend-algorithm { background: #e0e7ff; color: #4338ca; }
+    .legend-contradiction { background: #fee2e2; color: #dc2626; }
+    .legend-conclusion { background: #ccfbf1; color: #0f766e; }
+    .source-note {
+      margin-top: 32px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+</style>
+</head>
+<body>
+  <main>
+    <nav>
+      <a href="index.html">Proof Graph Pilot</a>
+      <span>/</span>
+      <a href="../mathematics-database-table.html">Mathematics Database</a>
+      <span>/</span>
+      <a href="cantor-diagonal-proofs.md">View Markdown source</a>
+    </nav>
+    <article>
+<h1>Cantor Diagonal Proofs</h1>
+<p>This extension adds three Cantor-style proof graphs to the pilot. They test a family of structures that differs from the Euclidean and arithmetic examples: enumeration, diagonal traversal, anti-diagonal construction, and self-reference-like contradiction.</p>
+<h2>Family Design Note</h2>
+<p>Cantor&#x27;s diagonal arguments are best represented as hybrid proof graphs:</p>
+<ul>
+<li>the logical proof is a dependency graph;</li>
+<li>the diagonal scan or enumeration is an algorithm capsule;</li>
+<li>the decisive step is usually an anti-diagonal object constructed from an assumed listing.</li>
+</ul>
+<p>These graphs are especially useful for the database because they show a recurring proof pattern across different theorems.</p>
+<pre class="mermaid">flowchart TD
+  assumeListing[&quot;Assumption: proposed enumeration or function&quot;] --&gt; diagonalProcedure[&quot;Algorithm capsule: inspect diagonal or grid&quot;]
+  diagonalProcedure --&gt; constructedObject[&quot;Construction: diagonal or anti-diagonal object&quot;]
+  constructedObject --&gt; differsFromEach[&quot;Assertion: constructed object differs from every listed object&quot;]
+  assumeListing --&gt; contradiction[&quot;Contradiction: listing was supposed to be complete&quot;]
+  differsFromEach --&gt; contradiction
+  contradiction --&gt; conclusion[&quot;Conclusion: original cardinality claim follows&quot;]</pre>
+<h2>Cantor&#x27;s Theorem: Power Set Has Greater Cardinality</h2>
+<p>Metadata:</p>
+<ul>
+<li><code>id</code>: <code>cantor-power-set-theorem</code></li>
+<li><code>graph_kind</code>: <code>hybrid</code></li>
+<li><code>granularity</code>: <code>medium</code></li>
+<li><code>temporary_assumptions</code>: contradiction</li>
+<li><code>algorithm_capsules</code>: diagonal subset construction</li>
+<li><code>complexity</code>: 13 nodes, 16 edges, depth 6</li>
+</ul>
+<p>Source note: Cantor&#x27;s theorem: for every set <code>S</code>, there is no surjection from <code>S</code> onto its power set <code>P(S)</code>. Therefore <code>|P(S)| &gt; |S|</code>.</p>
+<pre class="mermaid">flowchart TD
+  target[&quot;Target: no function from S onto P(S) is surjective&quot;] --&gt; assumeSurjection[&quot;Assumption: f maps S onto P(S)&quot;]
+  assumeSurjection --&gt; defineD[&quot;Construction: D equals set of x in S such that x is not in f(x)&quot;]
+  separation[&quot;Set comprehension for subset of S&quot;] --&gt; defineD
+  defineD --&gt; dSubset[&quot;Assertion: D is an element of P(S)&quot;]
+  assumeSurjection --&gt; existsA[&quot;Assertion: since f is surjective, some a in S has f(a) equals D&quot;]
+  dSubset --&gt; existsA
+  defineD --&gt; membershipQuestion{&quot;Is a in D?&quot;}
+  existsA --&gt; membershipQuestion
+  membershipQuestion --&gt;|&quot;yes&quot;| yesContradiction[&quot;If a is in D, then by definition a is not in f(a), so a is not in D&quot;]
+  membershipQuestion --&gt;|&quot;no&quot;| noContradiction[&quot;If a is not in D, then by definition a is in f(a), so a is in D&quot;]
+  yesContradiction --&gt; contradiction[&quot;Contradiction in both cases&quot;]
+  noContradiction --&gt; contradiction
+  contradiction --&gt; discharge[&quot;Discharge assumption: f is not surjective&quot;]
+  discharge --&gt; conclusion[&quot;Conclusion: P(S) has strictly greater cardinality than S&quot;]</pre>
+<h3>Algorithm Capsule: Diagonal Subset</h3>
+<pre class="mermaid">flowchart LR
+  inputF[&quot;Input: function f from S to P(S)&quot;] --&gt; inspectX[&quot;For each x in S, inspect whether x is in f(x)&quot;]
+  inspectX --&gt; flipMembership[&quot;Put x in D exactly when x is not in f(x)&quot;]
+  flipMembership --&gt; outputD[&quot;Output: anti-diagonal subset D&quot;]</pre>
+<h2>The Rationals Are Countable</h2>
+<p>Metadata:</p>
+<ul>
+<li><code>id</code>: <code>rationals-are-countable</code></li>
+<li><code>graph_kind</code>: <code>hybrid</code></li>
+<li><code>granularity</code>: <code>medium</code></li>
+<li><code>temporary_assumptions</code>: none</li>
+<li><code>algorithm_capsules</code>: diagonal grid enumeration</li>
+<li><code>complexity</code>: 14 nodes, 16 edges, depth 6</li>
+</ul>
+<p>Source note: a standard enumeration proof: list positive rational numbers by traversing the integer grid of numerator-denominator pairs diagonally, skip duplicates, include signs and zero, and obtain a countable enumeration of <code>Q</code>.</p>
+<pre class="mermaid">flowchart TD
+  target[&quot;Target: Q is countable&quot;] --&gt; encodeRationals[&quot;Construction: represent rationals as integer pairs m,n with n nonzero&quot;]
+  defRational[&quot;Definition: rational equals m divided by n&quot;] --&gt; encodeRationals
+  encodeRationals --&gt; positiveGrid[&quot;Construction: positive rationals represented in N by N grid&quot;]
+  countableProduct[&quot;Fact: N by N is countable by diagonal traversal&quot;] --&gt; enumeratePositive[&quot;Assertion: positive rationals can be enumerated&quot;]
+  positiveGrid --&gt; enumeratePositive
+  enumeratePositive --&gt; skipDuplicates[&quot;Inference: skip repeated fractions such as 1/2 and 2/4&quot;]
+  equalityFractions[&quot;Definition: fraction equality by cross multiplication&quot;] --&gt; skipDuplicates
+  skipDuplicates --&gt; positiveList[&quot;Assertion: positive rationals have a sequence listing&quot;]
+  zero[&quot;Construction: include 0&quot;] --&gt; combineSigns[&quot;Construction: interleave zero, positives, and negatives&quot;]
+  positiveList --&gt; combineSigns
+  signSymmetry[&quot;Fact: each positive rational has a negative counterpart&quot;] --&gt; combineSigns
+  combineSigns --&gt; surjectionNQ[&quot;Assertion: there is a surjection from N onto Q&quot;]
+  countableDef[&quot;Definition: countable means finite or enumerable by N&quot;] --&gt; conclusion[&quot;Conclusion: Q is countable&quot;]
+  surjectionNQ --&gt; conclusion</pre>
+<h3>Algorithm Capsule: Diagonal Enumeration of Positive Rationals</h3>
+<pre class="mermaid">flowchart LR
+  start[&quot;Start with numerator plus denominator sum equal to 2&quot;] --&gt; listPairs[&quot;List pairs m,n with m+n equal current sum&quot;]
+  listPairs --&gt; reduceCheck{&quot;Has fraction m/n appeared before?&quot;}
+  reduceCheck --&gt;|&quot;yes&quot;| skip[&quot;Skip duplicate&quot;]
+  reduceCheck --&gt;|&quot;no&quot;| emit[&quot;Emit rational m/n&quot;]
+  skip --&gt; nextPair{&quot;More pairs at this sum?&quot;}
+  emit --&gt; nextPair
+  nextPair --&gt;|&quot;yes&quot;| listPairs
+  nextPair --&gt;|&quot;no&quot;| nextSum[&quot;Increase sum by 1&quot;]
+  nextSum --&gt; listPairs</pre>
+<h2>The Reals Are Uncountable</h2>
+<p>Metadata:</p>
+<ul>
+<li><code>id</code>: <code>reals-are-uncountable-diagonal</code></li>
+<li><code>graph_kind</code>: <code>hybrid</code></li>
+<li><code>granularity</code>: <code>medium</code></li>
+<li><code>temporary_assumptions</code>: contradiction</li>
+<li><code>algorithm_capsules</code>: anti-diagonal real construction</li>
+<li><code>complexity</code>: 15 nodes, 18 edges, depth 7</li>
+</ul>
+<p>Source note: Cantor&#x27;s diagonal proof for real numbers in <code>(0,1)</code>: assume all real numbers in <code>(0,1)</code> are listed by decimal expansions, construct a new decimal number differing from the nth listed number in its nth digit, and conclude the list was incomplete. A technical note should avoid ambiguous decimal expansions ending in repeating 9s.</p>
+<pre class="mermaid">flowchart TD
+  target[&quot;Target: reals in (0,1) are uncountable&quot;] --&gt; assumeList[&quot;Assumption: every real in (0,1) appears in a sequence r1, r2, r3, ...&quot;]
+  assumeList --&gt; decimalRows[&quot;Construction: write each rn as a decimal row&quot;]
+  decimalConvention[&quot;Convention: choose decimal expansions not ending in repeating 9s&quot;] --&gt; decimalRows
+  decimalRows --&gt; diagonalDigits[&quot;Algorithm: read nth digit of rn&quot;]
+  diagonalDigits --&gt; constructX[&quot;Construction: define x by changing each nth diagonal digit&quot;]
+  digitRule[&quot;Rule: choose a digit different from the diagonal digit and avoid 9&quot;] --&gt; constructX
+  constructX --&gt; xInInterval[&quot;Assertion: x is a real number in (0,1)&quot;]
+  constructX --&gt; differsFromRn[&quot;Assertion: x differs from rn in the nth digit for every n&quot;]
+  decimalConvention --&gt; differsFromRn
+  differsFromRn --&gt; notInList[&quot;Assertion: x is not equal to any listed rn&quot;]
+  assumeList --&gt; contradiction[&quot;Contradiction: list was assumed complete, but x is missing&quot;]
+  notInList --&gt; contradiction
+  contradiction --&gt; discharge[&quot;Discharge assumption: no sequence lists all reals in (0,1)&quot;]
+  discharge --&gt; conclusion[&quot;Conclusion: reals are uncountable&quot;]</pre>
+<h3>Algorithm Capsule: Anti-Diagonal Real</h3>
+<pre class="mermaid">flowchart LR
+  inputRows[&quot;Input: sequence of decimal rows r1, r2, r3, ...&quot;] --&gt; readDigit[&quot;Read nth digit of row n&quot;]
+  readDigit --&gt; chooseDifferent[&quot;Choose output digit different from that digit&quot;]
+  chooseDifferent --&gt; appendDigit[&quot;Append chosen digit to x&quot;]
+  appendDigit --&gt; moreRows{&quot;Continue to next row?&quot;}
+  moreRows --&gt;|&quot;yes&quot;| readDigit
+  moreRows --&gt;|&quot;indefinitely&quot;| outputX[&quot;Output: real x determined by anti-diagonal digits&quot;]</pre>
+<h2>Pattern Comparison</h2>
+<ul>
+<li>Power set theorem: diagonalization is membership flipping against a function <code>S -&gt; P(S)</code>.</li>
+<li>Rationals countable: diagonal traversal is an enumeration algorithm, not a contradiction.</li>
+<li>Reals uncountable: diagonalization is digit flipping against a proposed list.</li>
+</ul>
+<p>The three examples are valuable together because they prevent a common mistake: not every diagonal structure proves uncountability. The rationals proof uses a diagonal path to enumerate; the power set and reals proofs use anti-diagonal construction to refute a proposed complete listing.</p>
+<h2>Optional Extensions: Paradox and Metatheorem Family</h2>
+<p>These are natural later additions, but they should be scoped as a second pilot family because they introduce self-reference, syntax, and semantic truth.</p>
+<ul>
+<li>Russell&#x27;s paradox: graph the set <code>R = {x | x notin x}</code> and the contradiction <code>R in R iff R notin R</code>.</li>
+<li>Liar paradox: graph semantic self-reference, truth predicate assumptions, and contradiction.</li>
+<li>Godel completeness theorem: graph syntactic consistency, models, and semantic entailment as a precursor to metatheorem diagrams.</li>
+<li>Godel incompleteness theorem: graph arithmetization, provability predicate, diagonal lemma, and the undecidable sentence.</li>
+</ul>
+<p>For the current pilot, Cantor&#x27;s theorem is the best bridge toward these later examples because it uses a diagonal object without requiring the machinery of formal syntax and provability.</p>
+      <section class="proof-legend" aria-label="Proof graph color legend">
+        <h2>Proof Graph Color Legend</h2>
+        <div class="proof-legend-grid">
+          <div class="proof-legend-item"><span class="proof-legend-swatch legend-source"></span><span>Source / given / definition / lemma</span></div>
+          <div class="proof-legend-item"><span class="proof-legend-swatch legend-assumption"></span><span>Assumption or temporary hypothesis</span></div>
+          <div class="proof-legend-item"><span class="proof-legend-swatch legend-construction"></span><span>Construction or introduced object</span></div>
+          <div class="proof-legend-item"><span class="proof-legend-swatch legend-assertion"></span><span>Assertion established in the proof</span></div>
+          <div class="proof-legend-item"><span class="proof-legend-swatch legend-inference"></span><span>Inference, branch, or proof move</span></div>
+          <div class="proof-legend-item"><span class="proof-legend-swatch legend-algorithm"></span><span>Algorithm or procedural step</span></div>
+          <div class="proof-legend-item"><span class="proof-legend-swatch legend-contradiction"></span><span>Contradiction</span></div>
+          <div class="proof-legend-item"><span class="proof-legend-swatch legend-conclusion"></span><span>Discharge or final conclusion</span></div>
+        </div>
+      </section>
+      <p class="source-note">Rendered from <code>cantor-diagonal-proofs.md</code>. Mermaid diagrams are rendered in the browser from the source graph blocks.</p>
+    </article>
+  </main>
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+
+    const roleStyles = `
+classDef proofSource fill:#e0f2fe,stroke:#0369a1,color:#0f172a,stroke-width:2px;
+classDef proofAssumption fill:#fef3c7,stroke:#b45309,color:#0f172a,stroke-width:2px;
+classDef proofConstruction fill:#dcfce7,stroke:#15803d,color:#0f172a,stroke-width:2px;
+classDef proofAssertion fill:#ede9fe,stroke:#7c3aed,color:#0f172a,stroke-width:2px;
+classDef proofInference fill:#fce7f3,stroke:#be185d,color:#0f172a,stroke-width:2px;
+classDef proofAlgorithm fill:#e0e7ff,stroke:#4338ca,color:#0f172a,stroke-width:2px;
+classDef proofContradiction fill:#fee2e2,stroke:#dc2626,color:#0f172a,stroke-width:3px;
+classDef proofConclusion fill:#ccfbf1,stroke:#0f766e,color:#0f172a,stroke-width:3px;
+classDef proofNeutral fill:#f8fafc,stroke:#64748b,color:#0f172a,stroke-width:1.5px;
+`;
+
+    const roleRules = [
+      ['proofConclusion', /^(Conclusion:|Discharge assumption:|Discharge:)/i],
+      ['proofContradiction', /^Contradiction:/i],
+      ['proofAssumption', /^(Assumption:|Assume:|Methodological assumption:)/i],
+      ['proofAlgorithm', /^(Algorithm capsule:|Input:|Output:|Start |Set |For each |Read |Choose output|Put |List |Skip |Increase |Arrange |Make |Find |Factor |Concatenate|Multiply )/i],
+      ['proofConstruction', /^Construction:/i],
+      ['proofAssertion', /^Assertion:/i],
+      ['proofInference', /^(Inference:|Branch:)/i],
+      ['proofSource', /^(Given:|Definition|Postulate|Common Notion|Euclid |Lemma:|Arithmetic fact:|Strong induction|Cancellation law|Bezout)/i]
+    ];
+
+    function classify(label, shape) {
+      const normalized = label.trim().replace(/\s+/g, ' ');
+      if (shape === '{') return 'proofInference';
+      if (/^Target:/i.test(normalized)) return 'proofConclusion';
+      for (const [role, pattern] of roleRules) {
+        if (pattern.test(normalized)) return role;
+      }
+      return 'proofNeutral';
+    }
+
+    function addRoleClasses(source) {
+      if (source.includes('classDef proofSource')) return source;
+      const assignments = new Map();
+      const nodePattern = /(?:^|\s)([A-Za-z][\w-]*)\s*([\[{])"([^"]+)"/gm;
+      let match;
+      while ((match = nodePattern.exec(source)) !== null) {
+        const [, nodeId, shape, label] = match;
+        assignments.set(nodeId, classify(label, shape));
+      }
+      const classLines = Array.from(assignments.entries()).map(([nodeId, role]) => `class ${nodeId} ${role};`);
+      if (classLines.length === 0) return `${source}\n${roleStyles}`;
+      return `${source}\n${roleStyles}\n${classLines.join('\n')}`;
+    }
+
+    document.querySelectorAll('pre.mermaid').forEach((block) => {
+      block.textContent = addRoleClasses(block.textContent);
+    });
+
+    mermaid.initialize({
+      startOnLoad: false,
+      securityLevel: 'loose',
+      theme: 'base',
+      themeVariables: {
+        background: '#ffffff',
+        primaryColor: '#f8fafc',
+        primaryTextColor: '#0f172a',
+        primaryBorderColor: '#64748b',
+        lineColor: '#475569',
+        fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif'
+      },
+      flowchart: {
+        htmlLabels: true,
+        curve: 'basis',
+        nodeSpacing: 42,
+        rankSpacing: 58
+      }
+    });
+    await mermaid.run({ querySelector: 'pre.mermaid' });
+  </script>
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Proof Graph Pilot - Proof Graph Pilot</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #0f172a;
+      --panel: #111827;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --accent: #60a5fa;
+      --border: #334155;
+      --code-bg: #020617;
+    }
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #f8fafc;
+        --panel: #ffffff;
+        --text: #111827;
+        --muted: #4b5563;
+        --accent: #2563eb;
+        --border: #d1d5db;
+        --code-bg: #f1f5f9;
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    main {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 36px 20px 64px;
+    }
+    article {
+      border: 1px solid var(--border);
+      background: var(--panel);
+      border-radius: 14px;
+      padding: 28px;
+    }
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 18px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+    nav a, a { color: var(--accent); }
+    h1 { margin-top: 0; font-size: 2rem; line-height: 1.2; }
+    h2 { margin-top: 2rem; border-top: 1px solid var(--border); padding-top: 1.2rem; }
+    h3 { margin-top: 1.6rem; }
+    p, li { color: var(--text); }
+    ul, ol { padding-left: 1.35rem; }
+    code {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.05rem 0.25rem;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 0.92em;
+    }
+    pre {
+      overflow-x: auto;
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+    }
+    pre code { background: transparent; border: 0; padding: 0; }
+    .mermaid {
+      background: #ffffff;
+      color: #111827;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin: 18px 0;
+      padding: 18px;
+      overflow-x: auto;
+    }
+    .mermaid svg { max-width: 100%; height: auto; }
+    .proof-legend {
+      margin-top: 28px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      background: color-mix(in srgb, var(--panel) 88%, var(--accent));
+    }
+    .proof-legend h2 {
+      border-top: 0;
+      margin: 0 0 12px;
+      padding-top: 0;
+      font-size: 1.05rem;
+    }
+    .proof-legend-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 10px 14px;
+    }
+    .proof-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text);
+      font-size: 0.92rem;
+    }
+    .proof-legend-swatch {
+      width: 18px;
+      height: 18px;
+      border-radius: 5px;
+      border: 2px solid currentColor;
+      flex: 0 0 auto;
+    }
+    .legend-source { background: #e0f2fe; color: #0369a1; }
+    .legend-assumption { background: #fef3c7; color: #b45309; }
+    .legend-construction { background: #dcfce7; color: #15803d; }
+    .legend-assertion { background: #ede9fe; color: #7c3aed; }
+    .legend-inference { background: #fce7f3; color: #be185d; }
+    .legend-algorithm { background: #e0e7ff; color: #4338ca; }
+    .legend-contradiction { background: #fee2e2; color: #dc2626; }
+    .legend-conclusion { background: #ccfbf1; color: #0f766e; }
+    .source-note {
+      margin-top: 32px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+</style>
+</head>
+<body>
+  <main>
+    <nav>
+      <a href="index.html">Proof Graph Pilot</a>
+      <span>/</span>
+      <a href="../mathematics-database-table.html">Mathematics Database</a>
+      <span>/</span>
+      <a href="README.md">View Markdown source</a>
+    </nav>
+    <article>
+<h1>Proof Graph Pilot</h1>
+<p>This directory contains the pilot package for adding proof-level graphs to the Mathematics Database.</p>
+<p>Start with:</p>
+<ul>
+<li><code>schema.md</code> for graph vocabulary and metadata conventions.</li>
+<li><code>pilot-summary.md</code> for scope, selected proofs, and database integration recommendations.</li>
+</ul>
+<p>Proof graph drafts:</p>
+<ul>
+<li><code>euclid-book-i-pilot.md</code></li>
+<li><code>infinitely-many-primes.md</code></li>
+<li><code>pythagorean-comparison.md</code></li>
+<li><code>fundamental-theorem-arithmetic.md</code></li>
+<li><code>cantor-diagonal-proofs.md</code></li>
+</ul>
+<p>The pilot&#x27;s main recommendation is to attach proof graphs as drill-down views on theorem entries rather than creating a separate top-level category. This keeps theorem-level dependency graphs and proof-level internal dependency graphs distinct while allowing multiple proofs of the same theorem.</p>
+<p>The Cantor extension adds a second proof family around diagonal structures: Cantor&#x27;s theorem for power sets, countability of the rationals by diagonal enumeration, and uncountability of the reals by anti-diagonal construction. It also sketches later candidates involving Russell&#x27;s paradox, the liar paradox, and Godel&#x27;s completeness and incompleteness theorems.</p>
+      <p class="source-note">Rendered from <code>README.md</code>. Mermaid diagrams are rendered in the browser from the source graph blocks.</p>
+    </article>
+  </main>
+
+</body>
+</html>
