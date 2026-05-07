@@ -292,14 +292,13 @@
                     </div>
                     
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Source Paper/Document (Optional)</label>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Source link (optional)</label>
                             <div class="space-y-2">
-                                <input type="url" x-model="podcastForm.sourceUrl" 
-                                       placeholder="https://example.com/research-paper.pdf or DOI link"
+                                <input type="text" x-model="podcastForm.sourceUrl" 
+                                       placeholder="https://… or 10.xxxx/journal.xxxxxx (DOI)"
+                                       autocomplete="off"
                                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                <input type="file" @change="handleFileUpload($event)" accept=".pdf,.doc,.docx,.txt"
-                                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                <p class="text-xs text-gray-500">Upload a PDF, Word doc, or text file, or provide a URL/DOI link to a research paper</p>
+                                <p class="text-xs text-gray-500">Paste a full <strong>https://</strong> URL (open access HTML works best). Bare DOIs like <code class="text-xs bg-gray-100 px-1 rounded">10.xxxx/…</code> are converted to <code class="text-xs bg-gray-100 px-1 rounded">doi.org</code> automatically. Paywalled pages and direct PDF links may not resolve. File upload is not available yet.</p>
                             </div>
                         </div>
                         
@@ -480,8 +479,7 @@
                     host_voice_id: 'XrExE9yKIg1WjnnlVkGX',
                     expert_voice_id: 'pNInz6obpgDQGcFmaJgB',
                     instructions: '',
-                    sourceUrl: '',
-                    sourceFile: null
+                    sourceUrl: ''
                 },
                 
                 // Initialize
@@ -679,9 +677,21 @@
                     }, 15000); // Poll every 15 seconds
                 },
                 
+                normalizeSourceUrl(raw) {
+                    if (!raw || !String(raw).trim()) return '';
+                    let s = String(raw).trim();
+                    if (/^doi:\s*/i.test(s)) s = s.replace(/^doi:\s*/i, '').trim();
+                    // Bare DOI (not already a URL)
+                    if (/^10\.\d{4,}\/\S+/i.test(s) && !/^https?:\/\//i.test(s)) {
+                        return 'https://doi.org/' + s;
+                    }
+                    return s;
+                },
+                
                 async generatePodcast() {
                     this.generating = true;
                     try {
+                        const sourceUrlNormalized = this.normalizeSourceUrl(this.podcastForm.sourceUrl);
                         // Build request payload with proper field mapping
                         const requestPayload = {
                             topic: this.podcastForm.topic,
@@ -694,8 +704,8 @@
                             host_voice_id: this.podcastForm.host_voice_id,
                             expert_voice_id: this.podcastForm.expert_voice_id,
                             additional_instructions: this.podcastForm.instructions || '',
-                            // Map sourceUrl to source_links array (backend expects this)
-                            source_links: this.podcastForm.sourceUrl ? [this.podcastForm.sourceUrl] : []
+                            // Map source URL to source_links (backend fetches & extracts metadata)
+                            source_links: sourceUrlNormalized ? [sourceUrlNormalized] : []
                         };
                         
                         console.log('Generating podcast with payload:', requestPayload);
@@ -710,7 +720,7 @@
                         
                         if (response.ok) {
                             this.showMessage('Podcast generation started! This typically takes 3-5 minutes. Status will auto-update.', 'success');
-                            this.podcastForm = { topic: '', category: '', expertise_level: '', duration: '5-10 minutes', format_type: 'interview', voice_style: 'professional', host_voice_id: 'XrExE9yKIg1WjnnlVkGX', expert_voice_id: 'pNInz6obpgDQGcFmaJgB', instructions: '', sourceUrl: '', sourceFile: null };
+                            this.podcastForm = { topic: '', category: '', expertise_level: '', duration: '5-10 minutes', format_type: 'interview', voice_style: 'professional', host_voice_id: 'XrExE9yKIg1WjnnlVkGX', expert_voice_id: 'pNInz6obpgDQGcFmaJgB', instructions: '', sourceUrl: '' };
                             // Refresh podcasts immediately to show "pending" status
                             await this.loadPodcasts();
                             // Start polling for updates
@@ -777,16 +787,6 @@
                         }
                     } catch (error) {
                         this.showMessage('Network error. Please try again.', 'error');
-                    }
-                },
-                
-                // File upload handler
-                handleFileUpload(event) {
-                    const file = event.target.files[0];
-                    if (file) {
-                        this.podcastForm.sourceFile = file;
-                        this.podcastForm.sourceUrl = file.name; // Use filename as placeholder
-                        console.log('File selected:', file.name);
                     }
                 },
                 
