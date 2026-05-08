@@ -1,8 +1,10 @@
 # A Vision for AI-Powered Knowledge Engines: A Framework for Systematic Knowledge Discovery and Integration
 
-**Gary Welz**  
-Retired Faculty Member, CUNY  
-Email: garywelz@gmail.com
+**Gary Welz**
+
+Researcher, New Media Lab, CUNY Graduate Center  
+Email: gwelz@gc.cuny.edu  
+ORCID: https://orcid.org/0009-0005-7806-0892
 
 ---
 
@@ -12,7 +14,7 @@ This vision paper proposes "Knowledge Engines" as a framework for understanding 
 
 We propose a taxonomy of nine integrated capabilities—ingestion, digestion, analysis, calculation, comparison, connection, association, analogy, and multi-modal communication—synthesizing decades of prior work in expert systems, knowledge representation, and cognitive architectures for the LLM era. Our framework emphasizes that ambitious goals like "finding a cure for cancer" require comprehensive integrated systems, not merely powerful models, combining AI capabilities with structured processes, specialized tools, and systematic approaches.
 
-We present CopernicusAI as a working implementation of the Knowledge Engine framework, demonstrating feasibility through a fully deployed system with 12,000+ indexed research papers, operational knowledge graph visualization, vector search, and RAG capabilities. While extensive validation remains necessary, the system demonstrates that the framework can be instantiated in practice. This vision paper aims to establish "Knowledge Engine" as a generic term describing systems that systematically transform information into knowledge, providing both a theoretical blueprint and a concrete implementation for future research.
+We present CopernicusAI as a working implementation of the Knowledge Engine framework, demonstrating feasibility through a fully deployed system with 56,000+ indexed research papers, 574 process diagrams across six scientific disciplines, operational knowledge graph visualization, vector search, and RAG capabilities. The companion Programming Framework paper describes the methodology by which process knowledge is systematically extracted, structured, and organized into discipline knowledge interfaces within the system. While extensive validation remains necessary, the system demonstrates that the framework can be instantiated in practice. This vision paper aims to establish "Knowledge Engine" as a generic term describing systems that systematically transform information into knowledge, providing both a theoretical blueprint and a concrete implementation for future research.
 
 **Keywords**: knowledge engine, AI systems, knowledge discovery, scientific research, knowledge integration
 
@@ -44,7 +46,7 @@ Our framework builds upon seven decades of AI research:
 
 **Cognitive Architectures**: SOAR (Laird, 2012), ACT-R (Anderson, 2007), and CLARION (Sun, 2006) provide systematic frameworks sharing our emphasis on decomposition, integration, and feedback loops.
 
-**RAG and Modern Retrieval**: Recent RAG work (Lewis et al., 2020) combines retrieval with LLM generation. RAG systems address a key limitation of standard LLMs: while LLMs can generate fluent text, they're limited to information from their training data and cannot access current or domain-specific knowledge. RAG solves this by first searching a knowledge base (like our 12,000+ papers) to retrieve relevant information, then using that retrieved context to generate accurate, cited answers—essentially giving the LLM access to a constantly updated library. Our framework can be seen as extended RAG, emphasizing structured analysis, explicit connection discovery, cross-modal integration, and character-guided behavior. Whether these additions provide value beyond standard RAG requires validation.
+**RAG and Modern Retrieval**: Recent RAG work (Lewis et al., 2020) combines retrieval with LLM generation. RAG systems address a key limitation of standard LLMs: while LLMs can generate fluent text, they're limited to information from their training data and cannot access current or domain-specific knowledge. RAG solves this by first searching a knowledge base (like our 53,000+ papers) to retrieve relevant information, then using that retrieved context to generate accurate, cited answers—essentially giving the LLM access to a constantly updated library. Our framework can be seen as extended RAG, emphasizing structured analysis, explicit connection discovery, cross-modal integration, and character-guided behavior. Whether these additions provide value beyond standard RAG requires validation.
 
 **Our Contribution**: Not proposing fundamentally new capabilities, but a synthesizing framework for the LLM era emphasizing: (1) systematic integration guided by clear taxonomy, (2) multi-modal knowledge integration, (3) character/ethos specifications (exploratory), (4) framework requirement argument (ambitious goals need comprehensive frameworks), and (5) concrete prototype demonstrating feasibility.
 
@@ -103,10 +105,11 @@ The CopernicusAI system integrates multiple components following the nine-capabi
 - **Storage**: JSON (Google Cloud), PostgreSQL (planned), Mermaid for flowcharts
 - **Communication**: MCP server for AI assistant integration, FastAPI backend. The MCP (Model Context Protocol) server acts like a translator that allows AI assistants (like ChatGPT or Claude) to directly access and query the knowledge engine's databases, search functions, and knowledge graphs—essentially giving AI tools the ability to "plug into" the knowledge engine and retrieve real-time information rather than relying only on their training data.
 
-**Current Status** (December 2025):
-- **Research Papers**: 12,000+ mathematics papers indexed from arXiv with full metadata and vector embeddings
-- **Processes**: 100+ biological processes (via GLMP), 70+ chemistry processes, 20+ cross-domain processes
-- **Podcasts**: 50+ AI-synthesized research briefings. The podcast generation system has API access to 250 million papers.
+**Current Status** (April 2026):
+- **Research Papers**: 56,000+ papers indexed from arXiv with full metadata and vector embeddings, on a trajectory toward a target of 100,000
+- **Processes**: 574 process diagrams across six discipline families (GLMP regulatory circuits, general biology, chemistry, physics, mathematics, computer science), with a target of 1,000
+- **Videos**: 753 science videos with search and browse capabilities, on a trajectory toward 2,000
+- **Podcasts**: 86 AI-synthesized research briefings, with a target of 500. The podcast generation system has API access to 250 million papers.
 - **Knowledge Graph**: Fully operational with interactive visualization, relationship extraction (citations, similarity, categories), and graph query capabilities
 - **Vector Search**: Implemented using Vertex AI embeddings with semantic similarity search across papers, podcasts, and processes. Vector search works by converting text into mathematical representations (vectors) that capture meaning, allowing the system to find papers or content that are conceptually similar to a query even if they don't share exact keywords—think of it like finding books in a library by topic rather than by title.
 - **RAG System**: Operational with citation support, context retrieval, and multi-modal content integration. RAG (Retrieval-Augmented Generation) systems first search the knowledge engine's database to find relevant information, then use that information to generate answers—unlike a standard LLM that relies only on its training data, RAG can provide up-to-date, cited information from the actual research papers and processes in the system, making answers more accurate, verifiable, and current.
@@ -120,17 +123,19 @@ The CopernicusAI system integrates multiple components following the nine-capabi
 
 ![Knowledge Map Visualization](knowledge_map_screenshot.png)
 
-Figure 2: Interactive Knowledge Map showing relationships between research papers. Nodes represent papers and concepts, edges represent citations, semantic similarity, and category relationships. The visualization enables exploration of connections across the 12,000+ indexed mathematics papers, allowing researchers to discover unexpected relationships and navigate the knowledge network interactively. Live system accessible at https://copernicus-frontend-phzp4ie2sq-uc.a.run.app/knowledge-engine
+Figure 2: Interactive Knowledge Map showing relationships between research papers. Nodes represent papers and concepts, edges represent citations, semantic similarity, and category relationships. The visualization enables exploration of connections across the continuously growing corpus of indexed papers, allowing researchers to discover unexpected relationships and navigate the knowledge network interactively. Live system accessible at https://copernicus-frontend-phzp4ie2sq-uc.a.run.app/knowledge-engine
 
-- **Vector Search**: Vertex AI embeddings enable semantic search across 12,000+ papers with distance-based similarity ranking and content-type filtering. This allows users to find papers by meaning rather than exact word matches—for example, searching for "machine learning" will also find papers about "neural networks" or "deep learning" because the system understands these concepts are related.
+- **Vector Search**: Vertex AI embeddings enable semantic search across the indexed paper corpus with distance-based similarity ranking and content-type filtering. This allows users to find papers by meaning rather than exact word matches—for example, searching for "machine learning" will also find papers about "neural networks" or "deep learning" because the system understands these concepts are related.
 - **RAG System**: Retrieval-augmented generation combines vector search with LLM generation, providing answers with citations to source papers and processes. This approach ensures answers are grounded in actual research documents rather than the LLM's potentially outdated or incomplete training data, and provides citations so users can verify the information.
 - **Architecture**: FastAPI backend deployed on Google Cloud Run, Next.js frontend with React components, Firestore database for content storage, and Vertex AI for embeddings and LLM capabilities.
+
+**The Programming Framework as Knowledge Engine Infrastructure**: The process diagram component of CopernicusAI has been formalized as a standalone companion methodology — the Programming Framework — described in a companion paper (Welz, 2024/2026). The Programming Framework provides the pipeline by which textual process descriptions are transformed into structured Mermaid flowcharts, stored as JSON with metadata, and organized into searchable discipline databases. Within the Knowledge Engine taxonomy, it operationalizes the Digestion capability (transforming unstructured text into structured representations), the Connection capability (linking process diagrams to source papers and related processes), and the Communication capability (rendering processes as interactive visual artifacts). The six discipline databases now function not merely as process catalogs but as discipline knowledge interfaces, each incorporating domain-specific collections and a whole-discipline navigational visualization — a "Whole of X" map providing a high-level entry point into each field's process landscape. This two-tier architecture (unit-level Mermaid flowcharts + discipline-level navigational structure) was not anticipated in the original framework design and represents an emergent property of systematic process accumulation at scale.
 
 **Known Limitations**:
 - Character specification influences prompts but remains unvalidated
 - No automated quality validation beyond basic checks
 - Evaluation metrics not yet collected (system operational but not rigorously evaluated)
-- Knowledge graph currently limited to mathematics domain (expansion to other domains planned)
+- Knowledge graph currently covers selected topics in mathematics and biology
 
 **Character Specification (Exploratory)**: The prototype implements `copernicus.character.json` with traits inspired by the historical Copernicus. For example, when `fearlessness >= 0.7`, papers containing "challenge," "refute," "paradigm shift" receive 1.3x relevance boost. When `empirical_focus >= 0.8`, papers with experimental sections receive 1.5x boost. This is preliminary and unvalidated—we don't know if character-modified search outperforms baseline.
 
@@ -138,7 +143,7 @@ Figure 2: Interactive Knowledge Map showing relationships between research paper
 
 ## 6. Evaluation Plans and Success Criteria
 
-While CopernicusAI has not undergone rigorous evaluation (~200 queries from 5 beta testers, informal feedback only), we outline systematic evaluation plans:
+While CopernicusAI has not undergone rigorous evaluation, we outline systematic evaluation plans:
 
 **1. Retrieval Quality** (6 months):
 - Compare against PubMed, Google Scholar, Semantic Scholar
@@ -207,7 +212,7 @@ This vision paper proposes "Knowledge Engines" as a framework for systematically
 
 The nine-capability taxonomy provides a language for discussing knowledge engine design. While individual capabilities are well-established, our contribution is proposing their systematic integration with feedback loops and iterative refinement. Character/ethos specifications might guide system behavior (exploratory direction requiring validation).
 
-Achieving ambitious goals requires more than scaling AI—it requires comprehensive frameworks, scaffolding, tools, and processes. The CopernicusAI implementation demonstrates feasibility through a working system with 12,000+ papers, operational knowledge graph, vector search, and RAG capabilities. Notably, this system was developed in one year by a single individual using a laptop and subscriptions to LLM services (ChatGPT, Claude, Grok), AI-coding assistant Cursor, ElevenLabs Text-to-Speech service, Vercel web hosting, and Google Cloud Services, with total monthly costs under $200—demonstrating that sophisticated knowledge engines are now accessible to individual researchers and small teams, not just large organizations with substantial budgets. While extensive validation remains necessary, the system provides concrete evidence that the Knowledge Engine framework can be instantiated in practice, with a fully deployed, accessible system demonstrating the integration of multiple capabilities working together systematically.
+Achieving ambitious goals requires more than scaling AI—it requires comprehensive frameworks, scaffolding, tools, and processes. The CopernicusAI implementation demonstrates feasibility through a working system with 56,000+ papers, 574 process diagrams across six discipline families, operational knowledge graph, vector search, and RAG capabilities. Notably, this system was developed in one year by a single individual using a laptop and subscriptions to LLM services (ChatGPT, Claude, Grok), AI-coding assistant Cursor, ElevenLabs Text-to-Speech service, Vercel web hosting, and Google Cloud Services, with total monthly costs under $200—demonstrating that sophisticated knowledge engines are now accessible to individual researchers and small teams, not just large organizations with substantial budgets. While extensive validation remains necessary, the system provides concrete evidence that the Knowledge Engine framework can be instantiated in practice, with a fully deployed, accessible system demonstrating the integration of multiple capabilities working together systematically.
 
 This vision paper synthesizes decades of prior work and proposes an integrated framework for the LLM era. The term "Knowledge Engine" should enter AI discourse as a generic concept describing systems with common characteristics and goals. We offer this framework to stimulate discussion, pose research questions, and provide common vocabulary—recognizing extensive validation remains necessary.
 
@@ -225,7 +230,23 @@ G.W. conceived the framework, designed and implemented CopernicusAI, and wrote t
 
 ## Data Availability
 
-The CopernicusAI Knowledge Engine is publicly accessible at https://copernicus-frontend-phzp4ie2sq-uc.a.run.app/knowledge-engine. Source code and documentation are available at https://huggingface.co/spaces/garywelz/copernicusai.
+The CopernicusAI Knowledge Engine is publicly accessible at https://copernicus-frontend-phzp4ie2sq-uc.a.run.app/knowledge-engine. Source code and documentation are available at https://huggingface.co/spaces/garywelz/copernicusai. A public project interface is available at https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/copernicusai-public-reviewer.html.
+
+## Funding
+
+The author received no funding for this research.
+
+## Consent to Publish
+
+Consent to Publish declaration: not applicable.
+
+## Consent to Participate
+
+Consent to Participate declaration: not applicable.
+
+## Ethics Declaration
+
+Ethics declaration: not applicable.
 
 ---
 
@@ -303,7 +324,7 @@ The CopernicusAI Knowledge Engine is publicly accessible at https://copernicus-f
 
 36. Bubeck, S., et al. (2023). Sparks of artificial general intelligence: Early experiments with GPT-4. *arXiv preprint arXiv:2303.12712*.
 
-37. Welz, G. (2024). The Programming Framework: A General Method for Process Analysis Using LLMs and Mermaid Visualization. *Hugging Face Space*. https://huggingface.co/spaces/garywelz/programming_framework
+37. Welz, G. (2026). The Programming Framework: A General Method for Process Analysis Using LLMs and Mermaid Visualization. Zenodo preprint / manuscript in preparation. https://huggingface.co/spaces/garywelz/programming_framework
 
 38. Model Context Protocol. (2024). https://modelcontextprotocol.io/
 
