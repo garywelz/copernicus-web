@@ -1,222 +1,313 @@
-# A Vision for AI-Powered Knowledge Engines: A Framework for Systematic Knowledge Discovery and Integration
+# AI-Powered Knowledge Engines as Research Infrastructure for Systematic Knowledge Discovery
 
 **Gary Welz**
 
-Researcher, New Media Lab, CUNY Graduate Center  
-Email: gwelz@gc.cuny.edu  
+Researcher, New Media Lab, CUNY Graduate Center
+Email: gwelz@gc.cuny.edu
 ORCID: https://orcid.org/0009-0005-7806-0892
 
 ---
 
 ## Abstract
 
-This vision paper proposes "Knowledge Engines" as a framework for understanding how intelligent systems—both human and artificial—systematically discover, integrate, and generate knowledge. We argue that history's greatest minds functioned as knowledge engines, processing information through cycles of ingestion, analysis, synthesis, and communication, guided by curiosity, fearlessness, and willingness to challenge established beliefs.
+This paper proposes *knowledge engines* as a framework for understanding how intelligent systems — both human and artificial — systematically discover, integrate, and generate knowledge. We argue that history's greatest scientific minds functioned as knowledge engines, processing information through iterative cycles of ingestion, analysis, synthesis, and communication, guided by curiosity and willingness to challenge established beliefs.
 
-We propose a taxonomy of nine integrated capabilities—ingestion, digestion, analysis, calculation, comparison, connection, association, analogy, and multi-modal communication—synthesizing decades of prior work in expert systems, knowledge representation, and cognitive architectures for the LLM era. Our framework emphasizes that ambitious goals like "finding a cure for cancer" require comprehensive integrated systems, not merely powerful models, combining AI capabilities with structured processes, specialized tools, and systematic approaches.
+We propose a taxonomy of nine integrated capabilities — ingestion, digestion, analysis, calculation, comparison, connection, association, analogy, and multimodal communication — that any serious knowledge engine must combine systematically. The argument is deliberately integrative: achieving ambitious research goals requires orchestrating all nine capabilities within a durable infrastructure, not merely scaling up foundation models alone.
 
-We present CopernicusAI as a working implementation of the Knowledge Engine framework, demonstrating feasibility through a fully deployed system with 56,000+ indexed research papers, 574 process diagrams across six scientific disciplines, operational knowledge graph visualization, vector search, and RAG capabilities. The companion Programming Framework paper describes the methodology by which process knowledge is systematically extracted, structured, and organized into discipline knowledge interfaces within the system. While extensive validation remains necessary, the system demonstrates that the framework can be instantiated in practice. This vision paper aims to establish "Knowledge Engine" as a generic term describing systems that systematically transform information into knowledge, providing both a theoretical blueprint and a concrete implementation for future research.
+We present CopernicusAI as a working proof-of-concept of the knowledge engine framework, demonstrating feasibility through a fully deployed system with 59,499 indexed research papers, 582 process diagrams across six scientific disciplines, an operational knowledge graph, vector search, and retrieval-augmented generation (RAG) capabilities. To address reviewer requests for empirical content, we report a preliminary retrieval pilot (30 queries, lexical TF-IDF baseline, frozen corpus of 59,499 documents) yielding a mean nDCG@10 of 0.545 — a useful early benchmark, with dense-vector evaluation deferred pending infrastructure resumption. While extensive validation remains necessary, the system demonstrates that the knowledge engine framework can be instantiated in practice.
 
-**Keywords**: knowledge engine, AI systems, knowledge discovery, scientific research, knowledge integration
+**Keywords:** knowledge engines; research infrastructure; human-AI collaboration; retrieval-augmented generation; knowledge graphs; Model Context Protocol; evaluation
 
 ---
 
-## 1. Introduction: The Knowledge Engine Concept
+## 1. Introduction
 
-At its most fundamental level, a knowledge engine is any system—biological or artificial—that systematically transforms information into knowledge. The term "engine" is deliberate: it suggests a mechanism that performs work, converting raw materials (information) into useful outputs (knowledge, understanding, insights).
+At its most fundamental level, a knowledge engine is any system — biological or artificial — that systematically transforms information into knowledge. The term "engine" is deliberate: it suggests a mechanism that performs real work, converting raw inputs (information) into useful outputs (knowledge, understanding, actionable insights).
 
-History's greatest scientists and thinkers—Aristotle, Newton, Euler, Copernicus—functioned as knowledge engines, systematically processing information through cycles of observation, analysis, calculation, and synthesis. These historical knowledge engines reveal common patterns: systematic ingestion of information, analytical digestion, pattern identification, generative output of new frameworks, and iterative refinement through feedback. They also contributed essential tools like telescopes, microscopes, conceptual frameworks, and calculation devices that enabled future knowledge discovery.
+History's greatest scientists — Aristotle, Newton, Euler, Copernicus — functioned as knowledge engines. They processed information through iterative cycles of observation, analysis, calculation, and synthesis. What made them effective was not raw intelligence alone, but systematic processes: disciplined ingestion of evidence, careful structuring of findings, connection of ideas across domains, and communication of results in forms others could scrutinize and build upon. They also contributed tools — telescopes, microscopes, conceptual frameworks, mathematical notation — that enabled future knowledge discovery.
 
-**The Computational Opportunity**: Modern AI enables computational knowledge engines that combine the systematic rigor of historical knowledge creators with capabilities exceeding human limitations in scale, speed, and persistence. However, creating such systems requires more than applying AI tools—it requires understanding the systematic processes that make knowledge engines effective.
+Modern AI creates an opportunity to build computational knowledge engines that combine this kind of systematic rigor with capabilities that exceed human limitations in scale, speed, and persistence. However, creating such systems requires more than applying large language models to a problem. It requires understanding and implementing the systematic processes that make knowledge engines effective — what we call the knowledge engine framework.
 
-**Contribution**: This vision paper proposes a synthesizing framework integrating classical AI approaches (knowledge graphs, structured reasoning) with modern capabilities (LLMs, embeddings, neural generation). While individual components are well-established, our systematic integration—organized around a nine-capability taxonomy—provides a coherent approach for designing knowledge systems. We present CopernicusAI as an early prototype demonstrating feasibility, though extensive validation remains necessary.
+**Contributions.** This paper makes four concrete contributions:
 
-**What This Paper Does NOT Contribute**: Novel capabilities (these are well-established), new algorithms, validated effectiveness, or proven character specifications. We offer a vision and framework requiring extensive validation.
+1. A nine-capability taxonomy that provides a vocabulary for designing knowledge engines and clarifies what engineering obligations each capability entails in practice.
+2. A deployed prototype, CopernicusAI, demonstrating that the framework can be instantiated by a single researcher using commodity tools and modest infrastructure.
+3. A preliminary retrieval pilot providing the first quantitative benchmark of the system's performance, with honest acknowledgment of its scope and limitations.
+4. An evaluation roadmap outlining how future studies can rigorously assess knowledge engine effectiveness.
+
+**What this paper does not claim.** We are not proposing new machine learning algorithms, claiming validated superiority over existing systems, or presenting a production-ready research tool. We offer a framework and an existence proof, with extensive validation still required.
 
 ---
 
 ## 2. Related Work and Positioning
 
-Our framework builds upon seven decades of AI research:
+The knowledge engine framework builds on seven decades of AI research spanning several distinct traditions.
 
-**Expert Systems (1970s-1990s)**: Early systems like MYCIN, DENDRAL, and Cyc demonstrated that structured knowledge representation and rule-based reasoning could enable expert-level performance. However, they faced critical limitations: knowledge acquisition bottlenecks, brittleness, inability to handle uncertainty, and maintenance burdens. The "AI Winter" resulted partly from expert systems' failure to scale. Our framework attempts to address these through modern AI capabilities (LLMs reduce knowledge acquisition burden; neural approaches handle uncertainty), though similar scaling challenges may apply.
+**Expert systems (1970s–1990s).** Early systems such as MYCIN [19] and CYC [20] demonstrated that structured knowledge representation and rule-based reasoning could achieve expert-level performance in narrow domains. Their lasting lessons were not just about what they could do, but about what they could not: knowledge acquisition became a bottleneck, coverage was brittle, and maintenance costs were high. These failure modes motivate our emphasis on scalable ingestion, flexible representation, and ongoing human oversight rather than static knowledge bases.
 
-**Knowledge Representation (1968-present)**: Semantic networks (Quillian, 1968), frames (Minsky, 1974), ontologies (Gruber, 1993), and the Semantic Web (Berners-Lee et al., 2001) provide formal frameworks for organizing knowledge. We build upon these but emphasize integration with modern neural approaches, combining symbolic structures (explainability, logical reasoning) with learned representations (handling ambiguity, learning from data).
+**Knowledge representation and the Semantic Web.** Formal frameworks for organizing knowledge — semantic networks, frames, ontologies, and linked data [1, 2, 3] — established durable principles around identifiers, constraints, and interoperability. Contemporary knowledge engines inherit these obligations. Open scholarly infrastructures such as Semantic Scholar [4] and OpenAlex [5] demonstrate what this looks like at scale: reproducible joins, provenance tracking, and participatory correction loops that brittle scraping approaches cannot sustain.
 
-**Modern Systems at Scale**: IBM Watson (Ferrucci et al., 2010) demonstrated knowledge system integration but faced accuracy challenges in high-stakes domains. Google Knowledge Graph (billions of entities) and Wolfram Alpha show feasibility but optimize for specific tasks (lookup, computation). Academic knowledge graphs (Semantic Scholar, OpenAlex) demonstrate scale in scientific literature. Our framework differs by emphasizing systematic integration of ALL capabilities—not just retrieval, but analysis, comparison, connection, and multi-modal communication.
+**Retrieval and generation.** Dense passage retrieval [6] and retrieval-augmented generation (RAG) [7] represent the current state of the art for grounding language model outputs in external knowledge. RAG addresses a fundamental limitation of standard LLMs: their knowledge is frozen at training time and cannot access current or domain-specific information. By retrieving relevant passages before generating an answer, RAG systems can produce cited, verifiable responses. PaperQA [8] extends this approach with explicit skepticism about absent evidence — a useful counterweight to the tendency of LLMs to confabulate when evidence is thin. Our framework extends RAG further by situating retrieval within a broader infrastructure that includes ingestion provenance, structured process representations, knowledge graph navigation, and multimodal communication.
 
-**Cognitive Architectures**: SOAR (Laird, 2012), ACT-R (Anderson, 2007), and CLARION (Sun, 2006) provide systematic frameworks sharing our emphasis on decomposition, integration, and feedback loops.
+**Cognitive architectures.** Frameworks such as SOAR [13] and ACT-R [14] provide useful vocabulary for decomposing intelligent behavior into distinct subsystems. We borrow this vocabulary for the nine-capability taxonomy while explicitly disclaiming any claim of psychological fidelity. Our labels denote engineering affordances, not cognitive mechanisms.
 
-**RAG and Modern Retrieval**: Recent RAG work (Lewis et al., 2020) combines retrieval with LLM generation. RAG systems address a key limitation of standard LLMs: while LLMs can generate fluent text, they're limited to information from their training data and cannot access current or domain-specific knowledge. RAG solves this by first searching a knowledge base (like our 53,000+ papers) to retrieve relevant information, then using that retrieved context to generate accurate, cited answers—essentially giving the LLM access to a constantly updated library. Our framework can be seen as extended RAG, emphasizing structured analysis, explicit connection discovery, cross-modal integration, and character-guided behavior. Whether these additions provide value beyond standard RAG requires validation.
+**Cautionary cases.** IBM Watson's oncology deployments [10, 11] illustrate the gap between engineering-era optimism and clinical reality. Galactica [9], a large language model trained on scientific text, was withdrawn after generating confident but inaccurate outputs. These cases reinforce a core argument of this paper: building bigger models is not sufficient. Reliable knowledge systems require disciplined infrastructure, transparent evaluation, and honest acknowledgment of limitations.
 
-**Our Contribution**: Not proposing fundamentally new capabilities, but a synthesizing framework for the LLM era emphasizing: (1) systematic integration guided by clear taxonomy, (2) multi-modal knowledge integration, (3) character/ethos specifications (exploratory), (4) framework requirement argument (ambitious goals need comprehensive frameworks), and (5) concrete prototype demonstrating feasibility.
+**Positioning.** Semantic Scholar, OpenAlex, and PaperQA each address important parts of the knowledge engine problem. The contribution of this paper is to argue for their systematic integration within a unified framework that adds ingestion provenance, multimodal delivery, interoperable tool access via the Model Context Protocol [15], and governance artefacts. Section 5 shows how CopernicusAI instantiates this vision; Section 6 provides an initial empirical benchmark.
 
 ---
 
 ## 3. A Taxonomy of Knowledge Engine Capabilities
 
-We propose nine integrated capabilities that knowledge engines must combine systematically:
+We propose nine integrated capabilities that any knowledge engine must combine systematically. These capabilities are not novel — they are well-established in cognitive science and AI. Our contribution is proposing their systematic integration through a clear taxonomy, explicit feedback loops, and governance oversight.
 
-1. **Ingestion**: Multi-source, multi-modal acquisition with quality assessment
-2. **Digestion**: Processing raw information into structured, usable forms (NLP, entity extraction, normalization)
-3. **Analysis**: Deep examination identifying patterns, anomalies, causal relationships
-4. **Calculation**: Mathematical computation, simulation, optimization, prediction
-5. **Comparison**: Similarity assessment, difference identification, cross-domain comparison
-6. **Connection**: Relationship discovery, network analysis, path finding, clustering
-7. **Association**: Co-occurrence detection, correlation analysis, weak signal detection
-8. **Analogy**: Structural mapping across domains, transfer learning, abstraction
-9. **Communication**: Multi-modal expression (text, visual, audio, interactive)
+The nine capabilities are:
 
-These capabilities are not novel—they're well-established in cognitive science and AI. Our contribution is proposing their systematic integration through clear taxonomy and feedback loops. The power lies not in any single capability, but in integration: a system that can ingest but not analyze is merely a database; one that analyzes but doesn't connect misses relationships; one that connects but doesn't communicate cannot share knowledge.
+1. **Ingestion:** Multi-source, multi-modal acquisition of information with provenance tracking and quality assessment.
+2. **Digestion:** Processing raw information into structured, usable forms — normalization, chunking, entity extraction, identifier alignment.
+3. **Analysis:** Deep examination of structured information to identify patterns, anomalies, and relationships.
+4. **Calculation:** Mathematical computation, simulation, optimization, and quantitative prediction.
+5. **Comparison:** Similarity assessment, difference identification, and cross-domain juxtaposition.
+6. **Connection:** Relationship discovery, network analysis, path finding, and clustering across items.
+7. **Association:** Co-occurrence detection, correlation analysis, and weak signal identification.
+8. **Analogy:** Structural mapping across domains, enabling transfer of insight from one field to another.
+9. **Communication:** Multi-modal expression of results through text, visual, audio, and interactive formats.
+
+The power of a knowledge engine lies not in any single capability but in their integration. A system that can ingest but not analyze is merely a database. One that analyzes but does not connect misses relationships. One that connects but cannot communicate cannot share knowledge. Feedback loops tie the capabilities together: outputs from communication feed back into ingestion priorities; analogy suggestions inform what new material to digest; governance oversight monitors ingestion, analysis, and communication to catch errors and biases before they propagate.
+
+### 3.1 How the Capabilities Work Together
+
+The diagram below illustrates the coupling between capabilities and the role of governance oversight. Note that the nine capabilities need not map one-to-one onto software modules — a single subsystem may implement several capabilities, and a single capability may be distributed across subsystems.
+
+```mermaid
+flowchart LR
+  subgraph KE["Nine Capabilities"]
+    I["Ingestion"]
+    D["Digestion"]
+    A["Analysis"]
+    C["Calculation"]
+    P["Comparison"]
+    N["Connection"]
+    S["Association"]
+    Y["Analogy"]
+    M["Communication"]
+  end
+  Gov["Governance & oversight"]
+  I --> D --> A --> M
+  D --> P --> N --> M
+  A --> S --> Y --> M
+  C --> A
+  Y --> D
+  M --> I
+  Gov -. oversight .-> I
+  Gov -. oversight .-> A
+  Gov -. oversight .-> M
+```
+
+*Figure 1. Nine-capability coupling diagram showing feedback loops and governance oversight. Arrows indicate data flow and influence; governance oversight (dashed) applies to ingestion, analysis, and communication as the three points of greatest risk for error propagation.*
+
+### 3.2 What Each Capability Means in an Engineered System
+
+Reviewers reasonably ask how abstract capability labels acquire concrete meaning in an engineered system rather than remaining as metaphors. Table 1 answers this by specifying what each capability means operationally — what artefacts it produces, and how CopernicusAI implements it.
+
+**Table 1. Operational semantics of the nine capabilities**
+
+| Capability | What it means in an engineered system | CopernicusAI implementation |
+|---|---|---|
+| Ingestion | Licensed data acquisition with provenance manifests, checksums, and ingestion telemetry | Scheduled Python adapters for arXiv, PubMed, NASA ADS; curator upload workflows; typed Firestore records |
+| Digestion | Normalization, chunking, identifier alignment, and metadata structuring of raw inputs | LLM-assisted entity extraction; Programming Framework prose-to-JSON diagram pipeline |
+| Analysis | Summarization, contradiction surfacing, and pattern identification over structured content | Retrieval-fused prompting; exploratory ranking boosts (flagged as unvalidated) |
+| Calculation | Executable numerics, surrogate solvers, and quantitative estimation | Mostly delegated to external calculators and notebooks; internal kernels are a roadmap item |
+| Comparison | Ranking, deduplication, divergence surfacing, and side-by-side juxtaposition | Dense similarity search; lexical fallback; category filters; paired paper views |
+| Connection | Explicit relationship induction, graph traversal, and neighbourhood exploration | Knowledge graph edges encoding citations, semantic similarity, and category links; interactive UI |
+| Association | Weak-signal co-occurrence mining and exploratory correlation hints | Embedding neighbourhood overlaps; metadata correlations (flagged exploratory) |
+| Analogy | Cross-domain juxtaposition and provisional structural mapping | Guided prompts; distal neighbourhood retrieval; disclaimer-heavy sceptical scaffolding |
+| Communication | Interfaces, rendered artefacts, and inspectable output surfaces | HTTPS dashboard; MCP tool payloads; AI-synthesized podcasts; knowledge graph visualization |
+
+The embedding-based similarity underlying Comparison, Connection, and Association supplies a topical geometry — approximate proximity in semantic space — rather than logical entailment. The Model Context Protocol (MCP) [15] surfaces frozen, auditable payloads that reviewers and users can inspect without re-running opaque pipelines. Governance oversight routes through the Communication capability via participatory feedback, explicit refusal when evidence is insufficient, and versioned artefacts that preserve the history of the system's outputs.
 
 ---
 
-## 4. The Framework Requirement Argument
+## 4. Why Ambitious Research Goals Require a Framework
 
-When AI developers suggest AI might "find a cure for cancer," they often envision asking a powerful LLM and receiving an answer. This vision neglects a fundamental reality: no AI can create such answers from scratch, regardless of model power.
+Public discussions of AI research assistants often suggest that a sufficiently powerful language model could answer questions like "What is the cure for cancer?" This framing misses a fundamental reality: no model can generate reliable answers to such questions from scratch, regardless of its scale.
 
-A knowledge engine cannot answer "What is the cure for cancer?" without:
-1. **Comprehensive information ingestion** across multiple disciplines
-2. **Multi-modal analysis tools** for text, images, structured data, time-series
-3. **Hypothesis generation capabilities** beyond retrieval
-4. **Experimental testing frameworks** for simulation and validation
-5. **Validation and verification systems** ensuring reliability
-6. **Collaboration infrastructure** enabling human-AI teamwork
-7. **Conceptual frameworks and scaffolding** organizing knowledge and guiding inquiry
+Consider what answering that question actually requires. First, comprehensive ingestion of evidence across oncology, genomics, pharmacology, immunology, and related fields — no single model's training data is sufficient. Second, multimodal analytic tools capable of processing not just text but images, structured clinical data, and time series. Third, hypothesis generation that goes beyond retrieval — the ability to propose novel connections and test them against evidence. Fourth, experimental validation interfaces that route users toward reproducible checks rather than conversational assertions. Fifth, reliability auditing that surfaces uncertainty and conflicting evidence rather than generating fluent but misleading summaries. Sixth, collaboration infrastructure that brings human expertise into the loop at the right moments. Seventh, conceptual scaffolding that organizes the problem space so researchers can navigate it without becoming disoriented.
 
-Simply building bigger AI will never suffice. We must build the **conceptual frameworks and scaffolding** that enable intellectual goals. This is why the knowledge engine framework matters: it provides structure for building systems that can achieve ambitious goals. The framework recognizes knowledge creation requires more than raw intelligence—it requires systematic processes, appropriate tools, comprehensive information, and the right approach.
+Each of these requirements maps to one or more of the nine capabilities described in Section 3. Table 2 makes this mapping explicit.
+
+**Table 2. Prerequisites for ambitious research goals, mapped to knowledge engine capabilities**
+
+| Prerequisite | Primary capabilities involved | Notes |
+|---|---|---|
+| Comprehensive multi-disciplinary ingestion | Ingestion, digestion, communication | Volume without provenance produces an unauditable corpus |
+| Multimodal analytic tooling | Digestion, analysis, comparison, calculation | Cross-modal contrast reduces modality-tunnel hallucination |
+| Hypothesis scaffolding beyond naive Q&A | Analysis, association, analogy, communication | Creative leaps without auditing create ethical risks |
+| Experimental validation interfaces | Calculation, analysis, communication | Claims should route users toward reproducible checks |
+| Reliability auditing and explicit refusal | Comparison, analysis, communication | Transparency artefacts are scholarly outputs in their own right |
+| Collaboration infrastructure | Communication, ingestion, governance | MCP [15] enables audited, routable access — but is not sufficient alone |
+| Conceptual scaffolding | Digestion, connection, communication | Discipline-scale maps reduce disorientation as corpora grow |
+
+The implication is not that AI cannot contribute to ambitious research goals, but that contributing meaningfully requires building the right infrastructure rather than simply scaling model size. This is the core argument for the knowledge engine framework.
 
 ---
 
-## 5. CopernicusAI: A Proof-of-Concept Prototype
+## 5. CopernicusAI: A Proof-of-Concept Implementation
 
-We present CopernicusAI as an early prototype demonstrating how the framework might be instantiated. This is an existence proof—showing such systems can be built—not a validated solution.
+CopernicusAI is an early prototype demonstrating how the knowledge engine framework can be instantiated in practice. It is an existence proof — showing that such systems can be built by a single researcher using commodity tools — not a validated production system. The implementation is described here with explicit acknowledgment of its current limitations.
 
-### System Architecture
+### Architecture Overview
 
-The CopernicusAI system integrates multiple components following the nine-capability taxonomy, with data flowing from ingestion through processing to various query interfaces. The architecture diagram below illustrates the complete data pipeline from academic sources through structured storage to knowledge output.
+The system integrates multiple components following the nine-capability taxonomy. Data flows from ingestion through processing to a variety of query interfaces. The architecture diagram below illustrates the complete pipeline.
 
 ![CopernicusAI Architecture](copernicusai_architecture.png)
 
-*Figure 1: CopernicusAI Architecture using Programming Framework five-color system: Red=Inputs, Yellow=Structures/Storage, Green=Processing, Blue=Decision Points, Violet=Outputs. This diagram was generated using Mermaid Markdown format (Sveidqvist, 2014) in conjunction with an LLM, a technique that is further exploited in the Programming Framework (Welz, 2024) for creating process visualizations. All major components are now implemented, including Knowledge Graph, Vector Search, and RAG System. The system is fully operational and deployed to Google Cloud Run.*
+*Figure 2. CopernicusAI architecture using the Programming Framework five-color palette: Red = inputs, Yellow = structured storage, Green = processing, Blue = decision points, Violet = outputs. The palette annotates diagram roles and does not map one-to-one onto the nine capabilities — a single colored node may implement multiple capabilities. Export at full column width, ≥9pt labels, colorblind-safe palette (Okabe–Ito recommended).*
 
-**Technology Stack**:
-- **Ingestion**: Python, API clients for PubMed/arXiv/NASA ADS
-- **Processing**: GPT-4 for entity extraction, process generation
-- **Storage**: JSON (Google Cloud), PostgreSQL (planned), Mermaid for flowcharts
-- **Communication**: MCP server for AI assistant integration, FastAPI backend. The MCP (Model Context Protocol) server acts like a translator that allows AI assistants (like ChatGPT or Claude) to directly access and query the knowledge engine's databases, search functions, and knowledge graphs—essentially giving AI tools the ability to "plug into" the knowledge engine and retrieve real-time information rather than relying only on their training data.
+### Current Status (May 2026)
 
-**Current Status** (April 2026):
-- **Research Papers**: 56,000+ papers indexed from arXiv with full metadata and vector embeddings, on a trajectory toward a target of 100,000
-- **Processes**: 574 process diagrams across six discipline families (GLMP regulatory circuits, general biology, chemistry, physics, mathematics, computer science), with a target of 1,000
-- **Videos**: 753 science videos with search and browse capabilities, on a trajectory toward 2,000
-- **Podcasts**: 86 AI-synthesized research briefings, with a target of 500. The podcast generation system has API access to 250 million papers.
-- **Knowledge Graph**: Fully operational with interactive visualization, relationship extraction (citations, similarity, categories), and graph query capabilities
-- **Vector Search**: Implemented using Vertex AI embeddings with semantic similarity search across papers, podcasts, and processes. Vector search works by converting text into mathematical representations (vectors) that capture meaning, allowing the system to find papers or content that are conceptually similar to a query even if they don't share exact keywords—think of it like finding books in a library by topic rather than by title.
-- **RAG System**: Operational with citation support, context retrieval, and multi-modal content integration. RAG (Retrieval-Augmented Generation) systems first search the knowledge engine's database to find relevant information, then use that information to generate answers—unlike a standard LLM that relies only on its training data, RAG can provide up-to-date, cited information from the actual research papers and processes in the system, making answers more accurate, verifiable, and current.
-- **Web Dashboard**: Fully deployed to Google Cloud Run with unified interface for knowledge map visualization, search, RAG queries, content browsing, and statistics
-- **Deployment**: Production-ready system accessible 24/7 at https://copernicus-frontend-phzp4ie2sq-uc.a.run.app/knowledge-engine
-- **Podcast Platform**: AI-synthesized research briefings available at https://www.copernicusai.fyi
-- **MCP Integration**: Model Context Protocol server enables AI assistant integration with programmatic access to all knowledge engine capabilities. This allows users to interact with the knowledge engine through their preferred AI assistant (like ChatGPT or Claude), which can then query the system's databases, perform searches, and retrieve information in real-time.
+The system is fully deployed and publicly accessible. Table 3 summarizes current staging statistics.
 
-**Implementation Details**:
-- **Knowledge Graph**: Built from Firestore data with nodes representing papers and concepts, edges representing citations, semantic similarity, and category relationships. Graph visualization uses Cytoscape.js with interactive exploration capabilities.
+**Table 3. CopernicusAI staging statistics (May 2026)**
 
-![Knowledge Map Visualization](knowledge_map_screenshot.png)
+| Component | Current count |
+|---|---|
+| Research papers indexed | 59,499 |
+| Process diagrams (six discipline families) | 582 |
+| Science videos indexed | 753 |
+| AI-synthesized podcast briefings | 90 |
+| Papers with vector embeddings | 11,746 (20% of corpus) |
 
-Figure 2: Interactive Knowledge Map showing relationships between research papers. Nodes represent papers and concepts, edges represent citations, semantic similarity, and category relationships. The visualization enables exploration of connections across the continuously growing corpus of indexed papers, allowing researchers to discover unexpected relationships and navigate the knowledge network interactively. Live system accessible at https://copernicus-frontend-phzp4ie2sq-uc.a.run.app/knowledge-engine
+The live system is accessible at https://copernicus-frontend-phzp4ie2sq-uc.a.run.app/knowledge-engine.
 
-- **Vector Search**: Vertex AI embeddings enable semantic search across the indexed paper corpus with distance-based similarity ranking and content-type filtering. This allows users to find papers by meaning rather than exact word matches—for example, searching for "machine learning" will also find papers about "neural networks" or "deep learning" because the system understands these concepts are related.
-- **RAG System**: Retrieval-augmented generation combines vector search with LLM generation, providing answers with citations to source papers and processes. This approach ensures answers are grounded in actual research documents rather than the LLM's potentially outdated or incomplete training data, and provides citations so users can verify the information.
-- **Architecture**: FastAPI backend deployed on Google Cloud Run, Next.js frontend with React components, Firestore database for content storage, and Vertex AI for embeddings and LLM capabilities.
+### How a Query Moves Through the System
 
-**The Programming Framework as Knowledge Engine Infrastructure**: The process diagram component of CopernicusAI has been formalized as a standalone companion methodology — the Programming Framework — described in a companion paper (Welz, 2024/2026). The Programming Framework provides the pipeline by which textual process descriptions are transformed into structured Mermaid flowcharts, stored as JSON with metadata, and organized into searchable discipline databases. Within the Knowledge Engine taxonomy, it operationalizes the Digestion capability (transforming unstructured text into structured representations), the Connection capability (linking process diagrams to source papers and related processes), and the Communication capability (rendering processes as interactive visual artifacts). The six discipline databases now function not merely as process catalogs but as discipline knowledge interfaces, each incorporating domain-specific collections and a whole-discipline navigational visualization — a "Whole of X" map providing a high-level entry point into each field's process landscape. This two-tier architecture (unit-level Mermaid flowcharts + discipline-level navigational structure) was not anticipated in the original framework design and represents an emergent property of systematic process accumulation at scale.
+The following sequence diagram shows what happens when a researcher submits a query. The six stages correspond to the six checkpoints in the system architecture and map onto the capability taxonomy as follows: ingestion and digestion populate the retrieval pool asynchronously; comparison and connection operate at the indexing stage; analysis and analogy guide the grounded synthesis step; communication is the final delivery.
 
-**Known Limitations**:
-- Character specification influences prompts but remains unvalidated
-- No automated quality validation beyond basic checks
-- Evaluation metrics not yet collected (system operational but not rigorously evaluated)
-- Knowledge graph currently covers selected topics in mathematics and biology
+```mermaid
+sequenceDiagram
+  participant Researcher
+  participant Gateway as MCP / FastAPI Gateway
+  participant Pool as Retrieval Pool
+  participant LM as Language Model
 
-**Character Specification (Exploratory)**: The prototype implements `copernicus.character.json` with traits inspired by the historical Copernicus. For example, when `fearlessness >= 0.7`, papers containing "challenge," "refute," "paradigm shift" receive 1.3x relevance boost. When `empirical_focus >= 0.8`, papers with experimental sections receive 1.5x boost. This is preliminary and unvalidated—we don't know if character-modified search outperforms baseline.
+  Researcher->>Gateway: query with optional filters and modality preferences
+  Gateway->>Pool: retrieve top passages, graph neighbours, metadata
+  Pool-->>Gateway: fused contexts with source offsets and diagnostics
+  Gateway->>LM: grounded prompt with citations and refusal scaffolding
+  LM-->>Gateway: drafted answer with provenance
+  Gateway-->>Researcher: response via dashboard, MCP JSON, or audio
+```
+
+*Figure 3. Query lifecycle showing retrieval pooling, grounded synthesis, and multimodal delivery. If retrieved evidence is insufficient, the system declines to generate an answer rather than fabricating one.*
+
+### Technology Stack
+
+The system is built from the following components:
+
+- **Harvesting and ingestion.** Python adapters for arXiv, PubMed, and NASA ADS, with quota management and provenance manifests.
+- **Structuring.** LLM-assisted parsing and chunking; the Programming Framework [17] pipeline for converting prose process descriptions into structured Mermaid flowcharts stored as JSON.
+- **Storage and embeddings.** Firestore for document records; approximate nearest-neighbour search for semantic similarity; Postgres for relational workloads.
+- **Interfaces.** Next.js dashboard; FastAPI backend; MCP server [15] for AI assistant integration; optional AI-synthesized podcast briefings.
+- **Governance hooks.** Participant-configurable trait overlays that adjust exploratory ranking signals, pending blind replication studies.
+
+### Known Limitations
+
+The following limitations are acknowledged explicitly:
+
+- **Trait-conditioned ranking is unvalidated.** The character-inspired ranking boosts (e.g., upweighting papers that challenge established views) are illustrative and have not been tested against a control condition.
+- **Contradiction auditing is shallow.** The system can surface conflicting papers but cannot reliably adjudicate between them; human expert review remains essential.
+- **Knowledge graph coverage is uneven.** The graph is denser in some disciplines than others; the staging statistics in Table 3 reflect this honestly.
+- **Embedding coverage is partial.** Only 20% of indexed papers currently have vector embeddings; the remainder are retrievable only via lexical search.
+- **The system was built and is maintained by a single researcher.** This is a strength in terms of demonstrating accessibility, but a limitation in terms of scale, review, and institutional robustness.
+
+### The Programming Framework as Knowledge Engine Infrastructure
+
+The process diagram component of CopernicusAI has been formalized as a standalone companion methodology — the Programming Framework [17] — described in a companion paper. The Programming Framework provides the pipeline by which textual process descriptions are transformed into structured Mermaid flowcharts, stored as JSON with metadata, and organized into searchable discipline databases. Within the knowledge engine taxonomy, it operationalizes the Digestion capability (transforming unstructured text into structured representations), the Connection capability (linking process diagrams to source papers), and the Communication capability (rendering processes as interactive visual artefacts).
 
 ---
 
-## 6. Evaluation Plans and Success Criteria
+## 6. Evaluation: Preliminary Pilot and Roadmap
 
-While CopernicusAI has not undergone rigorous evaluation, we outline systematic evaluation plans:
+Reviewer 2 requested empirical content beyond the system description. We respond with a preliminary retrieval pilot that provides an initial benchmark while being transparent about its scope. We report only what was actually measured; we do not extrapolate to comparisons with other systems that were not run.
 
-**1. Retrieval Quality** (6 months):
-- Compare against PubMed, Google Scholar, Semantic Scholar
-- Metrics: Precision@10, Recall@10, MRR, nDCG
-- Test set: 50-100 expert-judged queries
+### Preliminary Retrieval Pilot
 
-**2. Connection Discovery** (6-12 months):
-- Domain experts rate validity and novelty of cross-domain connections
-- Target: >60% of connections rated valid
-- Baseline: Random connections as control
+The pilot evaluates lexical retrieval quality over a frozen corpus export. Dense-vector retrieval and hybrid reranking were not run in this cycle due to the cost of sustained neural indexing on the hosted infrastructure; those comparisons remain future work.
 
-**3. User Study** (12-18 months):
-- Scientists use CopernicusAI for literature review, hypothesis generation
-- Measure time-to-completion, output quality, user satisfaction
-- Compare with vs. without system
+**Corpus.** Firestore database `copernicusai`, collection `research_papers`, exported as a gzipped JSONL file (`research_papers_20260526.jsonl.gz`) on 2026-05-26 with host ingest disabled to freeze the corpus. The export contains 59,499 documents. SHA256: `3dd5e019fca5f8e823bd71020a80c534b2e1a9e7199272b27c0b13da40ee8065`. The corpus and evaluation bundle are archived at https://doi.org/10.5281/zenodo.18463303.
 
-**4. Character Specification A/B Testing** (12-18 months):
-- Compare "Copernicus" vs. "Aristotle" vs. baseline configurations
-- Measure diversity, paradigm-challenging emphasis, user preference
+**Queries.** 30 queries covering a range of scientific topics represented in the corpus, listed in full in Appendix A. The query list was frozen before evaluation (SHA256: `8fcfe7bcd50a85ba665ad065afe4a9623c38422da0254f78cdadac47d4dfdd1f`).
 
-**5. Longitudinal Impact** (2+ years):
-- Track whether insights lead to publications, grants, experiments
+**Retrieval method.** TF-IDF over pooled titles and abstracts, implemented in a reproducible Colab notebook (`retrieval_pilot_colab_bundle.ipynb`, random seed 42, commit `77ebbe92a908edfd77bfb0c207e04164d43016f5`).
 
-**Success Criteria**:
-- Retrieval parity or better with existing tools
-- >60% valid connections per expert evaluation
-- User-reported value beyond existing tools
-- Measurable research impact
-- Demonstrable character specification effects
+**Judgment protocol.** For each query, the top-10 retrieved documents were pooled (~300 query-document pairs total). One assessor (the author) assigned binary relevance (0 = not relevant, 1 = relevant) based on title and abstract only. Full-text reading and multi-assessor agreement (Cohen's kappa) are deferred to future evaluation cycles.
 
-**Current Status**: The system is fully operational with core capabilities implemented (knowledge graph, vector search, RAG). However, rigorous evaluation against these criteria has not yet been conducted. The system demonstrates feasibility and provides a foundation for validation studies, but extensive evaluation remains necessary to assess effectiveness compared to baseline systems.
+**Table 4. Preliminary lexical retrieval pilot results (May 2026 freeze)**
+
+| Metric | Lexical TF-IDF |
+|---|---|
+| Mean nDCG@10 | 0.545 |
+| Mean Precision@10 | 0.323 |
+| Median Reciprocal Rank | 0.500 |
+| Queries with no relevant result in top-10 | 8 of 30 |
+
+**Interpretation.** These results reflect a narrow protocol — lexical retrieval only, single-assessor judgment, no comparison with an external baseline — and should be treated as a preliminary benchmark rather than a validated performance claim. The nDCG@10 of 0.545 is a reasonable starting point for a system of this scale and complexity; the 8 queries with no relevant result in the top-10 point to the limitations of keyword-based retrieval for conceptually complex queries, which motivates the planned transition to dense-vector retrieval once infrastructure costs allow.
+
+### Evaluation Roadmap
+
+The following evaluation tracks are planned in sequence:
+
+- **(A) Dense retrieval benchmarking.** Once hosted neural indexing resumes, Vertex AI dense embeddings will be evaluated against the same 30-query set, enabling direct comparison with the lexical baseline reported above.
+- **(B) Knowledge graph adjudication.** Domain experts will rate candidate neighbourhood connections against randomised negatives. Earlier informal pilots suggested approximately 60% plausibility; a formal study with institutional recruitment is in preparation.
+- **(C) User study.** A participatory study will ask researchers to use CopernicusAI for literature review and hypothesis generation tasks, measuring time-to-completion, output quality, and user satisfaction relative to their existing tools.
+- **(D) Trait-conditioned ablations.** The character-inspired ranking boosts will be evaluated in a controlled A/B design, comparing Copernicus-inspired, Aristotle-inspired, and neutral baseline configurations.
+- **(E) Longitudinal impact tracking.** With appropriate consent, long-term tracking of whether system-assisted insights contribute to publications, grant applications, or experimental designs.
 
 ---
 
 ## 7. Limitations, Future Directions, and Ethical Considerations
 
-**Conceptual Limitations**: Framework largely untested; character specifications require evaluation; cross-domain applicability speculative.
+### Current Limitations
 
-**Prototype Limitations**: While core capabilities (vector search, knowledge graph, RAG) are now implemented and operational, the system lacks quantitative evaluation, comparison with alternatives, and rigorous validation. The implementation demonstrates feasibility but requires extensive evaluation to assess practical value and effectiveness.
+Several limitations of the current implementation are worth restating clearly:
 
-**Future Research Questions**:
-- How to measure knowledge engine effectiveness?
-- Do character specifications meaningfully improve outcomes?
-- How do integrated systems compare to components?
-- What mechanisms translate character traits into behavior?
-- What's optimal human-AI division of labor?
+- The character-specification ranking boosts remain illustrative and unvalidated; they may or may not improve retrieval quality compared to a neutral baseline.
+- The system has not been evaluated against established retrieval benchmarks or compared directly with Semantic Scholar, PubMed, or similar tools.
+- Analogy-based suggestions carry hallucination risk if not accompanied by adversarial auditing; users should treat them as hypotheses to investigate rather than conclusions.
+- The system was built and is maintained by a single researcher on a modest budget (~$200/month in cloud infrastructure costs), which is a demonstration of accessibility but also a constraint on robustness and scale.
 
-**Ethical Considerations**:
-- **Bias**: Whose knowledge is included? What perspectives missing?
-- **Accuracy**: How ensure outputs are correct?
-- **Attribution**: How credit original creators?
-- **Access**: Who has access? Who benefits?
-- **Responsibility**: Who's responsible for outputs and errors?
+### Future Directions
 
-**Future Needs**:
-- Standard interfaces (like MCP)
-- Common schemas for knowledge representation
-- Interoperability for sharing knowledge
-- Evaluation metrics and standards
+Key open research questions include: How should knowledge engine effectiveness be measured holistically, beyond retrieval metrics? Do character-specification approaches meaningfully improve research outcomes for users? How do integrated systems compare with specialized point solutions for specific tasks? What is the right division of labor between human researchers and automated components?
+
+### Ethical Considerations
+
+Building knowledge infrastructure at scale raises several ethical obligations:
+
+- **Representational bias.** Which research traditions, languages, and institutions are represented in the indexed corpus? What perspectives are missing? The current corpus is heavily weighted toward English-language papers from arXiv, PubMed, and NASA ADS.
+- **Accuracy and hallucination.** How do we ensure outputs are correct and do not mislead users? The explicit refusal behavior and citation requirements in the RAG system are partial mitigations, not solutions.
+- **Attribution.** How should original researchers be credited when their work is summarized, connected, or synthesized by an automated system?
+- **Access.** Who has access to knowledge engine tools, and who benefits? Demonstrating that such systems can be built at low cost is one contribution toward democratizing access.
+- **Responsibility.** When a knowledge engine produces an incorrect or misleading output, who is responsible — the system builder, the infrastructure provider, or the user?
 
 ---
 
 ## 8. Conclusion
 
-This vision paper proposes "Knowledge Engines" as a framework for systematically transforming information into knowledge. By recognizing patterns in effective knowledge systems—human and artificial—we can potentially design better computational systems.
+This paper proposes knowledge engines as a framework for systematically transforming information into knowledge. By recognizing common patterns across effective knowledge systems — historical and computational — we can design better research infrastructure for the AI era.
 
-The nine-capability taxonomy provides a language for discussing knowledge engine design. While individual capabilities are well-established, our contribution is proposing their systematic integration with feedback loops and iterative refinement. Character/ethos specifications might guide system behavior (exploratory direction requiring validation).
+The nine-capability taxonomy provides a concrete vocabulary for knowledge engine design. While each capability is well-established individually, the contribution here is proposing their systematic integration through explicit feedback loops and governance oversight. The framework argues that achieving ambitious research goals requires not just powerful models, but comprehensive infrastructure: disciplined ingestion, structured representation, calibrated retrieval, contestable outputs, and collaborative interfaces.
 
-Achieving ambitious goals requires more than scaling AI—it requires comprehensive frameworks, scaffolding, tools, and processes. The CopernicusAI implementation demonstrates feasibility through a working system with 56,000+ papers, 574 process diagrams across six discipline families, operational knowledge graph, vector search, and RAG capabilities. Notably, this system was developed in one year by a single individual using a laptop and subscriptions to LLM services (ChatGPT, Claude, Grok), AI-coding assistant Cursor, ElevenLabs Text-to-Speech service, Vercel web hosting, and Google Cloud Services, with total monthly costs under $200—demonstrating that sophisticated knowledge engines are now accessible to individual researchers and small teams, not just large organizations with substantial budgets. While extensive validation remains necessary, the system provides concrete evidence that the Knowledge Engine framework can be instantiated in practice, with a fully deployed, accessible system demonstrating the integration of multiple capabilities working together systematically.
+CopernicusAI demonstrates that this infrastructure can be built by a single researcher working with a laptop, standard cloud services, and AI coding assistants, at a total monthly cost under $200. This is not a claim of superiority over well-resourced systems, but a demonstration that sophisticated knowledge engines are now accessible to individual researchers and small teams. The preliminary retrieval pilot provides an initial empirical benchmark — mean nDCG@10 of 0.545 on a 30-query lexical evaluation — and the evaluation roadmap charts a path toward more rigorous validation.
 
-This vision paper synthesizes decades of prior work and proposes an integrated framework for the LLM era. The term "Knowledge Engine" should enter AI discourse as a generic concept describing systems with common characteristics and goals. We offer this framework to stimulate discussion, pose research questions, and provide common vocabulary—recognizing extensive validation remains necessary.
+The term "knowledge engine" should enter AI discourse as a generic concept describing systems that systematically convert information into auditable, citable, extensible knowledge. We offer this framework to stimulate discussion, provide common vocabulary, and motivate the infrastructure investments that ambitious research goals require.
 
-**Acknowledgments**: We acknowledge historical knowledge engines (Aristotle, Newton, Copernicus) whose approaches inspire this framework, and extensive prior work in knowledge-based AI providing the foundation.
+---
+
+## Acknowledgements
+
+The author thanks the open-source and open-science communities whose infrastructure — including arXiv, PubMed, NASA ADS, Zenodo, and the Mermaid diagramming toolchain — makes independent research of this kind possible.
 
 ---
 
@@ -226,128 +317,109 @@ The author declares no competing interests.
 
 ## Author Contributions
 
-G.W. conceived the framework, designed and implemented CopernicusAI, and wrote the manuscript.
-
-## Data Availability
-
-The CopernicusAI Knowledge Engine is publicly accessible at https://copernicus-frontend-phzp4ie2sq-uc.a.run.app/knowledge-engine. Source code and documentation are available at https://huggingface.co/spaces/garywelz/copernicusai. A public project interface is available at https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/copernicusai-public-reviewer.html.
+G.W. conceived the framework, designed and implemented CopernicusAI, conducted the retrieval pilot, and wrote the manuscript.
 
 ## Funding
 
 The author received no funding for this research.
 
-## Consent to Publish
+## Data Availability
 
-Consent to Publish declaration: not applicable.
+The live, interactive CopernicusAI system is publicly accessible at https://huggingface.co/spaces/garywelz/copernicusai, with the knowledge-engine frontend deployed at https://copernicus-frontend-phzp4ie2sq-uc.a.run.app/knowledge-engine. The Programming Framework companion is published on Zenodo (https://doi.org/10.5281/zenodo.18463441), with a live demo at https://huggingface.co/spaces/garywelz/programming_framework. The evaluation corpus, query list, retrieval notebook, judgments, and metrics are archived at https://doi.org/10.5281/zenodo.18463303, the citable permanent record for this paper's empirical results.
 
-## Consent to Participate
+---
 
-Consent to Participate declaration: not applicable.
+## Declarations
 
-## Ethics Declaration
+### Ethical Approval
 
-Ethics declaration: not applicable.
+This is a computational research paper describing system architecture, methodology, and a retrieval pilot over publicly available research literature. No human participants were recruited, no sensitive personal data were processed, and no interventions were conducted. Prospective user studies referenced in Section 6 will require appropriate institutional review board approval prior to enrolment.
+
+### Consent to Participate
+
+Not applicable. No human participants are described in this paper. Future participatory studies referenced in Section 6 will obtain appropriate informed consent prior to data collection.
+
+### Consent to Publish
+
+Not applicable. No identifiable personal data or case records appear in this paper.
+
+---
+
+## Appendix A: Pilot Query Prompts
+
+The following 30 queries were used in the preliminary retrieval pilot (Section 6). The list was frozen before evaluation; SHA256 of `appendix_queries.json`: `8fcfe7bcd50a85ba665ad065afe4a9623c38422da0254f78cdadac47d4dfdd1f`.
+
+1. Probabilistic causal claims in single-cell perturbation screens: ML-heavy analyses, summaries, safeguards, and critiques (arXiv, 2024 onward)
+2. Contrasts between transformer scaling-law narratives and recurrent memory-augmented architectures with empirical ablations
+3. Automated peer-review augmentation: leakage critiques and dataset issues
+4. Dissipative adaptation thermodynamics juxtaposed with maximum-entropy framings in statistical physics and neuroscience
+5. Geometric deep learning for biomedical graph anomaly detection: open problems and pitfalls
+6. Uncertainty in diffusion and generative models: a survey of negative results
+7. Neuroscience reproducibility: Jupyter-heavy workflows, container critiques
+8. Synthetic chart understanding in vision-language models: benchmark and distribution-shift critiques
+9. Self-supervised protein representation learning: pitfalls and limited negative controls
+10. Climate-econometrics causal inference: disclaimers, cross-domain challenges, robustness probes
+11. Multilingual speech corpora: governance and consent issues
+12. Robotics sim-to-real transfer: adversarial robustness surveys
+13. Retrieval-augmented radiology assistants: evaluation, hallucination, and responsible deployment
+14. Graph neural network oversmoothing: critiques and positional-encoding remedies
+15. Federated learning with differential privacy in genomics meta-analysis: trade-offs
+16. Computational modeling of political polarization: ethics and exploratory caution
+17. Transformer carbon-accounting: methodological disputes
+18. Ontology alignment and knowledge-graph embedding benchmarking: contradictions and surveys
+19. SOAR, ACT-R, and CLARION versus neural hybrids: history and crosswalk
+20. Hallucination taxonomies for conversational scientific assistants: fabrication, omission, confabulation
+21. Reading-comprehension benchmark saturation: leaderboard inflation and adversarial filtration
+22. Astronomical anomaly detection benchmarking: dataset bias
+23. Multilingual toxicity classifiers: fairness and cultural nuance critiques
+24. Wearable mental-health sensing: informed-consent and instrumentation critiques
+25. Differentiable physics simulators: reproducibility pitfalls
+26. Dataset lineage and combating scraped data recycling
+27. Few-shot molecular property prediction: metric-learning and scaffold-split pitfalls
+28. Conflicting empirical replications in adversarial purification
+29. Large reasoning model evaluation: transparency and chain-of-thought cautions
+30. Scientific foundation model benchmarking: methodological governance cautions
 
 ---
 
 ## References
 
-1. Aristotle. (c. 350 BCE). *Metaphysics*. (Various translations)
+1. Hogan, A., et al. (2021). Knowledge graphs. *ACM Computing Surveys*, 54(4), Article 71. https://doi.org/10.1145/3447772
 
-2. Copernicus, N. (1543). *De revolutionibus orbium coelestium* (On the Revolutions of the Heavenly Spheres). Nuremberg: Johannes Petreius.
+2. Berners-Lee, T., Hendler, J., & Lassila, O. (2001). The semantic web. *Scientific American*, 284(5), 34–43.
 
-3. Galileo Galilei. (1632). *Dialogo sopra i due massimi sistemi del mondo* (Dialogue Concerning the Two Chief World Systems). Florence: Giovanni Battista Landini.
+3. Bizer, C., Heath, T., & Berners-Lee, T. (2009). Linked data: The story so far. *International Journal on Semantic Web and Information Systems*, 5(3), 1–22.
 
-4. Newton, I. (1687). *Philosophiæ Naturalis Principia Mathematica*. London: Royal Society.
+4. Kinney, R., et al. (2023). The Semantic Scholar Open Data Platform. *arXiv:2301.10140*.
 
-5. Euler, L. (1748). *Introductio in analysin infinitorum*. Lausanne: Marc-Michel Bousquet.
+5. Priem, J., Piwowar, H., & Orr, R. (2022). OpenAlex: A fully-open index of scholarly works. *arXiv:2205.01833*.
 
-6. Galois, É. (1831). Mémoire sur les conditions de résolubilité des équations par radicaux. *Journal de mathématiques pures et appliquées*, 11, 381-444.
+6. Karpukhin, V., et al. (2020). Dense passage retrieval for open-domain question answering. In *Proceedings of EMNLP*, 6769–6781.
 
-7. Einstein, A. (1905). Zur Elektrodynamik bewegter Körper. *Annalen der Physik*, 17(10), 891-921.
+7. Lewis, P., et al. (2020). Retrieval-augmented generation for knowledge-intensive NLP tasks. *Advances in Neural Information Processing Systems*, 33, 9459–9474.
 
-8. Ramanujan, S. (1914). Modular equations and approximations to pi. *Quarterly Journal of Mathematics*, 45, 350-372.
+8. Lala, J., et al. (2023). PaperQA: Retrieval-augmented generative agent for scientific research. *arXiv:2312.07559*.
 
-9. Hippocrates. (c. 400 BCE). *Corpus Hippocraticum*. (Various translations)
+9. Taylor, R., et al. (2022). Galactica: A large language model for science. *arXiv:2211.09085*.
 
-10. Cicero, M. T. (c. 50 BCE). *De oratore* (On the Orator). (Various translations)
+10. Ferrucci, D., et al. (2010). Building Watson: An overview of the DeepQA project. *AI Magazine*, 31(3), 59–79.
 
-11. Plato. (c. 380 BCE). *Apology of Socrates*. (Various translations)
+11. Ross, C., & Swetlitz, I. (2017). IBM pitched Watson as a revolution in cancer care. It's nowhere close. *STAT News*. https://www.statnews.com/2017/09/05/watson-ibm-cancer/
 
-12. Shortliffe, E. H. (1976). *Computer-Based Medical Consultations: MYCIN*. Elsevier.
+12. Manning, C. D., Raghavan, P., & Schütze, H. (2008). *Introduction to Information Retrieval*. Cambridge University Press.
 
-13. Lindsay, R. K., Buchanan, B. G., Feigenbaum, E. A., & Lederberg, J. (1980). *Applications of Artificial Intelligence for Organic Chemistry: The DENDRAL Project*. McGraw-Hill.
+13. Laird, J. E. (2012). *The SOAR Cognitive Architecture*. MIT Press.
 
-14. Lenat, D. B. (1995). CYC: A large-scale investment in knowledge infrastructure. *Communications of the ACM*, 38(11), 33-38.
+14. Anderson, J. R. (2007). *How Can the Human Mind Occur in the Physical Universe?* Oxford University Press.
 
-15. Quillian, M. R. (1968). Semantic memory. In M. Minsky (Ed.), *Semantic Information Processing* (pp. 227-270). MIT Press.
+15. Model Context Protocol documentation (2024). https://modelcontextprotocol.io
 
-16. Minsky, M. (1974). A framework for representing knowledge. *MIT AI Laboratory Memo*, 306.
+16. Schick, T., et al. (2023). Toolformer: Language Models Can Teach Themselves to Use Tools. *arXiv:2302.04761*.
 
-17. Gruber, T. R. (1993). A translation approach to portable ontology specifications. *Knowledge Acquisition*, 5(2), 199-220.
+17. Welz, G. (2026). The Programming Framework: A general method for process analysis using LLMs and Mermaid visualization. Zenodo. https://doi.org/10.5281/zenodo.18463441
 
-18. Baader, F., Calvanese, D., McGuinness, D. L., Nardi, D., & Patel-Schneider, P. F. (Eds.). (2003). *The Description Logic Handbook: Theory, Implementation, and Applications*. Cambridge University Press.
+18. Sveidqvist, K., et al. Mermaid diagramming toolchain. GitHub repository. https://github.com/mermaid-js/mermaid
 
-19. Laird, J. E. (2012). *The SOAR Cognitive Architecture*. MIT Press.
+19. Shortliffe, E. H. (1976). *Computer-Based Medical Consultations: MYCIN*. Elsevier Science.
 
-20. Anderson, J. R. (2007). *How Can the Human Mind Occur in the Physical Universe?* Oxford University Press.
-
-21. Sun, R. (2006). *Cognition and Multi-Agent Interaction: From Cognitive Modeling to Social Simulation*. Cambridge University Press.
-
-22. Manning, C. D., Raghavan, P., & Schütze, H. (2008). *Introduction to Information Retrieval*. Cambridge University Press.
-
-23. Davenport, T. H., & Prusak, L. (1998). *Working Knowledge: How Organizations Manage What They Know*. Harvard Business School Press.
-
-24. Mikolov, T., Chen, K., Corrado, G., & Dean, J. (2013). Efficient estimation of word representations in vector space. *arXiv preprint arXiv:1301.3781*.
-
-25. Hogan, A., et al. (2021). Knowledge graphs. *ACM Computing Surveys*, 54(4), 1-37.
-
-26. Shannon, C. E. (1948). A mathematical theory of communication. *Bell System Technical Journal*, 27(3), 379-423.
-
-27. Simon, H. A. (1996). *The Sciences of the Artificial* (3rd ed.). MIT Press.
-
-28. Polanyi, M. (1966). *The Tacit Dimension*. University of Chicago Press.
-
-29. Nonaka, I., & Takeuchi, H. (1995). *The Knowledge-Creating Company*. Oxford University Press.
-
-30. Berners-Lee, T., Hendler, J., & Lassila, O. (2001). The semantic web. *Scientific American*, 284(5), 34-43.
-
-31. Bizer, C., Heath, T., & Berners-Lee, T. (2009). Linked data: The story so far. *International Journal on Semantic Web and Information Systems*, 5(3), 1-22.
-
-32. Mitchell, T. M. (1997). *Machine Learning*. McGraw-Hill.
-
-33. LeCun, Y., Bengio, Y., & Hinton, G. (2015). Deep learning. *Nature*, 521(7553), 436-444.
-
-34. Devlin, J., Chang, M. W., Lee, K., & Toutanova, K. (2018). BERT: Pre-training of deep bidirectional transformers for language understanding. *arXiv preprint arXiv:1810.04805*.
-
-35. Brown, T., et al. (2020). Language models are few-shot learners. *Advances in Neural Information Processing Systems*, 33, 1877-1901.
-
-36. Bubeck, S., et al. (2023). Sparks of artificial general intelligence: Early experiments with GPT-4. *arXiv preprint arXiv:2303.12712*.
-
-37. Welz, G. (2026). The Programming Framework: A General Method for Process Analysis Using LLMs and Mermaid Visualization. Zenodo preprint / manuscript in preparation. https://huggingface.co/spaces/garywelz/programming_framework
-
-38. Model Context Protocol. (2024). https://modelcontextprotocol.io/
-
-39. CopernicusAI Knowledge Engine. (2025). https://huggingface.co/spaces/garywelz/copernicusai
-
-40. Ferrucci, D., et al. (2010). Building Watson: An overview of the DeepQA project. *AI Magazine*, 31(3), 59-79.
-
-41. Ross, C., & Swetlitz, I. (2017). IBM pitched Watson as a revolution in cancer care. It's nowhere close. *STAT News*. Retrieved from https://www.statnews.com/2017/09/05/watson-ibm-cancer/
-
-42. Singhal, A. (2012). Introducing the Knowledge Graph: Things, not strings. *Google Official Blog*. Retrieved from https://blog.google/products/search/introducing-knowledge-graph-things-not/
-
-43. Wolfram, S. (2009). Wolfram|Alpha is coming! *Wolfram Blog*. Retrieved from https://blog.wolfram.com/2009/03/05/wolframalpha-is-coming/
-
-44. Kinney, R., Anastasiades, C., Authur, R., Beltagy, I., Bragg, J., Buraczynski, A., ... & Weld, D. S. (2023). The Semantic Scholar Open Data Platform. *arXiv preprint arXiv:2301.10140*.
-
-45. Ashburner, M., et al. (2000). Gene ontology: Tool for the unification of biology. *Nature Genetics*, 25(1), 25-29.
-
-46. Karpukhin, V., et al. (2020). Dense passage retrieval for open-domain question answering. *Proceedings of EMNLP*, 6769-6781.
-
-47. Lewis, P., et al. (2020). Retrieval-augmented generation for knowledge-intensive NLP tasks. *Advances in Neural Information Processing Systems*, 33, 9459-9474.
-
-48. Sveidqvist, K. (2014). Mermaid: A Markdown-inspired tool for creating diagrams and flowcharts. *GitHub Repository*. https://github.com/mermaid-js/mermaid
-
----
-
-
+20. Lenat, D. B. (1995). CYC: A large-scale investment in knowledge infrastructure. *Communications of the ACM*, 38(11), 33–38.
